@@ -16,6 +16,7 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +34,9 @@ import { UpdateDangerComponent } from './Components/Document-unique/update-dange
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
+
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
