@@ -1,0 +1,75 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Ajouter une non-conformité</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form [formGroup]="form" data-toggle="validator">
+                           <div class="row">
+                               <div class="col-md-6">                      
+                                   <div class="form-group">
+                                       <label>intitulé de la non-conformité *</label>
+                                       <input [(ngModel)]="ncf.intitule" type="text" formControlName="intitule" class="form-control" placeholder="intitulé " data-errors="Please Enter Name." id="intitule" required>
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                               </div>
+                               <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>nature *</label>
+                                    <select [(ngModel)]="ncf.nature" id="nature" formControlName="nature" class="selectpicker form-control" data-style="py-0">
+                                        <option value="">Choisir une nature</option>
+                                        <option>interne</option>
+                                        <option>externe</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>domaine *</label>
+                                    <select [(ngModel)]="ncf.domaine" id="domaine" formControlName="domaine" class="selectpicker form-control" data-style="py-0">
+                                        <option value="">Choisir une domaine</option>
+                                        <option>Qualité</option>
+                                        <option>Sécurité</option>
+                                        <option>Environnement</option>
+
+                                    </select>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>detail_cause *</label>
+                                    <input [(ngModel)]="ncf.detail_cause" type="text" formControlName="detail_cause" class="form-control" placeholder="detail_cause " data-errors="Please Enter Name." id="detail_cause" required>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="dob">Date NC*</label>
+                                    <input [(ngModel)]="ncf.date_nc" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
+                                </div>
+                            </div>   
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="dob">Date prise en compte *</label>
+                                    <input [(ngModel)]="ncf.date_prise_en_compte" formControlName="date_prise_en_compte" type="date" class="form-control" id="date_prise_en_compte" name="date_prise_en_compte" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea [(ngModel)]="ncf.description_detailee" formControlName="description_detailee" class="form-control" id="description_detailee" name="description_detailee" rows="4"></textarea>
+                                </div>
+                            </div>       
+                           </div>                            
+                           <button type="submit" (click)="createNC()" class="btn btn-primary mr-2">Ajouter NC</button>
+                           <button type="reset" class="btn btn-danger">Reset</button>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
