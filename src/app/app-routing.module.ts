@@ -5,6 +5,8 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
 import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre-traitement/list-registre-traitement.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
+import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
+import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
 
 
 const routes: Routes = [
@@ -13,9 +15,9 @@ const routes: Routes = [
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   { path: 'sidebar', component: SidebarComponent },
   { path: 'list-registre-traitement', component: ListRegistreTraitementComponent },
+  {path : 'nc-list', component: ListNcComponent},
+  {path : 'nc-add', component: AddNcComponent}
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
