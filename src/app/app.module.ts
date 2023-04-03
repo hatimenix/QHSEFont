@@ -10,6 +10,11 @@ import { ListDangerComponent } from './Components/Document-unique/list-danger/li
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre-traitement/list-registre-traitement.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
+import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
+
 
 
 @NgModule({
@@ -19,12 +24,17 @@ import { HttpClientModule } from '@angular/common/http';
     ListDangerComponent,
     ListNcComponent,
     ListRegistreTraitementComponent,
-    SidebarComponent
+    SidebarComponent,
+    AddDangerComponent,
+    UpdateDangerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
+
   ],
   providers: [ ],
   bootstrap: [AppComponent]
