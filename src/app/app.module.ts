@@ -15,6 +15,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
