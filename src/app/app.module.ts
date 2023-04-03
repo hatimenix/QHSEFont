@@ -25,7 +25,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     ListNcComponent,
     ListRegistreTraitementComponent,
     SidebarComponent,
-    AddNcComponent
+    AddNcComponent,
+    AddDangerComponent,
+    UpdateDangerComponent
     ],
   imports: [
     BrowserModule,
