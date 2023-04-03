@@ -7,6 +7,7 @@ import { ListCommandesComponent } from './components/Commandes/list-commandes/li
 import { ListDangerComponent } from './components/Document-unique/list-danger/list-danger.component';
 import { ListNcComponent } from './components/Non-comfirmite/list-nc/list-nc.component';
 import { ListRegistreTraitementComponent } from './components/RGPD/list-registre-traitement/list-registre-traitement.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ListRegistreTraitementComponent } from './components/RGPD/list-registre
     ListCommandesComponent,
     ListDangerComponent,
     ListNcComponent,
-    ListRegistreTraitementComponent
+    ListRegistreTraitementComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
