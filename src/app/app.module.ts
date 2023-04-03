@@ -9,6 +9,7 @@ import { ListCommandesComponent } from './Components/Commandes/list-commandes/li
 import { ListDangerComponent } from './Components/Document-unique/list-danger/list-danger.component';
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre-traitement/list-registre-traitement.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -22,9 +23,10 @@ import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
