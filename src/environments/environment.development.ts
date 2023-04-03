@@ -1,3 +1,4 @@
+
 export const environment = {
 
     API_URL_DANGER: 'http://127.0.0.1:8000/danger/',
@@ -7,6 +8,8 @@ export const environment = {
     API_URL_SITE: 'http://127.0.0.1:8000/site/'
     API_LINK :"http://127.0.0.1:8000/",
     API_registre_de_traitement :"http://127.0.0.1:8000/traitements/",
+    API_Commande:"http://127.0.0.1:8000/commande/",
+    API_Fiche:"http://127.0.0.1:8000/fiche/",
 
 
 };
