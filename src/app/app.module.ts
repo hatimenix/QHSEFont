@@ -11,6 +11,9 @@ import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.com
 import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre-traitement/list-registre-traitement.component';
 import { UpdateCommandeComponent } from './Components/Commandes/update-commande/update-commande.component';
 import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
+import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
+import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fiche.component';
+import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-fiche.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +21,6 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
-
 
 
 
@@ -31,6 +33,10 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     ListRegistreTraitementComponent,
     SidebarComponent,
     UpdateCommandeComponent, 
+    AddCommandeComponent,
+    UpdateFicheComponent,
+    AddFicheComponent,
+    ListFicheComponent
     AddCommandeComponent
     AddDangerComponent,
     UpdateDangerComponent,
