@@ -7,6 +7,8 @@ import { ListCommandesComponent } from './Components/Commandes/list-commandes/li
 import { ListDangerComponent } from './Components/Document-unique/list-danger/list-danger.component';
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre-traitement/list-registre-traitement.component';
+import { UpdateCommandeComponent } from './Components/Commandes/update-commande/update-commande.component';
+import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
@@ -14,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 
 
@@ -27,9 +30,15 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     SidebarComponent,
     AddNcComponent,
     AddDangerComponent,
+    UpdateDangerComponent,
+    UpdateCommandeComponent, 
+    AddCommandeComponent,
     UpdateDangerComponent
-    ],
+
+  ],
   imports: [
+    
+    AppRoutingModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
