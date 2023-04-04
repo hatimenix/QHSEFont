@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
+import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
+import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
 
 
 
@@ -31,6 +33,9 @@ import { UpdateDangerComponent } from './Components/Document-unique/update-dange
     UpdateCommandeComponent, 
     AddCommandeComponent
     AddDangerComponent,
+    UpdateDangerComponent,
+    InfoEvenementComponent,
+    InfoDangerComponent
     UpdateDangerComponent
 
   ],
