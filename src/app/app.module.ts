@@ -12,6 +12,9 @@ import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateCommandeComponent } from './Components/Commandes/update-commande/update-commande.component';
 import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
+import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
+import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fiche.component';
+import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-fiche.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { AddCommandeComponent } from './Components/Commandes/add-commande/add-co
     ListRegistreTraitementComponent,
     SidebarComponent,
     UpdateCommandeComponent, 
-    AddCommandeComponent
+    AddCommandeComponent,
+    UpdateFicheComponent,
+    AddFicheComponent,
+    ListFicheComponent
     
   ],
   imports: [
