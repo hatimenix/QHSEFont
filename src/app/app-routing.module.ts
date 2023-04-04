@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListDangerComponent } from './Components/Document-unique/list-danger/list-danger.component';
+import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
+import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
+
+import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
+import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
+
+import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre-traitement/list-registre-traitement.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { ListCommandesComponent } from './Components/Commandes/list-commandes/list-commandes.component';
 import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
@@ -8,8 +16,16 @@ import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-
 import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fiche.component';
 import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
 
+
 const routes: Routes = [
-  //path pour les commandes 
+  {path : 'danger', component: ListDangerComponent},
+  {path : 'addDanger', component: AddDangerComponent},
+  {path : 'updateDanger/:id', component: UpdateDangerComponent},
+  {path: 'infoDanger/:id', component: InfoDangerComponent},
+  {path : 'evenement', component: InfoEvenementComponent}
+
+  { path: 'sidebar', component: SidebarComponent },
+  { path: 'list-registre-traitement', component: ListRegistreTraitementComponent },
   {path : 'sidebar', component: SidebarComponent},
   {path: 'listC', component: ListCommandesComponent},
   {path: 'addC', component: AddCommandeComponent},
@@ -17,7 +33,7 @@ const routes: Routes = [
   {path: 'listF', component: ListFicheComponent},
   {path: 'addF', component: AddFicheComponent},
   {path: 'updateF/:id', component: UpdateFicheComponent },
-  
+
 ];
 
 @NgModule({
