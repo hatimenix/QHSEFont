@@ -6,9 +6,17 @@
                    <a (click)="navigateToNc()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter une non-conformité</a>
                </div>
            </div>
-           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
-        </div>
+
+          </div>
+          <div class="input-group mb-3">
+           <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
+       </div>
+
+           <div>
+            <button class="btn " (click)="filterByEtatTrue()"> NC en cours</button>
+            <button class="btn " (click)="filterByEtatFalse()">NC closes</button>
+            <button class="btn " (click)="getNcs()">Toutes les NCs</button>
+            <button class="btn "  (click)="exportToExcel()">Export excel</button>
         
            <div class="col-lg-12">
                <div class="table-responsive rounded mb-3">
@@ -23,38 +31,66 @@
                            </th>
                             <th scope="col">Intitulé de la non-conformité</th>
                             <th scope="col">Nature</th>
-                            <!-- <th scope="col">Processus</th>
-                            <th scope="col">Site</th> -->
+                            <th scope="col">Processus</th>
+                            <th scope="col">Site</th>
+                            <th scope="col">Responsable traitement</th>
                             <th scope="col">Domaine</th>
                             <th scope="col">Detail_cause</th>
                             <th scope="col">Date_nc</th>
                             <th scope="col">Date prise en compte</th>
                             <th scope="col">Description detailée</th>
+                            <th scope="col">Année</th>
+                            <th scope="col">mois</th>
+                            <th scope="col">delai_prevu</th>
+                            <th scope="col">type_cause</th>
+                            <th scope="col">cout</th>
+                            <th scope="col">progress</th>
+                            <th scope="col">etat</th>
+                            <th scope="col">info_complementaires</th>
+                            <th scope="col">frequence</th>
+                            <th scope="col">gravite</th>
+                            <th scope="col">action_immediate</th>
+                            <th scope="col">nc_cloture</th>
+                            <th scope="col">Pièce jointe</th>
                             <th scope="col">Actions</th>
 
                        </tr>
                    </thead>
                    <tbody class="ligth-body">
-                    <tr *ngFor="let nc of ncs | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }">
-
+                    <tr *ngFor="let nc of ncs | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
                         <th scope="row">{{nc.id}}</th>
                         <td>{{nc.intitule}}</td>
                         <td>{{nc.nature}}</td>
-                        <!-- <td>{{ nc.processus_name }}</td>
-                        <td>{{ nc.site_name }}</td> -->
+                        <td>{{ nc.processus_name }}</td>
+                        <td>{{ nc.site_name }}</td>
+                        <td>{{ nc.responsable_name }}</td>
                         <td>{{nc.domaine}}</td>
                         <td>{{nc.detail_cause}}</td>
                         <td>{{nc.date_nc}}</td>
                         <td>{{nc.date_prise_en_compte}}</td>
                         <td>{{nc.description_detailee}}</td>
+                        <td>{{nc.annee}}</td>
+                        <td>{{nc.mois}}</td>
+                        <td>{{nc.delai_prevu}}</td>
+                        <td>{{nc.type_cause}}</td>
+                        <td>{{nc.cout}}$</td>
+                        <td>{{nc.progress}}%</td>
+                        <td>{{nc.etat}}</td>
+                        <td>{{nc.info_complementaires}}</td>
+                        <td>{{nc.frequence}}</td>
+                        <td>{{nc.gravite}}</td>
+                        <td>{{nc.action_immediate}}</td>
+                        <td>{{nc.nc_cloture}}</td>
+                        <td>{{nc.piece_jointe}}</td>
+
 
 
                         <td>
                                <div class="d-flex align-items-center list-action">
                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
                                        href="#"><i class="ri-eye-line mr-0"></i></a>
-                                   <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee)"data-placement="top" title="" data-original-title="Edit"
-                                       ><i class="ri-pencil-line mr-0"></i></a>
+                                   <!-- <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee)"data-placement="top" title="" data-original-title="Edit"
+                                       ><i class="ri-pencil-line mr-0"></i></a> -->
                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
                                        ><i class="ri-delete-bin-line mr-0"></i></a>
                                </div>
@@ -124,6 +160,9 @@
 
             <label for="description_detailee" class="form-label">description_detailee : </label>
             <input name="description_detailee" [(ngModel)] = "description_detailee" value="{{description_detailee}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="description_detailee">
+
+            <label for="description_detailee" class="form-label">annee : </label>
+            <input name="annee" [(ngModel)] = "annee" value="{{annee}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="annee">
 
             <!-- <label for="processus_name" class="form-label">processus_name : </label>
             <input name="processus_name" [(ngModel)] = "processus_name" value="{{processus_name}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="processus_name">

@@ -11,9 +11,10 @@ import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.com
 import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre-traitement/list-registre-traitement.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
-
+import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
+import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
 
 
 @NgModule({
@@ -24,21 +25,21 @@ import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.compon
     ListNcComponent,
     ListRegistreTraitementComponent,
     SidebarComponent,
-    AddNcComponent
-    ],
+    AddNcComponent,
+    UpdateDangerComponent,
+    AddDangerComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    BrowserModule,
-    FormsModule,
-    Ng2SearchPipeModule,
     ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
     NgxPaginationModule,
-
+    Ng2SearchPipeModule
 
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
