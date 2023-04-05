@@ -15,6 +15,12 @@ import { AddCommandeComponent } from './Components/Commandes/add-commande/add-co
 import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
 import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fiche.component';
 import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-fiche.component';
+import { LoginComponent } from './Components/login/login.component';
+import { ListPersonnelComponent } from './Components/personnel/list-personnel/list-personnel.component';
+import { AddPersonnelComponent } from './Components/personnel/add-personnel/add-personnel.component';
+import { UpdatePersonnelComponent } from './Components/personnel/update-personnel/update-personnel.component';
+
+
 
 
 @NgModule({
@@ -29,7 +35,12 @@ import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-
     AddCommandeComponent,
     UpdateFicheComponent,
     AddFicheComponent,
-    ListFicheComponent
+    ListFicheComponent,
+    LoginComponent,
+    ListPersonnelComponent,
+    AddPersonnelComponent,
+    UpdatePersonnelComponent,
+    
     
   ],
   imports: [
