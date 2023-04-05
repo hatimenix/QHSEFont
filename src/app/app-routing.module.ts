@@ -17,11 +17,15 @@ import { UpdateCommandeComponent } from './Components/Commandes/update-commande/
 import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-fiche.component';
 import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fiche.component';
 import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
-import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
+import { LoginComponent } from './Components/login/login.component';
+import { ListPersonnelComponent } from './Components/personnel/list-personnel/list-personnel.component';
+import { AddPersonnelComponent } from './Components/personnel/add-personnel/add-personnel.component';
+import { UpdatePersonnelComponent } from './Components/personnel/update-personnel/update-personnel.component';
 
 
 
 const routes: Routes = [
+
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
@@ -31,6 +35,7 @@ const routes: Routes = [
   { path: 'list-registre-traitement', component: ListRegistreTraitementComponent },
   {path : 'nc-list', component: ListNcComponent},
   {path : 'nc-add', component: AddNcComponent},
+
   {path : 'sidebar', component: SidebarComponent},
   {path: 'listC', component: ListCommandesComponent},
   {path: 'addC', component: AddCommandeComponent},
@@ -38,7 +43,11 @@ const routes: Routes = [
   {path: 'listF', component: ListFicheComponent},
   {path: 'addF', component: AddFicheComponent},
   {path: 'updateF/:id', component: UpdateFicheComponent },
-  {path: 'AddRegistre', component: AddRegistreTraitementComponent },
+  {path: 'login', component: LoginComponent},
+  {path : 'listP', component: ListPersonnelComponent},
+  {path :'addP', component: AddPersonnelComponent},
+  {path:'updateP', component :UpdatePersonnelComponent},
+  {path:'addPersonnel', component :AddPersonnelComponent}
 
 ];
 
