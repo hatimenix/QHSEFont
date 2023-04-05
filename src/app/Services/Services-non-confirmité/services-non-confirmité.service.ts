@@ -23,6 +23,7 @@ export class ServicesNonConfirmitéService {
     return this.http.post(this.ncurl, data);
   }
 
+
   update(id : number , data: any): Observable<any> {
     return this.http.put(`${this.ncurl}${id}/`,data);
   }
@@ -55,5 +56,6 @@ export class ServicesNonConfirmitéService {
 //     }
 //   );
 // }
+
 
 }

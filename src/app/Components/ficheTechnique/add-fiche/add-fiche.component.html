@@ -1,0 +1,58 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between">
+              <a routerLink="/listF" class="btn btn-primary add-list"><i class="fa-light fa-backward"></i>Retour</a>
+              <div class="header-title">
+                <h4 class="card-title">Ajouter Fiche Technique</h4>
+              </div>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="ficheForm" action="page-list-product.html" data-toggle="validator" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="nom_fiche">Nom de la fiche * </label>
+                      <input type="text" class="form-control" placeholder="Enter nom" formControlName="nom_fiche" data-errors="Please Enter name." required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="type_plat">Type de plat *</label>
+                      <select name="type" class="selectpicker form-control" id="type_plat" data-style="py-0" formControlName="type_plat">
+                        <option>Entrée/Salade</option>
+                        <option>Potage</option>
+                        <option>Accompagnement</option>
+                        <option>Plat Principal</option>
+                        <option>Sauce</option>
+                        <option>Dessert</option>
+                        <option>Texture velours</option>
+                        <option>Enrichi</option>
+                      </select>
+                    </div> 
+                  </div> 
+                  <label for="fichier">Fichier *</label><br><br>  
+                  <div class="col-md-6">
+                                        
+                    <div class="form-group">
+                    
+                      <input class="custom-file-input" id="customFile" type="file" (change)="onFileSelected($event)">
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>                          
+                </div>                            
+                <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
+                <button type="reset" class="btn btn-danger" routerLink="/listF">Annuler</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+  

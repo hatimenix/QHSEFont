@@ -9,6 +9,7 @@
                        </div>
                    </div>
                    <div class="card-body">
+
                     <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
                         <li class="nav-item">
                            <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description du problème</a>
@@ -23,6 +24,7 @@
                      <div class="tab-content" id="pills-tabContent-1">
                         <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
                           <div class="card">
+
                        <form [formGroup]="form" data-toggle="validator">
                            <div class="row">
                                <div class="col-md-6">                      
@@ -61,6 +63,7 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
+
                             <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>annee *</label>
@@ -75,6 +78,7 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>  
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="dob">Date NC*</label>
@@ -89,6 +93,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+
                                     <label>Description detaillee</label>
                                     <textarea [(ngModel)]="ncf.description_detailee" formControlName="description_detailee" class="form-control" id="description_detailee" name="description_detailee" rows="4"></textarea>
                                 </div>
@@ -179,6 +184,7 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
+
                            </div>                            
                            <button type="submit" (click)="createNC()" class="btn btn-primary mr-2">Ajouter NC</button>
                            <button type="reset" class="btn btn-danger">Reset</button>
@@ -186,5 +192,6 @@
                    </div>
                </div>
            </div>
+
        </div>
-       
+

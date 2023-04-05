@@ -58,6 +58,7 @@ export class ListNcComponent {
 
   }
   ngOnInit(): void {
+
     this.getNcs();
     this.originalNcs = this.ncs.slice(); // create a copy of the original list
     this.deleteModal = new window.bootstrap.Modal(
@@ -80,7 +81,7 @@ export class ListNcComponent {
     resetFilter() {
       this.ncs = this.originalNcs.slice(); // assign the original list back
     }
-  
+
 getNcs() {
   this.ncservice.getAll().subscribe(
     res => {
@@ -129,6 +130,7 @@ updateNc() : void {
       processus_name: this.processus_name,
       site_name: this.site_name,
       responsable_name:this.responsable_name
+
   };
 
   this.ncservice.update(this.currentNc.id, this.currentNc)
@@ -168,6 +170,7 @@ getNcData( id : number,
   processus_name:any,
   site_name:any,
   responsable_name:any
+
   ){
     this.id = id,
     this.intitule=intitule,
@@ -176,6 +179,7 @@ getNcData( id : number,
     this.detail_cause = detail_cause,
     this.date_nc = date_nc,
     this.date_prise_en_compte=date_prise_en_compte,
+
     this.description_detailee=description_detailee,
     this.annee=annee,
     this.mois=mois,
@@ -193,6 +197,7 @@ getNcData( id : number,
     this.processus_name=processus_name,
     this.site_name=site_name
     this.responsable_name=responsable_name
+
 
 
 }
@@ -220,6 +225,7 @@ delete() {
     
   });
 }
+
 
 exportToExcel() {
   const worksheet = XLSX.utils.json_to_sheet(this.ncs.map((nc) => ({
@@ -254,5 +260,6 @@ exportToExcel() {
   const filename = 'paiperleck_non-conformités.xlsx';
   saveAs(blob, filename);
 }
+
 
 }

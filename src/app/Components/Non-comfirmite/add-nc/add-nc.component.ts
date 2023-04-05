@@ -20,6 +20,7 @@ export class AddNcComponent {
     date_nc:'',
     date_prise_en_compte:'',
     description_detailee:'',
+
     annee:'',
     mois:'',
     delai_prevu:'',
@@ -33,8 +34,6 @@ export class AddNcComponent {
     action_immediate:'',
     nc_cloture:'',
     piece_jointe:''
-
-
 
 
   };
@@ -107,6 +106,7 @@ export class AddNcComponent {
       nc_cloture:this.ncf.nc_cloture,
       piece_jointe:this.ncf.piece_jointe
 
+
     };
     const formData =  new FormData()
     formData.append("Intitule", this.ncf.intitule);
@@ -128,7 +128,6 @@ export class AddNcComponent {
     formData.append("action_immediate", this.ncf.action_immediate);
     formData.append("nc_cloture", this.ncf.nc_cloture);
     formData.append("piece_jointe", this.ncf.piece_jointe);
-
 
 
 
