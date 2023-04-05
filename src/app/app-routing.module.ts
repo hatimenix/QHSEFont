@@ -17,6 +17,7 @@ import { UpdateCommandeComponent } from './Components/Commandes/update-commande/
 import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-fiche.component';
 import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fiche.component';
 import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
+import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'listF', component: ListFicheComponent},
   {path: 'addF', component: AddFicheComponent},
   {path: 'updateF/:id', component: UpdateFicheComponent },
+  {path: 'AddRegistre', component: AddRegistreTraitementComponent },
 
 ];
 

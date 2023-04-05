@@ -18,9 +18,6 @@ export class ListRegistreTraitementComponent {
       this.TraitementList=data;
     })
   }
-  navigateToAddRegistreTraitement() {
-    this.router.navigate(['/Add-Registre-Traitement']);
-    
-  }
+
 
 }

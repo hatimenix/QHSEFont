@@ -6,7 +6,7 @@
                    <div>
                        <h4 class="mb-3">Registre de traitement</h4>
                    </div>
-                   <a (click)="navigateToAddRegistreTraitement()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter registe de traitement</a>
+                   <a routerLink="/AddRegistre" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter registe de traitement</a>
                </div>
            </div>
         <div class="tab-content" id="pills-tabContent-1">
@@ -29,8 +29,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let traitement of TraitementList">
-                                <td>{{traitement.Typeregistre}}</td>
-                                <td>{{traitement.Nomtraitement}}</td>
+                                <td>{{traitement.typeregistre}}</td>
+                                <td>{{traitement.nomtraitement}}</td>
                                 <td>{{traitement.REFtraitement}}</td>
                                 <td>{{traitement.datedecreation}}</td>
                                 <td>{{traitement.datedemiseajour}}</td>

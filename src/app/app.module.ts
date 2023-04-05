@@ -43,7 +43,8 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     UpdateDangerComponent,
     InfoEvenementComponent,
     InfoDangerComponent,
-    UpdateDangerComponent
+    UpdateDangerComponent,
+    AddNcComponent,
 
   ],
   imports: [
