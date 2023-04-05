@@ -20,6 +20,22 @@ export class AddNcComponent {
     date_nc:'',
     date_prise_en_compte:'',
     description_detailee:'',
+
+    annee:'',
+    mois:'',
+    delai_prevu:'',
+    type_cause:'',
+    cout:'',
+    progress:'',
+    etat:'',
+    info_complementaires:'',
+    frequence:'',
+    gravite:'',
+    action_immediate:'',
+    nc_cloture:'',
+    piece_jointe:''
+
+
   };
 
 
@@ -35,6 +51,20 @@ export class AddNcComponent {
     date_nc: new FormControl(''),
     date_prise_en_compte: new FormControl(''),
     description_detailee: new FormControl(''),
+    annee: new FormControl(''),
+    mois: new FormControl(''),
+    delai_prevu: new FormControl(''),
+    type_cause: new FormControl(''),
+    cout: new FormControl(''),
+    progress: new FormControl(''),
+    etat: new FormControl(''),
+    info_complementaires: new FormControl(''),
+    frequence: new FormControl(''),
+    gravite: new FormControl(''),
+    action_immediate: new FormControl(''),
+    nc_cloture: new FormControl(''),
+    piece_jointe: new FormControl(''),
+
 
 
 
@@ -62,6 +92,20 @@ export class AddNcComponent {
       date_nc:this.ncf.date_nc,
       date_prise_en_compte:this.ncf.date_prise_en_compte,
       description_detailee:this.ncf.description_detailee,
+      annee:this.ncf.annee,
+      mois:this.ncf.mois,
+      delai_prevu:this.ncf.delai_prevu,
+      type_cause:this.ncf.type_cause,
+      cout:this.ncf.cout,
+      progress:this.ncf.progress,
+      etat:this.ncf.etat,
+      info_complementaires:this.ncf.info_complementaires,
+      frequence:this.ncf.frequence,
+      gravite:this.ncf.gravite,
+      action_immediate:this.ncf.action_immediate,
+      nc_cloture:this.ncf.nc_cloture,
+      piece_jointe:this.ncf.piece_jointe
+
 
     };
     const formData =  new FormData()
@@ -72,6 +116,19 @@ export class AddNcComponent {
     formData.append("Date_nc", this.ncf.date_nc);
     formData.append("Date_prise_en_compte", this.ncf.date_prise_en_compte);
     formData.append("Description_detailee", this.ncf.description_detailee);
+    formData.append("mois", this.ncf.mois);
+    formData.append("delai_prevu", this.ncf.delai_prevu);
+    formData.append("type_cause", this.ncf.type_cause);
+    formData.append("cout", this.ncf.cout);
+    formData.append("progress", this.ncf.progress);
+    formData.append("etat", this.ncf.etat);
+    formData.append("info_complementaires", this.ncf.info_complementaires);
+    formData.append("frequence", this.ncf.frequence);
+    formData.append("gravite", this.ncf.gravite);
+    formData.append("action_immediate", this.ncf.action_immediate);
+    formData.append("nc_cloture", this.ncf.nc_cloture);
+    formData.append("piece_jointe", this.ncf.piece_jointe);
+
 
 
 

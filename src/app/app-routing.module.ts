@@ -20,6 +20,7 @@ import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/u
 import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 
 
+
 const routes: Routes = [
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path: 'AddRegistre', component: AddRegistreTraitementComponent },
 
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -12,10 +12,9 @@ export const environment = {
     API_registre_de_traitement :"http://127.0.0.1:8000/traitements/",
     API_URL:"http://127.0.0.1:8000/",
     API_nc:"http://127.0.0.1:8000/nc/",
-    API_Commande:"http://127.0.0.1:8000/commande/",
+     API_Commande:"http://127.0.0.1:8000/commande/",
     API_Fiche:"http://127.0.0.1:8000/fiche/",
 
 
 };
-
 

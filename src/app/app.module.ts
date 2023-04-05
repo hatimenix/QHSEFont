@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
@@ -22,6 +23,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
+
 
 
 
@@ -52,8 +54,10 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     AppRoutingModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
+    ReactiveFormsModule,
     FormsModule,
+
+    HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
     NgxPaginationModule,
