@@ -1,5 +1,5 @@
-export class Utilisateur {
-    id?: number;
+export class Personnel {
+    id!: number;
     compte?: string;
     nom?: string;
     courrier?: string;

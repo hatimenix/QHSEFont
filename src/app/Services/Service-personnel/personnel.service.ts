@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Utilisateur } from 'src/app/models/Personnel';
+import { Personnel } from 'src/app/models/Personnel';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -12,20 +12,20 @@ export class PersonnelService {
 
   constructor(private http: HttpClient) { }
 
-  getUtilisateurs(): Observable<Utilisateur[]> {
-    return this.http.get<Utilisateur[]>(this.API_User);
+  getPersonnel(): Observable<Personnel[]> {
+    return this.http.get<Personnel[]>(this.API_User);
   }
 
-  createUtilisateur(utilisateur: Utilisateur): Observable<Utilisateur> {
-    return this.http.post<Utilisateur>(this.API_User, utilisateur);
+  createPersonnel(personnel: Personnel): Observable<Personnel> {
+    return this.http.post<Personnel>(this.API_User, personnel);
   }
 
-  updateUtilisateur(utilisateur: Utilisateur): Observable<Utilisateur> {
-    const apiUrl = `${this.API_User}${utilisateur.id}/`;
-    return this.http.put<Utilisateur>(apiUrl, utilisateur);
+  updatePersonnel(personnel: Personnel): Observable<Personnel> {
+    const apiUrl = `${this.API_User}${personnel.id}/`;
+    return this.http.put<Personnel>(apiUrl, personnel);
   }
 
-  deleteUtilisateur(id: number): Observable<{}> {
+  deletePersonnel(id: number): Observable<{}> {
     const apiUrl = `${this.API_User}${id}/`;
     return this.http.delete(apiUrl);
   }

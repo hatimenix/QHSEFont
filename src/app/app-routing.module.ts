@@ -11,10 +11,12 @@ import { LoginComponent } from './Components/login/login.component';
 import { ListPersonnelComponent } from './Components/personnel/list-personnel/list-personnel.component';
 import { AddPersonnelComponent } from './Components/personnel/add-personnel/add-personnel.component';
 import { UpdatePersonnelComponent } from './Components/personnel/update-personnel/update-personnel.component';
+import { HomeComponent } from './Components/home/home.component';
 
 const routes: Routes = [
   //path pour les commandes 
-  
+  {path : '', component: LoginComponent},
+  {path:'home', component :HomeComponent},
   {path : 'sidebar', component: SidebarComponent},
   {path: 'listC', component: ListCommandesComponent},
   {path: 'addC', component: AddCommandeComponent},
