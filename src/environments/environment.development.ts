@@ -6,5 +6,6 @@ export const environment = {
     API_URL_SITE: 'http://127.0.0.1:8000/site/',
     API_URL_EV: 'http://127.0.0.1:8000/evenement/',
     API_URL_EVA: 'http://127.0.0.1:8000/evaluation/',
+    API_URL_AC: 'http://127.0.0.1:8000/action/',
 };
 

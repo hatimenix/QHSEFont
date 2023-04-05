@@ -5,5 +5,7 @@ export class Evaluations {
     severite !: number;
     frequences_exposition !: number;
     mesure_prevention !: string;
+    ipr !: number;
+    indice_risque !: number;
     danger !: number;
 }
