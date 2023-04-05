@@ -13,6 +13,10 @@ import { AddCommandeComponent } from './Components/Commandes/add-commande/add-co
 import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
 import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fiche.component';
 import { ListFicheComponent } from './Components/ficheTechnique/list-fiche/list-fiche.component';
+import { LoginComponent } from './Components/login/login.component';
+import { ListPersonnelComponent } from './Components/personnel/list-personnel/list-personnel.component';
+import { AddPersonnelComponent } from './Components/personnel/add-personnel/add-personnel.component';
+import { UpdatePersonnelComponent } from './Components/personnel/update-personnel/update-personnel.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
@@ -23,6 +27,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
+
 
 
 
@@ -40,6 +45,11 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     UpdateFicheComponent,
     AddFicheComponent,
     ListFicheComponent,
+    LoginComponent,
+    ListPersonnelComponent,
+    AddPersonnelComponent,
+    UpdatePersonnelComponent,
+    
     AddCommandeComponent,
     AddDangerComponent,
     UpdateDangerComponent,

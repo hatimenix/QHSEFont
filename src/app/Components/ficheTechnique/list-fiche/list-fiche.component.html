@@ -48,7 +48,7 @@
                        </tr>
                    </thead>
                    <tbody class="ligth-body">
-                    <tr  *ngFor="let fiche of fiches">
+                    <tr  *ngFor="let fiche of fiches let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 } ">
                            <td>
                                <div class="checkbox d-inline-block">
                                    <input type="checkbox" class="checkbox-input" id="checkbox2">
