@@ -19,6 +19,7 @@ import { AddFicheComponent } from './Components/ficheTechnique/add-fiche/add-fic
 import { UpdateFicheComponent } from './Components/ficheTechnique/update-fiche/update-fiche.component';
 
 
+
 const routes: Routes = [
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: 'updateF/:id', component: UpdateFicheComponent },
 
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
