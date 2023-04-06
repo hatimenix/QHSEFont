@@ -1,9 +1,22 @@
 
 export const environment = {
-    production: false,
-    API_Commande:"http://127.0.0.1:8000/commande/",
+
+    API_URL_DANGER: 'http://127.0.0.1:8000/danger/',
+    API_URL_EVENEMENT: 'http://127.0.0.1:8000/evenement/',
+    API_URL_FAMILLE: 'http://127.0.0.1:8000/famille/',
+    API_URL_SERVICE: 'http://127.0.0.1:8000/service/',
+    API_URL_SITE: 'http://127.0.0.1:8000/site/',
+    API_URL_EV: 'http://127.0.0.1:8000/evenement/',
+    API_URL_EVA: 'http://127.0.0.1:8000/evaluation/',
+    API_URL_AC: 'http://127.0.0.1:8000/action/',
+    API_LINK :"http://127.0.0.1:8000/",
+    API_registre_de_traitement :"http://127.0.0.1:8000/traitements/",
+    API_URL:"http://127.0.0.1:8000/",
+    API_nc:"http://127.0.0.1:8000/nc/",
+     API_Commande:"http://127.0.0.1:8000/commande/",
     API_Fiche:"http://127.0.0.1:8000/fiche/",
     API_User : "http://127.0.0.1:8000/user/",
     API_Processus : "http://127.0.0.1:8000/processus/",
     };
-    
+
+
