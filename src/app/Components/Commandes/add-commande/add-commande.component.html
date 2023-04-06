@@ -1,0 +1,87 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Ajouter Commande</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form action="page-list-product.html" data-toggle="validator" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                           <div class="row">
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label for="date_commande">Date du repas *</label>
+                                    <input type="date" class="form-control" placeholder="Enter Name" data-errors="Please Enter Date."   type="date" id="date_commande" formControlName="date_commande"required>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>    
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="type_commande">Type de commande *</label>
+                                       <select name="type" class="selectpicker form-control" data-style="py-0" id="type_commande" formControlName="type_commande">
+                                           <option>Client</option>
+                                           <option>Collaborateur</option>
+                                       </select>
+                                   </div> 
+                               </div>  
+                               <div class="col-md-6">                      
+                                   <div class="form-group">
+                                       <label for="quantite">Nombre/Quantité *</label>
+                                       <input type="number" id="quantite" formControlName="quantite" type="number" class="form-control" placeholder="Enter Name" data-errors="Please Enter Name." required>
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                               </div>    
+                               
+                               <div class="col-md-6"> 
+                                   <div class="form-group">
+                                    <label for="specificite_regime">Spécificité Régime:</label>
+                                       <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_regime" formControlName="specificite_regime">
+                                        <option value="Constipation">Constipation</option>
+                                        <option value="Diarrhée">Diarrhée</option>
+                                        <option value="Sans résiclus">Sans résiclus</option>
+                                        <option value="Sans gluten">Sans gluten</option>
+                                        <option value="Sans lactose">Sans lactose</option>
+                                        <option value="Sans fructose">Sans fructose</option>
+                                        <option value="Sans alcool">Sans alcool</option>
+                                        <option value="Epargne digestive">Epargne digestive</option>
+                                        <option value="IRC">IRC</option>
+                                        <option value="Hyposodé">Hyposodé</option>
+                                        <option value="Enrichi">Enrichi</option>
+                                        <option value="Diabétique">Diabétique</option>
+                                        <option value="Hypocalorique">Hypocalorique</option>
+                                        <option value="Sans aliments à risque">Sans aliments à risque</option>
+                                        <option value="Alimentation plaisir">Alimentation plaisir</option>
+                                        <option value="Aucun">Aucun</option>
+                                       </select>
+                                   </div>
+                               </div> 
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                    <label for="specificite_texture">Spécificité Texture *:</label>
+                                       <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture" formControlName="specificite_texture">
+                                        <option value="Viande coupée">Viande coupée</option>
+                                        <option value="Tout coupée">Tout coupée</option>
+                                        <option value="Velours viande">Velours viande</option>
+                                        <option value="Velours complet">Velours complet</option>
+                                        <option value="Viande hachée au hachoir">Viande hachée au hachoir</option>
+                                        <option value="Finger food">Finger food</option>
+                                        <option value="Aucun">Aucun</option>
+                                       </select>
+                                   </div>
+                               </div>
+                           </div>                            
+                           <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listC">Annuler</button>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+     
+   </div>
+     </div>
+
+     
