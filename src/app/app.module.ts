@@ -17,6 +17,11 @@ import { LoginComponent } from './Components/login/login.component';
 import { ListPersonnelComponent } from './Components/personnel/list-personnel/list-personnel.component';
 import { AddPersonnelComponent } from './Components/personnel/add-personnel/add-personnel.component';
 import { UpdatePersonnelComponent } from './Components/personnel/update-personnel/update-personnel.component';
+import { HomeComponent } from './Components/home/home.component';
+import { ListProcessusComponent } from './Components/Processus/list-processus/list-processus.component';
+import { AddProcessusComponent } from './Components/Processus/add-processus/add-processus.component';
+import { UpdateProcessusComponent } from './Components/Processus/update-processus/update-processus.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
@@ -27,6 +32,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
+
 
 
 
@@ -49,6 +55,10 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     ListPersonnelComponent,
     AddPersonnelComponent,
     UpdatePersonnelComponent,
+    HomeComponent,
+    ListProcessusComponent,
+    AddProcessusComponent,
+    UpdateProcessusComponent,
     
     AddCommandeComponent,
     AddDangerComponent,

@@ -5,7 +5,7 @@
              <div class="card">
                 <div class="card-header d-flex justify-content-between">
                    <div class="header-title">
-                      <h4 class="card-title">Liste des personnels </h4>
+                      <h4 class="card-title">Liste des processus </h4>
                    </div>
                 </div>
                 <div class="card-body">
@@ -24,7 +24,7 @@
                          <div class="col-sm-6 col-md-6">
                             <div class="user-list-files d-flex">
                                
-                               <a routerLink="/addPersonnel" class="bg-primary" href="javascript:void();">
+                               <a routerLink="/addProcessus" class="bg-primary" href="javascript:void();">
                                   Ajouter
                                </a>
                             </div>
@@ -34,34 +34,45 @@
                          aria-describedby="user-list-page-info">
                          <thead>
                             <tr class="ligth">
-                               <th>Profile</th>
-                               <th>Nom</th>
-                               <th>Numero</th>
-                               <th>Email</th>
-                               <th>Presentation</th>
-                               <th>Fonction</th>
-                               <th>Adresse</th>
-                             
+                               <th>Intitulé</th>
+                               <th>Typologie</th>
+                               <th>Sigle</th>
+                               <th>Finalité</th>
+                               <th>Pilote</th>
+                               <th>Acteurs</th>
+                               <th>Donnée entrée </th>
+                               <th>Activités</th>
+                               <th>Donnée Sortie</th>
+                               <th>Ressources Tech Org</th>
+                               <th>Objectifs ind</th>
+                               <th>Outils surveil </th>
+                               
+                               
                                <th style="min-width: 100px">Action</th>
                             </tr>
                          </thead>
                          <tbody>
-                            <tr *ngFor="let personnel of personnels">
-                              <td class="text-center"><img class="rounded img-fluid avatar-40"
-                                src="{{personnel.image}}" alt="profile"></td>
-                              <td>{{personnel.nom}}</td>
-                              <td>{{personnel.numero_tel}}</td>
-                              <td>{{personnel.courrier}}</td>
-                              <td>{{personnel.presente_vous}}</td>
-                              <td><span class="badge bg-primary">{{personnel.fonction}}</span></td>
-                              <td>{{personnel.adresse_sip}}</td>
-                          
+                            <tr *ngFor="let pro of processus">
+                             
+                              <td>{{pro.intitule}}</td>
+                              <td>{{pro.typologie}}</td>
+                              <td>{{pro.sigle}}</td>
+                              <td>{{pro.finalite}}</td>
+                              <td><span class="badge bg-primary">{{pro.pilote_name }}</span></td>
+                              <td>{{pro.acteurs}}</td>
+                              <td>{{pro.donnee_entree}}</td>
+                              <td>{{pro.activites}}</td>
+                              <td>{{pro.donnee_sortie}}</td>
+                              <td>{{pro.ressources_tech_org}}</td>
+                              <td>{{pro.objectifs_ind}}</td>
+                              <td>{{pro.outils_surveil}}</td>
+                              
                               <td>
                                 <div class="flex align-items-center list-user-action">
                                   <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Edit" [routerLink]="['/updateP', personnel.id]"><i class="ri-pencil-line mr-0"></i></a>
+                                    data-original-title="Edit" [routerLink]="['/updateProcessus', pro.id]"><i class="ri-pencil-line mr-0"></i></a>
                                   <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Delete" (click)="deletePersonnel(personnel.id)"><i
+                                    data-original-title="Delete" (click)="deleteProcessus(pro.id)"><i
                                       class="ri-delete-bin-line mr-0"></i></a>
                                 </div>
                               </td>

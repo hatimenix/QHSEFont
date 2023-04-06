@@ -21,10 +21,19 @@ import { LoginComponent } from './Components/login/login.component';
 import { ListPersonnelComponent } from './Components/personnel/list-personnel/list-personnel.component';
 import { AddPersonnelComponent } from './Components/personnel/add-personnel/add-personnel.component';
 import { UpdatePersonnelComponent } from './Components/personnel/update-personnel/update-personnel.component';
+import { HomeComponent } from './Components/home/home.component';
+import { ListProcessusComponent } from './Components/Processus/list-processus/list-processus.component';
+import { AddProcessusComponent } from './Components/Processus/add-processus/add-processus.component';
+import { UpdateProcessusComponent } from './Components/Processus/update-processus/update-processus.component';
 
 
 
 const routes: Routes = [
+
+  //path pour les commandes 
+  {path : '', component: LoginComponent},
+  {path:'home', component :HomeComponent},
+
 
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
@@ -46,6 +55,13 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path : 'listP', component: ListPersonnelComponent},
   {path :'addP', component: AddPersonnelComponent},
+
+  {path:'updateP/:id', component :UpdatePersonnelComponent},
+  {path:'addPersonnel', component :AddPersonnelComponent},
+  {path : 'listProcessus', component:ListProcessusComponent},
+  {path: 'addProcessus', component: AddProcessusComponent},
+  {path : 'updateProcessus/:id', component: UpdateProcessusComponent}
+
   {path:'updateP', component :UpdatePersonnelComponent},
   {path:'addPersonnel', component :AddPersonnelComponent}
 
