@@ -20,6 +20,9 @@ import { ListPersonnelComponent } from './Components/personnel/list-personnel/li
 import { AddPersonnelComponent } from './Components/personnel/add-personnel/add-personnel.component';
 import { UpdatePersonnelComponent } from './Components/personnel/update-personnel/update-personnel.component';
 import { HomeComponent } from './Components/home/home.component';
+import { ListProcessusComponent } from './Components/Processus/list-processus/list-processus.component';
+import { AddProcessusComponent } from './Components/Processus/add-processus/add-processus.component';
+import { UpdateProcessusComponent } from './Components/Processus/update-processus/update-processus.component';
 
 
 
@@ -42,6 +45,9 @@ import { HomeComponent } from './Components/home/home.component';
     AddPersonnelComponent,
     UpdatePersonnelComponent,
     HomeComponent,
+    ListProcessusComponent,
+    AddProcessusComponent,
+    UpdateProcessusComponent,
     
     
   ],

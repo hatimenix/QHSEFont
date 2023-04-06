@@ -8,24 +8,26 @@ import { Personnel } from 'src/app/models/Personnel';
   styleUrls: ['./list-personnel.component.css']
 })
 export class ListPersonnelComponent implements OnInit{
-  personnels!: Personnel[];
+  personnels: Personnel[] = [];
 
-  constructor(private personnelService: PersonnelService) {}
+constructor(private personnelService: PersonnelService) { }
 
-  ngOnInit(): void {
-    this.loadPersonnels();
-  }
+ngOnInit(): void {
+this.loadPersonnels();
+}
 
-  loadPersonnels(): void {
-    this.personnelService.getPersonnel().subscribe((personnels: Personnel[]) => {
-      this.personnels = this.personnels;
-    });
-  }
+loadPersonnels() {
+this.personnelService.getPersonnels().subscribe(
+(data: Personnel[]) => {
+this.personnels = data;
+}
+)
+}
 
-  deletePersonnel(id: number): void {
-    this.personnelService.deletePersonnel(id).subscribe(() => {
-      this.loadPersonnels();
-    });
-  }
+deletePersonnel(id: number) :void{
+  this.personnelService.deletePersonnel(id).subscribe(() => {
+    this.personnels = this.personnels.filter((p) => p.id !== id);
+  });
+}
 
 }
