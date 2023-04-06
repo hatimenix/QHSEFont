@@ -7,7 +7,7 @@ id! : number;
   typologie!: string;
   sigle!: string;
   finalite!: string;
-  pilote!: Personnel;
+  pilote!: string;
   acteurs!: string;
   donnee_entree!: string;
   activites!: string;
@@ -15,4 +15,5 @@ id! : number;
   ressources_tech_org!: string;
   objectifs_ind!: string;
   outils_surveil!: string;
+  pilote_name!: string
 }

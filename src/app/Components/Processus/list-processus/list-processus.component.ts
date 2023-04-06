@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
+import { Personnel } from 'src/app/models/Personnel';
 import { Processus } from 'src/app/models/Processus';
 
 @Component({
@@ -10,12 +11,18 @@ import { Processus } from 'src/app/models/Processus';
 export class ListProcessusComponent implements OnInit {
   
   processus: Processus[] = [];
-
+  personnelService: any;
+  
+  
+  
 constructor(private processusService: ProcessusService) { }
 
 ngOnInit(): void {
 this.loadprocessus();
+
 }
+
+
 
 loadprocessus() {
 this.processusService.getProcessus().subscribe(
