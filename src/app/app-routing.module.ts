@@ -11,7 +11,7 @@ const routes: Routes = [
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   {path: 'infoDanger/:id', component: InfoDangerComponent},
-  {path : 'evenement', component: InfoEvenementComponent}
+  {path : 'evenement/:id', component: InfoEvenementComponent}
 ];
 
 @NgModule({

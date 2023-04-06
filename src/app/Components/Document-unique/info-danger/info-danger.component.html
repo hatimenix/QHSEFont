@@ -124,12 +124,17 @@
                                                    <td colspan="7">Aucun événement enregistré pour ce danger.</td>
                                                  </tr>
                                                 <tr *ngFor="let evenement of evenements$ | async">
-                                                    <td>test</td>
-                                                    <td>{{ evenement.intitule }}</td>
+                                                    <td>
+                                                      <div class="d-flex align-items-center list-action">
+                                                         <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                                           href="#"><i class="ri-pencil-line mr-0"></i></a>
+                                                         </div>
+                                                    </td>
+                                                    <td><a [routerLink]="['/evenement/', evenement.id]">{{ evenement.intitule }}</a></td>
                                                     <td>{{ evenement.Site_name }}</td>
                                                     <td>{{ evenement.type_evenement }}</td>
                                                     <td>{{ evenement.date_accident }}</td>
-                                                    <td>hgffhj</td>
+                                                    <td>{{ evenement.arret_travail ? 'oui' : 'non' }}</td>
                                                     <td>{{ evenement.nom_personne }}</td>
                                                 </tr>
                                                 </tbody>
@@ -141,54 +146,60 @@
                               </div>
                             </div>
                             <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
-                              <div id="table" class="table-editable">
-                                 <table class="table table-bordered table-responsive-md table-striped text-center">
-                                    <tbody>
-                                       <tr>
-                                          <td style="width:20%">Source</td>
-                                          <td style="width:80%">Document Unique</td>
-                                       </tr>
-                                       <tr>
-                                          <td style="width:20%">Action(s) associée(s)</td>
-                                          <td style="width:80%">
-                                             <table class="table table-bordered table-responsive-md table-striped text-center">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Modifier</th>
-                                                    <th>Intitulé action</th>
-                                                    <th>Domaine</th>
-                                                    <th>Origine de l'action</th>
-                                                    <th>Site</th>
-                                                    <th>Etat</th>
-                                                    <th>Assigné à</th>
-                                                    <th>Date mise en oeuvre</th>
-                                                    <th>Année</th>
-                                                    <th>Priorité</th>
-                                                    <th>Référence action</th>
-                                                </tr>
-                                                <tr *ngIf="(actions$ | async)?.length === 0">
-                                                   <td colspan="11">Aucune action enregistré pour ce danger.</td>
-                                                 </tr>
-                                                <tr *ngFor="let actions of actions$ | async">
-                                                    <td>{{ actions.intitule }}</td>
-                                                    <td>{{ actions.domaine }}</td>
-                                                    <td>{{ actions.origine_action }}</td>
-                                                    <td>{{ actions.Site_name }}</td>
-                                                    <td>Non commencer</td>
-                                                    <td>{{ actions.assigne_a }}</td>
-                                                    <td>{{ actions.delai_mise_en_oeuvre }}</td>
-                                                    <td>{{ actions.assigne_a }}</td>
-                                                    <td>2023</td>
-                                                    <td>{{ actions.priorite }}</td>
-                                                    <td>{{ actions.reference }}</td>
-                                                </tr>
-                                                </tbody>
-                                                </table>
-                                          </td>
-                                       </tr>
-                                    </tbody>
+                              <div id="table" class="table-editable table-responsive">
+                                 <table class="table table-bordered table-striped text-center">
+                                   <tbody>
+                                     <tr>
+                                       <td style="width:20%">Source</td>
+                                       <td style="width:80%">Document Unique</td>
+                                     </tr>
+                                     <tr>
+                                       <td style="width:20%">Action(s) associée(s)</td>
+                                       <td style="width:80%">
+                                         <table class="table table-bordered table-striped text-center">
+                                           <tbody>
+                                             <tr>
+                                               <th>Modifier</th>
+                                               <th>Intitulé action</th>
+                                               <th>Domaine</th>
+                                               <th>Origine de l'action</th>
+                                               <th>Site</th>
+                                               <th>Etat</th>
+                                               <th>Assigné à</th>
+                                               <th>Date mise en oeuvre</th>
+                                               <th>Année</th>
+                                               <th>Priorité</th>
+                                               <th>Référence action</th>
+                                             </tr>
+                                             <tr *ngIf="(actions$ | async)?.length === 0">
+                                               <td colspan="11">Aucune action enregistré pour ce danger.</td>
+                                             </tr>
+                                             <tr *ngFor="let actions of actions$ | async">
+                                               <td>
+                                                 <div class="d-flex align-items-center list-action">
+                                                   <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                                     href="#"><i class="ri-pencil-line mr-0"></i></a>
+                                                 </div>
+                                               </td>
+                                               <td>{{ actions.intitule }}</td>
+                                               <td>{{ actions.domaine }}</td>
+                                               <td>{{ actions.origine_action }}</td>
+                                               <td>{{ actions.Site_name }}</td>
+                                               <td>Non commencer </td>
+                                               <td>{{ actions.assigne_a }}</td>
+                                               <td>{{ actions.delai_mise_en_oeuvre }}</td>
+                                               <td>2023</td>
+                                               <td>{{ actions.priorite }}</td>
+                                               <td>{{ actions.reference }}</td>
+                                             </tr>
+                                           </tbody>
+                                         </table>
+                                       </td>
+                                     </tr>
+                                   </tbody>
                                  </table>
-                              </div>
+                               </div>
+                               
                             </div>
                          </div>
                       </div>

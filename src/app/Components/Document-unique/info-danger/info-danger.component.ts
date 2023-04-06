@@ -49,6 +49,7 @@ export class InfoDangerComponent {
   ) { }
 
   ngOnInit(): void {
+
     this.dangerForm = this.formBuilder.group({
       poste_de_travail: ['', Validators.required],
       taches: ['', Validators.required],
