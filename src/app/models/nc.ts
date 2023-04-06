@@ -6,6 +6,8 @@ export class Nc {
   date_nc!: Date | null
   processus_name!: string | null
   site_name!: string | null
+  processus!: object | null
+  site!: object | null
   date_prise_en_compte!: Date | null
   description_detailee!: string | null
   annee!: String | null

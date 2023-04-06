@@ -15,6 +15,7 @@ import {Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
 import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
     SidebarComponent,
     AddNcComponent,
     UpdateDangerComponent,
-    AddDangerComponent
+    AddDangerComponent,
+    InfoNcComponent
   ],
   imports: [
     BrowserModule,

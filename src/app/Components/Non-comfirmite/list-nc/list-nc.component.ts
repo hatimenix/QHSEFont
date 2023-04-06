@@ -41,6 +41,8 @@ export class ListNcComponent {
   site_name:any
   processus_name:any
   responsable_name:any
+  processus:any
+  site:any
 
   searchQuery: string = '';
 
@@ -128,7 +130,9 @@ updateNc() : void {
       piece_jointe:this.piece_jointe,
       processus_name: this.processus_name,
       site_name: this.site_name,
-      responsable_name:this.responsable_name
+      responsable_name:this.responsable_name,
+      processus:this.processus,
+      site:this.site
   };
 
   this.ncservice.update(this.currentNc.id, this.currentNc)
@@ -152,22 +156,24 @@ getNcData( id : number,
   date_prise_en_compte:any,
   description_detailee:any,
   annee:any,
-  mois:any,
-  delai_prevu:any,
-  type_cause:any,
-  cout:any,
-  progress:any,
-  etat:any,
-  info_complementaires:any,
-  frequence:any,
-  gravite:any,
-  action_immediate:any,
-  nc_cloture:any,
-  piece_jointe:any,
+  // mois:any,
+  // delai_prevu:any,
+  // type_cause:any,
+  // cout:any,
+  // progress:any,
+  // etat:any,
+  // info_complementaires:any,
+  // frequence:any,
+  // gravite:any,
+  // action_immediate:any,
+  // nc_cloture:any,
+  // piece_jointe:any,
 
-  processus_name:any,
-  site_name:any,
-  responsable_name:any
+  // processus_name:any,
+  // site_name:any,
+  // responsable_name:any,
+  // processus:any,
+  // site:any
   ){
     this.id = id,
     this.intitule=intitule,
@@ -177,22 +183,24 @@ getNcData( id : number,
     this.date_nc = date_nc,
     this.date_prise_en_compte=date_prise_en_compte,
     this.description_detailee=description_detailee,
-    this.annee=annee,
-    this.mois=mois,
-    this.delai_prevu=delai_prevu,
-    this.type_cause=type_cause,
-    this.cout=cout,
-    this.progress=progress,
-    this.etat=etat,
-    this.info_complementaires=info_complementaires,
-    this.frequence=frequence,
-    this.gravite=gravite,
-    this.action_immediate=action_immediate,
-    this.nc_cloture=nc_cloture,
-    this.piece_jointe=piece_jointe,
-    this.processus_name=processus_name,
-    this.site_name=site_name
-    this.responsable_name=responsable_name
+    this.annee=annee
+    // this.mois=mois,
+    // this.delai_prevu=delai_prevu,
+    // this.type_cause=type_cause,
+    // this.cout=cout,
+    // this.progress=progress,
+    // this.etat=etat,
+    // this.info_complementaires=info_complementaires,
+    // this.frequence=frequence,
+    // this.gravite=gravite,
+    // this.action_immediate=action_immediate,
+    // this.nc_cloture=nc_cloture,
+    // this.piece_jointe=piece_jointe
+    // this.processus_name=processus_name,
+    // this.site_name=site_name
+    // this.responsable_name=responsable_name,
+    // this.processus=processus,
+    // this.site=site
 
 
 }
@@ -246,7 +254,7 @@ exportToExcel() {
     'Piece_jointe':nc.piece_jointe,
     'Site_name':nc.site_name,
     'Processus_name':nc.processus_name,
-    'Responsable_name':nc.responsable_name
+    'Responsable_name':nc.responsable_name,
   })));
   const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
   const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

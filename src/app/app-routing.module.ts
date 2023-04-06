@@ -7,6 +7,7 @@ import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,9 @@ const routes: Routes = [
   { path: 'sidebar', component: SidebarComponent },
   { path: 'list-registre-traitement', component: ListRegistreTraitementComponent },
   {path : 'nc-list', component: ListNcComponent},
-  {path : 'nc-add', component: AddNcComponent}
+  {path : 'nc-add', component: AddNcComponent},
+  { path: 'nc/:id', component: InfoNcComponent },
+
 ];
 
 

@@ -59,7 +59,7 @@
                    <tbody class="ligth-body">
                     <tr *ngFor="let nc of ncs | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
                         <th scope="row">{{nc.id}}</th>
-                        <td>{{nc.intitule}}</td>
+                        <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                         <td>{{nc.nature}}</td>
                         <td>{{ nc.processus_name }}</td>
                         <td>{{ nc.site_name }}</td>
@@ -89,8 +89,8 @@
                                <div class="d-flex align-items-center list-action">
                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
                                        href="#"><i class="ri-eye-line mr-0"></i></a>
-                                   <!-- <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee)"data-placement="top" title="" data-original-title="Edit"
-                                       ><i class="ri-pencil-line mr-0"></i></a> -->
+                                   <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee)"data-placement="top" title="" data-original-title="Edit"
+                                       ><i class="ri-pencil-line mr-0"></i></a>
                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
                                        ><i class="ri-delete-bin-line mr-0"></i></a>
                                </div>
