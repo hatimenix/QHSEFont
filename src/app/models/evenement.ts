@@ -17,9 +17,10 @@ export class Evenement {
     nature_lesions !: string;
     service_name !: string;
     famille_name !: string;
+    Site_name !: string;
     danger_name !: string;
     site !: number;
     service !: number;
-    dangers !: number;
+    dangers!: number[];
 
 }

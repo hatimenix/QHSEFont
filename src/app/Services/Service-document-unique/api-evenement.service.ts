@@ -13,8 +13,8 @@ export class ApiEvenementService {
 
   constructor(private http:HttpClient) { }
 
-  getAllEvenement(){
-    return this.http.get<Evenement>(this.API_URL_EV);
+  getAllEvenement(): Observable<Evenement[]>{
+    return this.http.get<Evenement[]>(this.API_URL_EV);
   }
 
   getEvenement(id: number): Observable<Evenement> {

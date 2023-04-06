@@ -3,13 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 import { ApiEvaluationService } from 'src/app/Services/Service-document-unique/api-evaluation.service';
+import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
 import { ApiFamilleService } from 'src/app/Services/Service-document-unique/api-famille.service';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
+import { Actions } from 'src/app/models/actions';
 import { Dangers } from 'src/app/models/dangers';
 import { Evaluations } from 'src/app/models/evaluations';
+import { Evenement } from 'src/app/models/evenement';
 
 @Component({
   selector: 'app-info-danger',
@@ -24,6 +28,8 @@ export class InfoDangerComponent {
   services$ !: Observable<any>;
   familles$ !: Observable<any>;
   evaluations$!: Observable<Evaluations[]>;
+  evenements$!: Observable<Evenement[]>;
+  actions$!: Observable<Actions[]>;
   dangerId !: number;
   siteName !: string;
   serviceName !: string;
@@ -37,7 +43,9 @@ export class InfoDangerComponent {
     private apiSiteService: ApiSiteService,
     private apiServiceService: ApiServiceService,
     private apiFamilleService: ApiFamilleService,
-    private apiEvaluationService: ApiEvaluationService
+    private apiEvaluationService: ApiEvaluationService,
+    private apiEvenementService: ApiEvenementService,
+    private apiActionsService: ApiActionsService
   ) { }
 
   ngOnInit(): void {
@@ -92,12 +100,26 @@ export class InfoDangerComponent {
     });
 
     this.getEvaluationsByDangerId(this.dangerId);
+    this.getEvenementsByDangerId(this.dangerId);
+    this.getActionsByDangerId(this.dangerId);
 
   }
 
   getEvaluationsByDangerId(dangerId: number) {
     this.evaluations$ = this.apiEvaluationService.getAllEvaluation().pipe(
       map((evaluations: Evaluations[]) => evaluations.filter(evaluation => evaluation.danger === dangerId))
+    );
+  }
+
+  getEvenementsByDangerId(dangerId: number) {
+    this.evenements$ = this.apiEvenementService.getAllEvenement().pipe(
+      map((evenements: Evenement[]) => evenements.filter(evenement => evenement.dangers.includes(dangerId)))
+    );
+  }
+
+  getActionsByDangerId(dangerId: number) {
+    this.actions$ = this.apiActionsService.getAllActions().pipe(
+      map((actions: Actions[]) => actions.filter(actions => actions.danger.includes(dangerId)))
     );
   }
 }
