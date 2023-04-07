@@ -21,4 +21,9 @@ export class ApiEvaluationService {
     const url = `${this.API_URL_EVA}${id}/`;
     return this.http.get<Evaluations>(url);
   }
+
+  addEvaluation(evaluation: Evaluations): Observable<Evaluations> {
+    return this.http.post<Evaluations>(this.API_URL_EVA, evaluation);
+  }
+
 }

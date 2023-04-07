@@ -38,43 +38,43 @@
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Site</td>
-                                                <td style="width:50%">{{ evenement?.Site_name }}</td>
+                                                <td style="width:50%">{{ this.siteName }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Service</td>
-                                                <td style="width:50%">{{ evenement?.service_name }}</td>
+                                                <td style="width:50%">{{ this.serviceName }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Type de contrat</td>
-                                                <td style="width:50%">{{ evenement?.type_contract }}</td>
+                                                <td style="width:50%">{{ evenement.type_contract }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Nom de la personne</td>
-                                                <td style="width:50%">{{ evenement?.nom_personne }}</td>
+                                                <td style="width:50%">{{ evenement.nom_personne }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Type d'événement</td>
-                                                <td style="width:50%">{{ evenement?.type_evenement }}</td>
+                                                <td style="width:50%">{{ evenement.type_evenement }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Intitulé d'événement</td>
-                                                <td style="width:50%">{{ evenement?.intitule }}</td>
+                                                <td style="width:50%">{{ evenement.intitule }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Résumé de l'événement</td>
-                                                <td style="width:50%">{{ evenement?.resume }}</td>
+                                                <td style="width:50%">{{ evenement.resume }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Témoin(s)</td>
-                                                <td style="width:50%">{{ evenement?.temoins }}</td>
+                                                <td style="width:50%">{{ evenement.temoins }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Première(s) personne(s) informée(s)</td>
-                                                <td style="width:50%">{{ evenement?.premiere_pers_info }}</td>
+                                                <td style="width:50%">{{ evenement.premiere_pers_info }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Action(s) immédiate(s)</td>
-                                                <td style="width:50%">{{ evenement?.action_immediate }}</td>
+                                                <td style="width:50%">{{ evenement.action_immediate }}</td>
                                              </tr>
                                           </tbody>
                                        </table>
@@ -87,23 +87,23 @@
                                            <tbody>
                                               <tr>
                                                  <td style="width:50%">Date accident</td>
-                                                 <td style="width:50%">{{ evenement?.date_accident }}</td>
+                                                 <td style="width:50%">{{ evenement.date_accident }}</td>
                                               </tr>
                                               <tr>
                                                  <td style="width:50%">Période de travail</td>
-                                                 <td style="width:50%">{{ evenement?.periode_travail }}</td>
+                                                 <td style="width:50%">{{ evenement.periode_travail }}</td>
                                               </tr>
                                               <tr>
                                                  <td style="width:50%">Lieu de l'accident</td>
-                                                 <td style="width:50%">{{ evenement?.lieu_accident }}</td>
+                                                 <td style="width:50%">{{ evenement.lieu_accident }}</td>
                                               </tr>
                                               <tr>
                                                  <td style="width:50%">Tache effectuée par la victime au moment de l'accident</td>
-                                                 <td style="width:50%">{{ evenement?.tache_effectue }}</td>
+                                                 <td style="width:50%">{{ evenement.tache_effectue }}</td>
                                               </tr>
                                               <tr>
                                                  <td style="width:50%">Est ce que l'évènement implique le chien thérapeutique ?</td>
-                                                 <td style="width:50%">{{ evenement?.utiliser_chien ? 'oui' : 'non' }}</td>
+                                                 <td style="width:50%">{{ evenement.utiliser_chien ? 'oui' : 'non' }}</td>
                                               </tr>
                                            </tbody>
                                         </table>
@@ -116,15 +116,15 @@
                                            <tbody>
                                               <tr>
                                                  <td style="width:50%">Siège des lésions (1/2)</td>
-                                                 <td style="width:50%">{{ evenement?.siege_de_lesions_1 }}</td>
+                                                 <td style="width:50%">{{ evenement.siege_de_lesions_1 }}</td>
                                               </tr>
                                               <tr>
                                                  <td style="width:50%">Siège des lésions (2/2)</td>
-                                                 <td style="width:50%">{{ evenement?.siege_de_lesions_2 }}</td>
+                                                 <td style="width:50%">{{ evenement.siege_de_lesions_2 }}</td>
                                               </tr>
                                               <tr>
                                                  <td style="width:50%">Nature des lésions</td>
-                                                 <td style="width:50%">{{ evenement?.nature_lesions }}</td>
+                                                 <td style="width:50%">{{ evenement.nature_lesions }}</td>
                                               </tr>
                                            </tbody>
                                         </table>
@@ -134,7 +134,11 @@
                             <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
                               <div id="table" class="table-editable">
                                  <table class="table table-bordered table-responsive-md table-striped text-center">
-                                    <tbody>
+                                    <tr *ngIf="( analyses$ | async)?.length === 0">
+                                       <td>Analyse Evenement</td>
+                                       <td colspan="7">Aucune analyse enregistré pour cette evenement</td>
+                                     </tr>
+                                    <tbody *ngFor="let analyse of analyses$ | async">
                                        <tr>
                                           <td style="width:50%">Cause de l'évènement</td>
                                           <td style="width:50%">{{ analyse.cause }}</td>
@@ -173,56 +177,56 @@
                                    <tbody>
                                     <tr>
                                        <td style="width:30%">Action(s) immédiate(s)</td>
-                                       <td style="width:70%">{{ evenement?.action_immediate }}</td>
+                                       <td style="width:70%">{{ evenement.action_immediate }}<td>
                                     </tr>
                                     <tr>
                                        <td style="width:30%">Actions correctives à mettre en oeuvre ?</td>
                                        <td style="width:70%">
-                                          <p *ngIf="actions && actions.length > 0">oui</p>
-                                          <p *ngIf="!actions || actions.length == 0">non</p>
+                                          <p *ngIf="(actions$ | async)?.length !== 0">oui</p>
+                                          <p *ngIf="(actions$ | async)?.length === 0">non</p>
                                        </td>
                                     </tr>
                                      <tr>
                                        <td style="width:20%">Action(s) associée(s)</td>
                                        <td style="width:80%">
-                                         <table class="table table-bordered table-striped text-center">
-                                           <tbody>
-                                             <tr>
-                                               <th>Modifier</th>
-                                               <th>Intitulé action</th>
-                                               <th>Domaine</th>
-                                               <th>Origine de l'action</th>
-                                               <th>Site</th>
-                                               <th>Etat</th>
-                                               <th>Assigné à</th>
-                                               <th>Date mise en oeuvre</th>
-                                               <th>Année</th>
-                                               <th>Priorité</th>
-                                               <th>Référence action</th>
-                                             </tr>
-                                             <tr *ngIf="(actions)?.length === 0">
-                                               <td colspan="11">Aucune action enregistré pour ce danger.</td>
-                                             </tr>
-                                             <tr *ngFor="let action of actions">
-                                               <td>
-                                                 <div class="d-flex align-items-center list-action">
-                                                   <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                                     href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                                 </div>
-                                               </td>
-                                               <td>{{ action.intitule }}</td>
-                                               <td>{{ action.domaine }}</td>
-                                               <td>{{ action.origine_action }}</td>
-                                               <td>{{ action.Site_name }}</td>
-                                               <td>Non commencer</td>
-                                               <td>{{ action.assigne_a }}</td>
-                                               <td>{{ action.delai_mise_en_oeuvre }}</td>
-                                               <td>2023</td>
-                                               <td>{{ action.priorite }}</td>
-                                               <td>{{ action.reference }}</td>
-                                             </tr>
-                                           </tbody>
-                                         </table>
+                                          <table class="table table-bordered table-striped text-center">
+                                             <tbody>
+                                               <tr>
+                                                 <th>Modifier</th>
+                                                 <th>Intitulé action</th>
+                                                 <th>Domaine</th>
+                                                 <th>Origine de l'action</th>
+                                                 <th>Site</th>
+                                                 <th>Etat</th>
+                                                 <th>Assigné à</th>
+                                                 <th>Date mise en oeuvre</th>
+                                                 <th>Année</th>
+                                                 <th>Priorité</th>
+                                                 <th>Référence action</th>
+                                               </tr>
+                                               <tr *ngIf="(actions$ | async)?.length === 0">
+                                                 <td colspan="11">Aucune action enregistré pour cette evenement</td>
+                                               </tr>
+                                               <tr *ngFor="let actions of actions$ | async">
+                                                 <td>
+                                                   <div class="d-flex align-items-center list-action">
+                                                     <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                                       href="#"><i class="ri-pencil-line mr-0"></i></a>
+                                                   </div>
+                                                 </td>
+                                                 <td>{{ actions.intitule }}</td>
+                                                 <td>{{ actions.domaine }}</td>
+                                                 <td>{{ actions.origine_action }}</td>
+                                                 <td>{{ actions.Site_name }}</td>
+                                                 <td>Non commencer </td>
+                                                 <td>{{ actions.assigne_a }}</td>
+                                                 <td>{{ actions.delai_mise_en_oeuvre }}</td>
+                                                 <td>2023</td>
+                                                 <td>{{ actions.priorite }}</td>
+                                                 <td>{{ actions.reference }}</td>
+                                               </tr>
+                                             </tbody>
+                                           </table>
                                        </td>
                                      </tr>
                                    </tbody>
