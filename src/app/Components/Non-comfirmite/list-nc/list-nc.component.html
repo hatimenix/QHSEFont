@@ -44,7 +44,7 @@
                             <th scope="col">delai_prevu</th>
                             <th scope="col">type_cause</th>
                             <th scope="col">cout</th>
-                            <th scope="col">progress</th>
+                            <th scope="col">Avancement</th>
                             <th scope="col">etat</th>
                             <th scope="col">info_complementaires</th>
                             <th scope="col">frequence</th>
@@ -81,15 +81,13 @@
                         <td>{{nc.gravite}}</td>
                         <td>{{nc.action_immediate}}</td>
                         <td>{{nc.nc_cloture}}</td>
-                        <td>{{nc.piece_jointe}}</td>
+                        <a href="{{ nc.piece_jointe }}" download>{{ nc.piece_jointe }}</a>
 
 
 
                         <td>
                                <div class="d-flex align-items-center list-action">
-                                   <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                       href="#"><i class="ri-eye-line mr-0"></i></a>
-                                   <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee)"data-placement="top" title="" data-original-title="Edit"
+                                       <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee,nc.mois,nc.delai_prevu,nc.type_cause,nc.cout,nc.progress,nc.etat,nc.info_complementaires,nc.frequence,nc.gravite,nc.action_immediate,nc.nc_cloture,nc.responsable_name,nc.site_name,nc.processus_name,nc.site,nc.processus,nc.responsable_traitement)"data-placement="top" title="" data-original-title="Edit"
                                        ><i class="ri-pencil-line mr-0"></i></a>
                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
                                        ><i class="ri-delete-bin-line mr-0"></i></a>
@@ -138,37 +136,84 @@
 
 
           <div class="modal-body">
+            <form [formGroup]="form">
 
-            <label for="intitule" class="form-label">Intitulé de la non-conformité : </label>
-            <input name="intitule" value="{{intitule}}" [(ngModel)] = "intitule" style="width: 400px;" type="text" class="rounded-pill form-control" id="intitule">
-  
-  
-            <label for="nature" class="form-label">nature : </label>
-            <input name="nature" [(ngModel)] = "nature" value="{{nature}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="nature">
+            <div class="row">
+              <div class="col">
+                <label for="intitule" class="form-label">Intitulé de la non-conformité : </label>
+                <input name="intitule" value="{{intitule}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="intitule">
+              </div>
+              <div class="col">
+                <label for="nature" class="form-label">Nature : </label>
+                <input name="nature"  value="{{nature}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="nature">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="detail_cause" class="form-label">Detail cause : </label>
+                <input name="detail_cause"  value="{{detail_cause}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
+              </div>
+              <div class="col">
+                <label for="date_nc" class="form-label">Date NC : </label>
+                <input name="date_nc"  value="{{date_nc}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_nc">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
+                <input name="date_prise_en_compte" value="{{date_prise_en_compte}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_prise_en_compte">
+              </div>
+              <div class="col">
+                <label for="description_detailee" class="form-label">Description détaillée : </label>
+                <input name="description_detailee"  value="{{description_detailee}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="description_detailee">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="annee" class="form-label">Année : </label>
+                <input name="annee" value="{{annee}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="annee">
+              </div>
 
-            <label for="domaine" class="form-label">domaine : </label>
-            <input name="domaine" [(ngModel)] = "domaine" value="{{domaine}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="domaine">
+              <div class="col">
+                <label for="mois" class="form-label">Mois : </label>
+                <input name="mois"  value="{{mois}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="mois">
+                </div>
+                </div>
 
-            <label for="detail_cause" class="form-label">detail_cause : </label>
-            <input name="detail_cause" [(ngModel)] = "detail_cause" value="{{detail_cause}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="detail_cause">
+              <div class="row">
+                <div class="col">
+                  <label for="type_cause" class="form-label">type_cause : </label>
+                  <input name="type_cause"  value="{{type_cause}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="type_cause">
+                  </div>
+                  <div class="col">
+                    <label for="progress" class="form-label">Avancement : </label>
+                    <input name="progress"  value="{{progress}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="progress">
+                    </div>
+                    </div>
 
-            <label for="date_nc" class="form-label">date_nc : </label>
-            <input name="date_nc" [(ngModel)] = "date_nc" value="{{date_nc}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="date_nc">
-
-            <label for="date_prise_en_compte" class="form-label">date_prise_en_compte : </label>
-            <input name="date_prise_en_compte" [(ngModel)] = "date_prise_en_compte" value="{{date_prise_en_compte}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="date_prise_en_compte">
-
-            <label for="description_detailee" class="form-label">description_detailee : </label>
-            <input name="description_detailee" [(ngModel)] = "description_detailee" value="{{description_detailee}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="description_detailee">
-
-            <label for="description_detailee" class="form-label">annee : </label>
-            <input name="annee" [(ngModel)] = "annee" value="{{annee}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="annee">
-
-            <!-- <label for="processus_name" class="form-label">processus_name : </label>
-            <input name="processus_name" [(ngModel)] = "processus_name" value="{{processus_name}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="processus_name">
-
-            <label for="site_name" class="form-label">site_name : </label>
-            <input name="site_name" [(ngModel)] = "site_name" value="{{site_name}}" style="width: 400px;" type="text" class="rounded-pill form-control" id="site_name"> -->
+                      <div class="col">
+                        <label for="detail_cause" class="form-label">Détail cause : </label>
+                        <input name="detail_cause"  value="{{detail_cause}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
+                        </div>
+                        <div class="col">
+                          <label for="site" class="form-label">Site : </label>
+                          <select  id="site" name="site" formControlName="site" style="width: 100%;" class="form-control" class="custom-select" >
+                            <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
+                           </select> 
+                          </div>                      
+                            <div class="col">
+                              <label for="processus" class="form-label">Processus : </label>
+                              <select  id="processus" name="processus" formControlName="processus" style="width: 100%;" class="form-control" class="custom-select" >
+                                <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.processus_nom }}</option>
+                               </select> 
+                              </div>
+                              <div class="col">
+                                <label for="responsable_traitement" class="form-label">responsable_traitement : </label>
+                                <select  id="responsable_traitement" name="responsable_traitement" style="width: 100%;" formControlName="responsable_traitement" class="form-control" class="custom-select" >
+                                  <option *ngFor="let responsable_traitement of utilisateurs" [value]="responsable_traitement.id">{{ responsable_traitement.nom }}</option>
+                                </select> 
+                                </div> 
+                                </form>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

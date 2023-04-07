@@ -13,7 +13,8 @@ import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité
 export class AddNcComponent {
   sites: any[] = [];
   processuss: any[] = [];
-  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ApiProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService :ApiUtilisateurService){}
+  utilisateurs: any[] = [];
+  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ApiProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){}
 
   mode = 'list';
   ncf = {
@@ -39,7 +40,8 @@ export class AddNcComponent {
     nc_cloture:'',
     piece_jointe:'',
     processus:'',
-    site:''
+    site:'',
+    responsable_traitement:''
 
 
 
@@ -70,6 +72,9 @@ export class AddNcComponent {
     piece_jointe: new FormControl(''),
     processus: new FormControl(''),
     site: new FormControl(''),
+    responsable_traitement: new FormControl('')
+
+    
 
   });
   ngOnInit(): void {
@@ -96,13 +101,22 @@ export class AddNcComponent {
     );  
     this.apiProcessusService.getAllProcessus().subscribe(
       (data: any[]) => {
-        this.sites = data;
-        console.log(this.sites); // Print the sites to the console
+        this.processuss = data;
+        console.log(this.processuss); // Print the sites to the console
       },
       (error: any) => {
         console.log(error); // Handle error
       }
     );  
+    this.apiUtilisateurService.getAllUtilsateur().subscribe(
+      (data: any[]) => {
+        this.utilisateurs = data;
+        console.log(this.utilisateurs); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
   }
   createNC() {
     const formData =  new FormData()
@@ -128,6 +142,8 @@ export class AddNcComponent {
     formData.append("piece_jointe", this.ncf.piece_jointe);
     formData.append("processus", this.ncf.processus);
     formData.append("site", this.ncf.site);
+    formData.append("responsable_traitement", this.ncf.responsable_traitement);
+
 
 
 
