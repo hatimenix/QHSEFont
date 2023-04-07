@@ -15,6 +15,12 @@ import { HomeComponent } from './Components/home/home.component';
 import { ListProcessusComponent } from './Components/Processus/list-processus/list-processus.component';
 import { AddProcessusComponent } from './Components/Processus/add-processus/add-processus.component';
 import { UpdateProcessusComponent } from './Components/Processus/update-processus/update-processus.component';
+import { ListSiteComponent } from './Components/Sites/list-site/list-site.component';
+import { AddSiteComponent } from './Components/Sites/add-site/add-site.component';
+import { UpdateSiteComponent } from './Components/Sites/update-site/update-site.component';
+import { LisSecteurComponent } from './Components/Secteurs/lis-secteur/lis-secteur.component';
+import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secteur.component';
+import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
 
 const routes: Routes = [
   //path pour les commandes 
@@ -34,7 +40,13 @@ const routes: Routes = [
   {path:'addPersonnel', component :AddPersonnelComponent},
   {path : 'listProcessus', component:ListProcessusComponent},
   {path: 'addProcessus', component: AddProcessusComponent},
-  {path : 'updateProcessus/:id', component: UpdateProcessusComponent}
+  {path : 'updateProcessus/:id', component: UpdateProcessusComponent},
+  {path :'listsites', component: ListSiteComponent},
+  {path:'addSite', component:AddSiteComponent},
+  {path: 'updateSite/:id', component: UpdateSiteComponent},
+  {path: 'listSecteur', component:LisSecteurComponent},
+  {path:'addSecteur', component:AddSecteurComponent},
+  {path:'updateSecteur/:id', component:UpdateSecteurComponent}
 ];
 
 @NgModule({

@@ -46,7 +46,7 @@ export class UpdateProcessusComponent {
       sigle: ['',Validators.required],
       typologie: ['',Validators.required],
       finalite:['',Validators.required],
-      pilote:[''],
+      pilote:['', Validators.required],
       acteurs: ['',Validators.required],
       donnee_entree:['',Validators.required],
       activites: ['', Validators.required], 

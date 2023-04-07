@@ -30,7 +30,7 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Typologie</label>
-                                       <select class="selectpicker form-control" data-style="py-0" id="typologie" name="typologie" formControlName="typologie" >
+                                       <select  class="custom-select" data-style="py-0" id="typologie" name="typologie" formControlName="typologie" >
                                            <option>Management</option>
                                            <option>Opérationnel</option>
                                            <option>Support</option>
@@ -51,7 +51,7 @@
                                 <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Pilote</label>
-                                    <select id="pilote" name="pilote" formControlName="pilote" class="selectpicker form-control" data-style="py-0" required>
+                                    <select id="pilote" name="pilote" formControlName="pilote"  class="custom-select" data-style="py-0" required>
                                         <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
                                        </select>
                                         
