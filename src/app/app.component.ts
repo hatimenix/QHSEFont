@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'QHSEFrontAngular';
+  showSidebar: boolean = false;
+  isLoginPage: boolean = false;
+
+  toggleSidebar() {
+    this.showSidebar = !this.showSidebar;
+  }
 }
