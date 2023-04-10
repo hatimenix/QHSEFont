@@ -53,8 +53,9 @@ export class ListNcComponent {
 
   searchQuery: string = '';
 
-  currentNc : Nc = new Nc()
   originalNcs: Nc[] = [];
+  filteredNcs: Nc[] = [];
+
 
   ncs : Nc[] = []
 
@@ -87,8 +88,6 @@ export class ListNcComponent {
     processus: new FormControl(''),
     site: new FormControl(''),
     responsable_traitement: new FormControl(''),
-
-    
 
   });
 
@@ -135,25 +134,23 @@ export class ListNcComponent {
   }
   
   filterByEtatTrue() {
-    this.resetFilter()
-    this.originalNcs = this.ncs.slice(); // make a copy of the original list
-    this.ncs = this.ncs.filter(nc => nc.etat === true);
-
+    this.filteredNcs = this.originalNcs.filter(nc => nc.etat === true);
   }
-
+  
   filterByEtatFalse() {
-    this.originalNcs = this.ncs.slice(); // make a copy of the original list
-    this.ncs = this.ncs.filter(nc => nc.etat === false);
 
-    }
-    resetFilter() {
-      this.ncs = this.originalNcs.slice(); // assign the original list back
-    }
+    this.filteredNcs = this.originalNcs.filter(nc => nc.etat === false);
+  }
+  resetFilter() {
+    this.filteredNcs = this.originalNcs;
+  }
+  
 
 getNcs() {
   this.ncservice.getAll().subscribe(
     res => {
-      this.ncs = res;
+      this.originalNcs = res;
+      this.filteredNcs = res;
     },
     error => {
       console.log(error);
@@ -173,6 +170,31 @@ deleteNc(id : number){
 
 }
 updateNc() : void {
+
+  const formData =  new FormData()
+    formData.append("intitule", this.intitule);
+    formData.append("nature", this.nature);
+    formData.append("domaine", this.domaine);
+    formData.append("detail_cause", this.detail_cause);
+    formData.append("date_nc", this.date_nc);
+    formData.append("date_prise_en_compte", this.date_prise_en_compte);
+    formData.append("description_detailee", this.description_detailee);
+    formData.append("annee", this.annee);
+    formData.append("mois", this.mois);
+    formData.append("delai_prevu", this.delai_prevu);
+    formData.append("type_cause", this.type_cause);
+    formData.append("cout", this.cout);
+    formData.append("progress", this.progress);
+    formData.append("etat", this.etat);
+    formData.append("info_complementaires", this.info_complementaires);
+    if (this.piece_jointe !== null && this.piece_jointe !== undefined) {
+      formData.append("piece_jointe", this.piece_jointe);
+  }    formData.append("processus", this.processus);
+    formData.append("site", this.site);
+    formData.append("responsable_traitement", this.responsable_traitement);
+
+  this.ncservice.update(this.id, formData)
+
   this.currentNc = {
       id: this.id,
       intitule: this.intitule,
@@ -205,6 +227,7 @@ updateNc() : void {
 
 
   this.ncservice.update(this.currentNc.id, this.currentNc)
+
       .subscribe({
           next: (res) => {
               console.log(res);
@@ -214,6 +237,12 @@ updateNc() : void {
               console.error(e);
           }
       });
+} 
+
+updateFile(event: any) {
+  const file = event.target.files[0];
+  this.piece_jointe=file
+
 }
 downloadPiece(id: number): void {
   this.ncservice.downloadPiece(id).subscribe(
@@ -297,10 +326,7 @@ getNcData( id : number,
 navigateToNc() {
   this.router.navigate(['/nc-add']);
 }
-updateFile(event:any) {
-  const file = event.target.files[0];
-  this.currentNc.piece_jointe=file
-}
+
 openDeleteModal(id: number) {
   this.idTodelete = id;
   this.deleteModal.show();
@@ -321,6 +347,7 @@ delete() {
     
   });
 }
+
 uploadFile(event: any) {
   const file = event.target.files[0];
   this.currentNc.piece_jointe=file

@@ -28,6 +28,19 @@
 
 
                        <form [formGroup]="form" data-toggle="validator">
+                        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+                            <li class="nav-item">
+                               <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description du problème</a>
+                            </li>
+                            <li class="nav-item">
+                               <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">Analyse</a>
+                            </li>
+                            <li class="nav-item">
+                               <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">Actions</a>
+                            </li>
+                         </ul>
+                         <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
                            <div class="row">
                             <div class="col-md-6">                      
                                 <div class="form-group">
@@ -84,8 +97,8 @@
                             </div>  
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>detail_cause *</label>
-                                    <input [(ngModel)]="ncf.detail_cause" type="text" formControlName="detail_cause" class="form-control" placeholder="detail_cause " data-errors="Please Enter Name." id="detail_cause" >
+                                    <label>mois *</label>
+                                    <input [(ngModel)]="ncf.mois" type="text" formControlName="mois" class="form-control" placeholder="mois " data-errors="Please Enter Name." id="mois" >
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -96,6 +109,9 @@
                                     <input [(ngModel)]="ncf.annee" type="text" formControlName="annee" class="form-control" placeholder="annee " data-errors="Please Enter Name." id="annee" >
                                     <div class="help-block with-errors"></div>
                                 </div>
+
+                            </div> 
+
                             </div>
                             <div class="col-md-6">                      
                                 <div class="form-group">
@@ -104,6 +120,7 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>  
+
 
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -139,9 +156,12 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="piece_jointe">Piece jointe:</label>
-                                    <input type="file" class="form-control image-file" (change)="uploadFile($event)"formControlName="piece_jointe">
+                                    <input type="file" class="form-control image-file" [(ngModel)]="ncf.piece_jointe" (change)="uploadFile($event)"formControlName="piece_jointe">
                                 </div>
                             </div>
+                            </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
                             <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Type cause *</label>
@@ -150,6 +170,12 @@
                                         <option>type1</option>
                                         <option>type2</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Détail cause</label>
+                                    <textarea [(ngModel)]="ncf.detail_cause" formControlName="detail_cause" class="form-control" id="detail_cause" name="description_detailee" rows="4"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">                      
@@ -161,25 +187,69 @@
                             </div>     
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Avancement *</label>
-                                    <input [(ngModel)]="ncf.progress" type="text" formControlName="progress" class="form-control" placeholder="progress " data-errors="Please Enter Name." id="progress" >
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div> 
-                            <div class="col-md-6">                      
-                                <div class="form-group">
                                     <label>Etat *</label>
                                     <input [(ngModel)]="ncf.etat" type="checkbox" formControlName="etat" class="form-control" placeholder="etat " data-errors="Please Enter Name." id="etat" >
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6">                      
-                                <div class="form-group">
-                                    <label>frequence *</label>
-                                    <input [(ngModel)]="ncf.frequence" type="checkbox" formControlName="frequence" class="form-control" placeholder="frequence " data-errors="Please Enter Name." id="frequence" >
-                                    <div class="help-block with-errors"></div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+                                <div class="row text-center">
+                                    <div class="col-md-6">                      
+                                        <div class="form-group">
+                                            <label class="text-dark font-weight-bold">Frequence *</label>
+                                            <div class="checkbox">
+                                                <input [(ngModel)]="ncf.frequence" type="checkbox" formControlName="frequence" class="form-control" placeholder="Frequence" data-errors="Please Enter Name." id="frequence">
+                                                <label for="frequence">Le problème est-il déjà survenu au cours de ces 6 derniers mois?</label>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                      
+                                        <div class="form-group">
+                                            <label class="text-dark font-weight-bold">Action immédiate *</label>
+                                            <input [(ngModel)]="ncf.action_immediate" type="checkbox" formControlName="action_immediate" class="form-control" placeholder="Immediate Action" data-errors="Please Enter Name." id="action_immediate" >
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                      
+                                        <div class="form-group">
+                                            <label class="text-dark font-weight-bold">Avancement *</label>
+
+                                                <div class="progress-bar" role="progressbar" style="width: 4px" [attr.aria-valuenow]="ncf.progress">
+                                                </div>
+                                            <input [(ngModel)]="ncf.progress" type="range" formControlName="progress" class="form-control-range" placeholder="0%" data-errors="Please Enter Name." id="progress" >
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                        </div>
+                                    <div class="col-md-6">                      
+                                        <div class="form-group">
+                                            <label class="text-dark font-weight-bold">NC clôturée *</label>
+                                            <input [(ngModel)]="ncf.nc_cloture" type="checkbox" formControlName="nc_cloture" class="form-control" placeholder="NC Closed" data-errors="Please Enter Name." id="nc_cloture" >
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                      
+                                        <div class="form-group">
+                                            <label class="text-dark font-weight-bold">Gravite *</label>
+                                            <div class="checkbox">
+                                                <input [(ngModel)]="ncf.gravite" type="checkbox" formControlName="gravite" class="form-control" placeholder="Gravite" data-errors="Please Enter Name." id="gravite">
+                                                <label for="gravite">Le problème impacte-t-il le client?</label>
+                                                <br>
+                                                <label for="gravite">Le problème génère-t-il des coûts?</label>
+                                                <br>
+                                                <label for="gravite">Le problème met-il la sécurité des personnes en danger?</label>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                
                                 </div>
                             </div>
+                            </div>                            
+                            
+
                             <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>gravite *</label>
@@ -205,9 +275,12 @@
                            </div>                            
                            <button type="submit" (click)="createNC()" class="btn btn-primary mr-2">Ajouter NC</button>
                            <button type="reset" class="btn btn-danger">Reset</button>
+
                        </form>
                    </div>
                </div>
+               <button type="submit" (click)="createNC()" class="btn btn-primary mr-2">Enregistrer</button>
+               <button type="reset" class="btn btn-danger">Annuler</button>
            </div>
 
        </div>

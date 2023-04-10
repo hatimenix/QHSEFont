@@ -49,7 +49,6 @@
                             <th scope="col">type_cause</th>
                             <th scope="col">cout</th>
                             <th scope="col">Avancement</th>
-                            <th scope="col">etat</th>
                             <th scope="col">info_complementaires</th>
                             <th scope="col">frequence</th>
                             <th scope="col">gravite</th>
@@ -63,7 +62,8 @@
                    </thead>
                    <tbody class="ligth-body">
 
-                    <tr *ngFor="let nc of ncs | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+                    <tr *ngFor="let nc of filteredNcs | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+
                         <th scope="row">{{nc.id}}</th>
                         <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                         <td>{{nc.nature}}</td>
@@ -83,15 +83,12 @@
                         <td>{{nc.type_cause}}</td>
                         <td>{{nc.cout}}$</td>
                         <td>{{nc.progress}}%</td>
-                        <td>{{nc.etat}}</td>
                         <td>{{nc.info_complementaires}}</td>
                         <td>{{nc.frequence}}</td>
                         <td>{{nc.gravite}}</td>
                         <td>{{nc.action_immediate}}</td>
                         <td>{{nc.nc_cloture}}</td>
                         <a href="{{ nc.piece_jointe }}" download>{{ nc.piece_jointe }}</a>
-
-
 
                         <td>
                                <div class="d-flex align-items-center list-action">
@@ -152,79 +149,99 @@
             <div class="row">
               <div class="col">
                 <label for="intitule" class="form-label">Intitulé de la non-conformité : </label>
-                <input name="intitule" value="{{intitule}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="intitule">
+                <input name="intitule" value="{{intitule}}" [(ngModel)] = "intitule" formControlName="intitule" style="width: 100%;" type="text" class="rounded-pill form-control" id="intitule">
               </div>
               <div class="col">
                 <label for="nature" class="form-label">Nature : </label>
-                <input name="nature"  value="{{nature}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="nature">
+                <input name="nature"  value="{{nature}}" [(ngModel)] = "nature" formControlName="nature" style="width: 100%;" type="text" class="rounded-pill form-control" id="nature">
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <label for="detail_cause" class="form-label">Detail cause : </label>
-                <input name="detail_cause"  value="{{detail_cause}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
+                <input name="detail_cause"  value="{{detail_cause}}" [(ngModel)] = "detail_cause" formControlName="detail_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
               </div>
               <div class="col">
                 <label for="date_nc" class="form-label">Date NC : </label>
-                <input name="date_nc"  value="{{date_nc}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_nc">
+                <input name="date_nc"  value="{{date_nc}}" [(ngModel)] = "date_nc" formControlName="date_nc" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_nc">
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
-                <input name="date_prise_en_compte" value="{{date_prise_en_compte}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_prise_en_compte">
+                <input name="date_prise_en_compte" value="{{date_prise_en_compte}}" [(ngModel)] = "date_prise_en_compte" formControlName="date_prise_en_compte" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_prise_en_compte">
               </div>
               <div class="col">
                 <label for="description_detailee" class="form-label">Description détaillée : </label>
-                <input name="description_detailee"  value="{{description_detailee}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="description_detailee">
+                <input name="description_detailee"  value="{{description_detailee}}" [(ngModel)] = "description_detailee" formControlName="description_detailee" style="width: 100%;" type="text" class="rounded-pill form-control" id="description_detailee">
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <label for="annee" class="form-label">Année : </label>
-                <input name="annee" value="{{annee}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="annee">
+                <input name="annee" value="{{annee}}" [(ngModel)] = "annee" formControlName="annee" style="width: 100%;" type="text" class="rounded-pill form-control" id="annee">
               </div>
 
               <div class="col">
                 <label for="mois" class="form-label">Mois : </label>
-                <input name="mois"  value="{{mois}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="mois">
+                <input name="mois"  value="{{mois}}" [(ngModel)] = "mois" formControlName="mois" style="width: 100%;" type="text" class="rounded-pill form-control" id="mois">
                 </div>
                 </div>
 
               <div class="row">
                 <div class="col">
                   <label for="type_cause" class="form-label">type_cause : </label>
-                  <input name="type_cause"  value="{{type_cause}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="type_cause">
+                  <input name="type_cause"  value="{{type_cause}}"[(ngModel)] = "type_cause" formControlName="type_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="type_cause">
                   </div>
-                  <div class="col">
-                    <label for="progress" class="form-label">Avancement : </label>
-                    <input name="progress"  value="{{progress}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="progress">
+                  <div class="col">                      
+                        <label class="text-dark font-weight-bold">Avancement *</label>
+
+                            <div class="progress-bar" role="progressbar" style="width: 4px" [attr.aria-valuenow]="progress">
+                            </div>
+                        <input [(ngModel)]="progress" type="range" formControlName="progress" class="form-control-range" id="progress" >
                     </div>
                     </div>
+                    
+                    <div class="row">
 
                       <div class="col">
                         <label for="detail_cause" class="form-label">Détail cause : </label>
-                        <input name="detail_cause"  value="{{detail_cause}}" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
+                        <input name="detail_cause"  value="{{detail_cause}}" [(ngModel)] = "detail_cause" formControlName="detail_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
+                        </div>
+
+                        <div class="col">
+                          <label for="info_complementaires" class="form-label">informations complementaires:</label>
+                          <input name="info_complementaires"  value="{{info_complementaires}}" [(ngModel)] = "info_complementaires" formControlName="info_complementaires" style="width: 100%;" type="text" class="rounded-pill form-control" id="info_complementaires">
+                          </div>
                         </div>
                         <div class="col">
                           <label for="site" class="form-label">Site : </label>
-                          <select  id="site" name="site" formControlName="site" style="width: 100%;" class="form-control" class="custom-select" >
+                          <select [(ngModel)]="site"  id="site" name="site" formControlName="site" style="width: 100%;" class="form-control" class="custom-select" >
                             <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
                            </select> 
                           </div>                      
                             <div class="col">
                               <label for="processus" class="form-label">Processus : </label>
-                              <select  id="processus" name="processus" formControlName="processus" style="width: 100%;" class="form-control" class="custom-select" >
+                              <select [(ngModel)]="processus" id="processus" name="processus" formControlName="processus" style="width: 100%;" class="form-control" class="custom-select" >
                                 <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.processus_nom }}</option>
                                </select> 
                               </div>
-                              <div class="col">
+                              <div class="col mb-3">
                                 <label for="responsable_traitement" class="form-label">responsable_traitement : </label>
-                                <select  id="responsable_traitement" name="responsable_traitement" style="width: 100%;" formControlName="responsable_traitement" class="form-control" class="custom-select" >
+                                <select [(ngModel)]="responsable_traitement" id="responsable_traitement" name="responsable_traitement" style="width: 100%;" formControlName="responsable_traitement" class="form-control" class="custom-select" >
                                   <option *ngFor="let responsable_traitement of utilisateurs" [value]="responsable_traitement.id">{{ responsable_traitement.nom }}</option>
                                 </select> 
-                                </div> 
+                                </div>
+
+                                <div class="col mb-2">
+                                <div class="custom-file">
+                                  <input (change)="updateFile($event)" [(ngModel)] = "piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
+                                  <label class="custom-file-label" for="customFile">Pièce jointe</label>
+                                </div>
+                                </div>
                                 </form>
+                                </div>
+                                </div>
 
 
             <label for="intitule" class="form-label">Intitulé de la non-conformité : </label>
