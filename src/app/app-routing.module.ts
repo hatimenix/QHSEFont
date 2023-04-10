@@ -29,44 +29,30 @@ import { UpdateProcessusComponent } from './Components/Processus/update-processu
 
 
 const routes: Routes = [
-
-  //path pour les commandes 
-  {path : '', component: LoginComponent},
-  {path:'home', component :HomeComponent},
-
-
+  {path : '', component: LoginComponent },
+  {path: 'home', component :HomeComponent},
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   {path: 'infoDanger/:id', component: InfoDangerComponent},
   {path : 'evenement', component: InfoEvenementComponent},
-  { path: 'sidebar', component: SidebarComponent },
-  { path: 'list-registre-traitement', component: ListRegistreTraitementComponent },
+  {path: 'list-registre-traitement', component: ListRegistreTraitementComponent},
   {path : 'nc-list', component: ListNcComponent},
   {path : 'nc-add', component: AddNcComponent},
-
-  {path : 'sidebar', component: SidebarComponent},
   {path: 'listC', component: ListCommandesComponent},
   {path: 'addC', component: AddCommandeComponent},
   {path: 'updateC/:id_commande', component: UpdateCommandeComponent },
   {path: 'listF', component: ListFicheComponent},
   {path: 'addF', component: AddFicheComponent},
   {path: 'updateF/:id', component: UpdateFicheComponent },
-  {path: 'login', component: LoginComponent},
   {path : 'listP', component: ListPersonnelComponent},
   {path :'addP', component: AddPersonnelComponent},
-
   {path:'updateP/:id', component :UpdatePersonnelComponent},
   {path:'addPersonnel', component :AddPersonnelComponent},
   {path : 'listProcessus', component:ListProcessusComponent},
   {path: 'addProcessus', component: AddProcessusComponent},
   {path : 'updateProcessus/:id', component: UpdateProcessusComponent}
-
-  {path:'updateP', component :UpdatePersonnelComponent},
-  {path:'addPersonnel', component :AddPersonnelComponent}
-
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

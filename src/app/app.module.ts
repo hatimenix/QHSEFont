@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
@@ -32,6 +31,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
+import { NavbarComponent } from './Components/navbar/navbar.component';
+
+
 
 
 
@@ -59,7 +61,6 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     ListProcessusComponent,
     AddProcessusComponent,
     UpdateProcessusComponent,
-    
     AddCommandeComponent,
     AddDangerComponent,
     UpdateDangerComponent,
@@ -67,6 +68,10 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     InfoDangerComponent,
     UpdateDangerComponent,
     AddNcComponent,
+    NavbarComponent
+    
+    
+    
 
   ],
   imports: [
@@ -81,7 +86,8 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     ReactiveFormsModule,
     BrowserModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+  
 
   ],
   providers: [ ],
