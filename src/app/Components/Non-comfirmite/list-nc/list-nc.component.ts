@@ -95,6 +95,7 @@ export class ListNcComponent {
 
   }
   ngOnInit(): void {
+
     this.apiSiteService.getAllSite().subscribe(
       (data: any[]) => {
         this.sites = data;
@@ -122,6 +123,9 @@ export class ListNcComponent {
         console.log(error); // Handle error
       }
     ); 
+
+
+
     this.getNcs();
     this.originalNcs = this.ncs.slice(); // create a copy of the original list
     this.deleteModal = new window.bootstrap.Modal(
@@ -134,12 +138,14 @@ export class ListNcComponent {
   }
   
   filterByEtatFalse() {
+
     this.filteredNcs = this.originalNcs.filter(nc => nc.etat === false);
   }
   resetFilter() {
     this.filteredNcs = this.originalNcs;
   }
   
+
 getNcs() {
   this.ncservice.getAll().subscribe(
     res => {
@@ -164,6 +170,7 @@ deleteNc(id : number){
 
 }
 updateNc() : void {
+
   const formData =  new FormData()
     formData.append("intitule", this.intitule);
     formData.append("nature", this.nature);
@@ -187,6 +194,40 @@ updateNc() : void {
     formData.append("responsable_traitement", this.responsable_traitement);
 
   this.ncservice.update(this.id, formData)
+
+  this.currentNc = {
+      id: this.id,
+      intitule: this.intitule,
+      domaine: this.domaine,
+      nature: this.nature,
+      detail_cause: this.detail_cause,
+      date_nc: this.date_nc,
+      date_prise_en_compte:this.date_prise_en_compte,
+      description_detailee:this.description_detailee,
+      annee:this.annee,
+      mois:this.mois,
+      delai_prevu:this.delai_prevu,
+      type_cause:this.type_cause,
+      cout:this.cout,
+      progress:this.progress,
+      etat:this.etat,
+      info_complementaires:this.info_complementaires,
+      frequence:this.frequence,
+      gravite:this.gravite,
+      action_immediate:this.action_immediate,
+      nc_cloture:this.nc_cloture,
+      processus_name: this.processus_name,
+      site_name: this.site_name,
+
+      responsable_name:this.responsable_name,
+      processus:this.processus,
+      site:this.site,
+      responsable_traitement: parseInt(this.responsable_traitement)
+    };
+
+
+  this.ncservice.update(this.currentNc.id, this.currentNc)
+
       .subscribe({
           next: (res) => {
               console.log(res);
@@ -244,10 +285,12 @@ getNcData( id : number,
   nc_cloture:any,
   processus_name:any,
   site_name:any,
+
   responsable_name:any,
   processus:any,
   site:any,
   responsable_traitement:any,
+
   ){
     this.id = id,
     this.intitule=intitule,
@@ -256,6 +299,7 @@ getNcData( id : number,
     this.detail_cause = detail_cause,
     this.date_nc = date_nc,
     this.date_prise_en_compte=date_prise_en_compte,
+
     this.description_detailee=description_detailee,
     this.annee=annee
     this.mois=mois,
@@ -275,6 +319,7 @@ getNcData( id : number,
     this.processus=processus,
     this.site=site,
     this.responsable_traitement=responsable_traitement
+
 
 
 }
@@ -302,6 +347,14 @@ delete() {
     
   });
 }
+
+uploadFile(event: any) {
+  const file = event.target.files[0];
+  this.currentNc.piece_jointe=file
+
+
+}
+
 exportToExcel() {
   const worksheet = XLSX.utils.json_to_sheet(this.ncs.map((nc) => ({
     'ID': nc.id,
@@ -335,5 +388,6 @@ exportToExcel() {
   const filename = 'paiperleck_non-conformités.xlsx';
   saveAs(blob, filename);
 }
+
 
 }

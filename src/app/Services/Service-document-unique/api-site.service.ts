@@ -17,4 +17,9 @@ export class ApiSiteService {
   getAllSite(): Observable<Site[]> {
     return this.http.get<Site[]>(this.API_URL_SITE);
   }
+
+  getSite(id: number): Observable<Site> {
+    const url = `${this.API_URL_SITE}${id}/`;
+    return this.http.get<Site>(url);
+  }
 }
