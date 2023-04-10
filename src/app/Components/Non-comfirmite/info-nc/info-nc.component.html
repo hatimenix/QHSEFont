@@ -1,0 +1,99 @@
+<div class="content-page">
+    <div class="container-fluid">
+        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+            <li class="nav-item">
+               <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description du problème</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">Analyse</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">Actions</a>
+            </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                 <tr class="table-default">
+                   <td>Site:</td>
+                   <td>{{ currentNc.site_name }}</td>
+                 </tr>
+                 <tr class="table-info">
+                    <td>Nature:</td>
+                    <td>{{ currentNc.nature }}</td>
+                  </tr>
+                 <tr class="table-default">
+                    <td>Domaine:</td>
+                    <td>{{ currentNc.domaine }}</td>
+                  </tr>
+                <tr class="table-info">
+                    <td>Processus:</td>
+                    <td>{{ currentNc.processus_name }}</td>
+                  </tr>
+                  <tr class="table-default" >
+                <td>Intitulé de la non-conformité:</td>
+                <td>{{ currentNc.intitule }}</td>
+            </tr>
+                <tr class="table-info">
+                    <td>Date NC:</td>
+                    <td>{{ currentNc.date_nc }}</td>
+                  </tr>
+                <tr class="table-default">
+                    <td>Date de prise en compte:</td>
+                    <td>{{ currentNc.date_prise_en_compte }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Description détailée:</td>
+                    <td>{{ currentNc.description_detailee }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Resp traitement:</td>
+                    <td>{{ currentNc.responsable_name }}</td>
+                  </tr>
+               </table>
+             </div>
+           </div>
+           <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                 <tr class="table-default">
+                   <td>Causes type:</td>
+                   <td>{{ currentNc.type_cause }}</td>
+                 </tr>
+                 <tr class="table-info">
+                   <td>Détail cause:</td>
+                   <td>{{ currentNc.detail_cause }}</td>
+                 </tr>
+                 <tr class="table-default">
+                   <td>Coûts :</td>
+                   <td>{{ currentNc.cout }}</td>
+                 </tr>
+               </table>
+             </div>
+           </div>
+           <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+            <div class="table-responsive">
+              <table class="table">
+                <tr class="table-default">
+                    <td>Fréquence :</td>
+                    <td>{{ currentNc.frequence }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Gravité:</td>
+                    <td>{{ currentNc.gravite }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Action immediate :</td>
+                    <td>{{ currentNc.action_immediate }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Nc cloture :</td>
+                    <td>{{ currentNc.nc_cloture }}</td>
+                  </tr>
+              </table>
+            </div>
+          </div>
+         </div>
+    </div>
+</div>

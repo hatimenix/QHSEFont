@@ -6,6 +6,9 @@ export class Nc {
   date_nc!: Date | null
   processus_name!: string | null
   site_name!: string | null
+  processus!: number | null
+  site!: number | null
+  responsable_traitement!: number | null
   date_prise_en_compte!: Date | null
   description_detailee!: string | null
   annee!: String | null
@@ -17,7 +20,7 @@ export class Nc {
   progress!: number | null
   etat!: boolean | null
   info_complementaires!: string | null
-  piece_jointe!: any | null
+  piece_jointe?: any | null;
   frequence!: boolean | null
   gravite!: boolean | null
   action_immediate!: boolean | null

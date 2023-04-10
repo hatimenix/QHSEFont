@@ -11,6 +11,9 @@ import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
+
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
+
 import { ListCommandesComponent } from './Components/Commandes/list-commandes/list-commandes.component';
 import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
 import { UpdateCommandeComponent } from './Components/Commandes/update-commande/update-commande.component';
@@ -25,6 +28,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { ListProcessusComponent } from './Components/Processus/list-processus/list-processus.component';
 import { AddProcessusComponent } from './Components/Processus/add-processus/add-processus.component';
 import { UpdateProcessusComponent } from './Components/Processus/update-processus/update-processus.component';
+
 
 
 
@@ -48,6 +52,9 @@ const routes: Routes = [
   {path : 'nc-list', component: ListNcComponent},
   {path : 'nc-add', component: AddNcComponent},
 
+  { path: 'nc/:id', component: InfoNcComponent },
+
+
   {path : 'sidebar', component: SidebarComponent},
   {path: 'listC', component: ListCommandesComponent},
   {path: 'addC', component: AddCommandeComponent},
@@ -67,6 +74,7 @@ const routes: Routes = [
 
   {path:'updateP', component :UpdatePersonnelComponent},
   {path:'addPersonnel', component :AddPersonnelComponent}
+
 
 
 ];
