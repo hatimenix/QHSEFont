@@ -9,6 +9,8 @@ export const environment = {
     API_URL_EV: 'http://127.0.0.1:8000/evenement/',
     API_URL_EVA: 'http://127.0.0.1:8000/evaluation/',
     API_URL_AC: 'http://127.0.0.1:8000/action/',
+    API_URL_AE: 'http://127.0.0.1:8000/analyse_evenement/',
+
     API_LINK :"http://127.0.0.1:8000/",
     API_registre_de_traitement :"http://127.0.0.1:8000/traitements/",
     API_URL:"http://127.0.0.1:8000/",
@@ -18,5 +20,6 @@ export const environment = {
     API_User : "http://127.0.0.1:8000/user/",
     API_Processus : "http://127.0.0.1:8000/processus/",
     };
+
 
 

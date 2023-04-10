@@ -39,6 +39,9 @@ const routes: Routes = [
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   {path: 'infoDanger/:id', component: InfoDangerComponent},
+
+  {path : 'evenement/:id', component: InfoEvenementComponent}
+
   {path : 'evenement', component: InfoEvenementComponent},
   { path: 'sidebar', component: SidebarComponent },
   { path: 'list-registre-traitement', component: ListRegistreTraitementComponent },
@@ -64,6 +67,7 @@ const routes: Routes = [
 
   {path:'updateP', component :UpdatePersonnelComponent},
   {path:'addPersonnel', component :AddPersonnelComponent}
+
 
 ];
 

@@ -1,4 +1,5 @@
 export class Evenement {
+    id !: number;
     type_contract !: string;
     nom_personne !: string;
     type_evenement !: string;
@@ -16,9 +17,9 @@ export class Evenement {
     siege_de_lesions_2 !: string;
     nature_lesions !: string;
     service_name !: string;
-    famille_name !: string;
+    arret_travail !: Boolean;
     Site_name !: string;
-    danger_name !: string;
+    danger_name !: string[];
     site !: number;
     service !: number;
     dangers!: number[];
