@@ -21,6 +21,9 @@ import { UpdateSiteComponent } from './Components/Sites/update-site/update-site.
 import { LisSecteurComponent } from './Components/Secteurs/lis-secteur/lis-secteur.component';
 import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secteur.component';
 import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
+import { ListDocumentComponent } from './Components/Documentation/list-document/list-document.component';
+import { AddDocumentComponent } from './Components/Documentation/add-document/add-document.component';
+import { UpdateDocumentComponent } from './Components/Documentation/update-document/update-document.component';
 
 const routes: Routes = [
   //path pour les commandes 
@@ -46,7 +49,10 @@ const routes: Routes = [
   {path: 'updateSite/:id', component: UpdateSiteComponent},
   {path: 'listSecteur', component:LisSecteurComponent},
   {path:'addSecteur', component:AddSecteurComponent},
-  {path:'updateSecteur/:id', component:UpdateSecteurComponent}
+  {path:'updateSecteur/:id', component:UpdateSecteurComponent},
+  {path :'listdocuments', component:ListDocumentComponent},
+  {path :'adddocuments', component:AddDocumentComponent},
+  {path :'updatedocuments/:id', component:UpdateDocumentComponent},
 ];
 
 @NgModule({

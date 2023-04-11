@@ -13,17 +13,10 @@ export class ListProcessusComponent implements OnInit {
   processus: Processus[] = [];
   personnelService: any;
   
-  
-  
 constructor(private processusService: ProcessusService) { }
-
 ngOnInit(): void {
 this.loadprocessus();
-
 }
-
-
-
 loadprocessus() {
 this.processusService.getProcessus().subscribe(
 (data: Processus[]) => {
@@ -31,7 +24,6 @@ this.processus = data;
 }
 )
 }
-
 deleteProcessus(id: number) :void{
   this.processusService.deleteProcessus(id).subscribe(() => {
     this.processus = this.processus.filter((p) => p.id !== id);
