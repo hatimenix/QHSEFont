@@ -14,6 +14,7 @@ constructor(private personnelService: PersonnelService) { }
 
 ngOnInit(): void {
 this.loadPersonnels();
+
 }
 
 loadPersonnels() {

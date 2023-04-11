@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
-import { ApiProcessusService } from 'src/app/Services/Services-non-confirmité/api-processus.service';
+import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 
 declare var window: any;
 
@@ -91,7 +91,7 @@ export class ListNcComponent {
 
   });
 
-  constructor(private   ncservice : ServicesNonConfirmitéService, private router : Router,private apiProcessusService :ApiProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){
+  constructor(private   ncservice : ServicesNonConfirmitéService, private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){
 
   }
   ngOnInit(): void {
@@ -105,7 +105,7 @@ export class ListNcComponent {
         console.log(error); // Handle error
       }
     );  
-    this.apiProcessusService.getAllProcessus().subscribe(
+    this.apiProcessusService.getProcessus().subscribe(
       (data: any[]) => {
         this.processuss = data;
         console.log(this.processuss); // Print the processuss to the console
@@ -195,9 +195,9 @@ updateNc() : void {
 
   this.ncservice.update(this.id, formData)
 
+  
 
-
-  this.ncservice.update(this.id,formData)
+  this.ncservice.update(this.id, formData)
 
       .subscribe({
           next: (res) => {
@@ -317,13 +317,6 @@ delete() {
 
     
   });
-}
-
-uploadFile(event: any) {
-  const file = event.target.files[0];
-  this.piece_jointe=file
-
-
 }
 
 exportToExcel() {

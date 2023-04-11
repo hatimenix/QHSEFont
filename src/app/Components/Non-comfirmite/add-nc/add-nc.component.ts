@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
-import { ApiProcessusService } from 'src/app/Services/Services-non-confirmité/api-processus.service';
+
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
+import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 @Component({
   selector: 'app-add-nc',
   templateUrl: './add-nc.component.html',
@@ -14,7 +15,7 @@ export class AddNcComponent {
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
-  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ApiProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){}
+  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){}
 
   mode = 'list';
   ncf = {
@@ -98,7 +99,7 @@ export class AddNcComponent {
         console.log(error); // Handle error
       }
     );  
-    this.apiProcessusService.getAllProcessus().subscribe(
+    this.apiProcessusService.getProcessus().subscribe(
       (data: any[]) => {
         this.processuss = data;
         console.log(this.processuss); // Print the sites to the console

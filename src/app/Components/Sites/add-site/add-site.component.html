@@ -1,0 +1,59 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Ajouter Site</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="siteForm" (ngSubmit)="onSubmit()">
+                           <div class="row">                                  
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label>Nom du Site</label>
+                                       <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom">
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                               </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Sigle</label>
+                                    <input type="text" class="form-control" placeholder="Entrer le sigle" required id="sigle" name="sigle" formControlName="sigle">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                                
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Responsable Site </label>
+                                    <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required>
+                                        <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
+                                       </select>   
+                                </div> 
+                                </div> 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Groupe Restaurant</label>
+                                        <select class="selectpicker form-control" data-style="py-0" id="groupe_retso" name="groupe_retso" formControlName="groupe_retso" >
+                                            <option>Wiltz resto</option>
+                                            <option>Schengen resto</option>
+                                            <option>Beaufort resto</option>
+                                            <option>Aucune</option>
+                                        </select>
+                                    </div> 
+                                </div>  
+                           </div>                            
+                           <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
+                           <button type="reset" class="btn btn-danger">annuler</button>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- Page end  -->
+   </div>
+     </div>
+     <router-outlet></router-outlet><app-sidebar></app-sidebar>
