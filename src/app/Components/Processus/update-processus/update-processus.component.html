@@ -1,1 +1,136 @@
-<p>update-processus works!</p>
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Modifier Processus</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="processusForm" (ngSubmit)="onSubmit()">
+                           <div class="row">                                  
+                              
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label>Intitulé</label>
+                                       <input type="text" class="form-control" placeholder="Entrer intitulé" required id="intitule" name="intitule" formControlName="intitule">
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                               </div> 
+                               
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Sigle</label>
+                                    <input type="text" class="form-control" placeholder="Entrer typologie" required id="sigle" name="sigle" formControlName="sigle">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label>Typologie</label>
+                                       <select  class="custom-select" data-style="py-0" id="typologie" name="typologie" formControlName="typologie" >
+                                           <option>Management</option>
+                                           <option>Opérationnel</option>
+                                           <option>Support</option>
+                                           <option>Aucune</option>
+                                       </select>
+                                   </div> 
+                               </div>  
+                               <div class="col-md-6">
+                                <div class="form-group">
+                                    
+                                    <label>Finalité</label>
+                                         <textarea class="form-control" rows="4"
+                                            placeholder="Label in Textarea" id="finalite" name="finalite" formControlName="finalite"></textarea>
+                                         
+                                      </div>
+                                  
+                                </div>
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Pilote</label>
+                                    <select id="pilote" name="pilote" formControlName="pilote"  class="custom-select" data-style="py-0" required>
+                                        <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
+                                       </select>
+                                        
+                                    
+                                </div> 
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        
+                                        <label>Acteurs</label>
+                                             <textarea class="form-control"  rows="4"
+                                                placeholder="Label in Textarea" id="acteurs" name="acteurs" formControlName="acteurs"></textarea>
+                                             
+                                          </div>
+                                      
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            
+                                            <label>Donnée Entrée</label>
+                                                 <textarea class="form-control"  rows="4"
+                                                    placeholder="Label in Textarea" id="donnee_entree" name="donnee_entree" formControlName="donnee_entree"></textarea>
+                                                 
+                                              </div>
+                                          
+                                        </div>
+                               <div class="col-md-6">
+                                <div class="form-group">
+                                            
+                                    <label>Activités</label>
+                                         <textarea class="form-control"rows="4"
+                                            placeholder="Label in Textarea"id="activites" name="activites" formControlName="activites"></textarea>
+                                         
+                                      </div>
+                               </div>
+                               <div class="col-md-6"> 
+                                <div class="form-group">
+                                            
+                                    <label>Donnée Sortie</label>
+                                         <textarea class="form-control" id="donnee_sortie" rows="4"
+                                            placeholder="Label in Textarea" name="donnee_sortie" formControlName="donnee_sortie"></textarea>
+                                      </div>
+                               </div> 
+                               <div class="col-md-6"> 
+                                <div class="form-group">
+                                            
+                                    <label>Ressource Tech Org</label>
+                                         <textarea class="form-control" id="ressources_tech_org" rows="4"
+                                            placeholder="Label in Textarea" name="ressources_tech_org" formControlName="ressources_tech_org"></textarea>
+                                         
+                                      </div>
+                               </div> 
+                               <div class="col-md-6"> 
+                                <div class="form-group">
+                                            
+                                    <label>Objectifs et indicateurs</label>
+                                         <textarea class="form-control" id="objectifs_ind" rows="4"
+                                            placeholder="Label in Textarea" name="objectifs_ind" formControlName="objectifs_ind"></textarea>
+                                         
+                                      </div>
+                               </div>  
+                               <div class="col-md-6"> 
+                                <div class="form-group">
+                                            
+                                    <label>Outils de surveillance</label>
+                                         <textarea class="form-control" id="outils_surveil" rows="4"
+                                            placeholder="Label in Textarea" name="outils_surveil" formControlName="outils_surveil" ></textarea>
+                                         
+                                      </div>
+                               </div>  
+                           </div>                            
+                           <button type="submit" class="btn btn-primary mr-2" >Modifier</button>
+                           <button type="reset" class="btn btn-danger">annuler</button>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- Page end  -->
+   </div>
+     </div>
+     <router-outlet></router-outlet><app-sidebar></app-sidebar>
