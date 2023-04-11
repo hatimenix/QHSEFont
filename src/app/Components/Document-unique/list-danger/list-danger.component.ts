@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 
 @Component({
   selector: 'app-list-danger',
@@ -6,5 +7,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./list-danger.component.css']
 })
 export class ListDangerComponent {
+
+  dangers: any;
+
+  constructor(private apiDangerService: ApiDangerService) { }
+
+  ngOnInit() {
+    this.fetchDanger();
+  }
+
+  fetchDanger() {
+    this.apiDangerService.getAllDanger().subscribe((data) => {
+      this.dangers = data;
+    })
+  }
+
+  deleteDanger(id : any) {
+    this.apiDangerService.delDanger(id).subscribe(() => {
+      this.fetchDanger();
+    })
+  }
 
 }

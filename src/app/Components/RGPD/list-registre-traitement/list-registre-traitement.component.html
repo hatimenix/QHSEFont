@@ -1,1 +1,78 @@
-<p>list-registre-traitement works!</p>
+<div class="content-page">
+    <div class="container-fluid">
+       <div class="row">
+           <div class="col-lg-12">
+               <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+                   <div>
+                       <h4 class="mb-3">Registre de traitement</h4>
+                   </div>
+                   <a routerLink="/AddRegistre" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter registe de traitement</a>
+               </div>
+           </div>
+        <div class="tab-content" id="pills-tabContent-1">
+            <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+                <div class="col-lg-12">
+                    <div class="table-responsive rounded mb-3">
+                    <table class="data-table table mb-0 tbl-server-info">
+                        <thead class="bg-white text-uppercase">
+                            <tr class="ligth ligth-data">
+                                <th>Registre </th>
+                                <th>Nom du traitement</th>
+                                <th>Ref traitement</th>
+                                <th>Date de creation</th>
+                                <th>date de mise a jour</th>
+                                <th>Donnee sensibles</th>
+                                <th>Personne Concernee</th>
+                                <th>Precisions</th>
+                                <th style="min-width: 100px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let traitement of TraitementList">
+                                <td>{{traitement.typeregistre}}</td>
+                                <td>{{traitement.nomtraitement}}</td>
+                                <td>{{traitement.REFtraitement}}</td>
+                                <td>{{traitement.datedecreation}}</td>
+                                <td>{{traitement.datedemiseajour}}</td>
+                                <td>{{traitement.donneesensible}}</td>
+                                <td>{{traitement.personneconcernee}}</td>
+                                <td>{{traitement.precision}}</td>
+                                <td>
+                                    <div class="flex align-items-center list-user-action">
+                                       <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
+                                          data-original-title="Edit" href="#"><i class="ri-pencil-line mr-0"></i></a>
+                                       <a class="btn btn-sm bg-secondary" data-toggle="tooltip" data-placement="top" title=""
+                                          data-original-title="Delete" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
+                                    </div>
+                                 </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+                <div class="col-lg-12">
+                    <div class="table-responsive rounded mb-3">
+                    <table class="data-table table mb-0 tbl-server-info">
+                        <thead class="bg-white text-uppercase">
+                            <tr class="ligth ligth-data">
+                                <th>Nom du traitement</th>
+                                <th>Ref traitement</th>
+                                <th>Date de creation</th>
+                                <th>date de mise a jour</th>
+                                <th>Donnee sensibles</th>
+                                <th>Responsable des traitements</th>
+                                <th>DPO</th>
+                                <th>Representant dans l'UE</th>
+                            </tr>
+                        </thead>
+                       
+                    </table>
+                </div>
+            </div>
+         </div>
+           
+           </div>
+       </div>
+       <!-- Page end  -->
