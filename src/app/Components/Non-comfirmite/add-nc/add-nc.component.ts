@@ -2,13 +2,19 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
+import { ApiProcessusService } from 'src/app/Services/Services-non-confirmité/api-processus.service';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 @Component({
   selector: 'app-add-nc',
   templateUrl: './add-nc.component.html',
   styleUrls: ['./add-nc.component.css']
 })
 export class AddNcComponent {
-  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router){}
+  sites: any[] = [];
+  processuss: any[] = [];
+  utilisateurs: any[] = [];
+  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ApiProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){}
 
   mode = 'list';
   ncf = {
@@ -33,15 +39,14 @@ export class AddNcComponent {
     gravite:'',
     action_immediate:'',
     nc_cloture:'',
-    piece_jointe:''
+    piece_jointe:'',
+    processus:'',
+    site:'',
+    responsable_traitement:''
 
 
   };
 
-
-
-
-  img: any;
   submitted = false;
   form = new FormGroup({
     intitule: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -64,9 +69,11 @@ export class AddNcComponent {
     action_immediate: new FormControl(''),
     nc_cloture: new FormControl(''),
     piece_jointe: new FormControl(''),
+    processus: new FormControl(''),
+    site: new FormControl(''),
+    responsable_traitement: new FormControl('')
 
-
-
+    
 
   });
   ngOnInit(): void {
@@ -82,8 +89,36 @@ export class AddNcComponent {
 
     // aller en haut de la page
     window.scrollTo(0, 0);
+    this.apiSiteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.sites = data;
+        console.log(this.sites); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );  
+    this.apiProcessusService.getAllProcessus().subscribe(
+      (data: any[]) => {
+        this.processuss = data;
+        console.log(this.processuss); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );  
+    this.apiUtilisateurService.getAllUtilsateur().subscribe(
+      (data: any[]) => {
+        this.utilisateurs = data;
+        console.log(this.utilisateurs); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
   }
   createNC() {
+
     const data = {
       intitule: this.ncf.intitule,
       nature: this.ncf.nature,
@@ -108,14 +143,16 @@ export class AddNcComponent {
 
 
     };
+
     const formData =  new FormData()
-    formData.append("Intitule", this.ncf.intitule);
-    formData.append("Nature", this.ncf.nature);
-    formData.append("Domaine", this.ncf.domaine);
-    formData.append("Detail_cause", this.ncf.detail_cause);
-    formData.append("Date_nc", this.ncf.date_nc);
-    formData.append("Date_prise_en_compte", this.ncf.date_prise_en_compte);
-    formData.append("Description_detailee", this.ncf.description_detailee);
+    formData.append("intitule", this.ncf.intitule);
+    formData.append("nature", this.ncf.nature);
+    formData.append("domaine", this.ncf.domaine);
+    formData.append("detail_cause", this.ncf.detail_cause);
+    formData.append("date_nc", this.ncf.date_nc);
+    formData.append("date_prise_en_compte", this.ncf.date_prise_en_compte);
+    formData.append("description_detailee", this.ncf.description_detailee);
+    formData.append("annee", this.ncf.annee);
     formData.append("mois", this.ncf.mois);
     formData.append("delai_prevu", this.ncf.delai_prevu);
     formData.append("type_cause", this.ncf.type_cause);
@@ -128,15 +165,16 @@ export class AddNcComponent {
     formData.append("action_immediate", this.ncf.action_immediate);
     formData.append("nc_cloture", this.ncf.nc_cloture);
     formData.append("piece_jointe", this.ncf.piece_jointe);
+    formData.append("processus", this.ncf.processus);
+    formData.append("site", this.ncf.site);
+    formData.append("responsable_traitement", this.ncf.responsable_traitement);
 
 
 
 
 
+    this.ncservice.create(formData).subscribe({
 
-    console.log(data);
-
-    this.ncservice.create(data).subscribe({
       next: (res) => {
         console.log(res);
         this.router.navigate(["/nc-list"])
@@ -155,7 +193,11 @@ export class AddNcComponent {
   }
   
 
+  uploadFile(event: any) {
+    const file = event.target.files[0];
+    this.ncf.piece_jointe=file
 
+  }
 
 
   get f() {

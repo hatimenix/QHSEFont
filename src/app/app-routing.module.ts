@@ -11,6 +11,9 @@ import { ListRegistreTraitementComponent } from './Components/RGPD/list-registre
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
+
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
+
 import { ListCommandesComponent } from './Components/Commandes/list-commandes/list-commandes.component';
 import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
 import { UpdateCommandeComponent } from './Components/Commandes/update-commande/update-commande.component';
@@ -28,6 +31,7 @@ import { UpdateProcessusComponent } from './Components/Processus/update-processu
 
 
 
+
 const routes: Routes = [
   {path : '', component: LoginComponent },
   {path: 'home', component :HomeComponent},
@@ -35,6 +39,9 @@ const routes: Routes = [
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   {path: 'infoDanger/:id', component: InfoDangerComponent},
+
+  {path : 'evenement/:id', component: InfoEvenementComponent},
+
   {path : 'evenement', component: InfoEvenementComponent},
   {path: 'list-registre-traitement', component: ListRegistreTraitementComponent},
   {path : 'nc-list', component: ListNcComponent},

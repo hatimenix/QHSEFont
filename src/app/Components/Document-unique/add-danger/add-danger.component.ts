@@ -44,7 +44,7 @@ export class AddDangerComponent {
     // aller en haut de la page
     window.scrollTo(0, 0);
 
-    
+
     this.dangerForm = this.formBuilder.group({
       poste_de_travail: ['', Validators.required],
       taches: ['', Validators.required],

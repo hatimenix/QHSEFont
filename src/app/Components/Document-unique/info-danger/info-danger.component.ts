@@ -23,6 +23,7 @@ import { Evenement } from 'src/app/models/evenement';
 export class InfoDangerComponent {
 
   dangerForm!: FormGroup;
+  evaluationForm!: FormGroup;
   danger!: Dangers;
   sites$ !: Observable<any>;
   services$ !: Observable<any>;
@@ -49,6 +50,7 @@ export class InfoDangerComponent {
   ) { }
 
   ngOnInit(): void {
+
     this.dangerForm = this.formBuilder.group({
       poste_de_travail: ['', Validators.required],
       taches: ['', Validators.required],
@@ -57,6 +59,15 @@ export class InfoDangerComponent {
       site: ['', Validators.required],
       service: ['', Validators.required],
       famille: ['', Validators.required]
+    });
+
+    this.evaluationForm = this.formBuilder.group({
+      probabilite: ['', Validators.required],
+      severite: ['', Validators.required],
+      frequences_exposition: ['', Validators.required],
+      ipr: ['', Validators.required],
+      indice_risque: ['', Validators.required],
+      mesure_prevention: ['', Validators.required]
     });
 
     this.dangerId = +this.activatedRoute.snapshot.params['id'];
@@ -120,6 +131,29 @@ export class InfoDangerComponent {
   getActionsByDangerId(dangerId: number) {
     this.actions$ = this.apiActionsService.getAllActions().pipe(
       map((actions: Actions[]) => actions.filter(actions => actions.danger.includes(dangerId)))
+    );
+  }
+
+  onSubmit(): void {
+    const formData = this.evaluationForm.value;
+    const evaluation: Evaluations = new Evaluations(
+      formData.probabilite,
+      formData.severite,
+      formData.frequences_exposition,
+      formData.ipr,
+      formData.indice_risque,
+      formData.mesure_prevention,
+    );
+
+    evaluation.danger = this.dangerId;
+
+    this.apiEvaluationService.addEvaluation(evaluation).subscribe(
+      () => {
+        console.log('Evaluation a été ajouté avec succès.');
+        this.getEvaluationsByDangerId(this.dangerId);
+        this.evaluationForm.reset();
+      },
+      error => console.log(error)
     );
   }
 }

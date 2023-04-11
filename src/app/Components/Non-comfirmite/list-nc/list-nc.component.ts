@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 import { Nc } from 'src/app/models/nc';
-
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
+import { ApiProcessusService } from 'src/app/Services/Services-non-confirmité/api-processus.service';
 
 declare var window: any;
 
@@ -14,6 +17,9 @@ declare var window: any;
   styleUrls: ['./list-nc.component.css']
 })
 export class ListNcComponent {
+  sites: any[] = [];
+  processuss: any[] = [];
+  utilisateurs: any[] = [];
   p = 1; 
   itemsPerPage: number = 5;
 
@@ -41,11 +47,15 @@ export class ListNcComponent {
   site_name:any
   processus_name:any
   responsable_name:any
+  processus:any
+  site:any
+  responsable_traitement:any
 
   searchQuery: string = '';
 
-  currentNc : Nc = new Nc()
   originalNcs: Nc[] = [];
+  filteredNcs: Nc[] = [];
+
 
   ncs : Nc[] = []
 
@@ -53,11 +63,68 @@ export class ListNcComponent {
 
   deleteModal: any;
   idTodelete: number = 0;
+  
+  form = new FormGroup({
+    intitule: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nature: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    domaine: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    detail_cause: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    date_nc: new FormControl(''),
+    date_prise_en_compte: new FormControl(''),
+    description_detailee: new FormControl(''),
+    annee: new FormControl(''),
+    mois: new FormControl(''),
+    delai_prevu: new FormControl(''),
+    type_cause: new FormControl(''),
+    cout: new FormControl(''),
+    progress: new FormControl(''),
+    etat: new FormControl(''),
+    info_complementaires: new FormControl(''),
+    frequence: new FormControl(''),
+    gravite: new FormControl(''),
+    action_immediate: new FormControl(''),
+    nc_cloture: new FormControl(''),
+    piece_jointe: new FormControl(''),
+    processus: new FormControl(''),
+    site: new FormControl(''),
+    responsable_traitement: new FormControl(''),
 
-  constructor(private   ncservice : ServicesNonConfirmitéService, private router : Router){
+  });
+
+  constructor(private   ncservice : ServicesNonConfirmitéService, private router : Router,private apiProcessusService :ApiProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){
 
   }
   ngOnInit(): void {
+
+    this.apiSiteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.sites = data;
+        console.log(this.sites); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );  
+    this.apiProcessusService.getAllProcessus().subscribe(
+      (data: any[]) => {
+        this.processuss = data;
+        console.log(this.processuss); // Print the processuss to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );  
+    this.apiUtilisateurService.getAllUtilsateur().subscribe(
+      (data: any[]) => {
+        this.utilisateurs = data;
+        console.log(this.utilisateurs); // Print the utilisateurs to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
+
+
 
     this.getNcs();
     this.originalNcs = this.ncs.slice(); // create a copy of the original list
@@ -67,25 +134,23 @@ export class ListNcComponent {
   }
   
   filterByEtatTrue() {
-    this.resetFilter()
-    this.originalNcs = this.ncs.slice(); // make a copy of the original list
-    this.ncs = this.ncs.filter(nc => nc.etat === true);
-
+    this.filteredNcs = this.originalNcs.filter(nc => nc.etat === true);
   }
-
+  
   filterByEtatFalse() {
-    this.originalNcs = this.ncs.slice(); // make a copy of the original list
-    this.ncs = this.ncs.filter(nc => nc.etat === false);
 
-    }
-    resetFilter() {
-      this.ncs = this.originalNcs.slice(); // assign the original list back
-    }
+    this.filteredNcs = this.originalNcs.filter(nc => nc.etat === false);
+  }
+  resetFilter() {
+    this.filteredNcs = this.originalNcs;
+  }
+  
 
 getNcs() {
   this.ncservice.getAll().subscribe(
     res => {
-      this.ncs = res;
+      this.originalNcs = res;
+      this.filteredNcs = res;
     },
     error => {
       console.log(error);
@@ -105,35 +170,35 @@ deleteNc(id : number){
 
 }
 updateNc() : void {
-  this.currentNc = {
-      id: this.id,
-      intitule: this.intitule,
-      domaine: this.domaine,
-      nature: this.nature,
-      detail_cause: this.detail_cause,
-      date_nc: this.date_nc,
-      date_prise_en_compte:this.date_prise_en_compte,
-      description_detailee:this.description_detailee,
-      annee:this.annee,
-      mois:this.mois,
-      delai_prevu:this.delai_prevu,
-      type_cause:this.type_cause,
-      cout:this.cout,
-      progress:this.progress,
-      etat:this.etat,
-      info_complementaires:this.info_complementaires,
-      frequence:this.frequence,
-      gravite:this.gravite,
-      action_immediate:this.action_immediate,
-      nc_cloture:this.nc_cloture,
-      piece_jointe:this.piece_jointe,
-      processus_name: this.processus_name,
-      site_name: this.site_name,
-      responsable_name:this.responsable_name
 
-  };
+  const formData =  new FormData()
+    formData.append("intitule", this.intitule);
+    formData.append("nature", this.nature);
+    formData.append("domaine", this.domaine);
+    formData.append("detail_cause", this.detail_cause);
+    formData.append("date_nc", this.date_nc);
+    formData.append("date_prise_en_compte", this.date_prise_en_compte);
+    formData.append("description_detailee", this.description_detailee);
+    formData.append("annee", this.annee);
+    formData.append("mois", this.mois);
+    formData.append("delai_prevu", this.delai_prevu);
+    formData.append("type_cause", this.type_cause);
+    formData.append("cout", this.cout);
+    formData.append("progress", this.progress);
+    formData.append("etat", this.etat);
+    formData.append("info_complementaires", this.info_complementaires);
+    if (this.piece_jointe !== null && this.piece_jointe !== undefined) {
+      formData.append("piece_jointe", this.piece_jointe);
+  }    formData.append("processus", this.processus);
+    formData.append("site", this.site);
+    formData.append("responsable_traitement", this.responsable_traitement);
 
-  this.ncservice.update(this.currentNc.id, this.currentNc)
+  this.ncservice.update(this.id, formData)
+
+
+
+  this.ncservice.update(this.id,formData)
+
       .subscribe({
           next: (res) => {
               console.log(res);
@@ -143,8 +208,32 @@ updateNc() : void {
               console.error(e);
           }
       });
-}
+} 
 
+updateFile(event: any) {
+  const file = event.target.files[0];
+  this.piece_jointe=file
+
+}
+downloadPiece(id: number): void {
+  this.ncservice.downloadPiece(id).subscribe(
+    (response: any) => {
+      const blob = new Blob([response], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const filename = response.fichier.split('/').pop();
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    },
+    (error: any) => {
+      console.log(error);
+    }
+  );
+}
 getNcData( id : number,
   intitule:any,
   nature : any,
@@ -165,11 +254,13 @@ getNcData( id : number,
   gravite:any,
   action_immediate:any,
   nc_cloture:any,
-  piece_jointe:any,
-
   processus_name:any,
   site_name:any,
-  responsable_name:any
+
+  responsable_name:any,
+  processus:any,
+  site:any,
+  responsable_traitement:any,
 
   ){
     this.id = id,
@@ -181,7 +272,7 @@ getNcData( id : number,
     this.date_prise_en_compte=date_prise_en_compte,
 
     this.description_detailee=description_detailee,
-    this.annee=annee,
+    this.annee=annee
     this.mois=mois,
     this.delai_prevu=delai_prevu,
     this.type_cause=type_cause,
@@ -193,10 +284,12 @@ getNcData( id : number,
     this.gravite=gravite,
     this.action_immediate=action_immediate,
     this.nc_cloture=nc_cloture,
-    this.piece_jointe=piece_jointe,
     this.processus_name=processus_name,
     this.site_name=site_name
-    this.responsable_name=responsable_name
+    this.responsable_name=responsable_name,
+    this.processus=processus,
+    this.site=site,
+    this.responsable_traitement=responsable_traitement
 
 
 
@@ -226,12 +319,21 @@ delete() {
   });
 }
 
+uploadFile(event: any) {
+  const file = event.target.files[0];
+  this.piece_jointe=file
+
+
+}
 
 exportToExcel() {
   const worksheet = XLSX.utils.json_to_sheet(this.ncs.map((nc) => ({
     'ID': nc.id,
     'Intitule': nc.intitule,
     'Nature': nc.nature,
+    'Site':nc.site_name,
+    'Processus':nc.processus_name,
+    'Responsable traitement':nc.responsable_name,
     'Domaine': nc.domaine,
     'Detail_cause':nc.detail_cause,
     'Date_nc' :nc.date_nc,
@@ -250,9 +352,6 @@ exportToExcel() {
     'Action_immediate':nc.action_immediate,
     'Nc_cloture':nc.nc_cloture,
     'Piece_jointe':nc.piece_jointe,
-    'Site_name':nc.site_name,
-    'Processus_name':nc.processus_name,
-    'Responsable_name':nc.responsable_name
   })));
   const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
   const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });

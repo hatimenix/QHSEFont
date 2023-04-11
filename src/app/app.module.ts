@@ -26,14 +26,15 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
+
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
+
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
-
-
 
 
 
@@ -67,11 +68,15 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
     InfoEvenementComponent,
     InfoDangerComponent,
     UpdateDangerComponent,
+    AddDangerComponent,
+    InfoNcComponent,
+
     AddNcComponent,
     NavbarComponent
     
     
     
+
 
   ],
   imports: [
