@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SiteService } from 'src/app/Services/Service-Site/site.service';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
-import { Site } from 'src/app/models/Site';
+import { Site } from 'src/app/models/site';
 
 @Component({
   selector: 'app-add-site',
@@ -16,7 +16,7 @@ export class AddSiteComponent {
   personnel$ !: Observable<any>;
 
   constructor(private fb: FormBuilder, 
-    private siteService:  SiteService,
+    private siteService:  ApiSiteService,
      private router: Router,
      private personnelService: PersonnelService) {
   }

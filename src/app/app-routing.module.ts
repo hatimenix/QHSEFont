@@ -53,7 +53,7 @@ const routes: Routes = [
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   {path: 'infoDanger/:id', component: InfoDangerComponent},
 
-  {path : 'evenement/:id', component: InfoEvenementComponent}
+  {path : 'evenement/:id', component: InfoEvenementComponent},
 
   {path : 'evenement', component: InfoEvenementComponent},
   { path: 'sidebar', component: SidebarComponent },
@@ -79,7 +79,6 @@ const routes: Routes = [
   {path:'addPersonnel', component :AddPersonnelComponent},
   {path : 'listProcessus', component:ListProcessusComponent},
   {path: 'addProcessus', component: AddProcessusComponent},
-<<<<<<< HEAD
   {path : 'updateProcessus/:id', component: UpdateProcessusComponent},
   {path :'listsites', component: ListSiteComponent},
   {path:'addSite', component:AddSiteComponent},
@@ -90,15 +89,6 @@ const routes: Routes = [
   {path :'listdocuments', component:ListDocumentComponent},
   {path :'adddocuments', component:AddDocumentComponent},
   {path :'updatedocuments/:id', component:UpdateDocumentComponent},
-=======
-  {path : 'updateProcessus/:id', component: UpdateProcessusComponent}
-
-  {path:'updateP', component :UpdatePersonnelComponent},
-  {path:'addPersonnel', component :AddPersonnelComponent}
-
-
-
->>>>>>> 6bed4a3c94e5dc9b75f5da7537c5ab2a05a93e3a
 ];
 
 

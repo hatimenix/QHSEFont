@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SiteService } from 'src/app/Services/Service-Site/site.service';
-import { Site } from 'src/app/models/Site';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
+import { Site } from 'src/app/models/site';
 
 @Component({
   selector: 'app-list-site',
@@ -11,12 +11,12 @@ export class ListSiteComponent implements OnInit{
   site: Site[] = [];
   personnelService: any;
 
-constructor(private siteService: SiteService) { }
+constructor(private siteService: ApiSiteService) { }
 ngOnInit(): void {
 this.loadsite();
 }
 loadsite() {
-this.siteService.getSite().subscribe(
+this.siteService.getAllSite().subscribe(
 (data: Site[]) => {
 this.site = data;
 }

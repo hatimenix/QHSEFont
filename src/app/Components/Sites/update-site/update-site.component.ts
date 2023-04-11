@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SiteService } from 'src/app/Services/Service-Site/site.service';
+
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
-import { Site } from 'src/app/models/Site';
+import { Site } from 'src/app/models/site';
 
 @Component({
   selector: 'app-update-site',
@@ -19,7 +20,7 @@ export class UpdateSiteComponent implements OnInit{
   id!: number;
   site: any;
 
-  constructor(private fb: FormBuilder, private siteService: SiteService,
+  constructor(private fb: FormBuilder, private siteService: ApiSiteService,
     private router: Router,
     private personnelService: PersonnelService,
     private route: ActivatedRoute) {
@@ -45,7 +46,7 @@ export class UpdateSiteComponent implements OnInit{
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
       this.id = +id;
-      this.siteService.getSiteById(this.id).subscribe(
+      this.siteService.getSite(this.id).subscribe(
         (data: Site) => {
           this.site = data;
           this.siteForm.patchValue({
