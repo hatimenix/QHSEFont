@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Personnel } from 'src/app/models/Personnel';
-import { Processus } from 'src/app/models/Processus';
+import { Processus } from 'src/app/models/processus';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
