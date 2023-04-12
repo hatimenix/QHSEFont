@@ -46,6 +46,7 @@ export class UpdateCommandeComponent implements OnInit{
       this.commandeId = params['id_commande'];
       this.commandeService.getCommandeById(this.commandeId).subscribe(
         (commande: Commande) => {
+          console.log('Commande:', commande);
           this.commande = commande;
           this.myForm.setValue({
             type_commande: this.commande.type_commande ,
@@ -56,8 +57,9 @@ export class UpdateCommandeComponent implements OnInit{
             etat_commande: this.commande.etat_commande 
           });
         },
-        (        error: any) => console.log(error)
+        error => console.log(error)
       );
+      
 
     });
   }
@@ -69,9 +71,9 @@ export class UpdateCommandeComponent implements OnInit{
       date_commande: ['', Validators.required],
       type_commande: ['', Validators.required],
       quantite: ['', Validators.required],
-      specificite_regime: ['Aucun', Validators.required],
-      specificite_texture: ['Aucun', Validators.required],
-      etat_commande: ['livre', Validators.required],
+      specificite_regime: ['', Validators.required],
+      specificite_texture: ['', Validators.required],
+      etat_commande: ['', Validators.required],
     });
   }
 

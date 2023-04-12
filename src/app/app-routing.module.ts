@@ -38,12 +38,8 @@ import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/upd
 
 
 const routes: Routes = [
-
-  //path pour les commandes 
-  {path : '', component: LoginComponent},
-  {path:'home', component :HomeComponent},
-
-
+  {path : '', component: LoginComponent },
+  {path: 'home', component :HomeComponent},
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
@@ -52,25 +48,17 @@ const routes: Routes = [
   {path : 'evenement/:id', component: InfoEvenementComponent},
 
   {path : 'evenement', component: InfoEvenementComponent},
-  { path: 'sidebar', component: SidebarComponent },
-  { path: 'list-registre-traitement', component: ListRegistreTraitementComponent },
+  {path: 'list-registre-traitement', component: ListRegistreTraitementComponent},
   {path : 'nc-list', component: ListNcComponent},
   {path : 'nc-add', component: AddNcComponent},
-
-  { path: 'nc/:id', component: InfoNcComponent },
-
-
-  {path : 'sidebar', component: SidebarComponent},
   {path: 'listC', component: ListCommandesComponent},
   {path: 'addC', component: AddCommandeComponent},
   {path: 'updateC/:id_commande', component: UpdateCommandeComponent },
   {path: 'listF', component: ListFicheComponent},
   {path: 'addF', component: AddFicheComponent},
   {path: 'updateF/:id', component: UpdateFicheComponent },
-  {path: 'login', component: LoginComponent},
   {path : 'listP', component: ListPersonnelComponent},
   {path :'addP', component: AddPersonnelComponent},
-
   {path:'updateP/:id', component :UpdatePersonnelComponent},
   {path:'addPersonnel', component :AddPersonnelComponent},
   {path : 'listProcessus', component:ListProcessusComponent},
@@ -84,7 +72,6 @@ const routes: Routes = [
   {path:'updateSecteur/:id', component:UpdateSecteurComponent},
   
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

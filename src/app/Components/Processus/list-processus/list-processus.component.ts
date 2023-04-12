@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
+
 import { Personnel } from 'src/app/models/Personnel';
-import { Processus } from 'src/app/models/processus';
+
+import { Processus } from 'src/app/models/pocesus';
+
 
 @Component({
   selector: 'app-list-processus',

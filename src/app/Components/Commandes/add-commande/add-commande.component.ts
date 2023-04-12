@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CommandeSerService } from 'src/app/Services/Service-commandes/commande-ser.service';
 import { Commande } from 'src/app/models/Commande';
 
@@ -11,6 +12,7 @@ import { Commande } from 'src/app/models/Commande';
 })
 export class AddCommandeComponent implements OnInit{
   myForm!: FormGroup;
+ 
 
   constructor(private fb: FormBuilder, private commandeService: CommandeSerService, private router: Router) {
     this.createForm();
@@ -61,6 +63,7 @@ export class AddCommandeComponent implements OnInit{
         
         console.log("la commande est ajouté avec succes")
         console.log(commande)
+        
         this.router.navigate(['/listC']); 
       },
       (error: any) => {

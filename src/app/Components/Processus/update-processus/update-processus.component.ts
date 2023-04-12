@@ -4,7 +4,9 @@ import { Router ,ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
-import { Processus } from 'src/app/models/processus';
+
+import { Processus } from 'src/app/models/pocesus';
+
 
 
 @Component({

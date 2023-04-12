@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment.development';
 export class ApiSiteService {
 
   private API_URL_SITE = environment.API_URL_SITE
-  private API_User =environment.API_User;
+  private API_URL_Utilisateur =environment.API_URL_Utilisateur;
 
   constructor(private http:HttpClient) { }
 
@@ -37,6 +37,6 @@ export class ApiSiteService {
     return this.http.delete<void>(url);
   }
   getPersonnelsList(): Observable<Personnel[]> {
-    return this.http.get<Personnel[]>(this.API_User);
+    return this.http.get<Personnel[]>(this.API_URL_Utilisateur);
   }
 }
