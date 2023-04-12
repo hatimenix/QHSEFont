@@ -17,12 +17,12 @@ export class AddPersonnelComponent  {
       image: ['', Validators.required],
       compte: ['', Validators.required],
       nom: ['', Validators.required],
-      courrier: ['', Validators.required],
-      numero_tel: ['', Validators.required],
+      courrier: ['', [Validators.required, Validators.email]],
+      numero_tel: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
       presente_vous: ['', Validators.required],
       fonction: ['', Validators.required],
       adresse_sip: ['', Validators.required],
-      othermail: ['', Validators.required],
+      othermail: ['', Validators.email]
     });
   }
   onFileSelected(event: any) {

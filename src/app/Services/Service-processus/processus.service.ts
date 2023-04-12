@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Personnel } from 'src/app/models/Personnel';
+
 import { Processus } from 'src/app/models/pocesus';
+
 
 
 import { environment } from 'src/environments/environment.development';
@@ -12,7 +14,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ProcessusService {
   private API_Processus =environment.API_Processus;
-  private API_User =environment.API_User;
+  private API_URL_Utilisateur =environment.API_URL_Utilisateur;
   constructor(private http: HttpClient) { }
 
   getProcessus(): Observable<Processus[]> {
@@ -41,6 +43,6 @@ export class ProcessusService {
     return this.http.delete<void>(url);
   }
   getPersonnelsList(): Observable<Personnel[]> {
-    return this.http.get<Personnel[]>(this.API_User);
+    return this.http.get<Personnel[]>(this.API_URL_Utilisateur);
   }
 }
