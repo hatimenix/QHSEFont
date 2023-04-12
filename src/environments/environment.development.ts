@@ -8,5 +8,6 @@ export const environment = {
     API_URL_EVA: 'http://127.0.0.1:8000/evaluation/',
     API_URL_AC: 'http://127.0.0.1:8000/action/',
     API_URL_AE: 'http://127.0.0.1:8000/analyse_evenement/',
+    API_URL_PR: 'http://127.0.0.1:8000/processus/',
 };
 

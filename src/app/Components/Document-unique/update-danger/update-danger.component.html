@@ -15,7 +15,7 @@
                                <div class="col-md-6">                      
                                    <div class="form-group">
                                        <label>Site *</label>
-                                       <select id="site" name="site" formControlName="site" class="selectpicker form-control" data-style="py-0" required>
+                                       <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
                                         <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
                                        </select>
                                    </div>
@@ -23,7 +23,7 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Service *</label>
-                                       <select id="service" name="service" formControlName="service" class="selectpicker form-control" data-style="py-0" required>
+                                       <select id="service" name="service" formControlName="service" class="custom-select" data-style="py-0" required>
                                         <option *ngFor="let s of services$ | async" [value]="s.id">{{ s.service_nom }}</option>
                                        </select>
                                    </div>
@@ -45,7 +45,7 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Famille de danger *</label>
-                                       <select id="famille" name="famille" formControlName="famille" class="selectpicker form-control" data-style="py-0" required>
+                                       <select id="famille" name="famille" formControlName="famille" class="custom-select" data-style="py-0" required>
                                         <option *ngFor="let f of familles$ | async" [value]="f.id">{{ f.famille_nom }}</option>
                                        </select>
                                    </div>

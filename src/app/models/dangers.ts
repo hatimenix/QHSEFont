@@ -6,7 +6,7 @@ export class Dangers {
     consequences !: string;
     service_name !: string;
     famille_name !: string;
-    site_name !: string;
+    Site_name !: string;
     site !: number;
     service !: number;
     famille !: number;
