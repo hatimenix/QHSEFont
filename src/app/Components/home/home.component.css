@@ -1,0 +1,15 @@
+.container-fluid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  
+  .card {
+    width: 200px;
+    margin-right: 10px;
+  }
+  
+  .swiper-slide {
+    width: 200px;
+  }
+  
