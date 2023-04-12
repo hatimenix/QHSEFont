@@ -22,8 +22,9 @@
                                    <div class="form-group">
                                        <label for="type_commande">Type de commande *</label>
                                        <select name="type" class="selectpicker form-control" data-style="py-0" id="type_commande" formControlName="type_commande">
-                                           <option>Client</option>
-                                           <option>Collaborateur</option>
+                                           <option value="client">Client</option>
+                                           <option value="collaborateur">Collaborateur</option>
+                                           <option value="Aucun">Aucun</option>
                                        </select>
                                    </div> 
                                </div>  
@@ -75,7 +76,9 @@
                            </div>                            
                            <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
                            <button type="reset" class="btn btn-danger" routerLink="/listC">Annuler</button>
+                           
                        </form>
+                       
                    </div>
                </div>
            </div>
@@ -83,5 +86,6 @@
      
    </div>
      </div>
+    
 
   
