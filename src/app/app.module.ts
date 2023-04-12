@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
@@ -31,23 +30,17 @@ import { AddDocumentComponent } from './Components/Documentation/add-document/ad
 import { UpdateDocumentComponent } from './Components/Documentation/update-document/update-document.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
-
-import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
-
-
-
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
-import { NavbarComponent } from './Components/navbar/navbar.component';
-
-
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
 import { AddDangerComponent } from './Components/Document-unique/add-danger/add-danger.component';
-
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
+import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
+import { NavbarComponent } from './Components/navbar/navbar.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -81,15 +74,12 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
     ListDocumentComponent,
     AddDocumentComponent,
     UpdateDocumentComponent,
-    
     AddCommandeComponent,
-  
     InfoEvenementComponent,
     InfoDangerComponent,
     UpdateDangerComponent,
     AddDangerComponent,
     InfoNcComponent,
-
     AddNcComponent,
     NavbarComponent
 
@@ -97,21 +87,16 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
 
   ],
   imports: [
-    
+
     AppRoutingModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    Ng2SearchPipeModule,
-    NgxPaginationModule,
-
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-  
 
   ],
   providers: [ ],

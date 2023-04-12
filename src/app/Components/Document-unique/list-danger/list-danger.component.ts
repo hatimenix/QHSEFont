@@ -9,6 +9,8 @@ import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-d
 export class ListDangerComponent {
 
   dangers: any;
+  p = 1;
+  itemsPerPage: number = 5;
 
   constructor(private apiDangerService: ApiDangerService) { }
 
