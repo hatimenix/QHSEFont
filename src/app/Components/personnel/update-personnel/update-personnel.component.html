@@ -1,88 +1,96 @@
+
 <div class="content-page">
-    <div class="container-fluid">
-       <div class="row">
-          <div class="col-xl-3 col-lg-4">
-                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
-                      <div class="header-title">
-                         <h4 class="card-title">Modifier  personnel</h4>
-                      </div>
-                   </div>
-                   <div class="card-body">
-                      <form>
-                         <div class="form-group">
-                            <div class="crm-profile-img-edit position-relative">
-                               <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic">
-                               <div class="crm-p-image bg-primary">
-                                  <i class="las la-pen upload-button"></i>
-                                  <input class="file-upload" type="file" accept="image/*">
-                               </div>
-                            </div>
-                         </div>
-                      </form>
-                   </div>
-                </div>
-          </div>
-<div class="col-xl-9 col-lg-8">
-    <div class="card">
-       <div class="card-header d-flex justify-content-between">
-          <div class="header-title">
-             <h4 class="card-title">Modifier un personnel</h4>
-          </div>
-       </div>
-       <div class="card-body">
-          <div class="new-user-info">
-             <form [formGroup]="PersonnelForm" (ngSubmit)="onSubmit()">
-                <div class="row">
-                  <div class="form-group col-md-6">
-                     <label for="image">Image :</label>
-                     <input  class="custom-file-label" type="file" class="form-control" id="image" name="image" (change)="onFileSelected($event) " formControlName="image" >
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-xl-3 col-lg-4">
+               <div class="card">
+                  <div class="card-header d-flex justify-content-between">
+                     <div class="header-title">
+                        <h4 class="card-title">Modifier  personnel</h4>
+                     </div>
                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="compte">Compte :</label>
-                      <input type="text" class="form-control" id="compte" name="compte" placeholder="Compte" formControlName="compte">
-                   </div>
-                   
-                   <div class="form-group col-md-6">
-                      <label for="nom">Nom :</label>
-                      <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom"formControlName="nom">
-                   </div>
-                   
-                   <div class="form-group col-md-6">
-                      <label for="courrier">Courrier:</label>
-                      <input type="text" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier">
-                   </div>
-                   
-                   
-                   <div class="form-group col-md-6">
-                      <label for="numero_tel">Numéro :</label>
-                      <input type="text" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number"formControlName="numero_tel">
-                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="presente_vous">Présentez vous:</label>
-                      <input type="text-area" class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous " formControlName="presente_vous">
-                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="fonction">Fonction:</label>
-                      <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction">
-                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="adresse_sip">Adresse Sip:</label>
-                      <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip">
-                   </div>
-                   <div class="form-group col-md-12">
-                      <label for="othermail">Other mail:</label>
-                      <input type="email" class="form-control" id="othermail" name="othermail" placeholder="Other mail" formControlName="othermail">
-                   </div>
-                </div>
-                <hr>
-            
-                <button type="submit" class="btn btn-primary">Modifier</button>
-             </form>
-          </div>
-       </div>
-    </div>
+                  <div class="card-body">
+                     <form>
+                        <div class="form-group">
+                           <div class="crm-profile-img-edit position-relative">
+                              <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic">
+                              <div class="crm-p-image bg-primary">
+                                 <i class="las la-pen upload-button"></i>
+                                 <input class="file-upload" type="file" accept="image/*">
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+         </div>
+<div class="col-xl-9 col-lg-8">
+   <div class="card">
+      <div class="card-header d-flex justify-content-between">
+         <div class="header-title">
+            <h4 class="card-title">Modifier un personnel</h4>
+         </div>
+      </div>
+      <div class="card-body">
+         <div class="new-user-info">
+            <form [formGroup]="PersonnelForm" (ngSubmit)="onSubmit()">
+               <div class="row">
+ <input type="hidden" formControlName="id">
+
+ <div class="form-group col-md-6">
+   <label for="compte">Compte</label>
+   <input type="text" id="compte" class="form-control" formControlName="compte" required>
+ </div>
+
+ <div class="form-group col-md-6">
+   <label for="courrier">Courrier</label>
+   <input type="email" id="courrier" class="form-control" formControlName="courrier" required>
+ </div>
+
+ <div class="form-group col-md-6">
+   <label for="nom">Nom</label>
+   <input type="text" id="nom" class="form-control" formControlName="nom" required>
+ </div>
+
+ <div class="form-group col-md-6">
+   <label for="numero_tel">Numéro de téléphone</label>
+   <input type="tel" id="numero_tel" class="form-control" formControlName="numero_tel" required>
+ </div>
+
+ <div class="form-group col-md-6">
+   <label for="presente_vous">Présentez-vous en quelques mots</label>
+   <textarea id="presente_vous" class="form-control" formControlName="presente_vous" required></textarea>
+ </div>
+
+ <div class="form-group col-md-6">
+   <label for="image">Image</label>
+   <input type="file" id="image" class="form-control" (change)="onFileSelected($event)">
+ </div>
+
+ <div class="form-group col-md-6">
+   <label for="fonction">Fonction</label>
+   <input type="text" id="fonction" class="form-control" formControlName="fonction" required>
+ </div>
+
+ <div class="form-group col-md-6">
+   <label for="adresse_sip">Adresse SIP</label>
+   <input type="text" id="adresse_sip" class="form-control" formControlName="adresse_sip" required>
+ </div>
+
+ <div class="form-group col-md-12">
+   <label for="othermail">Autre courrier électronique</label>
+   <input type="email" id="othermail" class="form-control" formControlName="othermail" required>
+ </div>
+</div>
+
+<button type="submit" class="btn btn-primary">Modifier</button>
+                <button type="reset" class="btn btn-primary" routerLink="/listP">Annuler</button>
+</form>
+
+         </div>
+      </div>
+   </div>
 </div>
 </div>
 </div>
-</div><app-sidebar></app-sidebar>
+</div>
