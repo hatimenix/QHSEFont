@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DocumentationService } from 'src/app/Services/Service-documentation/documentation.service';
 import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 import { Secteur } from 'src/app/models/Secteur';
 
@@ -13,11 +12,11 @@ import { Secteur } from 'src/app/models/Secteur';
 })
 export class AddSecteurComponent {
   secteurForm!: FormGroup;
-  document$ !: Observable<any>;
+  
  
   constructor(private fb: FormBuilder, 
     private secteurService:  SecteurService,
-    private documentService : DocumentationService,
+    
      private router: Router,
      ) {
   }
@@ -34,7 +33,7 @@ export class AddSecteurComponent {
       secteur_nom: ['', Validators.required],
       
     });
-    this.document$ = this.documentService.getDocument();
+  
    
   }
   onSubmit():void {

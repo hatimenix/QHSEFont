@@ -36,7 +36,5 @@ export class SecteurService {
     const url = `${this.API_Secteurs}${id}`;
     return this.http.delete<void>(url);
   }
-  getDocumentList(): Observable<Document[]> {
-    return this.http.get<Document[]>(this.API_Docs);
-  }
+ 
 }
