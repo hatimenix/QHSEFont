@@ -12,7 +12,6 @@ import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
 
-import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
 import { ListCommandesComponent } from './Components/Commandes/list-commandes/list-commandes.component';
 import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
@@ -37,6 +36,7 @@ import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/upd
 import { ListDocumentComponent } from './Components/Documentation/list-document/list-document.component';
 import { AddDocumentComponent } from './Components/Documentation/add-document/add-document.component';
 import { UpdateDocumentComponent } from './Components/Documentation/update-document/update-document.component';
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
 
 
@@ -77,6 +77,7 @@ const routes: Routes = [
   {path :'listdocuments', component:ListDocumentComponent},
   {path :'adddocuments', component:AddDocumentComponent},
   {path :'updatedocuments/:id', component:UpdateDocumentComponent},
+  { path: 'nc/:id', component: InfoNcComponent},
 ];
 
 @NgModule({

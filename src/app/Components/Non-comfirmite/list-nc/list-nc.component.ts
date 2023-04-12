@@ -308,6 +308,7 @@ delete() {
   this.ncservice.delete(this.idTodelete).subscribe({
     next: (data) => {
       this.ncs = this.ncs.filter(_ => _.id != this.idTodelete)
+      location.reload()
       this.deleteModal.hide();
     },
     error:(err) => {

@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     <label>Processus *</label>
                                     <select id="processus" [(ngModel)]="ncf.processus" name="processus" formControlName="processus"class="form-control" class="custom-select" >
-                                     <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.processus_nom }}</option>
+                                     <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.intitule }}</option>
                                     </select>
                                 </div>
                             </div>
