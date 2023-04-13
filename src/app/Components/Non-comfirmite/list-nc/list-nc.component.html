@@ -143,18 +143,16 @@ aria-hidden="true">
               <label for="nature" class="form-label">Nature : </label>
               <input name="nature"  value="{{nature}}" [(ngModel)] = "nature" formControlName="nature" style="width: 100%;" type="text" class="rounded-pill form-control" id="nature">
             </div>
-          </div>
-          <div class="row">
             <div class="col">
               <label for="detail_cause" class="form-label">Detail cause : </label>
               <input name="detail_cause"  value="{{detail_cause}}" [(ngModel)] = "detail_cause" formControlName="detail_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
             </div>
+            </div>
+            <div class="row">
             <div class="col">
               <label for="date_nc" class="form-label">Date NC : </label>
               <input name="date_nc"  value="{{date_nc}}" [(ngModel)] = "date_nc" formControlName="date_nc" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_nc">
             </div>
-          </div>
-          <div class="row">
             <div class="col">
               <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
               <input name="date_prise_en_compte" value="{{date_prise_en_compte}}" [(ngModel)] = "date_prise_en_compte" formControlName="date_prise_en_compte" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_prise_en_compte">
@@ -174,13 +172,13 @@ aria-hidden="true">
               <label for="mois" class="form-label">Mois : </label>
               <input name="mois"  value="{{mois}}" [(ngModel)] = "mois" formControlName="mois" style="width: 100%;" type="text" class="rounded-pill form-control" id="mois">
               </div>
-              </div>
 
-            <div class="row">
               <div class="col">
                 <label for="type_cause" class="form-label">type_cause : </label>
                 <input name="type_cause"  value="{{type_cause}}"[(ngModel)] = "type_cause" formControlName="type_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="type_cause">
                 </div>
+                </div>
+                <div class="row">
                 <div class="col">                      
                       <label class="text-dark font-weight-bold">Avancement *</label>
 
@@ -188,9 +186,7 @@ aria-hidden="true">
                           </div>
                       <input [(ngModel)]="progress" type="range" formControlName="progress" class="form-control-range" id="progress" >
                   </div>
-                  </div>
                   
-                  <div class="row">
 
                     <div class="col">
                       <label for="detail_cause" class="form-label">Détail cause : </label>
@@ -202,6 +198,7 @@ aria-hidden="true">
                         <input name="info_complementaires"  value="{{info_complementaires}}" [(ngModel)] = "info_complementaires" formControlName="info_complementaires" style="width: 100%;" type="text" class="rounded-pill form-control" id="info_complementaires">
                         </div>
                       </div>
+                      <div class="row">
                       <div class="col">
                         <label for="site" class="form-label">Site : </label>
                         <select [(ngModel)]="site"  id="site" name="site" formControlName="site" style="width: 100%;" class="form-control" class="custom-select" >
@@ -211,7 +208,7 @@ aria-hidden="true">
                           <div class="col">
                             <label for="processus" class="form-label">Processus : </label>
                             <select [(ngModel)]="processus" id="processus" name="processus" formControlName="processus" style="width: 100%;" class="form-control" class="custom-select" >
-                              <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.intitule }}</option>
+                              <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.processus_nom }}</option>
                              </select> 
                             </div>
                             <div class="col mb-3">
@@ -219,6 +216,7 @@ aria-hidden="true">
                               <select [(ngModel)]="responsable_traitement" id="responsable_traitement" name="responsable_traitement" style="width: 100%;" formControlName="responsable_traitement" class="form-control" class="custom-select" >
                                 <option *ngFor="let responsable_traitement of utilisateurs" [value]="responsable_traitement.id">{{ responsable_traitement.nom }}</option>
                               </select> 
+                              </div>
                               </div>
 
                               <div class="col mb-2">
@@ -239,4 +237,4 @@ aria-hidden="true">
     </div>
   </div>
 </div>
-</div> 
+</div>
