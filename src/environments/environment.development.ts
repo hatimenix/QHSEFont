@@ -16,7 +16,7 @@ export const environment = {
     API_URL:"http://127.0.0.1:8000/",
     API_nc:"http://127.0.0.1:8000/nc/",
     API_URL_Processus: 'http://127.0.0.1:8000/processus/',
-    API_URL_Utilisateur: 'http://127.0.0.1:8000/user/',
+    API_URL_Utilisateur: 'http://127.0.0.1:8000/utilisateur/',
 
     API_Commande:"http://127.0.0.1:8000/commande/",
     API_Fiche:"http://127.0.0.1:8000/fiche/",
