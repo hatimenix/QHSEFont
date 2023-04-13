@@ -1,0 +1,30 @@
+.btn-primary {
+    background-color: #FF731D;
+    border-color: #FF731D;
+  }
+ 
+  .btn-danger{
+    background-color: #FFB200;
+    border-color: #FFB200;
+    color: #fff; 
+  }
+  
+  button + button {
+    margin-left: 10px;
+  }
+  thead {
+    background-color: #3F497F
+    
+    
+  }
+ th {
+  color: rgb(255, 255, 255);
+  
+}
+#user-list-table {
+    width: 100%;
+  }
+  
+  
+  
+  

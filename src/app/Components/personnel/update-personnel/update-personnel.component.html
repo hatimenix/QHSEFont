@@ -36,7 +36,10 @@
             <form [formGroup]="PersonnelForm" (ngSubmit)="onSubmit()">
                <div class="row">
  <input type="hidden" formControlName="id">
-
+ <div class="form-group col-md-6">
+   <label for="image">Image</label>
+   <input type="file" id="image" class="form-control" (change)="onFileSelected($event)">
+ </div>
  <div class="form-group col-md-6">
    <label for="compte">Compte</label>
    <input type="text" id="compte" class="form-control" formControlName="compte" required>
@@ -62,10 +65,7 @@
    <textarea id="presente_vous" class="form-control" formControlName="presente_vous" required></textarea>
  </div>
 
- <div class="form-group col-md-6">
-   <label for="image">Image</label>
-   <input type="file" id="image" class="form-control" (change)="onFileSelected($event)">
- </div>
+
 
  <div class="form-group col-md-6">
    <label for="fonction">Fonction</label>
@@ -84,7 +84,7 @@
 </div>
 
 <button type="submit" class="btn btn-primary">Modifier</button>
-                <button type="reset" class="btn btn-primary" routerLink="/listP">Annuler</button>
+                <button type="reset" class="btn btn-danger" routerLink="/listP">Annuler</button>
 </form>
 
          </div>
