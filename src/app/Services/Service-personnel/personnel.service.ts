@@ -41,7 +41,6 @@ export class PersonnelService {
       })
     );
   }
-  
   addPersonnelFormData(formData: FormData): Observable<Personnel> {
     return this.http.post<Personnel>(this.API_URL_Utilisateur, formData);
   }
