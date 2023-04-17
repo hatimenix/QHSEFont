@@ -72,7 +72,7 @@
                       <td>{{nc.mois}}</td>
                       <td>{{nc.delai_prevu}}</td>
                       <td>{{nc.type_cause}}</td>
-                      <td>{{nc.cout}}$</td>
+                      <td>{{nc.cout}}€</td>
                       <td>{{nc.progress}}%</td>
                       <td>{{nc.info_complementaires}}</td>
                       <td>{{nc.frequence}}</td>
@@ -182,9 +182,10 @@ aria-hidden="true">
                 <div class="col">                      
                       <label class="text-dark font-weight-bold">Avancement *</label>
 
-                          <div class="progress-bar" role="progressbar" style="width: 4px" [attr.aria-valuenow]="progress">
-                          </div>
+                      <div class="progress-bar" role="progressbar" [style.width.%]="progress" [attr.aria-valuenow]="progress">
+                      </div>
                       <input [(ngModel)]="progress" type="range" formControlName="progress" class="form-control-range" id="progress" >
+                      <span>{{progress}}%</span>
                   </div>
                   
 
@@ -208,7 +209,7 @@ aria-hidden="true">
                           <div class="col">
                             <label for="processus" class="form-label">Processus : </label>
                             <select [(ngModel)]="processus" id="processus" name="processus" formControlName="processus" style="width: 100%;" class="form-control" class="custom-select" >
-                              <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.processus_nom }}</option>
+                              <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.intitule }}</option>
                              </select> 
                             </div>
                             <div class="col mb-3">
@@ -237,4 +238,4 @@ aria-hidden="true">
     </div>
   </div>
 </div>
-</div>
+</div> 

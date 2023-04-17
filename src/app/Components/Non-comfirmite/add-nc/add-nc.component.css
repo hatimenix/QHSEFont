@@ -16,4 +16,8 @@
   button + button {
     margin-left: 10px;
   }
+  .checkbox-lg {
+    transform: scale(2.5);
+    margin-left: 20px;
+  }
   

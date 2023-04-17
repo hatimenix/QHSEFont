@@ -56,15 +56,15 @@ export class AddNcComponent {
     detail_cause: new FormControl('', [Validators.required, Validators.minLength(3)]),
     date_nc: new FormControl(''),
     date_prise_en_compte: new FormControl(''),
-    description_detailee: new FormControl(''),
-    annee: new FormControl(''),
-    mois: new FormControl(''),
+    description_detailee: new FormControl('',[Validators.minLength(3)]),
+    annee: new FormControl('',[Validators.minLength(4)]),
+    mois: new FormControl('',[Validators.minLength(3)]),
     delai_prevu: new FormControl(''),
     type_cause: new FormControl(''),
     cout: new FormControl(''),
     progress: new FormControl(''),
     etat: new FormControl(''),
-    info_complementaires: new FormControl(''),
+    info_complementaires: new FormControl('',[Validators.minLength(3)]),
     frequence: new FormControl(''),
     gravite: new FormControl(''),
     action_immediate: new FormControl(''),
@@ -119,32 +119,7 @@ export class AddNcComponent {
     ); 
   }
   createNC() {
-
-    const data = {
-      intitule: this.ncf.intitule,
-      nature: this.ncf.nature,
-      domaine:this.ncf.domaine,
-      detail_cause:this.ncf.detail_cause,
-      date_nc:this.ncf.date_nc,
-      date_prise_en_compte:this.ncf.date_prise_en_compte,
-      description_detailee:this.ncf.description_detailee,
-      annee:this.ncf.annee,
-      mois:this.ncf.mois,
-      delai_prevu:this.ncf.delai_prevu,
-      type_cause:this.ncf.type_cause,
-      cout:this.ncf.cout,
-      progress:this.ncf.progress,
-      etat:this.ncf.etat,
-      info_complementaires:this.ncf.info_complementaires,
-      frequence:this.ncf.frequence,
-      gravite:this.ncf.gravite,
-      action_immediate:this.ncf.action_immediate,
-      nc_cloture:this.ncf.nc_cloture,
-      piece_jointe:this.ncf.piece_jointe
-
-
-    };
-
+    
     const formData =  new FormData()
     formData.append("intitule", this.ncf.intitule);
     formData.append("nature", this.ncf.nature);

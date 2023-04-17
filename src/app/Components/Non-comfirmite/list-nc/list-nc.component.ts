@@ -158,17 +158,6 @@ getNcs() {
   );
 }
 
-deleteNc(id : number){
-  this.ncservice.delete(id).subscribe(
-    data => {
-      
-      console.log(data)
-    },error => {
-      console.log(error)
-    }
-  )
-
-}
 updateNc() : void {
 
   const formData =  new FormData()
@@ -185,7 +174,6 @@ updateNc() : void {
     formData.append("type_cause", this.type_cause);
     formData.append("cout", this.cout);
     formData.append("progress", this.progress);
-    formData.append("etat", this.etat);
     formData.append("info_complementaires", this.info_complementaires);
     if (this.piece_jointe !== null && this.piece_jointe !== undefined) {
       formData.append("piece_jointe", this.piece_jointe);
