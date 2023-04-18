@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { Processus } from 'src/app/models/pocesus';
-
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-add-processus',
@@ -15,11 +15,15 @@ import { Processus } from 'src/app/models/pocesus';
 export class AddProcessusComponent implements OnInit{
   processusForm!: FormGroup;
   personnel$ !: Observable<any>;
-  
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
 
   constructor(private fb: FormBuilder, private processusService: ProcessusService,
      private router: Router,
-     private personnelService: PersonnelService) {
+     private personnelService: PersonnelService,
+     private bsModalService: BsModalService
+     ) {
+      this.createForm();
     
   }
 
@@ -37,6 +41,12 @@ export class AddProcessusComponent implements OnInit{
     // aller en haut de la page
     window.scrollTo(0, 0);
 
+    
+    this.personnel$ = this.personnelService.getPersonnels();
+    this.createForm();
+  }
+
+  createForm(){
     this.processusForm = this.fb.group({
       intitule: ['', Validators.required],
       sigle: ['',Validators.required],
@@ -52,7 +62,6 @@ export class AddProcessusComponent implements OnInit{
       outils_surveil:['',Validators.required],
       
     });
-    this.personnel$ = this.personnelService.getPersonnels();
   }
 
  
@@ -80,6 +89,7 @@ export class AddProcessusComponent implements OnInit{
       () => {      
         console.log("Le processus a été ajouté avec succès");
         console.log(processus);
+        this.openModal();
         this.router.navigate(['/listProcessus']); 
       },
       (error: any) => {
@@ -87,5 +97,11 @@ export class AddProcessusComponent implements OnInit{
       }
     );
   }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
   
 }

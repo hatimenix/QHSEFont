@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { Personnel } from 'src/app/models/Personnel';
-
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-add-personnel',
   templateUrl: './add-personnel.component.html',
@@ -11,10 +11,13 @@ import { Personnel } from 'src/app/models/Personnel';
 })
 export class AddPersonnelComponent  {
   PersonnelForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private personnelService: PersonnelService, private router: Router) {
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
+
+  constructor(private formBuilder: FormBuilder, private personnelService: PersonnelService, private router: Router,private bsModalService: BsModalService) {
     this.PersonnelForm = this.formBuilder.group({
       
-      image: [''],
+      image: ['',Validators.required],
       compte: ['', Validators.required],
       nom: ['', Validators.required],
       courrier: ['', [Validators.required, Validators.email]],
@@ -45,6 +48,7 @@ export class AddPersonnelComponent  {
       this.personnelService.addPersonnelFormData(formData).subscribe(
         (response) => {
           console.log('personnel ajoutée', response);
+          this.openModal();
           this.router.navigate(['/listP']);
         },
         (error) => {
@@ -53,6 +57,13 @@ export class AddPersonnelComponent  {
       );
     }
   }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
+
 
  
 }

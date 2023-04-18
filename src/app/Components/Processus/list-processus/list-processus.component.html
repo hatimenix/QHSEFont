@@ -107,3 +107,19 @@
       </div>
    </div>
          </div>
+         <!-- Confirmation modal for command deletion -->
+<ng-template #deleteModal>
+   <div class="modal-header">
+     <h4 class="modal-title">Confirmation de la suppression</h4>
+     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Êtes-vous sûr de vouloir supprimer cette commande ?
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+   </div>
+ </ng-template>

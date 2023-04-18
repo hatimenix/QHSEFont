@@ -38,7 +38,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -83,7 +83,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
   ],
   imports: [
-
+    ModalModule.forRoot(),
     AppRoutingModule,
     BrowserModule,
     AppRoutingModule,
