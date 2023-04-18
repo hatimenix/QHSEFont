@@ -18,7 +18,6 @@ export class Nc {
   type_cause!: string | null
   cout!: number | null
   progress!: number | null
-  etat!: boolean | null
   info_complementaires!: string | null
   piece_jointe?: any | null;
   frequence!: boolean | null
