@@ -37,7 +37,6 @@ export class ListNcComponent {
   type_cause:any
   cout:any
   progress:any
-  etat:any
   info_complementaires:any
   frequence:any
   gravite:any
@@ -78,7 +77,6 @@ export class ListNcComponent {
     type_cause: new FormControl(''),
     cout: new FormControl(''),
     progress: new FormControl(''),
-    etat: new FormControl(''),
     info_complementaires: new FormControl(''),
     frequence: new FormControl(''),
     gravite: new FormControl(''),
@@ -134,12 +132,12 @@ export class ListNcComponent {
   }
   
   filterByEtatTrue() {
-    this.filteredNcs = this.originalNcs.filter(nc => nc.etat === true);
+    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === true);
   }
   
   filterByEtatFalse() {
 
-    this.filteredNcs = this.originalNcs.filter(nc => nc.etat === false);
+    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === false);
   }
   resetFilter() {
     this.filteredNcs = this.originalNcs;
@@ -168,8 +166,6 @@ updateNc() : void {
     formData.append("date_nc", this.date_nc);
     formData.append("date_prise_en_compte", this.date_prise_en_compte);
     formData.append("description_detailee", this.description_detailee);
-    formData.append("annee", this.annee);
-    formData.append("mois", this.mois);
     formData.append("delai_prevu", this.delai_prevu);
     formData.append("type_cause", this.type_cause);
     formData.append("cout", this.cout);
@@ -177,13 +173,13 @@ updateNc() : void {
     formData.append("info_complementaires", this.info_complementaires);
     if (this.piece_jointe !== null && this.piece_jointe !== undefined) {
       formData.append("piece_jointe", this.piece_jointe);
-  }    formData.append("processus", this.processus);
+  }    
+    formData.append("gravite", this.gravite);
+    formData.append("action_immediate", this.action_immediate);
+    formData.append("nc_cloture", this.nc_cloture);
+    formData.append("processus", this.processus);
     formData.append("site", this.site);
     formData.append("responsable_traitement", this.responsable_traitement);
-
-  this.ncservice.update(this.id, formData)
-
-  
 
   this.ncservice.update(this.id, formData)
 
@@ -236,7 +232,6 @@ getNcData( id : number,
   type_cause:any,
   cout:any,
   progress:any,
-  etat:any,
   info_complementaires:any,
   frequence:any,
   gravite:any,
@@ -266,7 +261,6 @@ getNcData( id : number,
     this.type_cause=type_cause,
     this.cout=cout,
     this.progress=progress,
-    this.etat=etat,
     this.info_complementaires=info_complementaires,
     this.frequence=frequence,
     this.gravite=gravite,
@@ -327,7 +321,6 @@ exportToExcel() {
     'Type_cause':nc.type_cause,
     'Cout':nc.cout,
     'Progress':nc.progress,
-    'Etat':nc.etat,
     'Info_complementaires':nc.info_complementaires,
     'Frequence':nc.frequence,
     'Gravite':nc.gravite,
