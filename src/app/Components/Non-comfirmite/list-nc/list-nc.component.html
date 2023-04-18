@@ -75,15 +75,15 @@
                       <td>{{nc.cout}}€</td>
                       <td>{{nc.progress}}%</td>
                       <td>{{nc.info_complementaires}}</td>
-                      <td>{{nc.frequence}}</td>
-                      <td>{{nc.gravite}}</td>
-                      <td>{{nc.action_immediate}}</td>
-                      <td>{{nc.nc_cloture}}</td>
+                      <td>{{nc.frequence ? 'Oui' : 'Non'}}</td>
+                      <td>{{nc.gravite ? 'Oui' : 'Non'}}</td>
+                      <td>{{nc.action_immediate ? 'Oui' : 'Non'}}</td>
+                      <td>{{nc.nc_cloture ? 'Oui' : 'Non'}}</td>
                       <td><a href="{{ nc.piece_jointe }}" download>{{ nc.piece_jointe }}</a></td>
 
                       <td>
                              <div class="d-flex align-items-center list-action">
-                                     <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee,nc.mois,nc.delai_prevu,nc.type_cause,nc.cout,nc.progress,nc.etat,nc.info_complementaires,nc.frequence,nc.gravite,nc.action_immediate,nc.nc_cloture,nc.responsable_name,nc.site_name,nc.processus_name,nc.site,nc.processus,nc.responsable_traitement)"data-placement="top" title="" data-original-title="Edit"
+                                     <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee,nc.mois,nc.delai_prevu,nc.type_cause,nc.cout,nc.progress,nc.info_complementaires,nc.frequence,nc.gravite,nc.action_immediate,nc.nc_cloture,nc.responsable_name,nc.site_name,nc.processus_name,nc.site,nc.processus,nc.responsable_traitement)"data-placement="top" title="" data-original-title="Edit"
                                      ><i class="ri-pencil-line mr-0"></i></a>
                                  <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
                                      ><i class="ri-delete-bin-line mr-0"></i></a>
@@ -164,13 +164,19 @@ aria-hidden="true">
           </div>
           <div class="row">
             <div class="col">
-              <label for="annee" class="form-label">Année : </label>
-              <input name="annee" value="{{annee}}" [(ngModel)] = "annee" formControlName="annee" style="width: 100%;" type="text" class="rounded-pill form-control" id="annee">
+              <label for="action_immediate" class="form-label">Action immédiate : </label>
+              <select [(ngModel)]="action_immediate" id="action_immediate" formControlName="action_immediate"  class="custom-select" data-style="py-0">
+                <option [ngValue]="true">Oui</option>
+                <option [ngValue]="false">Non</option>
+            </select>
             </div>
 
             <div class="col">
-              <label for="mois" class="form-label">Mois : </label>
-              <input name="mois"  value="{{mois}}" [(ngModel)] = "mois" formControlName="mois" style="width: 100%;" type="text" class="rounded-pill form-control" id="mois">
+              <label for="nc_cloture" class="form-label">Nc Clôturée : </label>
+              <select [(ngModel)]="nc_cloture" id="nc_cloture" formControlName="nc_cloture"  class="custom-select" data-style="py-0">
+                <option [ngValue]="true">Oui</option>
+                <option [ngValue]="false">Non</option>
+            </select>
               </div>
 
               <div class="col">
