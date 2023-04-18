@@ -34,7 +34,6 @@ export class AddNcComponent {
     type_cause:'',
     cout:'',
     progress:'',
-    etat:'',
     info_complementaires:'',
     frequence:'',
     gravite:'',
@@ -52,9 +51,9 @@ export class AddNcComponent {
   form = new FormGroup({
     intitule: new FormControl('', [Validators.required, Validators.minLength(3)]),
     nature: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    domaine: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    detail_cause: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    date_nc: new FormControl(''),
+    domaine: new FormControl('', [Validators.minLength(3)]),
+    detail_cause: new FormControl('', [ Validators.minLength(3)]),
+    date_nc: new FormControl('',[Validators.required]),
     date_prise_en_compte: new FormControl(''),
     description_detailee: new FormControl('',[Validators.minLength(3)]),
     annee: new FormControl('',[Validators.minLength(4)]),
@@ -63,7 +62,6 @@ export class AddNcComponent {
     type_cause: new FormControl(''),
     cout: new FormControl(''),
     progress: new FormControl(''),
-    etat: new FormControl(''),
     info_complementaires: new FormControl('',[Validators.minLength(3)]),
     frequence: new FormControl(''),
     gravite: new FormControl(''),
@@ -134,7 +132,6 @@ export class AddNcComponent {
     formData.append("type_cause", this.ncf.type_cause);
     formData.append("cout", this.ncf.cout);
     formData.append("progress", this.ncf.progress);
-    formData.append("etat", this.ncf.etat);
     formData.append("info_complementaires", this.ncf.info_complementaires);
     formData.append("frequence", this.ncf.frequence);
     formData.append("gravite", this.ncf.gravite);
@@ -144,9 +141,6 @@ export class AddNcComponent {
     formData.append("processus", this.ncf.processus);
     formData.append("site", this.ncf.site);
     formData.append("responsable_traitement", this.ncf.responsable_traitement);
-
-
-
 
 
     this.ncservice.create(formData).subscribe({
