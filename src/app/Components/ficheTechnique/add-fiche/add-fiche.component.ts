@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FicheserService } from 'src/app/Services/Service-fiche-restauration/ficheser.service';
 
 
@@ -12,8 +13,12 @@ import { FicheserService } from 'src/app/Services/Service-fiche-restauration/fic
 })
 export class AddFicheComponent {
   ficheForm: FormGroup;
+  //modal
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
 
-  constructor(private formBuilder: FormBuilder, private ficheService: FicheserService, private router: Router) {
+
+  constructor(private formBuilder: FormBuilder, private ficheService: FicheserService, private router: Router, private bsModalService: BsModalService) {
     this.ficheForm = this.formBuilder.group({
       
       nom_fiche: ['', Validators.required],
@@ -52,6 +57,7 @@ export class AddFicheComponent {
       this.ficheService.addFicheFormData(formData).subscribe(
         (response) => {
           console.log('fiche ajoutée', response);
+          this.openModal();
           this.router.navigate(['/listF']);
         },
         (error) => {
@@ -60,5 +66,11 @@ export class AddFicheComponent {
       );
     }
   }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
   
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 
 import { Personnel } from 'src/app/models/Personnel';
@@ -15,8 +16,11 @@ export class ListProcessusComponent implements OnInit {
   
   processus: Processus[] = [];
   personnelService: any;
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  modalRef!: BsModalRef;
+  ProIdToDelete: number = 0;
   
-constructor(private processusService: ProcessusService) { }
+constructor(private processusService: ProcessusService,public modalService: BsModalService) { }
 ngOnInit(): void {
 this.loadprocessus();
 }
@@ -32,4 +36,16 @@ deleteProcessus(id: number) :void{
     this.processus = this.processus.filter((p) => p.id !== id);
   });
 }
+ //delete modal
+ confirmDelete(): void {
+  this.processusService.deleteProcessus(this.ProIdToDelete)
+    .subscribe(() => {
+      this.processus = this.processus.filter(c => c.id !== this.ProIdToDelete);
+      this.modalRef.hide();
+    });
+}
+
+  declineDelete(): void {
+  this.modalRef.hide();
+  }
 }
