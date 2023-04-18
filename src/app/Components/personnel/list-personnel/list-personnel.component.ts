@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { Personnel } from 'src/app/models/Personnel';
+
 
 @Component({
   selector: 'app-list-personnel',
@@ -9,8 +11,12 @@ import { Personnel } from 'src/app/models/Personnel';
 })
 export class ListPersonnelComponent implements OnInit{
   personnels: Personnel[] = [];
+  //delete modal
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  modalRef!: BsModalRef;
+  PersonnelIdToDelete: number = 0;
 
-constructor(private personnelService: PersonnelService) { }
+constructor(private personnelService: PersonnelService,  public modalService: BsModalService) { }
 
 ngOnInit(): void {
 this.loadPersonnels();
@@ -30,5 +36,15 @@ deletePersonnel(id: number) :void{
     this.personnels = this.personnels.filter((p) => p.id !== id);
   });
 }
+confirmDelete(): void {
+  this.personnelService.deletePersonnel(this.PersonnelIdToDelete)
+    .subscribe(() => {
+      this.personnels = this.personnels.filter(c => c.id !== this.PersonnelIdToDelete);
+      this.modalRef.hide();
+    });
+}
 
+  declineDelete(): void {
+  this.modalRef.hide();
+  }
 }

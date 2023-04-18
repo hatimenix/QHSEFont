@@ -13,14 +13,14 @@
                            <div class="row">                                  
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Nom du Site</label>
+                                       <label>Nom du Site <label style="color: red;">*</label></label>
                                        <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom">
                                        <div class="help-block with-errors"></div>
                                    </div>
                                </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Sigle</label>
+                                    <label>Sigle <label style="color: red;">*</label></label>
                                     <input type="text" class="form-control" placeholder="Entrer le sigle" required id="sigle" name="sigle" formControlName="sigle">
                                     <div class="help-block with-errors"></div>
                                 </div>
@@ -28,7 +28,7 @@
                                 
                                 <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Responsable Site </label>
+                                    <label>Responsable Site <label style="color: red;">*</label> </label>
                                     <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required>
                                         <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
                                        </select>   
@@ -36,7 +36,7 @@
                                 </div> 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Groupe Restaurant</label>
+                                        <label>Groupe Restaurant <label style="color: red;">*</label></label>
                                         <select class="selectpicker form-control" data-style="py-0" id="groupe_retso" name="groupe_retso" formControlName="groupe_retso" >
                                             <option>Wiltz resto</option>
                                             <option>Schengen resto</option>
