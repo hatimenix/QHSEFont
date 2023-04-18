@@ -26,12 +26,12 @@
     width: 100%;
   }
 #update .modal-dialog {
-    max-width: 800px;
+    max-width: 850px;
   }
   
 #update .modal-content {
-    width: 120%;
-    height: 120%;
+    width: 110%;
+    height: 110%;
   }
   
   
