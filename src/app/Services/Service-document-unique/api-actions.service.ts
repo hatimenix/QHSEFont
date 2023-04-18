@@ -21,4 +21,12 @@ export class ApiActionsService {
     const url = `${this.API_URL_AC}${id}/`;
     return this.http.get<Actions>(url);
   }
+
+  addAction(action: Actions): Observable<Actions> {
+    return this.http.post<Actions>(this.API_URL_AC, action);
+  }
+
+  delAction(id:number){
+    return this.http.delete<Actions>(this.API_URL_AC+id+'/');
+  }
 }

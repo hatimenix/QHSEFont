@@ -16,6 +16,7 @@ import { AddDangerComponent } from './Components/Document-unique/add-danger/add-
 import { UpdateDangerComponent } from './Components/Document-unique/update-danger/update-danger.component';
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
 import { InfoDangerComponent } from './Components/Document-unique/info-danger/info-danger.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { InfoDangerComponent } from './Components/Document-unique/info-danger/in
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
