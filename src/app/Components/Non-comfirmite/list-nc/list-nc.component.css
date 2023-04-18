@@ -25,6 +25,14 @@
 #user-list-table {
     width: 100%;
   }
+#update .modal-dialog {
+    max-width: 850px;
+  }
+  
+#update .modal-content {
+    width: 110%;
+    height: 110%;
+  }
   
   
   
