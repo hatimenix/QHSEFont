@@ -1,3 +1,4 @@
+
 <div class="content-page">
     <div class="container-fluid add-form-list">
        <div class="row">
@@ -21,7 +22,7 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label for="type_commande">Type de commande *</label>
-                                       <select class="selectpicker form-control" data-style="py-0" id="type_commande" >
+                                       <select class="custom-select" data-style="py-0" id="type_commande" formControlName="type_commande" >
                                            <option>Client</option>
                                            <option>Collaborateur</option>
                                        </select>
@@ -30,7 +31,7 @@
                                <div class="col-md-6">                      
                                    <div class="form-group">
                                        <label for="quantite">Nombre/Quantité *</label>
-                                       <input type="number" id="quantite" formControlName="quantite" type="number" class="form-control" placeholder="Entrer une quantité" data-errors="Please Enter Quantity." required>
+                                       <input type="number" id="quantite" formControlName="quantite" type="number" class="form-control" placeholder="Entrer une quantité" data-errors="Please Enter Quantity."  required>
                                        <div class="help-block with-errors"></div>
                                    </div>
                                </div>    
@@ -38,7 +39,7 @@
                                <div class="col-md-6"> 
                                    <div class="form-group">
                                     <label for="specificite_regime">Spécificité Régime *</label>
-                                       <select class="selectpicker form-control" data-style="py-0" id="specificite_regime">
+                                       <select class="custom-select" data-style="py-0" id="specificite_regime" formControlName="specificite_regime">
                                         <option value="Constipation">Constipation</option>
                                         <option value="Diarrhée">Diarrhée</option>
                                         <option value="Sans résiclus">Sans résiclus</option>
@@ -61,7 +62,7 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                     <label for="specificite_texture">Spécificité Texture *</label>
-                                       <select class="selectpicker form-control" data-style="py-0" id="specificite_texture" >
+                                       <select class="custom-select" data-style="py-0" id="specificite_texture" formControlName="specificite_texture" >
                                         <option value="Viande coupée">Viande coupée</option>
                                         <option value="Tout coupée">Tout coupée</option>
                                         <option value="Velours viande">Velours viande</option>
@@ -82,5 +83,18 @@
        </div>
      
    </div>
-     </div>
-    
+     </div> 
+      <ng-template #successModal>
+        <div class="modal-header">
+          <h4 class="modal-title">Succès</h4>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          La commande a été modifiée avec succès.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        </div>
+      </ng-template>

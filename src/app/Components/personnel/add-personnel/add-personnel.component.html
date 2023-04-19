@@ -1,88 +1,141 @@
 <div class="content-page">
-    <div class="container-fluid">
-       <div class="row">
-          <div class="col-xl-3 col-lg-4">
-                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
-                      <div class="header-title">
-                         <h4 class="card-title">Ajouter nouveau personnel</h4>
-                      </div>
-                   </div>
-                   <div class="card-body">
-                      <form>
-                         <div class="form-group">
-                            <div class="crm-profile-img-edit position-relative">
-                               <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic">
-                               <div class="crm-p-image bg-primary">
-                                  <i class="las la-pen upload-button"></i>
-                                  <input class="file-upload" type="file" accept="image/*">
-                               </div>
-                            </div>
-                         </div>
-                      </form>
-                   </div>
-                </div>
-          </div>
-<div class="col-xl-9 col-lg-8">
-    <div class="card">
-       <div class="card-header d-flex justify-content-between">
-          <div class="header-title">
-             <h4 class="card-title">Ajouter un nouveau personnel</h4>
-          </div>
-       </div>
-       <div class="card-body">
-          <div class="new-user-info">
-             <form [formGroup]="PersonnelForm" (ngSubmit)="onSubmit()">
-                <div class="row">
-                  <div class="form-group col-md-6">
-                     <label for="image">Image :</label>
-                     <input  class="custom-file-label" type="file" class="form-control" id="image" name="image" (change)="onFileSelected($event) " formControlName="image" >
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-xl-3 col-lg-4">
+               <div class="card">
+                  <div class="card-header d-flex justify-content-between">
+                     <div class="header-title">
+                        <h4 class="card-title">Ajouter nouveau personnel</h4>
+                     </div>
                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="compte">Compte :</label>
-                      <input type="text" class="form-control" id="compte" name="compte" placeholder="Compte" formControlName="compte">
+                  <div class="card-body">
+                     <form>
+                        <div class="form-group">
+                           <div class="crm-profile-img-edit position-relative">
+                              <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic">
+                              <div class="crm-p-image bg-primary">
+                                 <i class="las la-pen upload-button" ></i>
+                                 <input class="file-upload" type="file" accept="image/* ">
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+         </div>
+<div class="col-xl-9 col-lg-8">
+   <div class="card">
+      <div class="card-header d-flex justify-content-between">
+         <div class="header-title">
+           <div class="user-list-files d-flex">
+                              
+              
+            <h4 class="card-title "style="margin-right: 460px;" >Ajouter un nouveau personnel</h4>
+           </div>
+         </div>
+      </div>
+      <div class="card-body">
+         <div class="new-user-info">
+
+            <form [formGroup]="PersonnelForm" (ngSubmit)="onSubmit()" data-toggle="validator">
+
+               <div class="row">
+                 <div class="form-group col-md-6">
+                    <label for="image">Image :</label>
+                    <input  class="custom-file-input" type="file" class="form-control" id="image" name="image" (change)="onFileSelected($event) " formControlName="image" >
+                 </div>
+                 <div class="form-group col-md-6">
+                    <label for="compte">Compte :</label>
+
+                    <input type="text" class="form-control" id="compte" name="compte" placeholder="Compte" formControlName="compte" required minlength="3">
+<div *ngIf="PersonnelForm.controls['compte'].invalid && (PersonnelForm.controls['compte'].dirty || PersonnelForm.controls['compte'].touched)">
+    <div *ngIf="PersonnelForm.controls['compte'].errors?.['required']"  style="color: rgb(142, 27, 86);">Compte est requis.</div>
+    <div class="help-block with-errors"></div>
+    <div *ngIf="PersonnelForm.controls['compte'].errors?.['minlength']"  style="color: red;">Le compte doit contenir au moins 3 caractères.</div>
+</div>
+
+                  </div>
+                  
+                  <div class="form-group col-md-6">
+                     <label for="nom">Nom :</label>
+
+                     <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" formControlName="nom">
+                    <div *ngIf="PersonnelForm.controls['nom'].invalid && (PersonnelForm.controls['nom'].dirty || PersonnelForm.controls['nom'].touched)">
+                    <div *ngIf="PersonnelForm.controls['nom'].errors?.['required']"  style="color: red;">Nom est requis.</div>
+
+                   </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label for="courrier">Courrier:</label>
+                     <input type="email" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier">
+                     <div *ngIf="PersonnelForm.controls['courrier'].invalid && (PersonnelForm.controls['courrier'].dirty || PersonnelForm.controls['courrier'].touched)">
+                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['required']" style="color: red;">Courrier est requis.</div>
+                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['email']" style="color: red;">Courrier doit être une adresse email valide.</div>
+                     </div>
                    </div>
                    
+                 
                    <div class="form-group col-md-6">
-                      <label for="nom">Nom :</label>
-                      <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom"formControlName="nom">
+                     <label for="numero_tel">Numéro :</label>
+                     <input type="tel" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number" formControlName="numero_tel">
+                     <div *ngIf="PersonnelForm.controls['numero_tel'].invalid && (PersonnelForm.controls['numero_tel'].dirty || PersonnelForm.controls['numero_tel'].touched)">
+                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['required']" style="color: red;">Numéro est requis.</div>
+                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['pattern']" style="color: red;">Numéro doit être un numéro de téléphone valide.</div>
+                     </div>
                    </div>
                    
-                   <div class="form-group col-md-6">
-                      <label for="courrier">Courrier:</label>
-                      <input type="text" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier">
-                   </div>
                    
-                   
-                   <div class="form-group col-md-6">
-                      <label for="numero_tel">Numéro :</label>
-                      <input type="text" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number"formControlName="numero_tel">
-                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="presente_vous">Présentez vous:</label>
-                      <input type="text-area" class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous " formControlName="presente_vous">
-                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="fonction">Fonction:</label>
-                      <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction">
-                   </div>
-                   <div class="form-group col-md-6">
-                      <label for="adresse_sip">Adresse Sip:</label>
-                      <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip">
-                   </div>
-                   <div class="form-group col-md-12">
-                      <label for="othermail">Other mail:</label>
-                      <input type="email" class="form-control" id="othermail" name="othermail" placeholder="Other mail" formControlName="othermail">
-                   </div>
-                </div>
-                <hr>
-            
-                <button type="submit" class="btn btn-primary">Ajouter</button>
-             </form>
-          </div>
-       </div>
-    </div>
+
+                  <div class="form-group col-md-6">
+                     <label for="presente_vous">Présentez vous:</label>
+                     <input type="text-area" class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous " formControlName="presente_vous">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label for="fonction">Fonction:</label>
+                     <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label for="adresse_sip">Adresse Sip:</label>
+                     <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip">
+                  </div>
+                  <div class="form-group col-md-12">
+                     <label for="othermail">Other mail:</label>
+                     <input type="email" class="form-control" id="othermail" name="othermail" placeholder="Other mail" formControlName="othermail">
+
+                     <div *ngIf="PersonnelForm.controls['othermail'].invalid && (PersonnelForm.controls['othermail'].dirty || PersonnelForm.controls['othermail'].touched)">
+                        
+                        <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" style="color: red;">Courrier doit être une adresse email valide.</div>
+                      </div>
+
+                  </div>
+               </div>
+               <hr>
+           
+
+               <button type="submit" class="btn btn-primary" (click)="openModal()">Ajouter</button>
+
+               <button type="reset" class="btn btn-danger" routerLink="/listP">Annuler</button>
+            </form>
+         </div>
+      </div>
+   </div>
 </div>
 </div>
 </div>
-</div><app-sidebar></app-sidebar>
+
+<ng-template #successModal>
+   <div class="modal-header">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Le personnel a été ajoutée avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+   </div>
+ </ng-template>
+
+

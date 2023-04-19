@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommandeSerService } from 'src/app/Services/Service-commandes/commande-ser.service';
 import { Commande } from 'src/app/models/Commande';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-update-commande',
@@ -14,13 +15,16 @@ export class UpdateCommandeComponent implements OnInit{
   commande!: Commande;
   commandeId!: number;
   formBuilder: any;
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
 
 
   constructor(
     private fb: FormBuilder,
     private commandeService: CommandeSerService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private bsModalService: BsModalService
   ) {
     this.createForm();
     
@@ -46,6 +50,7 @@ export class UpdateCommandeComponent implements OnInit{
       this.commandeId = params['id_commande'];
       this.commandeService.getCommandeById(this.commandeId).subscribe(
         (commande: Commande) => {
+          console.log('Commande:', commande);
           this.commande = commande;
           this.myForm.setValue({
             type_commande: this.commande.type_commande ,
@@ -56,8 +61,9 @@ export class UpdateCommandeComponent implements OnInit{
             etat_commande: this.commande.etat_commande 
           });
         },
-        (        error: any) => console.log(error)
+        error => console.log(error)
       );
+      
 
     });
   }
@@ -69,9 +75,9 @@ export class UpdateCommandeComponent implements OnInit{
       date_commande: ['', Validators.required],
       type_commande: ['', Validators.required],
       quantite: ['', Validators.required],
-      specificite_regime: ['Aucun', Validators.required],
-      specificite_texture: ['Aucun', Validators.required],
-      etat_commande: ['livre', Validators.required],
+      specificite_regime: ['', Validators.required],
+      specificite_texture: ['', Validators.required],
+      etat_commande: ['', Validators.required],
     });
   }
 
@@ -89,6 +95,7 @@ export class UpdateCommandeComponent implements OnInit{
       this.commandeService.updateCommande(updatedCommande).subscribe(
         (commande: Commande) => {
           console.log('Commande updated successfully!');
+          this.openModal();
           this.router.navigate(['/listC']);
         },
         error => console.log(error)
@@ -96,6 +103,16 @@ export class UpdateCommandeComponent implements OnInit{
     } else {
       console.log('Commande ID is undefined!');
     }
+
+    
   }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
+
 
 }
+

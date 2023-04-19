@@ -14,7 +14,7 @@
                               
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Intitulé</label>
+                                       <label>Intitulé <label style="color: red;">*</label></label>
                                        <input type="text" class="form-control" placeholder="Entrer intitulé" required id="intitule" name="intitule" formControlName="intitule">
                                        <div class="help-block with-errors"></div>
                                    </div>
@@ -22,14 +22,14 @@
                                
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Sigle</label>
+                                    <label>Sigle <label style="color: red;">*</label></label>
                                     <input type="text" class="form-control" placeholder="Entrer typologie" required id="sigle" name="sigle" formControlName="sigle">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Typologie</label>
+                                       <label>Typologie<label style="color: red;">*</label></label>
                                        <select class="selectpicker form-control" data-style="py-0" id="typologie" name="typologie" formControlName="typologie" >
                                            <option>Management</option>
                                            <option>Opérationnel</option>
@@ -41,16 +41,16 @@
                                <div class="col-md-6">
                                 <div class="form-group">
                                     
-                                    <label>Finalité</label>
+                                    <label>Finalité<label style="color: red;">*</label></label>
                                          <textarea class="form-control" rows="4"
-                                            placeholder="Label in Textarea" id="finalite" name="finalite" formControlName="finalite"></textarea>
-                                         
+                                            placeholder="Entrez la finalité" id="finalite" name="finalite" formControlName="finalite" required></textarea>
+                                            <div class="help-block with-errors"></div>
                                       </div>
                                   
                                 </div>
                                 <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Pilote</label>
+                                    <label>Pilote <label style="color: red;">*</label></label>
                                     <select id="pilote" name="pilote" formControlName="pilote" class="custom-select" data-style="py-0" required>
                                         <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
                                        </select>
@@ -59,70 +59,71 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         
-                                        <label>Acteurs</label>
+                                        <label>Acteurs<label style="color: red;">*</label></label>
                                              <textarea class="form-control"  rows="4"
-                                                placeholder="Label in Textarea" id="acteurs" name="acteurs" formControlName="acteurs"></textarea>
-                                             
+                                                placeholder="Entrez les acteurs" id="acteurs" name="acteurs" formControlName="acteurs" required></textarea>
+                                                <div class="help-block with-errors"></div>
                                           </div>
                                       
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             
-                                            <label>Donnée Entrée</label>
+                                            <label>Donnée Entrée<label style="color: red;">*</label></label>
                                                  <textarea class="form-control"  rows="4"
-                                                    placeholder="Label in Textarea" id="donnee_entree" name="donnee_entree" formControlName="donnee_entree"></textarea>
-                                                 
+                                                    placeholder="Données entrées" id="donnee_entree" name="donnee_entree" formControlName="donnee_entree" required></textarea>
+                                                    <div class="help-block with-errors"></div>
                                               </div>
                                           
                                         </div>
                                <div class="col-md-6">
                                 <div class="form-group">
                                             
-                                    <label>Activités</label>
+                                    <label>Activités<label style="color: red;">*</label></label>
                                          <textarea class="form-control"rows="4"
-                                            placeholder="Label in Textarea"id="activites" name="activites" formControlName="activites"></textarea>
-                                         
+                                            placeholder="Entrez les activités"id="activites" name="activites" formControlName="activites" required></textarea>
+                                            <div class="help-block with-errors"></div>
                                       </div>
                                </div>
                                <div class="col-md-6"> 
                                 <div class="form-group">
                                             
-                                    <label>Donnée Sortie</label>
+                                    <label>Donnée Sortie <label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="donnee_sortie" rows="4"
-                                            placeholder="Label in Textarea" name="donnee_sortie" formControlName="donnee_sortie"></textarea>
+                                            placeholder="Donnée sortie " name="donnee_sortie" formControlName="donnee_sortie" required></textarea>
+                                            <div class="help-block with-errors"></div>
                                       </div>
                                </div> 
                                <div class="col-md-6"> 
                                 <div class="form-group">
                                             
-                                    <label>Ressource Tech Org</label>
+                                    <label>Ressource Tech Org <label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="ressources_tech_org" rows="4"
-                                            placeholder="Label in Textarea" name="ressources_tech_org" formControlName="ressources_tech_org"></textarea>
-                                         
+                                            placeholder="Ressource Tech Org" name="ressources_tech_org" formControlName="ressources_tech_org" required></textarea>
+                                            <div class="help-block with-errors"></div>
                                       </div>
                                </div> 
                                <div class="col-md-6"> 
                                 <div class="form-group">
                                             
-                                    <label>Objectifs et indicateurs</label>
+                                    <label>Objectifs et indicateurs<label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="objectifs_ind" rows="4"
-                                            placeholder="Label in Textarea" name="objectifs_ind" formControlName="objectifs_ind"></textarea>
-                                         
+                                            placeholder="Objectifs et indicateurs" name="objectifs_ind" formControlName="objectifs_ind" required></textarea>
+                                            <div class="help-block with-errors"></div>
                                       </div>
                                </div>  
                                <div class="col-md-6"> 
                                 <div class="form-group">
                                             
-                                    <label>Outils de surveillance</label>
+                                    <label>Outils de surveillance<label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="outils_surveil" rows="4"
-                                            placeholder="Label in Textarea" name="outils_surveil" formControlName="outils_surveil" ></textarea>
-                                         
+                                            placeholder="Outils de surveillance" name="outils_surveil" formControlName="outils_surveil" required ></textarea>
+                                            <div class="help-block with-errors"></div>
                                       </div>
                                </div>  
                            </div>                            
-                           <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
-                           <button type="reset" class="btn btn-danger">annuler</button>
+                           <button type="submit" class="btn btn-primary mr-2"  (click)="openModal()">Ajouter</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listProcessus">Annuler</button>
                        </form>
                    </div>
                </div>
@@ -131,4 +132,17 @@
        <!-- Page end  -->
    </div>
      </div>
-     <router-outlet></router-outlet><app-sidebar></app-sidebar>
+     <ng-template #successModal>
+        <div class="modal-header">
+          <h4 class="modal-title">Succès</h4>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Le processuss a été ajoutée avec succès.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        </div>
+      </ng-template>

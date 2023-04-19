@@ -34,6 +34,7 @@ export class CommandeSerService {
 }
 
 
+
   deleteCommande(id: number): Observable<string> {
     return this.http.delete<string>(`${this.API_Commande}${id}`);
   }

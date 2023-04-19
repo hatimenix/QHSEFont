@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 import { Secteur } from 'src/app/models/Secteur';
 
@@ -11,9 +12,11 @@ import { Secteur } from 'src/app/models/Secteur';
 })
 export class AddSecteurComponent {
   secteurForm!: FormGroup;
+  
  
   constructor(private fb: FormBuilder, 
     private secteurService:  SecteurService,
+    
      private router: Router,
      ) {
   }
@@ -30,12 +33,14 @@ export class AddSecteurComponent {
       secteur_nom: ['', Validators.required],
       
     });
+  
    
   }
   onSubmit():void {
     const formData = this.secteurForm.value;
     const secteur: Secteur= new Secteur (
-      formData.secteur_nom
+      formData.secteur_nom,
+      
     );
       
     

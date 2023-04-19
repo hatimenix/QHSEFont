@@ -4,12 +4,16 @@
     overflow-x: auto;
   }
   
-  .card {
-    width: 200px;
-    margin-right: 10px;
-  }
-  
   .swiper-slide {
     width: 200px;
   }
-  
+  .card {
+    max-width: fit-content; 
+    padding: 5px;
+    font-size: 14px;
+    height: 100px;
+    }
+    .icon {
+      height: 50px; 
+      width: 50px;
+      }  

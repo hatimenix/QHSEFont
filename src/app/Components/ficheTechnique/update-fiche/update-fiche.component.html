@@ -4,10 +4,9 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <a routerLink="/listF" class="btn btn-primary add-list"><i class="fa-light fa-backward"></i>Retour</a>
 
                         <div class="header-title">
-                            <h4 class="card-title">Modifier Fiche Technique</h4>
+                            <h4 class="card-title">Modifier une Fiche Technique</h4>
                             
                         </div>
                     </div>
@@ -25,7 +24,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="type_plat">Type de plat *</label>
-                                        <select name="type" class="selectpicker form-control" data-style="py-0" id="type_plat" formControlName="type_plat">
+                                        <select name="type" class="custom-select" data-style="py-0" id="type_plat" formControlName="type_plat">
                                             <option>Entrée/Salade</option>
                                             <option>Potage</option>
                                             <option>Accompagnement</option>
@@ -37,7 +36,7 @@
                                         </select>
                                     </div> 
                                 </div>  <label for="fichier">Fichier *</label><br><br>  
-                                <div class="col-md-6">                      
+                                <div class="col-md-12">                      
                                     <div class="form-group">
                                         <label for="fichier">Fichier</label>
                                         <input class="custom-file-input" id="customFile" type="file" formControlName="fichier" (change)="onFileSelected($event)">

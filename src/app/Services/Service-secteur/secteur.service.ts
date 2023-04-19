@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.development';
 export class SecteurService {
 
   private API_Secteurs =environment.API_Secteurs;
- ;
+  private API_Docs = environment.API_Docs;
   constructor(private http: HttpClient) { }
 
   getSecteur(): Observable<Secteur[]> {
@@ -26,6 +26,7 @@ export class SecteurService {
   addSecteur(secteur: Secteur): Observable<Secteur> {
     return this.http.post<Secteur>(this.API_Secteurs, secteur);
   }
+  
 
   updateSecteur(id: number, secteur: Secteur): Observable<Secteur> {
     const url = `${this.API_Secteurs}${id}/`;
@@ -35,4 +36,5 @@ export class SecteurService {
     const url = `${this.API_Secteurs}${id}`;
     return this.http.delete<void>(url);
   }
+ 
 }

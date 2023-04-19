@@ -25,9 +25,6 @@ import { UpdateSiteComponent } from './Components/Sites/update-site/update-site.
 import { LisSecteurComponent } from './Components/Secteurs/lis-secteur/lis-secteur.component';
 import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secteur.component';
 import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
-import { ListDocumentComponent } from './Components/Documentation/list-document/list-document.component';
-import { AddDocumentComponent } from './Components/Documentation/add-document/add-document.component';
-import { UpdateDocumentComponent } from './Components/Documentation/update-document/update-document.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
@@ -43,6 +40,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -70,11 +68,10 @@ import { InfoActionComponent } from './Components/Actions/info-action/info-actio
     AddSiteComponent,
     UpdateSiteComponent,
     LisSecteurComponent,
-    AddSecteurComponent,
+    
     UpdateSecteurComponent,
-    ListDocumentComponent,
-    AddDocumentComponent,
-    UpdateDocumentComponent,
+    
+    
     AddCommandeComponent,
     InfoEvenementComponent,
     InfoDangerComponent,
@@ -87,7 +84,7 @@ import { InfoActionComponent } from './Components/Actions/info-action/info-actio
 
   ],
   imports: [
-
+    ModalModule.forRoot(),
     AppRoutingModule,
     BrowserModule,
     AppRoutingModule,

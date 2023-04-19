@@ -12,7 +12,6 @@ import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { ListNcComponent } from './Components/Non-comfirmite/list-nc/list-nc.component';
 import { AddNcComponent } from './Components/Non-comfirmite/add-nc/add-nc.component';
 
-import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
 import { ListCommandesComponent } from './Components/Commandes/list-commandes/list-commandes.component';
 import { AddCommandeComponent } from './Components/Commandes/add-commande/add-commande.component';
@@ -34,10 +33,8 @@ import { UpdateSiteComponent } from './Components/Sites/update-site/update-site.
 import { LisSecteurComponent } from './Components/Secteurs/lis-secteur/lis-secteur.component';
 import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secteur.component';
 import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
-import { ListDocumentComponent } from './Components/Documentation/list-document/list-document.component';
-import { AddDocumentComponent } from './Components/Documentation/add-document/add-document.component';
-import { UpdateDocumentComponent } from './Components/Documentation/update-document/update-document.component';
 import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
+import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
 
 
@@ -75,9 +72,9 @@ const routes: Routes = [
   {path: 'listSecteur', component:LisSecteurComponent},
   {path:'addSecteur', component:AddSecteurComponent},
   {path:'updateSecteur/:id', component:UpdateSecteurComponent},
-  {path :'listdocuments', component:ListDocumentComponent},
-  {path :'adddocuments', component:AddDocumentComponent},
-  {path :'updatedocuments/:id', component:UpdateDocumentComponent},
+  { path: 'nc/:id', component: InfoNcComponent },
+
+  
 ];
 
 @NgModule({
