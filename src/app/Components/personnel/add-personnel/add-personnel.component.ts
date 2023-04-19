@@ -18,7 +18,9 @@ export class AddPersonnelComponent  {
     this.PersonnelForm = this.formBuilder.group({
       
 
-      image: ['',Validators.required],
+
+      image: ['', Validators.required],
+
 
       compte: ['', Validators.required],
       nom: ['', Validators.required],

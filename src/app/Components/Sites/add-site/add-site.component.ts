@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
@@ -14,11 +15,16 @@ import { Site } from 'src/app/models/site';
 export class AddSiteComponent {
   siteForm!: FormGroup;
   personnel$ !: Observable<any>;
+    //modal
+    @ViewChild('successModal', { static: true }) successModal:any;
+    modalRef!: BsModalRef;
 
   constructor(private fb: FormBuilder, 
     private siteService:  ApiSiteService,
      private router: Router,
-     private personnelService: PersonnelService) {
+     private personnelService: PersonnelService,
+     private bsModalService: BsModalService
+     ) {
   }
 
   ngOnInit(): void {
@@ -52,6 +58,7 @@ export class AddSiteComponent {
       () => {      
         console.log("Le site a été ajouté avec succès");
         console.log(site);
+        this.openModal();
         this.router.navigate(['/listsites']); 
       },
       (error: any) => {
@@ -59,5 +66,12 @@ export class AddSiteComponent {
       }
     );
   }
+   //modal functions 
+   openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
   
 }

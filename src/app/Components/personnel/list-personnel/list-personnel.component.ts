@@ -36,6 +36,7 @@ deletePersonnel(id: number) :void{
     this.personnels = this.personnels.filter((p) => p.id !== id);
   });
 }
+//delete modal 
 confirmDelete(): void {
   this.personnelService.deletePersonnel(this.PersonnelIdToDelete)
     .subscribe(() => {
