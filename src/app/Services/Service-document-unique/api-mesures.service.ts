@@ -30,4 +30,9 @@ export class ApiMesuresService {
     return this.http.delete<Mesures>(this.API_URL_ME+id+'/');
   }
 
+  updateMesure(id: number, mesure: Mesures): Observable<Mesures> {
+    const url = `${this.API_URL_ME}${id}/`;
+    return this.http.put<Mesures>(url, mesure);
+  }
+
 }
