@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
@@ -6,16 +6,20 @@ import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-con
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+
 @Component({
   selector: 'app-add-nc',
   templateUrl: './add-nc.component.html',
   styleUrls: ['./add-nc.component.css']
 })
-export class AddNcComponent {
+export class AddNcComponent implements OnInit {
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
-  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){}
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
+  constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService,private bsModalService: BsModalService){}
 
   mode = 'list';
   ncf = {
@@ -148,6 +152,7 @@ export class AddNcComponent {
       next: (res) => {
         console.log(res);
         this.router.navigate(["/nc-list"])
+        this.openModal();
         console.log(formData);
         this.submitted = true;
       },
@@ -177,5 +182,11 @@ export class AddNcComponent {
   submit() {
     console.log(this.form.value);
   }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
 }
 

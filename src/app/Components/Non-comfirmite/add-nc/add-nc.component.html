@@ -2,6 +2,7 @@
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
+            <div style="display: flex; flex-direction: column;">
                <div class="card">
                    <div class="card-header d-flex justify-content-between">
                        <div class="header-title">
@@ -246,8 +247,30 @@
                        </form>
                    </div>
                </div>
-               <button [disabled]="form.invalid" type="submit" (click)="createNC()" class="btn btn-primary mr-2">Enregistrer</button>
-               <button type="reset" class="btn btn-danger"(click)="onCancel()">Annuler</button>
+               <div style="margin-bottom: 2rem; margin-top: -15px;" class="d-flex flex-wrap justify-content-center">
+                <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createNC()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0">Enregistrer</button>
+                <button style="margin-bottom: 1%;" type="reset" (click)="onCancel()" class="btn btn-danger mb-2 mb-sm-0">Annuler</button>
+              </div>
+              
+               </div>
            </div>
        </div>
+       <!-- Page end  -->
+<ng-template #successModal>
+   <div class="modal-header">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     La non-confirmité a été ajoutée avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+   </div>
+ </ng-template>
+ 
+
+       
        
