@@ -39,8 +39,6 @@
 
             <form [formGroup]="PersonnelForm" (ngSubmit)="onSubmit()" data-toggle="validator">
 
-            
-
                <div class="row">
                  <div class="form-group col-md-6">
                     <label for="image">Image :</label>
@@ -54,7 +52,6 @@
     <div class="help-block with-errors"></div>
     <div *ngIf="PersonnelForm.controls['compte'].errors?.['minlength']"  style="color: red;">Le compte doit contenir au moins 3 caractères.</div>
 </div>
-
 
                   </div>
                   

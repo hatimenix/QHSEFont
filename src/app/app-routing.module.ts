@@ -33,6 +33,7 @@ import { UpdateSiteComponent } from './Components/Sites/update-site/update-site.
 import { LisSecteurComponent } from './Components/Secteurs/lis-secteur/lis-secteur.component';
 import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secteur.component';
 import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
+import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
 
@@ -44,8 +45,8 @@ const routes: Routes = [
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
-  {path: 'infoDanger/:id', component: InfoDangerComponent},
-
+  {path : 'infoDanger/:id', component: InfoDangerComponent},
+  {path : 'infoAction/:id', component: InfoActionComponent},
   {path : 'evenement/:id', component: InfoEvenementComponent},
 
   {path : 'evenement', component: InfoEvenementComponent},

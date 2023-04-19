@@ -1,14 +1,16 @@
 
 export const environment = {
-
+    API_URL_TA: 'http://127.0.0.1:8000/tache/',
+    API_URL_RE: 'http://127.0.0.1:8000/realisation/',
+    API_URL_ME: 'http://127.0.0.1:8000/mesure_efficacite/',
+    API_URL_AC: 'http://127.0.0.1:8000/action/',
     API_URL_DANGER: 'http://127.0.0.1:8000/danger/',
     API_URL_EVENEMENT: 'http://127.0.0.1:8000/evenement/',
     API_URL_FAMILLE: 'http://127.0.0.1:8000/famille/',
     API_URL_SERVICE: 'http://127.0.0.1:8000/service/',
     API_URL_SITE: 'http://127.0.0.1:8000/site/',
     API_URL_EV: 'http://127.0.0.1:8000/evenement/',
-    API_URL_EVA: 'http://127.0.0.1:8000/evaluation/',
-    API_URL_AC: 'http://127.0.0.1:8000/action/',
+    API_URL_EVA: 'http://127.0.0.1:8000/evaluation_danger/',
     API_URL_AE: 'http://127.0.0.1:8000/analyse_evenement/',
     API_URL_PR: 'http://127.0.0.1:8000/processus/',
     API_LINK :"http://127.0.0.1:8000/",

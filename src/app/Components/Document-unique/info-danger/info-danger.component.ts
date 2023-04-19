@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -40,6 +40,7 @@ export class InfoDangerComponent {
   serviceName !: string;
   familleName !: string;
   addedActionId !: number;
+  showModal = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,10 +68,10 @@ export class InfoDangerComponent {
     });
 
     this.evaluationForm = this.formBuilder.group({
-      probabilite: ['', Validators.required],
-      severite: ['', Validators.required],
-      frequences_exposition: ['', Validators.required],
-      ipr: ['', Validators.required],
+      probabilite: ['', Validators.required, Validators.min(0)],
+      severite: ['', Validators.required, Validators.min(0)],
+      frequences_exposition: ['', Validators.required, Validators.min(0)],
+      ipr: ['', Validators.required, Validators.min(0)],
       indice_risque: ['', Validators.required],
       mesure_prevention: ['', Validators.required]
     });
