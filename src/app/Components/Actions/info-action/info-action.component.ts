@@ -46,7 +46,6 @@ export class InfoActionComponent {
     private apiRealisationService: ApiRealisationService,
     private activatedRoute: ActivatedRoute,
     private apiMesuresService: ApiMesuresService,
-    private modal: NgbActiveModal,
     private apiActionsService: ApiActionsService
   ) { }
 
@@ -192,7 +191,7 @@ export class InfoActionComponent {
         console.log('Mesure a été modifiée avec succès.');
         this.getMesureByAction(this.actionId);
         this.mesureForm.reset();
-        this.modal.close();
+        
       },
       error => console.log(error)
     );
