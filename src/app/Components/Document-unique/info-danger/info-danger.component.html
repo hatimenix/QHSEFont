@@ -1,447 +1,383 @@
 <div class="content-page">
-    <div class="container-fluid">
-       <div class="row">
-          <div class="col-sm-12">
-            
-             <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                   <div class="header-title">
-                      <h4 class="card-title">Document unique</h4>
-                   </div>
-                </div>
-                <div class="card-body">
-                   <div class="iq-example-row">
-                      <div class="container-fluid">
-                         <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
-                            <li class="nav-item col-6 col-md-4">
-                               <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">IDENTIFICATION DES RISQUES</a>
-                            </li>
-                            <li class="nav-item col-6 col-md-4">
-                               <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">EVALUATION</a>
-                            </li>
-                            <li class="nav-item col-6 col-md-4">
-                               <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">PLAN D'ACTIONS</a>
-                            </li>
-                         </ul>
-                         <div class="tab-content" id="pills-tabContent-1">
-                            <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
-                                <div class="card-body">
-                                    <div id="table" class="table-editable">
-                                       <table class="table table-bordered table-responsive-md table-striped text-center">
-                                          <tbody>
-                                             <tr>
-                                                <td style="width:30%">Site</td>
-                                                <td style="width:70%">{{ danger.Site_name }}</td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width:30%">Service</td>
-                                                <td style="width:70%">{{ danger.service_name }}</td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width:30%">Poste de travail</td>
-                                                <td style="width:70%">{{ danger.poste_de_travail }}</td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width:30%">Tache / situation analysée</td>
-                                                <td style="width:70%">{{ danger.taches }}</td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width:30%">Famille de danger</td>
-                                                <td style="width:70%">{{ danger.famille_name }}</td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width:30%">Description du danger</td>
-                                                <td style="width:70%">{{ danger.description }}</td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width:30%">Conséquences courantes</td>
-                                                <td style="width:70%">{{ danger.consequences }}</td>
-                                             </tr>
-                                          </tbody>
-                                       </table>
-                                    </div>
-                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
-                              <div id="table" class="table-editable">
-                                <span class="table-add float-left mb-3 mr-2">
-                                    <h6>Historique des évaluations</h6>
-                                </span>
-                                 <table class="table table-bordered table-responsive-md table-striped text-center">
-                                    <tbody>
-                                       <tr>
-                                            <td style="width:20%">Evaluation(s) <a class="badge badge-info mr-2" data-toggle="modal" data-target="#exampleModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i></a></td>
-                                            <td style="width:80%">
-                                                <table class="table table-bordered table-responsive-md table-striped text-center">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Date evaluation</th>
-                                                    <th>Gravité</th>
-                                                    <th>Probabilité</th>
-                                                    <th>Mesures de prévention en place</th>
-                                                    <th>IPR</th>
-                                                    <th>Indice rique</th>
-                                                </tr>
-                                                <tr *ngIf="(evaluations$ | async)?.length === 0">
-                                                   <td colspan="7">Aucune évaluation enregistré pour ce danger.</td>
-                                                 </tr>
-                                                <tr *ngFor="let evaluation of evaluations$ | async">
-                                                    <td>{{ evaluation.date }}</td>
-                                                    <td>{{ evaluation.severite }}</td>
-                                                    <td>{{ evaluation.probabilite }}</td>
-                                                    <td>{{ evaluation.mesure_prevention }}</td>
-                                                    <td>{{ evaluation.ipr }}</td>
-                                                    <td>{{ evaluation.indice_risque }}</td>
-                                                </tr>
-                                                </tbody>
-                                                </table>
-                                            </td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                                 <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-                                       <div class="modal-content">
-                                          <div class="modal-header">
-                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout evaluation</h5>
-                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                             <span aria-hidden="true">×</span>
-                                             </button>
-                                          </div>
-                                          <div class="modal-body">
-                                             <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
-                                              
-                                                <div class="form-group">
-                                                  <label>Probabilité:</label>
-                                                  <input type="number" class="form-control" formControlName="probabilite">
-                                                </div>
-                                              
-                                                <div class="form-group">
-                                                  <label>Sévérité :</label>
-                                                  <input type="number" class="form-control" formControlName="severite">
-                                                </div>
-                                              
-                                                <div class="form-group">
-                                                  <label>Fréquences d'exposition :</label>
-                                                  <input type="number" class="form-control" formControlName="frequences_exposition">
-                                                </div>
-                                              
-                                                <div class="form-group">
-                                                  <label>Mesure de prévention :</label>
-                                                  <textarea class="form-control" formControlName="mesure_prevention"></textarea>
-                                                </div>
-
-                                                <div class="form-group">
-                                                   <label>ipr :</label>
-                                                   <input type="number" class="form-control" formControlName="ipr">
-                                                </div>
-
-                                                <div class="form-group">
-                                                   <label>indice risque :</label>
-                                                   <select class="form-control" formControlName="indice_risque">
-                                                      <option value="1">faible</option>
-                                                      <option value="2">moyen</option>
-                                                      <option value="3">élevé</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="d-flex align-items-end flex-column">
-                                                   <button type="submit" class="btn btn-primary " [disabled]="evaluationForm.invalid">Ajouter</button>
-                                                 </div>
-                                              
-                                              </form>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div id="table" class="table-editable">
-                                <span class="table-add float-left mb-3 mr-2">
-                                    <h6>Historique des accidents relatifs à ce danger</h6>
-                                </span>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12">
+           
+            <div class="card">
+               <div class="card-header d-flex justify-content-between">
+                  <div class="header-title">
+                     <h4 class="card-title">Document unique</h4>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="iq-example-row">
+                     <div class="container-fluid">
+                        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+                           <li class="nav-item col-6 col-md-4">
+                              <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">IDENTIFICATION DES RISQUES</a>
+                           </li>
+                           <li class="nav-item col-6 col-md-4">
+                              <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">EVALUATION</a>
+                           </li>
+                           <li class="nav-item col-6 col-md-4">
+                              <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">PLAN D'ACTIONS</a>
+                           </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent-1">
+                           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+                               <div class="card-body">
+                                   <div id="table" class="table-editable">
+                                      <table class="table table-bordered table-responsive-md table-striped text-center">
+                                         <tbody>
+                                            <tr>
+                                               <td style="width:30%">Site</td>
+                                               <td style="width:70%">{{ danger.Site_name }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:30%">Service</td>
+                                               <td style="width:70%">{{ danger.service_name }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:30%">Poste de travail</td>
+                                               <td style="width:70%">{{ danger.poste_de_travail }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:30%">Tache / situation analysée</td>
+                                               <td style="width:70%">{{ danger.taches }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:30%">Famille de danger</td>
+                                               <td style="width:70%">{{ danger.famille_name }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:30%">Description du danger</td>
+                                               <td style="width:70%">{{ danger.description }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:30%">Conséquences courantes</td>
+                                               <td style="width:70%">{{ danger.consequences }}</td>
+                                            </tr>
+                                         </tbody>
+                                      </table>
+                                   </div>
+                                </div>
+                           </div>
+                           <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+                             <div id="table" class="table-editable">
+                               <span class="table-add float-left mb-3 mr-2">
+                                   <h6>Historique des évaluations</h6>
+                               </span>
                                 <table class="table table-bordered table-responsive-md table-striped text-center">
-                                    <tbody>
-                                       <tr>
-                                            <td style="width:20%">Accidents associés</td>
-                                            <td style="width:80%">
-                                                <table class="table table-bordered table-responsive-md table-striped text-center">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Modifier</th>
-                                                    <th>Intitulé de l'évènement</th>
-                                                    <th>Site</th>
-                                                    <th>Type d'évènement</th>
-                                                    <th>Date accident</th>
-                                                    <th>Arret de travail</th>
-                                                    <th>Nom de la personne</th>
-                                                </tr>
-                                                <tr *ngIf="(evenements$ | async)?.length === 0">
-                                                   <td colspan="7">Aucun événement enregistré pour ce danger.</td>
-                                                 </tr>
-                                                <tr *ngFor="let evenement of evenements$ | async">
-                                                    <td>
-                                                      <div class="d-flex align-items-center list-action">
-                                                         <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                                           href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                                         </div>
-                                                    </td>
-                                                    <td><a [routerLink]="['/evenement/', evenement.id]">{{ evenement.intitule }}</a></td>
-                                                    <td>{{ evenement.Site_name }}</td>
-                                                    <td>{{ evenement.type_evenement }}</td>
-                                                    <td>{{ evenement.date_accident }}</td>
-                                                    <td>{{ evenement.arret_travail ? 'oui' : 'non' }}</td>
-                                                    <td>{{ evenement.nom_personne }}</td>
-                                                </tr>
-                                                </tbody>
-                                                </table>
-                                            </td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                              </div>
-                            </div>
-                            <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
-                              <div id="table" class="table-editable table-responsive">
-                                 <table class="table table-bordered table-striped text-center">
                                    <tbody>
-                                     <tr>
-                                       <td style="width:20%">Source</td>
-                                       <td style="width:80%">Document Unique</td>
-                                     </tr>
-                                     <tr>
-                                       <td style="width:20%">Action(s) associée(s) <a class="badge badge-info mr-2" data-toggle="modal" data-target=".bd-action-modal-lg" data-placement="top" title=""
-                                          href=""><i class="ri-add-line"></i></a></td>
-                                       <td style="width:80%">
-                                         <table class="table table-bordered table-striped text-center">
-                                           <tbody>
-                                             <tr>
-                                               <th>Modifier</th>
-                                               <th>Intitulé action</th>
-                                               <th>Domaine</th>
-                                               <th>Origine de l'action</th>
-                                               <th>Site</th>
-                                               <th>Etat</th>
-                                               <th>Assigné à</th>
-                                               <th>Date mise en oeuvre</th>
-                                               <th>Année</th>
-                                               <th>Priorité</th>
-                                               <th>Référence action</th>
-                                             </tr>
-                                             <tr *ngIf="(actions$ | async)?.length === 0">
-                                               <td colspan="11">Aucune action enregistré pour ce danger.</td>
-                                             </tr>
-                                             <tr *ngFor="let actions of actions$ | async">
-                                               <td>
-                                                 <div class="d-flex align-items-center list-action">
-                                                   <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                                   (click)="deleteAction(actions.id)"><i class="ri-delete-bin-line mr-0"></i></a>
-                                                 </div>
-                                               </td>
-                                               <td>{{ actions.intitule }}</td>
-                                               <td>{{ actions.domaine }}</td>
-                                               <td>{{ actions.origine_action }}</td>
-                                               <td>{{ actions.Site_name }}</td>
-                                               <td>Non commencer </td>
-                                               <td>{{ actions.assigne_a }}</td>
-                                               <td>{{ actions.delai_mise_en_oeuvre }}</td>
-                                               <td>2023</td>
-                                               <td>{{ actions.priorite }}</td>
-                                               <td>{{ actions.reference }}</td>
-                                             </tr>
-                                           </tbody>
-                                         </table>
-                                       </td>
-                                     </tr>
+                                      <tr>
+                                           <td style="width:20%">Evaluation(s) <a class="badge badge-info mr-2" data-toggle="modal" data-target="#exampleModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i></a></td>
+                                           <td style="width:80%">
+                                               <table class="table table-bordered table-responsive-md table-striped text-center">
+                                               <tbody>
+                                               <tr>
+                                                   <th>Date evaluation</th>
+                                                   <th>Gravité</th>
+                                                   <th>Probabilité</th>
+                                                   <th>Mesures de prévention en place</th>
+                                                   <th>IPR</th>
+                                                   <th>Indice rique</th>
+                                               </tr>
+                                               <tr *ngIf="(evaluations$ | async)?.length === 0">
+                                                  <td colspan="7">Aucune évaluation enregistré pour ce danger.</td>
+                                                </tr>
+                                               <tr *ngFor="let evaluation of evaluations$ | async">
+                                                   <td>{{ evaluation.date }}</td>
+                                                   <td>{{ evaluation.severite }}</td>
+                                                   <td>{{ evaluation.probabilite }}</td>
+                                                   <td>{{ evaluation.mesure_prevention }}</td>
+                                                   <td>{{ evaluation.ipr }}</td>
+                                                   <td>{{ evaluation.indice_risque }}</td>
+                                               </tr>
+                                               </tbody>
+                                               </table>
+                                           </td>
+                                      </tr>
                                    </tbody>
-                                 </table>
-                               </div>
-                               <div class="modal fade bd-action-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
-                                 <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                       <div class="modal-header">
-                                          <h5 class="modal-title">Actions amélioration</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                          </button>
-                                       </div>
-                                       <div class="modal-body">
-                                             <div class="card-body">
-                                                <ul class="nav nav-tabs" id="myTab-1" role="tablist">
-                                                   <li class="nav-item" style="width:33%">
-                                                      <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">DESCRIPTION</a>
-                                                   </li>
-                                                   <li class="nav-item" style="width:33%">
-                                                      <a class="nav-link" id="realisation-tab" data-toggle="tab" href="#realisation" role="tab" aria-controls="realisation" aria-selected="false">REALISATION</a>
-                                                   </li>
-                                                   <li class="nav-item" style="width:33%">
-                                                      <a class="nav-link" id="mesure-tab" data-toggle="tab" href="#mesure" role="tab" aria-controls="mesure" aria-selected="false">MESURE D'EFFICACITE</a>
-                                                   </li>
-                                                </ul>
-                                                <div class="tab-content" id="myTabContent-2">
-                                                   <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                                                      <form [formGroup]="actionForm" (ngSubmit)="addDangerAction()">
-                                                         <div class="form-group">
-                                                           <label for="intitule">Intitulé :</label>
-                                                           <input type="text" class="form-control" formControlName="intitule" />
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="type_action">Type d'action :</label>
-                                                           <select id="type_action" name="type_action" formControlName="type_action" class="custom-select" data-style="py-0" required>
-                                                            <option value="Corrective"  selected>Corrective</option>
-                                                            <option value="Préventive" >Préventive</option>
-                                                            <option value="Stratégique" >Stratégique</option>
-                                                           </select>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="origine_action">Origine d'action :</label>
-                                                           <select id="origine_action" name="origine_action" formControlName="origine_action" class="custom-select" data-style="py-0" required>
-                                                            <option value="Document unique"  selected>Document unique</option>
-                                                           </select>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="reference">Référence :</label>
-                                                           <input type="text" class="form-control" formControlName="reference" />
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="domaine">Domaine :</label>
-                                                           <select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0" required>
-                                                            <option value="Qualité"  selected>Qualité</option>
-                                                            <option value="Préventive" >Sécurité</option>
-                                                            <option value="Environement" >Environement</option>
-                                                           </select>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="site">Site :</label>
-                                                           <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
-                                                            <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                                                           </select>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="processus">Processus :</label>
-                                                           <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
-                                                            <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
-                                                           </select>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="analyse_cause">Analyse cause (AC) / risques (AP) :</label>
-                                                           <textarea class="form-control" formControlName="analyse_cause"></textarea>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="plan_action">Plan d'action :</label>
-                                                           <textarea class="form-control" formControlName="plan_action"></textarea>
-                                                         </div>
-                                                         <div class="form-group">
-                                                            <h5>Prise en charge de l'action</h5>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="delai_mise_en_oeuvre">Délai de mise en oeuvre :</label>
-                                                           <input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" />
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="assigne_a">Assigné à :</label>
-                                                           <input type="text" class="form-control" formControlName="assigne_a" />
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="priorite">Priorité :</label>
-                                                           <select id="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0" required>
-                                                            <option value="1"  selected>1</option>
-                                                            <option value="2" >2</option>
-                                                            <option value="3" >3</option>
-                                                           </select>
-                                                         </div>
-                                                         <div class="form-group">
-                                                            <h5>Prise en charge de la mesure d'efficacité</h5>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="delai_mesure_eff">Délai de mesure effective :</label>
-                                                           <input type="date" class="form-control" formControlName="delai_mesure_eff" />
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="type_critere_eff">Type de critère effectif :</label>
-                                                           <input type="text" class="form-control" formControlName="type_critere_eff" />
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="detail_critere_eff">Détails du critère effectif :</label>
-                                                           <textarea class="form-control" formControlName="detail_critere_eff"></textarea>
-                                                         </div>
-                                                         <div class="d-flex align-items-end flex-column" >
-                                                            <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
-                                                         </div>
-                                                      </form>
-                                                   </div>
-                                                   <div class="tab-pane fade" id="realisation" role="tabpanel" aria-labelledby="realisation-tab">
-                                                      <form >
-                                                         <div class="form-group">
-                                                           <label for="delai_mise_en_oeuvre">Tache(s) associée(s) :</label>
-                                                           <a class="badge badge-info mx-2" data-toggle="modal" data-target=".bd-action-modal-lg" data-placement="top" title=""
-                                                            href=""><i class="ri-add-line"></i>Nouvelle entrée</a>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="assigne_a">Action réaliser :</label>
-                                                           <textarea class="form-control" ></textarea>
-                                                         </div>
-                                                         <div class="form-group">
-                                                            <label for="delai_mesure_eff">Date de réalisation :</label>
-                                                            <input type="date" class="form-control" f />
-                                                          </div>
-                                                         <div class="form-group">
-                                                           <label for="priorite">Etat :</label>
-                                                           <select id="etat" name="etat"  class="custom-select" data-style="py-0" required>
-                                                            <option value="Non commencé"  selected>Non commencé</option>
-                                                            <option value="commencer" >commencer</option>
-                                                            <option value="Terminer" >Terminer</option>
-                                                           </select>
-                                                         </div>               
-                                                         <div class="d-flex align-items-end flex-column" >
-                                                            <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
-                                                         </div>
-                                                      </form>
-                                                   </div>
-                                                   <div class="tab-pane fade" id="mesure" role="tabpanel" aria-labelledby="mesure-tab">
-                                                      <form >
-                                                         <div class="form-group">
-                                                            <label for="delai_mesure_eff">Date cloture :</label>
-                                                            <input type="date" class="form-control"  />
-                                                          </div>
-                                                         <div class="form-group">
-                                                           <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
-                                                           <div class="custom-control custom-radio custom-control-inline ml-2">
-                                                            <input type="radio" id="customRadio6" name="customRadio-1" class="custom-control-input">
-                                                            <label class="custom-control-label" for="customRadio6"> Efficace </label>
-                                                         </div>
-                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" id="customRadio7" name="customRadio-1" class="custom-control-input">
-                                                            <label class="custom-control-label" for="customRadio7"> Non efficace </label>
-                                                         </div>
-                                                         </div>
-                                                         <div class="form-group">
-                                                           <label for="assigne_a">Mesure de l'efficacité :</label>
-                                                           <textarea class="form-control"></textarea>
-                                                         </div>
-                                                         <div class="form-group">
-                                                            <label for="type_critere_eff">Cout :</label>
-                                                            <input type="text" class="form-control" />
-                                                          </div>
-                                                         <div class="d-flex align-items-end flex-column" >
-                                                            <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
-                                                         </div>
-                                                      </form>
-                                                   </div>
+                                </table>
+                                <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+                                   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                         <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout evaluation</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
+                                         </div>
+                                         <div class="modal-body">
+                                            <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
+                                             
+                                               <div class="form-group">
+                                                 <label>Probabilité:</label>
+                                                 <input type="number" class="form-control" formControlName="probabilite">
+                                               </div>
+                                             
+                                               <div class="form-group">
+                                                 <label>Sévérité :</label>
+                                                 <input type="number" class="form-control" formControlName="severite">
+                                               </div>
+                                             
+                                               <div class="form-group">
+                                                 <label>Fréquences d'exposition :</label>
+                                                 <input type="number" class="form-control" formControlName="frequences_exposition">
+                                               </div>
+                                             
+                                               <div class="form-group">
+                                                 <label>Mesure de prévention :</label>
+                                                 <textarea class="form-control" formControlName="mesure_prevention"></textarea>
+                                               </div>
+
+                                               <div class="form-group">
+                                                  <label>ipr :</label>
+                                                  <input type="number" class="form-control" formControlName="ipr">
+                                               </div>
+
+                                               <div class="form-group">
+                                                  <label>indice risque :</label>
+                                                  <select class="form-control" formControlName="indice_risque">
+                                                     <option value="1">faible</option>
+                                                     <option value="2">moyen</option>
+                                                     <option value="3">élevé</option>
+                                                   </select>
+                                               </div>
+
+                                               <div class="d-flex align-items-end flex-column">
+                                                  <button type="submit" class="btn btn-primary " [disabled]="evaluationForm.invalid">Ajouter</button>
                                                 </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
+                                             
+                                             </form>
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+                             <div id="table" class="table-editable">
+                               <span class="table-add float-left mb-3 mr-2">
+                                   <h6>Historique des accidents relatifs à ce danger</h6>
+                               </span>
+                               <table class="table table-bordered table-responsive-md table-striped text-center">
+                                   <tbody>
+                                      <tr>
+                                           <td style="width:20%">Accidents associés</td>
+                                           <td style="width:80%">
+                                               <table class="table table-bordered table-responsive-md table-striped text-center">
+                                               <tbody>
+                                               <tr>
+                                                   <th>Modifier</th>
+                                                   <th>Intitulé de l'évènement</th>
+                                                   <th>Site</th>
+                                                   <th>Type d'évènement</th>
+                                                   <th>Date accident</th>
+                                                   <th>Arret de travail</th>
+                                                   <th>Nom de la personne</th>
+                                               </tr>
+                                               <tr *ngIf="(evenements$ | async)?.length === 0">
+                                                  <td colspan="7">Aucun événement enregistré pour ce danger.</td>
+                                                </tr>
+                                               <tr *ngFor="let evenement of evenements$ | async">
+                                                   <td>
+                                                     <div class="d-flex align-items-center list-action">
+                                                        <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                                          href="#"><i class="ri-pencil-line mr-0"></i></a>
+                                                        </div>
+                                                   </td>
+                                                   <td><a [routerLink]="['/evenement/', evenement.id]">{{ evenement.intitule }}</a></td>
+                                                   <td>{{ evenement.Site_name }}</td>
+                                                   <td>{{ evenement.type_evenement }}</td>
+                                                   <td>{{ evenement.date_accident }}</td>
+                                                   <td>{{ evenement.arret_travail ? 'oui' : 'non' }}</td>
+                                                   <td>{{ evenement.nom_personne }}</td>
+                                               </tr>
+                                               </tbody>
+                                               </table>
+                                           </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                             </div>
+                           </div>
+                           <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+                             <div id="table" class="table-editable table-responsive">
+                                <table class="table table-bordered table-striped text-center">
+                                  <tbody>
+                                    <tr>
+                                      <td style="width:20%">Source</td>
+                                      <td style="width:80%">Document Unique</td>
+                                    </tr>
+                                    <tr>
+                                      <td style="width:20%">Action(s) associée(s) <a class="badge badge-info mr-2" data-toggle="modal" data-target=".bd-action-modal-lg" data-placement="top" title=""
+                                         href=""><i class="ri-add-line"></i></a></td>
+                                      <td style="width:80%">
+                                        <table class="table table-bordered table-striped text-center">
+                                          <tbody>
+                                            <tr>
+                                              <th>Modifier</th>
+                                              <th>Intitulé action</th>
+                                              <th>Domaine</th>
+                                              <th>Origine de l'action</th>
+                                              <th>Site</th>
+                                              <th>Etat</th>
+                                              <th>Assigné à</th>
+                                              <th>Date mise en oeuvre</th>
+                                              <th>Année</th>
+                                              <th>Priorité</th>
+                                              <th>Référence action</th>
+                                            </tr>
+                                            <tr *ngIf="(actions$ | async)?.length === 0">
+                                              <td colspan="11">Aucune action enregistré pour ce danger.</td>
+                                            </tr>
+                                            <tr *ngFor="let actions of actions$ | async">
+                                              <td>
+                                                <div class="d-flex align-items-center list-action">
+                                                  <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
+                                                  (click)="deleteAction(actions.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                                </div>
+                                              </td>
+                                              <td>{{ actions.intitule }}</td>
+                                              <td>{{ actions.domaine }}</td>
+                                              <td>{{ actions.origine_action }}</td>
+                                              <td>{{ actions.Site_name }}</td>
+                                              <td>Non commencer </td>
+                                              <td>{{ actions.assigne_a }}</td>
+                                              <td>{{ actions.delai_mise_en_oeuvre }}</td>
+                                              <td>2023</td>
+                                              <td>{{ actions.priorite }}</td>
+                                              <td>{{ actions.reference }}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </div>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-       </div>
-    </div>
-    </div>
-    
-    
+                              <div class="modal fade bd-action-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                   <div class="modal-content">
+                                      <div class="modal-header">
+                                         <h5 class="modal-title">Actions amélioration</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                         </button>
+                                      </div>
+                                      <div class="modal-body">
+                                            <div class="card-body">
+                                               <ul class="nav nav-tabs" id="myTab-1" role="tablist">
+                                                  <li class="nav-item" style="width:33%">
+                                                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">DESCRIPTION</a>
+                                                  </li>
+                                                  <li class="nav-item" style="width:33%">
+                                                     <a class="nav-link" id="realisation-tab" data-toggle="tab" href="#realisation" role="tab" aria-controls="realisation" aria-selected="false">REALISATION</a>
+                                                  </li>
+                                                  <li class="nav-item" style="width:33%">
+                                                     <a class="nav-link" id="mesure-tab" data-toggle="tab" href="#mesure" role="tab" aria-controls="mesure" aria-selected="false">MESURE D'EFFICACITE</a>
+                                                  </li>
+                                               </ul>
+                                               <div class="tab-content" id="myTabContent-2">
+                                                  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                                     <form [formGroup]="actionForm" (ngSubmit)="addDangerAction()">
+                                                        <div class="form-group">
+                                                          <label for="intitule">Intitulé :</label>
+                                                          <input type="text" class="form-control" formControlName="intitule" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="type_action">Type d'action :</label>
+                                                          <input type="text" class="form-control" formControlName="type_action" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="origine_action">Origine d'action :</label>
+                                                          <select id="origine_action" name="origine_action" formControlName="origine_action" class="custom-select" data-style="py-0" required>
+                                                           <option value="Document unique"  selected>Document unique</option>
+                                                          </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="reference">Référence :</label>
+                                                          <input type="text" class="form-control" formControlName="reference" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="domaine">Domaine :</label>
+                                                          <input type="text" class="form-control" formControlName="domaine" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="site">Site :</label>
+                                                          <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                                           <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                                          </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="processus">Processus :</label>
+                                                          <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+                                                           <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                                                          </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="analyse_cause">Analyse de cause :</label>
+                                                          <input type="text" class="form-control" formControlName="analyse_cause" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                           <h5>Prise en charge de l'action</h5>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="plan_action">Plan d'action :</label>
+                                                          <input type="text" class="form-control" formControlName="plan_action" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="delai_mise_en_oeuvre">Délai de mise en oeuvre :</label>
+                                                          <input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="assigne_a">Assigné à :</label>
+                                                          <input type="text" class="form-control" formControlName="assigne_a" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="priorite">Priorité :</label>
+                                                          <input type="number" class="form-control" formControlName="priorite" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                           <h5>Prise en charge de la mesure d'efficacité</h5>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="delai_mesure_eff">Délai de mesure effective :</label>
+                                                          <input type="date" class="form-control" formControlName="delai_mesure_eff" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="type_critere_eff">Type de critère effectif :</label>
+                                                          <input type="text" class="form-control" formControlName="type_critere_eff" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="detail_critere_eff">Détails du critère effectif :</label>
+                                                          <input type="text" class="form-control" formControlName="detail_critere_eff" />
+                                                        </div>
+                                                        <div class="d-flex align-items-end flex-column" >
+                                                           <button type="submit" class="btn btn-primary">Ajouter</button>
+                                                        </div>
+                                                     </form>
+                                                  </div>
+                                                  <div class="tab-pane fade" id="realisation" role="tabpanel" aria-labelledby="realisation-tab">
+                                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                  </div>
+                                                  <div class="tab-pane fade" id="mesure" role="tabpanel" aria-labelledby="mesure-tab">
+                                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+      </div>
+   </div>
+   </div>
+   
+   
