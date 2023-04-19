@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -40,7 +40,6 @@ export class InfoDangerComponent {
   serviceName !: string;
   familleName !: string;
   addedActionId !: number;
-  showModal = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,10 +67,10 @@ export class InfoDangerComponent {
     });
 
     this.evaluationForm = this.formBuilder.group({
-      probabilite: ['', Validators.required, Validators.min(0)],
-      severite: ['', Validators.required, Validators.min(0)],
-      frequences_exposition: ['', Validators.required, Validators.min(0)],
-      ipr: ['', Validators.required, Validators.min(0)],
+      probabilite: ['', Validators.required],
+      severite: ['', Validators.required],
+      frequences_exposition: ['', Validators.required],
+      ipr: ['', Validators.required],
       indice_risque: ['', Validators.required],
       mesure_prevention: ['', Validators.required]
     });
@@ -92,7 +91,6 @@ export class InfoDangerComponent {
       delai_mesure_eff : ['', Validators.required],
       type_critere_eff : ['', Validators.required],
       detail_critere_eff : ['', Validators.required],
-      piece_joint : [''],
     });
 
     this.dangerId = +this.activatedRoute.snapshot.params['id'];
@@ -171,43 +169,39 @@ export class InfoDangerComponent {
     );
   }
 
-  addDangerAction() {
-    if (this.actionForm.valid) {
-      const newAction = {
-        Site_name: '',
-        etat: '',
-        annee: new Date(),
-        piece_joint: null,
-        evenement: [],
-        intitule: this.actionForm.get('intitule')!.value,
-        type_action: this.actionForm.get('type_action')!.value,
-        origine_action: this.actionForm.get('origine_action')!.value,
-        reference: this.actionForm.get('reference')!.value,
-        domaine: this.actionForm.get('domaine')!.value,
-        site: this.actionForm.get('site')!.value,
-        processus: this.actionForm.get('processus')!.value,
-        analyse_cause: this.actionForm.get('analyse_cause')!.value,
-        plan_action: this.actionForm.get('plan_action')!.value,
-        delai_mise_en_oeuvre: this.actionForm.get('delai_mise_en_oeuvre')!.value,
-        assigne_a: this.actionForm.get('assigne_a')!.value,
-        priorite: this.actionForm.get('priorite')!.value,
-        delai_mesure_eff: this.actionForm.get('delai_mesure_eff')!.value,
-        type_critere_eff: this.actionForm.get('type_critere_eff')!.value,
-        detail_critere_eff: this.actionForm.get('detail_critere_eff')!.value,
-        danger: [this.dangerId]
-      };
-  
-      this.apiActionsService.addAction(newAction).subscribe(
-        (response) => {
-          console.log('Action a été ajouté avec succès.');
-          const newActionId = response.id; // ou tout autre nom de propriété qui contient l'identifiant de l'action ajoutée
-          console.log('Nouvel ID d\'action : ', newActionId);
-          this.getActionsByDangerId(this.dangerId);
-          this.actionForm.reset();
-        },
-        error => console.log(error)
-      );
-    } 
+  addDangerAction(): void {
+    const formData = this.actionForm.value;
+    const action: Actions = new Actions (
+      formData.intitule,
+      formData.type_action,
+      formData.origine_action,
+      formData.reference,
+      formData.domaine,
+      formData.site,
+      formData.processus,
+      formData.analyse_cause,
+      formData.plan_action,
+      formData.delai_mise_en_oeuvre,
+      formData.assigne_a,
+      formData.priorite,
+      formData.delai_mesure_eff,
+      formData.type_critere_eff,
+      formData.detail_critere_eff,
+      []
+    );
+
+    action.danger = [];
+    action.danger.push(this.dangerId);
+
+    this.apiActionsService.addAction(action).subscribe(
+      (addAction: Actions) => {
+        console.log('Action a été ajouté avec succès.');
+        this.getActionsByDangerId(this.dangerId);
+        this.actionForm.reset();
+        console.log(this.addedActionId);
+      },
+      error => console.log(error)
+    );
   }
 
   deleteAction(id : any) {

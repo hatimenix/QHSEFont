@@ -87,8 +87,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ModalModule.forRoot(),
     AppRoutingModule,
     BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -96,6 +94,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     Ng2SearchPipeModule,
 
   ],
+
   providers: [ ],
   bootstrap: [AppComponent]
 })
