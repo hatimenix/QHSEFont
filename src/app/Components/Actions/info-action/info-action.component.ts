@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, map } from 'rxjs';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
@@ -34,6 +36,7 @@ export class InfoActionComponent {
   mesureForm!: FormGroup;
   deletModal : any;
   idToDelete: number = 0;
+  mesure !: Mesures;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,6 +46,7 @@ export class InfoActionComponent {
     private apiRealisationService: ApiRealisationService,
     private activatedRoute: ActivatedRoute,
     private apiMesuresService: ApiMesuresService,
+    private modal: NgbActiveModal,
     private apiActionsService: ApiActionsService
   ) { }
 
@@ -169,6 +173,41 @@ export class InfoActionComponent {
       this.getMesureByAction(this.actionId);
       this.deletModal.hide();
     })
+  }
+
+  updateMesure(): void {
+    const rawFormData = this.mesureForm.getRawValue();
+    const formData = this.mesureForm.value;
+    const mesure: Mesures = new Mesures(
+      formData.date_cloture,
+      rawFormData.resultat_mesure_eff,
+      formData.mesure_eff,
+      formData.cout
+    );
+
+    mesure.action_associee = this.actionId;
+  
+    this.apiMesuresService.updateMesure(this.mesure.id, mesure).subscribe(
+      () => {
+        console.log('Mesure a été modifiée avec succès.');
+        this.getMesureByAction(this.actionId);
+        this.mesureForm.reset();
+        this.modal.close();
+      },
+      error => console.log(error)
+    );
+  }
+
+  openUpdateModal(mesure: Mesures): void {
+    this.mesure = mesure;
+    this.mesureForm.patchValue({
+      date_cloture: this.mesure.date_cloture,
+      resultat_mesure_eff: this.mesure.resultat_mesure_eff,
+      mesure_eff: this.mesure.mesure_eff,
+      cout: this.mesure.cout
+    });
+    const modal = new window.bootstrap.Modal(document.getElementById('updateMesure'));
+    modal.show();
   }
 
 }
