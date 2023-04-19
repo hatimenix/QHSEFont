@@ -1,0 +1,15 @@
+.scroll-sidebar {
+  height: calc(110vh - 170px); 
+  overflow-y: auto;
+  padding-right: 0.5rem; 
+}
+.scroll-sidebar::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 6px;
+    opacity: 0;
+  }
+  
+.scroll-sidebar:hover::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
+  
