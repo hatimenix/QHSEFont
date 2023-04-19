@@ -9,64 +9,85 @@
                        </div>
                    </div>
                    <div class="card-body">
-                       <form  [formGroup]="dangerForm" (ngSubmit)="onSubmit()">
+                       <form  [formGroup]="dangerForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
                            <div class="row">
                                
                                <div class="col-md-6">                      
                                    <div class="form-group">
-                                       <label>Site *</label>
-                                       <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
-                                        <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                                       </select>
+                                        <label>Site *</label>
+                                        <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                            <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Veuillez sélectionner un état valide.
+                                        </div>
                                    </div>
                                </div>    
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Service *</label>
-                                       <select id="service" name="service" formControlName="service" class="custom-select" data-style="py-0" required>
-                                        <option *ngFor="let s of services$ | async" [value]="s.id">{{ s.service_nom }}</option>
-                                       </select>
+                                        <label>Service *</label>
+                                        <select id="service" name="service" formControlName="service" class="custom-select" data-style="py-0" required>
+                                            <option *ngFor="let s of services$ | async" [value]="s.id">{{ s.service_nom }}</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Veuillez sélectionner un état valide.
+                                        </div>
                                    </div>
                                </div> 
                                <div class="col-md-6"> 
                                    <div class="form-group">
-                                       <label>Poste de travail *</label>
-                                       <input type="text" class="form-control" id="poste_de_travail" name="poste_de_travail" formControlName="poste_de_travail" required>
-                                       <div class="help-block with-errors"></div>
+                                        <label>Poste de travail *</label>
+                                        <input type="text" class="form-control" id="poste_de_travail" name="poste_de_travail" formControlName="poste_de_travail" required>
+                                        <div class="help-block with-errors"></div>
+                                        <div class="invalid-feedback">
+                                            Ce champs est obligatoire.
+                                        </div>
                                    </div>
                                </div> 
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Tache / situation analysée *</label>
-                                       <input type="text" class="form-control" id="taches" name="taches" formControlName="taches" required>
-                                       <div class="help-block with-errors"></div>
+                                        <label>Tache / situation analysée *</label>
+                                        <input type="text" class="form-control" id="taches" name="taches" formControlName="taches" required>
+                                        <div class="help-block with-errors"></div>
+                                        <div class="invalid-feedback">
+                                            Ce champs est obligatoire.
+                                        </div>
                                    </div>
                                </div>
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Famille de danger *</label>
-                                       <select id="famille" name="famille" formControlName="famille" class="custom-select" data-style="py-0" required>
-                                        <option *ngFor="let f of familles$ | async" [value]="f.id">{{ f.famille_nom }}</option>
-                                       </select>
+                                        <label>Famille de danger *</label>
+                                        <select id="famille" name="famille" formControlName="famille" class="custom-select" data-style="py-0" required>
+                                            <option *ngFor="let f of familles$ | async" [value]="f.id">{{ f.famille_nom }}</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Veuillez sélectionner un état valide.
+                                        </div>
                                    </div>
                                </div>
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Description du danger *</label>
-                                       <input type="text" class="form-control" id="description" name="description" formControlName="description" required>
-                                       <div class="help-block with-errors"></div>
+                                        <label>Description du danger *</label>
+                                        <input type="text" class="form-control" id="description" name="description" formControlName="description" required>
+                                        <div class="help-block with-errors"></div>
+                                        <div class="invalid-feedback">
+                                            Ce champs est obligatoire.
+                                        </div>
                                    </div>
                                </div>
                                <div class="col-md-12">
                                    <div class="form-group">
-                                       <label>Conséquences courantes *</label>
-                                       <input type="text" class="form-control" id="consequences" name="consequences" formControlName="consequences" required>
-                                       <div class="help-block with-errors"></div>
+                                        <label>Conséquences courantes *</label>
+                                        <input type="text" class="form-control" id="consequences" name="consequences" formControlName="consequences" required>
+                                        <div class="help-block with-errors"></div>
+                                        <div class="invalid-feedback">
+                                            Ce champs est obligatoire.
+                                        </div>
                                    </div>
                                </div>
                            </div>                            
                            <button type="submit" class="btn btn-primary mr-2">Modifier Danger</button>
-                           <button type="reset" class="btn btn-danger">Reset</button>
+                           <button type="submit" class="btn btn-danger" routerLink="/danger">Annuler</button>
                        </form>
                    </div>
                </div>

@@ -38,6 +38,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
+
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 
@@ -77,17 +79,14 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AddDangerComponent,
     InfoNcComponent,
     AddNcComponent,
-    NavbarComponent
-
-
+    NavbarComponent,
+    InfoActionComponent,
 
   ],
   imports: [
     ModalModule.forRoot(),
     AppRoutingModule,
     BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -95,6 +94,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     Ng2SearchPipeModule,
 
   ],
+
   providers: [ ],
   bootstrap: [AppComponent]
 })
