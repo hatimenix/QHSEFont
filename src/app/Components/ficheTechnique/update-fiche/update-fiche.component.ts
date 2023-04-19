@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FicheserService } from 'src/app/Services/Service-fiche-restauration/ficheser.service';
 import { FicheTechnique } from 'src/app/models/FicheTechnique';
 
@@ -14,8 +15,11 @@ export class UpdateFicheComponent implements OnInit{
   ficheForm!: FormGroup;
   fiche!: FicheTechnique;
   id_fiche!: number;
+  //modal
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
   
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private ficheService: FicheserService) { 
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private ficheService: FicheserService, private bsModalService: BsModalService) { 
     this.ficheForm = new FormGroup({
       nom_fiche: new FormControl(),
       type_plat: new FormControl(),
@@ -79,6 +83,7 @@ export class UpdateFicheComponent implements OnInit{
     this.ficheService.updateFicheFormdata(formData).subscribe(
       (data: any) => {
         console.log(data);
+        this.openModal();
         this.router.navigate(['/listF']);
       },
       (error: any) => {
@@ -86,6 +91,12 @@ export class UpdateFicheComponent implements OnInit{
       }
     );
   }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
   
   
   onFileSelected(event: Event) {

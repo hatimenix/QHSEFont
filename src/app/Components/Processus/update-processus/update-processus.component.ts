@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router ,ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
@@ -20,10 +21,15 @@ export class UpdateProcessusComponent {
   processus: any;
   activatedRoute: ActivatedRoute ;
   id!: number;
+  //modal
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
+  
 
   constructor(private fb: FormBuilder, private processusService: ProcessusService,
     private router: Router,
     private personnelService: PersonnelService,
+    private bsModalService: BsModalService,
     private route: ActivatedRoute) {
     this.activatedRoute = route; // assign the activated route service
  }
@@ -121,6 +127,7 @@ export class UpdateProcessusComponent {
       () => {      
         console.log("Le processus a été modifié avec succès");
         console.log(processus);
+        this.openModal();
         this.router.navigate(['/listProcessus']); 
       },
       (error: any) => {
@@ -128,4 +135,11 @@ export class UpdateProcessusComponent {
       }
     );
   }
+  //modal functions
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
 }

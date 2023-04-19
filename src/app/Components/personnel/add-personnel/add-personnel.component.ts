@@ -17,7 +17,9 @@ export class AddPersonnelComponent  {
   constructor(private formBuilder: FormBuilder, private personnelService: PersonnelService, private router: Router,private bsModalService: BsModalService) {
     this.PersonnelForm = this.formBuilder.group({
       
-      image: ['',Validators.required],
+
+      image: ['', Validators.required],
+
       compte: ['', Validators.required],
       nom: ['', Validators.required],
       courrier: ['', [Validators.required, Validators.email]],

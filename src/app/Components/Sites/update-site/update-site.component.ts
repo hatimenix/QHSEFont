@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
@@ -19,11 +20,16 @@ export class UpdateSiteComponent implements OnInit{
   activatedRoute: ActivatedRoute ;
   id!: number;
   site: any;
+   //modal
+   @ViewChild('successModal', { static: true }) successModal:any;
+   modalRef!: BsModalRef;
+   
 
   constructor(private fb: FormBuilder, private siteService: ApiSiteService,
     private router: Router,
     private personnelService: PersonnelService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private bsModalService: BsModalService) {
     this.activatedRoute = route; // assign the activated route service
  }
 
@@ -77,6 +83,7 @@ export class UpdateSiteComponent implements OnInit{
       () => {      
         console.log("Le site a été modifié avec succès");
         console.log(site);
+        this.openModal();
         this.router.navigate(['/listsites']); 
       },
       (error: any) => {
@@ -84,4 +91,11 @@ export class UpdateSiteComponent implements OnInit{
       }
     );
   }
+  //modal functions
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
 }
