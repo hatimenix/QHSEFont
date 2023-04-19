@@ -41,6 +41,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 
 
 
@@ -81,9 +82,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AddDangerComponent,
     InfoNcComponent,
     AddNcComponent,
-    NavbarComponent
-
-
+    NavbarComponent,
+    InfoActionComponent,
 
   ],
   imports: [

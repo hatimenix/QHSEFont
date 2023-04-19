@@ -22,7 +22,7 @@ export class ApiActionsService {
     return this.http.get<Actions>(url);
   }
 
-  addAction(action: Actions): Observable<Actions> {
+  addAction(action: any): Observable<Actions> {
     return this.http.post<Actions>(this.API_URL_AC, action);
   }
 

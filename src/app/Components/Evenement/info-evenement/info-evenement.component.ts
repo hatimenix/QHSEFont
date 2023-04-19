@@ -118,9 +118,9 @@ export class InfoEvenementComponent {
     );
   }
 
-  getActionsByEvenementId(dangerId: number) {
+  getActionsByEvenementId(evenementId: number) {
     this.actions$ = this.apiActionsService.getAllActions().pipe(
-      map((actions: Actions[]) => actions.filter(actions => actions.danger.includes(dangerId)))
+      map((actions: Actions[]) => actions.filter(actions => actions.danger.includes(evenementId)))
     );
   }
 

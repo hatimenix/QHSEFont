@@ -37,6 +37,7 @@ import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/upd
 import { ListDocumentComponent } from './Components/Documentation/list-document/list-document.component';
 import { AddDocumentComponent } from './Components/Documentation/add-document/add-document.component';
 import { UpdateDocumentComponent } from './Components/Documentation/update-document/update-document.component';
+import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 
 
 
@@ -47,8 +48,8 @@ const routes: Routes = [
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
-  {path: 'infoDanger/:id', component: InfoDangerComponent},
-
+  {path : 'infoDanger/:id', component: InfoDangerComponent},
+  {path : 'infoAction/:id', component: InfoActionComponent},
   {path : 'evenement/:id', component: InfoEvenementComponent},
 
   {path : 'evenement', component: InfoEvenementComponent},
