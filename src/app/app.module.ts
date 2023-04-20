@@ -46,7 +46,6 @@ import { ListDocumentationComponent } from './Components/Documentation/list-docu
 import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
 import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,6 +98,7 @@ import { UpdateDocumentationComponent } from './Components/Documentation/update-
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    
 
   ],
 
