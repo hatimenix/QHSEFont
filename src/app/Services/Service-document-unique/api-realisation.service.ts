@@ -22,8 +22,8 @@ export class ApiRealisationService {
     return this.http.get<Realisations>(url);
   }
 
-  addRealisation(action: any): Observable<Realisations> {
-    return this.http.post<Realisations>(this.API_URL_RE, action);
+  addRealisation(realisation: any): Observable<Realisations> {
+    return this.http.post<Realisations>(this.API_URL_RE, realisation);
   }
 
   delRealisation(id:number){

@@ -124,7 +124,7 @@
                                  <table class="table table-bordered table-responsive-md table-striped text-center">
                                     <tr *ngIf="( realisation$ | async)?.length === 0">
                                        <td>Réalisation</td>
-                                       <td colspan="5">Aucune réalisation enregistré pour cette action</td>
+                                       <td colspan="5">Aucune réalisation enregistré pour cette action <a  class="badge bg-warning mr-2" data-toggle="modal" data-target="#realisationModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
                                      </tr>
                                     <tbody *ngFor="let realisation of realisation$ | async">
                                        <tr>
@@ -132,12 +132,16 @@
                                           <td style="width:50%">{{ action.origine_action }}</td>
                                        </tr>
                                        <tr>
-                                          <td style="width:50%">Tache(s) associées(s)</td>
-                                          <td style="width:50%"></td>
+                                          <td style="width:50%">Tache(s) associées(s) <a class="badge badge-info mx-2" data-toggle="modal" data-target="#tacheModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
+                                          <td style="width:50%">
+                                             <ul>
+                                                <li *ngFor="let tache of tache$ | async">{{ tache.nom_tache }}</li>
+                                             </ul>
+                                          </td>
                                        </tr>
                                        <tr>
                                           <td style="width:50%">Action réalisée</td>
-                                          <td style="width:50%">{{ realisation.action_realisee }}</td>
+                                          <td style="width:50%">{{ realisation.action_realise }}</td>
                                        </tr>
                                        <tr>
                                           <td style="width:50%">Date de réalisations</td>
@@ -149,6 +153,114 @@
                                        </tr>
                                     </tbody>
                                  </table>
+                                 <div id="realisationModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="realisationModalCenteredScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout Mesure efficacité</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body">
+                                             <form [formGroup]="realisationForm" (ngSubmit)="addRealisation()"  class="needs-validation" novalidate>                                            
+                                                <div class="form-group">
+                                                   <label for="action_realise">Action réaliser </label>
+                                                   <textarea class="form-control" formControlName="action_realise"></textarea>
+                                                 </div>
+                                                <div class="form-group">
+                                                   <label for="date_realisation">Date de réalisation </label>
+                                                   <input type="date" class="form-control" formControlName="date_realisation" required/>
+                                                 </div>
+                                                <div class="form-group">
+                                                  <label for="etat">Etat </label>
+                                                  <select id="etat" name="etat"  class="custom-select" formControlName="etat" data-style="py-0" required>
+                                                   <option value="Non commencé"  selected>Non commencé</option>
+                                                   <option value="commencer" >commencer</option>
+                                                   <option value="Terminer" >Terminer</option>
+                                                  </select>
+                                                </div>               
+                                                <div class="d-flex align-items-end flex-column" >
+                                                   <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
+                                                </div>
+                                             </form>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div id="tacheModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tacheModalCenteredScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title" id="tacheModalCenteredScrollableTitle">DESCRIPTION DE LA TACHE</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body">
+                                             <form [formGroup]="tacheForm" (ngSubmit)="addTache()"  class="needs-validation" novalidate>                                            
+                                                <div class="form-group">
+                                                   <label for="origine_action">Source </label>
+                                                   <select id="Source" name="Source" class="custom-select" formControlName="nom_tache" data-style="py-0">
+                                                      <option value="Tâche"  selected>Tâche</option>
+                                                      <option value="Analyse 8D">Analyse 8D</option>
+                                                      <option value="Action d'amélioration">Action d'amélioration</option>
+                                                      <option value="Projet">Projet</option>
+                                                      <option value="Réunion">Réunion</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="nom_tache">Nom de la tâche *</label>
+                                                   <input type="text" class="form-control" formControlName="nom_tache" required/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="date_debut">Date de debut *</label>
+                                                   <input type="date" class="form-control" formControlName="date_debut" required/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="echeance">Echéance</label>
+                                                   <input type="date" class="form-control" formControlName="echeance"/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="description">Description</label>
+                                                   <textarea class="form-control" formControlName="description"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="priorite">Priorité </label>
+                                                  <select id="priorite" name="priorite"  class="custom-select" formControlName="priorite" data-style="py-0">
+                                                   <option value="Haute"  selected>Haute</option>
+                                                   <option value="Normale" >Normale</option>
+                                                   <option value="Faible" >Faible</option>
+                                                  </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="assigne_a">Assigné à :</label>
+                                                   <input type="text" class="form-control" formControlName="assigne_a"/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="date_realisation">Date de réalisation </label>
+                                                   <input type="date" class="form-control" formControlName="date_realisation"/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="etat">Etat </label>
+                                                   <select id="etat" name="etat"  class="custom-select" formControlName="etat" data-style="py-0">
+                                                    <option value="Non commencé"  selected>Non commencé</option>
+                                                    <option value="commencer" >commencer</option>
+                                                    <option value="Terminer" >Terminer</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="commentaire">Commentaires </label>
+                                                   <textarea class="form-control" formControlName="commentaire"></textarea>
+                                                </div>
+                                                <div class="d-flex align-items-end flex-column" >
+                                                   <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Ajouter</button>
+                                                </div>
+                                             </form>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
                               </div>
                             </div>
                             <div class="tab-pane fade" id="mesure_efficacite" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
@@ -206,6 +318,12 @@
                                 <div class="modal fade" id="update_mesure" tabindex="-1" role="dialog" aria-hidden="true">
                                  <div class="modal-dialog modal-dialog-centered" role="document">
                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Modifier Mesure efficacité</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                             </button>
+                                          </div>
                                          <div class="modal-body">
                                           <form [formGroup]="mesureForm" (ngSubmit)="updateMesure()"  class="needs-validation" novalidate>                                            
                                              <div class="form-group">
@@ -253,18 +371,18 @@
                                                 <div class="form-group">
                                                    <label for="delai_mesure_eff">Date cloture :</label>
                                                    <input type="date" class="form-control" formControlName="date_cloture" required/>
-                                                 </div>
+                                                </div>
                                                 <div class="form-group">
-                                                  <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
-                                                  <div class="custom-control custom-radio custom-control-inline ml-2">
-                                                   <input type="radio" id="customRadio6" name="resultat_mesure_eff" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
-                                                   <label class="custom-control-label" for="customRadio6"> Efficace </label>
-                                                </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                   <input type="radio" id="customRadio7" name="resultat_mesure_eff" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
-                                                   <label class="custom-control-label" for="customRadio7"> Non efficace </label>
-                                                </div>
-                                                </div>
+                                                   <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
+                                                   <div class="custom-control custom-radio custom-radio-color-checked custom-control-inline ml-2">
+                                                      <input type="radio" id="customRadio-1" name="customRadio-10" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
+                                                      <label class="custom-control-label" for="customRadio-1"> Efficace </label>
+                                                   </div>
+                                                   <div class="custom-control custom-radio custom-radio-color-checked custom-control-inline">
+                                                      <input type="radio" id="customRadio-2" name="customRadio-10" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
+                                                      <label class="custom-control-label" for="customRadio-2"> Non efficace </label>
+                                                   </div>
+                                                </div>                                               
                                                 <div class="form-group">
                                                   <label for="assigne_a">Mesure de l'efficacité :</label>
                                                   <textarea class="form-control" formControlName="mesure_eff" required></textarea>

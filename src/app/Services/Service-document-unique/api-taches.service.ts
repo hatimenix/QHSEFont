@@ -22,11 +22,15 @@ export class ApiTachesService {
     return this.http.get<Taches>(url);
   }
 
-  addTache(action: any): Observable<Taches> {
-    return this.http.post<Taches>(this.API_URL_TA, action);
+  addTache(tache: any): Observable<Taches> {
+    return this.http.post<Taches>(this.API_URL_TA, tache);
   }
 
   delTache(id:number){
     return this.http.delete<Taches>(this.API_URL_TA+id+'/');
+  }
+
+  getTachesByRealisationId(realisationId: number): Observable<Taches[]> {
+    return this.http.get<Taches[]>(`${this.API_URL_TA}?realisation_associee=${realisationId}`);
   }
 }
