@@ -41,6 +41,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+//module documentation
+import { ListDocumentationComponent } from './Components/Documentation/list-documentation/list-documentation.component';
+import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
+import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
 
 
 @NgModule({
@@ -81,6 +85,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AddNcComponent,
     NavbarComponent,
     InfoActionComponent,
+    ListDocumentationComponent,
+    AddtDocumentationComponent,
+    UpdateDocumentationComponent,
 
   ],
   imports: [
