@@ -39,6 +39,7 @@ export class InfoActionComponent {
   idToDelete: number = 0;
   mesure !: Mesures;
   realisationId!: number;
+  tache !: Taches;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -94,13 +95,14 @@ export class InfoActionComponent {
       date_realisation : [''],
       etat : [''],
       commentaire : [''],
+      source : [''],
       piece_jointe : ['']
     });
 
     this.actionId = +this.activatedRoute.snapshot.params['id'];
     this.apiActionsService.getActions(this.actionId).subscribe(
-      (date : Actions) => {
-        this.action = date;
+      (data : Actions) => {
+        this.action = data;
         this.actionForm.patchValue({
           intitule: this.action.intitule,
           type_action: this.action.type_action,
@@ -275,6 +277,7 @@ export class InfoActionComponent {
         commentaire: formData.commentaire,
         realisation_associee: this.realisationId,
         piece_jointe: null,
+        source: formData.source
       };
   
       console.log(tache); // Vérifie que l'objet Taches est correctement créé
@@ -290,6 +293,28 @@ export class InfoActionComponent {
     } else {
       console.log('Le formulaire est invalide.');
     }
+  }
+
+  openInfoeModal(tacheId: any){
+    this.apiTachesService.getTaches(tacheId).subscribe(
+      (data : Taches) => {
+        this.tache = data;
+        this.tacheForm.patchValue({
+          source : this.tache.source,
+          nom_tache : this.tache.nom_tache,
+          date_debut : this.tache.date_debut,
+          echeance : this.tache.echeance,
+          description: this.tache.description,
+          priorite: this.tache.priorite,
+          assigne_a: this.tache.assigne_a,
+          date_realisation: this.tache.date_realisation,
+          etat: this.tache.etat,
+          commentaire: this.tache.commentaire,
+          piece_jointe: this.tache.piece_jointe
+        });
+      },
+      error => console.log(error)
+    );
   }
 
 }
