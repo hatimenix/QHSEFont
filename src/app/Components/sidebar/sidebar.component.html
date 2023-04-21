@@ -1,11 +1,11 @@
-<div class="iq-sidebar sidebar-default" *ngIf="showSidebar">
+<div class="iq-sidebar sidebar-default" style="background-color: #87cefa; opacity: 1" *ngIf="showSidebar">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <a routerLink="/home" class="header-logo">
             <img src="../assets/images/logo.png" class="img-fluid rounded-normal light-logo" alt="logo" />
             <h5 class="logo-title light-logo ml-3">Portail QHSE</h5>
         </a>
-        <div class="iq-menu-bt-sidebar ml-0">
-            <i class="las la-bars wrapper-menu"></i>
+        <div class="iq-menu-bt-sidebar ml-3">
+            <i class="las la-bars wrapper-menu ml-1"></i>
         </div>
     </div>
     <div class="scroll-sidebar">
@@ -80,6 +80,11 @@
                         <li class="">
                             <a href="../backend/page-add-category.html">
                                 <i class="las la-minus"></i><span>Liste axes stratégiques</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a routerLink="/equipement-list">
+                                <i class="las la-minus"></i><span>Suivi des équipements de mesure </span>
                             </a>
                         </li>
                     </ul>
@@ -159,11 +164,6 @@
                         <li class="">
                             <a routerLink="/nc-list">
                                 <i class="las la-minus"></i><span>Suivi des non-confirmités</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a routerLink="/nc-add">
-                                <i class="las la-minus"></i><span>Ajouter non-confirmité</span>
                             </a>
                         </li>
                     </ul>

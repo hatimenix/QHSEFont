@@ -1,0 +1,243 @@
+<div class="content-page">
+    <div class="container-fluid">
+       <div class="row">
+           <div class="col-lg-12">
+               <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                <a (click)="navigateToEquipement()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter un équipement</a>
+               </div>
+           </div>
+  
+          </div>
+          <div class="input-group mb-3">
+           <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
+       </div>
+  
+           <div>
+            <button class="btn " >Liste par site</button>
+            <button class="btn " (click)="getEquipements()">Tous les élements</button>
+           <div class="col-lg-12">
+               <div class="table-responsive rounded mb-3">
+               <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+  <tbody class="ligth-body">
+  
+    <tr *ngFor="let site of sites">
+  
+      <td data-column="name">
+        <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
+          <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
+          <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+        </a>
+        {{ site.site_nom }}
+      </td>
+      <thead class="bg-white text-uppercase">
+        <tr class="ligth ligth-data">
+          <th scope="col">Site</th>
+          <th scope="col">Secteur</th>
+          <th scope="col">Type d'équipement</th>
+          <th scope="col">Codification</th>
+          <th scope="col">Date mise en service</th>
+          <th scope="col">Date dernière modification</th>
+          <th scope="col">Verification interne/externe</th>
+          <th scope="col">Prochaine Verification</th>
+          <th scope="col">Commentaires</th>
+          <th scope="col">Equipement déclassé</th>
+          <th scope="col">N série(si thermomètreGenius)</th>
+          <th scope="col">Certificat de calibration(thermomètres)</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <ng-container *ngIf="site.expanded">
+      <tr *ngFor="let equipement of equipements | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  "  >
+        <td scope="row">{{equipement.site_name}}</td>
+        <td>{{ equipement.secteur_name }}</td>
+        <td>{{ equipement.type_equipement }}</td>
+        <td>{{equipement.codification}}</td>
+        <td>{{equipement.date_mise_en_service}}</td>
+        <td>{{equipement.date_modification}}</td>
+        <td>{{equipement.verification}}</td>
+        <td>{{equipement.prochaine_verification}}</td>
+        <td>{{equipement.commentaires}}</td>
+                        <td>{{equipement.Equipement_declasse ? 'Oui' : 'Non'}}</td>
+                        <td>{{equipement.N_serie}}</td>
+                        <td><a href="{{ equipement.Certificat }}" download>{{ equipement.Certificat }}</a></td>
+                        <td>
+                          <div class="d-flex align-items-center list-action">
+                                  <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getEquipementData(equipement.id , equipement.site, equipement.secteur, equipement.site_name,equipement.secteur_name,equipement.type_equipement,equipement.codification,equipement.date_mise_en_service,equipement.date_modification,equipement.verification,equipement.prochaine_verification,equipement.commentaires,equipement.Equipement_declasse,equipement.N_serie)"data-placement="top" title="" data-original-title="Edit"
+                                  ><i class="ri-pencil-line mr-0"></i></a>
+                              <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(equipement.id)" data-placement="top" title="" data-original-title="Delete"
+                                  ><i class="ri-delete-bin-line mr-0"></i></a>
+                          </div>
+                      </td>
+                       </tr> 
+                       </ng-container> 
+                   </tbody>
+               </table>
+               </div>
+               <pagination-controls (pageChange)="p = $event"></pagination-controls>
+           </div>
+       </div>
+       <!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Attention , cette action est irréversible !
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="delete()" >Supprimer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier un équipement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <form [formGroup]="form">
+
+          <div class="row">
+            <div class="col">
+              <label for="type_equipement" class="form-label">Type d'équipement : </label>
+              <select [(ngModel)]="type_equipement" value="{{type_equipement}}" id="type_equipement" formControlName="type_equipement" class="form-control" class="custom-select">
+                <option>Thermomètre sonde</option>
+                <option>Thermomètre laser</option>
+                <option>Thermomètre gallium</option>
+                <option>Thermomètres électroniques tympaniques</option>
+                <option>Thermomètres électroniques digitaux</option>
+                <option>Glucumètres (Päiperléck)</option>
+                <option>Glucumètres (client)</option>
+                <option>Appareils de pesée</option>
+                <option>Peson</option>
+                <option>Plateau</option>
+                <option>Coagucheck</option>
+                <option>Tensiomètres manuel</option>
+                <option>Tensio. Electro. Paignet </option>
+                <option>Tensio. Electro. bras </option>
+                <option>Appareil pulsa. saturation </option>
+            </select>            </div>
+            <div class="col">
+              <label for="N_serie" class="form-label">N série (si thermomètre Genius)  : </label>
+              <input name="N_serie" value="{{N_serie}}" [(ngModel)] = "N_serie" formControlName="N_serie" style="width: 100%;" type="text" class="rounded-pill form-control" id="N_serie">
+            </div>
+            <div class="col">
+                  <label>Vérification interne/externe</label>
+                  <select [(ngModel)]="verification" value="{{verification}}" id="verification" formControlName="verification"  class="custom-select" data-style="py-0">
+                    <option >Interne</option>
+                    <option >Externe</option>
+                </select>                  
+                <br>
+                  <label class="text-blue " for="gravite">Interne : thermomètres , Appareils de pesée , Appareil pulsa. saturation</label>
+                  <br>
+                  <label class="text-blue " for="gravite">Externe : Glucumètres , Tensiomètres , Coagucheck </label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col">
+              <label for="date_mise_en_service" class="form-label">Date mise en service : </label>
+              <input [(ngModel)]="date_mise_en_service" formControlName="date_mise_en_service" type="date" class="form-control" id="date_mise_en_service" name="date_mise_en_service" />
+            </div>
+            <div class="col">
+              <label for="date_modification" class="form-label">Date modification : </label>
+              <input [(ngModel)]="date_modification" formControlName="date_modification" type="date" class="form-control" id="date_modification" name="date_modification" />
+            </div>
+            <div class="col">
+              <label for="codification" class="form-label">codification : </label>
+              <input name="codification"  value="{{codification}}" [(ngModel)] = "codification" formControlName="codification" style="width: 100%;" type="text" class="rounded-pill form-control" id="codification">
+            </div>
+          </div>
+          <div class="col">
+            <label for="commentaires" class="form-label">commentaires : </label>
+            <input name="commentaires"  value="{{commentaires}}" [(ngModel)] = "commentaires" formControlName="commentaires" style="width: 100%;" type="text" class="rounded-pill form-control" id="commentaires">
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+                <label for="dob">Prochaine verification*</label>
+                <input [(ngModel)]="prochaine_verification" formControlName="prochaine_verification" type="date" class="form-control" id="prochaine_verification" name="prochaine_verification" />
+                <label class="text-blue " for="gravite">Verifications Internes</label>
+                <br>
+                <label class="text-blue " for="gravite">Thermomètre : verification 1/an</label>
+                <br>
+                <label class="text-blue " for="gravite">Appareil pulsa. saturation : verification 1/an </label>
+                <br>
+                <label class="text-blue " for="gravite">Appareils de pesée : verification 2/an</label>
+                <br>
+                <br>
+                <label class="text-blue " for="gravite">Verifications Externes</label>
+                <br>
+                <label class="text-blue " for="gravite">Tensiomètres : Tous les 2 ans</label>
+            </div>
+        </div>
+                      <div class="row">
+                      <div class="col">
+                        <label for="site" class="form-label">Site : </label>
+                        <select [(ngModel)]="site"  id="site" name="site" formControlName="site" style="width: 100%;" class="form-control" class="custom-select" >
+                          <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
+                         </select> 
+                        </div>                      
+                          <div class="col">
+                            <label for="secteur" class="form-label">secteur : </label>
+                            <select [(ngModel)]="secteur" id="secteur" name="secteur" formControlName="secteur" style="width: 100%;" class="form-control" class="custom-select" >
+                              <option *ngFor="let secteur of secteurs" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
+                             </select> 
+                            </div>
+                            <div class="col">
+                              <label for="Equipement_declasse" class="form-label">Equipement_declasse : </label>
+                              <select [(ngModel)]="Equipement_declasse" id="Equipement_declasse" formControlName="Equipement_declasse"  class="custom-select" data-style="py-0">
+                                <option [ngValue]="true">Oui</option>
+                                <option [ngValue]="false">Non</option>
+                            </select>
+                              </div>
+                            </div>
+                              <br>
+                              <div class="col mb-2">
+                              <div class="custom-file">
+                                <input (change)="updateFile($event)" [(ngModel)] = "Certificat" formControlName="Certificat" type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Certificat</label>
+                              </div>
+                              </div>
+                              </form>
+                              </div>
+                              </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateEquipement()">Modifier</button> 
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    L'équipement a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>

@@ -112,8 +112,8 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       <button type="button" class="btn btn-danger" (click)="delete()" >Supprimer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
     </div>
   </div>
 </div>
@@ -138,24 +138,33 @@ aria-hidden="true">
             <div class="col">
               <label for="intitule" class="form-label">Intitulé de la non-conformité : </label>
               <input name="intitule" value="{{intitule}}" [(ngModel)] = "intitule" formControlName="intitule" style="width: 100%;" type="text" class="rounded-pill form-control" id="intitule">
+              <label class="text-blue " for="intitule">Ecrivez l'intitulé de l'anomalie(synthèse très courte du problème)</label>
             </div>
             <div class="col">
               <label for="nature" class="form-label">Nature : </label>
-              <input name="nature"  value="{{nature}}" [(ngModel)] = "nature" formControlName="nature" style="width: 100%;" type="text" class="rounded-pill form-control" id="nature">
+              <select [(ngModel)]="nature" id="nature" formControlName="nature"  class="custom-select" data-style="py-0">
+                <option >Interne</option>
+                <option >Externe</option>
+            </select>
             </div>
             <div class="col">
-              <label for="detail_cause" class="form-label">Detail cause : </label>
-              <input name="detail_cause"  value="{{detail_cause}}" [(ngModel)] = "detail_cause" formControlName="detail_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
-            </div>
+              <label for="domaine" class="form-label">Domaine : </label>
+              <select [(ngModel)]="domaine" id="domaine" formControlName="domaine" style="width: 100%;" class="form-control" class="custom-select">
+                <option>Qualité</option>
+                <option>Sécurité</option>
+                <option>Environnement</option>
+
+            </select>                                
+          </div>
             </div>
             <div class="row">
             <div class="col">
               <label for="date_nc" class="form-label">Date NC : </label>
-              <input name="date_nc"  value="{{date_nc}}" [(ngModel)] = "date_nc" formControlName="date_nc" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_nc">
+              <input [(ngModel)]="date_nc" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
             </div>
             <div class="col">
               <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
-              <input name="date_prise_en_compte" value="{{date_prise_en_compte}}" [(ngModel)] = "date_prise_en_compte" formControlName="date_prise_en_compte" style="width: 100%;" type="text" class="rounded-pill form-control" id="date_prise_en_compte">
+              <input [(ngModel)]="date_prise_en_compte" formControlName="date_prise_en_compte" type="date" class="form-control" id="date_prise_en_compte" name="date_prise_en_compte" />
             </div>
             <div class="col">
               <label for="description_detailee" class="form-label">Description détaillée : </label>
@@ -181,7 +190,13 @@ aria-hidden="true">
 
               <div class="col">
                 <label for="type_cause" class="form-label">type_cause : </label>
-                <input name="type_cause"  value="{{type_cause}}"[(ngModel)] = "type_cause" formControlName="type_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="type_cause">
+                <select [(ngModel)]="type_cause" id="type_cause" formControlName="type_cause" style="width: 100%;" class="form-control" class="custom-select">
+                  <option>Matière première</option>
+                  <option>Matériel</option>
+                  <option>Méthode</option>
+                  <option>Main d'oeuvre</option>
+                  <option>Milieu</option>
+              </select>
                 </div>
                 </div>
                 <div class="row">
@@ -225,7 +240,22 @@ aria-hidden="true">
                               </select> 
                               </div>
                               </div>
-
+                              <div class="row">
+                                <div class="col">
+                                  <label for="frequence" class="form-label">Fréquence : </label>
+                                  <input name="frequence" value="{{frequence}}" [(ngModel)] = "frequence" formControlName="frequence" style="width: 100%;" type="text" class="rounded-pill form-control" id="frequence">
+                                </div>
+                                <div class="col">
+                                  <label for="gravite" class="form-label">Gravite : </label>
+                                  <input name="gravite"  value="{{gravite}}" [(ngModel)] = "gravite" formControlName="gravite" style="width: 100%;" type="text" class="rounded-pill form-control" id="gravite">
+                                </div>
+                                <div class="col">
+                                  <label for="detail_cause" class="form-label">Detail cause : </label>
+                                  <input name="detail_cause"  value="{{detail_cause}}" [(ngModel)] = "detail_cause" formControlName="detail_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
+                                </div>
+                                
+                                </div>
+                                <br>
                               <div class="col mb-2">
                               <div class="custom-file">
                                 <input (change)="updateFile($event)" [(ngModel)] = "piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
@@ -237,8 +267,8 @@ aria-hidden="true">
                               </div>
 
         <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateNc()">Modifier</button> 
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-           <button type="button" class="btn btn-primary" (click)="updateNc()">modfier</button> 
         </div>
       </div>
     </div>

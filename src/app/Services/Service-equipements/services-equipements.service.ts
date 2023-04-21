@@ -32,7 +32,7 @@ export class ServicesEquipementservice{
 
 
 }
-downloadPiece(id: number): Observable<Blob> {
+downloadCertificat(id: number): Observable<Blob> {
   return this.http.get(`${this.equipementurl}/${id}`, { responseType: 'blob' });
 }
 
