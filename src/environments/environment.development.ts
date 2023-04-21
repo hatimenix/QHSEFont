@@ -26,7 +26,12 @@ export const environment = {
     API_Processus : "http://127.0.0.1:8000/processus/",
     API_Sites: "http://127.0.0.1:8000/site/",
     API_Secteurs :"http://127.0.0.1:8000/secteurs/",
-    API_Docs:"http://127.0.0.1:8000/documentation/"
+
+    API_Docs:"http://127.0.0.1:8000/documentation/",
+
+    
+    API_equipement:"http://127.0.0.1:8000/equipement/"
+
     };
 
 
