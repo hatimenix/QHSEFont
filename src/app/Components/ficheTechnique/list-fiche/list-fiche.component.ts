@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FicheserService } from 'src/app/Services/Service-fiche-restauration/ficheser.service';
 import { FicheTechnique } from 'src/app/models/FicheTechnique';
 
@@ -13,8 +14,13 @@ export class ListFicheComponent implements OnInit {
   typePlatSelectionne!: string;
 
   myForm: any;
+  
+  //delete modal
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  modalRef!: BsModalRef;
+  ficheIdToDelete: number = 0;
 
-  constructor(private ficheService: FicheserService) { }
+  constructor(private ficheService: FicheserService, public modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
@@ -77,5 +83,17 @@ export class ListFicheComponent implements OnInit {
     } else {
       this.getFiches();
     }
+  }
+  //delete modal 
+confirmDelete(): void {
+  this.ficheService.deleteFiche(this.ficheIdToDelete)
+    .subscribe(() => {
+      this.fiches = this.fiches.filter(f => f.id_fiche !== this.ficheIdToDelete);
+      this.modalRef.hide();
+    });
+}
+
+  declineDelete(): void {
+  this.modalRef.hide();
   }
 }

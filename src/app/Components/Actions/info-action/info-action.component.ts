@@ -186,7 +186,7 @@ export class InfoActionComponent {
 
     this.apiMesuresService.addMesure(mesure).subscribe(
       () => {
-        console.log('Evaluation a été ajouté avec succès.');
+        console.log('Mesure a été ajouté avec succès.');
         this.getMesureByAction(this.actionId);
         this.mesureForm.reset();
       },

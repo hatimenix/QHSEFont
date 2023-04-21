@@ -42,7 +42,6 @@ import { InfoActionComponent } from './Components/Actions/info-action/info-actio
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +91,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    
 
   ],
 

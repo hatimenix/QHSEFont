@@ -16,6 +16,7 @@ export class ListProcessusComponent implements OnInit {
   
   processus: Processus[] = [];
   personnelService: any;
+  //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
   ProIdToDelete: number = 0;

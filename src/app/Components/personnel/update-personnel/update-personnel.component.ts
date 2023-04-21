@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { Personnel } from 'src/app/models/Personnel';
 
@@ -13,8 +14,11 @@ export class UpdatePersonnelComponent implements OnInit {
   PersonnelForm!: FormGroup;
   personnel!: Personnel;
   id!: number;
+  //modal
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private personnelService: PersonnelService) { 
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private personnelService: PersonnelService, private bsModalService: BsModalService) { 
     this.PersonnelForm = this.formBuilder.group({
       id: [''],
       compte: ['', Validators.required],
@@ -79,6 +83,7 @@ export class UpdatePersonnelComponent implements OnInit {
     this.personnelService.updatePersonnelFormdata(formData).subscribe(
       (data: any) => {
         console.log(data);
+        this.openModal();
         this.router.navigate(['/listP']);
       },
       (error: any) => {
@@ -86,6 +91,12 @@ export class UpdatePersonnelComponent implements OnInit {
       }
     );
   }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
 
 onFileSelected(event: Event) {
   const fileInput = event.target as HTMLInputElement;

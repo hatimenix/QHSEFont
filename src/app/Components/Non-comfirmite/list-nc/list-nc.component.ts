@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 import { Nc } from 'src/app/models/nc';
@@ -8,6 +8,7 @@ import { saveAs } from 'file-saver';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 declare var window: any;
 
@@ -16,10 +17,14 @@ declare var window: any;
   templateUrl: './list-nc.component.html',
   styleUrls: ['./list-nc.component.css']
 })
-export class ListNcComponent {
+export class ListNcComponent implements OnInit {
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
+  updateModalVisible: boolean = true;
+  @ViewChild('successModal', { static: true }) successModal:any;
+  
+  modalRef!: BsModalRef;
   p = 1; 
   itemsPerPage: number = 5;
 
@@ -89,7 +94,7 @@ export class ListNcComponent {
 
   });
 
-  constructor(private   ncservice : ServicesNonConfirmitéService, private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService){
+  constructor(private   ncservice : ServicesNonConfirmitéService, private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService,private bsModalService: BsModalService){
 
   }
   ngOnInit(): void {
@@ -186,7 +191,8 @@ updateNc() : void {
       .subscribe({
           next: (res) => {
               console.log(res);
-              location.reload();
+              this.openModal();
+              this.updateModalVisible = false;
           },
           error: (e) => {
               console.error(e);
@@ -335,5 +341,11 @@ exportToExcel() {
   saveAs(blob, filename);
 }
 
-
+openModal() {
+  this.modalRef = this.bsModalService.show(this.successModal);
+}
+closeModal() {
+  this.bsModalService.hide();
+  location.reload();
+}
 }

@@ -46,7 +46,7 @@
                                     </div> 
                                 </div>  
                            </div>                            
-                           <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
+                           <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
                            <button type="reset" class="btn btn-danger" routerLink="/listsites">Annuler</button>
                        </form>
                    </div>
@@ -56,4 +56,17 @@
        <!-- Page end  -->
    </div>
      </div>
-     <router-outlet></router-outlet><app-sidebar></app-sidebar>
+     <ng-template #successModal>
+        <div class="modal-header">
+          <h4 class="modal-title">Succès</h4>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Le site a été ajoutée avec succès.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        </div>
+      </ng-template>

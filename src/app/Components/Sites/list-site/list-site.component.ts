@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Site } from 'src/app/models/site';
 
@@ -10,8 +11,12 @@ import { Site } from 'src/app/models/site';
 export class ListSiteComponent implements OnInit{
   site: Site[] = [];
   personnelService: any;
+    //modal
+    @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+    modalRef!: BsModalRef;
+    siteIdToDelete: number = 0;
 
-constructor(private siteService: ApiSiteService) { }
+constructor(private siteService: ApiSiteService, public modalService: BsModalService) { }
 ngOnInit(): void {
 this.loadsite();
 }
@@ -27,4 +32,16 @@ deleteSite(id: number) :void{
     this.site = this.site.filter((p) => p.id !== id);
   });
 }
+ //delete modal
+ confirmDelete(): void {
+  this.siteService.deleteSite(this.siteIdToDelete)
+    .subscribe(() => {
+      this.site = this.site.filter(s => s.id !== this.siteIdToDelete);
+      this.modalRef.hide();
+    });
+}
+
+  declineDelete(): void {
+  this.modalRef.hide();
+  }
 }
