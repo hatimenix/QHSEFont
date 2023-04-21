@@ -78,7 +78,7 @@ const routes: Routes = [
   { path: 'nc/:id', component: InfoNcComponent },
   //documentation
   {path : 'listdocument', component:ListDocumentationComponent},
-  {path : 'adddocument ', component:AddtDocumentationComponent},
+  {path : 'add-document', component:AddtDocumentationComponent},
   {path : 'updateDocument/:id', component: UpdateDocumentationComponent}
 
   

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Secteur } from 'src/app/models/Secteur';
 import { Processus } from 'src/app/models/pocesus';
 import { Site } from 'src/app/models/site';
@@ -19,31 +19,61 @@ export class DocumentationService {
  
   constructor(private http: HttpClient) { }
 
-  getDocument(): Observable<Documentation[]> {
+  
+  getDocuments(): Observable<Documentation[]> {
     return this.http.get<Documentation[]>(this.API_Docs);
   }
 
-  
-  getDocumentById(id: number): Observable<Documentation> {
+  getDocumntById(id: number): Observable<Documentation> {
     return this.http.get<Documentation>(`${this.API_Docs}${id}`);
   }
 
-  
-  addDocument(documents: Documentation): Observable<Documentation> {
-    return this.http.post<Documentation>(this.API_Docs, documents);
+
+  addDocument(doc: Documentation): Observable<Documentation> {
+    const formData = new FormData();
+    formData.append('nom', doc.nom);
+    formData.append('codification', doc.codification);
+    formData.append('version', String(doc.version));
+    formData.append('date_approbation', String(doc.date_approbation));
+    formData.append('date_previsionnelle', String(doc.date_previsionnelle));
+    formData.append('nv_version',String(doc.nv_version));
+    formData.append('type_docs', doc.type_docs);
+   
+    if (doc.url_document) {
+      formData.append('url_document', doc.url_document, doc.url_document.name);
+    }
+    return this.http.post<Documentation>(this.API_Docs, formData).pipe(
+      catchError((error) => {
+        console.error(error);
+        throw error;
+      })
+    );
   }
-  
+  addDocumentFormData(formData: FormData): Observable<Documentation> {
+    return this.http.post<Documentation>(this.API_Docs, formData);
+  }
 
   
-  updateDocument(id: number, documents: Documentation): Observable<Documentation> {
+
+  updateDocument(doc: Documentation): Observable<Documentation> {
+    return this.http.put<Documentation>(`${this.API_Docs}${doc.id}/`, doc);
+  }
+  updateDocFormdata(formData: FormData): Observable<any> {
+    const id = formData.get('id');
     const url = `${this.API_Docs}${id}/`;
-    return this.http.put<Documentation>(url, documents);
+    return this.http.put(url, formData);
   }
 
-  deleteDocument(id: number): Observable<void> {
-    const url = `${this.API_Docs}${id}`;
-    return this.http.delete<void>(url);
+
+  
+deleteDocument(id: number): Observable<void> {
+  if (!id || isNaN(id)) {
+    return throwError('Invalid ID provided.');
   }
+  const url = `${this.API_Docs}${id}/`;
+  return this.http.delete<void>(url);
+}
+
   //la liste des autres components utilisé
   getSiteList(): Observable<Site[]> {
     return this.http.get<Site[]>(this.API_Sites);
@@ -53,5 +83,9 @@ export class DocumentationService {
   }
   getProcessusList(): Observable<Processus[]> {
     return this.http.get<Processus[]>(this.API_Processus);
+  }
+
+  downloadURL(id: number): Observable<Blob> {
+    return this.http.get(`${this.API_Docs}/${id}`, { responseType: 'blob' });
   }
 }

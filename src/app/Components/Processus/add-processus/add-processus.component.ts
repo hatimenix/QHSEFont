@@ -15,6 +15,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 export class AddProcessusComponent implements OnInit{
   processusForm!: FormGroup;
   personnel$ !: Observable<any>;
+  //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
 
@@ -37,11 +38,8 @@ export class AddProcessusComponent implements OnInit{
       // rafraîchir la page
       location.reload();
     }
-
     // aller en haut de la page
     window.scrollTo(0, 0);
-
-    
     this.personnel$ = this.personnelService.getPersonnels();
     this.createForm();
   }
@@ -63,9 +61,6 @@ export class AddProcessusComponent implements OnInit{
       
     });
   }
-
- 
-
   onSubmit():void {
     const formData = this.processusForm.value;
     const processus: Processus= new Processus (
@@ -97,6 +92,7 @@ export class AddProcessusComponent implements OnInit{
       }
     );
   }
+  //modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }

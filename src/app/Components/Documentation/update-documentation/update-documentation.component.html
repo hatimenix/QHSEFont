@@ -1,1 +1,125 @@
-<p>update-documentation works!</p>
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Modifier un Document</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form [formGroup]="DocForm" data-toggle="validator" (ngSubmit)="onSubmit()">
+                           <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="nom">Nom du document <label style="color: red;">*</label> </label>
+                                  <input type="text" class="form-control" placeholder="Enter nom" formControlName="nom" data-errors="Entrez un nom de document" required>
+                                  <div class="help-block with-errors"></div>
+                                </div>
+                              </div>
+                              <label for="url_document">Url de document <label style="color: red;">*</label></label><br><br>  
+                  <div class="col-md-4">
+                                        
+                    <div class="form-group">
+                    
+                      <input class="custom-file-input" id="customFile" type="file" (change)="onFileSelected($event)" required>
+                      <label class="custom-file-label" for="customFile">Choisir un fichier</label>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="codification">Codification<label style="color: red;">*</label> </label>
+                      <input type="text" class="form-control" placeholder="Enter nom" formControlName="codification" data-errors="Entrez un nom de document" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>  
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="version">Version <label style="color: red;">*</label></label>
+                      <input id="version" type="number" class="form-control" placeholder="Enter une version" formControlName="version" data-errors="Entrez un nom de document" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>
+                  
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label for="date_approbation">Date Approbation <label style="color: red;">*</label></label>
+                                    <input type="date" class="form-control" placeholder="Enter Name" data-errors="Please Enter Date."   type="date" id="date_approbation" formControlName="date_approbation"required>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>    
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label for="date_previsionnelle">Date Prévisionnelle <label style="color: red;">*</label></label>
+                                    <input type="date" class="form-control" placeholder="Enter Name" data-errors="Please Enter Date."   type="date" id="date_previsionnelle" formControlName="date_previsionnelle"required>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="nv_version">Nouvelle version <label style="color: red;">*</label></label>
+                                       <select name="type" class="custom-select form-control" data-style="py-0" id="nv_version" formControlName="nv_version">
+                                           <option>Oui</option>
+                                           <option>Non</option>
+                                           
+                                       </select>
+                                   </div> 
+                               </div>  
+                               
+                               
+                               <div class="col-md-6"> 
+                                   <div class="form-group">
+                                    <label for="type_docs">Type de document <label style="color: red;">*</label></label>
+                                       <select name="type" class="custom-select form-control" data-style="py-0" id="type_docs" formControlName="type_docs">
+                                        <option >Template</option>
+                                        <option >Formulaire</option>
+                                        <option>Procédure</option>
+                                        <option>Réferentiel</option>
+                                        <option>Instruction</option>
+                                        <option>Descriptif de processus</option>
+                                        
+                                       </select>
+                                   </div>
+                               </div>
+                            <div class="col-md-6"> 
+                               <div class="form-group">
+                                <label>Site <label style="color: red;">*</label></label>
+                                <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                    <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                   </select>
+                            </div> 
+                            </div> 
+                            <div class="col-md-6"> 
+                                <div class="form-group">
+                                 <label>Processus <label style="color: red;">*</label></label>
+                                 <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+                                     <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                                    </select>
+                             </div> 
+                             </div> 
+                             <div class="col-md-6"> 
+                                <div class="form-group">
+                                 <label>Secteur <label style="color: red;">*</label></label>
+                                 <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required>
+                                     <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
+                                    </select>
+                             </div> 
+                             </div>
+                              
+                           </div>                            
+                           <button type="submit" class="btn btn-primary mr-2 ">Modifier</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listdocument">Annuler</button>
+                           
+                       </form>
+                       
+                   </div>
+               </div>
+           </div>
+       </div>
+     
+   </div>
+     </div>
+    

@@ -17,12 +17,12 @@ export class ListDocumentationComponent implements OnInit {
   }
 
   loaddocument() {
-    this.documentService.getDocument().subscribe(
+    this.documentService.getDocuments().subscribe(
       (data: Documentation[]) => {
         this.document = data;
         console.log(data)
       },
-      (error) => {
+      (error : any) => {
         console.log(error);
       }
     );
