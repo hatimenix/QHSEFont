@@ -41,6 +41,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ListEquipementsComponent } from './Components/Equipements/list-equipements/list-equipements.component';
+import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AddNcComponent,
     NavbarComponent,
     InfoActionComponent,
+    ListEquipementsComponent,
+    AddEquipementsComponent
 
   ],
   imports: [

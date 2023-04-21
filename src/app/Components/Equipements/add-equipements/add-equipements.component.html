@@ -1,0 +1,168 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+            <div style="display: flex; flex-direction: column;">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Ajouter un équipement</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form [formGroup]="form" data-toggle="validator">
+                        <div class="row">
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>Site </label>
+                                    <select [(ngModel)]="equipementf.site" id="site" name="site" formControlName="site" class="form-control" class="custom-select" >
+                                     <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>Secteur </label>
+                                    <select id="secteur" [(ngModel)]="equipementf.secteur" name="secteur" formControlName="secteur" class="form-control" class="custom-select" >
+                                     <option *ngFor="let secteur of secteurs" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>Type d'équipement </label>
+                                    <select [(ngModel)]="equipementf.type_equipement" id="type_equipement" formControlName="type_equipement" class="selectpicker form-control" data-style="py-0">
+                                        <option value="">Choisir un type</option>
+                                        <option>Thermomètre sonde</option>
+                                        <option>Thermomètre laser</option>
+                                        <option>Thermomètre gallium</option>
+                                        <option>Thermomètres électroniques tympaniques</option>
+                                        <option>Thermomètres électroniques digitaux</option>
+                                        <option>Glucumètres (Päiperléck)</option>
+                                        <option>Glucumètres (client)</option>
+                                        <option>Appareils de pesée</option>
+                                        <option>Peson</option>
+                                        <option>Plateau</option>
+                                        <option>Coagucheck</option>
+                                        <option>Tensiomètres manuel</option>
+                                        <option>Tensio. Electro. Paignet </option>
+                                        <option>Tensio. Electro. bras </option>
+                                        <option>Appareil pulsa. saturation </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>Vérification interne/externe</label>
+                                    <select [(ngModel)]="equipementf.verification" id="verification" formControlName="verification" class="selectpicker form-control" data-style="py-0">
+                                        <option value="">Choisir un type</option>
+                                        <option>Interne</option>
+                                        <option>Externe</option>
+                                    </select>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Interne : thermomètres , Appareils de pesée , Appareil pulsa. saturation</label>
+                                    <label class="text-blue " for="gravite">Externe : Glucumètres , Tensiomètres , Coagucheck </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="dob">Date Mise en service </label>
+                                    <input [(ngModel)]="equipementf.date_mise_en_service" formControlName="date_mise_en_service" type="date" class="form-control" id="date_mise_en_service" name="date_mise_en_service" />
+                                </div>
+                            </div>  
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="dob">Date dernière modification *</label>
+                                    <input [(ngModel)]="equipementf.date_modification" formControlName="date_modification" type="date" class="form-control" id="date_modification" name="date_modification" />
+                                </div>
+                            </div>   
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="dob">Prochaine verification*</label>
+                                    <input [(ngModel)]="equipementf.prochaine_verification" formControlName="prochaine_verification" type="date" class="form-control" id="prochaine_verification" name="prochaine_verification" />
+                                    <label class="text-blue " for="gravite">Verifications Internes</label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Thermomètre : verification 1/an</label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Appareil pulsa. saturation : verification 1/an </label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Appareils de pesée : verification 2/an</label>
+                                    <br>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Verifications Externes</label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Tensiomètres : Tous les 2 ans</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>Codification *</label>
+                                    <input [(ngModel)]="equipementf.codification" type="text" formControlName="codification" class="form-control" placeholder="codification" data-errors="Please Enter Name." id="codification" required>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].touched && f['codification'].invalid">
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['required']">La codification est requis.</div>
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                 </div>
+                             </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>Commentaires </label>
+                                    <input [(ngModel)]="equipementf.commentaires" type="text" formControlName="commentaires" class="form-control" placeholder="commentaires " data-errors="Please Enter Name." id="commentaires" >
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaires'].touched && f['commentaires'].invalid">
+                                        <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                    </div>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>N série (si thermomètre Genius) </label>
+                                    <input [(ngModel)]="equipementf.N_serie" type="text" formControlName="N_serie" class="form-control" placeholder="N_serie " data-errors="Please Enter Name." id="N_serie" >
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['N_serie'].touched && f['N_serie'].invalid">
+                                        <div *ngIf="f['N_serie'].errors && f['N_serie'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                    </div>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">                      
+                                <div class="form-group">
+                                    <label>Equipement déclassé </label>
+                                    <br>
+                                    <input style="margin-top: 3%;" [(ngModel)]="equipementf.Equipement_declasse" type="checkbox" formControlName="Equipement_declasse" class="checkbox-lg" placeholder="Equipement_declasse" data-errors="Please Enter Name." id="Equipement_declasse">
+                                </div>
+                            </div>   
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Certificat">Certificat:</label>
+                                    <input type="file" class="form-control image-file" [(ngModel)]="equipementf.Certificat" (change)="uploadFile($event)"formControlName="Certificat">
+                                </div>
+                            </div>   
+                        </div>
+                    </form>
+       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
+        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createEquipement()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0">Enregistrer</button>
+        <button style="margin-bottom: 1%;" type="reset" (click)="onCancel()" class="btn btn-danger mb-2 mb-sm-0">Annuler</button>
+      </div>
+      
+       </div>
+       </div>
+<!-- Page end  -->
+<ng-template #successModal>
+    <div class="modal-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      L'équipement a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+  </ng-template>
+
+
+
+
+
