@@ -3,6 +3,9 @@
      <div class="row">
          <div class="col-lg-12">
              <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+              <div>
+                <h4 class="mb-3">Suivi des non-conformités</h4>
+            </div>
                  <a (click)="navigateToNc()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter une non-conformité</a>
              </div>
          </div>
@@ -243,15 +246,21 @@ aria-hidden="true">
                               <div class="row">
                                 <div class="col">
                                   <label for="frequence" class="form-label">Fréquence : </label>
-                                  <input name="frequence" value="{{frequence}}" [(ngModel)] = "frequence" formControlName="frequence" style="width: 100%;" type="text" class="rounded-pill form-control" id="frequence">
-                                </div>
+                                  <select [(ngModel)]="frequence" id="gravite" formControlName="gravite"  class="custom-select" data-style="py-0">
+                                    <option [ngValue]="true">Oui</option>
+                                    <option [ngValue]="false">Non</option>
+                                </select>
+                                  </div>
+                                  <div class="col">
+                                    <label for="gravite" class="form-label">Gravité : </label>
+                                    <select [(ngModel)]="gravite" id="gravite" formControlName="gravite"  class="custom-select" data-style="py-0">
+                                      <option [ngValue]="true">Oui</option>
+                                      <option [ngValue]="false">Non</option>
+                                  </select>
+                                    </div>
                                 <div class="col">
-                                  <label for="gravite" class="form-label">Gravite : </label>
-                                  <input name="gravite"  value="{{gravite}}" [(ngModel)] = "gravite" formControlName="gravite" style="width: 100%;" type="text" class="rounded-pill form-control" id="gravite">
-                                </div>
-                                <div class="col">
-                                  <label for="detail_cause" class="form-label">Detail cause : </label>
-                                  <input name="detail_cause"  value="{{detail_cause}}" [(ngModel)] = "detail_cause" formControlName="detail_cause" style="width: 100%;" type="text" class="rounded-pill form-control" id="detail_cause">
+                                  <label for="cout" class="form-label">Coût : </label>
+                                  <input name="cout"  value="{{cout}}" [(ngModel)] = "cout" formControlName="cout" style="width: 100%;" type="text" class="rounded-pill form-control" id="cout">
                                 </div>
                                 
                                 </div>

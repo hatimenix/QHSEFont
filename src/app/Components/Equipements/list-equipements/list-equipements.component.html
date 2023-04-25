@@ -3,6 +3,9 @@
        <div class="row">
            <div class="col-lg-12">
                <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                <div>
+                  <h4 class="mb-3">Suivi des équipements de mesure</h4>
+              </div>
                 <a (click)="navigateToEquipement()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter un équipement</a>
                </div>
            </div>
@@ -18,17 +21,6 @@
            <div class="col-lg-12">
                <div class="table-responsive rounded mb-3">
                <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
-  <tbody class="ligth-body">
-  
-    <tr *ngFor="let site of sites">
-  
-      <td data-column="name">
-        <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
-          <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
-          <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
-        </a>
-        {{ site.site_nom }}
-      </td>
       <thead class="bg-white text-uppercase">
         <tr class="ligth ligth-data">
           <th scope="col">Site</th>
@@ -46,10 +38,28 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <ng-container *ngIf="site.expanded">
-      <tr *ngFor="let equipement of equipements | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  "  >
-        <td scope="row">{{equipement.site_name}}</td>
-        <td>{{ equipement.secteur_name }}</td>
+      <ng-container *ngFor="let site of sites">
+        <ng-container *ngFor="let secteur of secteurs">
+          <tbody class="ligth-body">          
+              <td data-column="name">
+                <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
+                  <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
+                  <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+                </a>
+                {{ site.site_nom }}
+              </td>
+            <td data-column="name">
+              <a href="javascript:void(0);" class="toggle-icon" (click)="secteur.expanded = !secteur.expanded">
+                <i class="fa fa-chevron-right" *ngIf="!secteur.expanded"></i>
+                <i class="fa fa-chevron-down" *ngIf="secteur.expanded"></i>
+              </a>
+              {{ secteur.secteur_nom }}
+            </td>
+            <ng-container *ngIf="!site.expanded">
+          <ng-container *ngIf="secteur.expanded">
+            <tr *ngFor="let equipement of equipements | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+        <td></td>
+        <td></td>
         <td>{{ equipement.type_equipement }}</td>
         <td>{{equipement.codification}}</td>
         <td>{{equipement.date_mise_en_service}}</td>
@@ -70,7 +80,9 @@
                       </td>
                        </tr> 
                        </ng-container> 
-                   </tbody>
+                       </ng-container>
+                       </ng-container>
+                       </ng-container>
                </table>
                </div>
                <pagination-controls (pageChange)="p = $event"></pagination-controls>
