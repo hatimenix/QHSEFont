@@ -37,6 +37,7 @@ import { InfoActionComponent } from './Components/Actions/info-action/info-actio
 import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 import { ListEquipementsComponent } from './Components/Equipements/list-equipements/list-equipements.component';
 import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
+import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 
 
 
@@ -77,6 +78,8 @@ const routes: Routes = [
   { path: 'nc/:id', component: InfoNcComponent },
   {path : 'equipement-list', component: ListEquipementsComponent},
   {path : 'add-equipements', component: AddEquipementsComponent},
+  {path : 'add-RGPD', component: AddRegistreTraitementComponent},
+
 
 
 
