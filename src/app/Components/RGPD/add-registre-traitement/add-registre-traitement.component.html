@@ -21,7 +21,7 @@
           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
             <div class="card">
                 <div class="card-body" style="margin-right: 2%;">
-                  <form action="page-list-suppliers.html" data-toggle="validator">
+                  <form data-toggle="validator">
                     <div class="row">
                     <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto; margin-left: 1.1%;">
                       <div class="form-group">
@@ -127,7 +127,7 @@
           <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
             <div class="card">
                 <div class="card-body">
-                  <form action="page-list-suppliers.html" data-toggle="validator">
+                  <form  data-toggle="validator">
                     <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
                       <div class="form-group">
                         <label>Finalités </label>
@@ -195,7 +195,7 @@
                                       <div class="modal-body">
                                         <div class="card">
                                             <div class="card-body">
-                                              <form action="page-list-suppliers.html" data-toggle="validator">
+                                              <form  data-toggle="validator">
                                                 <div class="row">
                                                   <div class="col-md-6">
                                                     <div class="form-group">
@@ -228,7 +228,7 @@
                                                       <div class="help-block with-errors"></div>
                                                     </div>
                                                   </div>
-                                                  <div class="col-md-6">
+                                                  <div class="col-md-12">
                                                     <div class="form-group">
                                                       <label>Durée de conservation *</label>
                                                       <input type="text" name="dureeConservation" class="form-control" placeholder="Entrez la durée de conservation" required>
@@ -242,7 +242,7 @@
                                           
                                       </div>
                                       <div class="modal-footer">
-                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Modifier</button>
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
                                          <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
                                       </div>
                                    </div>
@@ -278,9 +278,53 @@
                 <label>Personnes concernés</label>
                 <br>
                 <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
-                <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#exampleModalCenter"><i class="las la-plus mr-1"></i>
+                <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#personneC"><i class="las la-plus mr-1"></i>
                   nouvelle personne concerné
                   </button>
+                  <div class="modal fade" id="personneC" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                       <div class="modal-content">
+                          <div class="modal-header">
+                             <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                             </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="card">
+                                <div class="card-body">
+                                  <form data-toggle="validator">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label>Personnes concernés *</label>
+                                          <select name="typeDonne" class="selectpicker form-control" data-style="py-0" required>
+                                            <option value="">Choisissez une option</option>
+                                            <option value="type1">Personne 1</option>
+                                            <option value="type2">Personne 2</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label>Précisions *</label>
+                                          <input type="text" name="dureeConservation" class="form-control" required>
+                                          <div class="help-block with-errors"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              
+                          </div>
+                          <div class="modal-footer">
+                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+                             <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                          </div>
+                       </div>
+                    </div>
+                </div>
                   </div>
                   </div>
                   <hr>
@@ -297,9 +341,58 @@
                       <label>Destinataires dans l'UE</label>
                       <br>
                       <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
-                      <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#exampleModalCenter"><i class="las la-plus mr-1"></i>
+                      <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinataireenUE"><i class="las la-plus mr-1"></i>
                         nouveau destinataire
                         </button>
+                        <div class="modal fade" id="DestinataireenUE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                             <div class="modal-content">
+                                <div class="modal-header">
+                                   <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
+                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">&times;</span>
+                                   </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="card">
+                                      <div class="card-body">
+                                        <form data-toggle="validator">
+                                            <div class="col-md-12">
+                                              <div class="form-group">
+                                                <label>Type de destinataire *</label>
+                                                <select name="typeDonne" class="selectpicker form-control" data-style="py-0" required>
+                                                  <option value="">Choisissez une option</option>
+                                                  <option value="type1">Destinataire 1</option>
+                                                  <option value="type2">Destinataire 2</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                              <div class="form-group">
+                                                <label>Précisions *</label>
+                                                <input type="text" name="dureeConservation" class="form-control" required>
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                              <div class="form-group">
+                                                <label>Données concernées *</label>
+                                                <input type="text" name="dureeConservation" class="form-control" required>
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+                                            </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+                                   <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                                </div>
+                             </div>
+                          </div>
+                      </div>
                         </div>
                         </div>
                         <hr>
@@ -316,9 +409,41 @@
                             <label>Mesures de sécurité</label>
                             <br>
                             <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
-                            <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#exampleModalCenter"><i class="las la-plus mr-1"></i>
+                            <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#Mesure"><i class="las la-plus mr-1"></i>
                               nouvelle mesure de sécurité
                               </button>
+                              <div class="modal fade" id="Mesure" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                   <div class="modal-content">
+                                      <div class="modal-header">
+                                         <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                         </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card-body">
+                                              <form data-toggle="validator">
+                                                  <div class="col-md-12">
+                                                    <div class="form-group">
+                                                      <label>Type de mesure de sécurité *</label>
+                                                      <input type="text" name="dureeConservation" class="form-control" required>
+                                                      <div class="help-block with-errors"></div>
+                                                    </div>
+                                                  </div>
+                                              </form>
+                                            </div>
+                                          </div>
+                                          
+                                      </div>
+                                      <div class="modal-footer">
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+                                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                                      </div>
+                                   </div>
+                                </div>
+                            </div>
                               </div>
                               </div>
                               <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
@@ -334,9 +459,79 @@
                                   <label>Destinataires hors UE</label>
                                   <br>
                                   <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
-                                  <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#exampleModalCenter"><i class="las la-plus mr-1"></i>
+                                  <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinatairehorsUE"><i class="las la-plus mr-1"></i>
                                     nouveau destinataire
                                     </button>
+                                    <div class="modal fade" id="DestinatairehorsUE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                         <div class="modal-content">
+                                            <div class="modal-header">
+                                               <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
+                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                               <span aria-hidden="true">&times;</span>
+                                               </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="card">
+                                                  <div class="card-body">
+                                                    <form data-toggle="validator">
+                                                        <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <label>Destinataire *</label>
+                                                            <input type="text" name="destinataire" class="form-control" required>
+
+                                                          </div>
+                                                        </div>
+                                                        <div class="row">
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>Pays *</label>
+                                                            <select name="pays" class="selectpicker form-control" data-style="py-0" required>
+                                                              <option value="">Choisissez une option</option>
+                                                              <option value="type1">Pays 1</option>
+                                                              <option value="type2">Pays 2</option>
+                                                            </select>
+                                                            <div class="help-block with-errors"></div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>Type de garantie *</label>
+                                                            <select name="pays" class="selectpicker form-control" data-style="py-0" required>
+                                                              <option value="">Choisissez une option</option>
+                                                              <option value="type1">Type 1</option>
+                                                              <option value="type2">Type 2</option>
+                                                            </select>
+                                                            <div class="help-block with-errors"></div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                        <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <label>Lien vers la documentation *</label>
+                                                            <input type="text" name="dureeConservation" placeholder="https://" class="form-control" required>
+                                                            <div class="help-block with-errors"></div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <label>Données concernées *</label>
+                                                            <input type="text" name="dureeConservation" class="form-control" required>
+                                                            <div class="help-block with-errors"></div>
+                                                          </div>
+                                                        </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+                                               <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                                            </div>
+                                         </div>
+                                      </div>
+                                  </div>
                                     <br>
                                     <label class="text-blue">Si applicable</label>
                                     </div>

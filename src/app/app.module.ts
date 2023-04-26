@@ -43,6 +43,8 @@ import { InfoActionComponent } from './Components/Actions/info-action/info-actio
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ListEquipementsComponent } from './Components/Equipements/list-equipements/list-equipements.component';
 import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
+import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
+import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 import { ListDocumentationComponent } from './Components/Documentation/list-documentation/list-documentation.component';
 import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
 import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
@@ -73,7 +75,7 @@ import { DetailsDocsComponent } from './Components/Documentation/details-docs/de
     AddSiteComponent,
     UpdateSiteComponent,
     LisSecteurComponent,
-    
+    AddFournisseursComponent,
     UpdateSecteurComponent,
     
     

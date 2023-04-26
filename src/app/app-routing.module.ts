@@ -44,6 +44,8 @@ import { ListEquipementsComponent } from './Components/Equipements/list-equipeme
 import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
 import { DetailsDocsComponent } from './Components/Documentation/details-docs/details-docs.component';
 import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
+import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
+import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 
 
 
@@ -91,6 +93,9 @@ const routes: Routes = [
   {path : 'equipement-list', component: ListEquipementsComponent},
   {path : 'add-equipements', component: AddEquipementsComponent},
   {path : 'add-RGPD', component: AddRegistreTraitementComponent},
+  {path : 'fournisseur-list', component: ListFournisseursComponent},
+  {path : 'add-fournisseurs', component: AddFournisseursComponent},
+
 
 
 

@@ -1,0 +1,245 @@
+<div class="content-page">
+    <div class="container-fluid">
+       <div class="row">
+           <div class="col-lg-12">
+               <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                <div>
+                  <h4 class="mb-3">Liste des fournisseurs</h4>
+              </div>
+                <a (click)="navigateToFournisseur()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter un fournisseur</a>
+               </div>
+           </div>
+  
+          </div>
+          <div class="input-group mb-3">
+           <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
+       </div>
+  
+           <div>
+            <button class="btn " (click)="getFournisseurs()">Tous les élements</button>
+           <div class="col-lg-12">
+               <div class="table-responsive rounded mb-3">
+               <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+      <thead class="bg-white text-uppercase">
+        <tr class="ligth ligth-data">
+          <th scope="col">Nom du fournisseur</th>
+          <th scope="col">N de siret</th>
+          <th scope="col">Type de prestation</th>
+          <th scope="col">Numéro de récipissé de déclaration préfactorale</th>
+          <th scope="col">Page web</th>
+          <th scope="col">Téléphone</th>
+          <th scope="col">Numéro de télécopie</th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Code postal</th>
+          <th scope="col">Ville</th>
+          <th scope="col">Pays</th>
+          <th scope="col">Nom,Prénom</th>
+          <th scope="col">Adresse de courrier</th>
+          <th scope="col">Fonction</th>
+          <th scope="col">Numéro de télephone</th>
+          <th scope="col">Téléphone personnel</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+          <tbody class="ligth-body">          
+            <tr *ngFor="let fournisseur of fournisseurs | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+        <td>{{ fournisseur.nom }}</td>
+        <td>{{fournisseur.numerodesiret}}</td>
+        <td>{{fournisseur.type_de_prestation}}</td>
+        <td>{{fournisseur.numero_de_recepisse_de_declaration_prefectorale}}</td>
+        <td>{{fournisseur.pageweb}}</td>
+        <td>{{fournisseur.telephone}}</td>
+        <td>{{fournisseur.numerodetelecopie}}</td>
+        <td>{{fournisseur.adresse}}</td>
+        <td>{{fournisseur.codepostal}}</td>
+        <td>{{fournisseur.ville}}</td>
+        <td>{{fournisseur.pays}}</td>
+        <td>{{fournisseur.nometprenom}}</td>
+        <td>{{fournisseur.adressedecourier}}</td>
+        <td>{{fournisseur.fonction}}</td>
+        <td>{{fournisseur.numerodetelephone}}</td>
+        <td>{{fournisseur.telephonepersonnel}}</td>
+
+                        <td>
+                          <div class="d-flex align-items-center list-action">
+                                  <a class="badge bg-success mr-2" (click)="getFournisseurData(fournisseur.id , fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation,fournisseur.numero_de_recepisse_de_declaration_prefectorale,fournisseur.pageweb,fournisseur.telephone,fournisseur.numerodetelecopie,fournisseur.adresse,fournisseur.codepostal,fournisseur.ville,fournisseur.pays,fournisseur.nometprenom,fournisseur.adressedecourier,fournisseur.fonction,fournisseur.numerodetelephone,fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit"
+                                  ><i class="ri-pencil-line mr-0"></i></a>
+                              <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)"  data-placement="top" title="" data-original-title="Delete"
+                                  ><i class="ri-delete-bin-line mr-0"></i></a>
+                          </div>
+                      </td>
+                       </tr> 
+               </table>
+               </div>
+               <pagination-controls (pageChange)="p = $event"></pagination-controls>
+           </div>
+       </div>
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Attention , cette action est irréversible !
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="delete()" >Supprimer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier un fournisseur</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <form [formGroup]="form" data-toggle="validator">
+            <div class="row">
+                <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Nom du fournisseur </label>
+                        <input [(ngModel)]="nom" type="text" value="{{nom}}" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>N du siret </label>
+                        <input [(ngModel)]="numerodesiret" value="{{numerodesiret}}" type="text" formControlName="numerodesiret" class="form-control" data-errors="Please Enter Name." id="numerodesiret" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Type de prestation </label>
+                        <input [(ngModel)]="type_de_prestation" value="{{type_de_prestation}}"  type="text" formControlName="type_de_prestation" class="form-control"  data-errors="Please Enter Name." id="type_de_prestation" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Numero de récépsissé de </label>
+                        <input [(ngModel)]="numero_de_recepisse_de_declaration_prefectorale" value="{{numero_de_recepisse_de_declaration_prefectorale}}" type="text" formControlName="numero_de_recepisse_de_declaration_prefectorale" class="form-control"  data-errors="Please Enter Name." id="numero_de_recepisse_de_declaration_prefectorale" >
+                     </div>
+                 </div>
+                 </div>
+                 <div class="row">
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Page web </label>
+                        <input [(ngModel)]="pageweb" type="text" value="{{pageweb}}" formControlName="pageweb" class="form-control" data-errors="Please Enter Name." id="pageweb" >
+                     </div>
+                     </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input [(ngModel)]="telephone" type="text" value="{{telephone}}" formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Numéro de télécopie</label>
+                        <input [(ngModel)]="numerodetelecopie" type="text" value="{{numerodetelecopie}}" formControlName="numerodetelecopie" class="form-control"  data-errors="Please Enter Name." id="numerodetelecopie" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input [(ngModel)]="adresse" type="text" value="{{adresse}}" formControlName="adresse" class="form-control"  data-errors="Please Enter Name." id="adresse" >
+                     </div>
+                 </div>
+                 </div>
+                 <div class="row">
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Code postal</label>
+                        <input [(ngModel)]="codepostal" type="text" value="{{codepostal}}" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Ville</label>
+                        <input [(ngModel)]="ville" type="text" value="{{ville}}" formControlName="ville" class="form-control"  data-errors="Please Enter Name." id="ville" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Pays</label>
+                        <input [(ngModel)]="pays" type="text" value="{{pays}}" formControlName="pays" class="form-control"  data-errors="Please Enter Name." id="pays" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Nom,prénom</label>
+                        <input [(ngModel)]="nometprenom" type="text" value="{{nometprenom}}" formControlName="nometprenom" class="form-control"  data-errors="Please Enter Name." id="nometprenom" >
+                     </div>
+                 </div>
+                 </div>
+                 <div class="row">
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Adresse de courier</label>
+                        <input [(ngModel)]="adressedecourier" type="text" value="{{adressedecourier}}" formControlName="adressedecourier" class="form-control"  data-errors="Please Enter Name." id="adressedecourier" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Fonction</label>
+                        <input [(ngModel)]="fonction" type="text" value="{{fonction}}" formControlName="fonction" class="form-control"  data-errors="Please Enter Name." id="fonction" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Numéro de téléphone</label>
+                        <input [(ngModel)]="numerodetelephone" value="{{numerodetelephone}}" type="text" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Téléphone personnel</label>
+                        <input [(ngModel)]="telephonepersonnel" value="{{telephonepersonnel}}" type="text" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
+                     </div>
+                 </div>
+                 </div>
+            
+        </form>
+                              </div>
+                              </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateFournisseur()">Modifier</button> 
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Le fournisseur a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>
