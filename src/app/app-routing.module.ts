@@ -35,6 +35,11 @@ import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secte
 import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
 import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
+
+import { ListDocumentationComponent } from './Components/Documentation/list-documentation/list-documentation.component';
+import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
+import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
+
 import { ListEquipementsComponent } from './Components/Equipements/list-equipements/list-equipements.component';
 import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
 
@@ -75,6 +80,11 @@ const routes: Routes = [
   {path:'addSecteur', component:AddSecteurComponent},
   {path:'updateSecteur/:id', component:UpdateSecteurComponent},
   { path: 'nc/:id', component: InfoNcComponent },
+  //documentation
+  {path : 'listdocument', component:ListDocumentationComponent},
+  {path : 'add-document', component:AddtDocumentationComponent},
+  {path : 'updateDocument/:id', component: UpdateDocumentationComponent},
+
   {path : 'equipement-list', component: ListEquipementsComponent},
   {path : 'add-equipements', component: AddEquipementsComponent},
 

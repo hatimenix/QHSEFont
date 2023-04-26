@@ -282,7 +282,7 @@
                                       </div>
                                       <div class="modal-body">
                                             <div class="card-body">
-                                             <form [formGroup]="actionForm" (ngSubmit)="addDangerAction()">
+                                             <form [formGroup]="actionForm" (ngSubmit)="addActionFormData()" class="needs-validation" enctype="multipart/form-data" novalidate>
                                                 <div class="form-group">
                                                   <label for="intitule">Intitulé :</label>
                                                   <input type="text" class="form-control" formControlName="intitule" />
@@ -367,6 +367,10 @@
                                                   <label for="detail_critere_eff">Détails du critère effectif :</label>
                                                   <textarea class="form-control" formControlName="detail_critere_eff"></textarea>
                                                 </div>
+                                                <div class="form-group">
+                                                   <label for="piece_jointe">Pièce jointe </label>
+                                                   <input type="file" class="form-control" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
+                                                </div>  
                                                 <div class="d-flex align-items-end flex-column" >
                                                    <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
                                                 </div>

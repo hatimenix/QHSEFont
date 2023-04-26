@@ -2,6 +2,7 @@
    <div class="container-fluid">
       <div class="row">
          <div class="col-sm-12">
+           
             <div class="card">
                <div class="card-header d-flex justify-content-between">
                   <div class="header-title">
@@ -24,95 +25,95 @@
                         </ul>
                         <div class="tab-content" id="pills-tabContent-1">
                            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="pills-home-tab-fill">
-                              <div class="card-body">
-                                 <div id="table" class="table-editable">
-                                    <span class="table-add float-left mb-3 mr-2">
-                                       <h5>Description de l'action</h5>
-                                    </span>
-                                    <table class="table table-bordered table-responsive-md table-striped text-center">
-                                       <tbody>
-                                          <tr>
-                                             <td style="width:50%">Intitulé action</td>
-                                             <td style="width:50%">{{ action.intitule }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Type d'action</td>
-                                             <td style="width:50%">{{ action.type_action }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Origine de l'action</td>
-                                             <td style="width:50%">{{ action.origine_action }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Référence action</td>
-                                             <td style="width:50%">{{ action.reference }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Domaine</td>
-                                             <td style="width:50%">{{ action.domaine }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Site</td>
-                                             <td style="width:50%">{{ this.siteName }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Processus concerné par l'action</td>
-                                             <td style="width:50%">{{ this.procesName }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Analyse causes(AC) / risques (AP)</td>
-                                             <td style="width:50%">{{ action.analyse_cause }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Plan d'actions</td>
-                                             <td style="width:50%">{{ action.plan_action }}</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                                 <div id="table" class="table-editable">
-                                    <span class="table-add float-left mb-3 mr-2">
+                               <div class="card-body">
+                                   <div id="table" class="table-editable">
+                                      <span class="table-add float-left mb-3 mr-2">
+                                      <h5>Description de l'action</h5>
+                                      </span>
+                                      <table class="table table-bordered table-responsive-md table-striped text-center">
+                                         <tbody>
+                                            <tr>
+                                               <td style="width:50%">Intitulé action</td>
+                                               <td style="width:50%">{{ action.intitule }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Type d'action</td>
+                                               <td style="width:50%">{{ action.type_action }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Origine de l'action</td>
+                                               <td style="width:50%">{{ action.origine_action }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Référence action</td>
+                                               <td style="width:50%">{{ action.reference }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Domaine</td>
+                                               <td style="width:50%">{{ action.domaine }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Site</td>
+                                               <td style="width:50%">{{ this.siteName }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Processus concerné par l'action</td>
+                                               <td style="width:50%">{{ this.procesName }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Analyse causes(AC) / risques (AP)</td>
+                                               <td style="width:50%">{{ action.analyse_cause }}</td>
+                                            </tr>
+                                            <tr>
+                                               <td style="width:50%">Plan d'actions</td>
+                                               <td style="width:50%">{{ action.plan_action }}</td>
+                                            </tr>
+                                         </tbody>
+                                      </table>
+                                   </div>
+                                   <div id="table" class="table-editable">
+                                       <span class="table-add float-left mb-3 mr-2">
                                        <h5>Prise en charge de l'action</h5>
-                                    </span>
-                                    <table class="table table-bordered table-responsive-md table-striped text-center">
-                                       <tbody>
-                                          <tr>
-                                             <td style="width:50%">Délai mise en oeuvre</td>
-                                             <td style="width:50%">{{ action.delai_mise_en_oeuvre }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Assigné à</td>
-                                             <td style="width:50%">{{ action.assigne_a }}</td>
-                                          </tr>
-                                          <tr>
-                                             <td style="width:50%">Priorité</td>
-                                             <td style="width:50%">{{ action.priorite }}</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                                 <div id="table" class="table-editable">
-                                    <span class="table-add float-left mb-3 mr-2">
+                                       </span>
+                                       <table class="table table-bordered table-responsive-md table-striped text-center">
+                                          <tbody>
+                                             <tr>
+                                                <td style="width:50%">Délai mise en oeuvre</td>
+                                                <td style="width:50%">{{ action.delai_mise_en_oeuvre }}</td>
+                                             </tr>
+                                             <tr>
+                                                <td style="width:50%">Assigné à</td>
+                                                <td style="width:50%">{{ action.assigne_a }}</td>
+                                             </tr>
+                                             <tr>
+                                                <td style="width:50%">Priorité</td>
+                                                <td style="width:50%">{{ action.priorite }}</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <div id="table" class="table-editable">
+                                       <span class="table-add float-left mb-3 mr-2">
                                        <h5>Prise en charge de la mesure d'efficacité</h5>
-                                    </span>
-                                    <table class="table table-bordered table-responsive-md table-striped text-center">
-                                       <tbody>
-                                          <tr>
-                                             <td style="width:50%">SDélai mesure efficacité</td>
-                                             <td style="width:50%">{{ action.delai_mesure_eff }}</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
+                                       </span>
+                                       <table class="table table-bordered table-responsive-md table-striped text-center">
+                                          <tbody>
+                                             <tr>
+                                                <td style="width:50%">Délai mesure efficacité</td>
+                                                <td style="width:50%">{{ action.delai_mesure_eff }}</td>
+                                             </tr>
+                                           </tbody>
+                                        </table>
+                                     </div>
                                  </div>
-                              </div>
-                           </div>
-                           <div class="tab-pane fade" id="realisation" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+                            </div>
+                            <div class="tab-pane fade" id="realisation" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
                               <div id="table" class="table-editable">
                                  <table class="table table-bordered table-responsive-md table-striped text-center">
                                     <tr *ngIf="( realisation$ | async)?.length === 0">
                                        <td>Réalisation</td>
                                        <td colspan="5">Aucune réalisation enregistré pour cette action <a  class="badge bg-warning mr-2" data-toggle="modal" data-target="#realisationModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
-                                    </tr>
+                                     </tr>
                                     <tbody *ngFor="let realisation of realisation$ | async">
                                        <tr>
                                           <td style="width:50%">Origine</td>
@@ -122,8 +123,79 @@
                                           <td style="width:50%">Tache(s) associées(s) <a class="badge badge-info mx-2" data-toggle="modal" data-target="#tacheModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
                                           <td style="width:50%">
                                              <ul>
-                                                <li *ngFor="let tache of tache$ | async"><a class="btn btn-primary add-list" data-toggle="modal" data-target="#info_tache" (click)="openInfoeModal(tache.id)">{{ tache.nom_tache }}</a></li>
+                                                <li *ngFor="let tache of tache$ | async" style="list-style-type: none;"><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-toggle="modal" data-target="#infostachesModal" (click)="ouvrirModal(tache)">{{ tache.nom_tache }}</a></li>
                                              </ul>
+                                             <div class="modal" tabindex="-1" role="dialog"
+                                                id="infostachesModal">
+                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                   role="document">
+                                                   <div class="modal-content">
+                                                      <div class="modal-header">
+                                                         <h5 class="modal-title">{{ tacheSelectionnee ? tacheSelectionnee.nom_tache : '' }}</h5>
+                                                         <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                         <table class="table table-responsive-md borderless text-center">                                
+                                                            <tbody>
+                                                               <tr>
+                                                                  <td style="width:50%">Source</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.source : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Nom de la tache</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.nom_tache : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Date de debut</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.date_debut : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Echéance</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.echeance : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Description</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.description : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Priorité</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.priorite : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Assigné à</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.assigne_a : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Date de réalisation</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.date_realisation : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Etat</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.etat : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Commentaires</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.commentaire : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Pièce jointe</td>
+                                                                  <td style="width:50%"><a href="{{ tacheSelectionnee ? tacheSelectionnee.piece_jointe : '' }}" target="_blank">
+                                                                     {{ tacheSelectionnee ? tacheSelectionnee.piece_jointe.split('/').pop().split('.pdf')[0] : '' }}
+                                                                   </a></td>
+                                                               </tr>
+                                                            </tbody>
+                                                         </table>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Fermer</button>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
                                           </td>
                                        </tr>
                                        <tr>
@@ -139,314 +211,251 @@
                                           <td style="width:50%">{{ realisation.etat }}</td>
                                        </tr>
                                     </tbody>
-                                 </table>
-                              </div>
-                              <div id="realisationModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="realisationModalCenteredScrollableTitle" aria-hidden="true">
-                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout réalisation</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">×</span>
-                                          </button>
-                                       </div>
-                                       <div class="modal-body">
-                                          <form [formGroup]="realisationForm" (ngSubmit)="addRealisation()"  class="needs-validation" novalidate>                                            
-                                             <div class="form-group">
-                                                <label for="action_realise">Action réaliser </label>
-                                                <textarea class="form-control" formControlName="action_realise"></textarea>
-                                              </div>
-                                             <div class="form-group">
-                                                <label for="date_realisation">Date de réalisation </label>
-                                                <input type="date" class="form-control" formControlName="date_realisation" required/>
-                                              </div>
-                                             <div class="form-group">
-                                               <label for="etat">Etat </label>
-                                               <select id="etat" name="etat"  class="custom-select" formControlName="etat" data-style="py-0" required>
-                                                <option value="Non commencé"  selected>Non commencé</option>
-                                                <option value="commencer" >commencer</option>
-                                                <option value="Terminer" >Terminer</option>
-                                               </select>
-                                             </div>               
-                                             <div class="d-flex align-items-end flex-column" >
-                                                <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
-                                             </div>
-                                          </form>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div id="tacheModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tacheModalCenteredScrollableTitle" aria-hidden="true">
-                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="tacheModalCenteredScrollableTitle">DESCRIPTION DE LA TACHE</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">×</span>
-                                          </button>
-                                       </div>
-                                       <div class="modal-body">
-                                          <form [formGroup]="tacheForm" (ngSubmit)="addTache()"  class="needs-validation" novalidate>                                            
-                                             <div class="form-group">
-                                                <label for="source">Source </label>
-                                                <select id="source" name="source" class="custom-select" formControlName="source" data-style="py-0">
-                                                   <option value="Tâche"  selected>Tâche</option>
-                                                   <option value="Analyse 8D">Analyse 8D</option>
-                                                   <option value="Action d'amélioration">Action d'amélioration</option>
-                                                   <option value="Projet">Projet</option>
-                                                   <option value="Réunion">Réunion</option>
-                                                </select>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="nom_tache">Nom de la tâche *</label>
-                                                <input type="text" class="form-control" formControlName="nom_tache" required/>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="date_debut">Date de debut *</label>
-                                                <input type="date" class="form-control" formControlName="date_debut" required/>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="echeance">Echéance</label>
-                                                <input type="date" class="form-control" formControlName="echeance"/>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="description">Description</label>
-                                                <textarea class="form-control" formControlName="description"></textarea>
-                                             </div>
-                                             <div class="form-group">
-                                               <label for="priorite">Priorité </label>
-                                               <select id="priorite" name="priorite"  class="custom-select" formControlName="priorite" data-style="py-0">
-                                                <option value="Haute"  selected>Haute</option>
-                                                <option value="Normale" >Normale</option>
-                                                <option value="Faible" >Faible</option>
-                                               </select>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="assigne_a">Assigné à :</label>
-                                                <input type="text" class="form-control" formControlName="assigne_a"/>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="date_realisation">Date de réalisation </label>
-                                                <input type="date" class="form-control" formControlName="date_realisation"/>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="etat">Etat </label>
-                                                <select id="etat" name="etat"  class="custom-select" formControlName="etat" data-style="py-0">
-                                                 <option value="Non commencé"  selected>Non commencé</option>
-                                                 <option value="commencer" >commencer</option>
-                                                 <option value="Terminer" >Terminer</option>
-                                                </select>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="commentaire">Commentaires </label>
-                                                <textarea class="form-control" formControlName="commentaire"></textarea>
-                                             </div>
-                                             <div class="d-flex align-items-end flex-column" >
-                                                <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Ajouter</button>
-                                             </div>
-                                          </form>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="modal fade" id="info_tache" tabindex="-1" role="dialog" aria-hidden="true">
-                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                       <div class="modal-header">
-                                          <h5 class="modal-title">DESCRIPTION DE LA TACHE</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">×</span>
-                                          </button>
-                                       </div>
-                                         <div class="modal-body">
-                                          <table class="table table-bordered table-responsive-md table-striped text-center">                                
-                                             <tbody>
-                                                <tr>
-                                                   <td style="width:50%">Source</td>
-                                                   <td style="width:50%">{{ tache.source }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Nom de la tache</td>
-                                                   <td style="width:50%">{{ tache.nom_tache }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Date de debut</td>
-                                                   <td style="width:50%">{{ tache.date_debut }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Echéance</td>
-                                                   <td style="width:50%">{{ tache.echeance }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Description</td>
-                                                   <td style="width:50%">{{ tache.description }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Priorité</td>
-                                                   <td style="width:50%">{{ tache.priorite }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Assigné à</td>
-                                                   <td style="width:50%">{{ tache.assigne_a }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Date de réalisation</td>
-                                                   <td style="width:50%">{{ tache.date_realisation }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Etat</td>
-                                                   <td style="width:50%">{{ tache.etat }}</td>
-                                                </tr>
-                                                <tr>
-                                                   <td style="width:50%">Commentaires</td>
-                                                   <td style="width:50%">{{ tache.commentaire }}</td>
-                                                </tr>
-                                             </tbody>
-                                          </table>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>  
-                           <div class="tab-pane fade" id="mesure_efficacite" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
-                             <div id="table" class="table-editable table-responsive">
-                               <table class="table table-bordered table-responsive-md table-striped text-center">
-                                    <tr *ngIf="( mesure$ | async)?.length === 0">
-                                       <td>Mesure d'éfficacité</td>
-                                       <td colspan="4">Aucune mesure n'est enregistré pour cette action <a  class="badge bg-warning mr-2" data-toggle="modal" data-target="#exampleModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
-                                    </tr>
-                                    <tbody *ngFor="let mesure of mesure$ | async">
-                                      <tr>
-                                          <td style="width:50%">Date cloture</td>
-                                          <td style="width:50%">{{ mesure.date_cloture }}</td>
-                                      </tr>
-                                      <tr>
-                                          <td style="width:50%">Résultat mesure efficacité</td>
-                                          <td style="width:50%">{{ mesure.resultat_mesure_eff }}</td>
-                                      </tr>
-                                      <tr>
-                                          <td style="width:50%">Mesure de l'efficacité</td>
-                                          <td style="width:50%">{{ mesure.mesure_eff }}</td>
-                                      </tr>
-                                       <tr>
-                                          <td style="width:50%">Cout</td>
-                                          <td style="width:50%">{{ mesure.cout }}</td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                                 <div class="d-flex align-items-end flex-column" style="height: 80px;" *ngFor="let mesure of mesure$ | async">
-                                    <div class="mt-auto p-2"><a class="btn btn-primary add-list" data-toggle="modal" data-target="#update_mesure" (click)="openUpdateModal(mesure)"><i class="ri-pencil-line mr-0"></i>Modifier</a>
-                                       <a class="btn btn-primary add-list mx-2" data-toggle="modal" data-target="#delete_mesure" (click)="openDeleteModal(mesure.id)"><i class="ri-delete-bin-line mr-0"></i>Supprimer</a>
-                                    </div>
-                                 </div>
-                                 <div class="modal fade" id="delete_mesure" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                       <div class="modal-content">
-                                          <div class="modal-body">
-                                             <div class="popup text-left">
-                                                <h4 class="mb-3">Confirmer la suppression</h4>
-                                                <div class="content create-workform bg-body">
-                                                   <div class="pb-3">
-                                                      <label class="mb-2">Est ce que vous voulez supprimer cette mesure définitivement !!</label>
-                                                   </div>
-                                                   <div class="col-lg-12 mt-4">
-                                                      <div class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                                         <div class="btn btn-primary mr-4" data-dismiss="modal" (click)="deleteMesure()">Supprimer</div>
-                                                         <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div> 
-                                 <div class="modal fade" id="update_mesure" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                       <div class="modal-content">
-                                           <div class="modal-header">
-                                             <h5 class="modal-title">Modifier Mesure efficacité</h5>
-                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                             </button>
-                                          </div>
-                                          <div class="modal-body">
-                                             <form [formGroup]="mesureForm" (ngSubmit)="updateMesure()"  class="needs-validation" novalidate>                                            
-                                                <div class="form-group">
-                                                   <label for="delai_mesure_eff">Date cloture :</label>
-                                                   <input type="date" class="form-control" formControlName="date_cloture" required/>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
-                                                   <div class="custom-control custom-radio custom-control-inline ml-2">
-                                                      <input type="radio" id="customRadio6" name="resultat_mesure_eff" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio6"> Efficace </label>
-                                                   </div>
-                                                   <div class="custom-control custom-radio custom-control-inline">
-                                                      <input type="radio" id="customRadio7" name="resultat_mesure_eff" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio7"> Non efficace </label>
-                                                   </div>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="assigne_a">Mesure de l'efficacité :</label>
-                                                   <textarea class="form-control" formControlName="mesure_eff" required></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="type_critere_eff">Cout :</label>
-                                                   <input type="number" class="form-control" formControlName="cout" min="0" required/>
-                                                </div>
-                                                <div class="d-flex align-items-end flex-column" >
-                                                   <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Modifier</button>
-                                                </div>                                   
-                                             </form>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+                                 </table>                                                                
+                                 <div id="realisationModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="realisationModalCenteredScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
                                        <div class="modal-content">
                                           <div class="modal-header">
-                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout Mesure efficacité</h5>
+                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout réalisation</h5>
                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
+                                             <span aria-hidden="true">×</span>
                                              </button>
                                           </div>
                                           <div class="modal-body">
-                                             <form [formGroup]="mesureForm" (ngSubmit)="onSubmit()"  class="needs-validation" novalidate>                                            
+                                             <form [formGroup]="realisationForm" (ngSubmit)="addRealisation()"  class="needs-validation" novalidate>                                            
                                                 <div class="form-group">
-                                                   <label for="delai_mesure_eff">Date cloture :</label>
-                                                   <input type="date" class="form-control" formControlName="date_cloture" required/>
-                                                </div>
+                                                   <label for="action_realise">Action réaliser </label>
+                                                   <textarea class="form-control" formControlName="action_realise"></textarea>
+                                                 </div>
                                                 <div class="form-group">
-                                                   <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
-                                                   <div class="custom-control custom-radio custom-control-inline ml-2">
-                                                      <input type="radio" id="customRadio6" name="resultat_mesure_eff" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio6"> Efficace </label>
-                                                   </div>
-                                                   <div class="custom-control custom-radio custom-control-inline">
-                                                      <input type="radio" id="customRadio7" name="resultat_mesure_eff" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio7"> Non efficace </label>
-                                                   </div>
-                                                </div>
+                                                   <label for="date_realisation">Date de réalisation </label>
+                                                   <input type="date" class="form-control" formControlName="date_realisation" required/>
+                                                 </div>
                                                 <div class="form-group">
-                                                   <label for="assigne_a">Mesure de l'efficacité :</label>
-                                                   <textarea class="form-control" formControlName="mesure_eff" required></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="type_critere_eff">Cout :</label>
-                                                   <input type="number" class="form-control" formControlName="cout" min="0" required/>
-                                                </div>
+                                                  <label for="etat">Etat </label>
+                                                  <select id="etat" name="etat"  class="custom-select" formControlName="etat" data-style="py-0" required>
+                                                   <option value="Non commencé"  selected>Non commencé</option>
+                                                   <option value="commencer" >commencer</option>
+                                                   <option value="Terminer" >Terminer</option>
+                                                  </select>
+                                                </div>               
                                                 <div class="d-flex align-items-end flex-column" >
-                                                   <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Ajouter</button>
-                                                </div>                                   
+                                                   <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
+                                                </div>
                                              </form>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
-                              </div>                               
-                           </div>
+                                 <div id="tacheModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tacheModalCenteredScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title" id="tacheModalCenteredScrollableTitle">DESCRIPTION DE LA TACHE</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body">
+                                             <form [formGroup]="tacheForm" (ngSubmit)="addTache()"  class="needs-validation" enctype="multipart/form-data" novalidate>                                            
+                                                <div class="form-group">
+                                                   <label for="source">Source </label>
+                                                   <select id="source" name="source" class="custom-select" formControlName="source" data-style="py-0">
+                                                      <option value="Tâche"  selected>Tâche</option>
+                                                      <option value="Analyse 8D">Analyse 8D</option>
+                                                      <option value="Action d'amélioration">Action d'amélioration</option>
+                                                      <option value="Projet">Projet</option>
+                                                      <option value="Réunion">Réunion</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="nom_tache">Nom de la tâche *</label>
+                                                   <input type="text" class="form-control" formControlName="nom_tache" required/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="date_debut">Date de debut *</label>
+                                                   <input type="date" class="form-control" formControlName="date_debut" required/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="echeance">Echéance</label>
+                                                   <input type="date" class="form-control" formControlName="echeance"/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="description">Description</label>
+                                                   <textarea class="form-control" formControlName="description"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="priorite">Priorité </label>
+                                                  <select id="priorite" name="priorite"  class="custom-select" formControlName="priorite" data-style="py-0">
+                                                   <option value="Haute"  selected>Haute</option>
+                                                   <option value="Normale" >Normale</option>
+                                                   <option value="Faible" >Faible</option>
+                                                  </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="assigne_a">Assigné à :</label>
+                                                   <input type="text" class="form-control" formControlName="assigne_a"/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="date_realisation">Date de réalisation </label>
+                                                   <input type="date" class="form-control" formControlName="date_realisation"/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="etat">Etat </label>
+                                                   <select id="etat" name="état"  class="custom-select" formControlName="etat" data-style="py-0">
+                                                    <option value="Non commencé"  selected>Non commencé</option>
+                                                    <option value="commencer" >commencer</option>
+                                                    <option value="Terminer" >Terminer</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="commentaire">Commentaires </label>
+                                                   <textarea class="form-control" formControlName="commentaire"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label for="commentaire">Pièce jointe </label>
+                                                   <input type="file" class="form-control" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
+                                                </div>                                     
+                                                <div class="d-flex align-items-end flex-column" >
+                                                   <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Ajouter</button>
+                                                </div>
+                                             </form>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>                               
+                              </div>
+                            </div>
+                           <div class="tab-pane fade" id="mesure_efficacite" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+                             <div id="table" class="table-editable table-responsive">
+                               <table class="table table-bordered table-responsive-md table-striped text-center">
+                                   <tr *ngIf="( mesure$ | async)?.length === 0">
+                                      <td>Mesure d'éfficacité</td>
+                                      <td colspan="4">Aucune mesure n'est enregistré pour cette action <a  class="badge bg-warning mr-2" data-toggle="modal" data-target="#exampleModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
+                                    </tr>
+                                   <tbody *ngFor="let mesure of mesure$ | async">
+                                      <tr>
+                                         <td style="width:50%">Date cloture</td>
+                                         <td style="width:50%">{{ mesure.date_cloture }}</td>
+                                      </tr>
+                                      <tr>
+                                         <td style="width:50%">Résultat mesure efficacité</td>
+                                         <td style="width:50%">{{ mesure.resultat_mesure_eff }}</td>
+                                      </tr>
+                                      <tr>
+                                         <td style="width:50%">Mesure de l'efficacité</td>
+                                         <td style="width:50%">{{ mesure.mesure_eff }}</td>
+                                      </tr>
+                                      <tr>
+                                         <td style="width:50%">Cout</td>
+                                         <td style="width:50%">{{ mesure.cout }}</td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                                <div class="d-flex align-items-end flex-column" style="height: 80px;" *ngFor="let mesure of mesure$ | async">
+                                   <div class="mt-auto p-2"><a class="btn btn-primary add-list" data-toggle="modal" data-target="#update_mesure" (click)="openUpdateModal(mesure)"><i class="ri-pencil-line mr-0"></i>Modifier</a>
+                                      <a class="btn btn-primary add-list mx-2" data-toggle="modal" data-target="#delete_mesure" (click)="openDeleteModal(mesure.id)"><i class="ri-delete-bin-line mr-0"></i>Supprimer</a></div>
+                                 </div>
+                                 <div class="modal fade" id="delete_mesure" tabindex="-1" role="dialog" aria-hidden="true">
+                                   <div class="modal-dialog modal-dialog-centered" role="document">
+                                       <div class="modal-content">
+                                           <div class="modal-body">
+                                               <div class="popup text-left">
+                                                   <h4 class="mb-3">Confirmer la suppression</h4>
+                                                   <div class="content create-workform bg-body">
+                                                       <div class="pb-3">
+                                                           <label class="mb-2">Est ce que vous voulez supprimer cette mesure définitivement !!</label>
+                                                       </div>
+                                                       <div class="col-lg-12 mt-4">
+                                                           <div class="d-flex flex-wrap align-items-ceter justify-content-center">
+                                                               <div class="btn btn-primary mr-4" data-dismiss="modal" (click)="deleteMesure()">Supprimer</div>
+                                                               <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                 </div> 
+                               <div class="modal fade" id="update_mesure" tabindex="-1" role="dialog" aria-hidden="true">
+                                 <div class="modal-dialog modal-dialog-centered" role="document">
+                                     <div class="modal-content">
+                                         <div class="modal-body">
+                                          <form [formGroup]="mesureForm" (ngSubmit)="updateMesure()"  class="needs-validation" novalidate>                                            
+                                             <div class="form-group">
+                                                <label for="delai_mesure_eff">Date cloture :</label>
+                                                <input type="date" class="form-control" formControlName="date_cloture" required/>
+                                              </div>
+                                             <div class="form-group">
+                                               <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
+                                               <div class="custom-control custom-radio custom-control-inline ml-2">
+                                                <input type="radio" id="customRadio6" name="resultat_mesure_eff" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio6"> Efficace </label>
+                                             </div>
+                                             <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="customRadio7" name="resultat_mesure_eff" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio7"> Non efficace </label>
+                                             </div>
+                                             </div>
+                                             <div class="form-group">
+                                               <label for="assigne_a">Mesure de l'efficacité :</label>
+                                               <textarea class="form-control" formControlName="mesure_eff" required></textarea>
+                                             </div>
+                                             <div class="form-group">
+                                                <label for="type_critere_eff">Cout :</label>
+                                                <input type="number" class="form-control" formControlName="cout" min="0" required/>
+                                              </div>
+                                             <div class="d-flex align-items-end flex-column" >
+                                                <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Modifier</button>
+                                             </div>                                   
+                                           </form>
+                                         </div>
+                                     </div>
+                                 </div>
+                              </div>         
+                           <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout Mesure efficacité</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                          </button>
+                                       </div>
+                                    <div class="modal-body">
+                                       <form [formGroup]="mesureForm" (ngSubmit)="onSubmit()"  class="needs-validation" novalidate>                                            
+                                          <div class="form-group">
+                                             <label for="delai_mesure_eff">Date cloture :</label>
+                                             <input type="date" class="form-control" formControlName="date_cloture" required/>
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
+                                             <div class="custom-control custom-radio custom-radio-color-checked custom-control-inline ml-2">
+                                                <input type="radio" id="customRadio-1" name="customRadio-10" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio-1"> Efficace </label>
+                                             </div>
+                                             <div class="custom-control custom-radio custom-radio-color-checked custom-control-inline">
+                                                <input type="radio" id="customRadio-2" name="customRadio-10" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio-2"> Non efficace </label>
+                                             </div>
+                                          </div>                                               
+                                          <div class="form-group">
+                                             <label for="assigne_a">Mesure de l'efficacité :</label>
+                                             <textarea class="form-control" formControlName="mesure_eff" required></textarea>
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="type_critere_eff">Cout :</label>
+                                             <input type="number" class="form-control" formControlName="cout" min="0" required/>
+                                          </div>
+                                          <div class="d-flex align-items-end flex-column" >
+                                             <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Ajouter</button>
+                                          </div>                                   
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>                                                        
                         </div>
                      </div>
                   </div>
@@ -456,4 +465,3 @@
       </div>
    </div>
 </div>
-    
