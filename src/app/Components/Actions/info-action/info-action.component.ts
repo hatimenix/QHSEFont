@@ -40,6 +40,9 @@ export class InfoActionComponent {
   mesure !: Mesures;
   realisationId!: number;
 
+  tacheSelectionnee!: Taches;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private apiProcessusService: ApiProcessusService,
@@ -291,6 +294,11 @@ export class InfoActionComponent {
       console.log('Le formulaire est invalide.');
     }
   }
+
+  ouvrirModal(tache: Taches) {
+    this.tacheSelectionnee = tache;
+  }
+  
 
 
 
