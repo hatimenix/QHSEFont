@@ -96,6 +96,7 @@ export class ListDocumentationComponent implements OnInit {
       console.log("this document", this.document);
       this.documentService.getDocuments().subscribe(
         (data: Documentation[]) => {
+          
           this.document = data;
           const filteredDocuments = this.document.filter(d => {
             const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.id];
