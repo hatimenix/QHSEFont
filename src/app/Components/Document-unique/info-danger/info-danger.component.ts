@@ -171,6 +171,49 @@ export class InfoDangerComponent {
     );
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.actionForm.get('piece_jointe')?.setValue(file);
+  }
+
+  addActionFormData(): void{
+    if (this.actionForm.valid) {
+      const formData = new FormData();
+      formData.append('Site_name', '');
+      formData.append('etat', '');
+      formData.append('annee', new Date().toString());
+      formData.append('piece_jointe', this.actionForm.get('piece_jointe')?.value ?? '');
+      formData.append('evenement', '');
+      formData.append('intitule', this.actionForm.get('intitule')!.value);
+      formData.append('type_action', this.actionForm.get('type_action')!.value);
+      formData.append('origine_action', this.actionForm.get('origine_action')!.value);
+      formData.append('reference', this.actionForm.get('reference')!.value);
+      formData.append('domaine', this.actionForm.get('domaine')!.value);
+      formData.append('site', this.actionForm.get('site')!.value);
+      formData.append('processus', this.actionForm.get('processus')!.value);
+      formData.append('analyse_cause', this.actionForm.get('analyse_cause')!.value);
+      formData.append('plan_action', this.actionForm.get('plan_action')!.value);
+      formData.append('delai_mise_en_oeuvre', this.actionForm.get('delai_mise_en_oeuvre')!.value);
+      formData.append('assigne_a', this.actionForm.get('assigne_a')!.value);
+      formData.append('priorite', this.actionForm.get('priorite')!.value);
+      formData.append('delai_mesure_eff', this.actionForm.get('delai_mesure_eff')!.value);
+      formData.append('type_critere_eff', this.actionForm.get('type_critere_eff')!.value);
+      formData.append('detail_critere_eff', this.actionForm.get('detail_critere_eff')!.value);
+      formData.append('danger', String(this.dangerId));
+
+      this.apiActionsService.addActionFormData(formData).subscribe(
+        (response) => {
+          console.log('Action a été ajouté avec succès.');
+          const newActionId = response.id; // ou tout autre nom de propriété qui contient l'identifiant de l'action ajoutée
+          console.log('Nouvel ID d\'action : ', newActionId);
+          this.getActionsByDangerId(this.dangerId);
+          this.actionForm.reset();
+        },
+        error => console.log(error)
+      );
+    }
+  }
+/*
   addDangerAction() {
     if (this.actionForm.valid) {
       const newAction = {
@@ -209,6 +252,7 @@ export class InfoDangerComponent {
       );
     } 
   }
+  */
 
   deleteAction(id : any) {
     this.apiActionsService.delAction(id).subscribe(() => {

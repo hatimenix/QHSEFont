@@ -20,7 +20,7 @@ export class Actions {
     piece_jointe ?: any | null;
     annee ?: Date;
     danger !: number[];
-    evenement !: number[];
+    evenement !: number[] | null;
 
     constructor(
         intitule: string,
@@ -38,6 +38,25 @@ export class Actions {
         delai_mesure_eff: Date,
         type_critere_eff: string,
         detail_critere_eff: string,
-        danger: number[]
-      ) {}
+        danger: number[],
+        evenement: number[]
+      ) {
+        this.intitule = intitule;
+        this.type_action = type_action;
+        this.origine_action = origine_action;
+        this.reference = reference;
+        this.domaine = domaine;
+        this.site = site;
+        this.processus = processus;
+        this.analyse_cause = analyse_cause;
+        this.plan_action = plan_action;
+        this.delai_mise_en_oeuvre = delai_mise_en_oeuvre;
+        this.assigne_a = assigne_a;
+        this.priorite = priorite;
+        this.delai_mesure_eff = delai_mesure_eff;
+        this.type_critere_eff = type_critere_eff;
+        this.detail_critere_eff = detail_critere_eff;
+        this.danger = danger;
+        this.evenement = evenement;
+      }
 }

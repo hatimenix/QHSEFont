@@ -100,15 +100,18 @@
                                  <div id="table" class="table-editable">
                                     <span class="table-add float-left mb-3 mr-2">
                                        <h5>Prise en charge de la mesure d'efficacité</h5>
-                                    </span>
-                                    <table class="table table-bordered table-responsive-md table-striped text-center">
-                                       <tbody>
-                                          <tr>
-                                             <td style="width:50%">SDélai mesure efficacité</td>
-                                             <td style="width:50%">{{ action.delai_mesure_eff }}</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
+
+                                       </span>
+                                       <table class="table table-bordered table-responsive-md table-striped text-center">
+                                          <tbody>
+                                             <tr>
+                                                <td style="width:50%">Délai mesure efficacité</td>
+                                                <td style="width:50%">{{ action.delai_mesure_eff }}</td>
+                                             </tr>
+                                           </tbody>
+                                        </table>
+                                     </div>
+
                                  </div>
                               </div>
                            </div>
@@ -135,12 +138,10 @@
                                           <td style="width:50%">
                                              <!-- Le bouton pour ouvrir le modal -->
                                              <ul>
-                                                <li *ngFor="let tache of tache$ | async" data-toggle="modal"
-                                                   data-target="#infostachesModal"
-                                                   (click)="ouvrirModal(tache)">{{ tache.nom_tache }}</li>
+
+                                                <li *ngFor="let tache of tache$ | async" style="list-style-type: none;"><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-toggle="modal" data-target="#infostachesModal" (click)="ouvrirModal(tache)">{{ tache.nom_tache }}</a></li>
                                              </ul>
 
-                                             <!-- Le modal -->
                                              <div class="modal" tabindex="-1" role="dialog"
                                                 id="infostachesModal">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
@@ -154,9 +155,58 @@
                                                          </button>
                                                       </div>
                                                       <div class="modal-body">
-                                                         <p>{{ tacheSelectionnee ? tacheSelectionnee.description : '' }}</p>
 
-                  
+                                                         <table class="table table-responsive-md borderless text-center">                                
+                                                            <tbody>
+                                                               <tr>
+                                                                  <td style="width:50%">Source</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.source : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Nom de la tache</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.nom_tache : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Date de debut</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.date_debut : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Echéance</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.echeance : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Description</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.description : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Priorité</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.priorite : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Assigné à</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.assigne_a : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Date de réalisation</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.date_realisation : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Etat</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.etat : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Commentaires</td>
+                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.commentaire : '' }}</td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td style="width:50%">Pièce jointe</td>
+                                                                  <td style="width:50%"><a href="{{ tacheSelectionnee ? tacheSelectionnee.piece_jointe : '' }}" target="_blank">
+                                                                     {{ tacheSelectionnee ? tacheSelectionnee.piece_jointe.split('/').pop().split('.pdf')[0] : '' }}
+                                                                   </a></td>
+                                                               </tr>
+                                                            </tbody>
+                                                         </table>
+
                                                       </div>
                                                       <div class="modal-footer">
                                                          <button type="button" class="btn btn-secondary"
@@ -181,12 +231,11 @@
                                           <td style="width:50%">{{ realisation.etat }}</td>
                                        </tr>
                                     </tbody>
-                                 </table>
-                                 <div id="realisationModalCenteredScrollable" class="modal fade" tabindex="-1"
-                                    role="dialog" aria-labelledby="realisationModalCenteredScrollableTitle"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
-                                       role="document">
+
+                                 </table>                                                                
+                                 <div id="realisationModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="realisationModalCenteredScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+
                                        <div class="modal-content">
                                           <div class="modal-header">
                                              <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout
@@ -241,13 +290,13 @@
                                              </button>
                                           </div>
                                           <div class="modal-body">
-                                             <form [formGroup]="tacheForm" (ngSubmit)="addTache()"
-                                                class="needs-validation" novalidate>
+
+                                             <form [formGroup]="tacheForm" (ngSubmit)="addTache()"  class="needs-validation" enctype="multipart/form-data" novalidate>                                            
                                                 <div class="form-group">
-                                                   <label for="origine_action">Source </label>
-                                                   <select id="Source" name="Source" class="custom-select"
-                                                      formControlName="nom_tache" data-style="py-0">
-                                                      <option value="Tâche" selected>Tâche</option>
+                                                   <label for="source">Source </label>
+                                                   <select id="source" name="source" class="custom-select" formControlName="source" data-style="py-0">
+                                                      <option value="Tâche"  selected>Tâche</option>
+
                                                       <option value="Analyse 8D">Analyse 8D</option>
                                                       <option value="Action d'amélioration">Action d'amélioration
                                                       </option>
@@ -295,11 +344,12 @@
                                                 </div>
                                                 <div class="form-group">
                                                    <label for="etat">Etat </label>
-                                                   <select id="etat" name="etat" class="custom-select"
-                                                      formControlName="etat" data-style="py-0">
-                                                      <option value="Non commencé" selected>Non commencé</option>
-                                                      <option value="commencer">commencer</option>
-                                                      <option value="Terminer">Terminer</option>
+
+                                                   <select id="etat" name="état"  class="custom-select" formControlName="etat" data-style="py-0">
+                                                    <option value="Non commencé"  selected>Non commencé</option>
+                                                    <option value="commencer" >commencer</option>
+                                                    <option value="Terminer" >Terminer</option>
+
                                                    </select>
                                                 </div>
                                                 <div class="form-group">
@@ -307,15 +357,20 @@
                                                    <textarea class="form-control"
                                                       formControlName="commentaire"></textarea>
                                                 </div>
-                                                <div class="d-flex align-items-end flex-column">
-                                                   <button type="submit" class="btn btn-primary"
-                                                      [disabled]="tacheForm.invalid">Ajouter</button>
+
+                                                <div class="form-group">
+                                                   <label for="commentaire">Pièce jointe </label>
+                                                   <input type="file" class="form-control" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
+                                                </div>                                     
+                                                <div class="d-flex align-items-end flex-column" >
+                                                   <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Ajouter</button>
+
                                                 </div>
                                              </form>
                                           </div>
                                        </div>
                                     </div>
-                                 </div>
+                                 </div>                               
                               </div>
                            </div>
                            <div class="tab-pane fade" id="mesure_efficacite" role="tabpanel"
@@ -370,139 +425,101 @@
                                                       <label class="mb-2">Est ce que vous voulez supprimer cette mesure
                                                          définitivement !!</label>
                                                    </div>
-                                                   <div class="col-lg-12 mt-4">
-                                                      <div
-                                                         class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                                         <div class="btn btn-primary mr-4" data-dismiss="modal"
-                                                            (click)="deleteMesure()">Supprimer</div>
-                                                         <div class="btn btn-outline-primary" data-dismiss="modal">
-                                                            Annuler</div>
-                                                      </div>
-                                                   </div>
-                                                </div>
+
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                 </div> 
+                               <div class="modal fade" id="update_mesure" tabindex="-1" role="dialog" aria-hidden="true">
+                                 <div class="modal-dialog modal-dialog-centered" role="document">
+                                     <div class="modal-content">
+                                         <div class="modal-body">
+                                          <form [formGroup]="mesureForm" (ngSubmit)="updateMesure()"  class="needs-validation" novalidate>                                            
+                                             <div class="form-group">
+                                                <label for="delai_mesure_eff">Date cloture :</label>
+                                                <input type="date" class="form-control" formControlName="date_cloture" required/>
+                                              </div>
+                                             <div class="form-group">
+                                               <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
+                                               <div class="custom-control custom-radio custom-control-inline ml-2">
+                                                <input type="radio" id="customRadio6" name="resultat_mesure_eff" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio6"> Efficace </label>
                                              </div>
-                                          </div>
-                                       </div>
-                                    </div>
+                                             <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="customRadio7" name="resultat_mesure_eff" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio7"> Non efficace </label>
+                                             </div>
+                                             </div>
+                                             <div class="form-group">
+                                               <label for="assigne_a">Mesure de l'efficacité :</label>
+                                               <textarea class="form-control" formControlName="mesure_eff" required></textarea>
+                                             </div>
+                                             <div class="form-group">
+                                                <label for="type_critere_eff">Cout :</label>
+                                                <input type="number" class="form-control" formControlName="cout" min="0" required/>
+                                              </div>
+                                             <div class="d-flex align-items-end flex-column" >
+                                                <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Modifier</button>
+                                             </div>                                   
+                                           </form>
+                                         </div>
+                                     </div>
                                  </div>
-                                 <div class="modal fade" id="update_mesure" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                       <div class="modal-content">
-                                          <div class="modal-body">
-                                             <form [formGroup]="mesureForm" (ngSubmit)="updateMesure()"
-                                                class="needs-validation" novalidate>
-                                                <div class="form-group">
-                                                   <label for="delai_mesure_eff">Date cloture :</label>
-                                                   <input type="date" class="form-control"
-                                                      formControlName="date_cloture" required />
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="delai_mise_en_oeuvre">Résultat mesure efficacité
-                                                      :</label>
-                                                   <div class="custom-control custom-radio custom-control-inline ml-2">
-                                                      <input type="radio" id="customRadio6" name="resultat_mesure_eff"
-                                                         class="custom-control-input" value="Efficace"
-                                                         formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio6"> Efficace
-                                                      </label>
-                                                   </div>
-
-
-                                                   <div class="custom-control custom-radio custom-control-inline">
-                                                      <input type="radio" id="customRadio7" name="resultat_mesure_eff"
-                                                         class="custom-control-input" value="Non efficace"
-                                                         formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio7"> Non
-                                                         efficace </label>
-                                                   </div>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="assigne_a">Mesure de l'efficacité :</label>
-                                                   <textarea class="form-control" formControlName="mesure_eff"
-                                                      required></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="type_critere_eff">Cout :</label>
-                                                   <input type="number" class="form-control" formControlName="cout"
-                                                      min="0" required />
-                                                </div>
-                                                <div class="d-flex align-items-end flex-column">
-                                                   <button type="submit" class="btn btn-primary"
-                                                      [disabled]="mesureForm.invalid">Modifier</button>
-                                                </div>
-                                             </form>
-                                          </div>
+                              </div>         
+                           <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout Mesure efficacité</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                          </button>
                                        </div>
-                                    </div>
-                                 </div>
-                                 <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
-                                       role="document">
-                                       <div class="modal-content">
-                                          <div class="modal-header">
-                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout
-                                                Mesure efficacité</h5>
-                                             <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                             </button>
+                                    <div class="modal-body">
+                                       <form [formGroup]="mesureForm" (ngSubmit)="onSubmit()"  class="needs-validation" novalidate>                                            
+                                          <div class="form-group">
+                                             <label for="delai_mesure_eff">Date cloture :</label>
+                                             <input type="date" class="form-control" formControlName="date_cloture" required/>
                                           </div>
-                                          <div class="modal-body">
-                                             <form [formGroup]="mesureForm" (ngSubmit)="onSubmit()"
-                                                class="needs-validation" novalidate>
-                                                <div class="form-group">
-                                                   <label for="delai_mesure_eff">Date cloture :</label>
-                                                   <input type="date" class="form-control"
-                                                      formControlName="date_cloture" required />
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="delai_mise_en_oeuvre">Résultat mesure efficacité
-                                                      :</label>
-                                                   <div
-                                                      class="custom-control custom-radio custom-radio-color-checked custom-control-inline ml-2">
-                                                      <input type="radio" id="customRadio-1" name="customRadio-10"
-                                                         class="custom-control-input" value="Efficace"
-                                                         formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio-1"> Efficace
-                                                      </label>
-                                                   </div>
-                                                   <div
-                                                      class="custom-control custom-radio custom-radio-color-checked custom-control-inline">
-                                                      <input type="radio" id="customRadio-2" name="customRadio-10"
-                                                         class="custom-control-input" value="Non efficace"
-                                                         formControlName="resultat_mesure_eff" required>
-                                                      <label class="custom-control-label" for="customRadio-2"> Non
-                                                         efficace </label>
-                                                   </div>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="assigne_a">Mesure de l'efficacité :</label>
-                                                   <textarea class="form-control" formControlName="mesure_eff"
-                                                      required></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label for="type_critere_eff">Cout :</label>
-                                                   <input type="number" class="form-control" formControlName="cout"
-                                                      min="0" required />
-                                                </div>
-                                                <div class="d-flex align-items-end flex-column">
-                                                   <button type="submit" class="btn btn-primary"
-                                                      [disabled]="mesureForm.invalid">Ajouter</button>
-                                                </div>
-                                             </form>
+                                          <div class="form-group">
+                                             <label for="delai_mise_en_oeuvre">Résultat mesure efficacité :</label>
+                                             <div class="custom-control custom-radio custom-radio-color-checked custom-control-inline ml-2">
+                                                <input type="radio" id="customRadio-1" name="customRadio-10" class="custom-control-input" value="Efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio-1"> Efficace </label>
+                                             </div>
+                                             <div class="custom-control custom-radio custom-radio-color-checked custom-control-inline">
+                                                <input type="radio" id="customRadio-2" name="customRadio-10" class="custom-control-input" value="Non efficace" formControlName="resultat_mesure_eff" required>
+                                                <label class="custom-control-label" for="customRadio-2"> Non efficace </label>
+                                             </div>
+                                          </div>                                               
+                                          <div class="form-group">
+                                             <label for="assigne_a">Mesure de l'efficacité :</label>
+                                             <textarea class="form-control" formControlName="mesure_eff" required></textarea>
+
                                           </div>
-                                       </div>
+                                          <div class="form-group">
+                                             <label for="type_critere_eff">Cout :</label>
+                                             <input type="number" class="form-control" formControlName="cout" min="0" required/>
+                                          </div>
+                                          <div class="d-flex align-items-end flex-column" >
+                                             <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Ajouter</button>
+                                          </div>                                   
+                                       </form>
                                     </div>
                                  </div>
 
                               </div>
-                           </div>
+                           </div>                                                        
+
                         </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
+
       </div>
+   </div>
+</div>
+
