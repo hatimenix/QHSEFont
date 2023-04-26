@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, map } from 'rxjs';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
-import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 import { ApiMesuresService } from 'src/app/Services/Service-document-unique/api-mesures.service';
 import { ApiProcessusService } from 'src/app/Services/Service-document-unique/api-processus.service';
 import { ApiRealisationService } from 'src/app/Services/Service-document-unique/api-realisation.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
+import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { Actions } from 'src/app/models/actions';
 import { Mesures } from 'src/app/models/mesures';
-import { Processus } from 'src/app/models/processus';
 import { Realisations } from 'src/app/models/realisations';
+import { Taches } from 'src/app/models/taches';
 
 declare var window:any;
 
@@ -25,27 +23,34 @@ declare var window:any;
 export class InfoActionComponent {
 
   actionForm!: FormGroup;
+  realisationForm !: FormGroup;
+  tacheForm !: FormGroup;
   actionId!: number;
   action!: Actions;
   sites$ !: Observable<any>;
   processus$ !: Observable<any>;
   realisation$ !: Observable<Realisations[]>;
-  mesure$ !: Observable<Mesures[]>
+  mesure$ !: Observable<Mesures[]>;
+  tache$ !: Observable<Taches[]>;
   siteName !: string;
   procesName !: string;
   mesureForm!: FormGroup;
   deletModal : any;
   idToDelete: number = 0;
   mesure !: Mesures;
+  realisationId!: number;
+
+  tacheSelectionnee!: Taches;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private apiProcessusService: ApiProcessusService,
-    private apiDangerService: ApiDangerService,
     private apiSiteService: ApiSiteService,
     private apiRealisationService: ApiRealisationService,
     private activatedRoute: ActivatedRoute,
     private apiMesuresService: ApiMesuresService,
+    private apiTachesService: ApiTachesService,
     private apiActionsService: ApiActionsService
   ) { }
 
@@ -74,6 +79,25 @@ export class InfoActionComponent {
       resultat_mesure_eff: ['', Validators.required],
       mesure_eff: ['', Validators.required],
       cout: ['', Validators.required, Validators.min(0)]
+    });
+
+    this.realisationForm = this.formBuilder.group({
+      action_realise : ['', Validators.required],
+      date_realisation : ['', Validators.required],
+      etat : ['', Validators.required]
+    });
+
+    this.tacheForm = this.formBuilder.group({
+      nom_tache : ['', Validators.required],
+      date_debut : ['', Validators.required],
+      echeance : [''],
+      description : [''],
+      priorite : [''],
+      assigne_a : [''],
+      date_realisation : [''],
+      etat : [''],
+      commentaire : [''],
+      piece_jointe : ['']
     });
 
     this.actionId = +this.activatedRoute.snapshot.params['id'];
@@ -121,6 +145,7 @@ export class InfoActionComponent {
 
     this.getRealisationByAction(this.actionId);
     this.getMesureByAction(this.actionId);
+    this.getTacheByRealaisation(this.realisationId);
 
     this.deletModal = new window.bootstrap.Modal(
       document.getElementById('deleteMesure')
@@ -128,9 +153,15 @@ export class InfoActionComponent {
 
   }
 
-  getRealisationByAction(actionId: number){
+  getRealisationByAction(actionId: number) {
     this.realisation$ = this.apiRealisationService.getAllRealisations().pipe(
-      map((realisations: Realisations[]) => realisations.filter(realisations => realisations.action_associe === actionId))
+      map((realisations: Realisations[]) => {
+        const realisation = realisations.find(r => r.action_associe === actionId);
+        if (realisation) {
+          this.realisationId = realisation.id;
+        }
+        return realisations.filter(r => r.action_associe === actionId);
+      })
     );
   }
 
@@ -139,6 +170,10 @@ export class InfoActionComponent {
       map((mesures: Mesures[]) => mesures.filter(mesures => mesures.action_associee === actionId))
     );
   }
+
+  getTacheByRealaisation(realisationId: number) {
+  this.tache$ = this.apiTachesService.getTachesByRealisationId(realisationId);
+}
 
   onSubmit(): void {
     const rawFormData = this.mesureForm.getRawValue();
@@ -154,7 +189,7 @@ export class InfoActionComponent {
 
     this.apiMesuresService.addMesure(mesure).subscribe(
       () => {
-        console.log('Evaluation a été ajouté avec succès.');
+        console.log('Mesure a été ajouté avec succès.');
         this.getMesureByAction(this.actionId);
         this.mesureForm.reset();
       },
@@ -191,7 +226,6 @@ export class InfoActionComponent {
         console.log('Mesure a été modifiée avec succès.');
         this.getMesureByAction(this.actionId);
         this.mesureForm.reset();
-        
       },
       error => console.log(error)
     );
@@ -208,5 +242,64 @@ export class InfoActionComponent {
     const modal = new window.bootstrap.Modal(document.getElementById('updateMesure'));
     modal.show();
   }
+
+  addRealisation():void {
+    const formData = this.realisationForm.value;
+    const realisation: Realisations = new Realisations(
+      formData.action_realise,
+      formData.date_realisation,
+      formData.etat
+    );
+
+    realisation.action_associe = this.actionId;
+
+    this.apiRealisationService.addRealisation(realisation).subscribe(
+      (response) => {
+        console.log('Realisation a été ajouté avec succès.');
+        this.getRealisationByAction(this.actionId);
+        this.realisationForm.reset();
+      },
+      error => console.log(error)
+    );
+  }
+
+  addTache(): void {
+    if (this.tacheForm.valid) { // Vérifie que le formulaire est valide
+      const formData = this.tacheForm.value;
+      const tache: Taches = {
+        nom_tache: formData.nom_tache,
+        date_debut: formData.date_debut,
+        echeance: formData.echeance,
+        description: formData.description,
+        priorite: formData.priorite,
+        assigne_a: formData.assigne_a,
+        date_realisation: formData.date_realisation,
+        etat: formData.etat,
+        commentaire: formData.commentaire,
+        realisation_associee: this.realisationId,
+        piece_jointe: null,
+      };
+  
+      console.log(tache); // Vérifie que l'objet Taches est correctement créé
+  
+      this.apiTachesService.addTache(tache).subscribe(
+        () => {
+          console.log('La tache a été ajouté avec succès.');
+          this.getTacheByRealaisation(this.realisationId);
+          this.tacheForm.reset();
+        },
+        error => console.log(error)
+      );
+    } else {
+      console.log('Le formulaire est invalide.');
+    }
+  }
+
+  ouvrirModal(tache: Taches) {
+    this.tacheSelectionnee = tache;
+  }
+  
+
+
 
 }

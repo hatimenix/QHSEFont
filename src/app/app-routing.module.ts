@@ -35,8 +35,14 @@ import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secte
 import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
 import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
+
+import { ListDocumentationComponent } from './Components/Documentation/list-documentation/list-documentation.component';
+import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
+import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
+
 import { ListEquipementsComponent } from './Components/Equipements/list-equipements/list-equipements.component';
 import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
+import { DetailsDocsComponent } from './Components/Documentation/details-docs/details-docs.component';
 import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
@@ -78,6 +84,12 @@ const routes: Routes = [
   {path:'addSecteur', component:AddSecteurComponent},
   {path:'updateSecteur/:id', component:UpdateSecteurComponent},
   { path: 'nc/:id', component: InfoNcComponent },
+  //documentation
+  {path : 'listdocument', component:ListDocumentationComponent},
+  {path : 'add-document', component:AddtDocumentationComponent},
+  {path : 'updateDocument/:id', component: UpdateDocumentationComponent},
+  {path : 'detailDocs/:id', component: DetailsDocsComponent},
+
   {path : 'equipement-list', component: ListEquipementsComponent},
   {path : 'add-equipements', component: AddEquipementsComponent},
   {path : 'add-RGPD', component: AddRegistreTraitementComponent},
