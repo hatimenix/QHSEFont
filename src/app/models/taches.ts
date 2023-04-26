@@ -1,5 +1,5 @@
 export class Taches {
-    id !: number;
+    id ?: number;
     nom_tache !: string;
     date_debut !: Date;
     echeance !: Date;
@@ -7,7 +7,7 @@ export class Taches {
     priorite !: string;
     assigne_a !: string;
     date_realisation !: Date;
-    état !: string;
+    etat !: string;
     commentaire !: string;
     realisation_associee !: number;
     piece_jointe !: any;
