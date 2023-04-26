@@ -13,11 +13,31 @@
                       <div class="row justify-content-between">
                          <div class="col-sm-6 col-md-6">
                             <div id="user_list_datatable_info" class="dataTables_filter">
-                               <form class="mr-3 position-relative">
+                               <form class="mr-3 position-relative" [formGroup]="myForm" >
                                   <div class="form-group mb-0">
                                      <input type="search" class="form-control" id="exampleInputSearch" placeholder="Search"
                                         aria-controls="user-list-table">
+
                                   </div>
+                                  <div class="col-md-3"> 
+                                    <div class="form-group">
+                                      <label>Site <label style="color: red;">*</label></label>
+                                      <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterDocuments()" >
+                                        <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                      </select>
+                                    </div> 
+                                  </div>
+                                  
+                                  
+                                  
+                                 <div class="col-md-3"> 
+                                    <div class="form-group">
+                                     <label>Secteur <label style="color: red;">*</label></label>
+                                     <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required>
+                                         <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
+                                        </select>
+                                 </div> 
+                                 </div> 
                                </form>
                             </div>
                          </div>
@@ -30,6 +50,7 @@
                             </div>
                          </div>
                       </div>
+                      
                      <div class="wrapper">
                         <div class="col-lg-15">
                            <div class="card card-block card-stretch card-height">
@@ -43,7 +64,7 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          <tr data-id="1" data-parent="0" data-level="1">
+                                          <tr data-id="1" data-parent="0" data-level="1" >
                                              <td data-column="name">Processus :</td>
                                           </tr>
                                           <tr data-id="2" data-parent="1" data-level="2">
@@ -63,7 +84,7 @@
                                                       <th>Date approbation</th>
                                                       <th>Date prévisionnelle de revue</th>
                                                       <th>Nouvelle version en cours</th>
-                                                      <th>Type de document </th>
+                                                      <th>Type de document  </th>
                                                       <th>Historique de version  </th>
                                                       <th>Ajouter a mes favoris</th>
                                                      
@@ -91,10 +112,12 @@
                                                      <td>{{docs.type_docs}}</td>
                                                      
                                                      <td></td>
-                                                     <td></td>
+                                                     <td>Ajouter a mes favoris</td>
 
                                                      <td>
                                                        <div class="flex align-items-center list-user-action">
+                                                         <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
+                                                           data-original-title="Edit" [routerLink]="['/detailDocs', docs.id]"><i class="ri-eye-line mr-0"></i></a>
                                                          <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                                            data-original-title="Edit" [routerLink]="['/updateDocument', docs.id]"><i class="ri-pencil-line mr-0"></i></a>
                                                          <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""

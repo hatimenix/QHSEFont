@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { DocumentationService } from 'src/app/Services/Service-documentation/documentation.service';
+import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 
@@ -19,12 +20,14 @@ export class AddtDocumentationComponent implements OnInit{
   site$ !: Observable<any>;
   secteur$! : Observable<any>;
   processus$! : Observable<any>;
+  personnel$!: Observable<any>;
 
 
   constructor(private formBuilder: FormBuilder, private docService: DocumentationService, private router: Router,
     private siteService : ApiSiteService,
     private secteurService : SecteurService,
-    private processusService : ProcessusService ) {
+    private processusService : ProcessusService, 
+    private personnelService : PersonnelService ) {
     this.DocForm = this.formBuilder.group({
       
       nom: ['', Validators.required],
@@ -38,6 +41,7 @@ export class AddtDocumentationComponent implements OnInit{
       site: ['', Validators.required],
       secteur: ['', Validators.required],
       processus: ['', Validators.required],
+      personnel:['', Validators.required]
       
     });
   }
@@ -56,8 +60,7 @@ export class AddtDocumentationComponent implements OnInit{
     this.site$ = this.siteService.getAllSite();
     this.secteur$ = this.secteurService.getSecteur();
     this.processus$ = this.processusService.getProcessus();
-
-
+    this.personnel$= this.personnelService.getPersonnels();
   }
 
   onFileSelected(event: any) {
@@ -79,6 +82,7 @@ export class AddtDocumentationComponent implements OnInit{
       formData.append('site', this.DocForm.get('site')?.value);
       formData.append('secteur', this.DocForm.get('secteur')?.value);
       formData.append('processus', this.DocForm.get('processus')?.value);
+      formData.append('personnel', this.DocForm.get('personnel')?.value);
   
       this.docService.addDocumentFormData(formData).subscribe(
         (response) => {

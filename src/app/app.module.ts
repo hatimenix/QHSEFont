@@ -46,6 +46,7 @@ import { AddEquipementsComponent } from './Components/Equipements/add-equipement
 import { ListDocumentationComponent } from './Components/Documentation/list-documentation/list-documentation.component';
 import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
 import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
+import { DetailsDocsComponent } from './Components/Documentation/details-docs/details-docs.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { UpdateDocumentationComponent } from './Components/Documentation/update-
     AddEquipementsComponent,
     ListDocumentationComponent,
     AddtDocumentationComponent,
-    UpdateDocumentationComponent
+    UpdateDocumentationComponent,
+    DetailsDocsComponent
 
   ],
   imports: [

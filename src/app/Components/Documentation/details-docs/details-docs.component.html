@@ -1,0 +1,184 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>POS Dash | Responsive Bootstrap 4 Admin Dashboard Template</title>
+      
+    </head>
+  <body class="  ">
+ 
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+      
+      <div class="content-page">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="card car-transparent">
+                  <div class="card-body p-0">
+                     <div class="profile-image position-relative">
+                        <img src="../assets/images/page-img/profile.png" class="img-fluid rounded w-100" alt="profile-image">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      <div class="row m-sm-0 px-3">
+   <div class="col-lg-24 card-profile">
+      <div class="card card-block card-stretch card-height card-height-custom">
+         <div class="card-body">
+            <ul class="d-flex nav nav-pills mb-3 text-center profile-tab" id="profile-pills-tab" role="tablist">
+               <li class="nav-item">
+                  <a class="nav-link active show" data-toggle="pill" href="#profile1" role="tab" aria-selected="false">Détails de document</a>
+               </li>
+            </ul>
+            <div class="profile-content tab-content">
+               <div id="profile1" class="tab-pane fade active show">
+                  <p></p>
+                  <div class="row">
+                     <div class="col-lg-15"></div>
+                     <div class="col-lg-15">
+                        <ul class="list-inline p-0 m-0">
+                           <li class="mb-4">
+                              <div class="d-flex align-items-center pt-2">
+                                 <div class="ml-3 w-100">
+                                    <div class="media align-items-center justify-content-between">
+                                       <p class="p-2 bg-warning rounded w-100 mb-3">Nom du document :</p>
+                                       <h6 >{{ currentId.nom }}</h6>
+                                    </div>
+                                 </div>
+                              </div>
+                           </li>
+                           <li class="mb-4">
+                              <div class="d-flex align-items-center pt-2">
+                                 <div class="ml-3 w-100">
+                                    <div class="media align-items-center justify-content-between">
+                                       <p class="mb-0 title">Codification :</p>
+                                       <h6 class="info">{{ currentId.codification }}</h6>
+                                    </div>
+                                 </div>
+                              </div>
+                           </li>
+                           <li class="mb-4">
+                              <div class="d-flex align-items-center pt-2">
+                                 <div class="ml-3 w-100">
+                                    <div class="media align-items-center justify-content-between">
+                                       <p class="mb-0 title">Version :</p>
+                                       <h6 class="info">{{ currentId.version }}</h6>
+                                    </div>
+                                 </div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="col-lg-15">
+                        <ul class="list-inline p-0 m-0">
+                           <li class="mb-4">
+                              <div class="d-flex align-items-center pt-2">
+                                 <div class="ml-3 w-100">
+                                    <div class="media align-items-center justify-content-between">
+                                       <p class="p-2 bg-warning rounded w-100 mb-3 ">Date Approbation :</p>
+                                       <h6>{{ currentId.date_approbation }}</h6>
+                                    </div>
+                                 </div>
+                              </div>
+                           </li>
+                                    <li class="mb-4">
+                                       <div class="d-flex align-items-center pt-2">
+                                          <div class="ml-3 w-100">
+                                             <div class="media align-items-center justify-content-between">
+                                                <p class="mb-0">Nouvelle version :  {{ currentId.nv_version }}</p>
+                                                <h6></h6>
+                                             </div>
+                                            
+                                          </div>
+                                       </div>
+                                    </li>
+                                    
+                                 </ul>
+                              </div>
+                              <div class="col-lg-15">
+                                <ul class="list-inline p-0 m-0">
+                                   <li class="mb-4">
+                                      <div class="d-flex align-items-center pt-2">
+                                         <div class="ml-3 w-100">
+                                            <div class="media align-items-center justify-content-between">
+                                               <p class="mb-0">Type de document   : {{ currentId.type_docs }}</p>
+                                               <h6></h6>
+                                            </div>
+                                            
+                                         </div>
+                                      </div>
+                                   </li>
+                                   <li class="mb-4">
+                                      <div class="d-flex align-items-center pt-2">
+                                         <div class="ml-3 w-100">
+                                            <div class="media align-items-center justify-content-between">
+                                               <p class="mb-0">Site : {{ currentId.site_name}}</p>
+                                               <h6></h6>
+                                            </div>
+                                            
+                                         </div>
+                                      </div>
+                                   </li>
+                                   <li class="mb-4">
+                                      <div class="d-flex align-items-center pt-2">
+                                         <div class="ml-3 w-100">
+                                            <div class="media align-items-center justify-content-between">
+                                               <p class="mb-0">Processus:  {{ currentId.processus_name }}</p>
+                                               <h6></h6>
+                                            </div>
+                                           
+                                         </div>
+                                      </div>
+                                   </li>
+                                   
+                                </ul>
+                            <div class="col-lg-15">
+                                <ul class="list-inline p-0 m-0">
+                                    <li class="mb-4">
+                                       <div class="d-flex align-items-center pt-2">
+                                          <div class="ml-3 w-100">
+                                             <div class="media align-items-center justify-content-between">
+                                                <p class="mb-0">Secteur   : {{ currentId.secteur_name }}</p>
+                                                <h6></h6>
+                                             </div>
+                                             
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li class="mb-4">
+                                       <div class="d-flex align-items-center pt-2">
+                                          <div class="ml-3 w-100">
+                                             <div class="media align-items-center justify-content-between">
+                                                <p class="mb-0">Personnel : {{ currentId.personnel_name }}</p>
+                                                <h6></h6>
+                                             </div>
+                                             
+                                          </div>
+                                       </div>
+                                    </li>
+                                    
+                                    
+                                 </ul>
+                                </div>
+                             </div>
+                           </div>
+                        </div>
+                        
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+    </div>
+    <!-- Wrapper End-->
+ 
+   
+  </body>
+</html>

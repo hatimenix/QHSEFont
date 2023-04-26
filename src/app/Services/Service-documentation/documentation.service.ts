@@ -6,6 +6,7 @@ import { Processus } from 'src/app/models/pocesus';
 import { Site } from 'src/app/models/site';
 import { environment } from 'src/environments/environment.development';
 import {Documentation} from 'src/app/models/Documentation'
+import { Personnel } from 'src/app/models/Personnel';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class DocumentationService {
   private API_Sites = environment.API_Sites;
   private API_Secteurs= environment.API_Secteurs;
   private API_Processus = environment.API_Processus;
+  private API_URL_Utilisateur = environment.API_URL_Utilisateur;
  
   constructor(private http: HttpClient) { }
 
@@ -27,8 +29,6 @@ export class DocumentationService {
   getDocumntById(id: number): Observable<Documentation> {
     return this.http.get<Documentation>(`${this.API_Docs}${id}`);
   }
-
-
   addDocument(doc: Documentation): Observable<Documentation> {
     const formData = new FormData();
     formData.append('nom', doc.nom);
@@ -53,8 +53,6 @@ export class DocumentationService {
     return this.http.post<Documentation>(this.API_Docs, formData);
   }
 
-  
-
   updateDocument(doc: Documentation): Observable<Documentation> {
     return this.http.put<Documentation>(`${this.API_Docs}${doc.id}/`, doc);
   }
@@ -64,8 +62,6 @@ export class DocumentationService {
     return this.http.put(url, formData);
   }
 
-
-  
 deleteDocument(id: number): Observable<void> {
   if (!id || isNaN(id)) {
     return throwError('Invalid ID provided.');
@@ -84,8 +80,19 @@ deleteDocument(id: number): Observable<void> {
   getProcessusList(): Observable<Processus[]> {
     return this.http.get<Processus[]>(this.API_Processus);
   }
+  getPersonnels(): Observable<Personnel[]> {
+    return this.http.get<Personnel[]>(this.API_URL_Utilisateur);
+  }
 
   downloadURL(id: number): Observable<Blob> {
     return this.http.get(`${this.API_Docs}/${id}`, { responseType: 'blob' });
   }
+  //filtrage  des documents par site
+  getDocumentsBySite(id: number): Observable<Documentation[]> {
+    return this.http.get<Documentation[]>(`${this.API_Sites}${id}`);
+  }
+ 
+  
+  
+  
 }
