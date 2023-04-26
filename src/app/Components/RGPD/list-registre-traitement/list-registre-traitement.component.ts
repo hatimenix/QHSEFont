@@ -10,6 +10,9 @@ import { ServiceRegistreTraitementService } from 'src/app/Services/Service-regis
 export class ListRegistreTraitementComponent {
   constructor(private service:ServiceRegistreTraitementService,private router: Router){ }
   TraitementList:any=[];
+  searchQuery: string = '';
+  p = 1; 
+  itemsPerPage: number = 5;
   ngOnInit(): void{
    this.refreshtraitementlist();
   }

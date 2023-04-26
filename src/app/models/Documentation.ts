@@ -12,6 +12,12 @@ export class Documentation {
     site!:number;
     secteur!:number;
     processus!: number;
+    personnel!:number;
+
+    processus_name!:string;
+    site_name!:string;
+    personnel_name!:string;
+    secteur_name!:string;
    
    
 }

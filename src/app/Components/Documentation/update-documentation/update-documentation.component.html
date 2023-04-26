@@ -22,8 +22,9 @@
                   <div class="col-md-4">
                                         
                     <div class="form-group">
-                    
-                      <input class="custom-file-input" id="customFile" type="file" (change)="onFileSelected($event)" required>
+                       
+
+                      <input class="custom-file-input" id="customFile" type="file" (change)="onFileSelected($event)" >
                       <label class="custom-file-label" for="customFile">Choisir un fichier</label>
                       <div class="help-block with-errors"></div>
                     </div>
@@ -108,6 +109,14 @@
                                     </select>
                              </div> 
                              </div>
+                            <div class="col-md-6"> 
+                                <div class="form-group">
+                                 <label>Personnel <label style="color: red;">*</label></label>
+                                 <select id="personnel" name="personnel" formControlName="personnel" class="custom-select" data-style="py-0" required>
+                                     <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
+                                    </select>
+                             </div> 
+                            </div>
                               
                            </div>                            
                            <button type="submit" class="btn btn-primary mr-2 ">Modifier</button>
