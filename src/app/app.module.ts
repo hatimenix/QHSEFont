@@ -43,6 +43,8 @@ import { InfoActionComponent } from './Components/Actions/info-action/info-actio
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ListEquipementsComponent } from './Components/Equipements/list-equipements/list-equipements.component';
 import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
+import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
+import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,9 @@ import { AddEquipementsComponent } from './Components/Equipements/add-equipement
     NavbarComponent,
     InfoActionComponent,
     ListEquipementsComponent,
-    AddEquipementsComponent
+    AddEquipementsComponent,
+    ListFournisseursComponent,
+    AddFournisseursComponent
 
   ],
   imports: [
