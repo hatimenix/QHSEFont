@@ -41,6 +41,7 @@ export class ListDocumentationComponent implements OnInit {
     
   }
 
+
   loaddocument() {
     this.documentService.getDocuments().subscribe(
       (data: Documentation[]) => {
@@ -89,30 +90,38 @@ export class ListDocumentationComponent implements OnInit {
   // ajout de la méthode filterDocuments
   filterDocuments(): void {
     const selectedSite = parseInt(this.myForm.get('site')?.value);
-    
+  
     if (selectedSite) {
-      console.log("selected site",selectedSite);
-      console.log("this document",this.document);
+      console.log("selected site", selectedSite);
+      console.log("this document", this.document);
+      this.documentService.getDocuments().subscribe(
+        (data: Documentation[]) => {
+          this.document = data;
+          const filteredDocuments = this.document.filter(d => {
+            const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.id];
+            return siteIds.some(siteId => siteId === selectedSite);
+          });
   
-      
-      const filteredDocuments = this.document.filter(d => {
-        const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.id];
-        return siteIds.some(siteId => siteId === selectedSite);
-      });
+          if (filteredDocuments.length > 0) {
+            this.selectedSiteId = selectedSite;
+            this.document = filteredDocuments;
+          } else {
+            console.log(`Aucun document trouvé pour le site sélectionné: ${selectedSite}`);
+          }
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   
-      if (filteredDocuments.length > 0) {
-        this.selectedSiteId = selectedSite;
-        this.document = filteredDocuments;
-      } else {
-        console.log(`Aucun document trouvé pour le site sélectionné: ${selectedSite}`);
-      }
     } else {
       this.myForm.reset();
       this.selectedSiteId = undefined;
-      console.log("id de ce site",this.selectedSiteId)
+      console.log("id de ce site", this.selectedSiteId)
       this.loaddocument();
     }
   }
+  
   
   
   
