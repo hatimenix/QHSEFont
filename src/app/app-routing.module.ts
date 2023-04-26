@@ -43,6 +43,8 @@ import { UpdateDocumentationComponent } from './Components/Documentation/update-
 import { ListEquipementsComponent } from './Components/Equipements/list-equipements/list-equipements.component';
 import { AddEquipementsComponent } from './Components/Equipements/add-equipements/add-equipements.component';
 import { DetailsDocsComponent } from './Components/Documentation/details-docs/details-docs.component';
+import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
+
 
 
 
@@ -89,6 +91,8 @@ const routes: Routes = [
 
   {path : 'equipement-list', component: ListEquipementsComponent},
   {path : 'add-equipements', component: AddEquipementsComponent},
+  {path : 'add-RGPD', component: AddRegistreTraitementComponent},
+
 
 
 
