@@ -15,6 +15,7 @@ import { Site } from 'src/app/models/site';
 })
 export class ListDocumentationComponent implements OnInit {
   document: Documentation[] = [];
+  filteredDocuments: Documentation[] = [];
   site$!: Observable<any>;
   secteur$!: Observable<any>;
   sites!: Site[];
@@ -87,42 +88,49 @@ export class ListDocumentationComponent implements OnInit {
     });
   }
 
-  // ajout de la méthode filterDocuments
-  filterDocuments(): void {
-    const selectedSite = parseInt(this.myForm.get('site')?.value);
-  
-    if (selectedSite) {
-      console.log("selected site", selectedSite);
-      console.log("this document", this.document);
-      this.documentService.getDocuments().subscribe(
-        (data: Documentation[]) => {
-          
-          this.document = data;
-          const filteredDocuments = this.document.filter(d => {
-            const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.id];
-            return siteIds.some(siteId => siteId === selectedSite);
-          });
-  
-          if (filteredDocuments.length > 0) {
-            this.selectedSiteId = selectedSite;
-            this.document = filteredDocuments;
-          } else {
-            console.log(`Aucun document trouvé pour le site sélectionné: ${selectedSite}`);
-          }
-        },
-        (error: any) => {
-          console.log(error);
+ // Mettre à jour la propriété document pour qu'elle contienne les documents filtrés
+filterDocuments(): void {
+  const selectedSite = parseInt(this.myForm.get('site')?.value);
+
+  if (selectedSite) {
+
+    this.documentService.getDocuments().subscribe(
+      (data: Documentation[]) => {
+        const document = data;
+        const filteredDocuments = document.filter(d => {
+          const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
+          return siteIds.includes(selectedSite);
+        });
+
+        if (filteredDocuments.length > 0) {
+          this.selectedSiteId = selectedSite;
+          this.document = filteredDocuments;
+        } else {
+          console.log(`Aucun document trouvé pour le site sélectionné: ${selectedSite}`);
+          this.document = [];
         }
-      );
-  
-    } else {
-      this.myForm.reset();
-      this.selectedSiteId = undefined;
-      console.log("id de ce site", this.selectedSiteId)
-      this.loaddocument();
-    }
+
+        console.log("documents filtrés", this.document);
+        console.log("site sélectionné", this.selectedSiteId);
+        console.log("liste des documents", this.document);
+        console.log("document length", this.document.length);
+
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+  } else {
+    this.myForm.reset();
+    this.selectedSiteId = undefined;
+    console.log("id de ce site", this.selectedSiteId);
+    this.loaddocument();
   }
+}
+
   
+
   
   
   
