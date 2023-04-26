@@ -48,7 +48,6 @@ import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-t
 
 
 
-
 const routes: Routes = [
   {path : '', component: LoginComponent },
   {path: 'home', component :HomeComponent},
