@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { DocumentationService } from 'src/app/Services/Service-documentation/documentation.service';
@@ -18,18 +19,27 @@ export class UpdateDocumentationComponent {
   DocForm!: FormGroup;
   doc!: Documentation;
   id!: number;
-  selectedFile!: File ;
+  selectedFile!: File;
 
   site$ !: Observable<any>;
-  secteur$! : Observable<any>;
-  processus$! : Observable<any>;
-  personnel$! : Observable<any>;
-  
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private documentService: DocumentationService,
-    private siteService : ApiSiteService,
-    private secteurService : SecteurService,
-    private processusService : ProcessusService,
-    private personnelService : PersonnelService) { 
+  secteur$!: Observable<any>;
+  processus$!: Observable<any>;
+  personnel$!: Observable<any>;
+
+  //modal
+  @ViewChild('successModal', { static: true }) successModal: any;
+  modalRef!: BsModalRef;
+
+
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private documentService: DocumentationService,
+    private siteService: ApiSiteService,
+    private secteurService: SecteurService,
+    private processusService: ProcessusService,
+    private personnelService: PersonnelService,
+    private bsModalService: BsModalService) {
     this.DocForm = new FormGroup({
       nom: new FormControl(),
       codification: new FormControl(),
@@ -45,7 +55,7 @@ export class UpdateDocumentationComponent {
       personnel: new FormControl()
     });
   }
-  
+
   ngOnInit() {
     const isFirstVisit = history.state.isFirstVisit;
 
@@ -60,7 +70,7 @@ export class UpdateDocumentationComponent {
     // aller en haut de la page
     window.scrollTo(0, 0);
 
-    
+
     this.site$ = this.siteService.getAllSite();
     this.secteur$ = this.secteurService.getSecteur();
     this.processus$ = this.processusService.getProcessus();
@@ -77,14 +87,15 @@ export class UpdateDocumentationComponent {
             codification: [this.doc.codification, Validators.required],
             version: [this.doc.version, Validators.required],
             date_approbation: [this.doc.date_approbation, Validators.required],
-            date_previsionnelle : [this.doc.date_previsionnelle , Validators.required],
+            date_previsionnelle: [this.doc.date_previsionnelle, Validators.required],
             nv_version: [this.doc.nv_version, Validators.required],
-            type_docs : [this.doc.type_docs , Validators.required],
-            url_document: [this.doc.url_document, Validators.required],
+            type_docs: [this.doc.type_docs, Validators.required],
+            url_document: [this.doc.url_document],
             site: [this.doc.site, Validators.required],
             secteur: [this.doc.secteur, Validators.required],
             processus: [this.doc.processus, Validators.required],
-          });
+            personnel:[this.doc.personnel, Validators.required]
+                    });
         },
         (error: any) => {
           console.log(error);
@@ -100,15 +111,16 @@ export class UpdateDocumentationComponent {
         date_previsionnelle: ['', Validators.required],
         nv_version: ['', Validators.required],
         type_docs: ['', Validators.required],
+        url_document: [''],
         site: ['', Validators.required],
         secteur: ['', Validators.required],
         processus: ['', Validators.required],
-        personnel: ['', Validators.required],
-        url_document: ['']
+        personnel: ['', Validators.required], // add this line
       });
+      
     }
   }
-  
+
   onSubmit() {
     console.log(this.DocForm.value);
     const formData = new FormData();
@@ -124,26 +136,32 @@ export class UpdateDocumentationComponent {
     formData.append('secteur', this.DocForm.get('secteur')?.value);
     formData.append('processus', this.DocForm.get('processus')?.value);
     formData.append('personnel', this.DocForm.get('personnel')?.value);
-  
+
     formData.append('url_document', this.selectedFile);
-  
+
 
     this.documentService.updateDocFormdata(formData).subscribe(
       (data: any) => {
         console.log(data);
-        
+        console.log("modification avec succès");
+        this.openModal();
         this.router.navigate(['/listdocument']);
       },
       (error: any) => {
         console.log(error);
       }
     );
-  }
-  
 
-  
+  }
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+  }
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
-  
+
 }

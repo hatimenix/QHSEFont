@@ -12,41 +12,27 @@ import { Commande } from 'src/app/models/Commande';
 })
 export class ListCommandesComponent {
   commandes!: Commande[];
+  //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
   commandIdToDelete: number = 0;
-
-  searchTerm = '';
-
-  constructor(private commandeService: CommandeSerService, private router: Router, public modalService: BsModalService) { }
+  
+  constructor(private commandeService: CommandeSerService, private router: Router, 
+  public modalService: BsModalService) { }
 
   ngOnInit() {
     this.getCommandes();
   }
-
   getCommandes(): void {
     this.commandeService.getCommandes()
       .subscribe(commandes => this.commandes = commandes);
   }
-
   deleteCommande(id_commande: number): void {
     this.commandIdToDelete = id_commande;
     this.modalRef = this.modalService.show(this.deleteModal);
   }
-  
-
   addCommande(): void {
     this.router.navigateByUrl('/addc');
-  }
-  //filtrage 
-  filterCommandes(): Commande[] {
-    return this.commandes.filter(c =>
-      c.date_commande.toLowerCase().includes(this.searchTerm.toLowerCase())
-      || c.type_commande.toLowerCase().includes(this.searchTerm.toLowerCase())
-      || c.quantite.toLowerCase().includes(this.searchTerm.toLowerCase())
-      || c.specificite_regime.toLowerCase().includes(this.searchTerm.toLowerCase())
-      || c.specificite_texture.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
   }
   //delete modal
   confirmDelete(): void {

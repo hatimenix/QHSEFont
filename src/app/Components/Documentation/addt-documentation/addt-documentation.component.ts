@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { DocumentationService } from 'src/app/Services/Service-documentation/documentation.service';
@@ -14,9 +15,12 @@ import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service
   styleUrls: ['./addt-documentation.component.css']
 })
 export class AddtDocumentationComponent implements OnInit{
+  
+  //modal
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
 
   DocForm!: FormGroup;
-
   site$ !: Observable<any>;
   secteur$! : Observable<any>;
   processus$! : Observable<any>;
@@ -27,7 +31,9 @@ export class AddtDocumentationComponent implements OnInit{
     private siteService : ApiSiteService,
     private secteurService : SecteurService,
     private processusService : ProcessusService, 
-    private personnelService : PersonnelService ) {
+    private personnelService : PersonnelService ,
+    //modal
+    private bsModalService: BsModalService) {
     this.DocForm = this.formBuilder.group({
       
       nom: ['', Validators.required],
@@ -87,7 +93,8 @@ export class AddtDocumentationComponent implements OnInit{
       this.docService.addDocumentFormData(formData).subscribe(
         (response) => {
           console.log('document ajouté avec succes', response);
-        
+        //modal
+        this.openModal();
           this.router.navigate(['/listdocument']);
         },
         (error) => {
@@ -96,5 +103,13 @@ export class AddtDocumentationComponent implements OnInit{
       );
     }
   }
+   //modal traitement
+   openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
+
 
 }

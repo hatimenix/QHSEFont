@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { DocumentationService } from 'src/app/Services/Service-documentation/documentation.service';
+import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 
 import { Documentation } from 'src/app/models/Documentation';
+import { Secteur } from 'src/app/models/Secteur';
+import { Processus } from 'src/app/models/processus';
 import { Site } from 'src/app/models/site';
 
 @Component({
@@ -15,13 +19,26 @@ import { Site } from 'src/app/models/site';
 })
 export class ListDocumentationComponent implements OnInit {
   document: Documentation[] = [];
+  myForm: any;
   filteredDocuments: Documentation[] = [];
   site$!: Observable<any>;
   secteur$!: Observable<any>;
+  processus$!: Observable<any>;
+  //variables pour le filtrage 
   sites!: Site[];
-  myForm: any;
   selectedSiteId: number | undefined;
   site!: Site[];
+  selectedSecteurId: number | undefined;
+  secteur!: Secteur[];
+  selectedProcessusId: number | undefined;
+  processus!: Processus[];
+//filtrage par type de document
+  typeDocSelectionne!: string;
+
+   //modal
+   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+   modalRef!: BsModalRef;
+   DocIdToDelete: number = 0;
 
 
 
@@ -30,14 +47,19 @@ export class ListDocumentationComponent implements OnInit {
     private documentService: DocumentationService,
     private siteService: ApiSiteService,
     private secteurService: SecteurService,
+    private processusService: ProcessusService,
+    public modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
     this.loaddocument();
     this.site$ = this.siteService.getAllSite();
     this.secteur$ = this.secteurService.getSecteur();
+    this.processus$ = this.processusService.getProcessus();
     this.myForm = new FormGroup({
-      site: new FormControl()
+      site: new FormControl(),
+      secteur: new FormControl(),
+      type_docs : new FormControl()
     });
     
   }
@@ -82,14 +104,11 @@ export class ListDocumentationComponent implements OnInit {
     );
   }
 
-  getSites(): void {
-    this.siteService.getAllSite().subscribe((sites) => {
-      this.sites = sites;
-    });
-  }
+ 
 
- // Mettre à jour la propriété document pour qu'elle contienne les documents filtrés
-filterDocuments(): void {
+ // Fonction de filtrage 
+ //filtrage par site
+filterDocumentsBySite(): void {
   const selectedSite = parseInt(this.myForm.get('site')?.value);
 
   if (selectedSite) {
@@ -129,10 +148,110 @@ filterDocuments(): void {
   }
 }
 
-  
+//filtrage par secteur 
 
+filterDocumentsBySecteur(): void {
+  const selectedSecteur = parseInt(this.myForm.get('secteur')?.value);
+
+  if (selectedSecteur) {
+
+    this.documentService.getDocuments().subscribe(
+      (data: Documentation[]) => {
+        const document = data;
+        const filteredDocuments = document.filter(d => {
+          const secteurIds = Array.isArray(d.secteur) ? d.secteur.map((s: Secteur) => s.id) : [d.secteur];
+          return secteurIds.includes(selectedSecteur);
+        });
+
+        if (filteredDocuments.length > 0) {
+          this.selectedSecteurId = selectedSecteur;
+          this.document = filteredDocuments;
+        } else {
+          console.log(`Aucun document trouvé pour le secteur sélectionné: ${selectedSecteur}`);
+          this.document = [];
+        }
+
+        console.log("documents filtrés", this.document);
+        console.log("secteur sélectionné", this.selectedSecteurId);
+        console.log("liste des documents", this.document);
+        console.log("document length", this.document.length);
+
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+  } else {
+    this.myForm.reset();
+    this.selectedSecteurId = undefined;
+    console.log("id de ce secteur", this.selectedSecteurId);
+    this.loaddocument();
+  }
+}
+//filtrage par processus
+filterDocumentsByProcessus():void{
   
+  const selectedProcessus = parseInt(this.myForm.get('processus')?.value);
+
+  if (selectedProcessus) {
+
+    this.documentService.getDocuments().subscribe(
+      (data: Documentation[]) => {
+        const document = data;
+        const filteredDocuments = document.filter(d => {
+          const processusIds = Array.isArray(d.processus) ? d.processus.map((p: Processus) => p.id) : [d.processus];
+          return processusIds.includes(selectedProcessus);
+        });
+
+        if (filteredDocuments.length > 0) {
+          this.selectedProcessusId = selectedProcessus;
+          this.document = filteredDocuments;
+        } else {
+          console.log(`Aucun document trouvé pour le secteur sélectionné: ${selectedProcessus}`);
+          this.document = [];
+        }
+
+        console.log("documents filtrés", this.document);
+        console.log("processus sélectionné", this.selectedProcessusId);
+        console.log("liste des documents", this.document);
+        console.log("document length", this.document.length);
+
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+  } else {
+    this.myForm.reset();
+    this.selectedProcessusId = undefined;
+    console.log("id de ce processus", this.selectedProcessusId);
+    this.loaddocument();
+  }
+}
+//filtrage par type de document 
+filterDocumentByType(): void {
+  if (this.typeDocSelectionne) {
+    this.documentService.getDocuments().subscribe((document) => {
+      this.document = document.filter((f) => f.type_docs === this.typeDocSelectionne);
+    });
+  } else {
+    this.loaddocument();
+  }
+}
   
+  //delete Modal 
+  confirmDelete(): void {
+    this.documentService.deleteDocument(this.DocIdToDelete)
+      .subscribe(() => {
+        this.document = this.document.filter(d=> d.id !== this.DocIdToDelete);
+        this.modalRef.hide();
+      });
+  }
+    declineDelete(): void {
+    this.modalRef.hide();
+    }
   
   
   
