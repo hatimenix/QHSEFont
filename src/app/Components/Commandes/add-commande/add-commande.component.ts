@@ -11,11 +11,15 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 export class AddCommandeComponent implements OnInit{
   myForm!: FormGroup;
+  //modal traitement
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
  
 
-  constructor(private fb: FormBuilder, private commandeService: CommandeSerService, private router: Router,private bsModalService: BsModalService) {
+  constructor(private fb: FormBuilder, private commandeService: CommandeSerService, 
+    private router: Router,
+    //modal
+    private bsModalService: BsModalService) {
     this.createForm();
   }
 
@@ -62,6 +66,7 @@ export class AddCommandeComponent implements OnInit{
       (commande: Commande) => {
         console.log("la commande est ajouté avec succes")
         console.log(commande)
+        //modal
         this.openModal();
        
         this.router.navigate(['/listC']); 
@@ -71,7 +76,7 @@ export class AddCommandeComponent implements OnInit{
       }
     );
   }
-  
+  //modal traitement
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }

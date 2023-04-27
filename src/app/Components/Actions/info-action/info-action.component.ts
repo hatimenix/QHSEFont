@@ -27,6 +27,7 @@ export class InfoActionComponent {
   tacheForm !: FormGroup;
   actionId!: number;
   action!: Actions;
+  taches!: Taches;
   sites$ !: Observable<any>;
   processus$ !: Observable<any>;
   realisation$ !: Observable<Realisations[]>;
@@ -39,8 +40,8 @@ export class InfoActionComponent {
   idToDelete: number = 0;
   mesure !: Mesures;
   realisationId!: number;
-
   tacheSelectionnee!: Taches;
+
 
 
   constructor(
@@ -71,7 +72,7 @@ export class InfoActionComponent {
       delai_mesure_eff : ['', Validators.required],
       type_critere_eff : ['', Validators.required],
       detail_critere_eff : ['', Validators.required],
-      piece_joint : [''],
+      piece_jointe : ['']
     });
 
     this.mesureForm = this.formBuilder.group({
@@ -97,13 +98,14 @@ export class InfoActionComponent {
       date_realisation : [''],
       etat : [''],
       commentaire : [''],
+      source : [''],
       piece_jointe : ['']
     });
 
     this.actionId = +this.activatedRoute.snapshot.params['id'];
     this.apiActionsService.getActions(this.actionId).subscribe(
-      (date : Actions) => {
-        this.action = date;
+      (data : Actions) => {
+        this.action = data;
         this.actionForm.patchValue({
           intitule: this.action.intitule,
           type_action: this.action.type_action,
@@ -120,7 +122,7 @@ export class InfoActionComponent {
           delai_mesure_eff: this.action.delai_mesure_eff,
           type_critere_eff: this.action.type_critere_eff,
           detail_critere_eff: this.action.detail_critere_eff,
-          piece_joint: this.action.piece_jointe
+          piece_jointe: this.action.piece_jointe
         });
       },
       error => console.log(error)
@@ -263,26 +265,28 @@ export class InfoActionComponent {
     );
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.tacheForm.get('piece_jointe')?.setValue(file);
+  }
+
   addTache(): void {
     if (this.tacheForm.valid) { // Vérifie que le formulaire est valide
-      const formData = this.tacheForm.value;
-      const tache: Taches = {
-        nom_tache: formData.nom_tache,
-        date_debut: formData.date_debut,
-        echeance: formData.echeance,
-        description: formData.description,
-        priorite: formData.priorite,
-        assigne_a: formData.assigne_a,
-        date_realisation: formData.date_realisation,
-        etat: formData.etat,
-        commentaire: formData.commentaire,
-        realisation_associee: this.realisationId,
-        piece_jointe: null,
-      };
+      const formData = new FormData();
+      formData.append('nom_tache', this.tacheForm.get('nom_tache')?.value ?? '');
+      formData.append('date_debut', this.tacheForm.get('date_debut')?.value ?? '');
+      formData.append('echeance', this.tacheForm.get('echeance')?.value ?? '');
+      formData.append('description', this.tacheForm.get('description')?.value ?? '');
+      formData.append('priorite', this.tacheForm.get('priorite')?.value ?? '');
+      formData.append('assigne_a', this.tacheForm.get('assigne_a')?.value ?? '');
+      formData.append('date_realisation', this.tacheForm.get('date_realisation')?.value ?? '');
+      formData.append('etat', this.tacheForm.get('etat')?.value ?? '');
+      formData.append('commentaire', this.tacheForm.get('commentaire')?.value ?? '');
+      formData.append('realisation_associee', this.realisationId.toString());
+      formData.append('piece_jointe', this.tacheForm.get('piece_jointe')?.value ?? '');
+      formData.append('source', this.tacheForm.get('source')?.value ?? '');
   
-      console.log(tache); // Vérifie que l'objet Taches est correctement créé
-  
-      this.apiTachesService.addTache(tache).subscribe(
+      this.apiTachesService.addTacheFormData(formData).subscribe(
         () => {
           console.log('La tache a été ajouté avec succès.');
           this.getTacheByRealaisation(this.realisationId);
@@ -298,8 +302,8 @@ export class InfoActionComponent {
   ouvrirModal(tache: Taches) {
     this.tacheSelectionnee = tache;
   }
-  
 
 
 
 }
+

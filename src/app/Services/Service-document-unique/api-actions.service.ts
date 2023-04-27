@@ -26,6 +26,10 @@ export class ApiActionsService {
     return this.http.post<Actions>(this.API_URL_AC, action);
   }
 
+  addActionFormData(formData: FormData): Observable<Actions> {
+    return this.http.post<Actions>(this.API_URL_AC, formData);
+  }
+
   delAction(id:number){
     return this.http.delete<Actions>(this.API_URL_AC+id+'/');
   }
