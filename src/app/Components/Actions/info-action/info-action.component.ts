@@ -72,7 +72,7 @@ export class InfoActionComponent {
       delai_mesure_eff : ['', Validators.required],
       type_critere_eff : ['', Validators.required],
       detail_critere_eff : ['', Validators.required],
-      piece_joint : [''],
+      piece_jointe : ['']
     });
 
     this.mesureForm = this.formBuilder.group({
@@ -122,7 +122,7 @@ export class InfoActionComponent {
           delai_mesure_eff: this.action.delai_mesure_eff,
           type_critere_eff: this.action.type_critere_eff,
           detail_critere_eff: this.action.detail_critere_eff,
-          piece_joint: this.action.piece_jointe
+          piece_jointe: this.action.piece_jointe
         });
       },
       error => console.log(error)

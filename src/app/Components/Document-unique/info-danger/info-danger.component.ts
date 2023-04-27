@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 import { ApiEvaluationService } from 'src/app/Services/Service-document-unique/api-evaluation.service';
 import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
 import { ApiFamilleService } from 'src/app/Services/Service-document-unique/api-famille.service';
 import { ApiProcessusService } from 'src/app/Services/Service-document-unique/api-processus.service';
+import { ApiRealisationService } from 'src/app/Services/Service-document-unique/api-realisation.service';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Actions } from 'src/app/models/actions';
 import { Dangers } from 'src/app/models/dangers';
 import { Evaluations } from 'src/app/models/evaluations';
 import { Evenement } from 'src/app/models/evenement';
-import { Processus } from 'src/app/models/processus';
+
 
 @Component({
   selector: 'app-info-danger',
@@ -52,6 +53,7 @@ export class InfoDangerComponent {
     private apiFamilleService: ApiFamilleService,
     private apiEvaluationService: ApiEvaluationService,
     private apiEvenementService: ApiEvenementService,
+    private apiRealisationService: ApiRealisationService,
     private apiActionsService: ApiActionsService
   ) { }
 
@@ -92,7 +94,7 @@ export class InfoDangerComponent {
       delai_mesure_eff : ['', Validators.required],
       type_critere_eff : ['', Validators.required],
       detail_critere_eff : ['', Validators.required],
-      piece_joint : [''],
+      piece_jointe : ['']
     });
 
     this.dangerId = +this.activatedRoute.snapshot.params['id'];
@@ -141,10 +143,46 @@ export class InfoDangerComponent {
       map((evenements: Evenement[]) => evenements.filter(evenement => evenement.dangers.includes(dangerId)))
     );
   }
-
+/*
   getActionsByDangerId(dangerId: number) {
     this.actions$ = this.apiActionsService.getAllActions().pipe(
       map((actions: Actions[]) => actions.filter(actions => actions.danger.includes(dangerId)))
+    );
+
+    // récupération des états associés aux actions
+    this.actions$.subscribe((actions: Actions[]) => {
+      actions.forEach((action: Actions) => {
+        this.apiRealisationService.getRealisations(action.id).subscribe((realisation: Realisations) => {
+          action.etat = realisation.etat;
+        });
+      });
+    });
+  } */
+
+  getActionsByDangerId(dangerId: number) {
+    this.actions$ = this.apiActionsService.getAllActions().pipe(
+      map((actions: Actions[]) => actions.filter(action => action.danger.includes(dangerId))),
+      switchMap((actions: Actions[]) => {
+        const actionObservables: Observable<any>[] = actions.map(action => {
+          return this.apiRealisationService.getRealisations(action.id).pipe(
+            catchError(error => {
+              // Si la requête pour récupérer la réalisation échoue, on retourne un Observable avec une valeur null
+              console.log(`Unable to get realisation for action ${action.id}: ${error.message}`);
+              return of(null);
+            }),
+            map(realisation => {
+              if (realisation) {
+                // Si une réalisation existe, on retourne un objet avec les informations de l'action et de la réalisation
+                return { ...action, etat: realisation.etat };
+              } else {
+                // Sinon, on retourne un objet avec uniquement les informations de l'action
+                return { ...action, etat: action.etat };
+              }
+            })
+          );
+        });
+        return forkJoin(actionObservables);
+      })
     );
   }
 
@@ -183,7 +221,6 @@ export class InfoDangerComponent {
       formData.append('etat', '');
       formData.append('annee', new Date().toString());
       formData.append('piece_jointe', this.actionForm.get('piece_jointe')?.value ?? '');
-      formData.append('evenement', '');
       formData.append('intitule', this.actionForm.get('intitule')!.value);
       formData.append('type_action', this.actionForm.get('type_action')!.value);
       formData.append('origine_action', this.actionForm.get('origine_action')!.value);
@@ -206,6 +243,7 @@ export class InfoDangerComponent {
           console.log('Action a été ajouté avec succès.');
           const newActionId = response.id; // ou tout autre nom de propriété qui contient l'identifiant de l'action ajoutée
           console.log('Nouvel ID d\'action : ', newActionId);
+          console.log('piece jointe : ', response.piece_jointe);
           this.getActionsByDangerId(this.dangerId);
           this.actionForm.reset();
         },
