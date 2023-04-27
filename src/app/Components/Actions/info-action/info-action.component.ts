@@ -42,7 +42,6 @@ export class InfoActionComponent {
   realisationId!: number;
   tacheSelectionnee!: Taches;
 
-  tacheSelectionnee!: Taches;
 
 
   constructor(
