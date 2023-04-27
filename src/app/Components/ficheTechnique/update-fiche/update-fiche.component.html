@@ -35,12 +35,11 @@
                                             <option>Enrichi</option>
                                         </select>
                                     </div> 
-                                </div>  <label for="fichier">Fichier *</label><br><br>  
-                                <div class="col-md-12">                      
+                                </div> 
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="fichier">Fichier</label>
-                                        <input class="custom-file-input" id="customFile" type="file" formControlName="fichier" (change)="onFileSelected($event)">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                        <label for="fichier">Fichier <label style="color: red;">*</label></label>
+                                        <input type="file" class="form-control image-file" (change)="onFileSelected($event)"formControlName="fichier">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>    

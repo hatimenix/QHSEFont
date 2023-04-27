@@ -33,16 +33,14 @@
                       </select>
                     </div> 
                   </div> 
-                  <label for="fichier">Fichier <label style="color: red;">*</label></label><br><br>  
-                  <div class="col-md-12">
-                                        
+                 
+                  <div class="col-md-6">
                     <div class="form-group">
-                    
-                      <input class="custom-file-input" id="customFile" type="file" (change)="onFileSelected($event)" required>
-                      <label class="custom-file-label" for="customFile">Choisir un fichier</label>
-                      <div class="help-block with-errors"></div>
+                        <label for="fichier">Fichier <label style="color: red;">*</label></label>
+                        <input type="file" class="form-control image-file" (change)="onFileSelected($event)"formControlName="fichier">
+                        <div class="help-block with-errors"></div>
                     </div>
-                  </div>                          
+                </div>                          
                 </div>                            
                 <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
                 <button type="reset" class="btn btn-danger" routerLink="/listF">Annuler</button>
