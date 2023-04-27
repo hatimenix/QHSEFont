@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiMesuresService } from 'src/app/Services/Service-document-unique/api-mesures.service';
 import { ApiProcessusService } from 'src/app/Services/Service-document-unique/api-processus.service';
@@ -41,7 +41,7 @@ export class InfoActionComponent {
   mesure !: Mesures;
   realisationId!: number;
   tacheSelectionnee!: Taches;
-
+  realisation: any;
 
 
   constructor(
@@ -145,7 +145,7 @@ export class InfoActionComponent {
       } 
     });
 
-    this.getRealisationByAction(this.actionId);
+    this.getRealisationAndTachesByAction(this.actionId);
     this.getMesureByAction(this.actionId);
     this.getTacheByRealaisation(this.realisationId);
 
@@ -155,7 +155,7 @@ export class InfoActionComponent {
 
   }
 
-  getRealisationByAction(actionId: number) {
+  /*getRealisationByAction(actionId: number) {
     this.realisation$ = this.apiRealisationService.getAllRealisations().pipe(
       map((realisations: Realisations[]) => {
         const realisation = realisations.find(r => r.action_associe === actionId);
@@ -165,7 +165,37 @@ export class InfoActionComponent {
         return realisations.filter(r => r.action_associe === actionId);
       })
     );
+  }*/
+
+  getRealisationAndTachesByAction(actionId: number) {
+    this.realisation$ = this.apiRealisationService.getAllRealisations().pipe(
+      map((realisations: Realisations[]) => {
+        const realisation = realisations.find(r => r.action_associe === actionId);
+        if (realisation) {
+          this.realisationId = realisation.id;
+          this.tache$ = this.apiTachesService.getTachesByRealisationId(realisation.id);
+        }
+        return realisations.filter(r => r.action_associe === actionId);
+      })
+    );
   }
+  
+
+  /*getRealisationByAction(actionId: number) {
+    this.apiRealisationService.getAllRealisations().pipe(
+      map((realisations: Realisations[]) => {
+        const realisation = realisations.find(r => r.action_associe === actionId);
+        if (realisation) {
+          this.apiTachesService.getTachesByRealisationId(realisation.id).subscribe(taches => {
+            const realisationWithTaches: RealisationWithTaches = { ...realisation, taches: taches };
+            this.realisation$ = of(realisationWithTaches);
+          });
+        }
+        return realisations.filter(r => r.action_associe === actionId);
+      })
+    ).subscribe();
+  }
+  */
 
   getMesureByAction(actionId: number){
     this.mesure$ = this.apiMesuresService.getAllMesures().pipe(
@@ -258,7 +288,8 @@ export class InfoActionComponent {
     this.apiRealisationService.addRealisation(realisation).subscribe(
       (response) => {
         console.log('Realisation a été ajouté avec succès.');
-        this.getRealisationByAction(this.actionId);
+        this.realisationId = response.id;
+        this.getRealisationAndTachesByAction(this.actionId);
         this.realisationForm.reset();
       },
       error => console.log(error)
