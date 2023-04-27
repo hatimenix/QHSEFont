@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Taches } from 'src/app/models/taches';
 import { environment } from 'src/environments/environment.development';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,8 +23,12 @@ export class ApiTachesService {
     return this.http.get<Taches>(url);
   }
 
-  addTache(tache: any): Observable<Taches> {
+  addTaches(tache: any): Observable<Taches> {
     return this.http.post<Taches>(this.API_URL_TA, tache);
+  }
+
+  addTacheFormData(formData: FormData): Observable<Taches> {
+    return this.http.post<Taches>(this.API_URL_TA, formData);
   }
 
   delTache(id:number){
