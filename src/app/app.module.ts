@@ -49,6 +49,7 @@ import { ListDocumentationComponent } from './Components/Documentation/list-docu
 import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
 import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
 import { DetailsDocsComponent } from './Components/Documentation/details-docs/details-docs.component';
+import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,11 @@ import { DetailsDocsComponent } from './Components/Documentation/details-docs/de
     ListDocumentationComponent,
     AddtDocumentationComponent,
     UpdateDocumentationComponent,
-    DetailsDocsComponent
+    DetailsDocsComponent,
+    AddFournisseursComponent,
+    ListFournisseursComponent,
+    AddRegistreTraitementComponent,
+    ListRegistreTraitementComponent
 
   ],
   imports: [
