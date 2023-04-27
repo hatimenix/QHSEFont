@@ -47,6 +47,7 @@ import { ListDocumentationComponent } from './Components/Documentation/list-docu
 import { AddtDocumentationComponent } from './Components/Documentation/addt-documentation/addt-documentation.component';
 import { UpdateDocumentationComponent } from './Components/Documentation/update-documentation/update-documentation.component';
 import { DetailsDocsComponent } from './Components/Documentation/details-docs/details-docs.component';
+import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 
@@ -94,6 +95,10 @@ import { AddFournisseursComponent } from './Components/Fournisseurs/add-fourniss
     AddtDocumentationComponent,
     UpdateDocumentationComponent,
     DetailsDocsComponent,
+    AddFournisseursComponent,
+    ListFournisseursComponent,
+    AddRegistreTraitementComponent,
+    ListRegistreTraitementComponent
 
   ],
   imports: [
