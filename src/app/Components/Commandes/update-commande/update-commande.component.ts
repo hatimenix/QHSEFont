@@ -15,6 +15,7 @@ export class UpdateCommandeComponent implements OnInit{
   commande!: Commande;
   commandeId!: number;
   formBuilder: any;
+  //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
 

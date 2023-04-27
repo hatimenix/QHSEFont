@@ -11,6 +11,7 @@ import { FicheTechnique } from 'src/app/models/FicheTechnique';
 })
 export class ListFicheComponent implements OnInit {
   fiches!: FicheTechnique[];
+  //filtrage
   typePlatSelectionne!: string;
 
   myForm: any;
@@ -74,7 +75,7 @@ export class ListFicheComponent implements OnInit {
       }
     );
   }
-
+//fonction de filtrage par type de plat
   filterFiches(): void {
     if (this.typePlatSelectionne) {
       this.ficheService.getAllFiches().subscribe((fiches) => {
