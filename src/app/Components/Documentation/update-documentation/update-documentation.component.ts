@@ -31,7 +31,10 @@ export class UpdateDocumentationComponent {
   modalRef!: BsModalRef;
 
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private documentService: DocumentationService,
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private documentService: DocumentationService,
     private siteService: ApiSiteService,
     private secteurService: SecteurService,
     private processusService: ProcessusService,
@@ -87,11 +90,12 @@ export class UpdateDocumentationComponent {
             date_previsionnelle: [this.doc.date_previsionnelle, Validators.required],
             nv_version: [this.doc.nv_version, Validators.required],
             type_docs: [this.doc.type_docs, Validators.required],
-            url_document: [this.doc.url_document, Validators.required],
+            url_document: [this.doc.url_document],
             site: [this.doc.site, Validators.required],
             secteur: [this.doc.secteur, Validators.required],
             processus: [this.doc.processus, Validators.required],
-          });
+            personnel:[this.doc.personnel, Validators.required]
+                    });
         },
         (error: any) => {
           console.log(error);
@@ -107,12 +111,13 @@ export class UpdateDocumentationComponent {
         date_previsionnelle: ['', Validators.required],
         nv_version: ['', Validators.required],
         type_docs: ['', Validators.required],
+        url_document: [''],
         site: ['', Validators.required],
         secteur: ['', Validators.required],
         processus: ['', Validators.required],
-        personnel: ['', Validators.required],
-        url_document: ['']
+        personnel: ['', Validators.required], // add this line
       });
+      
     }
   }
 
