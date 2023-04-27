@@ -1,5 +1,5 @@
 export class Actions {
-    id ?: number;
+    id !: number;
     intitule !: string;
     type_action !: string;
     origine_action !: string;
@@ -16,9 +16,9 @@ export class Actions {
     delai_mesure_eff !: Date;
     type_critere_eff !: string;
     detail_critere_eff !: string;
-    etat ?: string;
-    piece_jointe ?: any | null;
-    annee ?: Date;
+    etat !: string;
+    piece_jointe !: any;
+    annee !: Date;
     danger !: number[];
     evenement !: number[] | null;
 
@@ -38,6 +38,9 @@ export class Actions {
         delai_mesure_eff: Date,
         type_critere_eff: string,
         detail_critere_eff: string,
+        annee : Date,
+        etat : string,
+        piece_jointe : any,
         danger: number[],
         evenement: number[]
       ) {
@@ -56,6 +59,9 @@ export class Actions {
         this.delai_mesure_eff = delai_mesure_eff;
         this.type_critere_eff = type_critere_eff;
         this.detail_critere_eff = detail_critere_eff;
+        this.annee = annee;
+        this.etat = etat;
+        this.piece_jointe = piece_jointe;
         this.danger = danger;
         this.evenement = evenement;
       }
