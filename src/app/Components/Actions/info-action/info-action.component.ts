@@ -42,6 +42,9 @@ export class InfoActionComponent {
   realisationId!: number;
   tacheSelectionnee!: Taches;
 
+  tacheSelectionnee!: Taches;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private apiProcessusService: ApiProcessusService,
@@ -302,4 +305,6 @@ export class InfoActionComponent {
   }
 
 
+
 }
+

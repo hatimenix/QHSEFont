@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { DocumentationService } from 'src/app/Services/Service-documentation/documentation.service';
+import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 import { Documentation } from 'src/app/models/Documentation';
@@ -17,15 +18,18 @@ export class UpdateDocumentationComponent {
   DocForm!: FormGroup;
   doc!: Documentation;
   id!: number;
+  selectedFile!: File ;
 
   site$ !: Observable<any>;
   secteur$! : Observable<any>;
   processus$! : Observable<any>;
+  personnel$! : Observable<any>;
   
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private documentService: DocumentationService,
     private siteService : ApiSiteService,
     private secteurService : SecteurService,
-    private processusService : ProcessusService) { 
+    private processusService : ProcessusService,
+    private personnelService : PersonnelService) { 
     this.DocForm = new FormGroup({
       nom: new FormControl(),
       codification: new FormControl(),
@@ -38,6 +42,7 @@ export class UpdateDocumentationComponent {
       site: new FormControl(),
       secteur: new FormControl(),
       processus: new FormControl(),
+      personnel: new FormControl()
     });
   }
   
@@ -59,6 +64,7 @@ export class UpdateDocumentationComponent {
     this.site$ = this.siteService.getAllSite();
     this.secteur$ = this.secteurService.getSecteur();
     this.processus$ = this.processusService.getProcessus();
+    this.personnel$ = this.personnelService.getPersonnels();
     //code
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
@@ -97,6 +103,7 @@ export class UpdateDocumentationComponent {
         site: ['', Validators.required],
         secteur: ['', Validators.required],
         processus: ['', Validators.required],
+        personnel: ['', Validators.required],
         url_document: ['']
       });
     }
@@ -116,11 +123,9 @@ export class UpdateDocumentationComponent {
     formData.append('site', this.DocForm.get('site')?.value);
     formData.append('secteur', this.DocForm.get('secteur')?.value);
     formData.append('processus', this.DocForm.get('processus')?.value);
+    formData.append('personnel', this.DocForm.get('personnel')?.value);
   
-    if (this.DocForm.get('url_document')?.value) {
-      const file: File = this.DocForm.get('url_document')?.value;
-      formData.append('url_document', file, file.name);
-    }
+    formData.append('url_document', this.selectedFile);
   
 
     this.documentService.updateDocFormdata(formData).subscribe(
@@ -136,9 +141,9 @@ export class UpdateDocumentationComponent {
   }
   
 
-  onFileSelected(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    const file: File = (fileInput.files as FileList)[0];
-    this.DocForm.get('url_document')?.setValue(file);
+  
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
+  
 }
