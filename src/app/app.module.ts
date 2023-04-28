@@ -49,6 +49,7 @@ import { UpdateDocumentationComponent } from './Components/Documentation/update-
 import { DetailsDocsComponent } from './Components/Documentation/details-docs/details-docs.component';
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
+import { DetailspersonnelComponent } from './Components/personnel/detailspersonnel/detailspersonnel/detailspersonnel.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { AddFournisseursComponent } from './Components/Fournisseurs/add-fourniss
     AddtDocumentationComponent,
     UpdateDocumentationComponent,
     DetailsDocsComponent,
+    DetailspersonnelComponent,
 
   ],
   imports: [
