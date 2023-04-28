@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Nom du fournisseur </label>
+                                    <label>Nom du fournisseur * </label>
                                     <input [(ngModel)]="fournisseurf.nom" type="text" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" required>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nom'].touched && f['nom'].invalid">
                                         <div *ngIf="f['nom'].errors && f['nom'].errors['required']">La nom est requis.</div>
@@ -26,7 +26,12 @@
                                 <div class="form-group">
                                     <label>N du siret </label>
                                     <input [(ngModel)]="fournisseurf.numerodesiret" type="text" formControlName="numerodesiret" class="form-control" data-errors="Please Enter Name." id="numerodesiret" >
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodesiret'].valid && (f['numerodesiret'].dirty || f['numerodesiret'].touched)">
+                                        Numero de siret valide.
+                                      </div>                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['numerodesiret'].touched ">
+                                        <div *ngIf="f['numerodesiret'].errors && f['numerodesiret'].errors['pattern']">doit contenir des chiffres seulement!</div>
                                  </div>
+                             </div>
                              </div>
                              </div>
                              <div class="row">
@@ -40,8 +45,14 @@
                                 <div class="form-group">
                                     <label>Numero de récépsissé de déclaration préfectorale</label>
                                     <input [(ngModel)]="fournisseurf.numero_de_recepisse_de_declaration_prefectorale" type="text" formControlName="numero_de_recepisse_de_declaration_prefectorale" class="form-control"  data-errors="Please Enter Name." id="numero_de_recepisse_de_declaration_prefectorale" >
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numero_de_recepisse_de_declaration_prefectorale'].valid && (f['numero_de_recepisse_de_declaration_prefectorale'].dirty || f['numero_de_recepisse_de_declaration_prefectorale'].touched)">
+                                        Numero de récépsissé de déclaration préfectorale valide.
+                                      </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['numero_de_recepisse_de_declaration_prefectorale'].touched ">
+                                        <div *ngIf="f['numero_de_recepisse_de_declaration_prefectorale'].errors && f['numero_de_recepisse_de_declaration_prefectorale'].errors['pattern']">doit contenir des chiffres seulement!</div>
                                  </div>
                              </div>
+                            </div>
                             </div>
                             <div class="row">
                              <div class="col-md-6">                      
@@ -54,7 +65,13 @@
                                 <div class="form-group">
                                     <label>Téléphone</label>
                                     <input [(ngModel)]="fournisseurf.telephone" type="text" placeholder="+352 " formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['telephone'].valid && (f['telephone'].dirty || f['telephone'].touched)">
+                                        Numéro de téléphone valide.
+                                      </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['telephone'].touched ">
+                                    <div *ngIf="f['telephone'].errors && f['telephone'].errors['pattern']">Le numéro de téléphone doit être au format +352 123-456-789 !</div>
                                  </div>
+                             </div>
                              </div>
                              </div>
                              <div class="row">
@@ -62,7 +79,13 @@
                                 <div class="form-group">
                                     <label>Numéro de télécopie</label>
                                     <input [(ngModel)]="fournisseurf.numerodetelecopie" type="text" formControlName="numerodetelecopie" class="form-control"  data-errors="Please Enter Name." id="numerodetelecopie" >
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelecopie'].valid && (f['numerodetelecopie'].dirty || f['numerodetelecopie'].touched)">
+                                        Numéro de télécopie valide.
+                                      </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['numerodetelecopie'].touched ">
+                                        <div *ngIf="f['numerodetelecopie'].errors && f['numerodetelecopie'].errors['pattern']">doit contenir des chiffres seulement!</div>
                                  </div>
+                             </div>
                              </div>
                              <div class="col-md-6">                      
                                 <div class="form-group">
@@ -75,8 +98,14 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Code postal</label>
-                                    <input [(ngModel)]="fournisseurf.codepostal" type="text" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal" >
+                                    <input [(ngModel)]="fournisseurf.codepostal" type="text" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['codepostal'].valid && (f['codepostal'].dirty || f['codepostal'].touched)">
+                                        Code postal valide.
+                                      </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codepostal'].touched ">
+                                        <div *ngIf="f['codepostal'].errors && f['codepostal'].errors['pattern']">doit contenir des chiffres seulement!</div>
                                  </div>
+                             </div>
                              </div>
                              <div class="col-md-6">                      
                                 <div class="form-group">
@@ -104,7 +133,13 @@
                                 <div class="form-group">
                                     <label>Adresse de courier</label>
                                     <input [(ngModel)]="fournisseurf.adressedecourier" type="text" placeholder="@" formControlName="adressedecourier" class="form-control"  data-errors="Please Enter Name." id="adressedecourier" >
-                                 </div>
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['adressedecourier'].valid && (f['adressedecourier'].dirty || f['adressedecourier'].touched)">
+                                        Adresse e-mail valide.
+                                      </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['adressedecourier'].touched">
+                                        <div *ngIf="f['adressedecourier'].errors && f['adressedecourier'].errors['pattern']">        L'adresse e-mail doit être au format: example@domain.com.
+                                        </div>                                 </div>
+                             </div>
                              </div>
                              <div class="col-md-6">                      
                                 <div class="form-group">
@@ -118,12 +153,24 @@
                                 <div class="form-group">
                                     <label>Numéro de téléphone</label>
                                     <input [(ngModel)]="fournisseurf.numerodetelephone" placeholder="+352 " type="text" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelephone'].valid && (f['numerodetelephone'].dirty || f['numerodetelephone'].touched)">
+                                        Numéro de téléphone valide.
+                                      </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['numerodetelephone'].touched">
+                                        <div *ngIf="f['numerodetelephone'].errors && f['numerodetelephone'].errors['pattern']">Le numéro de téléphone doit être au format +352 123-456-789 !</div>
+                                     </div>
                                  </div>
                              </div>
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Téléphone personnel</label>
                                     <input [(ngModel)]="fournisseurf.telephonepersonnel" placeholder="+352 " type="text" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['telephonepersonnel'].valid && (f['telephonepersonnel'].dirty || f['telephonepersonnel'].touched)">
+                                        Numéro de téléphone valide.
+                                      </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['telephonepersonnel'].touched ">
+                                        <div *ngIf="f['telephonepersonnel'].errors && f['telephonepersonnel'].errors['pattern']">Le numéro de téléphone doit être au format +352 123-456-789 !</div>
+                                     </div>
                                  </div>
                              </div>
                              </div>

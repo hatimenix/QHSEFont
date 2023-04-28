@@ -1,0 +1,40 @@
+export class Traitement {
+    id!: number;
+    fournisseur!: number;
+    REFtraitement?: string;
+    nomtraitement?: string;
+    datedecreation?: Date;
+    datedemiseajour?: Date;
+    donneesensible?: boolean;
+    personneconcernee?: string;
+    precision?: string;
+    typeregistre?: string;
+    finaliteprincipale?: string;
+    sous_finalite1?: string;
+    sous_finalite2?: string;
+    sous_finalite3?: string;
+    sous_finalite4?: string;
+    categorie?: string;
+    description?: string;
+    dureedeconcesrvation?: string;
+    mtypedemesuredesecurite?: string;
+    precisiondumesuredesecurite?: string;
+    typedestinataire?: string;
+    precisions?: string;
+    donneeconcernee?: string;
+    destinataire?: string;
+    pays?: string;
+    typedegarantie?: string;
+    lienversladocumentation?: string;
+    lesdonneesconcernee?: string;
+    prenomnomresptraitement?: string;
+    emailresptraitement?: string;
+    telephonereesptraitement?: string;
+    prenommomDPO?: string;
+    EmailDPO?: string;
+    telephoneDPO?: string;
+    prenomnomrepresentant?: string;
+    emailrepresentant?: string;
+    telephonerepresentant?: string;
+  }
+  

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Taches } from 'src/app/models/taches';
 import { environment } from 'src/environments/environment.development';
 
@@ -36,6 +36,11 @@ export class ApiTachesService {
   }
 
   getTachesByRealisationId(realisationId: number): Observable<Taches[]> {
-    return this.http.get<Taches[]>(`${this.API_URL_TA}?realisation_associee=${realisationId}`);
+    return this.http.get<Taches[]>(`${this.API_URL_TA}?realisation_associee=${realisationId}`).pipe(
+      map((taches: Taches[]) => {
+        return taches.filter(t => t.realisation_associee === realisationId);
+      })
+    );
   }
+  
 }

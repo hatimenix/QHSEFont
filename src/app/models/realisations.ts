@@ -1,4 +1,3 @@
-
 export class Realisations {
     id !: number;
     action_associe !: number;

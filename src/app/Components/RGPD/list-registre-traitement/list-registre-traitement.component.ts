@@ -17,7 +17,7 @@ export class ListRegistreTraitementComponent {
    this.refreshtraitementlist();
   }
   refreshtraitementlist(){
-    this.service.gettraitementlist().subscribe(data=>{
+    this.service.getAll().subscribe(data=>{
       this.TraitementList=data;
     })
   }
