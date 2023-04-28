@@ -10,6 +10,7 @@
                             <div class="d-flex align-items-center"></div>
                             <label for="type_plat">Type de plat </label>
                             <select name="type" class="selectpicker form-control " data-style="py-0" id="type_plat"  (change)="filterFiches()" [(ngModel)]="typePlatSelectionne">
+                                <option value="">Tous</option>
                                 <option>Entrée/Salade</option>
                                 <option>Potage</option>
                                 <option>Accompagnement</option>

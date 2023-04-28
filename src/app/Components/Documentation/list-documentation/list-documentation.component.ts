@@ -59,7 +59,8 @@ export class ListDocumentationComponent implements OnInit {
     this.myForm = new FormGroup({
       site: new FormControl(),
       secteur: new FormControl(),
-      type_docs : new FormControl()
+      type_docs : new FormControl(), 
+      processus : new FormControl
     });
     
   }
@@ -208,7 +209,7 @@ filterDocumentsByProcessus():void{
           this.selectedProcessusId = selectedProcessus;
           this.document = filteredDocuments;
         } else {
-          console.log(`Aucun document trouvé pour le secteur sélectionné: ${selectedProcessus}`);
+          console.log(`Aucun document trouvé pour le processus sélectionné: ${selectedProcessus}`);
           this.document = [];
         }
 

@@ -27,6 +27,7 @@
                                      <label>Filtrer par Processus</label>
                                      <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required (change)="filterDocumentsByProcessus()">
                                        <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                                       <option value="">Tous</option>
                                      </select>
                                    </div>
                                  </div>
@@ -35,6 +36,7 @@
                                      <label>Filtrer par Site</label>
                                      <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySite()">
                                        <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                       <option value="">Tous</option>
                                      </select>
                                    </div>
                                  </div>
@@ -43,6 +45,7 @@
                                      <label>Filtrer par Secteur</label>
                                      <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySecteur()">
                                        <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
+                                       <option value="">Tous</option>
                                      </select>
                                    </div>
                                  </div>
@@ -104,7 +107,7 @@
                           <td>{{docs.nv_version}}</td>
                           <td>{{docs.type_docs}}</td>
                           
-                          <td></td>
+                          <td>Ajouter a l'historique</td>
                           <td>Ajouter a mes favoris</td>
 
                           <td>
@@ -122,11 +125,6 @@
                       </tbody>
                       
                   </table>
-              
-              
-            
-          
-                    
                   </div>
                   <div class="row justify-content-between mt-3">
                      <div id="user-list-page-info" class="col-md-6">

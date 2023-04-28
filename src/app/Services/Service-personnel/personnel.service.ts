@@ -19,9 +19,6 @@ export class PersonnelService {
   getPersonnelById(id: number): Observable<Personnel> {
     return this.http.get<Personnel>(`${this.API_URL_Utilisateur}${id}`);
   }
-
-
-
   addPersonnelFormData(formData: FormData): Observable<Personnel> {
     return this.http.post<Personnel>(this.API_URL_Utilisateur, formData);
   }
