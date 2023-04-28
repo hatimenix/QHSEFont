@@ -90,17 +90,18 @@ export class UpdateDocumentationComponent {
             date_previsionnelle: [this.doc.date_previsionnelle, Validators.required],
             nv_version: [this.doc.nv_version, Validators.required],
             type_docs: [this.doc.type_docs, Validators.required],
-            url_document: [this.doc.url_document],
+            url_document: [this.doc.url_document || ''], // set the default value to an empty string if url_document is falsy
             site: [this.doc.site, Validators.required],
             secteur: [this.doc.secteur, Validators.required],
             processus: [this.doc.processus, Validators.required],
             personnel:[this.doc.personnel, Validators.required]
-                    });
+          });
         },
         (error: any) => {
           console.log(error);
         }
       );
+      
     } else {
       console.log("ID de document introuvable dans l'URL");
       this.DocForm = this.formBuilder.group({
