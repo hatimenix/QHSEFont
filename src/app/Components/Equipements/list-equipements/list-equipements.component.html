@@ -57,10 +57,12 @@
                     {{ secteur.secteur_nom }}
                   </td>
                   <ng-container *ngIf="!site.expanded && secteur.expanded">
-                    <ng-container *ngFor="let equipement of equipements ">
+                    <ng-container *ngFor="let equipement of equipements ; let i = index">
 
-                        <tr  *ngIf="equipement.site == site.id && equipement.secteur == secteur.id">
-                          <td></td>
+                      <tr *ngIf="equipement.site == site.id && equipement.secteur == secteur.id"
+                        [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+
+                        <td></td>
                         <td></td>
                         <td>{{ equipement.type_equipement }}</td>
                         <td>{{equipement.codification}}</td>
@@ -87,7 +89,7 @@
                           </div>
                         </td>
                       </tr>
-                     
+
 
                     </ng-container>
                   </ng-container>
