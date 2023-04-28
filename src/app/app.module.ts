@@ -97,6 +97,7 @@ import { DetailspersonnelComponent } from './Components/personnel/detailspersonn
     UpdateDocumentationComponent,
     DetailsDocsComponent,
     DetailspersonnelComponent,
+    AddRegistreTraitementComponent,
 
   ],
   imports: [
