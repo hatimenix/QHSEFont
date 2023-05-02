@@ -120,7 +120,7 @@ export class InfoEvenementComponent {
 
   getActionsByEvenementId(evenementId: number) {
     this.actions$ = this.apiActionsService.getAllActions().pipe(
-      map((actions: Actions[]) => actions.filter(actions => actions.danger.includes(evenementId)))
+      map((actions: Actions[]) => actions.filter(actions => actions.evenement.includes(evenementId)))
     );
   }
 
