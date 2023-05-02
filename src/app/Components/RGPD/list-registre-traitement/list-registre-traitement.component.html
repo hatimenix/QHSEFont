@@ -19,7 +19,6 @@
                             <tr class="ligth ligth-data">
                                 <th>Registre </th>
                                 <th>Nom du traitement</th>
-                                <th>Ref traitement</th>
                                 <th>Date de creation</th>
                                 <th>date de mise a jour</th>
                                 <th>Donnee sensibles</th>
@@ -29,51 +28,285 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let traitement of TraitementList | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }">
+                            <tr *ngFor="let traitement of TraitementList | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
                                 <td>{{traitement.typeregistre}}</td>
                                 <td>{{traitement.nomtraitement}}</td>
-                                <td>{{traitement.REFtraitement}}</td>
-                                <td>{{traitement.datedecreation}}</td>
-                                <td>{{traitement.datedemiseajour}}</td>
+                                <td>{{ traitement.datedecreation | date:'yyyy-MM-dd' }}</td>
+                                <td>{{traitement.datedemiseajour | date:'yyyy-MM-dd'}}</td>
                                 <td>{{traitement.donneesensible ? 'Oui' : 'Non'}}</td>
-                                <td>{{traitement.personneconcernee}}</td>
+                                <td>{{traitement.personneconcernees}}</td>
                                 <td>{{traitement.precision}}</td>
                                 <td>
-                                    <div class="flex align-items-center list-user-action">
-                                       <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                          data-original-title="Edit" href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                       <a class="btn btn-sm bg-secondary" data-toggle="tooltip" data-placement="top" title=""
-                                          data-original-title="Delete" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                                    </div>
-                                 </td>
+                                  <div class="d-flex align-items-center list-action">
+                                          <a class="badge bg-success mr-2" (click)="getTraitementData(traitement.id , traitement.fournisseur, traitement.typeregistre, traitement.nomtraitement,traitement.description_generale,traitement.datedecreation,traitement.datedemiseajour,traitement.responsable_traitement,traitement.finaliteprincipale,traitement.sous_finalite1,traitement.sous_finalite2,traitement.sous_finalite3,traitement.sous_finalite4,traitement.donneesensible,traitement.type_donnee,traitement.categorie,traitement.description,traitement.dureedeconcesrvation,traitement.personneconcernees,traitement.precisions,traitement.typedestinataire,traitement.precision,traitement.donneeconcernees,traitement.mtypedemesuredesecurite,traitement.destinataire,traitement.pays,traitement.typedegarantie,traitement.lienversladocumentation,traitement.lesdonneesconcernee)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit"
+                                          ><i class="ri-pencil-line mr-0"></i></a>
+                                      <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(traitement.id)"  data-placement="top" title="" data-original-title="Delete"
+                                          ><i class="ri-delete-bin-line mr-0"></i></a>
+                                  </div>
+                              </td>
                             </tr>
                         </tbody> 
                     </table>
                 </div>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>
-            
-            <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
-                <div class="col-lg-12">
-                    <div class="table-responsive rounded mb-3">
-                    <table class="data-table table mb-0 tbl-server-info">
-                        <thead class="bg-white text-uppercase">
-                            <tr class="ligth ligth-data">
-                                <th>Nom du traitement</th>
-                                <th>Ref traitement</th>
-                                <th>Date de creation</th>
-                                <th>date de mise a jour</th>
-                                <th>Donnee sensibles</th>
-                                <th>Responsable des traitements</th>
-                                <th>DPO</th>
-                                <th>Representant dans l'UE</th>
-                            </tr>
-                        </thead>
-                       
-                    </table>
-                </div>
-            </div>
-           
-           </div>
-       </div>
        <!-- Page end  -->
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Attention , cette action est irréversible !
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="delete()" >Supprimer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier un registre de traitement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <form [formGroup]="form" data-toggle="validator">
+            <div class="row">
+                <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label> Registre </label>
+                        <input [(ngModel)]="typeregistre" type="text" value="{{typeregistre}}" formControlName="typeregistre" class="form-control" data-errors="Please Enter Name." id="typeregistre" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Nom du traitement </label>
+                        <input [(ngModel)]="nomtraitement" value="{{nomtraitement}}" type="text" formControlName="nomtraitement" class="form-control" data-errors="Please Enter Name." id="nomtraitement" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Description générale </label>
+                        <input [(ngModel)]="description_generale" value="{{description_generale}}"  type="text" formControlName="description_generale" class="form-control"  data-errors="Please Enter Name." id="description_generale" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Société du responsable du traitement </label>
+                        <select [(ngModel)]="fournisseur" id="fournisseur" name="fournisseur" style="width: 100%;" formControlName="fournisseur" class="form-control" class="custom-select" >
+                          <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
+                        </select>
+                      </div>
+                 </div>
+                 </div>
+                 <div class="row">
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Société du DPO </label>
+                        <select [(ngModel)]="fournisseur" id="fournisseur" name="fournisseur" style="width: 100%;" formControlName="fournisseur" class="form-control" class="custom-select" >
+                          <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
+                        </select>                     
+                      </div>
+                     </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Société du représentant dans l'UE</label>
+                        <select [(ngModel)]="fournisseur" id="fournisseur" name="fournisseur" style="width: 100%;" formControlName="fournisseur" class="form-control" class="custom-select" >
+                          <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
+                        </select>                    
+                       </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Responsable Traitement</label>
+                        <input [(ngModel)]="responsable_traitement" type="text" value="{{responsable_traitement}}" formControlName="responsable_traitement" class="form-control"  data-errors="Please Enter Name." id="responsable_traitement" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Finalité principale</label>
+                        <input [(ngModel)]="finaliteprincipale" type="text" value="{{finaliteprincipale}}" formControlName="finaliteprincipale" class="form-control"  data-errors="Please Enter Name." id="finaliteprincipale" >
+                     </div>
+                 </div>
+                 </div>
+                 <div class="row">
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Sous finalité 1</label>
+                        <input [(ngModel)]="sous_finalite1" type="text" value="{{sous_finalite1}}" formControlName="sous_finalite1" class="form-control"  data-errors="Please Enter Name." id="sous_finalite1" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Sous finalité 2</label>
+                        <input [(ngModel)]="sous_finalite2" type="text" value="{{sous_finalite2}}" formControlName="sous_finalite2" class="form-control"  data-errors="Please Enter Name." id="sous_finalite2" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Sous finalité 3</label>
+                        <input [(ngModel)]="sous_finalite3" type="text" value="{{sous_finalite3}}" formControlName="sous_finalite3" class="form-control"  data-errors="Please Enter Name." id="sous_finalite3" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Sous finalité 4</label>
+                        <input [(ngModel)]="sous_finalite4" type="text" value="{{sous_finalite4}}" formControlName="sous_finalite4" class="form-control"  data-errors="Please Enter Name." id="sous_finalite4" >
+                     </div>
+                 </div>
+                 </div>
+                 <div class="row">
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Donnée sensible</label>
+                        <select [(ngModel)]="donneesensible" id="donneesensible" formControlName="donneesensible"  class="custom-select" data-style="py-0">
+                          <option [ngValue]="true">Oui</option>
+                          <option [ngValue]="false">Non</option>
+                      </select>                     
+                    </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Type de donne</label>
+                        <input [(ngModel)]="type_donnee" type="text" value="{{type_donnee}}" formControlName="type_donnee" class="form-control"  data-errors="Please Enter Name." id="type_donnee" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Catégorie</label>
+                        <input [(ngModel)]="categorie" value="{{categorie}}" type="text" formControlName="categorie" class="form-control"  data-errors="Please Enter Name." id="categorie" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input [(ngModel)]="description" value="{{description}}" type="text" formControlName="description" class="form-control" data-errors="Please Enter Name." id="description" >
+                     </div>
+                 </div>
+                 </div>
+                 <div class="row">
+                  <div class="col-md-3">                      
+                  <div class="form-group">
+                      <label>Durée de conservation </label>
+                      <input [(ngModel)]="dureedeconcesrvation" value="{{dureedeconcesrvation}}" type="text" formControlName="dureedeconcesrvation" class="form-control"  data-errors="Please Enter Name." id="dureedeconcesrvation" >
+                   </div>
+               </div>
+               <div class="col-md-3">                      
+                <div class="form-group">
+                    <label>Personnes concernés </label>
+                    <input [(ngModel)]="personneconcernees" value="{{personneconcernees}}" type="text" formControlName="personneconcernees" class="form-control"  data-errors="Please Enter Name." id="personneconcernees" >
+                 </div>
+             </div>
+             <div class="col-md-3">                      
+              <div class="form-group">
+                  <label>Précisions </label>
+                  <input [(ngModel)]="precisions" value="{{precisions}}" type="text" formControlName="precisions" class="form-control"  data-errors="Please Enter Name." id="precisions" >
+               </div>
+           </div>
+           <div class="col-md-3">                      
+            <div class="form-group">
+                <label>Type de destinataire </label>
+                <input [(ngModel)]="typedestinataire" value="{{typedestinataire}}" type="text" formControlName="typedestinataire" class="form-control"  data-errors="Please Enter Name." id="typedestinataire" >
+             </div>
+         </div>
+                 </div>
+                 <div class="row">
+                  <div class="col-md-3">                      
+                    <div class="form-group">
+                        <label>Données concernées </label>
+                        <input [(ngModel)]="donneeconcernees" value="{{donneeconcernees}}" type="text" formControlName="donneeconcernees" class="form-control"  data-errors="Please Enter Name." id="donneeconcernees" >
+                     </div>
+                 </div>
+                 <div class="col-md-3">                      
+                  <div class="form-group">
+                      <label>Type de mesure de sécurité </label>
+                      <input [(ngModel)]="mtypedemesuredesecurite" value="{{mtypedemesuredesecurite}}" type="text" formControlName="mtypedemesuredesecurite" class="form-control"  data-errors="Please Enter Name." id="mtypedemesuredesecurite" >
+                   </div>
+               </div>
+               <div class="col-md-3">                      
+                <div class="form-group">
+                    <label>Destinataire </label>
+                    <input [(ngModel)]="destinataire" value="{{destinataire}}" type="text" formControlName="destinataire" class="form-control"  data-errors="Please Enter Name." id="destinataire" >
+                 </div>
+             </div>
+             <div class="col-md-3">                      
+              <div class="form-group">
+                  <label>Pays </label>
+                  <input [(ngModel)]="pays" value="{{pays}}" type="text" formControlName="pays" class="form-control"  data-errors="Please Enter Name." id="pays" >
+               </div>
+           </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">                      
+                <div class="form-group">
+                    <label>Lien vers la documentation </label>
+                    <input [(ngModel)]="lienversladocumentation" value="{{lienversladocumentation}}" type="text" formControlName="lienversladocumentation" class="form-control"  data-errors="Please Enter Name." id="lienversladocumentation" >
+                 </div>
+    
+                     </div>
+                     <div class="col-md-3">                      
+                      <div class="form-group">
+                          <label>Données concernées </label>
+                          <input [(ngModel)]="lesdonneesconcernee" value="{{lesdonneesconcernee}}" type="text" formControlName="lesdonneesconcernee" class="form-control"  data-errors="Please Enter Name." id="lesdonneesconcernee" >
+                       </div>
+                       </div>
+                       <div class="col-md-3">                      
+                        <div class="form-group">
+                            <label>Précisions </label>
+                            <input [(ngModel)]="precision" value="{{precision}}" type="text" formControlName="precision" class="form-control"  data-errors="Please Enter Name." id="precision" >
+                         </div>
+                     </div>
+                     <div class="col-md-3">                      
+                      <div class="form-group">
+                          <label>Type de garantie </label>
+                          <input [(ngModel)]="typedegarantie" value="{{typedegarantie}}" type="text" formControlName="typedegarantie" class="form-control"  data-errors="Please Enter Name." id="typedegarantie" >
+                       </div>
+          
+                           </div>
+          
+                           </div>
+              
+        </form>
+                              </div>
+                              </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updatetraitement()">Modifier</button> 
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Le registre de traitement a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>
