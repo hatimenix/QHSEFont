@@ -24,15 +24,15 @@ export class AddMenusComponent implements OnInit {
     private bsModalService: BsModalService,
     private siteService : ApiSiteService) {
     this.MenuForm = this.formBuilder.group({
-      site:['', Validators.required],
-      mois_concerne: ['', Validators.required],
-      menus_generaux: ['', Validators.required],
-      menus_dessert: ['', Validators.required],
-      menu_s1: ['', Validators.required],
-      menu_s2: ['', Validators.required],
-      menu_s3: ['', Validators.required],
-      menu_s4: ['', Validators.required],
-      menu_s5: ['', Validators.required],
+      site:[''],
+      mois_concerne: [''],
+      menus_generaux: [''],
+      menus_dessert: [''],
+      menu_s1: [''],
+      menu_s2: [''],
+      menu_s3: [''],
+      menu_s4: [''],
+      menu_s5: [''],
      
     });
   }
