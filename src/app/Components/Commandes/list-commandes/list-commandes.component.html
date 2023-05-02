@@ -7,29 +7,77 @@
                    <div class="header-title">
                       <h4 class="card-title">Commande repas sur roues </h4>
                    </div>
+                   <div class="col-sm-6 col-md-6">
+                     <div class="user-list-files d-flex">
+                        
+                        <a routerLink="/addC" class="bg-danger" href="javascript:void();">
+                           Ajouter une commande
+                        </a>
+                     </div>
+                  </div>
                 </div>
                 <div class="card-body">
                    <div class="table-responsive">
-                      <div class="row justify-content-between">
+                      <div>
                          <div class="col-sm-6 col-md-6">
                             <div id="user_list_datatable_info" class="dataTables_filter">
-                               <form class="mr-3 position-relative">
-                                  <div class="form-group mb-0">
-                                    <input type="search" class="form-control" id="exampleInputSearch" placeholder="Search"
-                                    aria-controls="user-list-table" [(ngModel)]="searchTerm" [ngModelOptions]="{ standalone: true }">
-                                
-                                  </div>
+                               <form class="mr-3 position-relative" [formGroup]="myForm">
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label>Filtrer par Type de commande</label>
+                                      <select id="type_commande" name="type_commande" formControlName="type_commande" class="custom-select" data-style="py-0" (change)="filterCommandeByType()" [(ngModel)]="typeCommandeSelectionne" required>
+                                        <option value="">Tous</option>
+                                        <option value="Client">Client</option>
+                                        <option value="Collaborateur">Collaborateur</option>
+                                        
+                                      </select>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6"> 
+                                    <div class="form-group">
+                                     <label for="specificite_regime">Filtrer par Spécificité Régime</label>
+                                        <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_regime" formControlName="specificite_regime" (change)="filterCommandeByRegime()" [(ngModel)]="typeRegimeSelectionne">
+                                         <option value="">Tous</option>
+                                         <option value="Constipation">Constipation</option>
+                                         <option value="Diarrhée">Diarrhée</option>
+                                         <option value="Sans résiclus">Sans résiclus</option>
+                                         <option value="Sans gluten">Sans gluten</option>
+                                         <option value="Sans lactose">Sans lactose</option>
+                                         <option value="Sans fructose">Sans fructose</option>
+                                         <option value="Sans alcool">Sans alcool</option>
+                                         <option value="Epargne digestive">Epargne digestive</option>
+                                         <option value="IRC">IRC</option>
+                                         <option value="Hyposodé">Hyposodé</option>
+                                         <option value="Enrichi">Enrichi</option>
+                                         <option value="Diabétique">Diabétique</option>
+                                         <option value="Hypocalorique">Hypocalorique</option>
+                                         <option value="Sans aliments à risque">Sans aliments à risque</option>
+                                         <option value="Alimentation plaisir">Alimentation plaisir</option>
+                                         <option value="Aucun">Aucun</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                 <div class="form-group">
+                                  <label for="specificite_texture">Spécificité Texture </label>
+                                     <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture" formControlName="specificite_texture" (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
+                                       <option value="">Tous</option>
+                                       <option value="Viande coupée">Viande coupée</option>
+                                      <option value="Tout coupée">Tout coupée</option>
+                                      <option value="Velours viande">Velours viande</option>
+                                      <option value="Velours complet">Velours complet</option>
+                                      <option value="Viande hachée au hachoir">Viande hachée au hachoir</option>
+                                      <option value="Finger food">Finger food</option>
+                                      <option value="Aucun">Aucun</option>
+                                     </select>
+                                 </div>
+                             </div>
+                           </div>
                                </form>
                             </div>
                          </div>
-                         <div class="col-sm-6 col-md-6">
-                            <div class="user-list-files d-flex">
-                               
-                               <a routerLink="/addC" class="bg-danger" href="javascript:void();">
-                                  Ajouter
-                               </a>
-                            </div>
-                         </div>
+                         
                       </div>
                       
                       <table id="user-list-table" class="table table-striped  mt-4" role="grid"

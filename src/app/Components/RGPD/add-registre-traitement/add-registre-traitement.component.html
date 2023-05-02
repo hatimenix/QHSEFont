@@ -21,7 +21,7 @@
           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
             <div class="card">
                 <div class="card-body" style="margin-right: 2%;">
-                  <form data-toggle="validator">
+                  <form [formGroup]="form" data-toggle="validator">
                     <div class="row">
                     <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto; margin-left: 1.1%;">
                       <div class="form-group">
@@ -38,7 +38,7 @@
                       <div class="col-md-12">                      
                         <div class="form-group">
                             <label>Registre *</label>
-                            <select name="registre" class="selectpicker form-control" data-style="py-0" required>
+                            <select [(ngModel)]="traitementf.typeregistre" formControlName="typeregistre" id="typeregistre" class="selectpicker form-control" data-style="py-0" required>
                                 <option value="">Choisir une option</option>
                                 <option value="registre1">Registre 1</option>
                                 <option value="registre2">Registre 2</option>
@@ -59,58 +59,46 @@
                         <hr>
                         <div class="form-group">
                           <label>Nom du traitement *</label>
-                          <input type="text" class="form-control" placeholder="Enter un nom" required>
+                          <input  [(ngModel)]="traitementf.nomtraitement" formControlName="nomtraitement" type="text" class="form-control" placeholder="Enter un nom" required>
                           <div class="help-block with-errors"></div>
                         </div>
                       </div> 
                       <div class="col-md-12">
                         <div class="form-group">
                           <label>Description générale *</label>
-                          <textarea class="form-control" rows="4" required></textarea>
+                          <textarea [(ngModel)]="traitementf.description_generale" formControlName="description_generale" class="form-control" rows="4" required></textarea>
                           <div class="help-block with-errors"></div>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
                             <label>Société du responsable du traitement </label>
-                            <select name="responsableTraitement" class="selectpicker form-control" data-style="py-0" >
-                                <option value="">Choisir une option</option>
-                                <option value="societe1">Société 1</option>
-                                <option value="societe2">Société 2</option>
-                                <option value="societe3">Société 3</option>
-                                <option value="societe4">Société 4</option>
-                            </select>
+                            <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" >
+                              <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
+                             </select>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
                             <label>Société du DPO </label>
-                            <select name="dpo" class="selectpicker form-control" data-style="py-0" >
-                                <option value="">Choisir une option</option>
-                                <option value="societe1">Société 1</option>
-                                <option value="societe2">Société 2</option>
-                                <option value="societe3">Société 3</option>
-                                <option value="societe4">Société 4</option>
-                            </select>
+                            <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" >
+                              <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
+                             </select>
                         </div>
                       </div> 
                     </div>
                       <div class="col-md-13">
                         <div class="form-group">
                             <label>Société du représentant dans l'UE </label>
-                            <select name="representantUE" class="selectpicker form-control" data-style="py-0" >
-                                <option value="">Choisir une option</option>
-                                <option value="societe1">Société 1</option>
-                                <option value="societe2">Société 2</option>
-                                <option value="societe3">Société 3</option>
-                                <option value="societe4">Société 4</option>
-                            </select>
+                            <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" >
+                              <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
+                             </select>
                         </div>
                       </div>
                         <div class="form-group">
                           <div class="col-md-13">
                           <label>Responsable Traitement *</label>
-                          <input type="text" class="form-control" placeholder="Entrer un responsable" required>
+                          <input  [(ngModel)]="traitementf.responsable_traitement" formControlName="responsable_traitement" type="text" class="form-control" placeholder="Entrer un responsable" required>
                           <div class="help-block with-errors"></div>
                         </div>
                         </div>
@@ -127,7 +115,7 @@
           <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
             <div class="card">
                 <div class="card-body">
-                  <form  data-toggle="validator">
+                  <form [formGroup]="form" data-toggle="validator">
                     <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
                       <div class="form-group">
                         <label>Finalités </label>
@@ -140,120 +128,61 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Finalité principale *</label>
-                          <textarea class="form-control" rows="4" required></textarea>
+                          <textarea [(ngModel)]="traitementf.finaliteprincipale" formControlName="finaliteprincipale" class="form-control" rows="4" required></textarea>
                         <div class="help-block with-errors"></div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Sous finalité 1</label>
-                          <textarea class="form-control" rows="4" ></textarea>
+                          <textarea [(ngModel)]="traitementf.sous_finalite1" formControlName="sous_finalite1" class="form-control" rows="4" ></textarea>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Sous finalité 2</label>
-                          <textarea class="form-control" rows="4" ></textarea>
+                          <textarea [(ngModel)]="traitementf.sous_finalite2" formControlName="sous_finalite2" class="form-control" rows="4" ></textarea>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Sous finalité 3</label>
-                          <textarea class="form-control" rows="4" ></textarea>
+                          <textarea [(ngModel)]="traitementf.sous_finalite3" formControlName="sous_finalite3" class="form-control" rows="4" ></textarea>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Sous finalité 4</label>
-                          <textarea class="form-control" rows="4" ></textarea>
+                          <textarea [(ngModel)]="traitementf.sous_finalite4" formControlName="sous_finalite4" class="form-control" rows="4" ></textarea>
                         </div>
                       </div>
                       <div class="col-md-6">                      
                         <div class="form-group">
                             <label style="margin-top: 1%;">Donnée sensible </label>
                             <br>
-                            <input style="margin-top: 3%; margin-top: 3%;"  type="checkbox" formControlName="Donnée sensible" class="checkbox-lg" placeholder="Donnée sensible" data-errors="Please Enter Name." id="Donnée sensible">
+                            <input style="margin-top: 3%;" [(ngModel)]="traitementf.donneesensible" type="checkbox" formControlName="donneesensible" class="checkbox-lg" placeholder="donneesensible" data-errors="Please Enter Name." id="donneesensible">
                             <br>
                             <label class="text-blue">Le traitement contient des données sensibles</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                          <label>Donnée personnel ou sensible</label><br>
+                          <label>Donnée personnels ou sensibles</label><br>
+                          <div *ngIf="isTypededonneeEmpty(); else traitementList">
+                            Il n'y a aucun élément à représenter dans cet affichage
+                          </div>
+                          <ng-template #traitementList>
+                            <select [(ngModel)]="traitementf.type_donnee" id="type_donnee" name="type_donnee" formControlName="type_donnee" class="form-control" class="custom-select">
+                              <option *ngFor="let traitement of traitements" [value]="traitement.type_donnee" [hidden]="!traitement.type_donnee">{{ traitement.type_donnee }}</option>
+                            </select>
+                          </ng-template>
                           <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#exampleModalCenter"><i class="las la-plus mr-1"></i>
                             nouvelle Entrée
                             </button>
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                   <div class="modal-content">
-                                      <div class="modal-header">
-                                         <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
-                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                         <span aria-hidden="true">&times;</span>
-                                         </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <div class="card">
-                                            <div class="card-body">
-                                              <form  data-toggle="validator">
-                                                <div class="row">
-                                                  <div class="col-md-6">
-                                                    <div class="form-group">
-                                                      <label>Type de donne *</label>
-                                                      <select name="typeDonne" class="selectpicker form-control" data-style="py-0" required>
-                                                        <option value="">Choisissez une option</option>
-                                                        <option value="type1">Type 1</option>
-                                                        <option value="type2">Type 2</option>
-                                                        <option value="type3">Type 3</option>
-                                                        <option value="type4">Type 4</option>
-                                                      </select>
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-md-6">
-                                                    <div class="form-group">
-                                                      <label>Catégorie *</label>
-                                                      <select name="categorie" class="selectpicker form-control" data-style="py-0" required>
-                                                        <option value="">Choisissez une option</option>
-                                                        <option value="cat1">Catégorie 1</option>
-                                                        <option value="cat2">Catégorie 2</option>
-                                                        <option value="cat3">Catégorie 3</option>
-                                                        <option value="cat4">Catégorie 4</option>
-                                                      </select>
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-md-12">
-                                                    <div class="form-group">
-                                                      <label>Description *</label>
-                                                      <textarea class="form-control" name="description" rows="4" required></textarea>
-                                                      <div class="help-block with-errors"></div>
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-md-12">
-                                                    <div class="form-group">
-                                                      <label>Durée de conservation *</label>
-                                                      <input type="text" name="dureeConservation" class="form-control" placeholder="Entrez la durée de conservation" required>
-                                                      <div class="help-block with-errors"></div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </form>
-                                            </div>
-                                          </div>
-                                          
-                                      </div>
-                                      <div class="modal-footer">
-                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
-                                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                                      </div>
-                                   </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    
-
+                 </div>
                 </div>
-                </form>  
+              </div>
+            </form>  
                 <br>
                 <br>
                 <div>
@@ -265,6 +194,7 @@
           <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
             <div class="card">
               <div class="card-body">
+                <form [formGroup]="form" data-toggle="validator">
             <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
               <div class="form-group">
                 <label>Catégories des personnes concernées </label>
@@ -277,54 +207,17 @@
               <div class="form-group">
                 <label>Personnes concernés</label>
                 <br>
-                <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
+                <div *ngIf="isPersonneconcerneesEmpty(); else traitementList1">
+                  Il n'y a aucun élément à représenter dans cet affichage
+                </div>
+                <ng-template #traitementList1>
+                  <select [(ngModel)]="traitementf.personneconcernees" id="personneconcernees" name="personneconcernees" formControlName="personneconcernees" class="form-control" class="custom-select">
+                    <option *ngFor="let traitement of traitements" [value]="traitement.personneconcernees" [hidden]="!traitement.personneconcernees">{{ traitement.personneconcernees}}</option>
+                  </select>
+                </ng-template>               
                 <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#personneC"><i class="las la-plus mr-1"></i>
                   nouvelle personne concerné
                   </button>
-                  <div class="modal fade" id="personneC" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                       <div class="modal-content">
-                          <div class="modal-header">
-                             <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                             </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="card">
-                                <div class="card-body">
-                                  <form data-toggle="validator">
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                          <label>Personnes concernés *</label>
-                                          <select name="typeDonne" class="selectpicker form-control" data-style="py-0" required>
-                                            <option value="">Choisissez une option</option>
-                                            <option value="type1">Personne 1</option>
-                                            <option value="type2">Personne 2</option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                          <label>Précisions *</label>
-                                          <input type="text" name="dureeConservation" class="form-control" required>
-                                          <div class="help-block with-errors"></div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                              
-                          </div>
-                          <div class="modal-footer">
-                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
-                             <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                          </div>
-                       </div>
-                    </div>
-                </div>
                   </div>
                   </div>
                   <hr>
@@ -340,112 +233,41 @@
                     <div class="form-group">
                       <label>Destinataires dans l'UE</label>
                       <br>
-                      <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
+                      <div *ngIf="isTypedesinataireEmpty(); else traitementList2">
+                        Il n'y a aucun élément à représenter dans cet affichage
+                      </div>
+                      <ng-template #traitementList2>
+                        <select [(ngModel)]="traitementf.typedestinataire" id="typedestinataire" name="typedestinataire" formControlName="typedestinataire" class="form-control" class="custom-select">
+                          <option *ngFor="let traitement of traitements" [value]="traitement.typedestinataire" [hidden]="!traitement.typedestinataire">{{ traitement.typedestinataire }}</option>
+                        </select>
+                      </ng-template>                      
                       <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinataireenUE"><i class="las la-plus mr-1"></i>
                         nouveau destinataire
                         </button>
-                        <div class="modal fade" id="DestinataireenUE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                             <div class="modal-content">
-                                <div class="modal-header">
-                                   <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
-                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                   <span aria-hidden="true">&times;</span>
-                                   </button>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="card">
-                                      <div class="card-body">
-                                        <form data-toggle="validator">
-                                            <div class="col-md-12">
-                                              <div class="form-group">
-                                                <label>Type de destinataire *</label>
-                                                <select name="typeDonne" class="selectpicker form-control" data-style="py-0" required>
-                                                  <option value="">Choisissez une option</option>
-                                                  <option value="type1">Destinataire 1</option>
-                                                  <option value="type2">Destinataire 2</option>
-                                                </select>
-                                              </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                              <div class="form-group">
-                                                <label>Précisions *</label>
-                                                <input type="text" name="dureeConservation" class="form-control" required>
-                                                <div class="help-block with-errors"></div>
-                                              </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                              <div class="form-group">
-                                                <label>Données concernées *</label>
-                                                <input type="text" name="dureeConservation" class="form-control" required>
-                                                <div class="help-block with-errors"></div>
-                                              </div>
-                                            </div>
-                                        </form>
-                                      </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
-                                   <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                                </div>
-                             </div>
-                          </div>
-                      </div>
-                        </div>
-                        </div>
                         <hr>
                         <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
                           <div class="form-group">
                             <label>Mesures de sécurité </label>
                             <section class="p mb-2 text-grey rounded">Garantissez l'intégrité de votre patrimoine de données en minimisant les risques de pertes de données ou de piratage.<br>Les mesures à prendre, informatiques et physiques, dépendent de la sensibilité de données que vous traitez et des risques qui pèsent sur les personnes en cas d'incident.<br> Différentes actions doivent être mises en place : mises à jour de vos antivirus et logiciels, changement régulier des mots de passe et utilisation de mots de passe complexes, ou chiffrement de vos données dans certaines situations. En cas de perte ou de vol d'un outil informatique, il sera plus difficile pour un tiers d'y accéder.</section>
                             <div class="help-block with-errors"></div>
-                          </div>
+                            </div>
                         </div>
                         <hr>
                         <div class="col-md-12">
                           <div class="form-group">
                             <label>Mesures de sécurité</label>
                             <br>
-                            <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
-                            <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#Mesure"><i class="las la-plus mr-1"></i>
-                              nouvelle mesure de sécurité
-                              </button>
-                              <div class="modal fade" id="Mesure" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                   <div class="modal-content">
-                                      <div class="modal-header">
-                                         <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
-                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                         <span aria-hidden="true">&times;</span>
-                                         </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <div class="card">
-                                            <div class="card-body">
-                                              <form data-toggle="validator">
-                                                  <div class="col-md-12">
-                                                    <div class="form-group">
-                                                      <label>Type de mesure de sécurité *</label>
-                                                      <input type="text" name="dureeConservation" class="form-control" required>
-                                                      <div class="help-block with-errors"></div>
-                                                    </div>
-                                                  </div>
-                                              </form>
-                                            </div>
-                                          </div>
-                                          
-                                      </div>
-                                      <div class="modal-footer">
-                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
-                                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                                      </div>
-                                   </div>
-                                </div>
+                            <div *ngIf="isAllMtypedemesuredesecuriteEmpty(); else traitementList3">
+                              Il n'y a aucun élément à représenter dans cet affichage
                             </div>
-                              </div>
-                              </div>
+                            <ng-template #traitementList3>
+                              <select [(ngModel)]="traitementf.mtypedemesuredesecurite" id="mtypedemesuredesecurite" name="mtypedemesuredesecurite" formControlName="mtypedemesuredesecurite" class="form-control" class="custom-select">
+                                <option *ngFor="let traitement of traitements" [value]="traitement.mtypedemesuredesecurite" [hidden]="!traitement.mtypedemesuredesecurite">{{ traitement.mtypedemesuredesecurite }}</option>
+                              </select>
+                            </ng-template>
+                            <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#Mesure"><i class="las la-plus mr-1"></i>nouvelle mesure de sécurité</button>
+                          </div>
+                        </div>                        
                               <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
                                 <div class="form-group">
                                   <label>Transferts hors Union Européenne </label>
@@ -458,98 +280,317 @@
                                 <div class="form-group">
                                   <label>Destinataires hors UE</label>
                                   <br>
-                                  <label>Il n'y a aucun élement à représenter dans cet affichage.</label>
+                                  <div *ngIf="isDestinataireEmpty(); else traitementList4">
+                                    Il n'y a aucun élément à représenter dans cet affichage
+                                  </div>
+                                  <ng-template #traitementList4>
+                                    <select [(ngModel)]="traitementf.destinataire" id="destinataire" name="destinataire" formControlName="destinataire" class="form-control" class="custom-select">
+                                      <option *ngFor="let traitement of traitements" [value]="traitement.destinataire" [hidden]="!traitement.destinataire">{{ traitement.destinataire }}</option>
+                                    </select>
+                                  </ng-template>
                                   <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinatairehorsUE"><i class="las la-plus mr-1"></i>
                                     nouveau destinataire
                                     </button>
-                                    <div class="modal fade" id="DestinatairehorsUE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered" role="document">
-                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                               <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
-                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                               <span aria-hidden="true">&times;</span>
-                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="card">
-                                                  <div class="card-body">
-                                                    <form data-toggle="validator">
-                                                        <div class="col-md-12">
-                                                          <div class="form-group">
-                                                            <label>Destinataire *</label>
-                                                            <input type="text" name="destinataire" class="form-control" required>
-
-                                                          </div>
-                                                        </div>
-                                                        <div class="row">
-                                                        <div class="col-md-6">
-                                                          <div class="form-group">
-                                                            <label>Pays *</label>
-                                                            <select name="pays" class="selectpicker form-control" data-style="py-0" required>
-                                                              <option value="">Choisissez une option</option>
-                                                              <option value="type1">Pays 1</option>
-                                                              <option value="type2">Pays 2</option>
-                                                            </select>
-                                                            <div class="help-block with-errors"></div>
-                                                          </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                          <div class="form-group">
-                                                            <label>Type de garantie *</label>
-                                                            <select name="pays" class="selectpicker form-control" data-style="py-0" required>
-                                                              <option value="">Choisissez une option</option>
-                                                              <option value="type1">Type 1</option>
-                                                              <option value="type2">Type 2</option>
-                                                            </select>
-                                                            <div class="help-block with-errors"></div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                        <div class="col-md-12">
-                                                          <div class="form-group">
-                                                            <label>Lien vers la documentation *</label>
-                                                            <input type="text" name="dureeConservation" placeholder="https://" class="form-control" required>
-                                                            <div class="help-block with-errors"></div>
-                                                          </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                          <div class="form-group">
-                                                            <label>Données concernées *</label>
-                                                            <input type="text" name="dureeConservation" class="form-control" required>
-                                                            <div class="help-block with-errors"></div>
-                                                          </div>
-                                                        </div>
-                                                    </form>
-                                                  </div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="modal-footer">
-                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
-                                               <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                                            </div>
-                                         </div>
-                                      </div>
-                                  </div>
                                     <br>
                                     <label class="text-blue">Si applicable</label>
                                     </div>
                                     </div>
-                              
-
-                            
-                          
+                                                  
     
                          </div>
                       </div>
+                      </form>
+                   </div>
+                   </div>
                    </div>
                    <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
-                    <button type="submit" class="btn btn-outline-primary mt-2">Enregistrer</button>
-                    <button type="cancel" class="btn btn-outline-secondary mt-2">Annuler</button>
-                    </div>
+                    <button type="submit" [disabled]="form.invalid" (click)="createTraitement()" class="btn btn-outline-primary mt-2">Enregistrer</button>
+                    <button type="cancel" type="reset" (click)="onCancel()" class="btn btn-outline-secondary mt-2">Annuler</button>
                 </div>
              </div>
         
         </div>
        </div>
+       <!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Le traitement a été ajoutée avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>
+
+<!--modal donnée sensible-->
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+              <div class="card-body">
+                <form [formGroup]="form" data-toggle="validator">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Type de donne *</label>
+                        <select [(ngModel)]="traitementf.type_donnee" formControlName="type_donnee" name="typeDonne" class="selectpicker form-control" data-style="py-0" >
+                          <option value="">Choisissez une option</option>
+                          <option value="type1">Type 1</option>
+                          <option value="type2">Type 2</option>
+                          <option value="type3">Type 3</option>
+                          <option value="type4">Type 4</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Catégorie *</label>
+                        <select [(ngModel)]="traitementf.categorie" formControlName="categorie" name="categorie" class="selectpicker form-control" data-style="py-0" >
+                          <option value="">Choisissez une option</option>
+                          <option value="cat1">Catégorie 1</option>
+                          <option value="cat2">Catégorie 2</option>
+                          <option value="cat3">Catégorie 3</option>
+                          <option value="cat4">Catégorie 4</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Description *</label>
+                        <textarea [(ngModel)]="traitementf.description" formControlName="description" class="form-control" name="description" rows="4" ></textarea>
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Durée de conservation *</label>
+                        <input [(ngModel)]="traitementf.dureedeconcesrvation" formControlName="dureedeconcesrvation" type="text" name="dureeConservation" class="form-control" placeholder="Entrez la durée de conservation" >
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+     </div>
+  </div>
+</div>
+<!--Modal personne concerné-->
+<div class="modal fade" id="personneC" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+              <div class="card-body">
+                <form [formGroup]="form" data-toggle="validator">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Personnes concernés *</label>
+                        <select [(ngModel)]="traitementf.personneconcernees" formControlName="personneconcernees" name="personneconcernees" class="selectpicker form-control" data-style="py-0" >
+                          <option value="">Choisissez une option</option>
+                          <option value="type1">Personne 1</option>
+                          <option value="type2">Personne 2</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Précisions *</label>
+                        <input [(ngModel)]="traitementf.precisions" formControlName="precisions" type="text" name="precisions" class="form-control" >
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+     </div>
+  </div>
+</div>
+<!--Destinataire en UE-->
+<div class="modal fade" id="DestinataireenUE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalCenterTitle">Destinataire en UE</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+              <div class="card-body">
+                <form [formGroup]="form" data-toggle="validator">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Type de destinataire *</label>
+                        <select [(ngModel)]="traitementf.typedestinataire" formControlName="typedestinataire" name="typeDonne" class="selectpicker form-control" data-style="py-0" >
+                          <option value="">Choisissez une option</option>
+                          <option value="type1">Destinataire 1</option>
+                          <option value="type2">Destinataire 2</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Précisions *</label>
+                        <input [(ngModel)]="traitementf.precision" formControlName="precision" type="text" name="dureeConservation" class="form-control" >
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Données concernées *</label>
+                        <input [(ngModel)]="traitementf.donneeconcernees" formControlName="donneeconcernees" type="text" name="dureeConservation" class="form-control" >
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+     </div>
+  </div>
+</div>
+<!--Mesure sécurité-->
+<div class="modal fade" id="Mesure" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalCenterTitle">Mesure sécurité</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+              <div class="card-body">
+                <form [formGroup]="form" data-toggle="validator">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Type de mesure de sécurité *</label>
+                        <input [(ngModel)]="traitementf.mtypedemesuredesecurite" formControlName="mtypedemesuredesecurite" id="mtypedemesuredesecurite" type="text" name="dureeConservation" class="form-control" >
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+     </div>
+  </div>
+</div>
+<!--Destinataire hors UE-->
+<div class="modal fade" id="DestinatairehorsUE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalCenterTitle">Destinataire hors UE</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+              <div class="card-body">
+                <form [formGroup]="form" data-toggle="validator">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Destinataire *</label>
+                        <input [(ngModel)]="traitementf.destinataire" formControlName="destinataire" id="mtypedemesuredesecurite" type="text" name="destinataire" class="form-control" >
+
+                      </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Pays *</label>
+                        <select [(ngModel)]="traitementf.pays" formControlName="pays" id="pays" name="pays" class="selectpicker form-control" data-style="py-0" >
+                          <option value="">Choisissez une option</option>
+                          <option value="type1">Pays 1</option>
+                          <option value="type2">Pays 2</option>
+                        </select>
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Type de garantie *</label>
+                        <select [(ngModel)]="traitementf.typedegarantie" formControlName="typedegarantie" id="typedegarantie" name="pays" class="selectpicker form-control" data-style="py-0" >
+                          <option value="">Choisissez une option</option>
+                          <option value="type1">Type 1</option>
+                          <option value="type2">Type 2</option>
+                        </select>
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Lien vers la documentation *</label>
+                        <input [(ngModel)]="traitementf.lienversladocumentation" formControlName="lienversladocumentation" id="lienversladocumentation" type="text" name="dureeConservation" placeholder="https://" class="form-control" >
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Données concernées *</label>
+                        <input [(ngModel)]="traitementf.lesdonneesconcernee" formControlName="lesdonneesconcernee" id="lesdonneesconcernee" type="text" name="dureeConservation" class="form-control" >
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+     </div>
+  </div>
+</div>
+</div>

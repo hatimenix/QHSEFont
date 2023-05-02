@@ -20,19 +20,13 @@ export class ProcessusService {
   getProcessus(): Observable<Processus[]> {
     return this.http.get<Processus[]>(this.API_Processus);
   }
-
-  
   getProcessusById(id: number): Observable<Processus> {
     return this.http.get<Processus>(`${this.API_Processus}${id}`);
   }
-
-  
   addProcessus(processus: Processus): Observable<Processus> {
     return this.http.post<Processus>(this.API_Processus, processus);
   }
-  
 
-  
   updateProcessus(id: number, processus: Processus): Observable<Processus> {
     const url = `${this.API_Processus}${id}/`;
     return this.http.put<Processus>(url, processus);

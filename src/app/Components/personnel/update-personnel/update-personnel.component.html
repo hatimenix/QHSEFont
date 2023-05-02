@@ -3,27 +3,29 @@
    <div class="container-fluid">
       <div class="row">
          <div class="col-xl-3 col-lg-4">
-               <div class="card">
-                  <div class="card-header d-flex justify-content-between">
-                     <div class="header-title">
-                        <h4 class="card-title">Modifier  personnel</h4>
-                     </div>
-                  </div>
-                  <div class="card-body">
-                     <form>
-                        <div class="form-group">
-                           <div class="crm-profile-img-edit position-relative">
-                              <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic">
-                              <div class="crm-p-image bg-primary">
-                                 <i class="las la-pen upload-button"></i>
-                                 <input class="file-upload" type="file" accept="image/*">
-                              </div>
-                           </div>
-                        </div>
-                     </form>
+            <div class="card">
+               <div class="card-header d-flex justify-content-between">
+                  <div class="header-title">
+                     <h4 class="card-title">Choisir l'image</h4>
                   </div>
                </div>
-         </div>
+               <div class="card-body">
+                  <form>
+                     <div class="form-group">
+                        <div class="crm-profile-img-edit position-relative">
+                          <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
+                          <div class="crm-p-image bg-primary">
+                            <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
+                            <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
+                            (change)="onFileSelected($event) " formControlName="image">
+                          </div>
+                        </div>
+                      </div>
+                      
+                  </form>
+               </div>
+            </div>
+      </div>
 <div class="col-xl-9 col-lg-8">
    <div class="card">
       <div class="card-header d-flex justify-content-between">
@@ -36,10 +38,7 @@
             <form [formGroup]="PersonnelForm" (ngSubmit)="onSubmit()">
                <div class="row">
  <input type="hidden" formControlName="id">
- <div class="form-group col-md-6">
-   <label for="image">Image</label>
-   <input type="file" id="image" class="form-control" (change)="onFileSelected($event)">
- </div>
+
  <div class="form-group col-md-6">
    <label for="compte">Compte</label>
    <input type="text" id="compte" class="form-control" formControlName="compte" required>

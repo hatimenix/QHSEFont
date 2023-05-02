@@ -37,21 +37,21 @@ export class AddFournisseursComponent {
   submitted = false;
   form = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    numerodesiret: new FormControl(''),
+    numerodesiret: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     type_de_prestation: new FormControl(''),
-    numero_de_recepisse_de_declaration_prefectorale: new FormControl(''),
+    numero_de_recepisse_de_declaration_prefectorale: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     pageweb: new FormControl(''),
-    telephone: new FormControl(''),
-    numerodetelecopie: new FormControl(''),
+    telephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$')]),
+    numerodetelecopie: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     adresse: new FormControl(''),
-    codepostal: new FormControl(''),
+    codepostal: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     ville: new FormControl(''),
     pays: new FormControl(''),
     nometprenom: new FormControl(''),
-    adressedecourier: new FormControl(''),
+    adressedecourier: new FormControl('', [Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]),
     fonction: new FormControl(''),
-    numerodetelephone: new FormControl(''),
-    telephonepersonnel: new FormControl(''),
+    numerodetelephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$')]),
+    telephonepersonnel: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$')]),
 
   });
   ngOnInit(): void {
