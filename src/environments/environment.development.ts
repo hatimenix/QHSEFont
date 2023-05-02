@@ -29,7 +29,8 @@ export const environment = {
     API_Secteurs :"http://127.0.0.1:8001/secteurs/",
     API_Docs:"http://127.0.0.1:8001/documentation/",
     API_equipement:"http://127.0.0.1:8001/equipement/",
-    API_fournisseur:"http://127.0.0.1:8001/fournisseurs/"
+    API_fournisseur:"http://127.0.0.1:8001/fournisseurs/",
+    API_menus:"http://127.0.0.1:8001/menus/"
 
     };
 
