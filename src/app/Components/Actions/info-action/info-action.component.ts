@@ -131,19 +131,19 @@ export class InfoActionComponent {
     this.sites$ = this.apiSiteService.getAllSite();
     this.processus$ = this.apiProcessusService.getAllProcessus();
 
-    this.sites$.subscribe((sites) => {
+    /*this.sites$.subscribe((sites) => {
       const site = sites.find((s:any) => s.id === this.action.site);
       if (site) {
         this.siteName = site.site_nom;
       }
-    });
+    });*/
 
-    this.processus$.subscribe((Processus) => {
+    /*this.processus$.subscribe((Processus) => {
       const proces = Processus.find((p:any) => p.id === this.action.processus);
       if(proces) {
         this.procesName = proces.intitule;
       } 
-    });
+    });*/
 
     this.getRealisationAndTachesByAction(this.actionId);
     this.getMesureByAction(this.actionId);

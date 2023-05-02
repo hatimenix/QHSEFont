@@ -46,6 +46,7 @@ import { DetailsDocsComponent } from './Components/Documentation/details-docs/de
 import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
+import { EvenementListComponent } from './Components/Evenement/evenement-list/evenement-list.component';
 
 
 
@@ -58,9 +59,8 @@ const routes: Routes = [
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   {path : 'infoDanger/:id', component: InfoDangerComponent},
   {path : 'infoAction/:id', component: InfoActionComponent},
-  {path : 'evenement/:id', component: InfoEvenementComponent},
-
-  {path : 'evenement', component: InfoEvenementComponent},
+  {path : 'info_evenement/:id', component: InfoEvenementComponent},
+  {path : 'evenement-list', component: EvenementListComponent},
   {path: 'list-registre-traitement', component: ListRegistreTraitementComponent},
   {path : 'nc-list', component: ListNcComponent},
   {path : 'nc-add', component: AddNcComponent},
