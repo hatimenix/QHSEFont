@@ -51,6 +51,9 @@ import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-t
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 import { DetailspersonnelComponent } from './Components/personnel/detailspersonnel/detailspersonnel/detailspersonnel.component';
+import { AddMenusComponent } from './Components/Menus/addMenus/add-menus/add-menus.component';
+import { ListMenusComponent } from './Components/Menus/listMenus/list-menus/list-menus.component';
+import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menus/update-menus.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +100,10 @@ import { DetailspersonnelComponent } from './Components/personnel/detailspersonn
     UpdateDocumentationComponent,
     DetailsDocsComponent,
     DetailspersonnelComponent,
+    AddMenusComponent,
+    ListMenusComponent,
+    UpdateMenusComponent,
+    AddRegistreTraitementComponent,
 
   ],
   imports: [
