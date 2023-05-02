@@ -38,11 +38,11 @@
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Site</td>
-                                                <td style="width:50%">{{ this.siteName }}</td>
+                                                <td style="width:50%">{{ evenement.Site_name }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Service</td>
-                                                <td style="width:50%">{{ this.serviceName }}</td>
+                                                <td style="width:50%">{{ evenement.service_name }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Type de contrat</td>
@@ -186,7 +186,7 @@
                                           <p *ngIf="(actions$ | async)?.length === 0">non</p>
                                        </td>
                                     </tr>
-                                     <tr>
+                                    <tr>
                                        <td style="width:20%">Action(s) associée(s)</td>
                                        <td style="width:80%">
                                           <table class="table table-bordered table-striped text-center">
@@ -218,27 +218,27 @@
                                                  <td>{{ actions.domaine }}</td>
                                                  <td>{{ actions.origine_action }}</td>
                                                  <td>{{ actions.Site_name }}</td>
-                                                 <td>Non commencer </td>
+                                                 <td>{{ actions.etat }}</td>
                                                  <td>{{ actions.assigne_a }}</td>
                                                  <td>{{ actions.delai_mise_en_oeuvre }}</td>
-                                                 <td>2023</td>
+                                                 <td>{{ actions.annee }}</td>
                                                  <td>{{ actions.priorite }}</td>
                                                  <td>{{ actions.reference }}</td>
                                                </tr>
                                              </tbody>
-                                           </table>
+                                          </table>
                                        </td>
-                                     </tr>
-                                   </tbody>
-                                 </table>
-                               </div>                               
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-       </div>
-    </div>
-    </div>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>                               
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
     

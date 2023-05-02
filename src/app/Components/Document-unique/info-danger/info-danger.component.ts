@@ -27,6 +27,7 @@ export class InfoDangerComponent {
 
   dangerForm!: FormGroup;
   actionForm!: FormGroup;
+  evenementForm!: FormGroup;
   evaluationForm!: FormGroup;
   danger!: Dangers;
   sites$ !: Observable<any>;
@@ -58,6 +59,27 @@ export class InfoDangerComponent {
   ) { }
 
   ngOnInit(): void {
+
+    this.evenementForm = this.formBuilder.group({
+      type_contract: ['', Validators.required],
+      nom_personne: ['', Validators.required],
+      type_evenement: ['', Validators.required],
+      intitule: ['', Validators.required],
+      resume: ['', Validators.required],
+      temoins: ['', Validators.required],
+      premiere_pers_info: ['', Validators.required],
+      action_immediate: ['', Validators.required],
+      date_accident: ['', Validators.required],
+      periode_travail: ['', Validators.required],
+      lieu_accident: ['', Validators.required],
+      tache_effectue: ['', Validators.required],
+      utiliser_chien: ['', Validators.required],
+      siege_de_lesions_1: [''],
+      siege_de_lesions_2: [''],
+      nature_lesions: ['', Validators.required],
+      site: ['', Validators.required],
+      service: ['', Validators.required]
+    });
 
     this.dangerForm = this.formBuilder.group({
       poste_de_travail: ['', Validators.required],
@@ -297,4 +319,39 @@ export class InfoDangerComponent {
       this.getActionsByDangerId(this.dangerId);
     })
   }
+
+  AddEvenementFormData(): void {
+    if (this.evenementForm.valid) {
+      const formData = new FormData();
+      formData.append('type_contract', this.evenementForm.get('type_contract')!.value);
+      formData.append('nom_personne', this.evenementForm.get('nom_personne')!.value);
+      formData.append('type_evenement', this.evenementForm.get('type_evenement')!.value);
+      formData.append('intitule', this.evenementForm.get('intitule')!.value);
+      formData.append('resume', this.evenementForm.get('resume')!.value);
+      formData.append('temoins', this.evenementForm.get('temoins')!.value);
+      formData.append('premiere_pers_info', this.evenementForm.get('premiere_pers_info')!.value);
+      formData.append('action_immediate', this.evenementForm.get('action_immediate')!.value);
+      formData.append('date_accident', this.evenementForm.get('date_accident')!.value);
+      formData.append('periode_travail', this.evenementForm.get('periode_travail')!.value);
+      formData.append('lieu_accident', this.evenementForm.get('lieu_accident')!.value);
+      formData.append('tache_effectue', this.evenementForm.get('tache_effectue')!.value);
+      formData.append('utiliser_chien', this.evenementForm.get('utiliser_chien')!.value);
+      formData.append('siege_de_lesions_1', this.evenementForm.get('siege_de_lesions_1')!.value);
+      formData.append('siege_de_lesions_2', this.evenementForm.get('siege_de_lesions_2')!.value);
+      formData.append('nature_lesions', this.evenementForm.get('nature_lesions')!.value);
+      formData.append('site', this.evenementForm.get('site')!.value);
+      formData.append('service', this.evenementForm.get('service')!.value);
+      formData.append('dangers', String(this.dangerId));
+
+      this.apiEvenementService.addevenementFormData(formData).subscribe(
+        () => {
+          console.log('Levenement a été ajouté avec succès.');
+          this.getEvenementsByDangerId(this.dangerId);
+          this.evenementForm.reset();
+        },
+        error => console.log(error)
+      );
+    }
+  }
+  
 }
