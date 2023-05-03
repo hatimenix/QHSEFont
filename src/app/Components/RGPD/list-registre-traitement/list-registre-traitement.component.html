@@ -12,12 +12,16 @@
            <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
         </div>
+        <button class="btn " (click)="filterByTypeRegistre()"> Traitements par registre</button>
+          <button class="btn " (click)="filterByRespRegistre()">Registre par responsable de traitement</button>
                 <div class="col-lg-12">
                     <div class="table-responsive rounded mb-3">
                     <table class="data-table table mb-0 tbl-server-info">
                         <thead class="bg-white text-uppercase">
                             <tr class="ligth ligth-data">
-                                <th>Registre </th>
+                              <th scope="col" *ngIf="showTypeRegistre">Registre</th>
+                                <th scope="col" *ngIf="showRespRegistre">Responsable du traitement</th>
+                                <th>Ref traitement</th>
                                 <th>Nom du traitement</th>
                                 <th>Date de creation</th>
                                 <th>date de mise a jour</th>
@@ -28,9 +32,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let traitement of TraitementList | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
-                                <td>{{traitement.typeregistre}}</td>
-                                <td>{{traitement.nomtraitement}}</td>
+                            <tr *ngFor="let traitement of filteredTraitements | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+                              <td *ngIf="showTypeRegistre"><a routerLink="/traitement/{{ traitement.id }}">{{traitement.typeregistre}}</a></td>
+                              <td *ngIf="showRespRegistre">{{traitement.responsable_traitement}}</td>
+                              <td>{{traitement.id}}</td>
+                              <td>{{traitement.nomtraitement}}</td>
                                 <td>{{ traitement.datedecreation | date:'yyyy-MM-dd' }}</td>
                                 <td>{{traitement.datedemiseajour | date:'yyyy-MM-dd'}}</td>
                                 <td>{{traitement.donneesensible ? 'Oui' : 'Non'}}</td>
@@ -38,7 +44,7 @@
                                 <td>{{traitement.precision}}</td>
                                 <td>
                                   <div class="d-flex align-items-center list-action">
-                                          <a class="badge bg-success mr-2" (click)="getTraitementData(traitement.id , traitement.fournisseur, traitement.typeregistre, traitement.nomtraitement,traitement.description_generale,traitement.datedecreation,traitement.datedemiseajour,traitement.responsable_traitement,traitement.finaliteprincipale,traitement.sous_finalite1,traitement.sous_finalite2,traitement.sous_finalite3,traitement.sous_finalite4,traitement.donneesensible,traitement.type_donnee,traitement.categorie,traitement.description,traitement.dureedeconcesrvation,traitement.personneconcernees,traitement.precisions,traitement.typedestinataire,traitement.precision,traitement.donneeconcernees,traitement.mtypedemesuredesecurite,traitement.destinataire,traitement.pays,traitement.typedegarantie,traitement.lienversladocumentation,traitement.lesdonneesconcernee)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit"
+                                          <a class="badge bg-success mr-2" (click)="getTraitementData(traitement.id , traitement.fournisseur, traitement.typeregistre, traitement.nomtraitement,traitement.description_generale,traitement.datedecreation,traitement.datedemiseajour,traitement.responsable_traitement,traitement.finaliteprincipale,traitement.sous_finalite1,traitement.sous_finalite2,traitement.sous_finalite3,traitement.sous_finalite4,traitement.donneesensible,traitement.type_donnee,traitement.categorie,traitement.description,traitement.dureedeconcesrvation,traitement.personneconcernees,traitement.precisions,traitement.typedestinataire,traitement.precision,traitement.donneeconcernees,traitement.mtypedemesuredesecurite,traitement.destinataire,traitement.pays,traitement.typedegarantie,traitement.lienversladocumentation,traitement.lesdonneesconcernee,traitement.fournisseur_dpo,traitement.fournisseur_representant)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit"
                                           ><i class="ri-pencil-line mr-0"></i></a>
                                       <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(traitement.id)"  data-placement="top" title="" data-original-title="Delete"
                                           ><i class="ri-delete-bin-line mr-0"></i></a>
@@ -108,7 +114,7 @@ aria-hidden="true">
                  </div>
                  <div class="col-md-3">                      
                     <div class="form-group">
-                        <label>Société du responsable du traitement </label>
+                        <label title="Société du responsable du traitement">SDRT </label>
                         <select [(ngModel)]="fournisseur" id="fournisseur" name="fournisseur" style="width: 100%;" formControlName="fournisseur" class="form-control" class="custom-select" >
                           <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                         </select>
@@ -119,15 +125,15 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Société du DPO </label>
-                        <select [(ngModel)]="fournisseur" id="fournisseur" name="fournisseur" style="width: 100%;" formControlName="fournisseur" class="form-control" class="custom-select" >
+                        <select [(ngModel)]="fournisseur_dpo" id="fournisseur_dpo" name="fournisseur_dpo" style="width: 100%;" formControlName="fournisseur_dpo" class="form-control" class="custom-select" >
                           <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                         </select>                     
                       </div>
                      </div>
                  <div class="col-md-3">                      
                     <div class="form-group">
-                        <label>Société du représentant dans l'UE</label>
-                        <select [(ngModel)]="fournisseur" id="fournisseur" name="fournisseur" style="width: 100%;" formControlName="fournisseur" class="form-control" class="custom-select" >
+                        <label title="Société du représentant dans l'UE">SRDU</label>
+                        <select [(ngModel)]="fournisseur_representant" id="fournisseur_representant" name="fournisseur_representant" style="width: 100%;" formControlName="fournisseur_representant" class="form-control" class="custom-select" >
                           <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                         </select>                    
                        </div>
@@ -190,8 +196,25 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Catégorie</label>
-                        <input [(ngModel)]="categorie" value="{{categorie}}" type="text" formControlName="categorie" class="form-control"  data-errors="Please Enter Name." id="categorie" >
-                     </div>
+                        <select [(ngModel)]="categorie" value="{{categorie}}" id="categorie"
+                        formControlName="categorie" class="form-control" class="custom-select">
+                        <option >DP:Etat civil,identité,donnée d'identification,images...</option>
+                          <option >DP:Vie perso(habitudes de vie,situation familiale,etc,)</option>
+                          <option >DP:Info d'ordre éco et financier (revenus,financière,sit,fiscale,etc,)</option>
+                          <option >DP:Données de connexion (adresse IP,logs,etc,)</option>
+                          <option >DP:Données de localisation (déplacements,Géoloc,GSM,etc,)</option>
+                          <option >DP:Numéro de Sécurité Sociale(ou NIR)</option>
+                          <option >DS:Données révelant l'origine raciale ou ethnique</option>
+                          <option >DS:Données révélant les opinions politiques</option>
+                          <option >DS:Données révélant les convictions religieuses ou philisophiques</option>
+                          <option >DS: Données révélant l'appartenance syndicale</option>
+                          <option >DS: Données génétiques</option>
+                          <option >DS: Données biométriques aux fins d'identifier une per.physique de manière unique</option>
+                          <option >DS: Données concernant la santé</option>
+                          <option >DS: Données concernant la vie ou l'orientation sexuelle</option>
+                          <option >DS: Données relatives à des condamnations pénales ou infractions</option>
+                      </select>                     
+                    </div>
                  </div>
                  <div class="col-md-3">                      
                     <div class="form-group">
@@ -210,8 +233,19 @@ aria-hidden="true">
                <div class="col-md-3">                      
                 <div class="form-group">
                     <label>Personnes concernés </label>
-                    <input [(ngModel)]="personneconcernees" value="{{personneconcernees}}" type="text" formControlName="personneconcernees" class="form-control"  data-errors="Please Enter Name." id="personneconcernees" >
-                 </div>
+                    <select [(ngModel)]="personneconcernees" value="{{personneconcernees}}" id="personneconcernees"
+                    formControlName="personneconcernees" class="form-control" class="custom-select">
+                    <option >DP:Etat civil,identité,donnée d'identification,images...</option>
+                    <option >salariés</option>
+                    <option >Services internes</option>
+                    <option >Clients</option>
+                    <option >Fournisseurs</option>
+                    <option >Prestataires</option>
+                    <option >Prospects</option>
+                    <option >Candidats</option>
+                    <option >Partenaires</option>
+                  </select>                 
+                </div>
              </div>
              <div class="col-md-3">                      
               <div class="form-group">
@@ -222,8 +256,14 @@ aria-hidden="true">
            <div class="col-md-3">                      
             <div class="form-group">
                 <label>Type de destinataire </label>
-                <input [(ngModel)]="typedestinataire" value="{{typedestinataire}}" type="text" formControlName="typedestinataire" class="form-control"  data-errors="Please Enter Name." id="typedestinataire" >
-             </div>
+                <select [(ngModel)]="typedestinataire" value="{{typedestinataire}}" id="typedestinataire"
+                formControlName="typedestinataire" class="form-control" class="custom-select">
+                <option >Service interne qui traite les données</option>
+                          <option >Sous traitant</option>
+                          <option >Destinataire dans des pays tiers ou organisations internationales</option>
+                          <option >Partenaires institutionnels ou commerciaux</option>
+              </select>             
+            </div>
          </div>
                  </div>
                  <div class="row">
@@ -236,8 +276,17 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                   <div class="form-group">
                       <label>Type de mesure de sécurité </label>
-                      <input [(ngModel)]="mtypedemesuredesecurite" value="{{mtypedemesuredesecurite}}" type="text" formControlName="mtypedemesuredesecurite" class="form-control"  data-errors="Please Enter Name." id="mtypedemesuredesecurite" >
-                   </div>
+                      <select [(ngModel)]="mtypedemesuredesecurite" value="{{mtypedemesuredesecurite}}" id="mtypedemesuredesecurite"
+                      formControlName="mtypedemesuredesecurite" class="form-control" class="custom-select">
+                      <option >Mesures de tracibilité</option>
+                          <option >Mesures de protection des logiciels</option>
+                          <option >Sauvegarde de données</option>
+                          <option >Chiffrement de données</option>
+                          <option >Contrôle d'accés des utilisateurs</option>
+                          <option >Contrôle des sous-traitants</option>
+                          <option >Autres mesures (à préciser)</option>
+                    </select>                     
+                  </div>
                </div>
                <div class="col-md-3">                      
                 <div class="form-group">
@@ -248,8 +297,23 @@ aria-hidden="true">
              <div class="col-md-3">                      
               <div class="form-group">
                   <label>Pays </label>
-                  <input [(ngModel)]="pays" value="{{pays}}" type="text" formControlName="pays" class="form-control"  data-errors="Please Enter Name." id="pays" >
-               </div>
+                  <select [(ngModel)]="pays" value="{{pays}}" id="pays"
+                  formControlName="pays" class="form-control" class="custom-select">
+                  <option >Andorre</option>
+                          <option >Argentine</option>
+                          <option >Canada</option>
+                          <option >Etats-Unis</option>
+                          <option >Guernessey</option>
+                          <option >Ile de Man</option>
+                          <option >Iles FEROE</option>
+                          <option >Israël</option>
+                          <option >Jersey</option>
+                          <option >Nouvelle-Zélande</option>
+                          <option >Suisse</option>
+                          <option >Uruguay</option>
+                          <option >Autre pays sans accord RGPD</option>
+                </select>                 
+              </div>
            </div>
             </div>
             <div class="row">
@@ -275,8 +339,17 @@ aria-hidden="true">
                      <div class="col-md-3">                      
                       <div class="form-group">
                           <label>Type de garantie </label>
-                          <input [(ngModel)]="typedegarantie" value="{{typedegarantie}}" type="text" formControlName="typedegarantie" class="form-control"  data-errors="Please Enter Name." id="typedegarantie" >
-                       </div>
+                          <select [(ngModel)]="typedegarantie" value="{{typedegarantie}}" id="typedegarantie"
+                          formControlName="typedegarantie" class="form-control" class="custom-select">
+                          <option >Clauses contractuelles types (CCT)</option>
+                          <option >Régles d'entreprise contraignates(BCR)</option>
+                          <option >Pays adéquat</option>
+                          <option >Privacy shield</option>
+                          <option >Code de conduite</option>
+                          <option >Certification</option>
+                          <option >Dérogations (art 49)</option>
+                        </select>                        
+                      </div>
           
                            </div>
           
