@@ -46,8 +46,12 @@ import { DetailsDocsComponent } from './Components/Documentation/details-docs/de
 import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-traitement/add-registre-traitement.component';
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
+import { EvenementListComponent } from './Components/Evenement/evenement-list/evenement-list.component';
 import { DetailspersonnelComponent } from './Components/personnel/detailspersonnel/detailspersonnel/detailspersonnel.component';
 import { InfoRGPDComponent } from './Components/RGPD/info-rgpd/info-rgpd.component';
+import { AddMenusComponent } from './Components/Menus/addMenus/add-menus/add-menus.component';
+import { ListMenusComponent } from './Components/Menus/listMenus/list-menus/list-menus.component';
+import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menus/update-menus.component';
 
 
 
@@ -60,9 +64,8 @@ const routes: Routes = [
   {path : 'updateDanger/:id', component: UpdateDangerComponent},
   {path : 'infoDanger/:id', component: InfoDangerComponent},
   {path : 'infoAction/:id', component: InfoActionComponent},
-  {path : 'evenement/:id', component: InfoEvenementComponent},
-
-  {path : 'evenement', component: InfoEvenementComponent},
+  {path : 'info_evenement/:id', component: InfoEvenementComponent},
+  {path : 'evenement-list', component: EvenementListComponent},
   {path: 'list-registre-traitement', component: ListRegistreTraitementComponent},
   {path : 'nc-list', component: ListNcComponent},
   {path : 'nc-add', component: AddNcComponent},
@@ -100,8 +103,12 @@ const routes: Routes = [
   { path: 'traitement/:id', component: InfoRGPDComponent },
 
 
-
+//Menus paths
   {path : 'detailpersonn/:id', component: DetailspersonnelComponent},
+  {path: 'addMenu', component: AddMenusComponent}, 
+  {path: 'listMenu', component: ListMenusComponent}, 
+  {path: 'updateMenu/:id', component: UpdateMenusComponent}, 
+
 
 
   

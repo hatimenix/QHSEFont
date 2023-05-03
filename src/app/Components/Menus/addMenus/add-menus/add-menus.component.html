@@ -1,0 +1,117 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between">
+              <div class="header-title">
+                <h4 class="card-title">Ajouter un Menu</h4>
+              </div>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="MenuForm" data-toggle="validator" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-6"> 
+                        <div class="form-group">
+                         <label>Site <label style="color: red;">*</label></label>
+                         <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                             <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                            </select>
+                     </div> 
+                     </div> 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="mois_concerne">Mois concerné <label style="color: red;">*</label></label>
+                      <select name="type" class="selectpicker form-control" id="mois_concerne" data-style="py-0" formControlName="mois_concerne">
+                        <option>Janvier</option>
+                        <option>Février</option>
+                        <option>Mars</option>
+                        <option>Avril</option>
+                        <option>Mai</option>
+                        <option>Juin</option>
+                        <option>Juiellet </option>
+                        <option>Aout</option>
+                        <option>Septembre</option>
+                        <option>Octobre</option>
+                        <option>Novembre</option>
+                        <option>Décembre</option>
+                      </select>
+                    </div> 
+                  </div> 
+                 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menus_generaux">Menus Généraux </label>
+                        <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'menus_generaux') " formControlName="menus_generaux">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>    
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menus_dessert">Menus Dessert</label>
+                        <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'menus_dessert') " formControlName="menus_dessert">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menu_s1">Menus S1 </label>
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s1')"formControlName="menu_s1">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menu_s2">Menus S2 </label>
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s2')"formControlName="menu_s2">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menu_s3">Menus S3</label>
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s3')"formControlName="menu_s3">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menu_s4">Menus S4 </label>
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s4')"formControlName="menu_s4">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="menu_s5">Menus S5 </label>
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s5')"formControlName="menu_s5">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>                      
+                </div>                            
+                <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
+                <button type="reset" class="btn btn-danger" routerLink="/listMenu">Annuler</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- add modal -->
+  <ng-template #successModal>
+    <div class="modal-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Le Menu a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+  </ng-template>
+  
+  

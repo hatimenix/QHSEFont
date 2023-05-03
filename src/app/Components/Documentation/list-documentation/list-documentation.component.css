@@ -2,6 +2,10 @@
     background-color: #FF731D;
     border-color: #FF731D;
   }
+  .btn-warning{
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
   
   .btn-danger{
     background-color: #FFB200;
@@ -13,7 +17,7 @@
     margin-left: 10px;
   }
   thead {
-    background-color: #3F497F
+    background-color: #ffd140
     
     
   }
