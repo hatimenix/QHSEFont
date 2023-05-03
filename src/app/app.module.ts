@@ -52,6 +52,7 @@ import { ListFournisseursComponent } from './Components/Fournisseurs/list-fourni
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 import { EvenementListComponent } from './Components/Evenement/evenement-list/evenement-list.component';
 import { DetailspersonnelComponent } from './Components/personnel/detailspersonnel/detailspersonnel/detailspersonnel.component';
+import { InfoRGPDComponent } from './Components/RGPD/info-rgpd/info-rgpd.component';
 import { AddMenusComponent } from './Components/Menus/addMenus/add-menus/add-menus.component';
 import { ListMenusComponent } from './Components/Menus/listMenus/list-menus/list-menus.component';
 import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menus/update-menus.component';
@@ -106,6 +107,7 @@ import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menu
     ListMenusComponent,
     UpdateMenusComponent,
     AddRegistreTraitementComponent,
+    InfoRGPDComponent,
 
   ],
   imports: [

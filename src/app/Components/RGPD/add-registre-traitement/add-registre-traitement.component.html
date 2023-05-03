@@ -7,11 +7,11 @@
     </div>
     <div class="card-body">
        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
-          <li class="nav-item">
-             <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">IDENTIFICATION</a>
-          </li>
-          <li class="nav-item">
-             <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">FINALITÉS ET DONNÉES</a>
+        <li class="nav-item" [ngClass]="{'disabled': form.controls['typeregistre'].invalid|| form.controls['nomtraitement'].invalid|| form.controls['responsable_traitement'].invalid || form.controls['description_generale'].invalid || form.controls['fournisseur'].invalid}">
+          <a class="nav-link active" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">IDENTIFICATION</a>
+       </li>       
+          <li class="nav-item" [ngClass]="{'disabled': form.controls['finaliteprincipale'].invalid || form.controls['donneesensible'].invalid}">
+             <a class="nav-link" id="pills-profile-tab-fill"  data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">FINALITÉS ET DONNÉES</a>
           </li>
           <li class="nav-item">
              <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">PERSONNES CONCERNÉES, DESTINATAIRES ET MESURE DE SÉCURITÉ</a>
@@ -38,13 +38,7 @@
                       <div class="col-md-12">                      
                         <div class="form-group">
                             <label>Registre *</label>
-                            <select [(ngModel)]="traitementf.typeregistre" formControlName="typeregistre" id="typeregistre" class="selectpicker form-control" data-style="py-0" required>
-                                <option value="">Choisir une option</option>
-                                <option value="registre1">Registre 1</option>
-                                <option value="registre2">Registre 2</option>
-                                <option value="registre3">Registre 3</option>
-                                <option value="registre4">Registre 4</option>
-                            </select>
+                            <input  [(ngModel)]="traitementf.typeregistre" formControlName="typeregistre" type="text" class="form-control" placeholder="Enter un nom" required>
                         </div>
                         <hr>
                       </div>
@@ -72,16 +66,16 @@
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                            <label>Société du responsable du traitement </label>
-                            <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" >
+                            <label>Société du responsable du traitement *</label>
+                            <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" required >
                               <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                              </select>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                            <label>Société du DPO </label>
-                            <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" >
+                            <label>Société du DPO *</label>
+                            <select [(ngModel)]="traitementf.fournisseur_dpo" id="fournisseur_dpo" name="fournisseur_dpo" formControlName="fournisseur_dpo" class="form-control" class="custom-select" required >
                               <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                              </select>
                         </div>
@@ -89,8 +83,8 @@
                     </div>
                       <div class="col-md-13">
                         <div class="form-group">
-                            <label>Société du représentant dans l'UE </label>
-                            <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" >
+                            <label>Société du représentant dans l'UE *</label>
+                            <select [(ngModel)]="traitementf.fournisseur_representant" id="fournisseur_representant" name="fournisseur_representant" formControlName="fournisseur_representant" class="form-control" class="custom-select" required>
                               <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                              </select>
                         </div>
@@ -168,14 +162,16 @@
                     <div class="col-md-6">
                         <div class="form-group">
                           <label>Donnée personnels ou sensibles</label><br>
-                          <div *ngIf="isTypededonneeEmpty(); else traitementList">
-                            Il n'y a aucun élément à représenter dans cet affichage
-                          </div>
-                          <ng-template #traitementList>
-                            <select [(ngModel)]="traitementf.type_donnee" id="type_donnee" name="type_donnee" formControlName="type_donnee" class="form-control" class="custom-select">
-                              <option *ngFor="let traitement of traitements" [value]="traitement.type_donnee" [hidden]="!traitement.type_donnee">{{ traitement.type_donnee }}</option>
-                            </select>
-                          </ng-template>
+                          <div class="form-group">
+                            <div *ngIf="modalCompleted">
+                              <select  [(ngModel)]="traitementf.type_donnee" id="type_donnee" name="type_donnee" formControlName="type_donnee" class="form-control" class="custom-select">
+                                <option *ngFor="let traitement of traitements" [value]="traitement.type_donnee" [hidden]="!traitement.type_donnee">{{ traitement.type_donnee }}</option>
+                              </select>
+                            </div>
+                            <div *ngIf="!modalCompleted">
+                              <p>Il n'y a aucun élément à représenter dans cet affichage</p>
+                            </div>
+                          </div>  
                           <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#exampleModalCenter"><i class="las la-plus mr-1"></i>
                             nouvelle Entrée
                             </button>
@@ -207,14 +203,16 @@
               <div class="form-group">
                 <label>Personnes concernés</label>
                 <br>
-                <div *ngIf="isPersonneconcerneesEmpty(); else traitementList1">
-                  Il n'y a aucun élément à représenter dans cet affichage
-                </div>
-                <ng-template #traitementList1>
-                  <select [(ngModel)]="traitementf.personneconcernees" id="personneconcernees" name="personneconcernees" formControlName="personneconcernees" class="form-control" class="custom-select">
-                    <option *ngFor="let traitement of traitements" [value]="traitement.personneconcernees" [hidden]="!traitement.personneconcernees">{{ traitement.personneconcernees}}</option>
-                  </select>
-                </ng-template>               
+                <div class="form-group">
+                  <div *ngIf="modalCompleted">
+                    <select  [(ngModel)]="traitementf.personneconcernees" id="personneconcernees" name="personneconcernees" formControlName="personneconcernees" class="form-control" class="custom-select">
+                      <option *ngFor="let traitement of traitements" [value]="traitement.personneconcernees" [hidden]="!traitement.personneconcernees">{{ traitement.personneconcernees }}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="!modalCompleted">
+                    <p>Il n'y a aucun élément à représenter dans cet affichage</p>
+                  </div>
+                </div>               
                 <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#personneC"><i class="las la-plus mr-1"></i>
                   nouvelle personne concerné
                   </button>
@@ -233,14 +231,16 @@
                     <div class="form-group">
                       <label>Destinataires dans l'UE</label>
                       <br>
-                      <div *ngIf="isTypedesinataireEmpty(); else traitementList2">
-                        Il n'y a aucun élément à représenter dans cet affichage
-                      </div>
-                      <ng-template #traitementList2>
-                        <select [(ngModel)]="traitementf.typedestinataire" id="typedestinataire" name="typedestinataire" formControlName="typedestinataire" class="form-control" class="custom-select">
-                          <option *ngFor="let traitement of traitements" [value]="traitement.typedestinataire" [hidden]="!traitement.typedestinataire">{{ traitement.typedestinataire }}</option>
-                        </select>
-                      </ng-template>                      
+                      <div class="form-group">
+                        <div *ngIf="modalCompleted">
+                          <select  [(ngModel)]="traitementf.typedestinataire" id="typedestinataire" name="typedestinataire" formControlName="typedestinataire" class="form-control" class="custom-select">
+                            <option *ngFor="let traitement of traitements" [value]="traitement.typedestinataire" [hidden]="!traitement.typedestinataire">{{ traitement.typedestinataire }}</option>
+                          </select>
+                        </div>
+                        <div *ngIf="!modalCompleted">
+                          <p>Il n'y a aucun élément à représenter dans cet affichage</p>
+                        </div>
+                      </div>                      
                       <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinataireenUE"><i class="las la-plus mr-1"></i>
                         nouveau destinataire
                         </button>
@@ -257,14 +257,16 @@
                           <div class="form-group">
                             <label>Mesures de sécurité</label>
                             <br>
-                            <div *ngIf="isAllMtypedemesuredesecuriteEmpty(); else traitementList3">
-                              Il n'y a aucun élément à représenter dans cet affichage
-                            </div>
-                            <ng-template #traitementList3>
-                              <select [(ngModel)]="traitementf.mtypedemesuredesecurite" id="mtypedemesuredesecurite" name="mtypedemesuredesecurite" formControlName="mtypedemesuredesecurite" class="form-control" class="custom-select">
-                                <option *ngFor="let traitement of traitements" [value]="traitement.mtypedemesuredesecurite" [hidden]="!traitement.mtypedemesuredesecurite">{{ traitement.mtypedemesuredesecurite }}</option>
-                              </select>
-                            </ng-template>
+                            <div class="form-group">
+                              <div *ngIf="modalCompleted">
+                                <select  [(ngModel)]="traitementf.mtypedemesuredesecurite" id="mtypedemesuredesecurite" name="mtypedemesuredesecurite" formControlName="mtypedemesuredesecurite" class="form-control" class="custom-select">
+                                  <option *ngFor="let traitement of traitements" [value]="traitement.mtypedemesuredesecurite" [hidden]="!traitement.mtypedemesuredesecurite">{{ traitement.mtypedemesuredesecurite }}</option>
+                                </select>
+                              </div>
+                              <div *ngIf="!modalCompleted">
+                                <p>Il n'y a aucun élément à représenter dans cet affichage</p>
+                              </div>
+                            </div>                            
                             <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#Mesure"><i class="las la-plus mr-1"></i>nouvelle mesure de sécurité</button>
                           </div>
                         </div>                        
@@ -280,14 +282,16 @@
                                 <div class="form-group">
                                   <label>Destinataires hors UE</label>
                                   <br>
-                                  <div *ngIf="isDestinataireEmpty(); else traitementList4">
-                                    Il n'y a aucun élément à représenter dans cet affichage
-                                  </div>
-                                  <ng-template #traitementList4>
-                                    <select [(ngModel)]="traitementf.destinataire" id="destinataire" name="destinataire" formControlName="destinataire" class="form-control" class="custom-select">
-                                      <option *ngFor="let traitement of traitements" [value]="traitement.destinataire" [hidden]="!traitement.destinataire">{{ traitement.destinataire }}</option>
-                                    </select>
-                                  </ng-template>
+                                  <div class="form-group">
+                                    <div *ngIf="modalCompleted">
+                                      <select  [(ngModel)]="traitementf.destinataire" id="destinataire" name="destinataire" formControlName="destinataire" class="form-control" class="custom-select">
+                                        <option *ngFor="let traitement of traitements" [value]="traitement.destinataire" [hidden]="!traitement.destinataire">{{ traitement.destinataire }}</option>
+                                      </select>
+                                    </div>
+                                    <div *ngIf="!modalCompleted">
+                                      <p>Il n'y a aucun élément à représenter dans cet affichage</p>
+                                    </div>
+                                  </div> 
                                   <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinatairehorsUE"><i class="las la-plus mr-1"></i>
                                     nouveau destinataire
                                     </button>
@@ -348,10 +352,8 @@
                         <label>Type de donne *</label>
                         <select [(ngModel)]="traitementf.type_donnee" formControlName="type_donnee" name="typeDonne" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
-                          <option value="type1">Type 1</option>
-                          <option value="type2">Type 2</option>
-                          <option value="type3">Type 3</option>
-                          <option value="type4">Type 4</option>
+                          <option >Données personnelles</option>
+                          <option >Données sensibles</option>
                         </select>
                       </div>
                     </div>
@@ -360,10 +362,22 @@
                         <label>Catégorie *</label>
                         <select [(ngModel)]="traitementf.categorie" formControlName="categorie" name="categorie" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
-                          <option value="cat1">Catégorie 1</option>
-                          <option value="cat2">Catégorie 2</option>
-                          <option value="cat3">Catégorie 3</option>
-                          <option value="cat4">Catégorie 4</option>
+                          <option >DP:Etat civil,identité,donnée d'identification,images...</option>
+                          <option >DP:Vie perso(habitudes de vie,situation familiale,etc,)</option>
+                          <option >DP:Info d'ordre éco et financier (revenus,financière,sit,fiscale,etc,)</option>
+                          <option >DP:Données de connexion (adresse IP,logs,etc,)</option>
+                          <option >DP:Données de localisation (déplacements,Géoloc,GSM,etc,)</option>
+                          <option >DP:Numéro de Sécurité Sociale(ou NIR)</option>
+                          <option >DS:Données révelant l'origine raciale ou ethnique</option>
+                          <option >DS:Données révélant les opinions politiques</option>
+                          <option >DS:Données révélant les convictions religieuses ou philisophiques</option>
+                          <option >DS: Données révélant l'appartenance syndicale</option>
+                          <option >DS: Données génétiques</option>
+                          <option >DS: Données biométriques aux fins d'identifier une per.physique de manière unique</option>
+                          <option >DS: Données concernant la santé</option>
+                          <option >DS: Données concernant la vie ou l'orientation sexuelle</option>
+                          <option >DS: Données relatives à des condamnations pénales ou infractions</option>
+
                         </select>
                       </div>
                     </div>
@@ -388,7 +402,7 @@
             
         </div>
         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" (click)="submitModalDonneeSensible()" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
         </div>
      </div>
@@ -399,7 +413,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="exampleModalCenterTitle">Donnée personnel ou sensible</h5>
+           <h5 class="modal-title" id="exampleModalCenterTitle">RGPD: Catégorie des personnes</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
            </button>
@@ -414,8 +428,14 @@
                         <label>Personnes concernés *</label>
                         <select [(ngModel)]="traitementf.personneconcernees" formControlName="personneconcernees" name="personneconcernees" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
-                          <option value="type1">Personne 1</option>
-                          <option value="type2">Personne 2</option>
+                          <option >salariés</option>
+                          <option >Services internes</option>
+                          <option >Clients</option>
+                          <option >Fournisseurs</option>
+                          <option >Prestataires</option>
+                          <option >Prospects</option>
+                          <option >Candidats</option>
+                          <option >Partenaires</option>
                         </select>
                       </div>
                     </div>
@@ -433,7 +453,7 @@
             
         </div>
         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" (click)="submitModalPersonneconcernee()" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
         </div>
      </div>
@@ -458,8 +478,10 @@
                         <label>Type de destinataire *</label>
                         <select [(ngModel)]="traitementf.typedestinataire" formControlName="typedestinataire" name="typeDonne" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
-                          <option value="type1">Destinataire 1</option>
-                          <option value="type2">Destinataire 2</option>
+                          <option >Service interne qui traite les données</option>
+                          <option >Sous traitant</option>
+                          <option >Destinataire dans des pays tiers ou organisations internationales</option>
+                          <option >Partenaires institutionnels ou commerciaux</option>
                         </select>
                       </div>
                     </div>
@@ -483,7 +505,7 @@
             
         </div>
         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" (click)="submitModalDestinataire()" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
         </div>
      </div>
@@ -506,7 +528,16 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Type de mesure de sécurité *</label>
-                        <input [(ngModel)]="traitementf.mtypedemesuredesecurite" formControlName="mtypedemesuredesecurite" id="mtypedemesuredesecurite" type="text" name="dureeConservation" class="form-control" >
+                        <select [(ngModel)]="traitementf.mtypedemesuredesecurite" formControlName="mtypedemesuredesecurite" name="mtypedemesuredesecurite" class="selectpicker form-control" data-style="py-0" >
+                          <option value="">Choisissez une option</option>
+                          <option >Mesures de tracibilité</option>
+                          <option >Mesures de protection des logiciels</option>
+                          <option >Sauvegarde de données</option>
+                          <option >Chiffrement de données</option>
+                          <option >Contrôle d'accés des utilisateurs</option>
+                          <option >Contrôle des sous-traitants</option>
+                          <option >Autres mesures (à préciser)</option>
+                        </select>                        
                         <div class="help-block with-errors"></div>
                       </div>
                     </div>
@@ -516,7 +547,7 @@
             
         </div>
         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" (click)="submitModalMesure()" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
         </div>
      </div>
@@ -549,8 +580,19 @@
                         <label>Pays *</label>
                         <select [(ngModel)]="traitementf.pays" formControlName="pays" id="pays" name="pays" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
-                          <option value="type1">Pays 1</option>
-                          <option value="type2">Pays 2</option>
+                          <option >Andorre</option>
+                          <option >Argentine</option>
+                          <option >Canada</option>
+                          <option >Etats-Unis</option>
+                          <option >Guernessey</option>
+                          <option >Ile de Man</option>
+                          <option >Iles FEROE</option>
+                          <option >Israël</option>
+                          <option >Jersey</option>
+                          <option >Nouvelle-Zélande</option>
+                          <option >Suisse</option>
+                          <option >Uruguay</option>
+                          <option >Autre pays sans accord RGPD</option>
                         </select>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -560,8 +602,13 @@
                         <label>Type de garantie *</label>
                         <select [(ngModel)]="traitementf.typedegarantie" formControlName="typedegarantie" id="typedegarantie" name="pays" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
-                          <option value="type1">Type 1</option>
-                          <option value="type2">Type 2</option>
+                          <option >Clauses contractuelles types (CCT)</option>
+                          <option >Régles d'entreprise contraignates(BCR)</option>
+                          <option >Pays adéquat</option>
+                          <option >Privacy shield</option>
+                          <option >Code de conduite</option>
+                          <option >Certification</option>
+                          <option >Dérogations (art 49)</option>
                         </select>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -587,7 +634,7 @@
             
         </div>
         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+           <button type="button" (click)="submitModalDestinataireenUE()" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
         </div>
      </div>

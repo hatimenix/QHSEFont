@@ -4,6 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
+declare var window: any;
 
 @Component({
   selector: 'app-add-registre-traitement',
@@ -13,6 +14,8 @@ import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fourni
 export class AddRegistreTraitementComponent implements OnInit {
   fournisseurs: any[] = [];
   traitements: any[] = [];
+  modalCompleted = false;
+
 
     @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -49,9 +52,15 @@ export class AddRegistreTraitementComponent implements OnInit {
     pays: '',
     typedegarantie: '',
     lienversladocumentation: '',
-    lesdonneesconcernee: ''
+    lesdonneesconcernee: '',
+    fournisseur_dpo:'',
+    fournisseur_representant:''
   };
     submitted = false;
+    modalForm = new FormGroup({
+      mtypedemesuredesecurite: new FormControl('', Validators.required),
+    });
+    
     form = new FormGroup({
       fournisseur: new FormControl(''),
       typeregistre: new FormControl(''),
@@ -80,7 +89,9 @@ export class AddRegistreTraitementComponent implements OnInit {
       pays: new FormControl(''),
       typedegarantie: new FormControl(''),
       lienversladocumentation: new FormControl(''),
-      lesdonneesconcernee: new FormControl('')
+      lesdonneesconcernee: new FormControl(''),
+      fournisseur_dpo: new FormControl(''),
+      fournisseur_representant: new FormControl('')
 
 
     });
@@ -115,7 +126,6 @@ export class AddRegistreTraitementComponent implements OnInit {
         console.log(error); // Handle error
       }
     );
-
   }
   createTraitement() {
     const formData = new FormData();
@@ -148,6 +158,9 @@ export class AddRegistreTraitementComponent implements OnInit {
     formData.append('typedegarantie', this.traitementf.typedegarantie);
     formData.append('lienversladocumentation', this.traitementf.lienversladocumentation);
     formData.append('lesdonneesconcernee', this.traitementf.lesdonneesconcernee);
+    formData.append('fournisseur_dpo', this.traitementf.fournisseur_dpo);
+    formData.append('fournisseur_representant', this.traitementf.fournisseur_representant);
+
 
     this.traitementservice.create(formData).subscribe({
 
@@ -166,29 +179,60 @@ export class AddRegistreTraitementComponent implements OnInit {
 
 
 }
+submitModalMesure() {
+  if (!this.traitementf.mtypedemesuredesecurite) {
+    this.modalCompleted = false;
+    return;
+  }
+  this.modalCompleted = true;
+  const newOption = { mtypedemesuredesecurite: this.traitementf.mtypedemesuredesecurite };
+  this.traitements.push(newOption);
+  this.traitementf.mtypedemesuredesecurite = ''; // clear the modal form input
+}
+submitModalDonneeSensible() {
+  if (!this.traitementf.type_donnee) {
+    this.modalCompleted = false;
+    return;
+  }
+  this.modalCompleted = true;
+  const newOption = { type_donnee: this.traitementf.type_donnee };
+  this.traitements.push(newOption);
+  this.traitementf.type_donnee = ''; // clear the modal form input
+}
+submitModalPersonneconcernee() {
+  if (!this.traitementf.personneconcernees) {
+    this.modalCompleted = false;
+    return;
+  }
+  this.modalCompleted = true;
+  const newOption = { personneconcernees: this.traitementf.personneconcernees };
+  this.traitements.push(newOption);
+  this.traitementf.personneconcernees = ''; // clear the modal form input
+}
+submitModalDestinataire() {
+  if (!this.traitementf.typedestinataire) {
+    this.modalCompleted = false;
+    return;
+  }
+  this.modalCompleted = true;
+  const newOption = { typedestinataire: this.traitementf.typedestinataire };
+  this.traitements.push(newOption);
+  this.traitementf.typedestinataire = ''; // clear the modal form input
+}
+submitModalDestinataireenUE() {
+  if (!this.traitementf.destinataire) {
+    this.modalCompleted = false;
+    return;
+  }
+  this.modalCompleted = true;
+  const newOption = { destinataire: this.traitementf.destinataire };
+  this.traitements.push(newOption);
+  this.traitementf.destinataire = ''; // clear the modal form input
+}
 
 onCancel() {
   this.mode = 'list';
 }
- isTypededonneeEmpty(): boolean {
-  return !this.traitements || this.traitements.length === 0 || this.traitements.every(traitement => !traitement.type_donnee);
-}
-
-isPersonneconcerneesEmpty(): boolean {
-  return !this.traitements || this.traitements.length === 0 || this.traitements.every(traitement => !traitement.personneconcernees);
-}
-
-isTypedesinataireEmpty(): boolean {
-  return !this.traitements || this.traitements.length === 0 || this.traitements.every(traitement => !traitement.typedestinataire);
-}
-isAllMtypedemesuredesecuriteEmpty(): boolean {
-  return !this.traitements || this.traitements.length === 0 || this.traitements.every(traitement => !traitement.mtypedemesuredesecurite);
-}
-isDestinataireEmpty(): boolean {
-  return !this.traitements || this.traitements.length === 0 || this.traitements.every(traitement => !traitement.destinataire);
-}
-
-
 
 get f() {
   return this.form.controls;

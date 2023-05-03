@@ -77,19 +77,19 @@
               <table class="table">
                 <tr class="table-default">
                     <td>Fréquence :</td>
-                    <td>{{ currentNc.frequence }}</td>
+                    <td>{{ currentNc.frequence ? 'Oui' : 'Non' }}</td>
                   </tr>
                   <tr class="table-info">
                     <td>Gravité:</td>
-                    <td>{{ currentNc.gravite }}</td>
+                    <td>{{ currentNc.gravite ? 'Oui' : 'Non' }}</td>
                   </tr>
                   <tr class="table-default">
                     <td>Action immediate :</td>
-                    <td>{{ currentNc.action_immediate }}</td>
+                    <td>{{ currentNc.action_immediate ? 'Oui' : 'Non' }}</td>
                   </tr>
                   <tr class="table-info">
                     <td>Nc cloture :</td>
-                    <td>{{ currentNc.nc_cloture }}</td>
+                    <td>{{ currentNc.nc_cloture ? 'Oui' : 'Non' }}</td>
                   </tr>
               </table>
             </div>

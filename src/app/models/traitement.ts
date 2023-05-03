@@ -28,5 +28,11 @@ export class Traitement {
     typedegarantie?: string;
     lienversladocumentation?: string;
     lesdonneesconcernee?: string;
+    fournisseur_name!: string | null;
+    fournisseur_dpo?: string;
+    fournisseur_representant?: string;
+    fournisseur_dpoName!: string | null;
+    fournisseur_representantName!: string | null
+
   }
   
