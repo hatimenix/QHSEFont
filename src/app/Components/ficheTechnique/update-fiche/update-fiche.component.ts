@@ -19,7 +19,10 @@ export class UpdateFicheComponent implements OnInit{
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private ficheService: FicheserService, private bsModalService: BsModalService) { 
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, 
+    private router: Router, 
+    private ficheService: FicheserService,
+     private bsModalService: BsModalService) { 
     this.ficheForm = new FormGroup({
       nom_fiche: new FormControl(),
       type_plat: new FormControl(),
