@@ -6,6 +6,7 @@ export class Actions {
     reference !: string;
     domaine !: string;
     site !: number;
+    Proccesus_name !: string;
     Site_name !: string;
     processus !: number;
     analyse_cause !: string;
@@ -20,7 +21,7 @@ export class Actions {
     piece_jointe !: any;
     annee !: Date;
     danger !: number[];
-    evenement !: number[] | null;
+    evenement !: number[];
 
     constructor(
         intitule: string,

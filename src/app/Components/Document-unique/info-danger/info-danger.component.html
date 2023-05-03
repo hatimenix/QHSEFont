@@ -178,7 +178,7 @@
                                <table class="table table-bordered table-responsive-md table-striped text-center">
                                    <tbody>
                                       <tr>
-                                           <td style="width:20%">Accidents associés</td>
+                                           <td style="width:20%">Accidents associés <a class="badge badge-info mr-2" data-toggle="modal" data-target=".bd-example-modal-xl"><i class="ri-add-line"></i></a></td>
                                            <td style="width:80%">
                                                <table class="table table-bordered table-responsive-md table-striped text-center">
                                                <tbody>
@@ -201,7 +201,7 @@
                                                           href="#"><i class="ri-pencil-line mr-0"></i></a>
                                                         </div>
                                                    </td>
-                                                   <td><a [routerLink]="['/evenement/', evenement.id]">{{ evenement.intitule }}</a></td>
+                                                   <td><a [routerLink]="['/info_evenement/', evenement.id]">{{ evenement.intitule }}</a></td>
                                                    <td>{{ evenement.Site_name }}</td>
                                                    <td>{{ evenement.type_evenement }}</td>
                                                    <td>{{ evenement.date_accident }}</td>
@@ -214,6 +214,219 @@
                                       </tr>
                                    </tbody>
                                 </table>
+                                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"   aria-hidden="true">
+                                 <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title">Ajout evenement</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <form  [formGroup]="evenementForm" (ngSubmit)="AddEvenementFormData()" class="needs-validation" data-toggle="validator" novalidate>
+                                             <span class="col-md-6">
+                                                 <h5>Description de l'événement</h5>
+                                             </span>
+                                             <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                         <label for="site">Site :</label>
+                                                         <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                                            <option value="" selected disabled>Choisissez un site</option>
+                                                            <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                                         </select>
+                                                         <div class="invalid-feedback">
+                                                             Veuillez sélectionner un état valide.
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                         <label>Service *</label>
+                                                         <select id="service" name="service" formControlName="service" class="custom-select" data-style="py-0" required>
+                                                            <option value="" selected disabled>Choisissez un service</option>
+                                                            <option *ngFor="let s of services$ | async" [value]="s.id">{{ s.service_nom }}</option>
+                                                         </select>
+                                                         <div class="invalid-feedback">
+                                                             Veuillez sélectionner un état valide.
+                                                         </div>
+                                                    </div>
+                                                </div> 
+                                                <div class="col-md-6"> 
+                                                    <div class="form-group">
+                                                         <label for="type_contract">Type contract *</label>
+                                                         <input type="text" class="form-control" id="type_contract" name="type_contract" formControlName="type_contract" placeholder="Entrer un type de contrat" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                    </div>
+                                                </div> 
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                         <label>Nom de la personne *</label>
+                                                         <input type="text" class="form-control" id="nom_personne" name="nom_personne" formControlName="nom_personne" placeholder="Entrer le nom de la personne" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                         <label>Type d'événement *</label>
+                                                         <input type="text" class="form-control" id="type_evenement" name="type_evenement" formControlName="type_evenement" placeholder="Entrer un Type d'événement" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Intitulé d'événement *</label>
+                                                         <input type="text" class="form-control" id="intitule" name="intitule" formControlName="intitule" placeholder="Entrer l'intitulé d'événement" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-12">
+                                                     <div class="form-group">
+                                                         <label>Résumé de l'événement *</label>
+                                                         <input type="text" class="form-control" id="resume" name="resume" formControlName="resume" placeholder="Entrer un résumé de l'événement" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>
+                                                 </div>                              
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Témoin(s) *</label>
+                                                         <input type="text" class="form-control" id="temoins" name="temoins" formControlName="temoins" placeholder="Entrer témoin(s)" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Première(s) personne(s) informée(s) *</label>
+                                                         <input type="text" class="form-control" id="premiere_pers_info" name="premiere_pers_info" formControlName="premiere_pers_info" placeholder="Entrer première(s) personne(s) informée(s)" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-12">
+                                                     <div class="form-group">
+                                                         <label>Action(s) immédiate(s) *</label>
+                                                         <input type="text" class="form-control" id="action_immediate" name="action_immediate" formControlName="action_immediate" placeholder="Entrer action(s) immédiate(s)" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>
+                                                 </div>                                
+                                             </div>
+                                             <span class="col-md-6">
+                                                 <h5>Date et lieu de l'accident</h5>
+                                             </span>
+                                             <div class="row">
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Date accident *</label>
+                                                         <input type="date" class="form-control" id="date_accident" name="date_accident" formControlName="date_accident" placeholder="Entrer action(s) immédiate(s)" required>                                     
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Période de travail *</label>
+                                                         <input type="text" class="form-control" id="periode_travail" name="periode_travail" formControlName="periode_travail" placeholder="Entrer la période de travail" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Lieu de l'accident *</label>
+                                                         <input type="text" class="form-control" id="lieu_accident" name="lieu_accident" formControlName="lieu_accident" placeholder="Entrer le lieu de l'accident" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Est ce que l'évènement implique le chien thérapeutique ? *</label>
+                                                         <select id="utiliser_chien" name="utiliser_chien" formControlName="utiliser_chien" class="selectpicker form-control" data-style="py-0" required>
+                                                             <option value="1">OUI</option>
+                                                             <option value="0">NON</option>
+                                                         </select>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-12">
+                                                     <div class="form-group">
+                                                         <label>Tache effectuée par la victime au moment de l'accident *</label>
+                                                         <input type="text" class="form-control" id="tache_effectue" name="tache_effectue" formControlName="tache_effectue" placeholder="Entrer la tache(s) ..." required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>                              
+                                             </div>
+                                             <span class="col-md-6">
+                                                 <h5>Siège et nature des lésions</h5>
+                                             </span>
+                                             <div class="row">
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Siège des lésions (1/2) </label>
+                                                         <input type="text" class="form-control" id="siege_de_lesions_1" name="siege_de_lesions_1" formControlName="siege_de_lesions_1" placeholder="Entrer siège des lésions (1/2)">                                                        
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label>Siège des lésions (2/2) </label>
+                                                         <input type="text" class="form-control" id="siege_de_lesions_2" name="siege_de_lesions_2" formControlName="siege_de_lesions_2" placeholder="Entrer siège des lésions (2/2)">                                                        
+                                                     </div>                            
+                                                 </div>
+                                                 <div class="col-md-12">
+                                                     <div class="form-group">
+                                                         <label>Nature des lésions *</label>
+                                                         <input type="text" class="form-control" id="nature_lesions" name="nature_lesions" formControlName="nature_lesions" placeholder="Entrer la nature des lésions" required>
+                                                         <div class="help-block with-errors"></div>
+                                                         <div class="invalid-feedback">
+                                                             Ce champs est obligatoire.
+                                                         </div>
+                                                     </div>                            
+                                                 </div>
+                                             </div>                          
+                                             <div class="modal-footer">                                               
+                                                     <button type="submit" class="btn btn-primary mr-2">Ajouter</button>                                                                                                                                                                                            
+                                             </div>                                                       
+                                          </form>
+                                       </div>                                      
+                                    </div>
+                                 </div>
+                              </div>                             
                              </div>
                            </div>
                            <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
@@ -316,12 +529,14 @@
                                                 <div class="form-group">
                                                   <label for="site">Site :</label>
                                                   <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                                   <option value="" selected disabled>Choisissez un site</option>
                                                    <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
                                                   </select>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="processus">Processus :</label>
                                                   <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+                                                   <option value="" selected disabled>Choisissez un processus</option>
                                                    <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
                                                   </select>
                                                 </div>
