@@ -41,56 +41,56 @@
                  
                   <div class="col-md-6">
                     <div class="form-group">
-                        <label for="menus_generaux">Menus Généraux <label style="color: red;">*</label></label>
+                        <label for="menus_generaux">Menus Généraux </label>
                         <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'menus_generaux') " formControlName="menus_generaux">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>    
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="menus_dessert">Menus Dessert <label style="color: red;">*</label></label>
+                        <label for="menus_dessert">Menus Dessert</label>
                         <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'menus_dessert') " formControlName="menus_dessert">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="menu_s1">Menus S1 <label style="color: red;">*</label></label>
+                        <label for="menu_s1">Menus S1 </label>
                         <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s1')"formControlName="menu_s1">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="menu_s2">Menus S2 <label style="color: red;">*</label></label>
+                        <label for="menu_s2">Menus S2 </label>
                         <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s2')"formControlName="menu_s2">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="menu_s3">Menus S3 <label style="color: red;">*</label></label>
+                        <label for="menu_s3">Menus S3</label>
                         <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s3')"formControlName="menu_s3">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="menu_s4">Menus S4 <label style="color: red;">*</label></label>
+                        <label for="menu_s4">Menus S4 </label>
                         <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s4')"formControlName="menu_s4">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="menu_s5">Menus S5 <label style="color: red;">*</label></label>
+                        <label for="menu_s5">Menus S5 </label>
                         <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s5')"formControlName="menu_s5">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>                      
                 </div>                            
                 <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
-                <button type="reset" class="btn btn-danger" routerLink="/listF">Annuler</button>
+                <button type="reset" class="btn btn-danger" routerLink="/listMenu">Annuler</button>
               </form>
             </div>
           </div>
@@ -107,7 +107,7 @@
       </button>
     </div>
     <div class="modal-body">
-      La Fiche Technique a été ajoutée avec succès.
+      Le Menu a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>

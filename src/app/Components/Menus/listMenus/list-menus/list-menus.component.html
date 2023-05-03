@@ -7,28 +7,55 @@
                    <div class="header-title">
                       <h4 class="card-title">Liste des Menus </h4>
                    </div>
+                   <div class="col-sm-6 col-md-6">
+                     <div class="user-list-files d-flex">
+                        
+                        <a routerLink="/addMenu" class="bg-danger" href="javascript:void();">
+                           Ajouter un Menu 
+                        </a>
+                     </div>
+                  </div>
                 </div>
                 <div class="card-body">
                    <div class="table-responsive">
                       <div class="row justify-content-between">
                          <div class="col-sm-6 col-md-6">
                             <div id="user_list_datatable_info" class="dataTables_filter">
-                               <form class="mr-3 position-relative">
-                                  <div class="form-group mb-0">
-                                     <input type="search" class="form-control" id="exampleInputSearch" placeholder="Search"
-                                        aria-controls="user-list-table">
-                                  </div>
+                              <form class="mr-3 position-relative d-flex lign-items-center" [formGroup]="myForm">
+                                 <div class="col-md-6">
+                                   <div class="form-group">
+                                     <label class="mr-2">Filtrer par Site</label>
+                                     <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterMenusBySite()">
+                                       <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                       <option value="">Tous</option>
+                                     </select>
+                                   </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                   <div class="form-group">
+                                     <label class="mr-2">Filtrer par Mois</label>
+                                     <select id="mois_concerne" name="mois_concerne" formControlName="mois_concerne" class="custom-select" data-style="py-0" (change)="filterMenuByMonth()" [(ngModel)]="MoisSelectionne">
+                                       <option value="">Tous</option>
+                                       <option value="Janvier">Janvier</option>
+                                       <option value="Février">Février</option>
+                                       <option value="Mars">Mars</option>
+                                       <option value="Avril">Avril</option>
+                                       <option value="Mai">Mai</option>
+                                       <option value="Juin">Juin</option>
+                                       <option value="Juillet">Juillet</option>
+                                       <option value="Aout">Aout</option>
+                                       <option value="Septembre">Septembre</option>
+                                       <option value="Octobre">Octobre</option>
+                                       <option value="Novembre">Novembre</option>
+                                       <option value="Décembre">Décembre</option>
+                                     </select>
+                                   </div>
+                                 </div>
                                </form>
-                            </div>
-                         </div>
-                         <div class="col-sm-6 col-md-6">
-                            <div class="user-list-files d-flex">
                                
-                               <a routerLink="/addMenu" class="bg-danger" href="javascript:void();">
-                                  Ajouter un Menu 
-                               </a>
                             </div>
                          </div>
+                         
                       </div>
                       <table id="user-list-table" class="table table-striped  mt-4" role="grid"
                          aria-describedby="user-list-page-info">
