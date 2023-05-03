@@ -4,6 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
+import { Traitement } from 'src/app/models/traitement';
 
 declare var window: any;
 
@@ -15,11 +16,15 @@ declare var window: any;
 export class ListRegistreTraitementComponent {
   fournisseurs: any[] = [];
   traitements: any[] = [];
-  updateModalVisible: boolean = true;
+  updateModalVisible: boolean = true
+  showTypeRegistre = false;
+  showRespRegistre = false;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
   constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){ }
   TraitementList:any=[];
+  originalTraitements: Traitement[] = [];
+  filteredTraitements: Traitement[] = [];
   searchQuery: string = '';
   p = 1; 
   itemsPerPage: number = 5;
@@ -54,6 +59,9 @@ export class ListRegistreTraitementComponent {
     typedegarantie: any
     lienversladocumentation: any
     lesdonneesconcernee: any
+    fournisseur_dpo:any
+    fournisseur_representant:any
+
     form = new FormGroup({
       fournisseur: new FormControl(''),
       typeregistre: new FormControl(''),
@@ -82,17 +90,22 @@ export class ListRegistreTraitementComponent {
       pays: new FormControl(''),
       typedegarantie: new FormControl(''),
       lienversladocumentation: new FormControl(''),
-      lesdonneesconcernee: new FormControl('')
+      lesdonneesconcernee: new FormControl(''),
+      fournisseur_dpo: new FormControl(''),
+      fournisseur_representant: new FormControl('')
+
 
 
     });
   ngOnInit(): void{
    this.refreshtraitementlist();
+   this.originalTraitements = this.traitements.slice(); // create a copy of the original list
+
   }
   refreshtraitementlist(){
-    this.traitementservice.getAll().subscribe(data=>{
-      this.TraitementList=data;
-    })
+    this.traitementservice.getAll().subscribe(res=>{
+      this.originalTraitements = res;
+      this.filteredTraitements = res;    })
     this.fournisseurservice.getAll().subscribe(
       (data: any[]) => {
         this.fournisseurs = data;
@@ -114,6 +127,16 @@ export class ListRegistreTraitementComponent {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+  }
+  filterByTypeRegistre() {
+    this.showTypeRegistre = !this.showTypeRegistre;
+  }
+  
+  filterByRespRegistre() {
+    this.showRespRegistre = !this.showRespRegistre;
+  }
+  resetFilter() {
+    this.filteredTraitements = this.originalTraitements;
   }
   openDeleteModal(id: number) {
     this.idTodelete = id;
@@ -150,6 +173,8 @@ export class ListRegistreTraitementComponent {
     formData.append('typedegarantie', this.typedegarantie);
     formData.append('lienversladocumentation', this.lienversladocumentation);
     formData.append('lesdonneesconcernee', this.lesdonneesconcernee);
+    formData.append('fournisseur_dpo', this.fournisseur_dpo);
+    formData.append('fournisseur_representant', this.fournisseur_representant);
     this.traitementservice.update(this.id, formData)
 
   .subscribe({
@@ -192,7 +217,9 @@ getTraitementData(
     pays: any,
     typedegarantie: any,
     lienversladocumentation: any,
-    lesdonneesconcernee: any
+    lesdonneesconcernee: any,
+    fournisseur_dpo:any,
+    fournisseur_representant:any
     ){
       this.id = id,
       this.fournisseur=fournisseur,
@@ -222,7 +249,10 @@ getTraitementData(
       this.pays=pays,
       this.typedegarantie=typedegarantie,
       this.lienversladocumentation=lienversladocumentation,
-      this.lesdonneesconcernee=lesdonneesconcernee
+      this.lesdonneesconcernee=lesdonneesconcernee,
+      this.fournisseur_dpo=fournisseur_dpo,
+      this.fournisseur_representant=fournisseur_representant
+
     }
     delete() {
       this.traitementservice.delete(this.idTodelete).subscribe({
