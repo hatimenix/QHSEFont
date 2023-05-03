@@ -12,6 +12,8 @@ import { Actions } from 'src/app/models/actions';
 import { Analyses } from 'src/app/models/analyses';
 import { Evenement } from 'src/app/models/evenement';
 
+declare var window:any;
+
 @Component({
   selector: 'app-info-evenement',
   templateUrl: './info-evenement.component.html',
@@ -20,6 +22,7 @@ import { Evenement } from 'src/app/models/evenement';
 export class InfoEvenementComponent {
 
   evenementForm!: FormGroup;
+  analyseForm!: FormGroup;
   sites$ !: Observable<any>;
   services$ !: Observable<any>;
   analyses$!: Observable<Analyses[]>;
@@ -28,6 +31,10 @@ export class InfoEvenementComponent {
   siteName !: string;
   serviceName !: string;
   evenement !: Evenement;
+  deletModal : any;
+  idToDelete: number = 0;
+  analyse !: Analyses;
+  idAnalyse !: number;
 
 
   constructor(
@@ -42,6 +49,15 @@ export class InfoEvenementComponent {
   ){}
 
   ngOnInit(): void {
+
+    this.analyseForm = this.formBuilder.group({
+      cause: ['', Validators.required],
+      probabilite: ['', Validators.required],
+      frequences: ['', Validators.required],
+      severite: ['', Validators.required],
+      niveau_risque: ['', Validators.required],
+      arbe_cause: ['', Validators.required]
+    })
 
     this.evenementForm = this.formBuilder.group({
       type_contract: ['', Validators.required],
@@ -61,7 +77,7 @@ export class InfoEvenementComponent {
       siege_de_lesions_2: ['', Validators.required],
       nature_lesions: ['', Validators.required],
       site: ['', Validators.required],
-      service: ['', Validators.required],
+      service: ['', Validators.required]
     });
 
     this.evenementId = +this.activatedRoute.snapshot.params['id'];
@@ -110,6 +126,10 @@ export class InfoEvenementComponent {
 
     this.getAnalyseByEvenementId(this.evenementId);
     this.getActionsByEvenementId(this.evenementId);
+
+    this.deletModal = new window.bootstrap.Modal(
+      document.getElementById('deleteAnalyse')
+    );
   }
 
   getAnalyseByEvenementId(evenementId: number) {
@@ -122,6 +142,87 @@ export class InfoEvenementComponent {
     this.actions$ = this.apiActionsService.getAllActions().pipe(
       map((actions: Actions[]) => actions.filter(actions => actions.evenement.includes(evenementId)))
     );
+  }
+
+  openDeleteModal(id: number) {
+    this.idToDelete = id;
+    this.deletModal.show();
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.analyseForm.get('arbe_cause')?.setValue(file);
+  }
+
+  deleteAnalyse(){
+    this.apiAnalyseEvenementService.delAnalyse(this.idToDelete).subscribe(() => {
+      this.getAnalyseByEvenementId(this.evenementId);
+      this.deletModal.hide();
+    })
+  }
+
+  onSubmit(): void{
+    if(this.analyseForm.valid) {
+      const formData = new FormData();
+      formData.append('cause', this.analyseForm.get('cause')!.value);
+      formData.append('probabilite', this.analyseForm.get('probabilite')!.value);
+      formData.append('frequences', this.analyseForm.get('frequences')!.value);
+      formData.append('severite', this.analyseForm.get('severite')!.value);
+      formData.append('niveau_risque', this.analyseForm.get('niveau_risque')!.value);
+      formData.append('arbe_cause', this.analyseForm.get('arbe_cause')?.value ?? '');
+      formData.append('evenement', String(this.evenementId));
+
+      this.apiAnalyseEvenementService.addAnalyseFormData(formData).subscribe(
+        () => {
+          console.log('Analyse a été ajouté avec succès.');
+          this.getAnalyseByEvenementId(this.evenementId);
+          this.analyseForm.reset();
+        },
+        error => console.log(error)
+      );
+    }
+  }
+
+  updateAnalyse(): void {
+    if(this.analyseForm.valid) {
+      const formData = new FormData();
+      formData.append('cause', this.analyseForm.get('cause')!.value);
+      formData.append('probabilite', this.analyseForm.get('probabilite')!.value);
+      formData.append('frequences', this.analyseForm.get('frequences')!.value);
+      formData.append('severite', this.analyseForm.get('severite')!.value);
+      formData.append('niveau_risque', this.analyseForm.get('niveau_risque')!.value);
+      formData.append('arbe_cause', this.analyseForm.get('arbe_cause')?.value ?? '');
+      formData.append('evenement', String(this.evenementId));
+
+      this.apiAnalyseEvenementService.updateAnalyseFormdata(this.idAnalyse,formData).subscribe(
+          () => {
+            console.log('Analyse a été modifiée avec succès.');
+            this.getAnalyseByEvenementId(this.evenementId);
+          },
+          error => console.log(error)
+        );
+      }
+    }
+
+  onFileSelectedAnalyse(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    const file: File = (fileInput.files as FileList)[0];
+    this.analyseForm.get('arbe_cause')?.setValue(file);
+  }
+
+  openUpdateModal(analyse: Analyses): void {
+    this.analyse = analyse;
+    this.idAnalyse = this.analyse.id;
+    this.analyseForm.patchValue({
+      cause: this.analyse.cause,
+      probabilite: this.analyse.probabilite,
+      frequences: this.analyse.frequences,
+      severite: this.analyse.severite,
+      niveau_risque: this.analyse.niveau_risque,
+      arbe_cause: this.analyse.arbe_cause
+    });
+    const modal = new window.bootstrap.Modal(document.getElementById('updateAnalyse'));
+    modal.show();
   }
 
 }
