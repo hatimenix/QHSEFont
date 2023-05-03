@@ -51,6 +51,7 @@ import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-t
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 import { DetailspersonnelComponent } from './Components/personnel/detailspersonnel/detailspersonnel/detailspersonnel.component';
+import { InfoRGPDComponent } from './Components/RGPD/info-rgpd/info-rgpd.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { DetailspersonnelComponent } from './Components/personnel/detailspersonn
     DetailsDocsComponent,
     DetailspersonnelComponent,
     AddRegistreTraitementComponent,
+    InfoRGPDComponent,
 
   ],
   imports: [

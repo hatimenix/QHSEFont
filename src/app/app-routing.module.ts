@@ -47,6 +47,7 @@ import { AddRegistreTraitementComponent } from './Components/RGPD/add-registre-t
 import { ListFournisseursComponent } from './Components/Fournisseurs/list-fournisseurs/list-fournisseurs.component';
 import { AddFournisseursComponent } from './Components/Fournisseurs/add-fournisseurs/add-fournisseurs.component';
 import { DetailspersonnelComponent } from './Components/personnel/detailspersonnel/detailspersonnel/detailspersonnel.component';
+import { InfoRGPDComponent } from './Components/RGPD/info-rgpd/info-rgpd.component';
 
 
 
@@ -96,6 +97,8 @@ const routes: Routes = [
   {path : 'add-RGPD', component: AddRegistreTraitementComponent},
   {path : 'fournisseur-list', component: ListFournisseursComponent},
   {path : 'add-fournisseurs', component: AddFournisseursComponent},
+  { path: 'traitement/:id', component: InfoRGPDComponent },
+
 
 
   {path : 'detailpersonn/:id', component: DetailspersonnelComponent},

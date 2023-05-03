@@ -1,0 +1,147 @@
+<div class="content-page">
+    <div class="container-fluid">
+        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+            <li class="nav-item">
+               <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">IDENTIFICATION</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">FINALITÉS ET DONNÉES</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">PERSONNES CONCERNÉES, DESTINATAIRES ET MESURE DE SÉCURITÉ</a>
+            </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                 <tr class="table-default">
+                   <td>Registre:</td>
+                   <td>{{ currentTraitement.typeregistre }}</td>
+                 </tr>
+                 <tr class="table-info">
+                    <td>Nom du traitement:</td>
+                    <td>{{ currentTraitement.nomtraitement }}</td>
+                  </tr>
+                 <tr class="table-default">
+                    <td>Description générale:</td>
+                    <td>{{ currentTraitement.description_generale }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Société du responsable du traitement:</td>
+                    <td>{{ currentTraitement.fournisseur_name }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Société du DPO:</td>
+                    <td>{{ currentTraitement.fournisseur_dpoName }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Société du représentant dans l'UE:</td>
+                    <td>{{ currentTraitement.fournisseur_representantName }}</td>
+                  </tr>
+                <tr class="table-default">
+                    <td>Responsable Traitement:</td>
+                    <td>{{ currentTraitement.responsable_traitement }}</td>
+                  </tr>
+               </table>
+             </div>
+           </div>
+           <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                 <tr class="table-default">
+                   <td>Finalité principale:</td>
+                   <td>{{ currentTraitement.finaliteprincipale }}</td>
+                 </tr>
+                 <tr class="table-info">
+                   <td>Sous finalité 1:</td>
+                   <td>{{ currentTraitement.sous_finalite1 }}</td>
+                 </tr>
+                 <tr class="table-default">
+                   <td>Sous finalité 2 :</td>
+                   <td>{{ currentTraitement.sous_finalite2 }}</td>
+                 </tr>
+                 <tr class="table-info">
+                    <td>Sous finalité 3 :</td>
+                    <td>{{ currentTraitement.sous_finalite3 }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Sous finalité 4 :</td>
+                    <td>{{ currentTraitement.sous_finalite4 }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Donnée sensible:</td>
+                    <td>{{ currentTraitement.donneesensible? 'Oui' : 'Non' }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Type de donne :</td>
+                    <td>{{ currentTraitement.type_donnee }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Catégorie :</td>
+                    <td>{{ currentTraitement.categorie }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Description :</td>
+                    <td>{{ currentTraitement.description }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Durée de conservation :</td>
+                    <td>{{ currentTraitement.dureedeconcesrvation }}</td>
+                  </tr>
+               </table>
+             </div>
+           </div>
+           <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+            <div class="table-responsive">
+              <table class="table">
+                <tr class="table-default">
+                    <td>Personnes concernés :</td>
+                    <td>{{ currentTraitement.personneconcernees }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Précisions:</td>
+                    <td>{{ currentTraitement.precisions }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Type de destinataire :</td>
+                    <td>{{ currentTraitement.typedestinataire }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Données concernées :</td>
+                    <td>{{ currentTraitement.donneeconcernees }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Type de mesure de sécurité :</td>
+                    <td>{{ currentTraitement.mtypedemesuredesecurite }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Destinataire :</td>
+                    <td>{{ currentTraitement.destinataire }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Pays :</td>
+                    <td>{{ currentTraitement.pays }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Lien vers la documentation :</td>
+                    <td>{{ currentTraitement.lienversladocumentation }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Données concernées :</td>
+                    <td>{{ currentTraitement.lesdonneesconcernee }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Précisions :</td>
+                    <td>{{ currentTraitement.precision }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Type de garantie :</td>
+                    <td>{{ currentTraitement.typedegarantie }}</td>
+                  </tr>
+              </table>
+            </div>
+          </div>
+         </div>
+    </div>
+</div>
