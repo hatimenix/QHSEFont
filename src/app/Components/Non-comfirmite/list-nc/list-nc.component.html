@@ -82,7 +82,7 @@
                       <td>{{nc.gravite ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.action_immediate ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.nc_cloture ? 'Oui' : 'Non'}}</td>
-                      <td><a href="{{ nc.piece_jointe }}" download>{{ nc.piece_jointe }}</a></td>
+                      <td><button class="btn btn-primary fa fa-download mr-3"  style="color: rgb(99, 96, 96); background-color: orange" (click)="download(nc.piece_jointe)">{{ nc.piece_jointe.split('/').pop() }}</button></td>
 
                       <td>
                              <div class="d-flex align-items-center list-action">
@@ -162,12 +162,12 @@ aria-hidden="true">
             </div>
             <div class="row">
             <div class="col">
-              <label for="date_nc" class="form-label">Date NC : </label>
+              <label for="date_prise_en_compte" class="form-label">Date NC : </label>
               <input [(ngModel)]="date_nc" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
             </div>
             <div class="col">
-              <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
-              <input [(ngModel)]="date_prise_en_compte" formControlName="date_prise_en_compte" type="date" class="form-control" id="date_prise_en_compte" name="date_prise_en_compte" />
+              <label for="date_nc" class="form-label">Délai Prévu : </label>
+              <input [(ngModel)]="delai_prevu" formControlName="delai_prevu" type="date" class="form-control" id="delai_prevu" name="delai_prevu" />
             </div>
             <div class="col">
               <label for="description_detailee" class="form-label">Description détaillée : </label>

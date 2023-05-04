@@ -30,7 +30,7 @@ export class AddEquipementsComponent {
     verification:'',
     prochaine_verification:'',
     commentaires:'',
-    Equipement_declasse:'',
+    Equipement_declasse:false,
     N_serie:'',
     Certificat:'',
 
@@ -50,7 +50,7 @@ export class AddEquipementsComponent {
     commentaires: new FormControl('',[Validators.minLength(3)]),
     N_serie: new FormControl(''),
     Certificat: new FormControl(''),
-    Equipement_declasse: new FormControl(''),
+    Equipement_declasse: new FormControl(false),
 
 
   });
@@ -101,7 +101,7 @@ export class AddEquipementsComponent {
     formData.append("commentaires", this.equipementf.commentaires);
     formData.append("N_serie", this.equipementf.N_serie);
     formData.append("Certificat", this.equipementf.Certificat);
-    formData.append("Equipement_declasse", this.equipementf.Equipement_declasse);
+    formData.append("Equipement_declasse", this.equipementf.Equipement_declasse.toString());
 
 
     this.equipementservice.create(formData).subscribe({
