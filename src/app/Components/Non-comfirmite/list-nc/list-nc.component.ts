@@ -169,7 +169,6 @@ updateNc() : void {
     formData.append("domaine", this.domaine);
     formData.append("detail_cause", this.detail_cause);
     formData.append("date_nc", this.date_nc);
-    formData.append("date_prise_en_compte", this.date_prise_en_compte);
     formData.append("description_detailee", this.description_detailee);
     formData.append("delai_prevu", this.delai_prevu);
     formData.append("type_cause", this.type_cause);
@@ -205,24 +204,8 @@ updateFile(event: any) {
   this.piece_jointe=file
 
 }
-downloadPiece(id: number): void {
-  this.ncservice.downloadPiece(id).subscribe(
-    (response: any) => {
-      const blob = new Blob([response], { type: 'application/octet-stream' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      const filename = response.fichier.split('/').pop();
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    },
-    (error: any) => {
-      console.log(error);
-    }
-  );
+download(piece_jointe: string): void {
+  this.ncservice.downloadFile(piece_jointe);
 }
 getNcData( id : number,
   intitule:any,
@@ -309,7 +292,7 @@ delete() {
 }
 
 exportToExcel() {
-  const worksheet = XLSX.utils.json_to_sheet(this.ncs.map((nc) => ({
+  const worksheet = XLSX.utils.json_to_sheet(this.filteredNcs.map((nc) => ({
     'ID': nc.id,
     'Intitule': nc.intitule,
     'Nature': nc.nature,

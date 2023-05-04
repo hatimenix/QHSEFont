@@ -14,16 +14,16 @@
                         <div class="row">
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Site </label>
-                                    <select [(ngModel)]="equipementf.site" id="site" name="site" formControlName="site" class="form-control" class="custom-select" >
+                                    <label>Site *</label>
+                                    <select [(ngModel)]="equipementf.site" id="site" name="site" formControlName="site" class="form-control" class="custom-select" required>
                                      <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Secteur </label>
-                                    <select id="secteur" [(ngModel)]="equipementf.secteur" name="secteur" formControlName="secteur" class="form-control" class="custom-select" >
+                                    <label>Secteur *</label>
+                                    <select id="secteur" [(ngModel)]="equipementf.secteur" name="secteur" formControlName="secteur" class="form-control" class="custom-select" required >
                                      <option *ngFor="let secteur of secteurs" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
                                     </select>
                                 </div>
