@@ -33,10 +33,14 @@ export class ServicesNonConfirmitéService {
 
 
 }
-downloadPiece(id: number): Observable<Blob> {
-  return this.http.get(`${this.ncurl}/${id}`, { responseType: 'blob' });
+downloadFile(piece_jointe: any): void {
+  this.http.get(piece_jointe, { responseType: 'blob' }).subscribe(blob => {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = piece_jointe.split('/').pop();
+    link.click();
+  });
 }
-
 
 
 

@@ -37,7 +37,7 @@ export class AddRegistreTraitementComponent implements OnInit {
     sous_finalite2: '',
     sous_finalite3: '',
     sous_finalite4: '',
-    donneesensible:'',
+    donneesensible:false,
     type_donnee:'',
     categorie: '',
     description: '',
@@ -74,7 +74,7 @@ export class AddRegistreTraitementComponent implements OnInit {
       sous_finalite2: new FormControl(''),
       sous_finalite3: new FormControl(''),
       sous_finalite4: new FormControl(''),
-      donneesensible: new FormControl(''),
+      donneesensible: new FormControl(false),
       type_donnee: new FormControl(''),
       categorie: new FormControl(''),
       description: new FormControl(''),
@@ -142,7 +142,7 @@ export class AddRegistreTraitementComponent implements OnInit {
     formData.append('sous_finalite2', this.traitementf.sous_finalite2);
     formData.append('sous_finalite3', this.traitementf.sous_finalite3);
     formData.append('sous_finalite4', this.traitementf.sous_finalite4);
-    formData.append('donneesensible', this.traitementf.donneesensible);
+    formData.append('donneesensible', this.traitementf.donneesensible.toString());
     formData.append('type_donnee', this.traitementf.type_donnee);
     formData.append('categorie', this.traitementf.categorie);
     formData.append('description', this.traitementf.description);
