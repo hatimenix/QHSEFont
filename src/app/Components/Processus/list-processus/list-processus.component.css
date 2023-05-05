@@ -8,6 +8,10 @@
     border-color: #FFB200;
     color: #fff; 
   }
+  .custom-button {
+    background-color: #FFB200;
+    border-color: #FFB200;
+  }
   
   button + button {
     margin-left: 10px;
