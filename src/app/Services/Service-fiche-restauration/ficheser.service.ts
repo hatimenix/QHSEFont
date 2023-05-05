@@ -37,8 +37,6 @@ export class FicheserService {
   deleteFiche(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_Fiche}${id}/`);
   }
-  downloadFiche(id: number): Observable<Blob> {
-    return this.http.get(`${this.API_Fiche}/${id}`, { responseType: 'blob' });
-  }
+  
   
 }
