@@ -17,6 +17,8 @@ import { Dangers } from 'src/app/models/dangers';
 import { Evaluations } from 'src/app/models/evaluations';
 import { Evenement } from 'src/app/models/evenement';
 
+declare var window:any;
+
 
 @Component({
   selector: 'app-info-danger',
@@ -42,6 +44,8 @@ export class InfoDangerComponent {
   serviceName !: string;
   familleName !: string;
   addedActionId !: number;
+  deletModal : any;
+  idToDelete: number = 0;
   showModal = false;
 
   constructor(
@@ -152,6 +156,10 @@ export class InfoDangerComponent {
     this.getEvenementsByDangerId(this.dangerId);
     this.getActionsByDangerId(this.dangerId);
 
+    this.deletModal = new window.bootstrap.Modal(
+      document.getElementById('deleteAction')
+    );
+
   }
 
   getEvaluationsByDangerId(dangerId: number) {
@@ -236,6 +244,7 @@ export class InfoDangerComponent {
     this.actionForm.get('piece_jointe')?.setValue(file);
   }
 
+
   addActionFormData(): void{
     if (this.actionForm.valid) {
       const formData = new FormData();
@@ -314,8 +323,13 @@ export class InfoDangerComponent {
   }
   */
 
-  deleteAction(id : any) {
-    this.apiActionsService.delAction(id).subscribe(() => {
+  openDeleteModal(id: number) {
+    this.idToDelete = id;
+    this.deletModal.show();
+  }
+
+  deleteAction() {
+    this.apiActionsService.delAction(this.idToDelete).subscribe(() => {
       this.getActionsByDangerId(this.dangerId);
     })
   }

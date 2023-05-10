@@ -3,7 +3,7 @@
        <div class="row">
            <div class="col-sm-12">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-header d-flex justify-content-between" style="background-color: #17469d;">
                        <div class="header-title">
                            <h4 class="card-title">Ajouter Danger</h4>
                        </div>
@@ -86,8 +86,12 @@
                                    </div>
                                </div>
                            </div>                            
-                           <button type="submit" class="btn btn-primary mr-2">Ajout Danger</button>
-                           <button type="submit" class="btn btn-danger" routerLink="/danger">Annuler</button>
+                           <div class="d-flex align-items-end flex-column" style="height: 50px;">
+                                <div class="mt-auto p-2">
+                                    <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;">Ajout Danger</button>
+                                    <button type="submit" class="btn bg-warning"  routerLink="/danger">Annuler</button>
+                                </div>
+                            </div>                                                    
                        </form>
                    </div>
                </div>

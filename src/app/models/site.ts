@@ -7,7 +7,6 @@ export class Site{
     responsable_name!:string;
 
     constructor(
-    
     site_nom: string='',
     sigle: string='',
     responsable_site: number=0,
