@@ -24,4 +24,8 @@ color: rgb(255, 255, 255);
 #user-list-table {
   width: 100%;
 }
-
+.bg{
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff; 
+}

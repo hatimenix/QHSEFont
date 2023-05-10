@@ -56,8 +56,7 @@ import { InfoRGPDComponent } from './Components/RGPD/info-rgpd/info-rgpd.compone
 import { AddMenusComponent } from './Components/Menus/addMenus/add-menus/add-menus.component';
 import { ListMenusComponent } from './Components/Menus/listMenus/list-menus/list-menus.component';
 import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menus/update-menus.component';
-import { ListDocumentsUtilesComponent } from './Components/Documents-utiles/list-documents-utiles/list-documents-utiles.component';
-import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-documents-utiles/add-documents-utiles.component';
+import { DetailsFicheComponent } from './Components/ficheTechnique/detailsFiche/details-fiche/details-fiche.component';
 
 @NgModule({
   declarations: [
@@ -110,8 +109,7 @@ import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-d
     UpdateMenusComponent,
     AddRegistreTraitementComponent,
     InfoRGPDComponent,
-    ListDocumentsUtilesComponent,
-    AddDocumentsUtilesComponent,
+    DetailsFicheComponent,
 
   ],
   imports: [

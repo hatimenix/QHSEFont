@@ -52,6 +52,7 @@ import { InfoRGPDComponent } from './Components/RGPD/info-rgpd/info-rgpd.compone
 import { AddMenusComponent } from './Components/Menus/addMenus/add-menus/add-menus.component';
 import { ListMenusComponent } from './Components/Menus/listMenus/list-menus/list-menus.component';
 import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menus/update-menus.component';
+import { DetailsFicheComponent } from './Components/ficheTechnique/detailsFiche/details-fiche/details-fiche.component';
 import { ListDocumentsUtilesComponent } from './Components/Documents-utiles/list-documents-utiles/list-documents-utiles.component';
 import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-documents-utiles/add-documents-utiles.component';
 
@@ -60,6 +61,7 @@ import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-d
 
 const routes: Routes = [
   {path : '', component: LoginComponent },
+  {path : 'login', component: LoginComponent },
   {path: 'home', component :HomeComponent},
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},
@@ -77,6 +79,7 @@ const routes: Routes = [
   {path: 'listF', component: ListFicheComponent},
   {path: 'addF', component: AddFicheComponent},
   {path: 'updateF/:id', component: UpdateFicheComponent },
+  {path: 'detailsFiche/:id', component: DetailsFicheComponent},
   {path : 'listP', component: ListPersonnelComponent},
   {path :'addP', component: AddPersonnelComponent},
   {path:'updateP/:id', component :UpdatePersonnelComponent},

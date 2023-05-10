@@ -1,4 +1,9 @@
 .bg-danger{
-    background-color: #089bd7;
-    border-color: #089bd7;
+    background-color: #ffd140;
+    border-color: #ffd140;
 }
+.bg{
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff; 
+  }

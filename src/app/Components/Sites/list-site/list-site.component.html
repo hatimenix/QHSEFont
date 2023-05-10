@@ -24,7 +24,7 @@
                          <div class="col-sm-6 col-md-6">
                             <div class="user-list-files d-flex">
                                
-                               <a routerLink="/addSite" class="bg-danger" href="javascript:void();">
+                               <a routerLink="/addSite" class="bg" href="javascript:void();">
                                   Ajouter un site 
                                </a>
                             </div>
@@ -49,15 +49,16 @@
                              
                               <td>{{site.site_nom}}</td>
                               <td>{{site.sigle}}</td>
-                              <td><span class="badge bg-danger">{{site.responsable_name }}</span></td>
+                              <td><span class="badge" (click)="openUserModal(site)">{{ site.responsable_name }}</span></td>
+
                               <td>{{site.groupe_retso}}</td>
                         
                               
                               <td>
                                 <div class="flex align-items-center list-user-action">
-                                  <a class="btn btn-sm bg-success" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Edit" [routerLink]="['/updateSite', site.id]"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="btn btn-sm bg-danger" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm bg-warning" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Delete" (click)="siteIdToDelete = site.id; modalRef = modalService.show(deleteModal);"><i
                                       class="ri-delete-bin-line mr-0"></i></a>
                                 </div>
@@ -109,3 +110,31 @@
      <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
    </div>
  </ng-template>
+
+
+ <ng-template #userModal >
+   
+   <div class="modal-header">
+      
+     <h4 class="modal-title">Personnel Informations</h4>
+     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+      <p>Compte: {{ personnel?.compte }}</p>
+      <p>Nom: {{ personnel?.nom }}</p>
+      <p>Courrier: {{ personnel?.courrier }}</p>
+      <p>Numero Tel: {{ personnel?.numero_tel }}</p>
+      <p>Presente Vous: {{ personnel?.presente_vous }}</p>
+      <p>Fonction: {{ personnel?.fonction }}</p>
+      <p>Adresse SIP: {{ personnel?.adresse_sip }}</p>
+      <p>Othermail: {{ personnel?.othermail }}</p>
+    </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+   </div>
+</ng-template>
+
+ 
+ 

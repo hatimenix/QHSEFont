@@ -3,9 +3,9 @@
     border-color: #FF731D;
   }
  
-  .btn-danger{
-    background-color: #FFB200;
-    border-color: #FFB200;
+  .bg{
+    background-color: #ffd140;
+    border-color: #ffd140;
     color: #fff; 
   }
   
@@ -17,6 +17,7 @@
     
     
   }
+  
  th {
   color: rgb(255, 255, 255);
   
@@ -24,5 +25,11 @@
 #user-list-table {
     width: 100%;
   }
-  
+.badge{
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff; 
+
+}
+
   

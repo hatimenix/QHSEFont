@@ -8,6 +8,10 @@
     border-color: #FFB200;
     color: #fff; 
   }
+  .bg-warning{
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
   
   button + button {
     margin-left: 10px;
@@ -23,6 +27,17 @@
 }
 #user-list-table {
     width: 100%;
+  }
+  .bg{
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff; 
+  }
+  .badge{
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff; 
+  
   }
   
   

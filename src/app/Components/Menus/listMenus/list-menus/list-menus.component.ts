@@ -25,6 +25,7 @@ export class ListMenusComponent implements OnInit{
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
   menuIdToDelete: number = 0;
+  filename: string = '';
 
   constructor(private menuService: MenusService, public modalService: BsModalService,
     private siteService: ApiSiteService,) { }
@@ -64,25 +65,7 @@ export class ListMenusComponent implements OnInit{
     });
   }
 
-  downloadMenu(id: number): void {
-    this.menuService.downloadMenu(id).subscribe(
-      (response: any) => {
-        const blob = new Blob([response], { type: 'application/octet-stream' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        const filename = response.fichier.split('/').pop();
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
+
  
   //delete modal 
 confirmDelete(): void {
