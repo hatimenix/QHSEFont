@@ -1,0 +1,9 @@
+#update .modal-dialog {
+    max-width: 750px;
+  }
+  
+#update .modal-content {
+    width: 100%;
+    height: 100%;
+  }
+  

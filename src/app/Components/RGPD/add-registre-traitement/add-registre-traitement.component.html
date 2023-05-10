@@ -37,7 +37,7 @@
                     <div class="row">
                       <div class="col-md-12">                      
                         <div class="form-group">
-                            <label>Registre *</label>
+                            <label>Registre <label style="color: red;">*</label></label>
                             <input  [(ngModel)]="traitementf.typeregistre" formControlName="typeregistre" type="text" class="form-control" placeholder="Enter un nom" required>
                         </div>
                         <hr>
@@ -52,21 +52,21 @@
                       <div class="col-md-12">
                         <hr>
                         <div class="form-group">
-                          <label>Nom du traitement *</label>
+                          <label>Nom du traitement <label style="color: red;">*</label></label>
                           <input  [(ngModel)]="traitementf.nomtraitement" formControlName="nomtraitement" type="text" class="form-control" placeholder="Enter un nom" required>
                           <div class="help-block with-errors"></div>
                         </div>
                       </div> 
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label>Description générale *</label>
+                          <label>Description générale <label style="color: red;">*</label></label>
                           <textarea [(ngModel)]="traitementf.description_generale" formControlName="description_generale" class="form-control" rows="4" required></textarea>
                           <div class="help-block with-errors"></div>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                            <label>Société du responsable du traitement *</label>
+                            <label>Société du responsable du traitement <label style="color: red;">*</label></label>
                             <select [(ngModel)]="traitementf.fournisseur" id="fournisseur" name="fournisseur" formControlName="fournisseur" class="form-control" class="custom-select" required >
                               <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                              </select>
@@ -74,7 +74,7 @@
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                            <label>Société du DPO *</label>
+                            <label>Société du DPO <label style="color: red;">*</label></label>
                             <select [(ngModel)]="traitementf.fournisseur_dpo" id="fournisseur_dpo" name="fournisseur_dpo" formControlName="fournisseur_dpo" class="form-control" class="custom-select" required >
                               <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                              </select>
@@ -83,7 +83,7 @@
                     </div>
                       <div class="col-md-13">
                         <div class="form-group">
-                            <label>Société du représentant dans l'UE *</label>
+                            <label>Société du représentant dans l'UE <label style="color: red;">*</label></label>
                             <select [(ngModel)]="traitementf.fournisseur_representant" id="fournisseur_representant" name="fournisseur_representant" formControlName="fournisseur_representant" class="form-control" class="custom-select" required>
                               <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.nom }}</option>
                              </select>
@@ -91,7 +91,7 @@
                       </div>
                         <div class="form-group">
                           <div class="col-md-13">
-                          <label>Responsable Traitement *</label>
+                          <label>Responsable Traitement <label style="color: red;">*</label></label>
                           <input  [(ngModel)]="traitementf.responsable_traitement" formControlName="responsable_traitement" type="text" class="form-control" placeholder="Entrer un responsable" required>
                           <div class="help-block with-errors"></div>
                         </div>
@@ -121,7 +121,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>Finalité principale *</label>
+                          <label>Finalité principale <label style="color: red;">*</label></label>
                           <textarea [(ngModel)]="traitementf.finaliteprincipale" formControlName="finaliteprincipale" class="form-control" rows="4" required></textarea>
                         <div class="help-block with-errors"></div>
                         </div>
@@ -308,8 +308,8 @@
                    </div>
                    </div>
                    <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
-                    <button type="submit" [disabled]="form.invalid" (click)="createTraitement()" class="btn btn-outline-primary mt-2">Enregistrer</button>
-                    <button type="cancel" type="reset" (click)="onCancel()" class="btn btn-outline-secondary mt-2">Annuler</button>
+                    <button type="submit" [disabled]="form.invalid" (click)="createTraitement()" class="btn btn-outline-primary mt-2"><i class="fas fa-plus"></i>Enregistrer</button>
+                    <button type="cancel" type="reset" (click)="onCancel()" class="btn btn-outline-secondary mt-2"><i class="fas fa-times"></i>Annuler</button>
                 </div>
              </div>
         
@@ -349,7 +349,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Type de donne *</label>
+                        <label>Type de donne </label>
                         <select [(ngModel)]="traitementf.type_donnee" formControlName="type_donnee" name="typeDonne" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
                           <option >Données personnelles</option>
@@ -359,7 +359,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Catégorie *</label>
+                        <label>Catégorie </label>
                         <select [(ngModel)]="traitementf.categorie" formControlName="categorie" name="categorie" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
                           <option >DP:Etat civil,identité,donnée d'identification,images...</option>
@@ -383,14 +383,14 @@
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Description *</label>
+                        <label>Description </label>
                         <textarea [(ngModel)]="traitementf.description" formControlName="description" class="form-control" name="description" rows="4" ></textarea>
                         <div class="help-block with-errors"></div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Durée de conservation *</label>
+                        <label>Durée de conservation </label>
                         <input [(ngModel)]="traitementf.dureedeconcesrvation" formControlName="dureedeconcesrvation" type="text" name="dureeConservation" class="form-control" placeholder="Entrez la durée de conservation" >
                         <div class="help-block with-errors"></div>
                       </div>
@@ -425,7 +425,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Personnes concernés *</label>
+                        <label>Personnes concernés </label>
                         <select [(ngModel)]="traitementf.personneconcernees" formControlName="personneconcernees" name="personneconcernees" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
                           <option >salariés</option>
@@ -441,7 +441,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Précisions *</label>
+                        <label>Précisions </label>
                         <input [(ngModel)]="traitementf.precisions" formControlName="precisions" type="text" name="precisions" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
@@ -475,7 +475,7 @@
                 <form [formGroup]="form" data-toggle="validator">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Type de destinataire *</label>
+                        <label>Type de destinataire </label>
                         <select [(ngModel)]="traitementf.typedestinataire" formControlName="typedestinataire" name="typeDonne" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
                           <option >Service interne qui traite les données</option>
@@ -487,14 +487,14 @@
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Précisions *</label>
+                        <label>Précisions </label>
                         <input [(ngModel)]="traitementf.precision" formControlName="precision" type="text" name="dureeConservation" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Données concernées *</label>
+                        <label>Données concernées </label>
                         <input [(ngModel)]="traitementf.donneeconcernees" formControlName="donneeconcernees" type="text" name="dureeConservation" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
@@ -527,7 +527,7 @@
                 <form [formGroup]="form" data-toggle="validator">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Type de mesure de sécurité *</label>
+                        <label>Type de mesure de sécurité </label>
                         <select [(ngModel)]="traitementf.mtypedemesuredesecurite" formControlName="mtypedemesuredesecurite" name="mtypedemesuredesecurite" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
                           <option >Mesures de tracibilité</option>
@@ -569,7 +569,7 @@
                 <form [formGroup]="form" data-toggle="validator">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Destinataire *</label>
+                        <label>Destinataire </label>
                         <input [(ngModel)]="traitementf.destinataire" formControlName="destinataire" id="mtypedemesuredesecurite" type="text" name="destinataire" class="form-control" >
 
                       </div>
@@ -577,7 +577,7 @@
                     <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Pays *</label>
+                        <label>Pays </label>
                         <select [(ngModel)]="traitementf.pays" formControlName="pays" id="pays" name="pays" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
                           <option >Andorre</option>
@@ -599,7 +599,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Type de garantie *</label>
+                        <label>Type de garantie </label>
                         <select [(ngModel)]="traitementf.typedegarantie" formControlName="typedegarantie" id="typedegarantie" name="pays" class="selectpicker form-control" data-style="py-0" >
                           <option value="">Choisissez une option</option>
                           <option >Clauses contractuelles types (CCT)</option>
@@ -616,14 +616,14 @@
                   </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Lien vers la documentation *</label>
+                        <label>Lien vers la documentation </label>
                         <input [(ngModel)]="traitementf.lienversladocumentation" formControlName="lienversladocumentation" id="lienversladocumentation" type="text" name="dureeConservation" placeholder="https://" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Données concernées *</label>
+                        <label>Données concernées </label>
                         <input [(ngModel)]="traitementf.lesdonneesconcernee" formControlName="lesdonneesconcernee" id="lesdonneesconcernee" type="text" name="dureeConservation" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
