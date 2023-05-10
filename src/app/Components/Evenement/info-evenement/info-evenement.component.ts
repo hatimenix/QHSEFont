@@ -6,6 +6,7 @@ import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-
 import { ApiAnalyseEvenementService } from 'src/app/Services/Service-document-unique/api-analyse-evenement.service';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
+import { ApiProcessusService } from 'src/app/Services/Service-document-unique/api-processus.service';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Actions } from 'src/app/models/actions';
@@ -22,9 +23,11 @@ declare var window:any;
 export class InfoEvenementComponent {
 
   evenementForm!: FormGroup;
+  actionForm!: FormGroup;
   analyseForm!: FormGroup;
   sites$ !: Observable<any>;
   services$ !: Observable<any>;
+  processus$ !: Observable<any>;
   analyses$!: Observable<Analyses[]>;
   actions$!: Observable<Actions[]>;
   evenementId !: number;
@@ -35,6 +38,9 @@ export class InfoEvenementComponent {
   idToDelete: number = 0;
   analyse !: Analyses;
   idAnalyse !: number;
+  deleteModalAction : any;
+  idToDeleteAction : number = 0;
+  
 
 
   constructor(
@@ -45,7 +51,8 @@ export class InfoEvenementComponent {
     private apiAnalyseEvenementService: ApiAnalyseEvenementService,
     private apiActionsService: ApiActionsService,
     private apiSiteService: ApiSiteService,
-    private apiServiceService: ApiServiceService
+    private apiServiceService: ApiServiceService,
+    private apiProcessusService: ApiProcessusService
   ){}
 
   ngOnInit(): void {
@@ -57,7 +64,26 @@ export class InfoEvenementComponent {
       severite: ['', Validators.required],
       niveau_risque: ['', Validators.required],
       arbe_cause: ['', Validators.required]
-    })
+    });
+
+    this.actionForm = this.formBuilder.group({ 
+      intitule : ['', Validators.required],
+      type_action : ['', Validators.required],
+      origine_action : ['', Validators.required],
+      reference : ['', Validators.required],
+      domaine : ['', Validators.required],
+      site : ['', Validators.required],
+      processus : ['', Validators.required],
+      analyse_cause : ['', Validators.required],
+      plan_action : ['', Validators.required],
+      delai_mise_en_oeuvre : ['', Validators.required],
+      assigne_a : ['', Validators.required],
+      priorite : ['', Validators.required],
+      delai_mesure_eff : ['', Validators.required],
+      type_critere_eff : ['', Validators.required],
+      detail_critere_eff : ['', Validators.required],
+      piece_jointe : ['']
+    });
 
     this.evenementForm = this.formBuilder.group({
       type_contract: ['', Validators.required],
@@ -124,11 +150,16 @@ export class InfoEvenementComponent {
       }
     });
 
+    this.processus$ = this.apiProcessusService.getAllProcessus();
     this.getAnalyseByEvenementId(this.evenementId);
     this.getActionsByEvenementId(this.evenementId);
 
     this.deletModal = new window.bootstrap.Modal(
       document.getElementById('deleteAnalyse')
+    );
+
+    this.deleteModalAction = new window.bootstrap.Modal(
+      document.getElementById('deleteAction')
     );
   }
 
@@ -223,6 +254,59 @@ export class InfoEvenementComponent {
     });
     const modal = new window.bootstrap.Modal(document.getElementById('updateAnalyse'));
     modal.show();
+  }
+
+  onFileSelectedAction(event: any) {
+    const file: File = event.target.files[0];
+    this.actionForm.get('piece_jointe')?.setValue(file);
+  }
+
+  addActionFormData(): void{
+    if (this.actionForm.valid) {
+      const formData = new FormData();
+      formData.append('Site_name', '');
+      formData.append('etat', '');
+      formData.append('annee', new Date().toString());
+      formData.append('piece_jointe', this.actionForm.get('piece_jointe')?.value ?? '');
+      formData.append('intitule', this.actionForm.get('intitule')!.value);
+      formData.append('type_action', this.actionForm.get('type_action')!.value);
+      formData.append('origine_action', this.actionForm.get('origine_action')!.value);
+      formData.append('reference', this.actionForm.get('reference')!.value);
+      formData.append('domaine', this.actionForm.get('domaine')!.value);
+      formData.append('site', this.actionForm.get('site')!.value);
+      formData.append('processus', this.actionForm.get('processus')!.value);
+      formData.append('analyse_cause', this.actionForm.get('analyse_cause')!.value);
+      formData.append('plan_action', this.actionForm.get('plan_action')!.value);
+      formData.append('delai_mise_en_oeuvre', this.actionForm.get('delai_mise_en_oeuvre')!.value);
+      formData.append('assigne_a', this.actionForm.get('assigne_a')!.value);
+      formData.append('priorite', this.actionForm.get('priorite')!.value);
+      formData.append('delai_mesure_eff', this.actionForm.get('delai_mesure_eff')!.value);
+      formData.append('type_critere_eff', this.actionForm.get('type_critere_eff')!.value);
+      formData.append('detail_critere_eff', this.actionForm.get('detail_critere_eff')!.value);
+      formData.append('evenement', String(this.evenementId));
+
+      this.apiActionsService.addActionFormData(formData).subscribe(
+        (response) => {
+          console.log('Action a été ajouté avec succès.');
+          const newActionId = response.id;      
+          this.actionForm.reset();
+          this.getActionsByEvenementId(this.evenementId);
+        },
+        error => console.log(error)
+      );
+    }
+  }
+
+  openDeleteModalAction(id: number) {
+    this.idToDeleteAction = id;
+    this.deleteModalAction.show();
+  }
+
+  deleteAction() {
+    this.apiActionsService.delAction(this.idToDeleteAction).subscribe(() => {
+    this.getActionsByEvenementId(this.evenementId);
+    this.deleteModalAction.hide();
+    });
   }
 
 }
