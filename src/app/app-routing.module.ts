@@ -58,6 +58,7 @@ import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menu
 
 const routes: Routes = [
   {path : '', component: LoginComponent },
+  {path : 'login', component: LoginComponent },
   {path: 'home', component :HomeComponent},
   {path : 'danger', component: ListDangerComponent},
   {path : 'addDanger', component: AddDangerComponent},

@@ -1,8 +1,11 @@
 .btn-primary {
-  background-color: #FF731D;
-  border-color: #FF731D;
+  background-color: #089bd7;
+  border-color: #089bd7;
 }
-
+.btn-warning{
+  background-color: #ffd140;
+  border-color: #ffd140;
+}
 .btn-danger{
   background-color: #FFB200;
   border-color: #FFB200;
@@ -14,11 +17,10 @@ button + button {
 }
 thead {
   background-color: #3F497F
-  
-  
 }
 th {
-color: rgb(255, 255, 255);
+  background-color: #3F497F;
+  color : #FFFFFF;
 
 }
 #user-list-table {
