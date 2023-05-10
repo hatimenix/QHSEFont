@@ -16,12 +16,13 @@
   button + button {
     margin-left: 10px;
   }
-  .checkbox-lg {
-    transform: scale(2.5);
-    margin-left: 20px;
+  .drop-zone {
+    border: 2px dashed #ccc;
+    padding: 2rem;
+    text-align: center;
   }
-  .nav-item.disabled a {
-    color: #ff0000;
-    cursor: not-allowed;
- }
- 
+  
+  .drop-zone.drag-over {
+    border-color: #aaa;
+  }
+  

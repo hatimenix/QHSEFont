@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Site *</label>
+                                    <label>Site <label style="color: red;">*</label></label>
                                     <select [(ngModel)]="equipementf.site" id="site" name="site" formControlName="site" class="form-control" class="custom-select" required>
                                      <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
                                     </select>
@@ -22,7 +22,7 @@
                             </div>
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Secteur *</label>
+                                    <label>Secteur <label style="color: red;">*</label></label>
                                     <select id="secteur" [(ngModel)]="equipementf.secteur" name="secteur" formControlName="secteur" class="form-control" class="custom-select" required >
                                      <option *ngFor="let secteur of secteurs" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
                                     </select>
@@ -72,13 +72,13 @@
                             </div>  
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="dob">Date dernière modification *</label>
+                                    <label for="dob">Date dernière modification <label style="color: red;">*</label></label>
                                     <input [(ngModel)]="equipementf.date_modification" formControlName="date_modification" type="date" class="form-control" id="date_modification" name="date_modification" />
                                 </div>
                             </div>   
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="dob">Prochaine verification*</label>
+                                    <label for="dob">Prochaine verification <label style="color: red;">*</label></label>
                                     <input [(ngModel)]="equipementf.prochaine_verification" formControlName="prochaine_verification" type="date" class="form-control" id="prochaine_verification" name="prochaine_verification" />
                                     <label class="text-blue " for="gravite">Verifications Internes</label>
                                     <br>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Codification *</label>
+                                    <label>Codification <label style="color: red;">*</label></label>
                                     <input [(ngModel)]="equipementf.codification" type="text" formControlName="codification" class="form-control" placeholder="codification" data-errors="Please Enter Name." id="codification" required>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].touched && f['codification'].invalid">
                                      <div *ngIf="f['codification'].errors && f['codification'].errors['required']">La codification est requis.</div>
@@ -140,8 +140,8 @@
                         </div>
                     </form>
        <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
-        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createEquipement()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0">Enregistrer</button>
-        <button style="margin-bottom: 1%;" type="reset" (click)="onCancel()" class="btn btn-danger mb-2 mb-sm-0">Annuler</button>
+        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createEquipement()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+        <button style="margin-bottom: 1%;" type="reset" (click)="onCancel()" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
       </div>
       
        </div>

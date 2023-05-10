@@ -82,7 +82,7 @@
                       <td>{{nc.gravite ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.action_immediate ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.nc_cloture ? 'Oui' : 'Non'}}</td>
-                      <td><button class="btn btn-primary fa fa-download mr-3"  style="color: rgb(99, 96, 96); background-color: orange" (click)="download(nc.piece_jointe)">{{ nc.piece_jointe.split('/').pop() }}</button></td>
+                      <td><button class="btn btn-primary fa fa-download mr-3"  style="color: rgb(69, 65, 65); background-color: #ecd074" (click)="download(nc.piece_jointe)"> {{ nc.piece_jointe.split('/').pop() }}</button></td>
 
                       <td>
                              <div class="d-flex align-items-center list-action">
@@ -115,8 +115,8 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="delete()" >Supprimer</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      <button type="button" class="btn btn-danger" (click)="delete()" ><i class="fas fa-trash"></i>Supprimer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>
 </div>
@@ -162,18 +162,32 @@ aria-hidden="true">
             </div>
             <div class="row">
             <div class="col">
-              <label for="date_prise_en_compte" class="form-label">Date NC : </label>
-              <input [(ngModel)]="date_nc" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
+              <label for="date_nc" class="form-label">Date NC : </label>
+              <input [(ngModel)]="date_nc" value="{{date_nc}}" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
             </div>
             <div class="col">
-              <label for="date_nc" class="form-label">Délai Prévu : </label>
-              <input [(ngModel)]="delai_prevu" formControlName="delai_prevu" type="date" class="form-control" id="delai_prevu" name="delai_prevu" />
+              <label for="delai_prevu" class="form-label">Délai Prévu : </label>
+              <input [(ngModel)]="delai_prevu" value="{{delai_prevu}}" formControlName="delai_prevu" type="date" class="form-control" id="delai_prevu" name="delai_prevu" />
             </div>
             <div class="col">
               <label for="description_detailee" class="form-label">Description détaillée : </label>
               <input name="description_detailee"  value="{{description_detailee}}" [(ngModel)] = "description_detailee" formControlName="description_detailee" style="width: 100%;" type="text" class="rounded-pill form-control" id="description_detailee">
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
+              <input [(ngModel)]="date_prise_en_compte" value="{{date_prise_en_compte}}" formControlName="date_prise_en_compte" type="date" class="form-control" id="date_prise_en_compte" name="date_prise_en_compte" />
+            </div>
+          <div class="col">
+            <label for="annee" class="form-label">Année : </label>
+            <input name="annee"  value="{{annee}}" [(ngModel)] = "annee" formControlName="annee" style="width: 100%;" type="text" class="rounded-pill form-control" id="annee">
+          </div>
+        <div class="col">
+          <label for="mois" class="form-label">Mois : </label>
+          <input name="mois"  value="{{mois}}" [(ngModel)] = "mois" formControlName="mois" style="width: 100%;" type="text" class="rounded-pill form-control" id="mois">
+        </div>
+      </div>
           <div class="row">
             <div class="col">
               <label for="action_immediate" class="form-label">Action immédiate : </label>
@@ -204,7 +218,7 @@ aria-hidden="true">
                 </div>
                 <div class="row">
                 <div class="col">                      
-                      <label class="text-dark font-weight-bold">Avancement *</label>
+                      <label class="text-dark font-weight-bold">Avancement </label>
 
                       <div class="progress-bar" role="progressbar" [style.width.%]="progress" [attr.aria-valuenow]="progress">
                       </div>
@@ -276,8 +290,8 @@ aria-hidden="true">
                               </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="updateNc()">Modifier</button> 
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="updateNc()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
         </div>
       </div>
     </div>

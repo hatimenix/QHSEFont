@@ -57,9 +57,6 @@ export class AddRegistreTraitementComponent implements OnInit {
     fournisseur_representant:''
   };
     submitted = false;
-    modalForm = new FormGroup({
-      mtypedemesuredesecurite: new FormControl('', Validators.required),
-    });
     
     form = new FormGroup({
       fournisseur: new FormControl(''),
