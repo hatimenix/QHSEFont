@@ -4,7 +4,7 @@
          <div class="col-sm-12">
            
             <div class="card">
-               <div class="card-header d-flex justify-content-between">
+               <div class="card-header d-flex justify-content-between" style="background-color:#17469d; color:white;">
                   <div class="header-title">
                      <h4 class="card-title">Registre des actions</h4>
                   </div>
@@ -37,32 +37,32 @@
                                                <td style="width:50%">{{ action.intitule }}</td>
                                             </tr>
                                             <tr>
-                                               <td style="width:50%">Type d'action</td>
-                                               <td style="width:50%">{{ action.type_action }}</td>
+                                               <td style="width:50%; background-color:#8de2ff">Type d'action</td>
+                                               <td style="width:50%; background-color:#8de2ff">{{ action.type_action }}</td>
                                             </tr>
                                             <tr>
                                                <td style="width:50%">Origine de l'action</td>
                                                <td style="width:50%">{{ action.origine_action }}</td>
                                             </tr>
                                             <tr>
-                                               <td style="width:50%">Référence action</td>
-                                               <td style="width:50%">{{ action.reference }}</td>
+                                               <td style="width:50%; background-color:#8de2ff">Référence action</td>
+                                               <td style="width:50%; background-color:#8de2ff">{{ action.reference }}</td>
                                             </tr>
                                             <tr>
                                                <td style="width:50%">Domaine</td>
                                                <td style="width:50%">{{ action.domaine }}</td>
                                             </tr>
                                             <tr>
-                                               <td style="width:50%">Site</td>
-                                               <td style="width:50%">{{ action.Site_name }}</td>
+                                               <td style="width:50%; background-color:#8de2ff">Site</td>
+                                               <td style="width:50%; background-color:#8de2ff">{{ action.Site_name }}</td>
                                             </tr>
                                             <tr>
                                                <td style="width:50%">Processus concerné par l'action</td>
                                                <td style="width:50%">{{ action.Proccesus_name }}</td>
                                             </tr>
                                             <tr>
-                                               <td style="width:50%">Analyse causes(AC) / risques (AP)</td>
-                                               <td style="width:50%">{{ action.analyse_cause }}</td>
+                                               <td style="width:50%; background-color:#8de2ff">Analyse causes(AC) / risques (AP)</td>
+                                               <td style="width:50%; background-color:#8de2ff">{{ action.analyse_cause }}</td>
                                             </tr>
                                             <tr>
                                                <td style="width:50%">Plan d'actions</td>
@@ -82,8 +82,8 @@
                                                 <td style="width:50%">{{ action.delai_mise_en_oeuvre }}</td>
                                              </tr>
                                              <tr>
-                                                <td style="width:50%">Assigné à</td>
-                                                <td style="width:50%">{{ action.assigne_a }}</td>
+                                                <td style="width:50%; background-color:#8de2ff">Assigné à</td>
+                                                <td style="width:50%; background-color:#8de2ff">{{ action.assigne_a }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Priorité</td>
@@ -99,16 +99,16 @@
                                        <table class="table table-bordered table-responsive-md table-striped text-center">
                                           <tbody>
                                              <tr>
-                                                <td style="width:50%">Délai mesure efficacité</td>
-                                                <td style="width:50%">{{ action.delai_mesure_eff }}</td>
+                                                <td style="width:50%; background-color:#8de2ff">Délai mesure efficacité</td>
+                                                <td style="width:50%; background-color:#8de2ff">{{ action.delai_mesure_eff }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Type de critère d'efficacité</td>
                                                 <td style="width:50%">{{ action.type_critere_eff }}</td>
                                              </tr>
                                              <tr>
-                                                <td style="width:50%">Detail sur le critère d'efficacité</td>
-                                                <td style="width:50%">{{ action.detail_critere_eff }}</td>
+                                                <td style="width:50%; background-color:#8de2ff">Detail sur le critère d'efficacité</td>
+                                                <td style="width:50%; background-color:#8de2ff">{{ action.detail_critere_eff }}</td>
                                              </tr>
                                              <tr>
                                                 <td style="width:50%">Pièce jointe</td>
@@ -128,25 +128,25 @@
                                      </tr>
                                     <tbody *ngFor="let realisation of realisation$ | async">
                                        <tr>
-                                          <td style="width:50%">Origine</td>
-                                          <td style="width:50%">{{ action.origine_action }}</td>
+                                          <td style="width:50%; background-color:#8de2ff">Origine</td>
+                                          <td style="width:50%; background-color:#8de2ff">{{ action.origine_action }}</td>
                                        </tr>
                                        <tr>
-                                          <td style="width:50%">Tache(s) associées(s) <a class="badge badge-info mx-2" data-toggle="modal" data-target="#tacheModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
+                                          <td style="width:50%">Tache(s) associées(s) <a class="badge bg-warning mx-2" data-toggle="modal" data-target="#tacheModalCenteredScrollable" data-placement="top"><i class="ri-add-line"></i>Nouvelle entrée</a></td>
                                           <td style="width:50%">
                                              <ul>
-                                                <li *ngFor="let tache of tache$ | async" style="list-style-type: none;"><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-toggle="modal" data-target="#infostachesModal" (click)="ouvrirModal(tache)">{{ tache.nom_tache }}</a></li>
+                                                <li *ngFor="let tache of tache$ | async" style="list-style-type: none;"><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="color:#ffd140;" data-toggle="modal" data-target="#infostachesModal" (click)="ouvrirModal(tache)">{{ tache.nom_tache }}</a></li>
                                              </ul>
                                              <div class="modal" tabindex="-1" role="dialog"
                                                 id="infostachesModal">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
                                                    role="document">
                                                    <div class="modal-content">
-                                                      <div class="modal-header">
-                                                         <h5 class="modal-title">{{ tacheSelectionnee ? tacheSelectionnee.nom_tache : '' }}</h5>
+                                                      <div class="modal-header" style="background-color: #089bd7;">
+                                                         <h5 class="modal-title" style="color:white">Description de la tache</h5>
                                                          <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
+                                                            <span aria-hidden="true" style="color:black">&times;</span>
                                                          </button>
                                                       </div>
                                                       <div class="modal-body">
@@ -157,40 +157,40 @@
                                                                   <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.source : '' }}</td>
                                                                </tr>
                                                                <tr>
-                                                                  <td style="width:50%">Nom de la tache</td>
-                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.nom_tache : '' }}</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">Nom de la tache</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">{{ tacheSelectionnee ? tacheSelectionnee.nom_tache : '' }}</td>
                                                                </tr>
                                                                <tr>
                                                                   <td style="width:50%">Date de debut</td>
                                                                   <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.date_debut : '' }}</td>
                                                                </tr>
                                                                <tr>
-                                                                  <td style="width:50%">Echéance</td>
-                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.echeance : '' }}</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">Echéance</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">{{ tacheSelectionnee ? tacheSelectionnee.echeance : '' }}</td>
                                                                </tr>
                                                                <tr>
                                                                   <td style="width:50%">Description</td>
                                                                   <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.description : '' }}</td>
                                                                </tr>
                                                                <tr>
-                                                                  <td style="width:50%">Priorité</td>
-                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.priorite : '' }}</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">Priorité</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">{{ tacheSelectionnee ? tacheSelectionnee.priorite : '' }}</td>
                                                                </tr>
                                                                <tr>
                                                                   <td style="width:50%">Assigné à</td>
                                                                   <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.assigne_a : '' }}</td>
                                                                </tr>
                                                                <tr>
-                                                                  <td style="width:50%">Date de réalisation</td>
-                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.date_realisation : '' }}</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">Date de réalisation</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">{{ tacheSelectionnee ? tacheSelectionnee.date_realisation : '' }}</td>
                                                                </tr>
                                                                <tr>
                                                                   <td style="width:50%">Etat</td>
                                                                   <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.etat : '' }}</td>
                                                                </tr>
                                                                <tr>
-                                                                  <td style="width:50%">Commentaires</td>
-                                                                  <td style="width:50%">{{ tacheSelectionnee ? tacheSelectionnee.commentaire : '' }}</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">Commentaires</td>
+                                                                  <td style="width:50%; background-color:#8de2ff">{{ tacheSelectionnee ? tacheSelectionnee.commentaire : '' }}</td>
                                                                </tr>
                                                                <tr>
                                                                   <td style="width:50%">Pièce jointe</td>
@@ -202,7 +202,7 @@
                                                          </table>
                                                       </div>
                                                       <div class="modal-footer">
-                                                         <button type="button" class="btn btn-secondary"
+                                                         <button type="button" class="btn bg-warning"
                                                             data-dismiss="modal">Fermer</button>
                                                       </div>
                                                    </div>
@@ -211,26 +211,26 @@
                                           </td>
                                        </tr>
                                        <tr>
-                                          <td style="width:50%">Action réalisée</td>
-                                          <td style="width:50%">{{ realisation.action_realise }}</td>
+                                          <td style="width:50%; background-color:#8de2ff">Action réalisée</td>
+                                          <td style="width:50%; background-color:#8de2ff">{{ realisation.action_realise }}</td>
                                        </tr>
                                        <tr>
                                           <td style="width:50%">Date de réalisations</td>
                                           <td style="width:50%">{{ realisation.date_realisation }}</td>
                                        </tr>
                                        <tr>
-                                          <td style="width:50%">Etat</td>
-                                          <td style="width:50%">{{ realisation.etat }}</td>
+                                          <td style="width:50%; background-color:#8de2ff">Etat</td>
+                                          <td style="width:50%; background-color:#8de2ff">{{ realisation.etat }}</td>
                                        </tr>
                                     </tbody>
                                  </table>                                                                
                                  <div id="realisationModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="realisationModalCenteredScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout réalisation</h5>
+                                          <div class="modal-header" style="background-color: #089bd7;">
+                                             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Ajout réalisation</h5>
                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                             <span aria-hidden="true">×</span>
+                                             <span aria-hidden="true" style="color:black">×</span>
                                              </button>
                                           </div>
                                           <div class="modal-body">
@@ -252,7 +252,7 @@
                                                   </select>
                                                 </div>               
                                                 <div class="d-flex align-items-end flex-column" >
-                                                   <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">Ajouter</button>
+                                                   <button type="submit" class="btn" style="background-color:#ffd140;" [disabled]="actionForm.invalid">Ajouter</button>
                                                 </div>
                                              </form>
                                           </div>
@@ -262,10 +262,10 @@
                                  <div id="tacheModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tacheModalCenteredScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                             <h5 class="modal-title" id="tacheModalCenteredScrollableTitle">DESCRIPTION DE LA TACHE</h5>
+                                          <div class="modal-header" style="background-color: #089bd7;">
+                                             <h5 class="modal-title" id="tacheModalCenteredScrollableTitle" style="color:white">AJOUT D'UNE TACHE</h5>
                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                             <span aria-hidden="true">×</span>
+                                             <span aria-hidden="true" style="color:black">×</span>
                                              </button>
                                           </div>
                                           <div class="modal-body">
@@ -326,10 +326,10 @@
                                                 </div>
                                                 <div class="form-group">
                                                    <label for="piece_jointe">Pièce jointe </label>
-                                                   <input type="file" class="form-control" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
-                                                </div>                                     
+                                                   <input type="file" class="form-control" style="padding-bottom: 8%;" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
+                                                </div>                                                                             
                                                 <div class="d-flex align-items-end flex-column" >
-                                                   <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Ajouter</button>
+                                                   <button type="submit" class="btn" style="background-color:#ffd140;" [disabled]="tacheForm.invalid">Ajouter</button>
                                                 </div>
                                              </form>
                                           </div>
@@ -351,22 +351,22 @@
                                          <td style="width:50%">{{ mesure.date_cloture }}</td>
                                       </tr>
                                       <tr>
-                                         <td style="width:50%">Résultat mesure efficacité</td>
-                                         <td style="width:50%">{{ mesure.resultat_mesure_eff }}</td>
+                                         <td style="width:50%; background-color:#8de2ff">Résultat mesure efficacité</td>
+                                         <td style="width:50%; background-color:#8de2ff">{{ mesure.resultat_mesure_eff }}</td>
                                       </tr>
                                       <tr>
                                          <td style="width:50%">Mesure de l'efficacité</td>
                                          <td style="width:50%">{{ mesure.mesure_eff }}</td>
                                       </tr>
                                       <tr>
-                                         <td style="width:50%">Cout</td>
-                                         <td style="width:50%">{{ mesure.cout }}</td>
+                                         <td style="width:50%; background-color:#8de2ff">Cout</td>
+                                         <td style="width:50%; background-color:#8de2ff">{{ mesure.cout }}</td>
                                       </tr>
                                    </tbody>
                                 </table>
                                 <div class="d-flex align-items-end flex-column" style="height: 80px;" *ngFor="let mesure of mesure$ | async">
-                                   <div class="mt-auto p-2"><a class="btn btn-primary add-list" data-toggle="modal" data-target="#update_mesure" (click)="openUpdateModal(mesure)"><i class="ri-pencil-line mr-0"></i>Modifier</a>
-                                      <a class="btn btn-primary add-list mx-2" data-toggle="modal" data-target="#delete_mesure" (click)="openDeleteModal(mesure.id)"><i class="ri-delete-bin-line mr-0"></i>Supprimer</a></div>
+                                   <div class="mt-auto p-2"><a class="btn add-list" style="background-color: #ffd140; color:white;" data-toggle="modal" data-target="#update_mesure" (click)="openUpdateModal(mesure)"><i class="ri-pencil-line mr-0"></i>Modifier</a>
+                                      <a class="btn bg-warning add-list mx-2" data-toggle="modal" data-target="#delete_mesure" (click)="openDeleteModal(mesure.id)"><i class="ri-delete-bin-line mr-0"></i>Supprimer</a></div>
                                  </div>
                                  <div class="modal fade" id="delete_mesure" tabindex="-1" role="dialog" aria-hidden="true">
                                    <div class="modal-dialog modal-dialog-centered" role="document">
@@ -380,7 +380,7 @@
                                                        </div>
                                                        <div class="col-lg-12 mt-4">
                                                            <div class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                                               <div class="btn btn-primary mr-4" data-dismiss="modal" (click)="deleteMesure()">Supprimer</div>
+                                                               <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteMesure()">Supprimer</div>
                                                                <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
                                                            </div>
                                                        </div>
@@ -393,6 +393,12 @@
                                <div class="modal fade" id="update_mesure" tabindex="-1" role="dialog" aria-hidden="true">
                                  <div class="modal-dialog modal-dialog-centered" role="document">
                                      <div class="modal-content">
+                                       <div class="modal-header" style="background-color: #089bd7;">
+                                          <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier Mesure efficacité</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true" style="color:black">×</span>
+                                          </button>
+                                       </div>
                                          <div class="modal-body">
                                           <form [formGroup]="mesureForm" (ngSubmit)="updateMesure()"  class="needs-validation" novalidate>                                            
                                              <div class="form-group">
@@ -419,7 +425,7 @@
                                                 <input type="number" class="form-control" formControlName="cout" min="0" required/>
                                               </div>
                                              <div class="d-flex align-items-end flex-column" >
-                                                <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Modifier</button>
+                                                <button type="submit" class="btn" style="background-color:#ffd140;" [disabled]="mesureForm.invalid">Modifier</button>
                                              </div>                                   
                                            </form>
                                          </div>
@@ -429,10 +435,10 @@
                            <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
                                  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Ajout Mesure efficacité</h5>
+                                       <div class="modal-header" style="background-color: #089bd7;">
+                                          <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Ajout Mesure efficacité</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                             <span aria-hidden="true">×</span>
+                                             <span aria-hidden="true" style="color:black">×</span>
                                           </button>
                                        </div>
                                     <div class="modal-body">
@@ -461,7 +467,7 @@
                                              <input type="number" class="form-control" formControlName="cout" min="0" required/>
                                           </div>
                                           <div class="d-flex align-items-end flex-column" >
-                                             <button type="submit" class="btn btn-primary" [disabled]="mesureForm.invalid">Ajouter</button>
+                                             <button type="submit" class="btn" style="background-color:#ffd140;" [disabled]="mesureForm.invalid">Ajouter</button>
                                           </div>                                   
                                        </form>
                                     </div>
