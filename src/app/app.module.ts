@@ -57,6 +57,8 @@ import { AddMenusComponent } from './Components/Menus/addMenus/add-menus/add-men
 import { ListMenusComponent } from './Components/Menus/listMenus/list-menus/list-menus.component';
 import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menus/update-menus.component';
 import { DetailsFicheComponent } from './Components/ficheTechnique/detailsFiche/details-fiche/details-fiche.component';
+import { ListDocumentsUtilesComponent } from './Components/Documents-utiles/list-documents-utiles/list-documents-utiles.component';
+import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-documents-utiles/add-documents-utiles.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +112,8 @@ import { DetailsFicheComponent } from './Components/ficheTechnique/detailsFiche/
     AddRegistreTraitementComponent,
     InfoRGPDComponent,
     DetailsFicheComponent,
+    ListDocumentsUtilesComponent,
+    AddDocumentsUtilesComponent
 
   ],
   imports: [
