@@ -79,9 +79,7 @@ export class ListFournisseursComponent {
       document.getElementById('delete')
     );
   }
-  navigateToFournisseur() {
-    this.router.navigate(['/add-fournisseurs']);
-  }
+
   
   openDeleteModal(id: number) {
     this.idTodelete = id;
