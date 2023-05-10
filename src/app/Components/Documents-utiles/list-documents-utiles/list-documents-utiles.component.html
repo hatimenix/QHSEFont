@@ -1,0 +1,147 @@
+<div class="content-page">
+    <div class="container-fluid">
+       <div class="row">
+           <div class="col-lg-12">
+               <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                <div>
+                  <h4 class="mb-3">Documents utiles</h4>
+              </div>
+                   <a (click)="navigateToDocumentutile()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter un document</a>
+               </div>
+           </div>
+  
+          </div>
+          <div class="input-group mb-3">
+           <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
+       </div>
+       <div class="col-lg-12">
+        <div class="table-responsive rounded mb-3">
+        <table class="data-tables table mb-0 tbl-server-info">
+            <thead class="bg-white text-uppercase">
+                <tr class="ligth ligth-data">
+                     <th scope="col">Nom</th>
+                     <th scope="col">Document</th>
+                     <th scope="col">Modifié</th>
+                     <th scope="col">Modifié par</th>
+                     <th scope="col">Typologie</th>
+                     <th scope="col">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody class="ligth-body">
+             <tr *ngFor="let documentutile of documentsutiles | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+              <td>{{ documentutile.nom}}</td>
+                <td><button class="btn btn-primary fa fa-download mr-3"  style="color: rgb(69, 65, 65); background-color: #ecd074" (click)="download(documentutile.document)"> {{ documentutile.document.split('/').pop() }}</button></td>
+                 <td>{{ documentutile.modified_date  | date:'yyyy-MM-dd'  }}</td>
+                 <td>{{ documentutile.modified_by }}</td>
+                 <td>{{ documentutile.typologie }}</td>
+
+                 <td>
+                        <div class="d-flex align-items-center list-action">
+                                <a class="badge bg-success mr-2" data-toggle="modal" (click)="getDocumentutileData(documentutile.id,documentutile.nom,documentutile.typologie,documentutile.modified_by,documentutile.modified_date)" data-target="#update" data-placement="top" title="" data-original-title="Edit"
+                                ><i class="ri-pencil-line mr-0"></i></a>
+                            <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(documentutile.id)" data-placement="top" title="" data-original-title="Delete"
+                                ><i class="ri-delete-bin-line mr-0"></i></a>
+                        </div>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+        </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Attention , cette action est irréversible !
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="delete()" ><i class="fas fa-trash"></i>Supprimer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier un document</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form [formGroup]="form" data-toggle="validator">
+                <div class="col">                      
+                    <div class="form-group">
+                        <label>Nom </label>
+                        <input [(ngModel)]="nom" type="text" value="{{nom}}" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" >
+                     </div>
+                 </div>
+                 <div class="col">                      
+                  <div class="form-group">
+                      <label>Typologie </label>
+                      <input [(ngModel)]="typologie" type="text" value="{{typologie}}" formControlName="typologie" class="form-control" data-errors="Please Enter Name." id="typologie" >
+                   </div>
+               </div>
+               <div class="col">                      
+                <div class="form-group">
+                    <label>Modifié par </label>
+                    <input [(ngModel)]="modified_by" type="text" value="{{modified_by}}" formControlName="modified_by" class="form-control" data-errors="Please Enter Name." id="modified_by" >
+                 </div>
+             </div>
+             <div class="col">
+              <label for="modified_date" class="form-label">Modifié : </label>
+              <input [(ngModel)]="modified_date" value="{{modified_date}}" formControlName="modified_date" type="date" class="form-control" id="modified_date" name="modified_date" />
+            </div>
+            <br>
+           <div class="col mb-2">
+            <div class="custom-file">
+              <input (change)="updateFile($event)" [(ngModel)]="document" formControlName="document"
+                type="file" class="custom-file-input" id="customFile">
+              <label class="custom-file-label" for="customFile">Document</label>
+            </div>
+          </div>
+            
+        </form>
+                              </div>
+                              </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateDocumentutile()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    La document utile a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>

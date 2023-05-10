@@ -170,7 +170,13 @@ updateNc() : void {
     formData.append("detail_cause", this.detail_cause);
     formData.append("date_nc", this.date_nc);
     formData.append("description_detailee", this.description_detailee);
-    formData.append("delai_prevu", this.delai_prevu);
+    if (this.delai_prevu !== null && this.delai_prevu !== undefined) {
+      formData.append("delai_prevu", this.delai_prevu);
+  }      if (this.date_prise_en_compte !== null && this.date_prise_en_compte !== undefined) {
+      formData.append("date_prise_en_compte", this.date_prise_en_compte);
+  }  
+    formData.append("annee", this.annee);
+    formData.append("mois", this.mois);
     formData.append("type_cause", this.type_cause);
     formData.append("cout", this.cout);
     formData.append("progress", this.progress);
