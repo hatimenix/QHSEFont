@@ -3,10 +3,21 @@
     margin-left: 20px;
   }
   .card-header{
-    background-color: #3F497F;
+    background-color: #17469d;
     color: #fff;
     
   }
+  .btn-primary {
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
+  
+  .btn-danger{
+    background-color: #FFB200;
+    border-color: #FFB200;
+    color: #fff; 
+  }
+  
   .nav-item.disabled a {
     color: #ff0000;
     cursor: not-allowed;

@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="dob">Date Mise en service </label>
+                                    <label for="dob">Date Mise en service <label style="color: red;">*</label></label>
                                     <input [(ngModel)]="equipementf.date_mise_en_service" formControlName="date_mise_en_service" type="date" class="form-control" id="date_mise_en_service" name="date_mise_en_service" />
                                 </div>
                             </div>  
@@ -141,7 +141,7 @@
                     </form>
        <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
         <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createEquipement()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
-        <button style="margin-bottom: 1%;" type="reset" (click)="onCancel()" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+        <button style="margin-bottom: 1%;" type="reset" routerLink="/equipement-list" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
       </div>
       
        </div>

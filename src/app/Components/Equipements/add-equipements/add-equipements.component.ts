@@ -119,10 +119,6 @@ export class AddEquipementsComponent {
     }
   })
 }
-  onCancel() {
-    this.mode = 'list';
-  }
-
 
   uploadFile(event: any) {
     const file = event.target.files[0];
