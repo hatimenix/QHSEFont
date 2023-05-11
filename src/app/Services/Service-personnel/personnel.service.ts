@@ -39,4 +39,8 @@ deletePersonnel(id: number): Observable<void> {
   return this.http.delete<void>(url);
 }
 
+getPersonnelBySite(siteId : number): Observable<Personnel[]>{
+  return this.http.get<Personnel[]>(`${this.API_URL_Utilisateur}?`)
+}
+
 }
