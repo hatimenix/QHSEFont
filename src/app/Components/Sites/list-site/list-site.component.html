@@ -123,7 +123,7 @@
      </button>
    </div>
    <div class="modal-body">
-      <p>Compte: {{ personnel?.compte }}</p>
+      <p *ngIf="personnel">Compte: {{ personnel.compte }}</p>
       <p>Nom: {{ personnel?.nom }}</p>
       <p>Courrier: {{ personnel?.courrier }}</p>
       <p>Numero Tel: {{ personnel?.numero_tel }}</p>
