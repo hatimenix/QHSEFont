@@ -94,9 +94,7 @@ export class AddFournisseursComponent {
     }
   })
 }
-  onCancel() {
-    this.mode = 'list';
-  }
+
 
   get f() {
     return this.form.controls;

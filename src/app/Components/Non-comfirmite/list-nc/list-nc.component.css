@@ -1,27 +1,51 @@
 .btn-primary {
-    background-color: #FFB200;
-    border-color: #FFB200;
-    color: #fff; 
-  }
- 
- 
-  
-  button + button {
-    margin-left: 10px;
-  }
-  thead {
-    background-color: #17469d
-    
-    
-  }
- th {
-  color: rgb(255, 255, 255);
-  min-width: 300px;
-  
+  background-color: #FF731D;
+  border-color: #FF731D;
+}
+
+.btn-danger{
+  background-color: #FFB200;
+  border-color: #FFB200;
+  color: #fff; 
+}
+.custom-button {
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff;
+}
+
+button + button {
+  margin-left: 10px;
+}
+thead {
+  background-color: #17469d;
+  color:#fff;
+}
+th {
+color: rgb(255, 255, 255);
+min-width: 300px;
+
 }
 #user-list-table {
   width: 100%;
 }
+.badge{
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff; 
+
+}
+.btn-danger{
+  background-color: #e56b6f;
+  border-color: #e56b6f;
+  color: #fff; 
+}
+.btn-primary {
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff;  /* ajustez la valeur selon vos préférences */
+}
+
 #update .modal-dialog {
   max-width: 850px;
 }
