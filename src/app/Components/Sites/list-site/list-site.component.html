@@ -24,7 +24,7 @@
                          <div class="col-sm-6 col-md-6">
                             <div class="user-list-files d-flex">
                                
-                               <a routerLink="/addSite" class="bg" href="javascript:void();">
+                               <a routerLink="/addSite" class="bg1" href="javascript:void();">
                                   Ajouter un site 
                                </a>
                             </div>
@@ -58,7 +58,7 @@
                                 <div class="flex align-items-center list-user-action">
                                   <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Edit" [routerLink]="['/updateSite', site.id]"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="btn btn-sm bg-warning" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm bg" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Delete" (click)="siteIdToDelete = site.id; modalRef = modalService.show(deleteModal);"><i
                                       class="ri-delete-bin-line mr-0"></i></a>
                                 </div>
@@ -107,37 +107,42 @@
    </div>
    <div class="modal-footer">
      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+     <button type="button" class="btn bg" (click)="confirmDelete()">Supprimer</button>
    </div>
  </ng-template>
 
-   <!-- User modal -->
-<ng-template #userModal let-personnelDetails>
-   
+<!-- userModal component -->
+<ng-template #userModal>
    <div class="modal-header">
-      
-     <h4 class="modal-title">Personnel Informations</h4>
-     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+     <h5 class="modal-title">Détails du personnel</h5>
+     <button type="button" class="close" (click)="modalRef.hide()">
        <span aria-hidden="true">&times;</span>
      </button>
    </div>
-   <div>
-     
-      <p>Compte: {{ personnelDetails?.compte }}</p>
-      <p>Nom: {{ personnelDetails?.nom }}</p>
-      <p>Courrier: {{ personnelDetails?.courrier }}</p>
-      <p>Numero Tel: {{ personnelDetails?.numero_tel }}</p>
-      <p>Presente Vous: {{ personnelDetails?.presente_vous }}</p>
-      <p>Fonction: {{ personnelDetails?.fonction }}</p>
-      <p>Adresse SIP: {{ personnelDetails?.adresse_sip }}</p>
-      <p>Othermail: {{ personnelDetails?.othermail }}</p>      
-    </div>
-    
-    
-   <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+   <div class="modal-body">
+     <dl>
+       <dt>Compte: </dt>
+       <dd>{{ personnelDetails.personnel?.compte }}</dd>
+       <dt>Nom: </dt>
+       <dd>{{ personnelDetails.personnel?.nom }}</dd>
+       <dt>Courrier: </dt>
+       <dd>{{ personnelDetails.personnel?.courrier }}</dd>
+       <dt>Numéro de téléphone: </dt>
+       <dd>{{ personnelDetails.personnel?.numero_tel }}</dd>
+       <dt>Présentez-vous: </dt>
+       <dd>{{ personnelDetails.personnel?.presente_vous }}</dd>
+       <dt>Fonction: </dt>
+       <dd>{{ personnelDetails.personnel?.fonction }}</dd>
+       <dt>Adresse SIP: </dt>
+       <dd>{{ personnelDetails.personnel?.adresse_sip }}</dd>
+       <dt>Adresse email secondaire: </dt>
+       <dd>{{ personnelDetails.personnel?.othermail }}</dd>
+       <!-- Ajoutez d'autres propriétés si nécessaire -->
+     </dl>
    </div>
-</ng-template>
+ </ng-template>
+ 
+ 
 
 
 

@@ -3,7 +3,7 @@
     border-color: #FF731D;
   }
  
-  .bg{
+  .bg1{
     background-color: #ffd140;
     border-color: #ffd140;
     color: #fff; 
@@ -13,7 +13,7 @@
     margin-left: 10px;
   }
   thead {
-    background-color: #3F497F
+    background-color: #17469d
     
     
   }
@@ -32,4 +32,8 @@
 
 }
 
-  
+.bg{
+  background-color: #e56b6f;
+  border-color: #e56b6f;
+  color: #fff; 
+}

@@ -78,6 +78,8 @@ export class ListSiteComponent implements OnInit {
     this.personnelService.getPersonnelById(selectedPersonnelId).subscribe((personnel: Personnel) => {
       console.log("Personnel details: ", personnel);
       this.personnelDetails.personnel = personnel;
+      console.log("Personnel details after setting: ", this.personnelDetails);
+
       this.modalRef = this.modalService.show(this.userModal);
     });
   }

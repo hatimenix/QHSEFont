@@ -18,16 +18,31 @@
     margin-left: 10px;
   }
   thead {
-    background-color: #3F497F
+    background-color: #17469d
     
     
   }
  th {
   color: rgb(255, 255, 255);
+  min-width: 200px;
   
 }
 #user-list-table {
     width: 100%;
+  }
+  .badge{
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff; 
+  
+  }
+  .bg{
+    background-color: #e56b6f;
+    border-color: #e56b6f;
+    color: #fff; 
+  }
+  table {
+    border-spacing: 10px; /* ajustez la valeur selon vos préférences */
   }
   
   

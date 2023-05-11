@@ -8,7 +8,22 @@
     color: #fff; 
   }
   thead {
-    background-color: #3F497F;
+    background-color: #17469d;
     color:#fff
     
+  }
+  th {
+    color: rgb(255, 255, 255);
+    min-width: 200px;
+    
+  }
+  .bg-warning{
+    background-color: #e56b6f;
+    border-color: #e56b6f;
+    color: #fff; 
+  }
+  .btn-danger{
+    background-color: #e56b6f;
+    border-color: #e56b6f;
+    color: #fff; 
   }
