@@ -113,29 +113,28 @@
 
 
  <!-- Modify the HTML code to pass the personnel variable to the modal using @Input decorator -->
-<ng-template #userModal >
-   
-   <div class="modal-header">
-      
+ <ng-template #userModal>
+   <div id="myUserModal" class="modal-header">
      <h4 class="modal-title">Personnel Informations</h4>
      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
        <span aria-hidden="true">&times;</span>
      </button>
    </div>
-   <div class="modal-body">
-      <p *ngIf="personnel">Compte: {{ personnel.compte }}</p>
-      <p>Nom: {{ personnel?.nom }}</p>
-      <p>Courrier: {{ personnel?.courrier }}</p>
-      <p>Numero Tel: {{ personnel?.numero_tel }}</p>
-      <p>Presente Vous: {{ personnel?.presente_vous }}</p>
-      <p>Fonction: {{ personnel?.fonction }}</p>
-      <p>Adresse SIP: {{ personnel?.adresse_sip }}</p>
-      <p>Othermail: {{ personnel?.othermail }}</p>
-    </div>
+   <div *ngIf="personnel">
+     <p>Compte: {{ personnel.compte }}</p>
+     <p>Nom: {{ personnel.nom }}</p>
+     <p>Courrier: {{ personnel.courrier }}</p>
+     <p>Numero Tel: {{ personnel.numero_tel }}</p>
+     <p>Presente Vous: {{ personnel.presente_vous }}</p>
+     <p>Fonction: {{ personnel.fonction }}</p>
+     <p>Adresse SIP: {{ personnel.adresse_sip }}</p>
+     <p>Othermail: {{ personnel.othermail }}</p>
+   </div>
    <div class="modal-footer">
      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
    </div>
-</ng-template>
+ </ng-template>
+ 
 
 
  

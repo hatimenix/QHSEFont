@@ -19,6 +19,7 @@ export class ListSiteComponent implements OnInit {
   modalRef!: BsModalRef;
   siteIdToDelete: number = 0;
   personnel!: Personnel;
+  
 
   constructor(
     private siteService: ApiSiteService,
@@ -73,6 +74,7 @@ openUserModal(site: Site): void {
 
     this.modalRef.content = { personnel, selectedPersonnelName };
     console.log("Modal content: ", this.modalRef.content);
+    
   });
 }
 
