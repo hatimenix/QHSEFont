@@ -34,8 +34,6 @@ export class MenusService {
   deleteMenu(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_menus}${id}/`);
   }
-  downloadMenu(id: number): Observable<Blob> {
-    return this.http.get(`${this.API_menus}/${id}`, { responseType: 'blob' });
-  }
+
   
 }

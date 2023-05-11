@@ -3,9 +3,9 @@
     border-color: #FF731D;
   }
  
-  .btn-danger{
-    background-color: #FFB200;
-    border-color: #FFB200;
+  .bg1{
+    background-color: #ffd140;
+    border-color: #ffd140;
     color: #fff; 
   }
   
@@ -13,10 +13,11 @@
     margin-left: 10px;
   }
   thead {
-    background-color: #3F497F
+    background-color: #17469d
     
     
   }
+  
  th {
   color: rgb(255, 255, 255);
   
@@ -24,5 +25,15 @@
 #user-list-table {
     width: 100%;
   }
-  
-  
+.badge{
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff; 
+
+}
+
+.bg{
+  background-color: #e56b6f;
+  border-color: #e56b6f;
+  color: #fff; 
+}

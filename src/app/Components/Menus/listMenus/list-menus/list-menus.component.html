@@ -10,7 +10,7 @@
                    <div class="col-sm-6 col-md-6">
                      <div class="user-list-files d-flex">
                         
-                        <a routerLink="/addMenu" class="bg-danger" href="javascript:void();">
+                        <a routerLink="/addMenu" class="bg" href="javascript:void();">
                            Ajouter un Menu 
                         </a>
                      </div>
@@ -73,7 +73,7 @@
                                
                                
                                
-                               <th style="min-width: 100px">Action</th>
+                               <th>Action</th>
                             </tr>
                          </thead>
                          <tbody>
@@ -83,18 +83,17 @@
                               <td>{{menu.mois_concerne}}</td>
                               <td>
                                  <a href="{{ menu.menus_generaux }}" download>{{ menu.menus_generaux }}</a>
-                                 
-                              </td>
+                               </td>
                               <td>
                                  <a href="{{ menu.menus_dessert }}" download>{{ menu.menus_dessert }}</a>
-                                 
-                              </td>
+                               </td>
+                               
                               <td>
                                  <a href="{{ menu.menu_s1 }}" download>{{ menu.menu_s1 }}</a>
                                  
                               </td>
                               <td>
-                                 <a href="{{ menu.menu_s2 }}" download>{{ menu.menu_s2 }}</a>
+                                 <a href="{{ menu.menu_s2 }}" download>{{ menu.menu_s2  }}</a>
                                  
                               </td>
                               <td>
@@ -117,7 +116,7 @@
                                 <div class="flex align-items-center list-user-action">
                                   <a class="btn btn-sm bg-success" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Edit" [routerLink]="['/updateMenu', menu.id]"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="btn btn-sm bg-danger" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Delete" (click)="menuIdToDelete = menu.id; modalRef = modalService.show(deleteModal);"><i
                                       class="ri-delete-bin-line mr-0"></i></a>
                                 </div>
@@ -162,7 +161,7 @@
      </button>
    </div>
    <div class="modal-body">
-     Êtes-vous sûr de vouloir supprimer ce site ?
+     Êtes-vous sûr de vouloir supprimer ce menu ?
    </div>
    <div class="modal-footer">
      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>

@@ -1,0 +1,60 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>POS Dash | Responsive Bootstrap 4 Admin Dashboard Template</title>
+      
+    </head>
+  <body class="  ">
+ 
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+      
+      <div class="content-page">
+         <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+               <h4 class="card-title">Détails du Fiche Technique </h4>
+            </div>
+            <div class="col-sm-6 col-md-6">
+               <div class="user-list-files d-flex">
+                  
+                 <div class="d-flex align-items-center">
+                    <a routerLink="/listF" class="btn-warning"><i class="las la-plus mr-3"></i>Retour</a>
+                </div>
+               </div>
+            </div>
+         </div>
+      <div class="container-fluid">
+
+                     <table class="table">
+                        <tr class="table-default">
+                          <td>Nom de la fiche </td>
+                          <td >{{ currentId.nom_fiche }}</td>
+                        </tr>
+                        <tr class="table-info">
+                            <td>Fichier</td>
+                            <td><a href="{{ currentId.fichier }}" download="{{ currentId.nom_fiche }}">{{ currentId.nom_fiche }}</a></td>
+                         </tr>
+                         
+                        <tr class="table-default">
+                           <td>Type de plat</td>
+                           <td>{{ currentId.type_plat }}</td>
+                         </tr>
+                      
+
+                      </table>
+                              
+                           </div>
+                        </div>
+                        
+                     </div>
+      
+    
+    <!-- Wrapper End-->
+ 
+   
+  </body>
+</html>

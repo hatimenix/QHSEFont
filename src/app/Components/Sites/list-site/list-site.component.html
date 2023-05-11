@@ -24,7 +24,7 @@
                          <div class="col-sm-6 col-md-6">
                             <div class="user-list-files d-flex">
                                
-                               <a routerLink="/addSite" class="bg-danger" href="javascript:void();">
+                               <a routerLink="/addSite" class="bg1" href="javascript:void();">
                                   Ajouter un site 
                                </a>
                             </div>
@@ -49,15 +49,16 @@
                              
                               <td>{{site.site_nom}}</td>
                               <td>{{site.sigle}}</td>
-                              <td><span class="badge bg-danger">{{site.responsable_name }}</span></td>
+                              <td><span class="badge" (click)="openUserModal(site)">{{ site.responsable_name }}</span></td>
+
                               <td>{{site.groupe_retso}}</td>
                         
                               
                               <td>
                                 <div class="flex align-items-center list-user-action">
-                                  <a class="btn btn-sm bg-success" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Edit" [routerLink]="['/updateSite', site.id]"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="btn btn-sm bg-danger" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm bg" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Delete" (click)="siteIdToDelete = site.id; modalRef = modalService.show(deleteModal);"><i
                                       class="ri-delete-bin-line mr-0"></i></a>
                                 </div>
@@ -106,6 +107,44 @@
    </div>
    <div class="modal-footer">
      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+     <button type="button" class="btn bg" (click)="confirmDelete()">Supprimer</button>
    </div>
  </ng-template>
+
+<!-- userModal component -->
+<ng-template #userModal>
+   <div class="modal-header">
+     <h5 class="modal-title">Détails du personnel</h5>
+     <button type="button" class="close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     <dl>
+       <dt>Compte: </dt>
+       <dd>{{ personnelDetails.personnel?.compte }}</dd>
+       <dt>Nom: </dt>
+       <dd>{{ personnelDetails.personnel?.nom }}</dd>
+       <dt>Courrier: </dt>
+       <dd>{{ personnelDetails.personnel?.courrier }}</dd>
+       <dt>Numéro de téléphone: </dt>
+       <dd>{{ personnelDetails.personnel?.numero_tel }}</dd>
+       <dt>Présentez-vous: </dt>
+       <dd>{{ personnelDetails.personnel?.presente_vous }}</dd>
+       <dt>Fonction: </dt>
+       <dd>{{ personnelDetails.personnel?.fonction }}</dd>
+       <dt>Adresse SIP: </dt>
+       <dd>{{ personnelDetails.personnel?.adresse_sip }}</dd>
+       <dt>Adresse email secondaire: </dt>
+       <dd>{{ personnelDetails.personnel?.othermail }}</dd>
+       <!-- Ajoutez d'autres propriétés si nécessaire -->
+     </dl>
+   </div>
+ </ng-template>
+ 
+ 
+
+
+
+ 
+ 

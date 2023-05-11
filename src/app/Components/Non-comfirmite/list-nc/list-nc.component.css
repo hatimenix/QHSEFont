@@ -1,23 +1,23 @@
 .btn-primary {
-  background-color: #FFB200;
-  border-color: #FFB200;
-  color: #fff; 
-}
-
-
-
-button + button {
-  margin-left: 10px;
-}
-thead {
-  background-color: #17469d
+    background-color: #FFB200;
+    border-color: #FFB200;
+    color: #fff; 
+  }
+ 
+ 
   
+  button + button {
+    margin-left: 10px;
+  }
+  thead {
+    background-color: #17469d
+    
+    
+  }
+ th {
+  color: rgb(255, 255, 255);
+  min-width: 300px;
   
-}
-th {
-color: rgb(255, 255, 255);
-min-width: 300px;
-
 }
 #user-list-table {
   width: 100%;
