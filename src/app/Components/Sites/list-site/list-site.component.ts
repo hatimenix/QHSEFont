@@ -19,15 +19,26 @@ export class ListSiteComponent implements OnInit {
   modalRef!: BsModalRef;
   siteIdToDelete: number = 0;
   personnel!: Personnel;
+  personnelDetails: {
+    personnel: Personnel | null,
+    selectedPersonnelName: string
+  };
+  
 
   constructor(
     private siteService: ApiSiteService,
     public modalService: BsModalService, 
     private personnelService: PersonnelService
-  ) { }
+  ) {
+    this.personnelDetails = {
+      personnel: null,
+      selectedPersonnelName: ''
+    };
+  }
 
   ngOnInit(): void {
     this.loadSites();
+    
   }
 
   loadSites(): void {
@@ -57,25 +68,18 @@ export class ListSiteComponent implements OnInit {
   }
 
   //function to open user modal and pass the user information
-openUserModal(site: Site): void {
-  const selectedPersonnelId = site.responsable_site;
-  const selectedPersonnelName = site.responsable_name;
-
-  console.log("Selected personnel ID: ", selectedPersonnelId);
-  console.log("Selected personnel name: ", selectedPersonnelName);
-
-  this.modalRef = this.modalService.show(this.userModal);
-
-  console.log("Modal reference: ", this.modalRef);
-
-  this.personnelService.getPersonnelById(selectedPersonnelId).subscribe((personnel: Personnel) => {
-    console.log("Personnel details: ", personnel);
-
-    this.modalRef.content = { personnel, selectedPersonnelName };
-    console.log("Modal content: ", this.modalRef.content);
-  });
-}
-
-
+  openUserModal(site: Site): void {
+    const selectedPersonnelId = site.responsable_site;
+    const selectedPersonnelName = site.responsable_name;
+  
+    console.log("Selected personnel ID: ", selectedPersonnelId);
+    console.log("Selected personnel name: ", selectedPersonnelName);
+  
+    this.personnelService.getPersonnelById(selectedPersonnelId).subscribe((personnel: Personnel) => {
+      console.log("Personnel details: ", personnel);
+      this.personnelDetails.personnel = personnel;
+      this.modalRef = this.modalService.show(this.userModal);
+    });
+  }
   
 }
