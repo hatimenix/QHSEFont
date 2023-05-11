@@ -57,34 +57,24 @@ export class ListSiteComponent implements OnInit {
   }
 
   //function to open user modal and pass the user information
-  openUserModal(site: Site): void {
-    const selectedPersonnelId = site.responsable_site;
-    const selectedPersonnelName = site.responsable_name;
+openUserModal(site: Site): void {
+  const selectedPersonnelId = site.responsable_site;
+  const selectedPersonnelName = site.responsable_name;
 
-    console.log("Selected personnel ID: ", selectedPersonnelId);
-    console.log("Selected personnel name: ", selectedPersonnelName);
+  console.log("Selected personnel ID: ", selectedPersonnelId);
+  console.log("Selected personnel name: ", selectedPersonnelName);
 
-    this.personnelService.getPersonnelById(selectedPersonnelId).subscribe((personnel: Personnel) => {
-      console.log("Personnel details: ", personnel);
+  this.modalRef = this.modalService.show(this.userModal);
 
-      // set values in personnel object
-      this.personnel.compte = personnel.compte;
-      this.personnel.nom = personnel.nom;
-      this.personnel.courrier = personnel.courrier;
-      this.personnel.numero_tel = personnel.numero_tel;
-      this.personnel.presente_vous = personnel.presente_vous;
-      this.personnel.fonction = personnel.fonction;
-      this.personnel.adresse_sip = personnel.adresse_sip;
-      this.personnel.othermail = personnel.othermail;
+  console.log("Modal reference: ", this.modalRef);
 
-      this.modalRef = this.modalService.show(this.userModal);
+  this.personnelService.getPersonnelById(selectedPersonnelId).subscribe((personnel: Personnel) => {
+    console.log("Personnel details: ", personnel);
 
-      console.log("Modal reference: ", this.modalRef);
-
-      this.modalRef.content = { personnel: this.personnel, selectedPersonnelName };
-      console.log("Modal content: ", this.modalRef.content);
-    });
-  }
+    this.modalRef.content = { personnel, selectedPersonnelName };
+    console.log("Modal content: ", this.modalRef.content);
+  });
+}
 
 
   

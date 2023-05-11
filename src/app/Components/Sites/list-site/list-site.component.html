@@ -116,12 +116,13 @@
 <ng-template #userModal >
    
    <div class="modal-header">
-      <h4 class="modal-title">Personnel Informations</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
+      
+     <h4 class="modal-title">Personnel Informations</h4>
+     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
       <p>Compte: {{ personnel?.compte }}</p>
       <p>Nom: {{ personnel?.nom }}</p>
       <p>Courrier: {{ personnel?.courrier }}</p>
@@ -131,10 +132,9 @@
       <p>Adresse SIP: {{ personnel?.adresse_sip }}</p>
       <p>Othermail: {{ personnel?.othermail }}</p>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
-    </div>
-    
+   <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+   </div>
 </ng-template>
 
 
