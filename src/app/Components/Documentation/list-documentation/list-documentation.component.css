@@ -7,26 +7,27 @@
     border-color: #ffd140;
   }
   
-  .btn-danger{
-    background-color: #FFB200;
-    border-color: #FFB200;
-    color: #fff; 
-  }
+ 
   
   button + button {
     margin-left: 10px;
   }
   thead {
-    background-color: #3F497F
+    background-color: #17469d
     
     
   }
   th {
   color: rgb(255, 255, 255);
+  min-width: 300px;
   
   }
   #user-list-table {
     width: 100%;
   }
-  
+  .btn-danger{
+    background-color: #e56b6f;
+    border-color: #e56b6f;
+    color: #fff; 
+  }
   

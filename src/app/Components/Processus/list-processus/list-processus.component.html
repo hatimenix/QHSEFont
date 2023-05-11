@@ -30,25 +30,25 @@
                            </div>
                         </div>
                      </div>
-                     <table id="user-list-table" class="table table-striped  mt-4" role="grid"
+                     <table  class="table   mt-4" 
                         aria-describedby="user-list-page-info">
                         <thead >
                            <tr>
-                              <th>Intitulé</th>
-                              <th>Typologie</th>
-                              <th>Sigle</th>
-                              <th>Finalité</th>
-                              <th>Pilote</th>
-                              <th>Acteurs</th>
-                              <th>Donnée entrée </th>
-                              <th>Activités</th>
-                              <th>Donnée Sortie</th>
-                              <th>Ressources Tech Org</th>
-                              <th>Objectifs ind</th>
-                              <th>Outils surveil </th>
+                              <th >Intitulé</th>
+                              <th >Typologie</th>
+                              <th >Sigle</th>
+                              <th >Finalité</th>
+                              <th >Pilote</th>
+                              <th >Acteurs</th>
+                              <th >Donnée entrée </th>
+                              <th >Activités</th>
+                              <th >Donnée Sortie</th>
+                              <th >Ressources Tech Org</th>
+                              <th >Objectifs ind</th>
+                              <th >Outils surveil </th>
                               
                               
-                              <th style="min-width: 100px">Action</th>
+                              <th >Action</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -58,7 +58,7 @@
                              <td>{{pro.typologie}}</td>
                              <td>{{pro.sigle}}</td>
                              <td>{{pro.finalite}}</td>
-                             <td><span class="badge bg-success">{{pro.pilote_name }}</span></td>
+                             <td><span class="badge">{{pro.pilote_name }}</span></td>
                              <td>{{pro.acteurs}}</td>
                              <td>{{pro.donnee_entree}}</td>
                              <td>{{pro.activites}}</td>
@@ -69,9 +69,9 @@
                              
                              <td>
                                <div class="flex align-items-center list-user-action">
-                                 <a class="btn btn-sm bg-warning" data-toggle="tooltip" data-placement="top" title=""
+                                 <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                    data-original-title="Edit" [routerLink]="['/updateProcessus', pro.id]"><i class="ri-pencil-line mr-0"></i></a>
-                                 <a class="btn btn-sm bg-danger" data-toggle="tooltip" data-placement="top" title=""
+                                 <a class="btn btn-sm bg" data-toggle="tooltip" data-placement="top" title=""
                                    data-original-title="Delete" (click)="ProIdToDelete = pro.id; modalRef = modalService.show(deleteModal);"><i
                                      class="ri-delete-bin-line mr-0"></i></a>
                                </div>
@@ -120,6 +120,6 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
-              <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+              <button type="button" class="btn bg" (click)="confirmDelete()">Supprimer</button>
             </div>
           </ng-template>
