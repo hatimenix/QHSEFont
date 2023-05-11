@@ -1,11 +1,11 @@
 .card-header{
-    background-color: #3F497F;
+    background-color: #17469d;
     color: #fff;
     
   }
   .btn-primary {
-    background-color: #539165;
-    border-color: #539165;
+    background-color: #089bd7;
+    border-color: #089bd7;
   }
   
   .btn-danger{
@@ -13,3 +13,4 @@
     border-color: #FFB200;
     color: #fff; 
   }
+  
