@@ -1,40 +1,33 @@
-
 .btn-primary {
-    background-color: #FF731D;
-    border-color: #FF731D;
-  }
- 
-  .btn-danger{
-    background-color: #FFB200;
-    border-color: #FFB200;
-    color: #fff; 
-  }
+  background-color: #FFB200;
+  border-color: #FFB200;
+  color: #fff; 
+}
+
+
+
+button + button {
+  margin-left: 10px;
+}
+thead {
+  background-color: #17469d
   
-  button + button {
-    margin-left: 10px;
-  }
-  thead {
-    background-color: #3F497F
-    
-    
-  }
- th {
-  color: rgb(255, 255, 255);
   
 }
+th {
+color: rgb(255, 255, 255);
+min-width: 300px;
+
+}
 #user-list-table {
-    width: 100%;
-  }
+  width: 100%;
+}
 #update .modal-dialog {
-    max-width: 850px;
-  }
-  
+  max-width: 850px;
+}
+
 #update .modal-content {
-    width: 110%;
-    height: 110%;
-  }
-  
-  
-  
-  
+  width: 110%;
+  height: 110%;
+}
 

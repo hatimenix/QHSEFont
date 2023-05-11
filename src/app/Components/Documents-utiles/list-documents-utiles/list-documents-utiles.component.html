@@ -31,7 +31,7 @@
             <tbody class="ligth-body">
              <tr *ngFor="let documentutile of documentsutiles | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
               <td>{{ documentutile.nom}}</td>
-                <td><button class="btn btn-primary fa fa-download mr-3"  style="color: rgb(69, 65, 65); background-color: #ecd074" (click)="download(documentutile.document)"> {{ documentutile.document.split('/').pop() }}</button></td>
+                <td><button class="btn fa fa-download mr-3"   (click)="download(documentutile.document)"> {{ documentutile.document.split('/').pop() }}</button></td>
                  <td>{{ documentutile.modified_date  | date:'yyyy-MM-dd'  }}</td>
                  <td>{{ documentutile.modified_by }}</td>
                  <td>{{ documentutile.typologie }}</td>

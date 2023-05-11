@@ -17,3 +17,12 @@
       height: 50px; 
       width: 50px;
       }  
+      .card-red {
+        color: red;
+      }
+      .card-orange {
+        color: orange;
+      }
+      .card-green {
+        color: green;
+      }
