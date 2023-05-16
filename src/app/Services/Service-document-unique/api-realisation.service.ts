@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Realisations } from 'src/app/models/realisations';
 import { environment } from 'src/environments/environment.development';
 
@@ -20,6 +20,14 @@ export class ApiRealisationService {
   getRealisations(id: number): Observable<Realisations> {
     const url = `${this.API_URL_RE}${id}/`;
     return this.http.get<Realisations>(url);
+  }
+
+  getRealisationByActionId(ationId: number): Observable<Realisations[]> {
+    return this.http.get<Realisations[]>(`${this.API_URL_RE}?action_associe=${ationId}`).pipe(
+      map((realisations: Realisations[]) => {
+        return realisations.filter(r => r.action_associe === ationId);
+      })
+    );
   }
 
   addRealisation(realisation: any): Observable<Realisations> {

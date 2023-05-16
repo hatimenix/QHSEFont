@@ -16,6 +16,7 @@ import { Actions } from 'src/app/models/actions';
 import { Dangers } from 'src/app/models/dangers';
 import { Evaluations } from 'src/app/models/evaluations';
 import { Evenement } from 'src/app/models/evenement';
+import { Realisations } from 'src/app/models/realisations';
 
 declare var window:any;
 
@@ -39,6 +40,7 @@ export class InfoDangerComponent {
   evaluations$!: Observable<Evaluations[]>;
   evenements$!: Observable<Evenement[]>;
   actions$!: Observable<Actions[]>;
+  realisation !: Observable<Realisations[]>;
   dangerId !: number;
   siteName !: string;
   serviceName !: string;
@@ -194,18 +196,19 @@ export class InfoDangerComponent {
       map((actions: Actions[]) => actions.filter(action => action.danger.includes(dangerId))),
       switchMap((actions: Actions[]) => {
         const actionObservables: Observable<any>[] = actions.map(action => {
-          return this.apiRealisationService.getRealisations(action.id).pipe(
+          return this.apiRealisationService.getRealisationByActionId(action.id).pipe(
             catchError(error => {
-              // Si la requête pour récupérer la réalisation échoue, on retourne un Observable avec une valeur null
-              console.log(`Unable to get realisation for action ${action.id}: ${error.message}`);
-              return of(null);
+              // Handle error if the request to get the realization fails
+              console.log(`Unable to get realization for action ${action.id}: ${error.message}`);
+              return of(null as any); // Return null as Realisations[] type
             }),
-            map(realisation => {
-              if (realisation) {
-                // Si une réalisation existe, on retourne un objet avec les informations de l'action et de la réalisation
-                return { ...action, etat: realisation.etat };
+            map((realisations: Realisations[]) => {
+              const latestRealisation = realisations[realisations.length - 1];
+              if (latestRealisation) {
+                // If a realization exists, return an object with action and realization information
+                return { ...action, etat: latestRealisation.etat };
               } else {
-                // Sinon, on retourne un objet avec uniquement les informations de l'action
+                // Otherwise, return an object with only action information
                 return { ...action, etat: action.etat };
               }
             })
@@ -215,6 +218,8 @@ export class InfoDangerComponent {
       })
     );
   }
+  
+
 
   onSubmit(): void {
     const formData = this.evaluationForm.value;
