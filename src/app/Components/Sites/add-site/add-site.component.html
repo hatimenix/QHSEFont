@@ -29,7 +29,7 @@
                                 <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Responsable Site <label style="color: red;">*</label> </label>
-                                    <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required>
+                                    <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required >
                                         <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
                                        </select>   
                                 </div> 

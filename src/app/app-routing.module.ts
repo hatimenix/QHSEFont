@@ -55,6 +55,12 @@ import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menu
 import { DetailsFicheComponent } from './Components/ficheTechnique/detailsFiche/details-fiche/details-fiche.component';
 import { ListDocumentsUtilesComponent } from './Components/Documents-utiles/list-documents-utiles/list-documents-utiles.component';
 import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-documents-utiles/add-documents-utiles.component';
+import { ListUsersComponent } from './Components/UserApp/list-users/list-users.component';
+import { AddUsersComponent } from './Components/UserApp/add-users/add-users.component';
+import { UpdateUsersComponent } from './Components/UserApp/update-users/update-users.component';
+import { ListGroupesComponent } from './Components/GroupUsers/list-groupes/list-groupes.component';
+import { AdGroupesComponent } from './Components/GroupUsers/ad-groupes/ad-groupes.component';
+import { UpdateGroupesComponent } from './Components/GroupUsers/update-groupes/update-groupes.component';
 
 
 
@@ -116,6 +122,15 @@ const routes: Routes = [
   {path : 'documents-utiles-list', component: ListDocumentsUtilesComponent},
   {path : 'add-Documentutile', component:  AddDocumentsUtilesComponent},
 
+  //Users, groupes and rôles
+
+  {path : 'listuserapp',component:ListUsersComponent },
+  {path : 'adduserapp',component:AddUsersComponent },
+  {path : 'updateuserapp',component:UpdateUsersComponent },
+
+  {path:'listgroupeusers', component:ListGroupesComponent},
+  {path:'addgroupeusers', component:AdGroupesComponent},
+  {path:'updategroupeusers', component:UpdateGroupesComponent},
 
 
 
