@@ -51,5 +51,33 @@
     border-color: #ffd140;
     color: #fff;  /* ajustez la valeur selon vos préférences */
   }
- 
+  .container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .toggle-button {
+    margin: 10px;
+    background-color: #ffd140;
+  }
+  
+  .window {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #f5f5f5;
+    display: none;
+  }
+  
+  .window.open {
+    display: block;
+  }
+  .btn-secondary {
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
+  
+  
   

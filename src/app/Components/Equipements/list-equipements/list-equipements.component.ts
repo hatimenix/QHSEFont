@@ -21,7 +21,7 @@ export class ListEquipementsComponent {
   
   modalRef!: BsModalRef;
   p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   id : any 
   site : any 
   secteur : any 

@@ -12,17 +12,41 @@
   
           </div>
           <div class="input-group mb-3">
-           <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
-       </div>
-  
+            <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+          </div>  
+
            <div>
-            <button class="btn " (click)="getFournisseurs()">Tous les élements</button>
+            <div class="container">
+              <button class="toggle-button" (click)="toggleWindow()">
+                <i class="fas fa-angle-double-left"></i>
+              </button>
+              <div class="window" [ngClass]="{ 'open': isOpen }">
+                <button (click)="increaseTextSize()">
+                  <i class="fas fa-search-plus"></i>
+                  Augmenter le texte
+                </button> 
+                <button (click)="decreaseTextSize($event)">
+                  <i class="fas fa-search-minus"></i>
+                  Diminuer le texte
+                </button>
+              </div>
+            </div>
+            
            <div class="col-lg-12">
                <div class="table-responsive rounded mb-3">
                <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
       <thead>
         <tr>
-          <th scope="col">Nom du fournisseur</th>
+          <th scope="col">
+            <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Nom du fournisseur</a>
+            <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
+            <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
+          </th>                                                                                 
           <th scope="col">N de siret</th>
           <th scope="col">Type de prestation</th>
           <th scope="col" title="Numéro de récipissé de déclaration préfactorale">NRDP</th>
@@ -71,8 +95,10 @@
                        </tr> 
                </table>
                </div>
-               <pagination-controls (pageChange)="p = $event"></pagination-controls>
-           </div>
+               <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
+             </div>
        </div>
 <!-- Modal -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
