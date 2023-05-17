@@ -49,4 +49,8 @@
     border-color: #ffd140;
     color: #fff;  /* ajustez la valeur selon vos préférences */
   }  
+  .btn-secondary {
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
   

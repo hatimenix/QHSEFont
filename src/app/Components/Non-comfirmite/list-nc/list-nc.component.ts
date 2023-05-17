@@ -22,6 +22,10 @@ export class ListNcComponent implements OnInit {
   processuss: any[] = [];
   utilisateurs: any[] = [];
   updateModalVisible: boolean = true;
+  isAscending: boolean = true;
+  isReverseSorting: boolean = false;
+  startDate: string | undefined;
+  endDate: string | undefined;
   @ViewChild('successModal', { static: true }) successModal:any;
   
   modalRef!: BsModalRef;
@@ -62,8 +66,6 @@ export class ListNcComponent implements OnInit {
 
 
   ncs : Nc[] = []
-
-
 
   deleteModal: any;
   idTodelete: number = 0;
@@ -126,15 +128,25 @@ export class ListNcComponent implements OnInit {
         console.log(error); // Handle error
       }
     ); 
-
-
-
     this.getNcs();
     this.originalNcs = this.ncs.slice(); // create a copy of the original list
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.startDate = ''; 
+  this.endDate = ''; 
   }
+
+  sortByReverseAlphabet() {
+    if (this.isReverseSorting) {
+    this.filteredNcs.sort((a, b) => (a.intitule ?? '').localeCompare(b.intitule ?? ''));
+    this.isAscending = false;
+    this.isReverseSorting = false;
+    }else {
+      this.filteredNcs.sort((a, b) => (b.intitule ?? '').localeCompare(a.intitule ?? ''));
+      this.isReverseSorting = true;
+    }
+  }  
   
   filterByEtatTrue() {
     this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === true);
@@ -213,6 +225,24 @@ updateFile(event: any) {
 download(piece_jointe: string): void {
   this.ncservice.downloadFile(piece_jointe);
 }
+filterByDateNC(): void {
+  const startDate = this.startDate ? new Date(this.startDate) : null;
+  const endDate = this.endDate ? new Date(this.endDate) : null;
+
+  const filteredNcs = this.originalNcs.filter(nc => {
+    const ncDate = nc.date_nc ? new Date(nc.date_nc) : null;
+
+    if (startDate instanceof Date && endDate instanceof Date && ncDate instanceof Date) {
+      return ncDate >= startDate && ncDate <= endDate;
+    }
+    return false;
+  });
+
+  this.filteredNcs = filteredNcs;
+}
+
+
+
 getNcData( id : number,
   intitule:any,
   nature : any,

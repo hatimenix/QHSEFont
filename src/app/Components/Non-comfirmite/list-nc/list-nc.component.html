@@ -12,8 +12,36 @@
 
         </div>
         <div class="input-group mb-3">
-         <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
-     </div>
+          <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
+        </div>        
+     <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Depuis :</span>
+            </div>
+            <input type="date" class="form-control" id="start_date" [(ngModel)]="startDate">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Vers :</span>
+            </div>
+            <input type="date" class="form-control" id="end_date" [(ngModel)]="endDate">
+          </div>
+        </div>
+      </div>
+    </div>    
+    <button class="btn btn-secondary" (click)="filterByDateNC()">Filter par la date NC</button>
 
          <div>
           <button class="btn " (click)="filterByEtatTrue()"> NC en cours</button>
@@ -32,8 +60,12 @@
                                  <label for="checkbox1" class="mb-0"></label>
                              </div>
                          </th>
-                          <th scope="col">Intitulé de la non-conformité</th>
-                          <th scope="col">Nature</th>
+                         <th scope="col">
+                          <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Intitulé de la non-conformité</a>
+                          <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
+                          <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
+                        </th>                                                                       
+                        <th scope="col">Nature</th>
                           <th scope="col">Processus</th>
                           <th scope="col">Site</th>
                           <th scope="col">Responsable traitement</th>
@@ -60,7 +92,7 @@
                  </thead>
                  <tbody class="ligth-body">
                   <tr *ngFor="let nc of filteredNcs | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
-                      <th scope="row">{{nc.id}}</th>
+                      <th scope="row" style="color: grey;">{{nc.id}}</th>
                       <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                       <td>{{nc.nature}}</td>
                       <td>{{ nc.processus_name }}</td>
@@ -68,7 +100,7 @@
                       <td>{{ nc.responsable_name }}</td>
                       <td>{{nc.domaine}}</td>
                       <td>{{nc.detail_cause}}</td>
-                      <td>{{nc.date_nc}}</td>
+                      <td>{{ nc.date_nc | date }}</td>
                       <td>{{nc.date_prise_en_compte}}</td>
                       <td>{{nc.description_detailee}}</td>
                       <td>{{nc.annee}}</td>
@@ -76,13 +108,21 @@
                       <td>{{nc.delai_prevu}}</td>
                       <td>{{nc.type_cause}}</td>
                       <td>{{nc.cout}}€</td>
-                      <td>{{nc.progress}}%</td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
+                            {{ nc.progress }}%
+                          </div>
+                        </div>
+                      </td>
                       <td>{{nc.info_complementaires}}</td>
                       <td>{{nc.frequence ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.gravite ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.action_immediate ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.nc_cloture ? 'Oui' : 'Non'}}</td>
-                      <td><button class="btn  fa fa-download mr-3"   (click)="download(nc.piece_jointe)"> {{ nc.piece_jointe.split('/').pop() }}</button></td>
+                      <td><button class="btn  fa fa-download mr-3"   (click)="download(nc.piece_jointe)">  {{ nc.piece_jointe ? nc.piece_jointe.split('/').pop() : 'Aucun fichier joint' }}
+
+                      </button></td>
 
                       <td>
                              <div class="d-flex align-items-center list-action">
@@ -96,8 +136,10 @@
                  </tbody>
              </table>
              </div>
-             <pagination-controls (pageChange)="p = $event"></pagination-controls>
-         </div>
+             <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>         
+          </div>
      </div>
 
       <!-- Modal -->
@@ -274,7 +316,15 @@ aria-hidden="true">
                                     </div>
                                 <div class="col">
                                   <label for="cout" class="form-label">Coût : </label>
-                                  <input name="cout"  value="{{cout}}" [(ngModel)] = "cout" formControlName="cout" style="width: 100%;" type="text" class="rounded-pill form-control" id="cout">
+                                  <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text">€</span>
+                                    </div>
+                                  <input name="cout"  value="{{cout}}" [(ngModel)] = "cout" formControlName="cout" type="text" class="form-control" id="cout" aria-label="Amount (to the nearest dollar)">
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">.00</span>
+                                 </div>
+                                 </div>
                                 </div>
                                 
                                 </div>

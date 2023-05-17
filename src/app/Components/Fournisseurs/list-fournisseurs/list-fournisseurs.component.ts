@@ -4,6 +4,8 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
 import { Fournisseur } from 'src/app/models/fournisseur';
+import { Directive, HostBinding, HostListener, ElementRef } from '@angular/core';
+
 
 declare var window: any;
 
@@ -13,10 +15,15 @@ declare var window: any;
   templateUrl: './list-fournisseurs.component.html',
   styleUrls: ['./list-fournisseurs.component.css']
 })
-export class ListFournisseursComponent {
+export class ListFournisseursComponent implements OnInit {
   updateModalVisible: boolean = true;
+  isAscending: boolean = true;
+  isReverseSorting: boolean = false;
+  isCollapsed = true;
+  isOpen = false;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
+  textSize: number = 14;
   p = 1; 
   itemsPerPage: number = 5;
   id : any 
@@ -60,12 +67,22 @@ export class ListFournisseursComponent {
     telephonepersonnel: new FormControl(''),
 
   });
-  constructor(private   fournisseurservice : FournisseurService, private router : Router, private bsModalService: BsModalService){
+  constructor(private el: ElementRef,private   fournisseurservice : FournisseurService, private router : Router, private bsModalService: BsModalService){
 
   }
   ngOnInit(): void {
     this.getFournisseurs();
   }
+  sortByReverseAlphabet() {
+    if (this.isReverseSorting) {
+    this.fournisseurs.sort((a, b) => (a.nom ?? '').localeCompare(b.nom ?? ''));
+    this.isAscending = false;
+    this.isReverseSorting = false;
+    }else {
+      this.fournisseurs.sort((a, b) => (b.nom ?? '').localeCompare(a.nom ?? ''));
+      this.isReverseSorting = true;
+    }
+  }  
   getFournisseurs() {
     this.fournisseurservice.getAll().subscribe(
       res => {
@@ -159,6 +176,9 @@ getFournisseurData( id : number,
 
 
 }
+toggleWindow(): void {
+  this.isOpen = !this.isOpen;
+}
   
   delete() {
     this.fournisseurservice.delete(this.idTodelete).subscribe({
@@ -181,5 +201,21 @@ getFournisseurData( id : number,
   closeModal() {
     this.bsModalService.hide();
     location.reload();
+  }
+  @HostBinding('style.fontSize.px')
+  get fontSize(): number {
+    return this.textSize;
+  }
+
+  increaseTextSize(): void {
+    this.textSize += 2;
+  }
+
+  decreaseTextSize(event: MouseEvent): boolean {
+    event.preventDefault();
+    if (this.textSize > 2) {
+      this.textSize -= 2;
+    }
+    return false;
   }
 }
