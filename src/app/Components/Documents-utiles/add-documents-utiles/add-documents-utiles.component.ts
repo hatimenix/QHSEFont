@@ -88,10 +88,6 @@ onDrop(event: any) {
   
 }
 
-onCancel() {
-  this.mode = 'list';
-}
-
 get f() {
   return this.form.controls;
 }

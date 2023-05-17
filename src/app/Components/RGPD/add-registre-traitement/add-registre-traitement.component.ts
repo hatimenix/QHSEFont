@@ -227,10 +227,6 @@ submitModalDestinataireenUE() {
   this.traitementf.destinataire = ''; // clear the modal form input
 }
 
-onCancel() {
-  this.mode = 'list';
-}
-
 get f() {
   return this.form.controls;
 }

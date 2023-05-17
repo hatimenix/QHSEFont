@@ -16,6 +16,8 @@ export class ListDocumentsUtilesComponent  {
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   updateModalVisible: boolean = true;
+  isAscending: boolean = true;
+  isReverseSorting: boolean = false;
   p = 1; 
   itemsPerPage: number = 5;
   id:any
@@ -67,10 +69,7 @@ export class ListDocumentsUtilesComponent  {
     const formData =  new FormData()
       formData.append("nom", this.nom);
       formData.append("typologie", this.typologie);
-      formData.append("modified_by", this.modified_by);
-      if (this.modified_date !== null && this.modified_date !== undefined) {
-        formData.append("modified_date", this.modified_date);
-    }        
+      formData.append("modified_by", this.modified_by); 
       if (this.document !== null && this.document !== undefined) {
       formData.append("document", this.document);
     }        
@@ -96,16 +95,13 @@ updateFile(event: any) {
 getDocumentutileData( id : number,
   nom:any,
   typologie: any,
-  modified_by : any,
-  modified_date:any,
+  modified_by : any
 
   ){
     this.id = id,
     this.nom=nom,
     this.typologie = typologie,
-    this.modified_by = modified_by,
-    this.modified_date = modified_date
-
+    this.modified_by = modified_by
 
 }
 openDeleteModal(id: number) {
@@ -136,4 +132,14 @@ delete() {
     this.bsModalService.hide();
     location.reload();
   }
+  sortByReverseAlphabet() {
+    if (this.isReverseSorting) {
+    this.documentsutiles.sort((a, b) => (a.nom ?? '').localeCompare(b.nom ?? ''));
+    this.isAscending = false;
+    this.isReverseSorting = false;
+    }else {
+      this.documentsutiles.sort((a, b) => (b.nom ?? '').localeCompare(a.nom ?? ''));
+      this.isReverseSorting = true;
+    }
+  }  
 }

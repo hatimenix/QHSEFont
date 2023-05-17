@@ -55,6 +55,18 @@ export class AddFournisseursComponent {
 
   });
   ngOnInit(): void {
+    const isFirstVisit = history.state.isFirstVisit;
+
+    if (!isFirstVisit) {
+      // définir l'indicateur de visite dans l'historique de navigation
+      history.replaceState({ isFirstVisit: true }, '');
+
+      // rafraîchir la page
+      location.reload();
+    }
+
+    // aller en haut de la page
+    window.scrollTo(0, 0);
 
   }
   createFournisseur() {
@@ -94,9 +106,7 @@ export class AddFournisseursComponent {
     }
   })
 }
-  onCancel() {
-    this.mode = 'list';
-  }
+
 
   get f() {
     return this.form.controls;

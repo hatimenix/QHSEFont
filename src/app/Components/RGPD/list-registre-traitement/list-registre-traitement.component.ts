@@ -19,6 +19,8 @@ export class ListRegistreTraitementComponent {
   updateModalVisible: boolean = true
   showTypeRegistre = false;
   showRespRegistre = false;
+  startDate: string | undefined;
+  endDate: string | undefined;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
   constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){ }
@@ -127,6 +129,8 @@ export class ListRegistreTraitementComponent {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.startDate = ''; 
+    this.endDate = ''; 
   }
   filterByTypeRegistre() {
     this.showTypeRegistre = !this.showTypeRegistre;
@@ -141,6 +145,21 @@ export class ListRegistreTraitementComponent {
   openDeleteModal(id: number) {
     this.idTodelete = id;
     this.deleteModal.show();
+  }
+  filterByDateCreation(): void {
+    const startDate = this.startDate ? new Date(this.startDate) : null;
+    const endDate = this.endDate ? new Date(this.endDate) : null;
+  
+    const filteredTraitements = this.traitements.filter(traitement => {
+      const traitementDate = traitement.datedecreation ? new Date(traitement.datedecreation) : null;
+  
+      if (startDate instanceof Date && endDate instanceof Date && traitementDate instanceof Date) {
+        return traitementDate >= startDate && traitementDate <= endDate;
+      }
+      return false;
+    });
+  
+    this.filteredTraitements = filteredTraitements;
   }
   updatetraitement() : void {
     const formData = new FormData();
