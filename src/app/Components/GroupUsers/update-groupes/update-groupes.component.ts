@@ -44,7 +44,18 @@ export class UpdateGroupesComponent {
     // Récupérer la liste des utilisateurs depuis le service UserService
     this.userService.getUsers().subscribe(users => {
       this.users = users;
+
+      this.groupService.getGroupeUserById(this.groupId).subscribe(groupData=>{
+        this.groupForm.patchValue({
+          nom:groupData.nom,
+          description:groupData.description,
+          proprietaire_groupe: groupData.proprietaire_groupe,
+          membres:groupData.membres
+        });
+      });
     });
+    
+ 
     this.userapp$ = this.userService.getUsers();
     
   }
@@ -70,7 +81,7 @@ export class UpdateGroupesComponent {
       updatedGroup.membres_names = this.getSelectedUserNames(updatedGroup.membres);
   
       // Appeler la méthode du service pour mettre à jour le groupe utilisateur
-      this.groupService.updateGroupeUser(this.groupId, updatedGroup).subscribe(updatedGroupData => {
+      this.groupService.updateGroupeUser(groupId, updatedGroup).subscribe(updatedGroupData => {
         // Effectuer les actions nécessaires après la modification du groupe
         this.openModal();
         this.router.navigate(['/listgroupeusers']); 
