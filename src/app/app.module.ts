@@ -59,6 +59,12 @@ import { UpdateMenusComponent } from './Components/Menus/updateMenus/update-menu
 import { DetailsFicheComponent } from './Components/ficheTechnique/detailsFiche/details-fiche/details-fiche.component';
 import { ListDocumentsUtilesComponent } from './Components/Documents-utiles/list-documents-utiles/list-documents-utiles.component';
 import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-documents-utiles/add-documents-utiles.component';
+import { AddUsersComponent } from './Components/UserApp/add-users/add-users.component';
+import { ListUsersComponent } from './Components/UserApp/list-users/list-users.component';
+import { UpdateUsersComponent } from './Components/UserApp/update-users/update-users.component';
+import { ListGroupesComponent } from './Components/GroupUsers/list-groupes/list-groupes.component';
+import { AdGroupesComponent } from './Components/GroupUsers/ad-groupes/ad-groupes.component';
+import { UpdateGroupesComponent } from './Components/GroupUsers/update-groupes/update-groupes.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +119,13 @@ import { AddDocumentsUtilesComponent } from './Components/Documents-utiles/add-d
     InfoRGPDComponent,
     DetailsFicheComponent,
     ListDocumentsUtilesComponent,
-    AddDocumentsUtilesComponent
+    AddDocumentsUtilesComponent,
+    AddUsersComponent,
+    ListUsersComponent,
+    UpdateUsersComponent,
+    ListGroupesComponent,
+    AdGroupesComponent,
+    UpdateGroupesComponent
 
   ],
   imports: [

@@ -1,0 +1,91 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Ajouter un Utilisateur</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                           <div class="row">                                  
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label>Nom de l'utilisateur <label style="color: red;">*</label></label>
+                                       <input type="text" class="form-control" placeholder="Entrer le nom de l'utilisateur" required id="nom_user" name="nom_user" formControlName="nom_user">
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                               </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nom Complet <label style="color: red;">*</label></label>
+                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="nom_complet" name="nom_complet" formControlName="nom_complet">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Mot de passe <label style="color: red;">*</label></label>
+                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="mot_de_passe" name="mot_de_passe" formControlName="mot_de_passe">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Adresse Email <label style="color: red;">*</label></label>
+                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="adresse_email" name="adresse_email" formControlName="adresse_email">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Actif  <label style="color: red;">*</label></label>
+                                    <input type="checkbox"  required id="actif" name="actif" formControlName="actif">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="idGroupe">
+                                <div class="form-group">
+                                  <label for="groupes_roles">Groupes/Rôles:</label>
+                                  <div *ngFor="let groupe of groupes">
+                                    <input type="checkbox" [value]="groupe.id" formControlName="groupes_roles">
+                                    {{ groupe.nom }}
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              
+                              
+                              
+                              
+                              
+                                
+                           </div>                            
+                           <button type="submit" class="btn btn-primary mr-2" >Ajouter</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listuserapp">Annuler</button>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- Page end  -->
+   </div>
+     </div>
+     <!-- Page end 
+     <ng-template #successModal>
+        <div class="modal-header">
+          <h4 class="modal-title">Succès</h4>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Le site a été ajoutée avec succès.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        </div>
+      </ng-template>
+     -->

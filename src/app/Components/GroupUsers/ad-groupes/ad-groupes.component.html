@@ -1,3 +1,4 @@
+
 <div class="content-page">
     <div class="container-fluid add-form-list">
        <div class="row">
@@ -5,57 +6,56 @@
                <div class="card">
                    <div class="card-header d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter Site</h4>
+                           <h4 class="card-title">Ajouter un groupe</h4>
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="siteForm" (ngSubmit)="onSubmit()">
+                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
                                <div class="col-md-6">
                                    <div class="form-group">
-                                       <label>Nom du Site <label style="color: red;">*</label></label>
-                                       <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom">
+                                       <label>Nom du groupe <label style="color: red;">*</label></label>
+                                       <input type="text" class="form-control" placeholder="Entrer le nom du groupe" required id="nom" name="nom" formControlName="nom">
                                        <div class="help-block with-errors"></div>
                                    </div>
                                </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Sigle <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le sigle" required id="sigle" name="sigle" formControlName="sigle">
+                                    <label>Description <label style="color: red;">*</label></label>
+                                    <input type="text" class="form-control" placeholder="Entrer un description" required id="description" name="description" formControlName="description">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
                                 
                                 <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Responsable Site <label style="color: red;">*</label> </label>
-                                    <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required >
-                                        <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
+                                    <label>Propriétaire du groupe <label style="color: red;">*</label> </label>
+                                    <select id="proprietaire_groupe" name="proprietaire_groupe" formControlName="proprietaire_groupe"  class="custom-select" data-style="py-0" required multiple>
+                                        <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
                                        </select>   
                                 </div> 
                                 </div> 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Groupe Restaurant <label style="color: red;">*</label></label>
-                                        <select class="selectpicker form-control" data-style="py-0" id="groupe_retso" name="groupe_retso" formControlName="groupe_retso" >
-                                            <option>Wiltz resto</option>
-                                            <option>Schengen resto</option>
-                                            <option>Beaufort resto</option>
-                                            <option>Aucune</option>
-                                        </select>
+                                        <label>Membres du groupe <label style="color: red;">*</label></label>
+                                        <select id="membres" name="membres" formControlName="membres"  class="custom-select" data-style="py-0" required multiple>
+                                            <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
+                                           </select> 
                                     </div> 
                                 </div>  
+                                
                            </div>                            
-                           <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
-                           <button type="reset" class="btn btn-danger" routerLink="/listsites">Annuler</button>
+                           <button type="submit" class="btn btn-primary mr-2" >Ajouter</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listgroupeusers">Annuler</button>
                        </form>
                    </div>
                </div>
            </div>
        </div>
-       <!-- Page end  -->
+       <!-- Page end  
    </div>
-     </div>
+     </div>-->
+     <!-- Page end  
      <ng-template #successModal>
         <div class="modal-header">
           <h4 class="modal-title">Succès</h4>
@@ -64,9 +64,9 @@
           </button>
         </div>
         <div class="modal-body">
-          Le site a été ajoutée avec succès.
+          Le groipe a été ajoutée avec succès.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
         </div>
-      </ng-template>
+      </ng-template>-->
