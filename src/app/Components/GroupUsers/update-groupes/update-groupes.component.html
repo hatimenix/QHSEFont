@@ -1,1 +1,72 @@
-<p>update-groupes works!</p>
+
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Modifier un groupe</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+                           <div class="row">                                  
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label>Nom du groupe <label style="color: red;">*</label></label>
+                                       <input type="text" class="form-control" placeholder="Entrer le nom du groupe" required id="nom" name="nom" formControlName="nom">
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                               </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Description <label style="color: red;">*</label></label>
+                                    <input type="text" class="form-control" placeholder="Entrer un description" required id="description" name="description" formControlName="description">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div> 
+                                
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Propriétaire du groupe <label style="color: red;">*</label> </label>
+                                    <select id="proprietaire_groupe" name="proprietaire_groupe" formControlName="proprietaire_groupe"  class="custom-select" data-style="py-0" required multiple>
+                                        <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
+                                       </select>   
+                                </div> 
+                                </div> 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Membres du groupe <label style="color: red;">*</label></label>
+                                        <select id="membres" name="membres" formControlName="membres"  class="custom-select" data-style="py-0" required multiple>
+                                            <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
+                                           </select> 
+                                    </div> 
+                                </div>  
+                                
+                           </div>                            
+                           <button type="submit" class="btn btn-primary mr-2" >Modifier</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listgroupeusers">Annuler</button>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- Page end  
+   </div>
+     </div>-->
+     
+     <ng-template #successModal>
+        <div class="modal-header">
+          <h4 class="modal-title">Succès</h4>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Le groupe a été modifié avec succès.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        </div>
+      </ng-template>

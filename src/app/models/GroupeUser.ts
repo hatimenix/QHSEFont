@@ -6,16 +6,18 @@ export class GroupeUser {
   description: string;
   proprietaire_groupe: UserApp[];
   membres: UserApp[];
+  proprietaire_groupe_names!:string;
+  membres_names!:string;
 
 
   constructor(
-    id:number,
+    
     nom: string,
     description: string,
     proprietaire_groupe: UserApp[],
     membres: UserApp[]
   ) {
-    this.id=id;
+    
     this.nom = nom;
     this.description = description;
     this.proprietaire_groupe = proprietaire_groupe;

@@ -126,11 +126,11 @@ const routes: Routes = [
 
   {path : 'listuserapp',component:ListUsersComponent },
   {path : 'adduserapp',component:AddUsersComponent },
-  {path : 'updateuserapp',component:UpdateUsersComponent },
+  {path : 'updateuserapp/:id',component:UpdateUsersComponent },
 
   {path:'listgroupeusers', component:ListGroupesComponent},
   {path:'addgroupeusers', component:AdGroupesComponent},
-  {path:'updategroupeusers/:id', component:UpdateUsersComponent},
+  {path:'updategroupeusers/:id', component:UpdateGroupesComponent},
 
 
 

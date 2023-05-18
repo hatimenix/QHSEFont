@@ -17,7 +17,7 @@ export class GroupeUserService {
   }
 
   getGroupeUserById(id: number): Observable<GroupeUser> {
-    const url = `${this.API_GroupeUsers}/${id}`;
+    const url = `${this.API_GroupeUsers}${id}`;
     return this.http.get<GroupeUser>(url);
   }
 
@@ -26,7 +26,7 @@ export class GroupeUserService {
   }
 
   updateGroupeUser(id: number, groupeUser: GroupeUser): Observable<GroupeUser> {
-    const url = `${this.API_GroupeUsers}/${id}`;
+    const url = `${this.API_GroupeUsers}${id}/`;
     return this.http.put<GroupeUser>(url, groupeUser);
   }
 
