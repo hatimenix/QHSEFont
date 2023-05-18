@@ -37,4 +37,9 @@ export class ApiRealisationService {
   delRealisation(id:number){
     return this.http.delete<Realisations>(this.API_URL_RE+id+'/');
   }
+
+  updateRealisation(id: number, realisation: Realisations): Observable<Realisations> {
+    const url = `${this.API_URL_RE}${id}/`;
+    return this.http.put<Realisations>(url, realisation);
+  }
 }

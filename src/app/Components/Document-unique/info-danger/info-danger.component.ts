@@ -49,6 +49,8 @@ export class InfoDangerComponent {
   deletModal : any;
   idToDelete: number = 0;
   showModal = false;
+  evenements : any;
+  idEvenement !: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -372,5 +374,65 @@ export class InfoDangerComponent {
       );
     }
   }
+
+  openUpdateModal(evenement: Evenement): void {
+    this.evenements = evenement;
+    this.idEvenement = this.evenements.id;
+    this.evenementForm.patchValue({
+      type_contract: this.evenements.type_contract,
+      nom_personne: this.evenements.nom_personne,
+      type_evenement: this.evenements.type_evenement,
+      intitule: this.evenements.intitule,
+      resume: this.evenements.resume,
+      temoins: this.evenements.temoins,
+      premiere_pers_info: this.evenements.premiere_pers_info,
+      action_immediate: this.evenements.action_immediate,
+      date_accident: this.evenements.date_accident,
+      periode_travail: this.evenements.periode_travail,
+      lieu_accident: this.evenements.lieu_accident,
+      tache_effectue: this.evenements.tache_effectue,
+      utiliser_chien: this.evenements.utiliser_chien,
+      siege_de_lesions_1: this.evenements.siege_de_lesions_1,
+      siege_de_lesions_2: this.evenements.siege_de_lesions_2,
+      nature_lesions: this.evenements.nature_lesions,
+      site: this.evenements.site,
+      service: this.evenements.service
+    });
+    const modal = new window.bootstrap.Modal(document.getElementById('updateEvenement'));
+    modal.show();
+  }
+
+  UpdateEvenementFormData(): void {
+    if (this.evenementForm.valid) {
+      const formData = new FormData();
+      formData.append('type_contract', this.evenementForm.get('type_contract')!.value);
+      formData.append('nom_personne', this.evenementForm.get('nom_personne')!.value);
+      formData.append('type_evenement', this.evenementForm.get('type_evenement')!.value);
+      formData.append('intitule', this.evenementForm.get('intitule')!.value);
+      formData.append('resume', this.evenementForm.get('resume')!.value);
+      formData.append('temoins', this.evenementForm.get('temoins')!.value);
+      formData.append('premiere_pers_info', this.evenementForm.get('premiere_pers_info')!.value);
+      formData.append('action_immediate', this.evenementForm.get('action_immediate')!.value);
+      formData.append('date_accident', this.evenementForm.get('date_accident')!.value);
+      formData.append('periode_travail', this.evenementForm.get('periode_travail')!.value);
+      formData.append('lieu_accident', this.evenementForm.get('lieu_accident')!.value);
+      formData.append('tache_effectue', this.evenementForm.get('tache_effectue')!.value);
+      formData.append('utiliser_chien', this.evenementForm.get('utiliser_chien')!.value);
+      formData.append('siege_de_lesions_1', this.evenementForm.get('siege_de_lesions_1')!.value);
+      formData.append('siege_de_lesions_2', this.evenementForm.get('siege_de_lesions_2')!.value);
+      formData.append('nature_lesions', this.evenementForm.get('nature_lesions')!.value);
+      formData.append('site', this.evenementForm.get('site')!.value);
+      formData.append('service', this.evenementForm.get('service')!.value);
+
+
+      this.apiEvenementService.updateEvenementFormdata(this.idEvenement,formData).subscribe(
+          () => {
+            console.log('Evenement a été modifiée avec succès.');
+            this.getEvenementsByDangerId(this.dangerId);
+          },
+          error => console.log(error)
+        );
+      }
+    }
   
 }
