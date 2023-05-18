@@ -42,6 +42,8 @@ export class InfoActionComponent {
   realisationId!: number;
   tacheSelectionnee!: Taches;
   realisation: any;
+  deletModalRealisation : any;
+  idRealisation !: number;
 
 
   constructor(
@@ -153,6 +155,10 @@ export class InfoActionComponent {
       document.getElementById('deleteMesure')
     );
 
+    this.deletModalRealisation = new window.bootstrap.Modal(
+      document.getElementById('deleteRealisation')
+    );
+
   }
 
   /*getRealisationByAction(actionId: number) {
@@ -241,6 +247,18 @@ export class InfoActionComponent {
     })
   }
 
+  openDeleteModalRealisation(id: number) {
+    this.idToDelete = id;
+    this.deletModal.show();
+  }
+
+  deleteRealisation(){
+    this.apiRealisationService.delRealisation(this.idToDelete).subscribe(() => {
+      this.getRealisationAndTachesByAction(this.actionId);
+      this.deletModal.hide();
+    })
+  }
+
   updateMesure(): void {
     const rawFormData = this.mesureForm.getRawValue();
     const formData = this.mesureForm.value;
@@ -273,6 +291,39 @@ export class InfoActionComponent {
     });
     const modal = new window.bootstrap.Modal(document.getElementById('updateMesure'));
     modal.show();
+  }
+
+  openUpdateModalRealisation(realisation: Realisations): void {
+    this.realisation = realisation;
+    this.idRealisation = this.realisation.id;
+    this.realisationForm.patchValue({
+      action_realise : this.realisation.action_realise,
+      date_realisation : this.realisation.date_realisation,
+      etat : this.realisation.etat
+    });
+    console.log(this.idRealisation);
+    const modal = new window.bootstrap.Modal(document.getElementById('update_realisation'));
+    modal.show();
+  }
+
+  updateRealisation(): void{
+    const formData = this.realisationForm.value;
+    const realisation: Realisations = new Realisations(
+      formData.action_realise,
+      formData.date_realisation,
+      formData.etat
+    );
+
+    realisation.action_associe = this.actionId;
+
+    this.apiRealisationService.updateRealisation(this.idRealisation, realisation).subscribe(
+      (response) => {
+        console.log('Realisation a été modifier avec succès.');
+        this.getRealisationAndTachesByAction(this.actionId);
+        this.realisationForm.reset();
+      },
+      error => console.log(error)
+    );
   }
 
   addRealisation():void {

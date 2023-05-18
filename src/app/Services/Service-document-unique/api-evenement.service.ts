@@ -34,5 +34,9 @@ export class ApiEvenementService {
     return this.http.post<Evenement>(this.API_URL_EV, formData);
   }
 
+  updateEvenementFormdata(idEvenement: number, formData: FormData): Observable<any> {
+    const url = `${this.API_URL_EV}${idEvenement}/`;
+    return this.http.put(url, formData);
+  }
 
 }
