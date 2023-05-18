@@ -8,6 +8,7 @@ export class UserApp {
     adresse_email: string;
     actif: boolean;
     groupes_roles: GroupeUser[];
+    nom_groupe!:string;
   
     constructor(
       id:number,
