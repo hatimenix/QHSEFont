@@ -130,7 +130,7 @@ const routes: Routes = [
 
   {path:'listgroupeusers', component:ListGroupesComponent},
   {path:'addgroupeusers', component:AdGroupesComponent},
-  {path:'updategroupeusers', component:UpdateGroupesComponent},
+  {path:'updategroupeusers/:id', component:UpdateUsersComponent},
 
 
 

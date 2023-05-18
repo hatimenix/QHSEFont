@@ -18,7 +18,7 @@ export class UsersService {
   }
 
   getUserById(id: number): Observable<UserApp> {
-    const url = `${this.API_UsersApp}/${id}`;
+    const url = `${this.API_UsersApp}${id}`;
     return this.http.get<UserApp>(url);
   }
 
@@ -27,7 +27,7 @@ export class UsersService {
   }
 
   updateUserApp(id: number, userApp: UserApp): Observable<UserApp> {
-    const url = `${this.API_UsersApp}/${id}`;
+    const url = `${this.API_UsersApp}${id}/`;
     return this.http.put<UserApp>(url, userApp);
   }
 
