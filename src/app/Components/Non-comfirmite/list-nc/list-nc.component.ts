@@ -26,6 +26,14 @@ export class ListNcComponent implements OnInit {
   isReverseSorting: boolean = false;
   startDate: string | undefined;
   endDate: string | undefined;
+  autoCloseDropdown: boolean = true;
+  fieldsVisible: { [key: string]: boolean } = {
+    domaine: true,
+    frequence: true,
+    cout:true,
+    annee:true,
+    mois:true,
+  };
   @ViewChild('successModal', { static: true }) successModal:any;
   
   modalRef!: BsModalRef;
@@ -135,8 +143,12 @@ export class ListNcComponent implements OnInit {
     );
     this.startDate = ''; 
   this.endDate = ''; 
-  }
+  document.addEventListener('click', this.onDocumentClick.bind(this));
 
+}
+ngOnDestroy() {
+  document.removeEventListener('click', this.onDocumentClick.bind(this));
+}
   sortByReverseAlphabet() {
     if (this.isReverseSorting) {
     this.filteredNcs.sort((a, b) => (a.intitule ?? '').localeCompare(b.intitule ?? ''));
@@ -367,4 +379,34 @@ closeModal() {
   this.bsModalService.hide();
   location.reload();
 }
+getVisibleColumnsCount(): number {
+  let count = 0;
+  const fields = [
+    'domaine',
+    'frequence',
+    'cout',
+    'annee',
+    'mois',
+  ];
+
+  for (const field of fields) {
+    if (this.fieldsVisible[field]) {
+      count++;
+    }
+  }
+
+  return count;
+}
+onDropdownClick(event: MouseEvent) {
+  event.stopPropagation();
+}
+
+toggleDropdown() {
+  this.autoCloseDropdown = !this.autoCloseDropdown;
+}
+
+onDocumentClick(event: MouseEvent) {
+  this.autoCloseDropdown = true;
+}
+
 }

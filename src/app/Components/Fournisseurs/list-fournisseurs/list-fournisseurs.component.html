@@ -20,7 +20,7 @@
             </div>
           </div>  
 
-           <div>
+          <div>
             <div class="container">
               <button class="toggle-button" (click)="toggleWindow()">
                 <i class="fas fa-angle-double-left"></i>
@@ -29,77 +29,118 @@
                 <button (click)="increaseTextSize()">
                   <i class="fas fa-search-plus"></i>
                   Augmenter le texte
-                </button> 
+                </button>
                 <button (click)="decreaseTextSize($event)">
                   <i class="fas fa-search-minus"></i>
                   Diminuer le texte
                 </button>
               </div>
             </div>
+          
+            <div class="settings-dropdown" (click)="onDropdownClick($event)">
+              <div class="dropdown">
+                <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
+                  <i class="fas fa-cog"></i>
+                  <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
+                </button>
+                
+                <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
+                  <label class="dropdown-item">Afficher / masquer les colonnes</label>
+                  <label class="dropdown-item">
+                    <input type="checkbox" [(ngModel)]="fieldsVisible['siret']" /> N de siret
+                  </label>
+                  <label class="dropdown-item">
+                    <input type="checkbox" [(ngModel)]="fieldsVisible['prestation']" /> Type de prestation
+                  </label>
+                  <label class="dropdown-item">
+                    <input type="checkbox" [(ngModel)]="fieldsVisible['postal']" /> Code postal
+                  </label>
+                  <label class="dropdown-item">
+                    <input type="checkbox" [(ngModel)]="fieldsVisible['web']" /> Page web
+                  </label>
+                  <label class="dropdown-item">
+                    <input type="checkbox" [(ngModel)]="fieldsVisible['adresse']" /> Adresse
+                  </label>
+                </div>
+              </div>
+            </div>          
             
-           <div class="col-lg-12">
-               <div class="table-responsive rounded mb-3">
-               <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
-      <thead>
-        <tr>
-          <th scope="col">
-            <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Nom du fournisseur</a>
-            <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
-            <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
-          </th>                                                                                 
-          <th scope="col">N de siret</th>
-          <th scope="col">Type de prestation</th>
-          <th scope="col" title="Numéro de récipissé de déclaration préfactorale">NRDP</th>
-          <th scope="col">Page web</th>
-          <th scope="col">Téléphone</th>
-          <th scope="col">Numéro de télécopie</th>
-          <th scope="col">Adresse</th>
-          <th scope="col">Code postal</th>
-          <th scope="col">Ville</th>
-          <th scope="col">Pays</th>
-          <th scope="col">Nom,Prénom</th>
-          <th scope="col">Adresse de courrier</th>
-          <th scope="col">Fonction</th>
-          <th scope="col">Numéro de télephone</th>
-          <th scope="col">Téléphone personnel</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-          <tbody class="ligth-body">          
-            <tr *ngFor="let fournisseur of fournisseurs | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
-        <td>{{ fournisseur.nom }}</td>
-        <td>{{fournisseur.numerodesiret}}</td>
-        <td>{{fournisseur.type_de_prestation}}</td>
-        <td>{{fournisseur.numero_de_recepisse_de_declaration_prefectorale}}</td>
-        <td>{{fournisseur.pageweb}}</td>
-        <td>{{fournisseur.telephone}}</td>
-        <td>{{fournisseur.numerodetelecopie}}</td>
-        <td>{{fournisseur.adresse}}</td>
-        <td>{{fournisseur.codepostal}}</td>
-        <td>{{fournisseur.ville}}</td>
-        <td>{{fournisseur.pays}}</td>
-        <td>{{fournisseur.nometprenom}}</td>
-        <td>{{fournisseur.adressedecourier}}</td>
-        <td>{{fournisseur.fonction}}</td>
-        <td>{{fournisseur.numerodetelephone}}</td>
-        <td>{{fournisseur.telephonepersonnel}}</td>
-
-                        <td>
-                          <div class="d-flex align-items-center list-action">
-                                  <a class="badge bg-primary mr-2" (click)="getFournisseurData(fournisseur.id , fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation,fournisseur.numero_de_recepisse_de_declaration_prefectorale,fournisseur.pageweb,fournisseur.telephone,fournisseur.numerodetelecopie,fournisseur.adresse,fournisseur.codepostal,fournisseur.ville,fournisseur.pays,fournisseur.nometprenom,fournisseur.adressedecourier,fournisseur.fonction,fournisseur.numerodetelephone,fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit"
-                                  ><i class="ri-pencil-line mr-0"></i></a>
-                              <a class="badge btn-danger mr-2" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)"  data-placement="top" title="" data-original-title="Delete"
-                                  ><i class="ri-delete-bin-line mr-0"></i></a>
-                          </div>
+            <div class="col-lg-12">
+              <div class="table-responsive rounded mb-3">
+                <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+                  <thead>
+                    <tr>
+                      <th scope="col">
+                        <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Nom du fournisseur</a>
+                        <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
+                        <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
+                      </th> 
+                      <ng-container *ngIf="fieldsVisible['siret']">
+                        <th scope="col">N de siret</th>
+                      </ng-container>
+                      <ng-container *ngIf="fieldsVisible['prestation']">
+                        <th scope="col">Type de prestation</th>
+                      </ng-container>
+                      <th scope="col" title="Numéro de récipissé de déclaration préfactorale">NRDP</th>
+                      <ng-container *ngIf="fieldsVisible['web']">
+                      <th scope="col">Page web</th>
+                    </ng-container>
+                      <th scope="col">Téléphone</th>
+                      <th scope="col">Numéro de télécopie</th>
+                      <ng-container *ngIf="fieldsVisible['adresse']">
+                      <th scope="col">Adresse</th>
+                      </ng-container>
+                      <ng-container *ngIf="fieldsVisible['postal']">
+                      <th scope="col">Code postal</th>
+                    </ng-container>
+                      <th scope="col">Ville</th>
+                      <th scope="col">Pays</th>
+                      <th scope="col">Nom,Prénom</th>
+                      <th scope="col">Adresse de courrier</th>
+                      <th scope="col">Fonction</th>
+                      <th scope="col">Numéro de télephone</th>
+                      <th scope="col">Téléphone personnel</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="ligth-body">
+                    <tr *ngFor="let fournisseur of fournisseurs | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index"
+                      [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                      <td>{{ fournisseur.nom }}</td>
+                      <td *ngIf="fieldsVisible['siret']">{{fournisseur.numerodesiret}}</td>
+                      <td *ngIf="fieldsVisible['prestation']">{{fournisseur.type_de_prestation}}</td>
+                      <td>{{fournisseur.numero_de_recepisse_de_declaration_prefectorale}}</td>
+                      <td *ngIf="fieldsVisible['web']">{{fournisseur.pageweb}}</td>
+                      <td>{{fournisseur.telephone}}</td>
+                      <td>{{fournisseur.numerodetelecopie}}</td>
+                      <td *ngIf="fieldsVisible['adresse']">{{fournisseur.adresse}}</td>
+                      <td *ngIf="fieldsVisible['postal']">{{fournisseur.codepostal}}</td>
+                      <td>{{fournisseur.ville}}</td>
+                      <td>{{fournisseur.pays}}</td>
+                      <td>{{fournisseur.nometprenom}}</td>
+                      <td>{{fournisseur.adressedecourier}}</td>
+                      <td>{{fournisseur.fonction}}</td>
+                      <td>{{fournisseur.numerodetelephone}}</td>
+                      <td>{{fournisseur.telephonepersonnel}}</td>
+                      <td>
+                        <div class="d-flex justify-content-start align-items-center list-action">
+                          <a class="badge bg-primary mr-2" (click)="getFournisseurData(fournisseur.id, fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation, fournisseur.numero_de_recepisse_de_declaration_prefectorale, fournisseur.pageweb, fournisseur.telephone, fournisseur.numerodetelecopie, fournisseur.adresse, fournisseur.codepostal, fournisseur.ville, fournisseur.pays, fournisseur.nometprenom, fournisseur.adressedecourier, fournisseur.fonction, fournisseur.numerodetelephone, fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
+                            <i class="ri-pencil-line mr-0"></i>
+                          </a>
+                          <a class="badge btn-danger mr-2" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)" data-placement="top" title="" data-original-title="Delete">
+                            <i class="ri-delete-bin-line mr-0"></i>
+                          </a>
+                        </div>
                       </td>
-                       </tr> 
-               </table>
-               </div>
-               <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="pagination-container" style="display: flex;justify-content: flex-end;">
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
-             </div>
-       </div>
+            </div>
+            
 <!-- Modal -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">

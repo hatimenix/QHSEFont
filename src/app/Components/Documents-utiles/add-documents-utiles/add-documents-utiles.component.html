@@ -34,15 +34,21 @@
                        </div>
                        <div class="col-md-12">
                         <div class="form-group">
-                            <input type="file" class="form-control image-file" [(ngModel)]="documentutilef.document" (change)="uploadFile($event)"formControlName="document">
-                            <div class="drop-zone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-                              <p *ngIf="droppedFile">{{ droppedFile.name }}</p>
-                              <p *ngIf="!droppedFile">Glissez-déposez le fichier ici</p>
-                            </div>
-                            
-                            
+                          <label>Document</label>
+                          <div class="drop-zone"
+                               (dragover)="onDragOver($event)"
+                               (dragleave)="onDragLeave($event)"
+                               (drop)="onDrop($event)"
+                               (click)="fileInput.click()">
+                            <input style="position: absolute;top: -9999px;left: -9999px;opacity: 0;" #fileInput type="file" class="form-control image-file" (change)="uploadFile($event)">
+                            <p *ngIf="droppedFile">{{ droppedFile.name }}</p>
+                            <p *ngIf="!droppedFile">Glissez-déposez le fichier ici ou cliquez pour sélectionner un fichier</p>
+                          </div>
                         </div>
-                       </div>
+                      </div>
+                      
+                      
+                      
                              </div>
                              </form>
                              <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
