@@ -1,0 +1,214 @@
+<div class="content-page">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+            <div>
+              <h4 class="mb-3">Santé mentale - demande de supervision</h4>
+            </div>
+            <a (click)="navigateToSante()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter
+              une demande</a>
+          </div>
+        </div>
+  
+      </div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </div>  
+  
+      <div>
+        <div class="col-lg-12">
+          <div class="table-responsive rounded mb-3">
+            <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+              <thead>
+                <tr >
+                  <th scope="col">Site</th>
+                  <th scope="col">Demande de conseils</th>
+                  <th scope="col">Demande de supervision pratique</th>
+                  <th scope="col">Demande de réunion multidisciplinaire-étude de cas</th>
+                  <th scope="col">Demande de coaching en groupe</th>
+                  <th scope="col">Demande de groupes de travail autour de la communication & de la santé mentale</th>
+                  <th scope="col">Commentaires</th>
+                  <th scope="col">Demande d'entretien individuel collaborateur</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <ng-container *ngFor="let site of sites">
+                  <tbody class="ligth-body">
+                    <td data-column="name">
+                      <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
+                        <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
+                        <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+                      </a>
+                      {{ site.site_nom }}
+                    </td>
+                    <ng-container *ngIf="site.expanded ">
+                            
+  
+                      <ng-container *ngFor="let sante of santes| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
+                        <tr *ngIf="(santes)?.length === 0">
+                          <td colspan="11">Aucune demande trouvé </td>
+                        </tr>
+  
+                          <tr  *ngIf="sante.site == site.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                            <td></td>
+                          <td>{{ sante.demande_de_conseils }}</td>
+                          <td>{{sante.demande_de_supervision}}</td>
+                          <td>{{sante.demande_de_reunion}}</td>
+                          <td>{{sante.demande_de_coaching}}</td>
+                          <td>{{sante.demande_de_groupe}}</td>
+                          <td>{{sante.comentaires}}</td>
+                          <td>{{sante.demande_entretien}}</td>
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center list-action">
+                              <a class="badge bg-primary mr-2" data-toggle="modal" data-target="#update"
+                                (click)="getSanteData(sante.id , sante.site, sante.site_name,sante.demande_de_conseils,sante.demande_de_supervision,sante.demande_de_reunion,sante.demande_de_coaching,sante.demande_de_groupe,sante.comentaires,sante.demande_entretien)"
+                                data-placement="top" title="" data-original-title="Edit">
+                                <i class="ri-pencil-line mr-0"></i>
+                              </a>
+                              <a class="badge btn-danger mr-2" data-toggle="tooltip"
+                                (click)="openDeleteModal(sante.id)" data-placement="top" title=""
+                                data-original-title="Delete">
+                                <i class="ri-delete-bin-line mr-0"></i>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                       
+  
+                      </ng-container>
+                    </ng-container>
+                </ng-container>
+  
+            </table>
+          </div>
+          <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>      
+        </div>
+      </div>
+    <!-- Modal -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Attention , cette action est irréversible !
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div>
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modifier une demande de supervision</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+
+            <div class="modal-body">
+              <form [formGroup]="form">
+
+                <div class="row">
+                  <div class="col">
+                    <label for="demande_de_conseils" class="form-label">N série (si thermomètre Genius) : </label>
+                    <input name="demande_de_conseils" value="{{demande_de_conseils}}" [(ngModel)]="demande_de_conseils" formControlName="demande_de_conseils"
+                      style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_conseils">
+                  </div>
+                <div class="col">
+                  <label for="demande_de_reunion" class="form-label">N série (si thermomètre Genius) : </label>
+                  <input name="demande_de_reunion" value="{{demande_de_reunion}}" [(ngModel)]="demande_de_reunion" formControlName="demande_de_reunion"
+                    style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_reunion">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="demande_de_coaching" class="form-label">N série (si thermomètre Genius) : </label>
+                  <input name="demande_de_coaching" value="{{demande_de_coaching}}" [(ngModel)]="demande_de_coaching" formControlName="demande_de_coaching"
+                    style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_coaching">
+                </div>
+                <div class="col">
+                  <label for="demande_de_groupe" class="form-label">N série (si thermomètre Genius) : </label>
+                  <input name="demande_de_groupe" value="{{demande_de_groupe}}" [(ngModel)]="demande_de_groupe" formControlName="demande_de_groupe"
+                    style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_groupe">
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="demande_de_supervision" class="form-label">demande_de_supervision : </label>
+                    <input name="demande_de_supervision" value="{{demande_de_supervision}}" [(ngModel)]="demande_de_supervision"
+                      formControlName="demande_de_supervision" style="width: 100%;" type="text" class="rounded-pill form-control"
+                      id="demande_de_supervision">
+                  </div>
+                  <div class="col">
+                    <label for="demande_entretien" class="form-label">demande_entretien : </label>
+                    <input name="demande_entretien" value="{{demande_entretien}}" [(ngModel)]="demande_entretien"
+                      formControlName="demande_entretien" style="width: 100%;" type="text" class="rounded-pill form-control"
+                      id="demande_entretien">
+                  </div>
+                </div>
+                <div class="row">
+                <div class="col">
+                  <label for="comentaires" class="form-label">Comentaires : </label>
+                  <textarea name="comentaires"  value="{{comentaires}}" [(ngModel)] = "comentaires" formControlName="comentaires" style="width: 100%;" type="text" class="form-control" id="comentaires"></textarea>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="site" class="form-label">Site : </label>
+                    <select [(ngModel)]="site" id="site" name="site" formControlName="site" style="width: 100%;"
+                      class="form-control" class="custom-select">
+                      <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
+                    </select>
+                  </div>
+                </div>
+                <br>
+              </form>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="updateSante()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    La demande a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>

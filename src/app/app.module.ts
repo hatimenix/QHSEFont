@@ -65,6 +65,9 @@ import { UpdateUsersComponent } from './Components/UserApp/update-users/update-u
 import { ListGroupesComponent } from './Components/GroupUsers/list-groupes/list-groupes.component';
 import { AdGroupesComponent } from './Components/GroupUsers/ad-groupes/ad-groupes.component';
 import { UpdateGroupesComponent } from './Components/GroupUsers/update-groupes/update-groupes.component';
+import { ListSanteComponent } from './Components/Sante/list-sante/list-sante.component';
+import { AddSanteComponent } from './Components/Sante/add-sante/add-sante.component';
+import { ListCatographieComponent } from './Components/Catographie/list-catographie/list-catographie.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +128,10 @@ import { UpdateGroupesComponent } from './Components/GroupUsers/update-groupes/u
     UpdateUsersComponent,
     ListGroupesComponent,
     AdGroupesComponent,
-    UpdateGroupesComponent
+    UpdateGroupesComponent,
+    ListSanteComponent,
+    AddSanteComponent,
+    ListCatographieComponent
 
   ],
   imports: [
