@@ -28,11 +28,9 @@
               <div class="window" [ngClass]="{ 'open': isOpen }">
                 <button (click)="increaseTextSize()">
                   <i class="fas fa-search-plus"></i>
-                  Augmenter le texte
                 </button>
                 <button (click)="decreaseTextSize($event)">
                   <i class="fas fa-search-minus"></i>
-                  Diminuer le texte
                 </button>
               </div>
             </div>
@@ -40,7 +38,6 @@
             <div class="settings-dropdown" (click)="onDropdownClick($event)">
               <div class="dropdown">
                 <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
-                  <i class="fas fa-cog"></i>
                   <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
                 </button>
                 
