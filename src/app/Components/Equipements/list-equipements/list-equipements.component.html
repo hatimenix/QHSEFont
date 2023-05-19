@@ -84,7 +84,7 @@
                         <td>{{equipement.N_serie}}</td>
                         <td><button class="btn fa fa-download mr-3"   (click)="download(equipement.Certificat)"> {{ equipement.Certificat ? equipement.Certificat.split('/').pop() : 'Aucun fichier joint' }}</button></td>
                         <td>
-                          <div class="d-flex align-items-center list-action">
+                          <div class="d-flex justify-content-start align-items-center list-action">
                             <a class="badge bg-primary mr-2" data-toggle="modal" data-target="#update"
                               (click)="getEquipementData(equipement.id , equipement.site, equipement.secteur, equipement.site_name,equipement.secteur_name,equipement.type_equipement,equipement.codification,equipement.date_mise_en_service,equipement.date_modification,equipement.verification,equipement.prochaine_verification,equipement.commentaires,equipement.Equipement_declasse,equipement.N_serie)"
                               data-placement="top" title="" data-original-title="Edit">

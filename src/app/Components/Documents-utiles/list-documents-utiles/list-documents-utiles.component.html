@@ -19,6 +19,33 @@
               </span>
             </div>
           </div>  
+
+          <div class="settings-dropdown" (click)="onDropdownClick($event)">
+            <div class="dropdown">
+              <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
+                <i class="fas fa-cog"></i>
+                <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
+              </button>
+              
+              <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
+                <label class="dropdown-item">Afficher / masquer les colonnes</label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['document']" /> Document
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['modified_date']" /> Modifié
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['modified_by']" /> Modifié par
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['typologie']" /> Typologie
+                </label>
+              </div>
+            </div>
+          </div>
+           
+          
        <div class="col-lg-12">
         <div class="table-responsive rounded mb-3">
         <table class="data-tables table mb-0 tbl-server-info">
@@ -28,11 +55,19 @@
                     <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Nom</a>
                     <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
                     <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
-                  </th>                      
+                  </th> 
+                  <ng-container *ngIf="fieldsVisible['document']">                     
                     <th scope="col">Document</th>
+                    </ng-container>
+                    <ng-container *ngIf="fieldsVisible['modified_date']">
                      <th scope="col">Modifié</th>
+                     </ng-container>
+                     <ng-container *ngIf="fieldsVisible['modified_by']">
                      <th scope="col">Modifié par</th>
+                     </ng-container>
+                     <ng-container *ngIf="fieldsVisible['typologie']">
                      <th scope="col">Typologie</th>
+                     </ng-container>
                      <th scope="col">Actions</th>
 
                 </tr>
@@ -40,14 +75,14 @@
             <tbody class="ligth-body">
              <tr *ngFor="let documentutile of documentsutiles | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
               <td>{{ documentutile.nom}}</td>
-                <td><button class="btn fa fa-download mr-3"   (click)="download(documentutile.document)"> {{ documentutile.document ? documentutile.document.split('/').pop() : 'Aucun fichier joint' }}</button></td>
-                 <td>{{ documentutile.modified_date  | date:'yyyy-MM-dd'  }}</td>
-                 <td>{{ documentutile.modified_by }}</td>
-                 <td>{{ documentutile.typologie }}</td>
+                <td *ngIf="fieldsVisible['document']"><button class="btn fa fa-download mr-3"   (click)="download(documentutile.document)"> {{ documentutile.document ? documentutile.document.split('/').pop() : 'Aucun fichier joint' }}</button></td>
+                 <td *ngIf="fieldsVisible['modified_date']">{{ documentutile.modified_date  | date:'yyyy-MM-dd'  }}</td>
+                 <td *ngIf="fieldsVisible['modified_by']">{{ documentutile.modified_by }}</td>
+                 <td *ngIf="fieldsVisible['typologie']">{{ documentutile.typologie }}</td>
 
                  <td>
-                        <div class="d-flex align-items-center list-action">
-                                <a class="badge bg-primary mr-2" data-toggle="modal" (click)="getDocumentutileData(documentutile.id,documentutile.nom,documentutile.typologie,documentutile.modified_by)" data-target="#update" data-placement="top" title="" data-original-title="Edit"
+                  <div class="d-flex justify-content-start align-items-center list-action">
+                    <a class="badge bg-primary mr-2" data-toggle="modal" (click)="getDocumentutileData(documentutile.id,documentutile.nom,documentutile.typologie,documentutile.modified_by)" data-target="#update" data-placement="top" title="" data-original-title="Edit"
                                 ><i class="ri-pencil-line mr-0"></i></a>
                             <a class="badge bg-danger mr-2" data-toggle="tooltip" (click)="openDeleteModal(documentutile.id)" data-placement="top" title="" data-original-title="Delete"
                                 ><i class="ri-delete-bin-line mr-0"></i></a>
