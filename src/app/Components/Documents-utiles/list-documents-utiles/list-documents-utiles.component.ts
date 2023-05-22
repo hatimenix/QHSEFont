@@ -18,6 +18,13 @@ export class ListDocumentsUtilesComponent  {
   updateModalVisible: boolean = true;
   isAscending: boolean = true;
   isReverseSorting: boolean = false;
+  autoCloseDropdown: boolean = true;
+  fieldsVisible: { [key: string]: boolean } = {
+    document: true,
+    modified_by: true,
+    modified_date:true,
+    typologie:true,
+  };
   p = 1; 
   itemsPerPage: number = 5;
   id:any
@@ -47,6 +54,11 @@ export class ListDocumentsUtilesComponent  {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    document.addEventListener('click', this.onDocumentClick.bind(this));
+
+  }
+  ngOnDestroy() {
+    document.removeEventListener('click', this.onDocumentClick.bind(this));
   }
   getDocumentsutiles() {
     this.documentutileservice.getAll().subscribe(
@@ -142,4 +154,32 @@ delete() {
       this.isReverseSorting = true;
     }
   }  
+  getVisibleColumnsCount(): number {
+    let count = 0;
+    const fields = [
+      'document',
+      'modified_by',
+      'modified_date',
+      'typologie',
+    ];
+  
+    for (const field of fields) {
+      if (this.fieldsVisible[field]) {
+        count++;
+      }
+    }
+  
+    return count;
+  }
+  onDropdownClick(event: MouseEvent) {
+    event.stopPropagation();
+  }
+  
+  toggleDropdown() {
+    this.autoCloseDropdown = !this.autoCloseDropdown;
+  }
+  
+  onDocumentClick(event: MouseEvent) {
+    this.autoCloseDropdown = true;
+  }
 }

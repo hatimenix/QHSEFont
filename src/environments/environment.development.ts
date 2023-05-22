@@ -34,7 +34,9 @@ export const environment = {
     API_documents_utiles:"http://127.0.0.1:8001/Documentsutile/",
     API_UsersApp:"http://127.0.0.1:8001/userapp/",
     API_GroupeUsers:"http://127.0.0.1:8001/groupeUser/",
-    API_Login:"http://127.0.0.1:8001/api/login/"
+    API_sante:"http://127.0.0.1:8001/sante/",
+
+
 
     };
 

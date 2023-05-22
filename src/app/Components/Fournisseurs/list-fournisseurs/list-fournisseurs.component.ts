@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
 import { Fournisseur } from 'src/app/models/fournisseur';
-import { Directive, HostBinding, HostListener, ElementRef } from '@angular/core';
+import { HostBinding, ElementRef } from '@angular/core';
 
 
 declare var window: any;
@@ -19,7 +19,15 @@ export class ListFournisseursComponent implements OnInit {
   updateModalVisible: boolean = true;
   isAscending: boolean = true;
   isReverseSorting: boolean = false;
-  isCollapsed = true;
+  fieldsVisible: { [key: string]: boolean } = {
+    siret: true,
+    prestation: true,
+    postal:true,
+    web:true,
+    adresse:true,
+  };
+  autoCloseDropdown: boolean = true;
+    isCollapsed = true;
   isOpen = false;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
@@ -72,6 +80,11 @@ export class ListFournisseursComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getFournisseurs();
+    document.addEventListener('click', this.onDocumentClick.bind(this));
+
+  }
+  ngOnDestroy() {
+    document.removeEventListener('click', this.onDocumentClick.bind(this));
   }
   sortByReverseAlphabet() {
     if (this.isReverseSorting) {
@@ -218,4 +231,34 @@ toggleWindow(): void {
     }
     return false;
   }
+  getVisibleColumnsCount(): number {
+    let count = 0;
+    const fields = [
+      'siret',
+      'prestation',
+      'postal',
+      'web',
+      'adresse',
+    ];
+  
+    for (const field of fields) {
+      if (this.fieldsVisible[field]) {
+        count++;
+      }
+    }
+  
+    return count;
+  }
+  onDropdownClick(event: MouseEvent) {
+    event.stopPropagation();
+  }
+  
+  toggleDropdown() {
+    this.autoCloseDropdown = !this.autoCloseDropdown;
+  }
+  
+  onDocumentClick(event: MouseEvent) {
+    this.autoCloseDropdown = true;
+  }
+  
 }

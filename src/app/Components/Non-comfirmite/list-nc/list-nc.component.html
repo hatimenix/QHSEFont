@@ -48,6 +48,33 @@
           <button class="btn " (click)="filterByEtatFalse()">NC closes</button>
           <button class="btn " (click)="getNcs()">Toutes les NCs</button>
           <button class="btn "  (click)="exportToExcel()">Export excel</button>
+
+          <div class="settings-dropdown" (click)="onDropdownClick($event)">
+            <div class="dropdown">
+              <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
+                <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
+              </button>
+              
+              <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
+                <label class="dropdown-item">Afficher / masquer les colonnes</label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['domaine']" /> Domaine
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['frequence']" /> Frequence
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['cout']" /> Cout
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['annee']" /> Année
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['mois']" /> Mois
+                </label>
+              </div>
+            </div>
+          </div>
       
          <div class="col-lg-12">
              <div class="table-responsive rounded mb-3">
@@ -69,19 +96,29 @@
                           <th scope="col">Processus</th>
                           <th scope="col">Site</th>
                           <th scope="col">Responsable traitement</th>
+                          <ng-container *ngIf="fieldsVisible['domaine']">
                           <th scope="col">Domaine</th>
+                          </ng-container>
                           <th scope="col">Detail_cause</th>
                           <th scope="col">Date_nc</th>
                           <th scope="col">Date prise en compte</th>
                           <th scope="col">Description detailée</th>
+                          <ng-container *ngIf="fieldsVisible['annee']">
                           <th scope="col">Année</th>
+                          </ng-container>
+                          <ng-container *ngIf="fieldsVisible['mois']">
                           <th scope="col">mois</th>
+                          </ng-container>
                           <th scope="col">delai_prevu</th>
                           <th scope="col">type_cause</th>
+                          <ng-container *ngIf="fieldsVisible['cout']">
                           <th scope="col">cout</th>
+                          </ng-container>
                           <th scope="col">Avancement</th>
                           <th scope="col">info_complementaires</th>
+                          <ng-container *ngIf="fieldsVisible['frequence']">
                           <th scope="col">frequence</th>
+                          </ng-container>
                           <th scope="col">gravite</th>
                           <th scope="col">action_immediate</th>
                           <th scope="col">nc_cloture</th>
@@ -98,16 +135,16 @@
                       <td>{{ nc.processus_name }}</td>
                       <td>{{ nc.site_name }}</td>
                       <td>{{ nc.responsable_name }}</td>
-                      <td>{{nc.domaine}}</td>
+                      <td *ngIf="fieldsVisible['domaine']">{{nc.domaine}}</td>
                       <td>{{nc.detail_cause}}</td>
                       <td>{{ nc.date_nc | date }}</td>
                       <td>{{nc.date_prise_en_compte}}</td>
                       <td>{{nc.description_detailee}}</td>
-                      <td>{{nc.annee}}</td>
-                      <td>{{nc.mois}}</td>
+                      <td *ngIf="fieldsVisible['annee']">{{nc.annee}}</td>
+                      <td *ngIf="fieldsVisible['mois']">{{nc.mois}}</td>
                       <td>{{nc.delai_prevu}}</td>
                       <td>{{nc.type_cause}}</td>
-                      <td>{{nc.cout}}€</td>
+                      <td *ngIf="fieldsVisible['cout']">{{nc.cout}}€</td>
                       <td>
                         <div class="progress">
                           <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
@@ -116,7 +153,7 @@
                         </div>
                       </td>
                       <td>{{nc.info_complementaires}}</td>
-                      <td>{{nc.frequence ? 'Oui' : 'Non'}}</td>
+                      <td *ngIf="fieldsVisible['frequence']">{{nc.frequence ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.gravite ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.action_immediate ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.nc_cloture ? 'Oui' : 'Non'}}</td>
@@ -125,8 +162,8 @@
                       </button></td>
 
                       <td>
-                             <div class="d-flex align-items-center list-action">
-                                     <a class="badge bg-primary mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee,nc.mois,nc.delai_prevu,nc.type_cause,nc.cout,nc.progress,nc.info_complementaires,nc.frequence,nc.gravite,nc.action_immediate,nc.nc_cloture,nc.responsable_name,nc.site_name,nc.processus_name,nc.site,nc.processus,nc.responsable_traitement)"data-placement="top" title="" data-original-title="Edit"
+                        <div class="d-flex justify-content-start align-items-center list-action">
+                          <a class="badge bg-primary mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee,nc.mois,nc.delai_prevu,nc.type_cause,nc.cout,nc.progress,nc.info_complementaires,nc.frequence,nc.gravite,nc.action_immediate,nc.nc_cloture,nc.responsable_name,nc.site_name,nc.processus_name,nc.site,nc.processus,nc.responsable_traitement)"data-placement="top" title="" data-original-title="Edit"
                                      ><i class="ri-pencil-line mr-0"></i></a>
                                  <a class="badge bg-danger mr-2" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
                                      ><i class="ri-delete-bin-line mr-0"></i></a>

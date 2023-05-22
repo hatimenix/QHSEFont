@@ -78,6 +78,23 @@
     background-color: #089bd7;
     border-color: #089bd7;
   }
-  
+  .settings-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #888;
+  font-size: 20px;
+}
+
+.settings-icon:hover {
+  color: #333;
+}
+.hidden-column {
+  display: none;
+}
+
+
+
   
   
