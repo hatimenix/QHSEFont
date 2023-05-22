@@ -22,6 +22,8 @@ export class Actions {
     annee !: Date;
     danger !: number[];
     evenement !: number[];
+    qualite !: number[];
+
 
     constructor(
         intitule: string,
@@ -43,7 +45,8 @@ export class Actions {
         etat : string,
         piece_jointe : any,
         danger: number[],
-        evenement: number[]
+        evenement: number[],
+        qualite: number[]
       ) {
         this.intitule = intitule;
         this.type_action = type_action;
@@ -65,5 +68,7 @@ export class Actions {
         this.piece_jointe = piece_jointe;
         this.danger = danger;
         this.evenement = evenement;
+        this.qualite = qualite;
+
       }
 }

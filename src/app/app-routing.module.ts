@@ -64,6 +64,9 @@ import { UpdateGroupesComponent } from './Components/GroupUsers/update-groupes/u
 import { ListSanteComponent } from './Components/Sante/list-sante/list-sante.component';
 import { AddSanteComponent } from './Components/Sante/add-sante/add-sante.component';
 import { ListCatographieComponent } from './Components/Catographie/list-catographie/list-catographie.component';
+import { ListQualiteComponent } from './Components/Qualite/list-qualite/list-qualite.component';
+import { AddQualiteComponent } from './Components/Qualite/add-qualite/add-qualite.component';
+import { InfoQualiteComponent } from './Components/Qualite/info-qualite/info-qualite.component';
 
 
 
@@ -137,6 +140,12 @@ const routes: Routes = [
   {path : 'sante-list', component: ListSanteComponent},
   {path : 'add-sante', component: AddSanteComponent},
   {path : 'cartographie', component: ListCatographieComponent},
+  {path : 'qualite-list', component: ListQualiteComponent},
+  {path : 'add-qualite', component: AddQualiteComponent},
+  { path: 'qualite/:id', component: InfoQualiteComponent },
+
+
+
 
 
 
