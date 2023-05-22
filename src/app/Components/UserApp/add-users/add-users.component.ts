@@ -47,10 +47,10 @@ export class AddUsersComponent implements OnInit {
   }
 
   getSelectedCheckboxId(): string[]  {
-    const checkboxes = document.querySelectorAll('#idGroupe input[type="checkbox"]:checked');
+  const checkboxes = document.querySelectorAll('#idGroupe input[type="checkbox"]:checked');
   const selectedIds: string[] = [];
   checkboxes.forEach((checkbox) => {
-    selectedIds.push((checkbox as HTMLInputElement).value);
+  selectedIds.push((checkbox as HTMLInputElement).value);
   });
   return selectedIds;
   }
@@ -84,4 +84,5 @@ export class AddUsersComponent implements OnInit {
       }
     );
   }
+ 
 }
