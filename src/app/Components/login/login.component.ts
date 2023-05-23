@@ -32,8 +32,9 @@ export class LoginComponent {
         this.authService.saveTokens(response);
         
         // Assuming the response also contains user information
-        this.user = response.user as UserApp; // Store the user information
-        
+        this.user = response.user; 
+        console.log("user est ", this.user)
+        // Store the user information
         // Redirect to the home page
         this.router.navigate(['/home']);
       },

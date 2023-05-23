@@ -138,15 +138,15 @@ const routes: Routes = [
   {path : 'adduserapp',component:AddUsersComponent, canActivate: [AuthGuardService] },
   {path : 'updateuserapp/:id',component:UpdateUsersComponent, canActivate: [AuthGuardService] },
 
-  {path:'listgroupeusers', component:ListGroupesComponent},
-  {path:'addgroupeusers', component:AdGroupesComponent},
-  {path:'updategroupeusers/:id', component:UpdateGroupesComponent},
-  {path : 'sante-list', component: ListSanteComponent},
-  {path : 'add-sante', component: AddSanteComponent},
-  {path : 'cartographie', component: ListCatographieComponent},
-  {path : 'qualite-list', component: ListQualiteComponent},
-  {path : 'add-qualite', component: AddQualiteComponent},
-  { path: 'qualite/:id', component: InfoQualiteComponent },
+  {path:'listgroupeusers', component:ListGroupesComponent,canActivate: [AuthGuardService]},
+  {path:'addgroupeusers', component:AdGroupesComponent,canActivate: [AuthGuardService]},
+  {path:'updategroupeusers/:id', component:UpdateGroupesComponent,canActivate: [AuthGuardService]},
+  {path : 'sante-list', component: ListSanteComponent,canActivate: [AuthGuardService]},
+  {path : 'add-sante', component: AddSanteComponent,canActivate: [AuthGuardService]},
+  {path : 'cartographie', component: ListCatographieComponent,canActivate: [AuthGuardService]},
+  {path : 'qualite-list', component: ListQualiteComponent,canActivate: [AuthGuardService]},
+  {path : 'add-qualite', component: AddQualiteComponent,canActivate: [AuthGuardService]},
+  { path: 'qualite/:id', component: InfoQualiteComponent ,canActivate: [AuthGuardService]},
 
 
 

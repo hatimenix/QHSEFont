@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
 import { UserApp } from 'src/app/models/UserApp';
 
@@ -10,27 +11,31 @@ import { UserApp } from 'src/app/models/UserApp';
 export class NavbarComponent {
 
   @Input() showNavbar: boolean | undefined;
-  user: UserApp | null = null;
+  user: UserApp  |null = null
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.loadUser().subscribe(
-      (users: UserApp[]) => {
-        if (users.length > 0) {
-          this.user = users[0];
-          console.log("L'utilisateur connecté est :", this.user);
-          console.log("Le nom de l'utilisateur est :", this.user?.nom_complet);
-        }
+    this.getUserDetails();
+  }
+
+  getUserDetails(): void {
+    this.authService.getUserDetails().subscribe(
+      (response: UserApp) => {
+        this.user = response;
+        console.log('User details:', this.user);
       },
-      error => {
+      (error: any) => {
         console.error(error);
       }
     );
   }
-  
 
   onLogout(): void {
     this.authService.logout();
+    localStorage.removeItem('user');
+    this.user = null;
+    this.router.navigate(['/']);
   }
+  
 }
