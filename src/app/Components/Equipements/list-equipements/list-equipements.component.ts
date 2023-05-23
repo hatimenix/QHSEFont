@@ -5,6 +5,8 @@ import { Equipement } from 'src/app/models/equipement';
 import { ServicesEquipementservice } from 'src/app/Services/Service-equipements/services-equipements.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Site } from 'src/app/models/site';
+import { Secteur } from 'src/app/models/Secteur';
 
 declare var window: any;
 
@@ -18,6 +20,10 @@ export class ListEquipementsComponent {
   secteurs: any[] = [];
   updateModalVisible: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('siteModal', { static: true }) siteModal:any;
+  @ViewChild('secteurModal', { static: true }) secteurModal:any;
+
+
   
   modalRef!: BsModalRef;
   p = 1; 
@@ -59,6 +65,8 @@ export class ListEquipementsComponent {
 
 
   });
+  selectedSite: Site | undefined;
+  selectedSecteur: Secteur | undefined;
   constructor(private   equipementservice : ServicesEquipementservice, private router : Router,private apiSiteService :ApiSiteService, private apiSecteurService :SecteurService, private bsModalService: BsModalService){
 
   }
@@ -139,8 +147,6 @@ download(Certificat: string): void {
 getEquipementData( id : number,
   site : any,
   secteur : any,
-  site_name : any,
-  secteur_name : any , 
   type_equipement : any  ,
   codification : any , 
   date_mise_en_service :any,
@@ -154,8 +160,6 @@ getEquipementData( id : number,
   this.id = id,
   this.site=site,
   this.secteur = secteur,
-  this.site_name = site_name,
-  this.secteur_name = secteur_name,
   this.type_equipement = type_equipement,
   this.codification=codification,
 
@@ -195,6 +199,20 @@ openModal() {
 closeModal() {
   this.bsModalService.hide();
   location.reload();
+}
+openSiteModal(site: Site) {
+  this.selectedSite = site;
+  this.modalRef = this.bsModalService.show(this.siteModal);
+}
+closeModalsite(){
+    this.bsModalService.hide();
+}
+openSecteurModal(secteur: Secteur) {
+  this.selectedSecteur = secteur;
+  this.modalRef = this.bsModalService.show(this.secteurModal);
+}
+closeModalsecteur(){
+    this.bsModalService.hide();
 }
 }
 

@@ -5,6 +5,8 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Sante } from 'src/app/models/sante';
 import { SanteService } from 'src/app/Services/Service-sante/sante.service';
+import { Site } from 'src/app/models/site';
+
 declare var window: any;
 @Component({
   selector: 'app-list-sante',
@@ -13,8 +15,11 @@ declare var window: any;
 })
 export class ListSanteComponent {
   sites: any[] = [];
+  selectedSite: Site | undefined;
   updateModalVisible: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('siteModal', { static: true }) siteModal:any;
+
   
   modalRef!: BsModalRef;
   p = 1; 
@@ -102,7 +107,6 @@ export class ListSanteComponent {
 }
 getSanteData( id : number,
   site : any,
-  site_name : any,
   demande_de_conseils : any  ,
   demande_de_supervision : any , 
   demande_de_reunion :any,
@@ -113,7 +117,6 @@ getSanteData( id : number,
 ){
   this.id = id,
   this.site=site,
-  this.site_name = site_name,
   this.demande_de_conseils = demande_de_conseils,
   this.demande_de_supervision=demande_de_supervision,
   this.demande_de_reunion=demande_de_reunion,
@@ -151,6 +154,11 @@ closeModal() {
   this.bsModalService.hide();
   location.reload();
 }
-  
-
+openSiteModal(site: Site) {
+  this.selectedSite = site;
+  this.modalRef = this.bsModalService.show(this.siteModal);
+}
+closeModalsite(){
+    this.bsModalService.hide();
+}
 }

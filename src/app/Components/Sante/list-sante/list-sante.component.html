@@ -45,7 +45,7 @@
                         <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
                         <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
                       </a>
-                      {{ site.site_nom }}
+                      <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
                     </td>
                     <ng-container *ngIf="site.expanded ">
                             
@@ -67,7 +67,7 @@
                           <td>
                             <div class="d-flex justify-content-start align-items-center list-action">
                               <a class="badge bg-primary mr-2" data-toggle="modal" data-target="#update"
-                                (click)="getSanteData(sante.id , sante.site, sante.site_name,sante.demande_de_conseils,sante.demande_de_supervision,sante.demande_de_reunion,sante.demande_de_coaching,sante.demande_de_groupe,sante.comentaires,sante.demande_entretien)"
+                                (click)="getSanteData(sante.id , sante.site,sante.demande_de_conseils,sante.demande_de_supervision,sante.demande_de_reunion,sante.demande_de_coaching,sante.demande_de_groupe,sante.comentaires,sante.demande_entretien)"
                                 data-placement="top" title="" data-original-title="Edit">
                                 <i class="ri-pencil-line mr-0"></i>
                               </a>
@@ -132,31 +132,31 @@
 
                 <div class="row">
                   <div class="col">
-                    <label for="demande_de_conseils" class="form-label">N série (si thermomètre Genius) : </label>
+                    <label for="demande_de_conseils" class="form-label">Demande de conseils : </label>
                     <input name="demande_de_conseils" value="{{demande_de_conseils}}" [(ngModel)]="demande_de_conseils" formControlName="demande_de_conseils"
                       style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_conseils">
                   </div>
                 <div class="col">
-                  <label for="demande_de_reunion" class="form-label">N série (si thermomètre Genius) : </label>
+                  <label for="demande_de_reunion" class="form-label">Demande de réunion multidisciplinaire-étude de cas : </label>
                   <input name="demande_de_reunion" value="{{demande_de_reunion}}" [(ngModel)]="demande_de_reunion" formControlName="demande_de_reunion"
                     style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_reunion">
                 </div>
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="demande_de_coaching" class="form-label">N série (si thermomètre Genius) : </label>
+                  <label for="demande_de_coaching" class="form-label">Demande de coaching en groupe : </label>
                   <input name="demande_de_coaching" value="{{demande_de_coaching}}" [(ngModel)]="demande_de_coaching" formControlName="demande_de_coaching"
                     style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_coaching">
                 </div>
                 <div class="col">
-                  <label for="demande_de_groupe" class="form-label">N série (si thermomètre Genius) : </label>
+                  <label for="demande_de_groupe" class="form-label" title="Demande de groupes de travail autour de la communication & de la santé mentale">DGTC : </label>
                   <input name="demande_de_groupe" value="{{demande_de_groupe}}" [(ngModel)]="demande_de_groupe" formControlName="demande_de_groupe"
                     style="width: 100%;" type="text" class="rounded-pill form-control" id="demande_de_groupe">
                 </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <label for="demande_de_supervision" class="form-label">demande_de_supervision : </label>
+                    <label for="demande_de_supervision" class="form-label">Demande de supervision pratique : </label>
                     <input name="demande_de_supervision" value="{{demande_de_supervision}}" [(ngModel)]="demande_de_supervision"
                       formControlName="demande_de_supervision" style="width: 100%;" type="text" class="rounded-pill form-control"
                       id="demande_de_supervision">
@@ -211,4 +211,21 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
   </div>
+</ng-template>
+<!-- Site Modal -->
+<ng-template #siteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Site Informations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalsite()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <p><strong>Site :</strong> {{ selectedSite?.site_nom }}</p>
+    <p><strong>Sigle:</strong> {{ selectedSite?.sigle }}</p>
+    <p><strong>Responsable du Site:</strong> {{ selectedSite?.responsable_name }}</p>
+    <p><strong>Groupe Retso:</strong> {{ selectedSite?.groupe_retso }}</p>
+  </div>
+  
 </ng-template>
