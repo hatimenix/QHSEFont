@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
+import { UserApp } from 'src/app/models/UserApp';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { AuthService } from 'src/app/Services/Service-authentification/auth.serv
 export class LoginComponent {
   errorMessage!: string;
   loginForm!: FormGroup;
+  user!: UserApp | null; // Add the user property
 
   constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
@@ -28,6 +30,10 @@ export class LoginComponent {
         // Handle successful authentication
         // Assuming the response contains tokens: { access, refresh }
         this.authService.saveTokens(response);
+        
+        // Assuming the response also contains user information
+        this.user = response.user as UserApp; // Store the user information
+        
         // Redirect to the home page
         this.router.navigate(['/home']);
       },

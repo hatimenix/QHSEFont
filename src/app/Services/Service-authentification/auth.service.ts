@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { UserApp } from 'src/app/models/UserApp';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AuthService {
   private API_Login =environment.API_login;
+  private API_UsersApp =environment.API_UsersApp;
 
   private accessTokenKey = 'access_token';
   private refreshTokenKey = 'refresh_token';
@@ -36,4 +38,31 @@ export class AuthService {
     return !!accessToken;
   }
 
+  getUser(): Observable<any> {
+    const accessToken = this.getAccessToken();
+    
+    return this.http.get<any>(`${this.API_UsersApp}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+  }
+  logout(): Observable<any> {
+    // Clear the tokens from local storage
+    localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
+    
+ 
+    return this.http.post<any>(`${this.API_Login}`, null);
+  }
+  loadUser(): Observable<UserApp[]> {
+    const accessToken = this.getAccessToken();
+    return this.http.get<UserApp[]>(`${this.API_UsersApp}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+  }
+  
+  
 }
