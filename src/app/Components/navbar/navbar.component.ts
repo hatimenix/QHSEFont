@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
 import { UserApp } from 'src/app/models/UserApp';
 
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -17,6 +19,7 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     this.getUserDetails();
+    
   }
 
   getUserDetails(): void {
