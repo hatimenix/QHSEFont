@@ -36,6 +36,8 @@ export const environment = {
     API_GroupeUsers:"http://127.0.0.1:8001/groupeUser/",
     API_sante:"http://127.0.0.1:8001/sante/",
     API_qualite:"http://127.0.0.1:8001/qualite/",
+    API_Login:"http://127.0.0.1:8001/api/login/",
+    API_Details_User : "http://127.0.0.1:8001/user/"
 
 
 

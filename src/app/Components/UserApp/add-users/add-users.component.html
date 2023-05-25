@@ -28,7 +28,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Mot de passe <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="mot_de_passe" name="password" formControlName="password">
+                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="password" name="password" formControlName="password">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
@@ -55,13 +55,13 @@
                                   </div>
                                 </div>
                               </div>
-                              
-                              
-                              
-                              
-                              
-                              
-                                
+                              <div class="col-md-6" >
+                              <div class="form-group">
+                                <label>
+                                  <input type="checkbox" formControlName="send_email"> Envoyer un e-mail
+                                </label>
+                              </div>
+                            </div>
                            </div>                            
                            <button type="submit" class="btn btn-primary mr-2" >Ajouter</button>
                            <button type="reset" class="btn btn-danger" routerLink="/listuserapp">Annuler</button>
