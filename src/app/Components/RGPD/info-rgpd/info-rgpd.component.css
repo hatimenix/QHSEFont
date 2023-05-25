@@ -3,4 +3,8 @@
     border-color: #ffd140;
     color: #fff;
   }
+  a.nav-link.active {
+    color: white;
+    background-color: #ffd140;
+  }
   

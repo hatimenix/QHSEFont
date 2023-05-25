@@ -16,5 +16,7 @@ export class Fournisseur {
     fonction!: string | null
     numerodetelephone!: string | null
     telephonepersonnel!: string | null
+    [key: string]: any; // Index signature allowing any string key
+
 
 }

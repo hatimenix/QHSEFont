@@ -23,6 +23,8 @@ export class Actions {
     danger !: number[];
     evenement !: number[];
     qualite !: number[];
+    nc !: number[];
+
 
 
     constructor(
@@ -46,7 +48,9 @@ export class Actions {
         piece_jointe : any,
         danger: number[],
         evenement: number[],
-        qualite: number[]
+        qualite: number[],
+        nc: number[]
+
       ) {
         this.intitule = intitule;
         this.type_action = type_action;
@@ -69,6 +73,8 @@ export class Actions {
         this.danger = danger;
         this.evenement = evenement;
         this.qualite = qualite;
+        this.nc = nc;
+
 
       }
 }

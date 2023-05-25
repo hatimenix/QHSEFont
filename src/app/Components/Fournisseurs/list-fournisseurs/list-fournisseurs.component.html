@@ -11,14 +11,57 @@
            </div>
   
           </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fas fa-search"></i>
-              </span>
+          <div class="row justify-content-end">
+            <div class="input-group mb-3 col-md-4">
+              <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
             </div>
-          </div>  
+          
+            <div class="dropdown">
+              <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-filter"></i>Filtrer par
+              </button>
+              <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                <a class="dropdown-item" (click)="filterByField('nom')">Nom</a>
+                <a class="dropdown-item" (click)="filterByField('numerodesiret')">Numéro Désiret</a>
+                <a class="dropdown-item" (click)="filterByField('type_de_prestation')">Type de préstation</a>
+                <a class="dropdown-item" (click)="filterByField('numero_de_recepisse_de_declaration_prefectorale')">Numéro de récipissé de déclaration préfactorale</a>
+              </div>
+            </div>
+            <ng-template #dialogContent let-modal>
+              <div class="modal-header">
+                <h5 class="modal-title">Chercher par {{ filterField }}</h5>
+                <button type="button" class="close" aria-label="Close" (click)="closeModalSearch()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-search"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control form-control-sm" 
+                    [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                </div>
+                
+                <div class="row justify-content-center" *ngIf="filterField && filteredFournisseurs.length === 0">
+                  <div class="col-md-12">
+                    <div class="alert alert-info" role="alert">
+                      Aucun résultat.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            </div>
+                 
 
           <div>
             <div class="container">
@@ -31,6 +74,12 @@
                 </button>
                 <button (click)="decreaseTextSize($event)">
                   <i class="fas fa-search-minus"></i>
+                </button>
+                <button (click)="resetTextSize()">
+                  <i class="fas fa-sync"></i>
+                </button>
+                <button (click)="closeWindow()">
+                  <i class="fas fa-times"></i>
                 </button>
               </div>
             </div>
@@ -101,7 +150,7 @@
                     </tr>
                   </thead>
                   <tbody class="ligth-body">
-                    <tr *ngFor="let fournisseur of fournisseurs | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index"
+                    <tr *ngFor="let fournisseur of filteredFournisseurs | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index"
                       [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                       <td>{{ fournisseur.nom }}</td>
                       <td *ngIf="fieldsVisible['siret']">{{fournisseur.numerodesiret}}</td>
