@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,12 +15,14 @@ import { UserApp } from 'src/app/models/UserApp';
 export class AddUsersComponent implements OnInit {
   userForm!: FormGroup;
   groupes!: GroupeUser[];
+ 
 
   constructor(
     private formBuilder: FormBuilder,
     private userAppService: UsersService,
     private groupeUserService: GroupeUserService,
     private router: Router,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -29,7 +32,8 @@ export class AddUsersComponent implements OnInit {
       password: ['', Validators.required],
       adresse_email: ['', [Validators.required, Validators.email]],
       actif: [true],
-      groupes_roles: this.formBuilder.array([]) 
+      groupes_roles: this.formBuilder.array([]), 
+      send_email: [false],
     });
 
     this.loadGroupes();
@@ -70,12 +74,14 @@ export class AddUsersComponent implements OnInit {
   
     const newUser: UserApp = {
       ...this.userForm.value,
-      groupes_roles: selectedIds
+    
+      groupes_roles: selectedIds,
     };
   
     this.userAppService.createUserApp(newUser).subscribe(
       user => {
         console.log('User created successfully:', user);
+        
         this.router.navigate(['/listuserapp']); 
         this.userForm.reset();
       },

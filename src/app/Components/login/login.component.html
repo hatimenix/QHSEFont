@@ -16,10 +16,10 @@
                             <div class="floating-label form-group">
                               <input class="floating-input form-control" type="email" placeholder=" " formControlName="adresse_email">
                               <label>Email</label>
-                              <div *ngIf="loginForm.controls['adresse_email'].errors?.['required'] && loginForm.controls['adresse_email'].touched" class="error-message" style="color: red;">
+                              <div *ngIf="loginForm.controls['adresse_email'].errors?.['required'] && loginForm.controls['adresse_email'].touched" class="error-message" style="color: #e56b6f;">
                                 L'email est requis.
                               </div>
-                              <div *ngIf="loginForm.controls['adresse_email'].errors?.['email'] && loginForm.controls['adresse_email'].touched" class="error-message" style="color: red;">
+                              <div *ngIf="loginForm.controls['adresse_email'].errors?.['email'] && loginForm.controls['adresse_email'].touched" class="error-message" style="color: #e56b6f;">
                                 L'email n'est pas valide.
                               </div>
                             </div>
@@ -28,12 +28,12 @@
                             <div class="floating-label form-group">
                               <input class="floating-input form-control" type="password" placeholder=" " formControlName="password">
                               <label>Mot de passe</label>
-                              <div *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched" class="error-message" style="color: red;">
+                              <div *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched" class="error-message" style="color: #e56b6f;">
                                 Le mot de passe est requis.
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="errorMessage" class="error-message" style="color: red;">
+                          <div *ngIf="errorMessage" class="error-message" style="color: #e56b6f;">
                            {{ errorMessage }}
                          </div>
                         </div>

@@ -71,6 +71,7 @@ import { ListCatographieComponent } from './Components/Catographie/list-catograp
 import { ListQualiteComponent } from './Components/Qualite/list-qualite/list-qualite.component';
 import { AddQualiteComponent } from './Components/Qualite/add-qualite/add-qualite.component';
 import { InfoQualiteComponent } from './Components/Qualite/info-qualite/info-qualite.component';
+import { ProfileComponent } from './Components/UserApp/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -137,7 +138,8 @@ import { InfoQualiteComponent } from './Components/Qualite/info-qualite/info-qua
     ListCatographieComponent,
     ListQualiteComponent,
     AddQualiteComponent,
-    InfoQualiteComponent
+    InfoQualiteComponent,
+    ProfileComponent
 
   ],
   imports: [

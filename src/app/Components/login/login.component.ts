@@ -27,28 +27,18 @@ export class LoginComponent {
 
     this.authService.login(adresse_email, password).subscribe(
       response => {
-        // Handle successful authentication
-        // Assuming the response contains tokens: { access, refresh }
         this.authService.saveTokens(response);
-        
-        // Assuming the response also contains user information
         this.user = response.user; 
         console.log("user est ", this.user)
-        // Store the user information
-        // Redirect to the home page
         this.router.navigate(['/home']);
       },
       error => {
-        // Handle authentication error
         console.error(error);
         if (error instanceof HttpErrorResponse && error.error instanceof ErrorEvent) {
-          // A client-side or network error occurred. Handle accordingly.
           this.errorMessage = 'An error occurred during login.';
         } else if (error instanceof HttpErrorResponse && error.status === 400) {
-          // A 400 Bad Request error occurred. Retrieve and display the error message.
           this.errorMessage = error.error?.message || 'Invalid email or password.';
         } else {
-          // Other error occurred. Handle accordingly.
           this.errorMessage = 'An error occurred during login.';
         }
       }
