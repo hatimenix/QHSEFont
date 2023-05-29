@@ -149,9 +149,10 @@
                             </div>
                             </div>
                             <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+                                <div class="row">
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Type cause <label style="color: red;">*</label></label>
+                                    <label>Type cause <span style="color: red;">*</span></label>
                                     <select [(ngModel)]="ncf.type_cause" id="type_cause" formControlName="type_cause" class="selectpicker form-control" data-style="py-0">
                                         <option value="">Choisir une type</option>
                                         <option>Matière première</option>
@@ -162,6 +163,20 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <label>Coût(s)</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text">€</span>
+                                    </div>
+                                    <input [(ngModel)]="ncf.cout" type="text" formControlName="cout" class="form-control" placeholder="Entrez un nombre " data-errors="Please Enter Name." id="cout" aria-label="Amount (to the nearest dollar)">
+                                    <div class="input-group-append">
+                                       <span class="input-group-text">.00</span>
+                                    </div>
+                                 </div>
+                                 <label class="text-blue" for="cout">Estimez les coûts (main d'oeuvre, remise client, etc...)</label>   
+                                </div>
+                                </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Détail cause</label>
@@ -171,25 +186,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                            <label>Coût(s)</label>
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                   <span class="input-group-text">€</span>
-                                </div>
-                                <input [(ngModel)]="ncf.cout" type="text" formControlName="cout" class="form-control" placeholder="Entrez un nombre " data-errors="Please Enter Name." id="cout" aria-label="Amount (to the nearest dollar)">
-                                <div class="input-group-append">
-                                   <span class="input-group-text">.00</span>
-                                </div>
-                             </div>
-                             <label class="text-blue" for="cout">Estimez les coûts (main d'oeuvre, remise client, etc...)</label>   
-                            </div>
                             </div>
                             <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
                                 <div class="row text-center">
                                     <div class="col-md-6">                      
                                         <div class="form-group">
-                                            <label >Fréquence <label style="color: red;">*</label></label>
+                                            <label >Fréquence <span style="color: red;">*</span></label>
                                             <select [(ngModel)]="ncf.frequence" id="frequence" formControlName="frequence" class="selectpicker form-control" data-style="py-0">
                                                 <option value="">Choisir une option</option>
                                                 <option [ngValue]="true">Oui</option>
@@ -220,8 +222,8 @@
                                       </div>                                      
                                     <div class="col-md-6">                      
                                         <div class="form-group">
-                                            <label >NC clôturée </label>
-                                            <input [(ngModel)]="ncf.nc_cloture" type="checkbox" formControlName="nc_cloture" class="form-control" placeholder="NC Closed" data-errors="Please Enter Name." id="nc_cloture" >
+                                            <label >NC clôturée : </label>
+                                            <input style="margin-top: 4%;" [(ngModel)]="ncf.nc_cloture" type="checkbox" formControlName="nc_cloture" class="form-control" placeholder="NC Closed" class="checkbox-lg" data-errors="Please Enter Name." id="nc_cloture" >
                                             <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -229,7 +231,8 @@
                                         <div class="form-group">
                                             <label >Gravité </label>
                                             <div class="checkbox">
-                                                <input [(ngModel)]="ncf.gravite" type="checkbox" formControlName="gravite" class="form-control" placeholder="Gravite" data-errors="Please Enter Name." id="gravite">
+                                                <input style="margin-right: 3%;" [(ngModel)]="ncf.gravite" type="checkbox" formControlName="gravite" class="form-control" placeholder="Gravite" data-errors="Please Enter Name." class="checkbox-lg" id="gravite">
+                                                <br>
                                                 <label class="text-blue " for="gravite">Le problème impacte-t-il le client?</label>
                                                 <br>
                                                 <label class="text-blue " for="gravite">Le problème génère-t-il des coûts?</label>

@@ -1,10 +1,11 @@
-import { Component,OnInit,ViewChild } from '@angular/core';
+import { Component,OnInit,ViewChild,TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
 import { Fournisseur } from 'src/app/models/fournisseur';
 import { HostBinding, ElementRef } from '@angular/core';
+
 
 
 declare var window: any;
@@ -19,6 +20,7 @@ export class ListFournisseursComponent implements OnInit {
   updateModalVisible: boolean = true;
   isAscending: boolean = true;
   isReverseSorting: boolean = false;
+  isDialogVisible: boolean = false;
   fieldsVisible: { [key: string]: boolean } = {
     siret: true,
     prestation: true,
@@ -30,8 +32,10 @@ export class ListFournisseursComponent implements OnInit {
     isCollapsed = true;
   isOpen = false;
   @ViewChild('successModal', { static: true }) successModal:any; 
+  @ViewChild('dialogContent', { static: true }) dialogContent!: any;
+
   modalRef!: BsModalRef;
-  textSize: number = 14;
+  textSize: number = 16;
   p = 1; 
   itemsPerPage: number = 5;
   id : any 
@@ -52,6 +56,9 @@ export class ListFournisseursComponent implements OnInit {
   numerodetelephone :any
   telephonepersonnel :any
   searchQuery: string = '';
+  filterField: string = '';
+  fieldSearchQuery: string = '';
+  filteredFournisseurs: Fournisseur[] = [];
   fournisseurs : Fournisseur[] = []
   deleteModal: any;
   idTodelete: number = 0;
@@ -75,7 +82,7 @@ export class ListFournisseursComponent implements OnInit {
     telephonepersonnel: new FormControl(''),
 
   });
-  constructor(private el: ElementRef,private   fournisseurservice : FournisseurService, private router : Router, private bsModalService: BsModalService){
+  constructor(private el: ElementRef,private   fournisseurservice : FournisseurService, private router : Router, private bsModalService: BsModalService,){
 
   }
   ngOnInit(): void {
@@ -100,6 +107,8 @@ export class ListFournisseursComponent implements OnInit {
     this.fournisseurservice.getAll().subscribe(
       res => {
         this.fournisseurs = res;
+        this.filteredFournisseurs = res; // Initialize filteredFournisseurs
+
       },
       error => {
         console.log(error);
@@ -109,8 +118,7 @@ export class ListFournisseursComponent implements OnInit {
       document.getElementById('delete')
     );
   }
-
-  
+ 
   openDeleteModal(id: number) {
     this.idTodelete = id;
     this.deleteModal.show();
@@ -186,8 +194,6 @@ getFournisseurData( id : number,
   this.numerodetelephone=numerodetelephone,
   this.telephonepersonnel=telephonepersonnel
 
-
-
 }
 toggleWindow(): void {
   this.isOpen = !this.isOpen;
@@ -260,5 +266,35 @@ toggleWindow(): void {
   onDocumentClick(event: MouseEvent) {
     this.autoCloseDropdown = true;
   }
+  closeWindow() {
+    this.isOpen = false;
+  }
+  resetTextSize(): void {
+    this.textSize = 16; // Set the initial text size value (adjust it as needed)
+  }
+  filterByField(fieldName: string): void {
+    this.filterField = fieldName;
+    this.openDialog();
+    this.searchQuery = '';
+  }
+  applyFieldFilter(): void {
+    const searchValue = this.fieldSearchQuery?.toLowerCase();
   
+    this.filteredFournisseurs = this.fournisseurs.filter((fournisseur) => {
+      const fieldValue = fournisseur[this.filterField]?.toLowerCase();
+  
+      if (fieldValue && searchValue) {
+        return fieldValue.includes(searchValue);
+      }
+  
+      return true;
+    });
+  }
+  openDialog() {
+    this.bsModalService.show(this.dialogContent);
+  }
+  closeModalSearch() {
+    this.bsModalService.hide();
+
+  }
 }
