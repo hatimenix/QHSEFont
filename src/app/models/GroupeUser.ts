@@ -8,6 +8,7 @@ export class GroupeUser {
   membres: UserApp[];
   proprietaire_groupe_names!:string;
   membres_names!:string;
+  group?:any;
 
 
   constructor(

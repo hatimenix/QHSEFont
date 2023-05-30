@@ -17,15 +17,15 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
-      adresse_email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     });
   }
 
   onLogin(): void {
-    const { adresse_email, password } = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
 
-    this.authService.login(adresse_email, password).subscribe(
+    this.authService.login(email, password).subscribe(
       response => {
         this.authService.saveTokens(response);
         this.user = response.user; 
