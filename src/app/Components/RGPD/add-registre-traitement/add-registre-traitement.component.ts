@@ -14,8 +14,11 @@ declare var window: any;
 export class AddRegistreTraitementComponent implements OnInit {
   fournisseurs: any[] = [];
   traitements: any[] = [];
-  modalCompleted = false;
-
+  modalCompletedmesure = false;
+  modalCompleteddonnee = false;
+  modalCompletedpersonne = false;
+  modalCompletedenUE = false;
+  modalCompletedhorsUE = false;
 
     @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -117,7 +120,9 @@ export class AddRegistreTraitementComponent implements OnInit {
     this.traitementservice.getAll().subscribe(
       (data: any[]) => {
         this.traitements = data;
-        console.log(this.traitements); // Print the sites to the console
+        console.log(this.traitements); 
+        this.modalCompletedpersonne = this.traitements.length > 0; 
+
       },
       (error: any) => {
         console.log(error); // Handle error
@@ -178,53 +183,53 @@ export class AddRegistreTraitementComponent implements OnInit {
 }
 submitModalMesure() {
   if (!this.traitementf.mtypedemesuredesecurite) {
-    this.modalCompleted = false;
+    this.modalCompletedmesure = false;
     return;
   }
-  this.modalCompleted = true;
+  this.modalCompletedmesure = true;
   const newOption = { mtypedemesuredesecurite: this.traitementf.mtypedemesuredesecurite };
   this.traitements.push(newOption);
-  this.traitementf.mtypedemesuredesecurite = ''; // clear the modal form input
+  this.traitementf.mtypedemesuredesecurite = ''; 
 }
 submitModalDonneeSensible() {
   if (!this.traitementf.type_donnee) {
-    this.modalCompleted = false;
+    this.modalCompleteddonnee = false;
     return;
   }
-  this.modalCompleted = true;
+  this.modalCompleteddonnee = true;
   const newOption = { type_donnee: this.traitementf.type_donnee };
   this.traitements.push(newOption);
-  this.traitementf.type_donnee = ''; // clear the modal form input
+  this.traitementf.type_donnee = ''; 
 }
 submitModalPersonneconcernee() {
   if (!this.traitementf.personneconcernees) {
-    this.modalCompleted = false;
+    this.modalCompletedpersonne = false;
     return;
   }
-  this.modalCompleted = true;
+  this.modalCompletedpersonne = true;
   const newOption = { personneconcernees: this.traitementf.personneconcernees };
   this.traitements.push(newOption);
-  this.traitementf.personneconcernees = ''; // clear the modal form input
+  this.traitementf.personneconcernees = ''; 
 }
 submitModalDestinataire() {
   if (!this.traitementf.typedestinataire) {
-    this.modalCompleted = false;
+    this.modalCompletedenUE = false;
     return;
   }
-  this.modalCompleted = true;
+  this.modalCompletedenUE = true;
   const newOption = { typedestinataire: this.traitementf.typedestinataire };
   this.traitements.push(newOption);
-  this.traitementf.typedestinataire = ''; // clear the modal form input
+  this.traitementf.typedestinataire = ''; 
 }
 submitModalDestinataireenUE() {
   if (!this.traitementf.destinataire) {
-    this.modalCompleted = false;
+    this.modalCompletedhorsUE = false;
     return;
   }
-  this.modalCompleted = true;
+  this.modalCompletedhorsUE = true;
   const newOption = { destinataire: this.traitementf.destinataire };
   this.traitements.push(newOption);
-  this.traitementf.destinataire = ''; // clear the modal form input
+  this.traitementf.destinataire = ''; 
 }
 
 get f() {

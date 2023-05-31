@@ -214,5 +214,13 @@ openSecteurModal(secteur: Secteur) {
 closeModalsecteur(){
     this.bsModalService.hide();
 }
+getSelectedCertificatFileName(): string {
+  const fileInput = document.getElementById('customFile2') as HTMLInputElement;
+  if (fileInput && fileInput.files && fileInput.files.length > 0) {
+    return fileInput.files[0].name;
+  }
+  return 'Choose file';
+}
+
 }
 

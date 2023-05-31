@@ -1,5 +1,5 @@
 #update .modal-dialog {
-    max-width: 950px;
+    max-width: 850px;
     margin-top: 6%;
   }
   
@@ -97,6 +97,15 @@
   background-color: green;
   color: white;
 }
+.page-number.selected {
+  background-color: #089bd7;
+  color: #ffffff; 
+}
+.dropdown-item.selected {
+  cursor: pointer;
+  font-weight: bold; 
+}
+
 
 
 

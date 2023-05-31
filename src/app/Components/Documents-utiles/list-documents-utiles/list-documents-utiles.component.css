@@ -64,5 +64,13 @@
   .hidden-column {
     display: none;
   }
+  .page-number.selected {
+    background-color: #089bd7;
+    color: #ffffff; 
+  }
+  .dropdown-item.selected {
+    cursor: pointer;
+    font-weight: bold; 
+  }
   
   

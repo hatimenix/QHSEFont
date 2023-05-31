@@ -25,4 +25,12 @@
     color: #ff0000;
     cursor: not-allowed;
  }
- 
+ .drop-zone {
+  border: 2px dashed #ccc;
+  padding: 2rem;
+  text-align: center;
+}
+
+.drop-zone.drag-over {
+  border-color: #aaa;
+}

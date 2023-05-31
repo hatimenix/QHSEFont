@@ -1,11 +1,10 @@
-import { Component,OnInit,ViewChild,TemplateRef } from '@angular/core';
+import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
 import { Fournisseur } from 'src/app/models/fournisseur';
 import { HostBinding, ElementRef } from '@angular/core';
-
 
 
 declare var window: any;
@@ -18,9 +17,9 @@ declare var window: any;
 })
 export class ListFournisseursComponent implements OnInit {
   updateModalVisible: boolean = true;
+  showPopover: boolean = false;
   isAscending: boolean = true;
   isReverseSorting: boolean = false;
-  isDialogVisible: boolean = false;
   fieldsVisible: { [key: string]: boolean } = {
     siret: true,
     prestation: true,
@@ -32,12 +31,21 @@ export class ListFournisseursComponent implements OnInit {
     isCollapsed = true;
   isOpen = false;
   @ViewChild('successModal', { static: true }) successModal:any; 
-  @ViewChild('dialogContent', { static: true }) dialogContent!: any;
 
   modalRef!: BsModalRef;
   textSize: number = 16;
   p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPageOptions: number[] = [];
+  itemsPerPage: number= 5; 
+  get totalPages(): number {
+    return Math.ceil(this.filteredFournisseurs.length / this.itemsPerPage);
+  }
+
+  get displayedFournisseurs(): Fournisseur[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredFournisseurs.slice(startIndex, endIndex);
+  }
   id : any 
   nom : any 
   numerodesiret : any 
@@ -60,8 +68,9 @@ export class ListFournisseursComponent implements OnInit {
   fieldSearchQuery: string = '';
   filteredFournisseurs: Fournisseur[] = [];
   fournisseurs : Fournisseur[] = []
+  selectedFournisseurs: Fournisseur[] = [];
   deleteModal: any;
-  idTodelete: number = 0;
+  selectedFournisseurToDelete: number = 0;
 
   form = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -88,6 +97,8 @@ export class ListFournisseursComponent implements OnInit {
   ngOnInit(): void {
     this.getFournisseurs();
     document.addEventListener('click', this.onDocumentClick.bind(this));
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
 
   }
   ngOnDestroy() {
@@ -107,7 +118,7 @@ export class ListFournisseursComponent implements OnInit {
     this.fournisseurservice.getAll().subscribe(
       res => {
         this.fournisseurs = res;
-        this.filteredFournisseurs = res; // Initialize filteredFournisseurs
+        this.filteredFournisseurs = res; 
 
       },
       error => {
@@ -120,9 +131,10 @@ export class ListFournisseursComponent implements OnInit {
   }
  
   openDeleteModal(id: number) {
-    this.idTodelete = id;
+    this.selectedFournisseurToDelete = id;
     this.deleteModal.show();
   }
+  
 
   updateFournisseur() : void {
     const formData =  new FormData()
@@ -199,21 +211,39 @@ toggleWindow(): void {
   this.isOpen = !this.isOpen;
 }
   
-  delete() {
-    this.fournisseurservice.delete(this.idTodelete).subscribe({
+delete(ids: number[]) {
+  ids.forEach(id => {
+    this.fournisseurservice.delete(id).subscribe({
       next: (data) => {
-        this.fournisseurs = this.fournisseurs.filter(_ => _.id != this.idTodelete)
+        this.fournisseurs = this.fournisseurs.filter(fournisseur => fournisseur.id !== id);
         location.reload()
         this.deleteModal.hide();
-      },
-      error:(err) => {
+        },
+      error: (err) => {
         console.log(err);
       }
-  
-  
-      
     });
+  });
+}
+deleteItem() {
+  if (this.selectedFournisseurs.length > 0) {
+    const idsToDelete = this.selectedFournisseurs.map(f => f.id);
+    this.delete(idsToDelete);
+  } else if (this.selectedFournisseurToDelete) {
+    const idToDelete = this.selectedFournisseurToDelete;
+    this.delete([idToDelete]);
   }
+}
+
+  toggleSelection(fournisseur: Fournisseur) {
+    const index = this.selectedFournisseurs.indexOf(fournisseur);
+    if (index > -1) {
+      this.selectedFournisseurs.splice(index, 1); 
+    } else {
+      this.selectedFournisseurs.push(fournisseur);
+    }
+  }
+  
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
@@ -263,18 +293,18 @@ toggleWindow(): void {
     this.autoCloseDropdown = !this.autoCloseDropdown;
   }
   
-  onDocumentClick(event: MouseEvent) {
+  onDocumentClick() {
     this.autoCloseDropdown = true;
   }
   closeWindow() {
     this.isOpen = false;
   }
   resetTextSize(): void {
-    this.textSize = 16; // Set the initial text size value (adjust it as needed)
+    this.textSize = 16; 
   }
   filterByField(fieldName: string): void {
     this.filterField = fieldName;
-    this.openDialog();
+    this.togglePopover();
     this.searchQuery = '';
   }
   applyFieldFilter(): void {
@@ -290,11 +320,40 @@ toggleWindow(): void {
       return true;
     });
   }
-  openDialog() {
-    this.bsModalService.show(this.dialogContent);
+  
+  resetTable(): void {
+    if (this.fieldSearchQuery && this.filteredFournisseurs.length === 0) {
+      this.fieldSearchQuery = ''; 
+      this.filterField = '';
+      this.filteredFournisseurs = this.fournisseurs;
+    }
   }
-  closeModalSearch() {
-    this.bsModalService.hide();
-
+   
+  togglePopover() {
+    this.showPopover = !this.showPopover;
   }
+  closePopover(): void {
+    this.showPopover = false;
+  }
+  handleReset(): void {
+    if (this.filteredFournisseurs.length === 0) {
+      this.resetTable();
+      this.closePopover();
+    } else {
+      this.closePopover();
+    }
+  }  
+  onItemsPerPageChange(option: number) {
+    this.p = 1; 
+    this.itemsPerPage = option; 
+  }
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  
+  
 }
