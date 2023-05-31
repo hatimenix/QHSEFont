@@ -67,14 +67,16 @@ export class UpdateGroupesComponent {
   
       // Créer un nouvel objet GroupeUser à partir des valeurs du formulaire
        const updatedGroup: GroupeUser = {
-        nom: this.groupForm.value.nom,
-        description: this.groupForm.value.description,
-        proprietaire_groupe: this.groupForm.value.proprietaire_groupe,
-        membres: this.groupForm.value.membres,
-        proprietaire_groupe_names: '',
-        membres_names: '', // La valeur sera remplie plus tard
-        id: groupId // Utilisez l'ID existant du groupe
-      };
+         nom: this.groupForm.value.nom,
+         description: this.groupForm.value.description,
+         proprietaire_groupe: this.groupForm.value.proprietaire_groupe,
+         membres: this.groupForm.value.membres,
+         proprietaire_groupe_names: '',
+         membres_names: '',
+         id: groupId // Utilisez l'ID existant du groupe
+         ,
+         groupe_name: this.groupForm.value.groupe_name
+       };
   
       // Remplir les noms des utilisateurs sélectionnés
       updatedGroup.proprietaire_groupe_names = this.getSelectedUserNames(updatedGroup.proprietaire_groupe);

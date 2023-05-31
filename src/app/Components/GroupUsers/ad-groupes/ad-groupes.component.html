@@ -43,6 +43,15 @@
                                            </select> 
                                     </div> 
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Permissions  <label style="color: red;">*</label> </label>
+                                        <select id="groupe_name" name="groupe_name" formControlName="groupe_name"  class="custom-select" data-style="py-0" required >
+                                            <option *ngFor="let group of group$ | async" [value]="group.id">{{ group.groupe_name}}</option>
+                                           </select>   
+                                    </div> 
+                                    </div> 
+                             
                               
                                 
                            </div>                            

@@ -18,8 +18,8 @@ export class AdGroupesComponent {
   groupForm: FormGroup;
   users: UserApp[];
   userapp$ !: Observable<any>;
-
-     //modal
+  group$!: Observable<any>;
+  //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor(
@@ -33,7 +33,8 @@ export class AdGroupesComponent {
       nom: ['', Validators.required],
       description: ['', Validators.required],
       proprietaire_groupe: [[]],
-      membres: [[]]
+      membres: [[]],
+      groupe_name:['']
     });
     this.users = [];
   }
@@ -44,7 +45,17 @@ export class AdGroupesComponent {
       this.users = users;
     });
     this.userapp$ = this.userService.getUsers();
+    this.group$=this.groupService.getGroupes();
   }
+  //récuperer les checkbox selectionné
+  getSelectedCheckboxId(): string[]  {
+    const checkboxes = document.querySelectorAll('#idGroupe input[type="checkbox"]:checked');
+    const selectedIds: string[] = [];
+    checkboxes.forEach((checkbox) => {
+    selectedIds.push((checkbox as HTMLInputElement).value);
+    });
+    return selectedIds;
+    }
 
   onSubmit(): void {
     if (this.groupForm.valid) {
@@ -56,10 +67,14 @@ export class AdGroupesComponent {
         membres: this.groupForm.value.membres,
         proprietaire_groupe_names: '',
         membres_names: '',
-        group:null,
-        id: 0
+        id: 0,
+        groupe_name: this.groupForm.value.groupe_name
       };
-
+      //CHECK_BOX
+      
+    
+  
+      //CHECK_BOX
       // Remplir les noms des utilisateurs sélectionnés
       newGroup.proprietaire_groupe_names = this.getSelectedUserNames(newGroup.proprietaire_groupe);
       newGroup.membres_names = this.getSelectedUserNames(newGroup.membres);

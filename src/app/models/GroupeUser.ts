@@ -9,6 +9,7 @@ export class GroupeUser {
   proprietaire_groupe_names!:string;
   membres_names!:string;
   group?:any;
+  groupe_name!:string;
 
 
   constructor(
