@@ -25,6 +25,8 @@ export class Nc {
   action_immediate!: boolean | null
   nc_cloture!: boolean | null
   responsable_name!: string | null
+  [key: string]: any; 
+
 
  
 

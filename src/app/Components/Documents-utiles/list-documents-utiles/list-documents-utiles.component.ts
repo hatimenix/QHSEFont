@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DocumentsUtiles } from 'src/app/models/documents-utiles';
 import { ServiceDocumentUtilesService } from 'src/app/Services/Services-document-utile/services-document-utile.service';
@@ -26,7 +26,18 @@ export class ListDocumentsUtilesComponent  {
     typologie:true,
   };
   p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPageOptions: number[] = [];
+  itemsPerPage: number= 5; 
+  get totalPages(): number {
+    return Math.ceil(this.documentsutiles.length / this.itemsPerPage);
+  }
+
+  get displayedDocuments(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.documentsutiles.slice(startIndex, endIndex);
+  }
+
   id:any
   nom:any
   modified_by:any
@@ -35,8 +46,9 @@ export class ListDocumentsUtilesComponent  {
   document:any
   searchQuery: string = '';
   documentsutiles : DocumentsUtiles[] = []
+  selectedDocuments: DocumentsUtiles[] = [];
   deleteModal: any;
-  idTodelete: number = 0;
+  selectedDocumentToDelete: number = 0;
   form = new FormGroup({
 
     nom: new FormControl(''),
@@ -55,6 +67,8 @@ export class ListDocumentsUtilesComponent  {
       document.getElementById('delete')
     );
     document.addEventListener('click', this.onDocumentClick.bind(this));
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
 
   }
   ngOnDestroy() {
@@ -117,26 +131,43 @@ getDocumentutileData( id : number,
 
 }
 openDeleteModal(id: number) {
-  this.idTodelete = id;
+  this.selectedDocumentToDelete = id;
   this.deleteModal.show();
 }
 
-
-delete() {
-  this.documentutileservice.delete(this.idTodelete).subscribe({
-    next: (data) => {
-      this.documentsutiles = this.documentsutiles.filter(_ => _.id != this.idTodelete)
-      location.reload()
-      this.deleteModal.hide();
-    },
-    error:(err) => {
-      console.log(err);
-    }
-
-
-    
+delete(ids: number[]) {
+  ids.forEach(id => {
+    this.documentutileservice.delete(id).subscribe({
+      next: (data) => {
+        this.documentsutiles = this.documentsutiles.filter(documentutile => documentutile.id !== id);
+        location.reload()
+        this.deleteModal.hide();
+        },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   });
 }
+deleteItem() {
+  if (this.selectedDocuments.length > 0) {
+    const idsToDelete = this.selectedDocuments.map(d => d.id);
+    this.delete(idsToDelete);
+  } else if (this.selectedDocumentToDelete) {
+    const idToDelete = this.selectedDocumentToDelete;
+    this.delete([idToDelete]);
+  }
+}
+
+  toggleSelection(documentutile: DocumentsUtiles) {
+    const index = this.selectedDocuments.indexOf(documentutile);
+    if (index > -1) {
+      this.selectedDocuments.splice(index, 1); 
+    } else {
+      this.selectedDocuments.push(documentutile);
+    }
+  }
+  
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
@@ -179,7 +210,19 @@ delete() {
     this.autoCloseDropdown = !this.autoCloseDropdown;
   }
   
-  onDocumentClick(event: MouseEvent) {
+  onDocumentClick() {
     this.autoCloseDropdown = true;
   }
+  onItemsPerPageChange(option: number) {
+    this.p = 1; 
+    this.itemsPerPage = option; 
+  }
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  
 }

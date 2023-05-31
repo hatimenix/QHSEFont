@@ -14,6 +14,7 @@ import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service
 export class AddEquipementsComponent {
   sites: any[] = [];
   secteurs: any[] = [];
+  droppedFile: File | null = null;
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor(private   equipementservice : ServicesEquipementservice , private router : Router, private apiSiteService :ApiSiteService,private apiSecteurService: SecteurService,private bsModalService: BsModalService){}
@@ -122,6 +123,7 @@ export class AddEquipementsComponent {
 
   uploadFile(event: any) {
     const file = event.target.files[0];
+    this.droppedFile = file;
     this.equipementf.Certificat=file
 
   }
@@ -137,5 +139,28 @@ export class AddEquipementsComponent {
   }
   closeModal() {
     this.bsModalService.hide();
+}
+onDragOver(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  event.dataTransfer.dropEffect = 'copy';
+}
+
+onDragLeave(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+}
+
+onDrop(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  const file = event.dataTransfer.files[0];
+  this.droppedFile = file;
+  this.equipementf.Certificat=file;
+  const dropZone = document.querySelector('.drop-zone');
+  if (dropZone) {
+    dropZone.innerHTML = file.name;
+  }
+  
 }
 }

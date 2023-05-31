@@ -8,4 +8,6 @@ export class Qualite {
     objectifs!: string | null
     commentaires_responsable!:string | null
     objectifs_annees!: string | null
+    [key: string]: any; 
+
 }
