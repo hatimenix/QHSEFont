@@ -134,8 +134,16 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Certificat">Certificat:</label>
-                                    <input type="file" class="form-control image-file" [(ngModel)]="equipementf.Certificat" (change)="uploadFile($event)"formControlName="Certificat">
-                                </div>
+                                    <div class="drop-zone" style="position: relative;cursor: pointer"
+                                    (dragover)="onDragOver($event)"
+                                    (dragleave)="onDragLeave($event)"
+                                    (drop)="onDrop($event)"
+                                    (click)="fileInput.click()">
+                                 <input style="position: absolute;top: -9999px;left: -9999px;opacity: 0;" #fileInput type="file" class="form-control image-file" (change)="uploadFile($event)">
+                                 <p *ngIf="droppedFile">{{ droppedFile.name }}</p>
+                                 <p *ngIf="!droppedFile">Glissez-déposez le fichier ici ou cliquez pour sélectionner un fichier</p>
+                               </div>                                
+                            </div>
                             </div>   
                         </div>
                     </form>

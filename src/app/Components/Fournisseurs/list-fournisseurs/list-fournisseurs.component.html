@@ -11,8 +11,8 @@
            </div>
   
           </div>
-          <div class="row justify-content-end">
-            <div class="input-group mb-3 col-md-4">
+          <div class="row justify-content-start">
+            <div class="input-group col-md-4">
               <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
               <div class="input-group-append">
                 <span class="input-group-text">
@@ -23,45 +23,49 @@
           
             <div class="dropdown">
               <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+                aria-haspopup="true" aria-expanded="false" data-offset="0,5">
                 <i class="fas fa-filter"></i>Filtrer par
               </button>
               <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                <a class="dropdown-item" (click)="filterByField('nom')">Nom</a>
-                <a class="dropdown-item" (click)="filterByField('numerodesiret')">Numéro Désiret</a>
-                <a class="dropdown-item" (click)="filterByField('type_de_prestation')">Type de préstation</a>
-                <a class="dropdown-item" (click)="filterByField('numero_de_recepisse_de_declaration_prefectorale')">Numéro de récipissé de déclaration préfactorale</a>
+                <a class="dropdown-item" (click)="filterByField('nom')" style="cursor: pointer;">Nom</a>
+                <a class="dropdown-item" (click)="filterByField('numerodesiret')" style="cursor: pointer;">Numéro Désiret</a>
+                <a class="dropdown-item" (click)="filterByField('type_de_prestation')" style="cursor: pointer;">Type de préstation</a>
+                <a class="dropdown-item" (click)="filterByField('numero_de_recepisse_de_declaration_prefectorale')" style="cursor: pointer;">Numéro de récipissé de déclaration préfactorale</a>
               </div>
-            </div>
-            <ng-template #dialogContent let-modal>
-              <div class="modal-header">
-                <h5 class="modal-title">Chercher par {{ filterField }}</h5>
-                <button type="button" class="close" aria-label="Close" (click)="closeModalSearch()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-search"></i>
-                    </span>
-                  </div>
-                  <input type="text" class="form-control form-control-sm" 
-                    [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
-                </div>
-                
-                <div class="row justify-content-center" *ngIf="filterField && filteredFournisseurs.length === 0">
-                  <div class="col-md-12">
-                    <div class="alert alert-info" role="alert">
-                      Aucun résultat.
+              <div class="dropdown dropright">
+                <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+                  <div class="arrow"></div>
+                  <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="popover-body" style="width: 500px; max-width: 100%;">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-search"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                    </div>
+                  
+                    <div class="row justify-content-center">
+                      <div class="col-md-12">
+                        <div class="alert alert-info" role="alert" *ngIf="filterField && filteredFournisseurs.length === 0">
+                          Aucun résultat.
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="row justify-content-end">
+                      <div class="col-md-4">
+                        <button class="btn" (click)="handleReset()">Fermer</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ng-template>
+             </div>
             </div>
-                 
+          </div>                    
 
           <div>
             <div class="container">
@@ -83,7 +87,23 @@
                 </button>
               </div>
             </div>
-          
+
+            <div class="row mt-2 justify-content-end">
+              <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Afficher {{ itemsPerPage }} résultats par page
+                </button>
+                <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                  <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                    [ngClass]="{'selected': option === itemsPerPage}">
+                    <span>{{ option }}</span>
+                    <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                  </a>
+                </div>
+              </div>
+            </div>   
+
             <div class="settings-dropdown" (click)="onDropdownClick($event)">
               <div class="dropdown">
                 <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
@@ -109,7 +129,8 @@
                   </label>
                 </div>
               </div>
-            </div>          
+            </div>  
+
             
             <div class="col-lg-12">
               <div class="table-responsive rounded mb-3">
@@ -147,10 +168,12 @@
                       <th scope="col">Numéro de télephone</th>
                       <th scope="col">Téléphone personnel</th>
                       <th scope="col">Actions</th>
+                      <th scope="col">Supprimer les colonnes</th>
+
                     </tr>
                   </thead>
                   <tbody class="ligth-body">
-                    <tr *ngFor="let fournisseur of filteredFournisseurs | filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index"
+                    <tr *ngFor="let fournisseur of displayedFournisseurs | filter: searchQuery let i = index"
                       [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                       <td>{{ fournisseur.nom }}</td>
                       <td *ngIf="fieldsVisible['siret']">{{fournisseur.numerodesiret}}</td>
@@ -170,20 +193,29 @@
                       <td>{{fournisseur.telephonepersonnel}}</td>
                       <td>
                         <div class="d-flex justify-content-start align-items-center list-action">
-                          <a class="badge bg-primary mr-2" (click)="getFournisseurData(fournisseur.id, fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation, fournisseur.numero_de_recepisse_de_declaration_prefectorale, fournisseur.pageweb, fournisseur.telephone, fournisseur.numerodetelecopie, fournisseur.adresse, fournisseur.codepostal, fournisseur.ville, fournisseur.pays, fournisseur.nometprenom, fournisseur.adressedecourier, fournisseur.fonction, fournisseur.numerodetelephone, fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
+                          <a class="badge bg-primary mr-2" style="cursor: pointer;" (click)="getFournisseurData(fournisseur.id, fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation, fournisseur.numero_de_recepisse_de_declaration_prefectorale, fournisseur.pageweb, fournisseur.telephone, fournisseur.numerodetelecopie, fournisseur.adresse, fournisseur.codepostal, fournisseur.ville, fournisseur.pays, fournisseur.nometprenom, fournisseur.adressedecourier, fournisseur.fonction, fournisseur.numerodetelephone, fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
                             <i class="ri-pencil-line mr-0"></i>
                           </a>
-                          <a class="badge btn-danger mr-2" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)" data-placement="top" title="" data-original-title="Delete">
+                          <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)" data-placement="top" title="" data-original-title="Delete">
                             <i class="ri-delete-bin-line mr-0"></i>
                           </a>
                         </div>
+                      </td>
+                      <td>
+                        <input type="checkbox" [checked]="selectedFournisseurs.includes(fournisseur)" (change)="toggleSelection(fournisseur)">
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div class="pagination-container" style="display: flex;justify-content: flex-end;">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              <div class="pagination-container" style="display: flex; justify-content: flex-end;">
+                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                <div class="page-info">
+                  <span class="page-numbers">
+                    <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                  </span>
+                </div>
+                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
               </div>
             </div>
             
@@ -202,7 +234,9 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="delete()" ><i class="fas fa-trash"></i>Supprimer</button>
+      <button type="button" class="btn btn-danger" (click)="deleteItem()">
+        <i class="fas fa-trash"></i> Supprimer
+      </button>
       <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>

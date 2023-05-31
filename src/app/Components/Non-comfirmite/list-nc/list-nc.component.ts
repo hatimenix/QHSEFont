@@ -22,11 +22,13 @@ export class ListNcComponent implements OnInit {
   processuss: any[] = [];
   utilisateurs: any[] = [];
   updateModalVisible: boolean = true;
+  existingFileUrl: string = '';
   isAscending: boolean = true;
   isReverseSorting: boolean = false;
   startDate: string | undefined;
   endDate: string | undefined;
   autoCloseDropdown: boolean = true;
+  showPopover: boolean = false;
   fieldsVisible: { [key: string]: boolean } = {
     domaine: true,
     frequence: true,
@@ -38,7 +40,17 @@ export class ListNcComponent implements OnInit {
   
   modalRef!: BsModalRef;
   p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPageOptions: number[] = [];
+  itemsPerPage: number= 5; 
+  get totalPages(): number {
+    return Math.ceil(this.filteredNcs.length / this.itemsPerPage);
+  }
+
+  get displayedNcs(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredNcs.slice(startIndex, endIndex);
+  }
 
   id : any 
   intitule : any
@@ -68,10 +80,10 @@ export class ListNcComponent implements OnInit {
   responsable_traitement:any
 
   searchQuery: string = '';
-
+  filterField: string = '';
+  fieldSearchQuery: string = '';
   originalNcs: Nc[] = [];
   filteredNcs: Nc[] = [];
-
 
   ncs : Nc[] = []
 
@@ -144,6 +156,8 @@ export class ListNcComponent implements OnInit {
     this.startDate = ''; 
   this.endDate = ''; 
   document.addEventListener('click', this.onDocumentClick.bind(this));
+  this.itemsPerPageOptions = [5, 10, 15];
+  this.itemsPerPage = this.itemsPerPageOptions[0]; 
 
 }
 ngOnDestroy() {
@@ -178,6 +192,7 @@ getNcs() {
     res => {
       this.originalNcs = res;
       this.filteredNcs = res;
+      this.ncs=res;
     },
     error => {
       console.log(error);
@@ -227,11 +242,26 @@ updateNc() : void {
               console.error(e);
           }
       });
-} 
-
+      }      
+      get_url_file(id: number): void {
+        this.ncservice.getExistingFileUrl(id).subscribe({
+          next: (res) => {
+            if (res) {
+              console.log('Existing File URL:', res);
+              this.existingFileUrl = res;
+            } else {
+              console.error('Invalid response: missing fileUrl');
+            }
+          },
+          error: (e) => {
+            console.error(e);
+          }
+        });
+      }
+      
+      
 updateFile(event: any) {
-  const file = event.target.files[0];
-  this.piece_jointe=file
+  this.piece_jointe = event.target.files[0];
 
 }
 download(piece_jointe: string): void {
@@ -400,6 +430,71 @@ toggleDropdown() {
 
 onDocumentClick(event: MouseEvent) {
   this.autoCloseDropdown = true;
+}
+getSelectedFileName(): string {
+  const fileInput = document.getElementById('customFile2') as HTMLInputElement;
+  if (fileInput && fileInput.files && fileInput.files.length > 0) {
+    return fileInput.files[0].name;
+  }
+  return 'Choose file';
+}
+
+getFileNameFromUrl(url: string): string {
+  const fileName = url.substring(url.lastIndexOf('/') + 1);
+  return decodeURIComponent(fileName); // Decode the URI component
+}
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+filterByField(fieldName: string): void {
+  this.filterField = fieldName;
+  this.togglePopover();
+  this.searchQuery = '';
+}
+applyFieldFilter(): void {
+  const searchValue = this.fieldSearchQuery?.toLowerCase();
+
+  this.filteredNcs = this.ncs.filter((nc) => {
+    const fieldValue = nc[this.filterField]?.toLowerCase();
+
+    if (fieldValue && searchValue) {
+      return fieldValue.includes(searchValue);
+    }
+
+    return true;
+  });
+}
+
+resetTable(): void {
+  if (this.fieldSearchQuery && this.filteredNcs.length === 0) {
+    this.fieldSearchQuery = ''; 
+    this.filterField = '';
+    this.filteredNcs = this.ncs;
+  }
+}
+ 
+togglePopover() {
+  this.showPopover = !this.showPopover;
+}
+closePopover(): void {
+  this.showPopover = false;
+}
+handleReset(): void {
+  if (this.filteredNcs.length === 0) {
+    this.resetTable();
+    this.closePopover();
+  } else {
+    this.closePopover();
+  }
 }
 
 }

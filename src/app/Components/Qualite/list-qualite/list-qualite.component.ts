@@ -22,7 +22,18 @@ export class ListQualiteComponent {
   @ViewChild('siteModal', { static: true }) siteModal:any;
   modalRef!: BsModalRef;
   p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPageOptions: number[] = [];
+  itemsPerPage: number= 5; 
+  get totalPages(): number {
+    return Math.ceil(this.filteredQualites.length / this.itemsPerPage);
+  }
+
+  get displayedQualites(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredQualites.slice(startIndex, endIndex);
+  }
+
   id : any 
   site_name:any
   site:any
@@ -32,8 +43,12 @@ export class ListQualiteComponent {
   objectifs:any
   commentaires_responsable:any
   objectifs_annees:any
+  showPopover: boolean = false;
   searchQuery: string = '';
+  filterField: string = '';
+  fieldSearchQuery: string = '';
   qualites : Qualite[] = []
+  filteredQualites : Qualite[] = []
   deleteModal: any;
   idTodelete: number = 0;
 
@@ -48,7 +63,7 @@ export class ListQualiteComponent {
 
 
   });
-  constructor(private   qualiteservice : QualiteService, private router : Router,private apiSiteService :ApiSiteService,private bsModalService: BsModalService){
+  constructor(private qualiteservice : QualiteService, private router : Router,private apiSiteService :ApiSiteService,private bsModalService: BsModalService){
 
   }
   ngOnInit(): void {
@@ -66,11 +81,15 @@ export class ListQualiteComponent {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
   }
   getQualites() {
     this.qualiteservice.getAll().subscribe(
       res => {
         this.qualites = res;
+        this.filteredQualites = res; 
+
       },
       error => {
         console.log(error);
@@ -161,6 +180,56 @@ export class ListQualiteComponent {
   closeModalsite(){
       this.bsModalService.hide();
   }
+  onItemsPerPageChange(option: number) {
+    this.p = 1; 
+    this.itemsPerPage = option; 
+  }
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  filterByField(fieldName: string): void {
+    this.filterField = fieldName;
+    this.togglePopover();
+    this.searchQuery = '';
+  }
+  applyFieldFilter(): void {
+    const searchValue = this.fieldSearchQuery?.toLowerCase();
   
-
+    this.filteredQualites = this.qualites.filter((qualite) => {
+      const fieldValue = qualite[this.filterField]?.toLowerCase();
+  
+      if (fieldValue && searchValue) {
+        return fieldValue.includes(searchValue);
+      }
+  
+      return true;
+    });
+  }
+  
+  resetTable(): void {
+    if (this.fieldSearchQuery && this.filteredQualites.length === 0) {
+      this.fieldSearchQuery = ''; 
+      this.filterField = '';
+      this.filteredQualites = this.qualites;
+    }
+  }
+   
+  togglePopover() {
+    this.showPopover = !this.showPopover;
+  }
+  closePopover(): void {
+    this.showPopover = false;
+  }
+  handleReset(): void {
+    if (this.filteredQualites.length === 0) {
+      this.resetTable();
+      this.closePopover();
+    } else {
+      this.closePopover();
+    }
+  }  
 }

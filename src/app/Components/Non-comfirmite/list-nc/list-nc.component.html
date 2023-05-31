@@ -11,46 +11,113 @@
          </div>
 
         </div>
-        <div class="row justify-content-end">
+        <div class="row justify-content-start">
 
-        <div class="input-group mb-3 col-md-4">
+        <div class="input-group mb-4 col-md-4">
           <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
           <div class="input-group-append">
             <span class="input-group-text">
               <i class="fas fa-search"></i>
             </span>
           </div>
-        </div>        
-        </div>
-     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Depuis :</span>
+        </div>  
+        <div class="dropdown">
+          <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+            <i class="fas fa-filter"></i>Filtrer par
+          </button>
+          <div class="dropdown-menu" aria-labelledby="filterDropdown">
+            <a class="dropdown-item" (click)="filterByField('intitule')" style="cursor: pointer;">Intitulé de la non-conformité</a>
+            <a class="dropdown-item" (click)="filterByField('processus_name')" style="cursor: pointer;">Processus</a>
+            <a class="dropdown-item" (click)="filterByField('site_name')" style="cursor: pointer;">Site</a>
+            <a class="dropdown-item" (click)="filterByField('responsable_name')" style="cursor: pointer;">Responsable de traitement</a>
+          </div>
+          <div class="dropdown dropright">
+            <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+              <div class="arrow"></div>
+              <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="popover-body" style="width: 500px; max-width: 100%;">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-search"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                </div>
+              
+                <div class="row justify-content-center">
+                  <div class="col-md-12">
+                    <div class="alert alert-info" role="alert" *ngIf="filterField && filteredNcs.length === 0">
+                      Aucun résultat.
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row justify-content-end">
+                  <div class="col-md-4">
+                    <button class="btn" (click)="handleReset()">Fermer</button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <input type="date" class="form-control" id="start_date" [(ngModel)]="startDate">
+         </div>
+        </div>
+      </div>       
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Depuis :</span>
+                </div>
+                <input type="date" class="form-control" id="start_date" [(ngModel)]="startDate">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Vers :</span>
+                </div>
+                <input type="date" class="form-control" id="end_date" [(ngModel)]="endDate">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="row justify-content-center">
+              <button style="margin-top: 1%;" class="btn btn-secondary" (click)="filterByDateNC()"><i class="fas fa-filter"></i> Filter par la date NC
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Vers :</span>
-            </div>
-            <input type="date" class="form-control" id="end_date" [(ngModel)]="endDate">
-          </div>
-        </div>
-      </div>
-    </div>    
-    <button class="btn btn-secondary" (click)="filterByDateNC()">Filter par la date NC</button>
+        
 
          <div>
+          <div class="row justify-content-between">
+          <div>
           <button class="btn " (click)="filterByEtatTrue()"> NC en cours</button>
           <button class="btn " (click)="filterByEtatFalse()">NC closes</button>
           <button class="btn " (click)="getNcs()">Toutes les NCs</button>
           <button class="btn "  (click)="exportToExcel()">Export excel</button>
+        </div>
+            <div class="dropdown">
+              <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Afficher {{ itemsPerPage }} résultats par page
+              </button>
+              <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                  [ngClass]="{'selected': option === itemsPerPage}">
+                  <span>{{ option }}</span>
+                  <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                </a>
+              </div>
+            </div>
+          </div>
 
           <div class="settings-dropdown" (click)="onDropdownClick($event)">
             <div class="dropdown">
@@ -85,10 +152,6 @@
                  <thead>
                      <tr class="light ligth-data">
                          <th>
-                             <div class="checkbox d-inline-block">
-                                 <input type="checkbox" class="checkbox-input" id="checkbox1">
-                                 <label for="checkbox1" class="mb-0"></label>
-                             </div>
                          </th>
                          <th scope="col">
                           <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Intitulé de la non-conformité</a>
@@ -131,7 +194,7 @@
                      </tr>
                  </thead>
                  <tbody class="ligth-body">
-                  <tr *ngFor="let nc of filteredNcs | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+                  <tr *ngFor="let nc of displayedNcs | filter : searchQuery  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
                       <th scope="row" style="color: grey;">{{nc.id}}</th>
                       <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                       <td>{{nc.nature}}</td>
@@ -166,9 +229,9 @@
 
                       <td>
                         <div class="d-flex justify-content-start align-items-center list-action">
-                          <a class="badge bg-primary mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee,nc.mois,nc.delai_prevu,nc.type_cause,nc.cout,nc.progress,nc.info_complementaires,nc.frequence,nc.gravite,nc.action_immediate,nc.nc_cloture,nc.site,nc.processus,nc.responsable_traitement)"data-placement="top" title="" data-original-title="Edit"
-                                     ><i class="ri-pencil-line mr-0"></i></a>
-                                 <a class="badge bg-danger mr-2" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
+                          <a class="badge bg-primary mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="get_url_file(nc.id); getNcData(nc.id, nc.intitule, nc.nature, nc.domaine, nc.detail_cause, nc.date_nc, nc.date_prise_en_compte, nc.description_detailee, nc.annee, nc.mois, nc.delai_prevu, nc.type_cause, nc.cout, nc.progress, nc.info_complementaires, nc.frequence, nc.gravite, nc.action_immediate, nc.nc_cloture, nc.site, nc.processus, nc.responsable_traitement)" data-placement="top" title="" data-original-title="Edit"><i class="ri-pencil-line mr-0"></i>                                                              </a>
+
+                          <a class="badge bg-danger mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
                                      ><i class="ri-delete-bin-line mr-0"></i></a>
                              </div>
                          </td>
@@ -176,8 +239,14 @@
                  </tbody>
              </table>
              </div>
-             <div class="pagination-container" style="display: flex;justify-content: flex-end;">
-              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+             <div class="pagination-container" style="display: flex; justify-content: flex-end;">
+              <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+              <div class="page-info">
+                <span class="page-numbers">
+                  <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                </span>
+              </div>
+              <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
             </div>         
           </div>
      </div>
@@ -369,12 +438,19 @@ aria-hidden="true">
                                 
                                 </div>
                                 <br>
-                              <div class="col mb-2">
-                              <div class="custom-file">
-                                <input (change)="updateFile($event)" [(ngModel)] = "piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Pièce jointe</label>
-                              </div>
-                              </div>
+                                <div class="col mb-2">
+                                  <div class="custom-file">
+                                    <input (change)="updateFile($event)" [(ngModel)]="piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">{{ getSelectedFileName() }}</label>
+                                  </div>
+                                  <div *ngIf="existingFileUrl" class="mt-2">
+                                    <p class="d-inline">Fichier existant:</p>
+                                    <a [href]="existingFileUrl" target="_blank" class="ml-2">{{ getFileNameFromUrl(existingFileUrl) }}</a>
+                                  </div>
+                                </div>
+                                
+                                
+                                
                               </form>
                               </div>
                               </div>

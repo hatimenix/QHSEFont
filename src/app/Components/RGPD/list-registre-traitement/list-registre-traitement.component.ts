@@ -23,13 +23,24 @@ export class ListRegistreTraitementComponent {
   endDate: string | undefined;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
-  constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){ }
-  TraitementList:any=[];
   originalTraitements: Traitement[] = [];
   filteredTraitements: Traitement[] = [];
   searchQuery: string = '';
+  filterField: string = '';
+  fieldSearchQuery: string = '';
+  showPopover: boolean = false;
   p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPageOptions: number[] = [];
+  itemsPerPage: number= 5; 
+  get totalPages(): number {
+    return Math.ceil(this.filteredTraitements.length / this.itemsPerPage);
+  }
+
+  get displayedTraitements(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredTraitements.slice(startIndex, endIndex);
+  }
   deleteModal: any;
   idTodelete: number = 0;
     id: any
@@ -99,6 +110,8 @@ export class ListRegistreTraitementComponent {
 
 
     });
+    constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){ }
+
   ngOnInit(): void{
    this.refreshtraitementlist();
    this.originalTraitements = this.traitements.slice(); // create a copy of the original list
@@ -107,7 +120,9 @@ export class ListRegistreTraitementComponent {
   refreshtraitementlist(){
     this.traitementservice.getAll().subscribe(res=>{
       this.originalTraitements = res;
-      this.filteredTraitements = res;    })
+      this.filteredTraitements = res; 
+      this.traitements=res   
+    })
     this.fournisseurservice.getAll().subscribe(
       (data: any[]) => {
         this.fournisseurs = data;
@@ -131,6 +146,8 @@ export class ListRegistreTraitementComponent {
     );
     this.startDate = ''; 
     this.endDate = ''; 
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0];
   }
   filterByTypeRegistre() {
     this.showTypeRegistre = !this.showTypeRegistre;
@@ -295,10 +312,58 @@ getTraitementData(
       this.bsModalService.hide();
       location.reload();
     }
-
-
-
-
+    onItemsPerPageChange(option: number) {
+      this.p = 1; 
+      this.itemsPerPage = option; 
+    }
+    getPageNumbers(): number[] {
+      const pageNumbers = [];
+      for (let i = 1; i <= this.totalPages; i++) {
+        pageNumbers.push(i);
+      }
+      return pageNumbers;
+    }
+    filterByField(fieldName: string): void {
+      this.filterField = fieldName;
+      this.togglePopover();
+      this.searchQuery = '';
+    }
+    applyFieldFilter(): void {
+      const searchValue = this.fieldSearchQuery?.toLowerCase();
+    
+      this.filteredTraitements = this.traitements.filter((traitement) => {
+        const fieldValue = traitement[this.filterField]?.toLowerCase();
+    
+        if (fieldValue && searchValue) {
+          return fieldValue.includes(searchValue);
+        }
+    
+        return true;
+      });
+    }
+    
+    resetTable(): void {
+      if (this.fieldSearchQuery && this.filteredTraitements.length === 0) {
+        this.fieldSearchQuery = ''; 
+        this.filterField = '';
+        this.filteredTraitements = this.traitements;
+      }
+    }
+     
+    togglePopover() {
+      this.showPopover = !this.showPopover;
+    }
+    closePopover(): void {
+      this.showPopover = false;
+    }
+    handleReset(): void {
+      if (this.filteredTraitements.length === 0) {
+        this.resetTable();
+        this.closePopover();
+      } else {
+        this.closePopover();
+      }
+    }  
 
 
 }

@@ -17,6 +17,7 @@ export class AddNcComponent implements OnInit {
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
+  droppedFile: File | null = null;
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService,private bsModalService: BsModalService){}
@@ -166,6 +167,7 @@ export class AddNcComponent implements OnInit {
 
   uploadFile(event: any) {
     const file = event.target.files[0];
+    this.droppedFile = file;
     this.ncf.piece_jointe=file
 
   }
@@ -183,6 +185,29 @@ export class AddNcComponent implements OnInit {
   }
   closeModal() {
     this.bsModalService.hide();
+}
+onDragOver(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  event.dataTransfer.dropEffect = 'copy';
+}
+
+onDragLeave(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+}
+
+onDrop(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  const file = event.dataTransfer.files[0];
+  this.droppedFile = file;
+  this.ncf.piece_jointe=file;
+  const dropZone = document.querySelector('.drop-zone');
+  if (dropZone) {
+    dropZone.innerHTML = file.name;
+  }
+  
 }
 }
 

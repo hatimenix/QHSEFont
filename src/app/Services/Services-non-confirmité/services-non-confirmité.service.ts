@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, catchError, fromEvent, map, switchMap, throwError} from 'rxjs';
 import { Nc } from 'src/app/models/nc';
 import { environment } from 'src/environments/environment.development';
 @Injectable({
@@ -41,7 +41,24 @@ downloadFile(piece_jointe: any): void {
     link.click();
   });
 }
-
-
+getExistingFileUrl(id: number): Observable<any> {
+  return this.http.get(`${this.ncurl}${id}/file-url/`, { responseType: 'blob' }).pipe(
+    switchMap((blob: Blob) => {
+      const reader = new FileReader();
+      reader.readAsText(blob);
+      return fromEvent(reader, 'loadend').pipe(
+        map((event: any) => {
+          const jsonString = event.target.result;
+          const jsonObject = JSON.parse(jsonString);
+          return jsonObject.file_url;
+        })
+      );
+    }),
+    catchError((error: any) => {
+      console.error(error);
+      return throwError('Error occurred while retrieving the existing file URL.');
+    })
+  );
+}
 
 }

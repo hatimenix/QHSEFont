@@ -277,4 +277,12 @@ export class InfoNcComponent implements OnInit {
   openModaladd() {
     this.modalRef = this.bsModalService.show(this.addModal);
   }
+  getSelectedFileName(): string {
+    const fileInput = document.getElementById('customFile') as HTMLInputElement;
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      return fileInput.files[0].name;
+    }
+    return 'Choose file';
+  }
+  
 }
