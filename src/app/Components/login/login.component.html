@@ -14,12 +14,12 @@
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="floating-label form-group">
-                              <input class="floating-input form-control" type="email" placeholder=" " formControlName="adresse_email">
+                              <input class="floating-input form-control" type="email" placeholder=" " formControlName="email">
                               <label>Email</label>
-                              <div *ngIf="loginForm.controls['adresse_email'].errors?.['required'] && loginForm.controls['adresse_email'].touched" class="error-message" style="color: #e56b6f;">
+                              <div *ngIf="loginForm.controls['email'].errors?.['required'] && loginForm.controls['email'].touched" class="error-message" style="color: #e56b6f;">
                                 L'email est requis.
                               </div>
-                              <div *ngIf="loginForm.controls['adresse_email'].errors?.['email'] && loginForm.controls['adresse_email'].touched" class="error-message" style="color: #e56b6f;">
+                              <div *ngIf="loginForm.controls['email'].errors?.['email'] && loginForm.controls['email'].touched" class="error-message" style="color: #e56b6f;">
                                 L'email n'est pas valide.
                               </div>
                             </div>

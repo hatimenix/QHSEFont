@@ -55,8 +55,8 @@ export class AdGroupesComponent {
         proprietaire_groupe: this.groupForm.value.proprietaire_groupe,
         membres: this.groupForm.value.membres,
         proprietaire_groupe_names: '',
-        membres_names: '' // La valeur sera remplie plus tard
-        ,
+        membres_names: '',
+        group:null,
         id: 0
       };
 
@@ -66,6 +66,12 @@ export class AdGroupesComponent {
 
       // Appeler la méthode du service pour créer le groupe utilisateur
       this.groupService.createGroupeUser(newGroup).subscribe(createdGroup => {
+        // Assign group permissions to members after saving the GroupeUser instance
+      if (createdGroup.group) {
+        for (const user of createdGroup.membres) {
+          createdGroup.group.user_set.add(user); // Assuming 'group' has the appropriate methods to add users
+        }
+      }
         // Effectuer les actions nécessaires après la création du groupe
         this.openModal();
         this.router.navigate(['/listgroupeusers']); 
