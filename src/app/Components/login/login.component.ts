@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
-import { UserApp } from 'src/app/models/UserApp';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +12,12 @@ import { UserApp } from 'src/app/models/UserApp';
 export class LoginComponent {
   errorMessage!: string;
   loginForm!: FormGroup;
-  user!: UserApp | null; // Add the user property
 
-  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
@@ -28,9 +30,15 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe(
       response => {
         this.authService.saveTokens(response);
-        this.user = response.user; 
-        console.log("user est ", this.user)
-        this.router.navigate(['/home']);
+        this.authService.getUser().subscribe(
+          () => {
+            this.router.navigate(['/home']);
+          },
+          error => {
+            console.error(error);
+            this.errorMessage = 'An error occurred during login.';
+          }
+        );
       },
       error => {
         console.error(error);
