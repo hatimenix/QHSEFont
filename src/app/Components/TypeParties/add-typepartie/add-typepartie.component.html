@@ -1,0 +1,49 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+            <div style="display: flex; flex-direction: column;">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Ajouter un type de partie</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form [formGroup]="form" data-toggle="validator">
+                        <div class="row">
+                        <div class="col-md-12">                      
+                             <div class="form-group">
+                                <label>Nom</label>
+                                <input [(ngModel)]="typepartief.nom" type="text" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" >
+                            </div>
+                            </div>
+                        </div>
+                    </form>
+       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
+        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createTypePartie()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+        <button style="margin-bottom: 1%;" type="reset" routerLink="/partie-list" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+      </div>
+      
+       </div>
+       </div>
+<!-- Page end  -->
+<ng-template #successModal>
+    <div class="modal-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Le type de partie a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+  </ng-template>
+
+
+
+
+

@@ -72,6 +72,12 @@ import { ListQualiteComponent } from './Components/Qualite/list-qualite/list-qua
 import { AddQualiteComponent } from './Components/Qualite/add-qualite/add-qualite.component';
 import { InfoQualiteComponent } from './Components/Qualite/info-qualite/info-qualite.component';
 import { ProfileComponent } from './Components/UserApp/profile/profile.component';
+import { ListPartieComponent } from './Components/Parties-interesses/list-partie/list-partie.component';
+import { AddPartieComponent } from './Components/Parties-interesses/add-partie/add-partie.component';
+import { InfoPartieComponent } from './Components/Parties-interesses/info-partie/info-partie.component';
+import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/add-typepartie.component';
+import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
+import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +145,13 @@ import { ProfileComponent } from './Components/UserApp/profile/profile.component
     ListQualiteComponent,
     AddQualiteComponent,
     InfoQualiteComponent,
-    ProfileComponent
+    ProfileComponent,
+    ListPartieComponent,
+    AddPartieComponent,
+    InfoPartieComponent,
+    AddTypepartieComponent,
+    InfoExigencesComponent,
+    InfoAnalyserisqueComponent
 
   ],
   imports: [

@@ -37,7 +37,17 @@ export const environment = {
     API_sante:"http://127.0.0.1:8001/sante/",
     API_qualite:"http://127.0.0.1:8001/qualite/",
     API_Login:"http://127.0.0.1:8001/api/login/",
-    API_Details_User : "http://127.0.0.1:8001/user/"
+    API_Details_User : "http://127.0.0.1:8001/user/",
+    API_partie:"http://127.0.0.1:8001/partiesInteresses/",
+    API_typepartie:"http://127.0.0.1:8001/typePartie/",
+    API_analyseRisque:"http://127.0.0.1:8001/analyseRisque/",
+    API_exigences:"http://127.0.0.1:8001/exigences/",
+    API_cotations:"http://127.0.0.1:8001/cotation/"
+
+
+    
+
+
 
 
 
