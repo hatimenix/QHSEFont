@@ -1,0 +1,69 @@
+<div class="content-page">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          
+           <div class="card">
+              <div class="card-header d-flex justify-content-between" style="background-color:#17469d; color:white;">
+                 <div class="header-title">
+                    <h4 class="card-title">Exigences des parties intéressées</h4>
+                 </div>
+              </div>
+              <div class="card-body">
+                 <div class="iq-example-row">
+                    <div class="container-fluid">
+        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+          <li class="nav-item col-12 col-md-12">
+            <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">INFORMATIONS GÉNÉRALES</a>
+            </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                 <tr class="table-default">
+                  <td class="col-sm-1">Type d'exigences :</td>
+                  <td class="col-sm-1">{{ exigence.type_exigence }}</td>
+                 </tr>
+                 <tr class="table-info">
+                    <td>Intitulé :</td>
+                    <td>{{ exigence.intitule }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Parties intéréssées:</td>
+                    <td>{{ exigence.partieinteresses_name }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Description détaillée:</td>
+                    <td>{{ exigence.description }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Evaluation de la maitrise:</td>
+                    <td>{{ exigence.evaluation_maitrise }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Commentaire :</td>
+                    <td>{{exigence.commentaire}}</td>
+                </tr>
+                  <tr class="table-default">
+                    <td>Action à mener:</td>
+                    <td>{{exigence.action ? 'Oui' : 'Non'}}</td>
+                  </tr>
+                  </table>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row mt-1 mb-2 justify-content-end">
+                    <a routerLink="/partie-list" class="btn add-list">
+                      <i class="fas fa-arrow-left"></i> Retourner vers la liste des parties intéressées
+                    </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+                  
+  </div>
+</div>
