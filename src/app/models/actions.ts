@@ -24,6 +24,8 @@ export class Actions {
     evenement !: number[];
     qualite !: number[];
     nc !: number[];
+    analyserisque !: number[];
+
 
 
 
@@ -49,7 +51,9 @@ export class Actions {
         danger: number[],
         evenement: number[],
         qualite: number[],
-        nc: number[]
+        nc: number[],
+        analyserisque: number[]
+
 
       ) {
         this.intitule = intitule;
@@ -74,6 +78,8 @@ export class Actions {
         this.evenement = evenement;
         this.qualite = qualite;
         this.nc = nc;
+        this.analyserisque = analyserisque;
+
 
 
       }

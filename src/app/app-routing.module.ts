@@ -70,6 +70,12 @@ import { ListCatographieComponent } from './Components/Catographie/list-catograp
 import { ListQualiteComponent } from './Components/Qualite/list-qualite/list-qualite.component';
 import { AddQualiteComponent } from './Components/Qualite/add-qualite/add-qualite.component';
 import { InfoQualiteComponent } from './Components/Qualite/info-qualite/info-qualite.component';
+import { ListPartieComponent } from './Components/Parties-interesses/list-partie/list-partie.component';
+import { AddPartieComponent } from './Components/Parties-interesses/add-partie/add-partie.component';
+import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/add-typepartie.component';
+import { InfoPartieComponent } from './Components/Parties-interesses/info-partie/info-partie.component';
+import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
+import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
 
 
 
@@ -147,6 +153,15 @@ const routes: Routes = [
   {path : 'qualite-list', component: ListQualiteComponent,canActivate: [AuthGuardService]},
   {path : 'add-qualite', component: AddQualiteComponent,canActivate: [AuthGuardService]},
   { path: 'qualite/:id', component: InfoQualiteComponent ,canActivate: [AuthGuardService]},
+  {path : 'partie-list', component: ListPartieComponent, canActivate: [AuthGuardService]},
+  {path : 'add-parties', component: AddPartieComponent, canActivate: [AuthGuardService]},
+  {path : 'add-typeparties', component: AddTypepartieComponent, canActivate: [AuthGuardService]},
+  { path: 'partie/:id', component: InfoPartieComponent ,canActivate: [AuthGuardService]},
+  { path: 'exigence/:id', component: InfoExigencesComponent ,canActivate: [AuthGuardService]},
+  { path: 'analyserisque/:id', component: InfoAnalyserisqueComponent ,canActivate: [AuthGuardService]},
+
+
+
 
 
 
