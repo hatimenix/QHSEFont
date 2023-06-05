@@ -34,7 +34,7 @@ export class UpdateGroupesComponent {
       nom: ['', Validators.required],
       description: ['', Validators.required],
       proprietaire_groupe: [[]],
-      membres: [[]]
+      // membres: [[]]
     });
     this.users = [];
     this.groupId = Number(this.route.snapshot.params['id']);
@@ -50,7 +50,7 @@ export class UpdateGroupesComponent {
           nom:groupData.nom,
           description:groupData.description,
           proprietaire_groupe: groupData.proprietaire_groupe,
-          membres:groupData.membres
+          // membres:groupData.membres
         });
       });
     });
@@ -67,18 +67,20 @@ export class UpdateGroupesComponent {
   
       // Créer un nouvel objet GroupeUser à partir des valeurs du formulaire
        const updatedGroup: GroupeUser = {
-        nom: this.groupForm.value.nom,
-        description: this.groupForm.value.description,
-        proprietaire_groupe: this.groupForm.value.proprietaire_groupe,
-        membres: this.groupForm.value.membres,
-        proprietaire_groupe_names: '',
-        membres_names: '', // La valeur sera remplie plus tard
-        id: groupId // Utilisez l'ID existant du groupe
-      };
+         nom: this.groupForm.value.nom,
+         description: this.groupForm.value.description,
+         proprietaire_groupe: this.groupForm.value.proprietaire_groupe,
+        //  membres: this.groupForm.value.membres,
+         proprietaire_groupe_names: '',
+         membres_names: '',
+         id: groupId // Utilisez l'ID existant du groupe
+         ,
+         groupe_name: this.groupForm.value.groupe_name
+       };
   
       // Remplir les noms des utilisateurs sélectionnés
       updatedGroup.proprietaire_groupe_names = this.getSelectedUserNames(updatedGroup.proprietaire_groupe);
-      updatedGroup.membres_names = this.getSelectedUserNames(updatedGroup.membres);
+      // updatedGroup.membres_names = this.getSelectedUserNames(updatedGroup.membres);
   
       // Appeler la méthode du service pour mettre à jour le groupe utilisateur
       this.groupService.updateGroupeUser(groupId, updatedGroup).subscribe(updatedGroupData => {
