@@ -5,45 +5,21 @@ import { Injectable } from '@angular/core';
 })
 export class PermissionService {
 
-  private userPermissions: { userId: string, permission: string }[] = [];
-  private selectedPermission: string = '';
+  private userAutorisation: string = '';
 
-  updateUserPermissions(permissions: any[]) {
-    this.userPermissions = permissions.map((permission) => {
-      const userPermission = {
-        userId: permission.userId,
-        permission: this.getPermission(this.selectedPermission),
-      };
-      console.log('User Permission:', userPermission.permission);
-      return userPermission;
-    });
+  setUserAutorisation(autorisation: string): void {
+    this.userAutorisation = autorisation;
   }
 
-  isAddButtonDisabled(): boolean {
-    return this.userPermissions.some(permission => permission.permission === 'Lecture_seule');
+  canAddOrUpdate(): boolean {
+    return this.userAutorisation === 'Control_total';
   }
 
-  isDeleteButtonDisabled(): boolean {
-    return this.userPermissions.some(permission =>
-      permission.permission === 'Lecture_seule' || permission.permission === 'membre_sans_suppression');
+  canDelete(): boolean {
+    return this.userAutorisation === 'Control_total';
   }
 
-  getPermission(selectedPermission: string): string {
-    if (selectedPermission === 'Lecture_seule') {
-      return 'Lecture_seule';
-    } else if (selectedPermission === 'membre_sans_suppression') {
-      return 'membre_sans_suppression';
-    } else if (selectedPermission === 'membre_avec_suppression') {
-      return 'membre_avec_suppression';
-    } else {
-      return 'Control_total';
-    }
+  canViewOnly(): boolean {
+    return this.userAutorisation === 'Lecture';
   }
-
-  // selected Permissions 
-  setSelectedPermission(selectedPermission: string) {
-    this.selectedPermission = selectedPermission;
-  }
-  
-  
 }

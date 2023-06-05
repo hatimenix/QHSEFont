@@ -1,6 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { PermissionService } from 'src/app/Services/Service-permission/permission.service';
 import { GroupeUserService } from 'src/app/Services/Services-GroupesUser/groupe-user.service';
 import { GroupeUser } from 'src/app/models/GroupeUser';
 
@@ -14,12 +13,14 @@ export class ListGroupesComponent{
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   @ViewChild('userModal') userModal!: TemplateRef<any>; // reference to the user modal template
   modalRef!: BsModalRef;
+  //search
+  searchQuery: string = '';
   groupeIdToDelete: number = 0;
   selectedPermission: string = ''; 
 
   constructor(private groupeUserService: GroupeUserService,
     public modalService: BsModalService,
-    public permissionService: PermissionService ) { }
+     ) { }
 
   ngOnInit(): void {
     this.getGroupes();
@@ -40,19 +41,13 @@ export class ListGroupesComponent{
   declineDelete(): void {
     this.modalRef.hide();
   }
-   // Get the selected permission
-   getSelectedPermission(): void {
-    this.selectedPermission = this.permissionService.getPermission(this.selectedPermission); // Replace with your actual implementation to get the selected permission
+  //search 
+  resetSearchQuery() {
+    this.searchQuery = '';
   }
 
-  // Function to check if the button should be disabled based on the selected permission
-  isAddButtonDisabled(): boolean {
-    return this.permissionService.isAddButtonDisabled();
-  }
 
-  isDeleteButtonDisabled(): boolean {
-    return this.permissionService.isDeleteButtonDisabled();
-  }
+  
 
 
 }

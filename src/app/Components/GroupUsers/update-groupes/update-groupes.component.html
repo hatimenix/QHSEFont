@@ -35,16 +35,19 @@
                                        </select>   
                                 </div> 
                                 </div> 
-                                <!--
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Membres du groupe <label style="color: red;">*</label></label>
-                                        <select id="membres" name="membres" formControlName="membres"  class="custom-select" data-style="py-0" required multiple>
-                                            <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
-                                           </select> 
+                                        <label for="autorisation">Autorisations  <label style="color: red;">*</label> </label>
+                                        <select name="type" class="custom-select form-control" id="autorisation" data-style="py-0" formControlName="autorisation">
+                                            <option value="Control_total">Control total</option>
+                                            <option value="Lecture">Lecture</option>
+                                            <option value="collaboration_avec_suppression">Collaboration avec suppression</option>
+                                            <option value="collaboration_sans_suppression">Collaboration sans suppression</option>
+                                            
+                                          </select>
+                                           
                                     </div> 
-                                </div>  
-                                -->
+                                </div> 
                            </div>                            
                            <button type="submit" class="btn btn-primary mr-2" >Modifier</button>
                            <button type="reset" class="btn btn-danger" routerLink="/listgroupeusers">Annuler</button>

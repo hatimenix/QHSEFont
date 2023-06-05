@@ -97,7 +97,7 @@
                         <tr *ngFor="let docs of document">
                         
                            <td>
-                              <a href="{{ docs.url_document }}" download>{{ docs.nom}}</a>
+                              <a href="{{ docs.url_document }}" download>{{  getFileNameFromPath(docs.nom) }}</a>
                               
                             </td>
                           <td>{{docs.codification}}</td>

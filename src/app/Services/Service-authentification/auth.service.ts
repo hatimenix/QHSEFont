@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { UserApp } from 'src/app/models/UserApp';
 import { environment } from 'src/environments/environment.development';
-import { PermissionService } from '../Service-permission/permission.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private permissionService: PermissionService
+    
   ) {}
 
   login(email: string, password: string) {

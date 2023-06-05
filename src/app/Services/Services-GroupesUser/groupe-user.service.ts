@@ -34,4 +34,11 @@ export class GroupeUserService {
     const url = `${this.API_GroupeUsers}${id}`;
     return this.http.delete<void>(url);
   }
+  //get the group permissions 
+  getGroupPermissions(groupId: number): Observable<string[]> {
+    const url = `${this.API_GroupeUsers}${groupId}`; // Update the URL based on your API endpoint
+  
+    return this.http.get<string[]>(url);
+  }
+  
 }

@@ -5,7 +5,6 @@
   <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>POS Dash | Responsive Bootstrap 4 Admin Dashboard Template</title>
       
     </head>
   <body class="  ">
@@ -22,7 +21,7 @@
                <div class="user-list-files d-flex">
                   
                  <div class="d-flex align-items-center">
-                    <a routerLink="/listdocument" class="btn btn-warning add-list"><i class="las la-plus mr-3"></i>Retour</a>
+                    <a routerLink="/listdocument" class="btn btn-danger add-list"><i class="las la-plus mr-3"></i>Retour</a>
                 </div>
                </div>
             </div>
@@ -30,9 +29,12 @@
       <div class="container-fluid">
 
                      <table class="table">
+                       
                         <tr class="table-default">
-                          <td>Nom du document </td>
-                          <td >{{ currentId.nom }}</td>
+                          <td>Document </td>
+                          <td >
+                            <a href="{{ currentId.url_document }}" download>{{  getFileNameFromPath(currentId.url_document) }}</a>
+                          </td>
                         </tr>
                         <tr class="table-info">
                            <td>Codification</td>
@@ -68,7 +70,7 @@
                          </tr>
                          <tr class="table-info">
                            <td>Personnel</td>
-                           <td>{{ currentId.personnel_name }}</td>
+                           <td>{{ currentId.personnel_name}}</td>
                          </tr>
                       </table>
                               

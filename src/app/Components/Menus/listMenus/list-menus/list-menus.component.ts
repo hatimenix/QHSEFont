@@ -131,4 +131,17 @@ filterMenuByMonth(): void {
   
 }
 }
+//afficher juste le nom du fichier 
+getFileNameFromPath(filePath: string | File | undefined): string {
+  if (!filePath) return 'Aucun fichier joint';
+  
+  if (typeof filePath === 'string') {
+    const parts = filePath.split('/');
+    return parts.pop() || 'Aucun fichier joint';
+  }
+  
+  return filePath.name || 'Aucun fichier joint';
+}
+
+
 }
