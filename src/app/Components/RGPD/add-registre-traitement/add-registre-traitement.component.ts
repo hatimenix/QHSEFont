@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
@@ -121,7 +121,12 @@ export class AddRegistreTraitementComponent implements OnInit {
       (data: any[]) => {
         this.traitements = data;
         console.log(this.traitements); 
-        this.modalCompletedpersonne = this.traitements.length > 0; 
+        this.modalCompletedmesure = this.hasValuesForField('mtypedemesuredesecurite');
+        this.modalCompleteddonnee = this.hasValuesForField('type_donnee');
+        this.modalCompletedpersonne = this.hasValuesForField('personneconcernees');
+        this.modalCompletedenUE = this.hasValuesForField('typedestinataire');
+        this.modalCompletedhorsUE = this.hasValuesForField('destinataire'); 
+
 
       },
       (error: any) => {
@@ -186,50 +191,69 @@ submitModalMesure() {
     this.modalCompletedmesure = false;
     return;
   }
+  const existingOption = this.traitements.find(traitement => traitement.mtypedemesuredesecurite === this.traitementf.mtypedemesuredesecurite);
+  if (!existingOption) {
+    const newOption = { mtypedemesuredesecurite: this.traitementf.mtypedemesuredesecurite };
+    this.traitements.push(newOption);
+  }
   this.modalCompletedmesure = true;
-  const newOption = { mtypedemesuredesecurite: this.traitementf.mtypedemesuredesecurite };
-  this.traitements.push(newOption);
-  this.traitementf.mtypedemesuredesecurite = ''; 
+  this.traitementf.mtypedemesuredesecurite='';
 }
 submitModalDonneeSensible() {
   if (!this.traitementf.type_donnee) {
     this.modalCompleteddonnee = false;
     return;
   }
+  const existingOption = this.traitements.find(traitement => traitement.type_donnee === this.traitementf.type_donnee);
+  if (!existingOption) {
+    const newOption = { type_donnee: this.traitementf.type_donnee };
+    this.traitements.push(newOption);
+  }
   this.modalCompleteddonnee = true;
-  const newOption = { type_donnee: this.traitementf.type_donnee };
-  this.traitements.push(newOption);
-  this.traitementf.type_donnee = ''; 
+  this.traitementf.type_donnee='';
+
 }
 submitModalPersonneconcernee() {
   if (!this.traitementf.personneconcernees) {
     this.modalCompletedpersonne = false;
     return;
   }
+  const existingOption = this.traitements.find(traitement => traitement.personneconcernees === this.traitementf.personneconcernees);
+  if (!existingOption) {
+    const newOption = { personneconcernees: this.traitementf.personneconcernees };
+    this.traitements.push(newOption);
+  }
   this.modalCompletedpersonne = true;
-  const newOption = { personneconcernees: this.traitementf.personneconcernees };
-  this.traitements.push(newOption);
-  this.traitementf.personneconcernees = ''; 
+  this.traitementf.personneconcernees='';
+
 }
 submitModalDestinataire() {
   if (!this.traitementf.typedestinataire) {
     this.modalCompletedenUE = false;
     return;
   }
+  const existingOption = this.traitements.find(traitement => traitement.typedestinataire === this.traitementf.typedestinataire);
+  if (!existingOption) {
+    const newOption = { typedestinataire: this.traitementf.typedestinataire };
+    this.traitements.push(newOption);
+  }
   this.modalCompletedenUE = true;
-  const newOption = { typedestinataire: this.traitementf.typedestinataire };
-  this.traitements.push(newOption);
-  this.traitementf.typedestinataire = ''; 
+  this.traitementf.typedestinataire='';
+
 }
 submitModalDestinataireenUE() {
   if (!this.traitementf.destinataire) {
     this.modalCompletedhorsUE = false;
     return;
   }
+  const existingOption = this.traitements.find(traitement => traitement.destinataire === this.traitementf.destinataire);
+  if (!existingOption) {
+    const newOption = { destinataire: this.traitementf.destinataire };
+    this.traitements.push(newOption);
+  }
   this.modalCompletedhorsUE = true;
-  const newOption = { destinataire: this.traitementf.destinataire };
-  this.traitements.push(newOption);
-  this.traitementf.destinataire = ''; 
+  this.traitementf.destinataire='';
+
 }
 
 get f() {
@@ -244,5 +268,8 @@ openModal() {
 }
 closeModal() {
   this.bsModalService.hide();
+}
+hasValuesForField(fieldName: string): boolean {
+  return this.traitements.some(traitement => !!traitement[fieldName]);
 }
 }

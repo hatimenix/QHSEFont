@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Qualite } from 'src/app/models/qualite';
 import { QualiteService } from 'src/app/Services/Service-qualite/qualite.service';
@@ -14,7 +14,7 @@ declare var window: any;
   templateUrl: './list-qualite.component.html',
   styleUrls: ['./list-qualite.component.css']
 })
-export class ListQualiteComponent {
+export class ListQualiteComponent implements OnInit {
   sites: any[] = [];
   selectedSite: Site | undefined;
   updateModalVisible: boolean = true;
@@ -232,4 +232,7 @@ export class ListQualiteComponent {
       this.closePopover();
     }
   }  
+  resetSearchQuery() {
+    this.searchQuery = '';
+  }
 }

@@ -6,18 +6,6 @@
     width: 100%;
     height: 70%;
   }
-  .btn-primary {
-    background-color: #FF731D;
-    border-color: #FF731D;
-  }
-  
-
-  .btn-primary  {
-    background-color: #ffd140;
-    border-color: #ffd140;
-    color: #fff;
-  }
-  
   button + button {
     margin-left: 10px;
   }

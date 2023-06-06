@@ -15,7 +15,7 @@ declare var window: any;
   templateUrl: './list-equipements.component.html',
   styleUrls: ['./list-equipements.component.css']
 })
-export class ListEquipementsComponent {
+export class ListEquipementsComponent implements OnInit {
   sites: any[] = [];
   secteurs: any[] = [];
   updateModalVisible: boolean = true;
@@ -220,6 +220,9 @@ getSelectedCertificatFileName(): string {
     return fileInput.files[0].name;
   }
   return 'Choose file';
+}
+resetSearchQuery() {
+  this.searchQuery = '';
 }
 
 }

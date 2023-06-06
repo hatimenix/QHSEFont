@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceDocumentUtilesService } from 'src/app/Services/Services-document-utile/services-document-utile.service';
 @Component({
@@ -8,7 +8,7 @@ import { ServiceDocumentUtilesService } from 'src/app/Services/Services-document
   templateUrl: './add-documents-utiles.component.html',
   styleUrls: ['./add-documents-utiles.component.css']
 })
-export class AddDocumentsUtilesComponent {
+export class AddDocumentsUtilesComponent implements OnInit{
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   droppedFile: File | null = null;

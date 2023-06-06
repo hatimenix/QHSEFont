@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Partie } from 'src/app/models/partie';
 import { TypePartie } from 'src/app/models/typepartie';
 import { PartieService } from 'src/app/Services/Service-partie/partie.service';
 import { TypepartieService } from 'src/app/Services/Service-TypePartie/typepartie.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
+
 
 declare var window: any;
 
@@ -15,7 +16,7 @@ declare var window: any;
   templateUrl: './list-partie.component.html',
   styleUrls: ['./list-partie.component.css']
 })
-export class ListPartieComponent {
+export class ListPartieComponent implements OnInit {
   processuss: any[] = [];
   typeparties: any[] = [];
   updateModalVisible: boolean = true;
@@ -37,10 +38,12 @@ export class ListPartieComponent {
   cotation : any 
   impact : any 
   processus: number[] = [];
+  filteredOptions: string[] = [];
   searchQuery: string = '';
   parties : Partie[] = []
   deleteModal: any;
   idTodelete: number = 0;
+  searchOptions: string[] = ['Clients','Fournisseurs','Organismes','Prestataires','Collaborateurs','Etat','Prospects'];
 
   form = new FormGroup({
     typepartie: new FormControl(''),
@@ -138,7 +141,7 @@ toggleProcessus(processusId: number): void {
   if (index > -1) {
     this.processus.splice(index, 1); 
   } else {
-    this.processus.push(processusId);
+    this.processus.push(processusId); 
   }
 }
 getPartieData(id: number, typepartie: any, partieinteresse: any, importance: any, nature: any, enjeux: any, besoin: any, impactfinal: any, impactentreprise: any, cotation: any, impact: any, processus: any) {
@@ -191,7 +194,17 @@ openTypePartieModal(typepartie: TypePartie) {
 closeModalTypePartie(){
     this.bsModalService.hide();
 }
-  
+filterOptions() {
+  this.filteredOptions = this.searchOptions.filter(option =>
+    option.toLowerCase().includes(this.searchQuery.toLowerCase())
+  );
+}
 
-
+selectOption(option: string) {
+  this.searchQuery = option;
+  this.filteredOptions = [];
+}
+resetSearchQuery() {
+  this.searchQuery = '';
+}
 }
