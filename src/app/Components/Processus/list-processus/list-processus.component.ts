@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 
 import { Personnel } from 'src/app/models/Personnel';
@@ -15,15 +16,33 @@ import { Processus } from 'src/app/models/pocesus';
 export class ListProcessusComponent implements OnInit {
   
   processus: Processus[] = [];
-  personnelService: any;
+
   //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('userModal') userModal!: TemplateRef<any>; // reference to the user modal template
+  //search
+  searchQuery: string = '';
+  intitule:any;
   modalRef!: BsModalRef;
   ProIdToDelete: number = 0;
-  
-constructor(private processusService: ProcessusService,public modalService: BsModalService) { }
+  personnel!: Personnel;
+
+  personnelDetails: {
+    personnel: Personnel | null;
+    selectedPersonnelName: string;
+  } 
+constructor(private processusService: ProcessusService,
+  private personnelService : PersonnelService,
+  public modalService: BsModalService) { 
+  this.personnelDetails = {
+    personnel: null,
+    selectedPersonnelName: ''
+  };
+}
 ngOnInit(): void {
 this.loadprocessus();
+
+
 }
 loadprocessus() {
 this.processusService.getProcessus().subscribe(
@@ -48,5 +67,25 @@ deleteProcessus(id: number) :void{
 
   declineDelete(): void {
   this.modalRef.hide();
+  }
+
+   //function to open user modal and pass the user information
+   openUserModal(processus: Processus): void {
+    const selectedPersonnelId = processus.pilote;
+    const selectedPersonnelName = processus.pilote_name;
+  
+    console.log("Selected personnel ID: ", selectedPersonnelId);
+    console.log("Selected personnel name: ", selectedPersonnelName);
+  
+    this.personnelService.getPersonnelById(selectedPersonnelId).subscribe((personnel: Personnel) => {
+      console.log("Personnel details: ", personnel);
+      this.personnelDetails.personnel = personnel;
+      console.log("Personnel details after setting: ", this.personnelDetails);
+
+      this.modalRef = this.modalService.show(this.userModal);
+    });
+  }
+  resetSearchQuery() {
+    this.searchQuery = '';
   }
 }

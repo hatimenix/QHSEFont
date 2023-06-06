@@ -5,10 +5,9 @@ export class GroupeUser {
   nom: string;
   description: string;
   proprietaire_groupe: UserApp[];
-  //membres: UserApp[];
   proprietaire_groupe_names!:string;
   membres_names!:string;
-  group?:any;
+  autorisation!:string;
   groupe_name!:string;
 
 
@@ -17,12 +16,13 @@ export class GroupeUser {
     nom: string,
     description: string,
     proprietaire_groupe: UserApp[],
-    // membres: UserApp[]
+    autorisation:string
+    
   ) {
     
     this.nom = nom;
     this.description = description;
     this.proprietaire_groupe = proprietaire_groupe;
-    // this.membres = membres;
+    this.autorisation=autorisation
   }
 }

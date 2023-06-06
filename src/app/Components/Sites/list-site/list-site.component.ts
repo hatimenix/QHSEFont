@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { Personnel } from 'src/app/models/Personnel';
@@ -12,13 +14,20 @@ import { Site } from 'src/app/models/site';
 })
 export class ListSiteComponent implements OnInit {
   site: Site[] = [];
-  selectedPersonnelId: any;
+  //filtrage 
+  myForm: any;
+  selectedPersonnelId: number | undefined;
+  personnel$!: Observable<any>;
+  //search
+  searchQuery: string = '';
+
   //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   @ViewChild('userModal') userModal!: TemplateRef<any>; // reference to the user modal template
   modalRef!: BsModalRef;
   siteIdToDelete: number = 0;
   personnel!: Personnel;
+
   personnelDetails: {
     personnel: Personnel | null,
     selectedPersonnelName: string
@@ -38,6 +47,10 @@ export class ListSiteComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSites();
+    this.myForm = new FormGroup({
+      site: new FormControl(),
+     
+    });
     
   }
 
@@ -83,5 +96,9 @@ export class ListSiteComponent implements OnInit {
       this.modalRef = this.modalService.show(this.userModal);
     });
   }
-  
+//search 
+  resetSearchQuery() {
+    this.searchQuery = '';
+  }
+
 }

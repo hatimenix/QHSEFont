@@ -15,6 +15,8 @@ export class ListPersonnelComponent implements OnInit{
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
   PersonnelIdToDelete: number = 0;
+  //search
+  searchQuery: string = '';
 
 constructor(private personnelService: PersonnelService,  public modalService: BsModalService) { }
 
@@ -47,5 +49,8 @@ confirmDelete(): void {
 
   declineDelete(): void {
   this.modalRef.hide();
+  }
+  resetSearchQuery() {
+    this.searchQuery = '';
   }
 }

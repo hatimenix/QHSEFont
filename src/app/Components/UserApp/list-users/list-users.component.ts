@@ -17,7 +17,8 @@ export class ListUsersComponent {
   @ViewChild('userModal') userModal!: TemplateRef<any>; // reference to the user modal template
   modalRef!: BsModalRef;
   userIdToDelete: number = 0;
-
+   //search
+  searchQuery: string = '';
   constructor(private userAppService: UsersService,
     public modalService: BsModalService, ) { }
 
@@ -51,6 +52,10 @@ export class ListUsersComponent {
 
   declineDelete(): void {
     this.modalRef.hide();
+  }
+  //search 
+  resetSearchQuery() {
+    this.searchQuery = '';
   }
 
 }
