@@ -8,7 +8,7 @@ import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fourni
   templateUrl: './add-fournisseurs.component.html',
   styleUrls: ['./add-fournisseurs.component.css']
 })
-export class AddFournisseursComponent {
+export class AddFournisseursComponent implements OnInit {
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor(private   fournisseurservice : FournisseurService , private router : Router, private bsModalService: BsModalService){}
@@ -41,7 +41,7 @@ export class AddFournisseursComponent {
     type_de_prestation: new FormControl(''),
     numero_de_recepisse_de_declaration_prefectorale: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     pageweb: new FormControl(''),
-    telephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$')]),
+    telephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
     numerodetelecopie: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     adresse: new FormControl(''),
     codepostal: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
@@ -50,8 +50,8 @@ export class AddFournisseursComponent {
     nometprenom: new FormControl(''),
     adressedecourier: new FormControl('', [Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]),
     fonction: new FormControl(''),
-    numerodetelephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$')]),
-    telephonepersonnel: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$')]),
+    numerodetelephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
+    telephonepersonnel: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
 
   });
   ngOnInit(): void {

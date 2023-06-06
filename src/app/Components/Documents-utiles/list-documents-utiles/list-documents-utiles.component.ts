@@ -224,5 +224,7 @@ deleteItem() {
     }
     return pageNumbers;
   }
-  
+  resetSearchQuery() {
+    this.searchQuery = '';
+  }
 }

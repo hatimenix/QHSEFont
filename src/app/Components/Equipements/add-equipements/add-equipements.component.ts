@@ -11,7 +11,7 @@ import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service
   templateUrl: './add-equipements.component.html',
   styleUrls: ['./add-equipements.component.css']
 })
-export class AddEquipementsComponent {
+export class AddEquipementsComponent implements OnInit {
   sites: any[] = [];
   secteurs: any[] = [];
   droppedFile: File | null = null;

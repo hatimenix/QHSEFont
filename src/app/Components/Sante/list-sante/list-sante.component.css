@@ -6,17 +6,6 @@
     width: 110%;
     height: 110%;
   }
-  
-  .btn-primary {
-    background-color: #FF731D;
-    border-color: #FF731D;
-  }
-  
-  .btn-danger{
-    background-color: #FFB200;
-    border-color: #FFB200;
-    color: #fff; 
-  }
   .custom-button {
     background-color: #ffd140;
     border-color: #ffd140;

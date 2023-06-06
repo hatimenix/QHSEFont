@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
@@ -63,6 +63,7 @@ export class InfoNcComponent implements OnInit {
       domaine : ['', Validators.required],
       site : ['', Validators.required],
       processus : ['', Validators.required],
+      etat : ['', Validators.required],
       analyse_cause : ['', Validators.required],
       plan_action : ['', Validators.required],
       delai_mise_en_oeuvre : ['', Validators.required],
@@ -152,7 +153,7 @@ export class InfoNcComponent implements OnInit {
     if (this.actionForm.valid) {
       const formData = new FormData();
       formData.append('Site_name', '');
-      formData.append('etat', '');
+      formData.append('etat', this.actionForm.get('etat')!.value);
       formData.append('annee', new Date().toString());
       formData.append('piece_jointe', this.actionForm.get('piece_jointe')?.value ?? '');
       formData.append('intitule', this.actionForm.get('intitule')!.value);
@@ -190,7 +191,7 @@ export class InfoNcComponent implements OnInit {
   updateAction(): void {
       const formData = new FormData();
       formData.append('Site_name', '');
-      formData.append('etat', '');
+      formData.append('etat', this.actionForm.get('etat')!.value);
       formData.append('annee', new Date().toString());
       if (this.piece_jointe !== null && this.piece_jointe !== undefined) {
         formData.append("piece_jointe", this.piece_jointe);

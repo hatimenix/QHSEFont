@@ -161,4 +161,7 @@ openSiteModal(site: Site) {
 closeModalsite(){
     this.bsModalService.hide();
 }
+resetSearchQuery() {
+  this.searchQuery = '';
+}
 }
