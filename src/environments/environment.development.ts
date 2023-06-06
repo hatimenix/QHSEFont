@@ -22,7 +22,7 @@ export const environment = {
     API_URL_Utilisateur: 'http://127.0.0.1:8001/utilisateur/',
 
     API_Commande:"http://127.0.0.1:8001/commande/",
-    API_Fiche:"http://127.0.0.1:8001/fiche/",
+    API_Fiche:"http://127.0.0.1:8001/fiche_technique/",
     
     API_Processus : "http://127.0.0.1:8001/processus/",
     API_Sites: "http://127.0.0.1:8001/site/",
@@ -42,7 +42,8 @@ export const environment = {
     API_typepartie:"http://127.0.0.1:8001/typePartie/",
     API_analyseRisque:"http://127.0.0.1:8001/analyseRisque/",
     API_exigences:"http://127.0.0.1:8001/exigences/",
-    API_cotations:"http://127.0.0.1:8001/cotation/"
+    API_cotations:"http://127.0.0.1:8001/cotation/", 
+    API_Details_group:"http://127.0.0.1:8001/group/"
 
 
     

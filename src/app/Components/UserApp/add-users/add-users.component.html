@@ -26,23 +26,29 @@
                                 </div>
                             </div> 
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Mot de passe <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="password" name="password" formControlName="password">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div> 
+                              <div class="form-group">
+                                  <label>Mot de passe <label style="color: red;">*</label></label>
+                                  <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="password" name="password" formControlName="password">
+                                      <div class="input-group-append">
+                                          <button type="button" class="btn btn-primary" (click)="generatePassword()">Générer</button>
+                                      </div>
+                                  </div>
+                                  <div class="help-block with-errors"></div>
+                              </div>
+                          </div>
+                          
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Adresse Email <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="email" name="email" formControlName="email">
+                                    <input type="text" class="form-control" placeholder="Entrer l'adresse email" required id="email" name="email" formControlName="email">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Actif  <label style="color: red;">*</label></label>
-                                    <input type="checkbox"  required id="actif" name="actif" formControlName="actif">
+                                    <input type="checkbox"   id="actif" name="actif" formControlName="actif">
                                     
                                 </div>
                             </div>
