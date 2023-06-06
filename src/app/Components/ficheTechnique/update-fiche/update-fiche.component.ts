@@ -53,7 +53,7 @@ export class UpdateFicheComponent implements OnInit{
           this.ficheForm = this.formBuilder.group({
             nom_fiche: [this.fiche.nom_fiche, Validators.required],
             type_plat: [this.fiche.type_plat, Validators.required],
-            fichier: [this.fiche.fichier, Validators.required]
+            fichier: [this.fiche.fichier]
           });
         },
         (error: any) => {

@@ -14,6 +14,7 @@ export class AuthService {
   private API_Login = environment.API_Login;
   private API_UsersApp = environment.API_UsersApp;
   private API_Details_User = environment.API_Details_User;
+  private API_Details_group= environment.API_Details_group;
   user: UserApp | null = null;
   private accessTokenKey = 'access_token';
   private refreshTokenKey = 'refresh_token';
@@ -81,4 +82,13 @@ export class AuthService {
       }
     });
   }
+  getGroupDetails(groupId: number): Observable<any> {
+    const accessToken = this.getAccessToken();
+    return this.http.get<any>(`${this.API_Details_group}${groupId}/`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+  }
+  
 }
