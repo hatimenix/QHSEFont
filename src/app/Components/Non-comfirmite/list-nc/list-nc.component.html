@@ -12,15 +12,19 @@
 
         </div>
         <div class="row justify-content-start">
-
-        <div class="input-group mb-4 col-md-4">
-          <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
-          <div class="input-group-append">
-            <span class="input-group-text">
-              <i class="fas fa-search"></i>
-            </span>
+          <div class="input-group mb-4 col-md-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-search" style="font-size: 1rem;"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+            <div class="input-group-append">
+              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
           </div>
-        </div>  
         <div class="dropdown">
           <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" data-offset="0,5">
@@ -193,6 +197,7 @@
 
                      </tr>
                  </thead>
+                 <ng-container *ngFor="let utilisateur of utilisateurs">
                  <tbody class="ligth-body">
                   <tr *ngFor="let nc of displayedNcs | filter : searchQuery  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
                       <th scope="row" style="color: grey;">{{nc.id}}</th>
@@ -200,7 +205,8 @@
                       <td>{{nc.nature}}</td>
                       <td>{{ nc.processus_name }}</td>
                       <td>{{ nc.site_name }}</td>
-                      <td>{{ nc.responsable_name }}</td>
+                      <td><a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateur)">{{ utilisateur.nom }}</a>
+                      </td>
                       <td *ngIf="fieldsVisible['domaine']">{{nc.domaine}}</td>
                       <td>{{nc.detail_cause}}</td>
                       <td>{{ nc.date_nc | date }}</td>
@@ -237,6 +243,7 @@
                          </td>
                      </tr>  
                  </tbody>
+                 </ng-container>
              </table>
              </div>
              <div class="pagination-container" style="display: flex; justify-content: flex-end;">
@@ -478,4 +485,26 @@ aria-hidden="true">
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
   </div>
+</ng-template>
+<!-- Utilisateur Modal -->
+<ng-template #utilisateurModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Responsable traitement Informations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalutilisateur()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <p><strong>Compte :</strong> {{ selectedUtilisateur?.compte }}</p>
+    <p><strong>Nom:</strong> {{ selectedUtilisateur?.nom }}</p>
+    <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
+    <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
+    <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
+    <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image" alt="Image"></p>
+    <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
+    <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
+    <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
+  </div>
+  
 </ng-template>

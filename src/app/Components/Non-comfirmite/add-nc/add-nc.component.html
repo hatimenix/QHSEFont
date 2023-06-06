@@ -96,7 +96,7 @@
                             <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Année </label>
-                                    <input [(ngModel)]="ncf.annee" type="text" formControlName="annee" class="form-control" placeholder="annee " data-errors="Please Enter Name." id="annee" >
+                                    <input [(ngModel)]="ncf.annee" type="number" formControlName="annee" class="form-control" placeholder="annee " data-errors="Please Enter Name." id="annee" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['annee'].touched && f['annee'].invalid">
                                         <div *ngIf="f['annee'].errors && f['annee'].errors['minlength']">L'année doit avoir au moins 4 caractères!</div></div>
                                     <div class="help-block with-errors"></div>

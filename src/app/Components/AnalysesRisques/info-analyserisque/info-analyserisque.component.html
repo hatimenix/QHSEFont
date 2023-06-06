@@ -211,7 +211,35 @@
                               <td>{{ actions.domaine }}</td>
                               <td>{{ actions.origine_action }}</td>
                               <td>{{ actions.Site_name }}</td>
-                              <td>{{ actions.etat }}</td>
+                              <td>
+                                <span *ngIf="actions.etat === 'Non commencé'">
+                                  <i class="fas fa-circle-notch text-warning"></i>
+                                  {{ actions.etat }}
+                                </span>
+                                <span *ngIf="actions.etat === 'Terminé'">
+                                  <i class="fas fa-check-circle text-success"></i>
+                                  {{ actions.etat }}
+                                </span>
+                                <div>
+                                  <style>
+                                    .rotating-icon {
+                                      animation: rotate 1.5s infinite linear;
+                                    }                               
+                                    @keyframes rotate {
+                                      0% {
+                                        transform: rotate(0deg);
+                                      }
+                                      100% {
+                                        transform: rotate(360deg);
+                                      }
+                                    }
+                                  </style>                               
+                                  <span *ngIf="actions.etat === 'En cours'">
+                                    <i class="fas fa-spinner text-primary rotating-icon"></i>
+                                    {{ actions.etat }}
+                                  </span>
+                                </div>
+                              </td>                                                           
                               <td>{{ actions.assigne_a }}</td>
                               <td>{{ actions.delai_mise_en_oeuvre }}</td>
                               <td>{{ actions.annee }}</td>
@@ -307,7 +335,7 @@
                     </div>
                    </div>
                    <div class="d-flex align-items">
-                     <div class="col-4">
+                     <div class="col-3">
                     <div class="form-group">
                       <label for="domaine">Domaine :</label>
                       <select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0" required>
@@ -317,7 +345,7 @@
                       </select>
                     </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                     <div class="form-group">
                       <label for="site">Site :</label>
                       <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
@@ -326,7 +354,7 @@
                       </select>
                     </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                     <div class="form-group">
                       <label for="processus">Processus :</label>
                       <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
@@ -335,6 +363,16 @@
                       </select>
                     </div>
                     </div>
+                    <div class="col-3">
+                      <div class="form-group">
+                      <label for="etat">Etat :</label>
+                      <select id="etat" name="etat" formControlName="etat" class="custom-select" data-style="py-0" >
+                      <option value="Non commencé"  selected>Non commencé</option>
+                      <option value="En cours" >En cours</option>
+                      <option value="Terminé" >Terminé</option>
+                      </select>
+                      </div>
+                      </div>
                     </div>
                     <div class="d-flex align-items">
                      <div class="col-6">
@@ -492,6 +530,16 @@
   </select>
   </div>
   </div>
+  <div class="col">
+    <div class="form-group">
+    <label for="etat">Etat :</label>
+    <select id="etat" name="etat" formControlName="etat" class="custom-select" data-style="py-0" >
+    <option value="Non commencé"  selected>Non commencé</option>
+    <option value="En cours" >En cours</option>
+    <option value="Terminé" >Terminé</option>
+    </select>
+    </div>
+    </div>
   </div>
   <div class="row">
   <div class="col">

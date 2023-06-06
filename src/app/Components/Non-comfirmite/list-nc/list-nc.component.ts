@@ -9,6 +9,7 @@ import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Utilsateur } from 'src/app/models/utilsateur';
 
 declare var window: any;
 
@@ -21,6 +22,7 @@ export class ListNcComponent implements OnInit {
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
+  selectedUtilisateur: Utilsateur | undefined;
   updateModalVisible: boolean = true;
   existingFileUrl: string = '';
   isAscending: boolean = true;
@@ -37,6 +39,8 @@ export class ListNcComponent implements OnInit {
     mois:true,
   };
   @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('utilisateurModal', { static: true }) utilisateurModal:any;
+
   
   modalRef!: BsModalRef;
   p = 1; 
@@ -496,5 +500,14 @@ handleReset(): void {
     this.closePopover();
   }
 }
-
+resetSearchQuery() {
+  this.searchQuery = '';
+}
+openUtilisateurModal(utilisateur: Utilsateur) {
+  this.selectedUtilisateur = utilisateur;
+  this.modalRef = this.bsModalService.show(this.utilisateurModal);
+}
+closeModalutilisateur(){
+    this.bsModalService.hide();
+}
 }

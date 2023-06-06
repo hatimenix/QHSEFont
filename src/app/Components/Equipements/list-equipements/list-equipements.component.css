@@ -6,12 +6,6 @@
     width: 110%;
     height: 110%;
   }
-  
-  .btn-primary {
-    background-color: #FF731D;
-    border-color: #FF731D;
-  }
-  
   .btn-danger{
     background-color: #FFB200;
     border-color: #FFB200;
@@ -53,6 +47,10 @@
     background-color: #ffd140;
     border-color: #ffd140;
     color: #fff;  /* ajustez la valeur selon vos préférences */
+  }
+  .btn-secondary {
+    background-color: #089bd7;
+    border-color: #089bd7;
   }
  
   

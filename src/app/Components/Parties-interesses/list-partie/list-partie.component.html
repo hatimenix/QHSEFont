@@ -16,16 +16,36 @@
 
     </div>
     <div class="row justify-content-start">
-
-      <div class="input-group mb-4 col-md-4">        
-        <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
-      <div class="input-group-append">
-        <span class="input-group-text">
-          <i class="fas fa-search"></i>
-        </span>
+      <div class="input-group mb-4 col-md-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-search" style="font-size: 1rem;"></i>
+          </span>
+        </div>
+        <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" (input)="filterOptions()">
+        <div class="input-group-append">
+          <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
-    </div>  
     </div>
+        
+    
+    <ul class="list-inline" *ngIf="filteredOptions.length > 0">
+      <li class="list-inline-item" *ngFor="let option of filteredOptions.slice(0, 3)">
+        <button class="btn" (click)="selectOption(option)">{{ option }}</button>
+      </li>
+      <li class="list-inline-item dropdown" *ngIf="filteredOptions.length > 3">
+        <button class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+        <div class="dropdown-menu">
+          <button class="dropdown-item" *ngFor="let option of filteredOptions.slice(3)" (click)="selectOption(option)">{{ option }}</button>
+        </div>
+      </li>
+    </ul>
+    
 
     <div>
       <div class="col-lg-12">
@@ -43,7 +63,7 @@
                   <th scope="col">Actions</th>
               </tr>
             </thead>
-            <ng-container *ngFor="let typepartie of typeparties">
+            <ng-container *ngFor="let typepartie of typeparties | filter: searchQuery">
                 <tbody class="ligth-body">
                   <td data-column="name">
                     <a href="javascript:void(0);" class="toggle-icon" (click)="typepartie.expanded = !typepartie.expanded">
@@ -57,7 +77,7 @@
 
                     <ng-container *ngFor="let partie of parties| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
                       <tr *ngIf="(parties)?.length === 0">
-                        <td colspan="11">Aucune demande trouvé </td>
+                        <td colspan="11">Aucune partie trouvé </td>
                       </tr>
 
                       <tr  *ngIf="partie.typepartie == typepartie.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
@@ -152,9 +172,24 @@
                       style="width: 100%;" type="text" class=" form-control" id="partieinteresse">
                   </div>
                 <div class="col">
-                  <label for="importance" class="form-label">Importance : </label>
-                  <input name="importance" value="{{importance}}" [(ngModel)]="importance" formControlName="importance"
-                    style="width: 100%;" type="text" class=" form-control" id="importance">
+                  <div class="form-group">
+                    <label>Importance</label>
+                    <input [(ngModel)]="importance" type="number" value="{{importance}}" formControlName="importance" class="form-control" id="importance">                               
+                    <div class="flag-icons">
+                      <div class="flag-label-row">
+                        <span class="flag-label success">0-5 :</span>
+                        <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +importance >= 0 && +importance <= 5}"></i>
+                      </div>
+                      <div class="flag-label-row">
+                        <span class="flag-label warning">5-10 :</span>
+                        <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +importance > 5 && +importance <= 10}"></i>
+                      </div>
+                      <div class="flag-label-row">
+                        <span class="flag-label danger">10 ou plus :</span>
+                        <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +importance > 10}"></i>
+                      </div>
+                    </div>   
+                    </div>
                 </div>
                 <div class="col">
                   <label for="nature" class="form-label">Nature de la partie intéressée : </label>

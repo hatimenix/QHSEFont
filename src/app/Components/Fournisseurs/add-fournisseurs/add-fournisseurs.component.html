@@ -25,7 +25,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>N du siret </label>
-                                    <input [(ngModel)]="fournisseurf.numerodesiret" type="text" formControlName="numerodesiret" class="form-control" data-errors="Please Enter Name." id="numerodesiret" >
+                                    <input [(ngModel)]="fournisseurf.numerodesiret" type="number" formControlName="numerodesiret" class="form-control" data-errors="Please Enter Name." id="numerodesiret" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['numerodesiret'].valid && (f['numerodesiret'].dirty || f['numerodesiret'].touched)">
                                         Numero de siret valide.
                                       </div>                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['numerodesiret'].touched ">
@@ -44,7 +44,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Numero de récépsissé de déclaration préfectorale</label>
-                                    <input [(ngModel)]="fournisseurf.numero_de_recepisse_de_declaration_prefectorale" type="text" formControlName="numero_de_recepisse_de_declaration_prefectorale" class="form-control"  data-errors="Please Enter Name." id="numero_de_recepisse_de_declaration_prefectorale" >
+                                    <input [(ngModel)]="fournisseurf.numero_de_recepisse_de_declaration_prefectorale" type="number" formControlName="numero_de_recepisse_de_declaration_prefectorale" class="form-control"  data-errors="Please Enter Name." id="numero_de_recepisse_de_declaration_prefectorale" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['numero_de_recepisse_de_declaration_prefectorale'].valid && (f['numero_de_recepisse_de_declaration_prefectorale'].dirty || f['numero_de_recepisse_de_declaration_prefectorale'].touched)">
                                         Numero de récépsissé de déclaration préfectorale valide.
                                       </div>
@@ -64,7 +64,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Téléphone</label>
-                                    <input [(ngModel)]="fournisseurf.telephone" type="text" placeholder="+352 " formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
+                                    <input [(ngModel)]="fournisseurf.telephone" type="number" placeholder="+352 " formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['telephone'].valid && (f['telephone'].dirty || f['telephone'].touched)">
                                         Numéro de téléphone valide.
                                       </div>
@@ -78,7 +78,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Numéro de télécopie</label>
-                                    <input [(ngModel)]="fournisseurf.numerodetelecopie" type="text" formControlName="numerodetelecopie" class="form-control"  data-errors="Please Enter Name." id="numerodetelecopie" >
+                                    <input [(ngModel)]="fournisseurf.numerodetelecopie" type="number" formControlName="numerodetelecopie" class="form-control"  data-errors="Please Enter Name." id="numerodetelecopie" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelecopie'].valid && (f['numerodetelecopie'].dirty || f['numerodetelecopie'].touched)">
                                         Numéro de télécopie valide.
                                       </div>
@@ -98,7 +98,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Code postal</label>
-                                    <input [(ngModel)]="fournisseurf.codepostal" type="text" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal">
+                                    <input [(ngModel)]="fournisseurf.codepostal" type="number" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal">
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['codepostal'].valid && (f['codepostal'].dirty || f['codepostal'].touched)">
                                         Code postal valide.
                                       </div>
@@ -385,7 +385,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Numéro de téléphone</label>
-                                    <input [(ngModel)]="fournisseurf.numerodetelephone" placeholder="+352 " type="text" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
+                                    <input [(ngModel)]="fournisseurf.numerodetelephone" placeholder="+352 " type="number" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelephone'].valid && (f['numerodetelephone'].dirty || f['numerodetelephone'].touched)">
                                         Numéro de téléphone valide.
                                       </div>
@@ -397,7 +397,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Téléphone personnel</label>
-                                    <input [(ngModel)]="fournisseurf.telephonepersonnel" placeholder="+352 " type="text" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
+                                    <input [(ngModel)]="fournisseurf.telephonepersonnel" placeholder="+352 " type="number" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['telephonepersonnel'].valid && (f['telephonepersonnel'].dirty || f['telephonepersonnel'].touched)">
                                         Numéro de téléphone valide.
                                       </div>

@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
@@ -13,7 +13,7 @@ declare var window: any;
   templateUrl: './list-registre-traitement.component.html',
   styleUrls: ['./list-registre-traitement.component.css']
 })
-export class ListRegistreTraitementComponent {
+export class ListRegistreTraitementComponent implements OnInit{
   fournisseurs: any[] = [];
   traitements: any[] = [];
   updateModalVisible: boolean = true
@@ -364,6 +364,8 @@ getTraitementData(
         this.closePopover();
       }
     }  
-
+    resetSearchQuery() {
+      this.searchQuery = '';
+    }
 
 }

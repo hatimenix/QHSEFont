@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { QualiteService } from 'src/app/Services/Service-qualite/qualite.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
@@ -9,7 +9,7 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
   templateUrl: './add-qualite.component.html',
   styleUrls: ['./add-qualite.component.css']
 })
-export class AddQualiteComponent {
+export class AddQualiteComponent implements OnInit{
   sites: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;

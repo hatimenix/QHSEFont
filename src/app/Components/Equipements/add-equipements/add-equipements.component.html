@@ -53,6 +53,45 @@
                             </div>
                             <div class="col-md-6">                      
                                 <div class="form-group">
+                                    <label>Codification <span style="color: red;">*</span></label>
+                                    <input [(ngModel)]="equipementf.codification" type="text" formControlName="codification" class="form-control"  data-errors="Please Enter Name." id="codification" required>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].touched && f['codification'].invalid">
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['required']">La codification est requis.</div>
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                 </div>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dob">Date Mise en service <label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="equipementf.date_mise_en_service" formControlName="date_mise_en_service" type="date" class="form-control" id="date_mise_en_service" name="date_mise_en_service" />
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dob">Date dernière modification <label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="equipementf.date_modification" formControlName="date_modification" type="date" class="form-control" id="date_modification" name="date_modification" />
+                                </div>
+                            </div>   
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dob">Prochaine verification <span style="color: red;">*</span></label>
+                                    <input [(ngModel)]="equipementf.prochaine_verification" formControlName="prochaine_verification" type="date" class="form-control" id="prochaine_verification" name="prochaine_verification" />
+                                    <label class="text-blue " for="gravite">- Verifications Internes</label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Thermomètre : verification 1/an</label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Appareil pulsa. saturation : verification 1/an </label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Appareils de pesée : verification 2/an</label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">- Verifications Externes</label>
+                                    <br>
+                                    <label class="text-blue " for="gravite">Tensiomètres : Tous les 2 ans</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                      
+                                <div class="form-group">
                                     <label>Vérification interne/externe</label>
                                     <select [(ngModel)]="equipementf.verification" id="verification" formControlName="verification" class="selectpicker form-control" data-style="py-0">
                                         <option value="">Choisir un type</option>
@@ -64,50 +103,10 @@
                                     <label class="text-blue " for="gravite">Externe : Glucumètres , Tensiomètres , Coagucheck </label>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="dob">Date Mise en service <label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="equipementf.date_mise_en_service" formControlName="date_mise_en_service" type="date" class="form-control" id="date_mise_en_service" name="date_mise_en_service" />
-                                </div>
-                            </div>  
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="dob">Date dernière modification <label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="equipementf.date_modification" formControlName="date_modification" type="date" class="form-control" id="date_modification" name="date_modification" />
-                                </div>
-                            </div>   
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="dob">Prochaine verification <label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="equipementf.prochaine_verification" formControlName="prochaine_verification" type="date" class="form-control" id="prochaine_verification" name="prochaine_verification" />
-                                    <label class="text-blue " for="gravite">Verifications Internes</label>
-                                    <br>
-                                    <label class="text-blue " for="gravite">Thermomètre : verification 1/an</label>
-                                    <br>
-                                    <label class="text-blue " for="gravite">Appareil pulsa. saturation : verification 1/an </label>
-                                    <br>
-                                    <label class="text-blue " for="gravite">Appareils de pesée : verification 2/an</label>
-                                    <br>
-                                    <br>
-                                    <label class="text-blue " for="gravite">Verifications Externes</label>
-                                    <br>
-                                    <label class="text-blue " for="gravite">Tensiomètres : Tous les 2 ans</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">                      
-                                <div class="form-group">
-                                    <label>Codification <label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="equipementf.codification" type="text" formControlName="codification" class="form-control" placeholder="codification" data-errors="Please Enter Name." id="codification" required>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].touched && f['codification'].invalid">
-                                     <div *ngIf="f['codification'].errors && f['codification'].errors['required']">La codification est requis.</div>
-                                     <div *ngIf="f['codification'].errors && f['codification'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                 </div>
-                             </div>
-                            </div>
-                            <div class="col-md-6">                      
+                            <div class="col-md-12">                      
                                 <div class="form-group">
                                     <label>Commentaires </label>
-                                    <input [(ngModel)]="equipementf.commentaires" type="text" formControlName="commentaires" class="form-control" placeholder="commentaires " data-errors="Please Enter Name." id="commentaires" >
+                                    <textarea [(ngModel)]="equipementf.commentaires" type="text" formControlName="commentaires" class="form-control"  data-errors="Please Enter Name." id="commentaires" rows="3" ></textarea>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaires'].touched && f['commentaires'].invalid">
                                         <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['minlength']">doit avoir au moins 3 caractères !</div>
                                     </div>
@@ -117,7 +116,7 @@
                             <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>N série (si thermomètre Genius) </label>
-                                    <input [(ngModel)]="equipementf.N_serie" type="text" formControlName="N_serie" class="form-control" placeholder="N_serie " data-errors="Please Enter Name." id="N_serie" >
+                                    <input [(ngModel)]="equipementf.N_serie" type="number" formControlName="N_serie" class="form-control" placeholder="Entrer un nombre " data-errors="Please Enter Name." id="N_serie" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['N_serie'].touched && f['N_serie'].invalid">
                                         <div *ngIf="f['N_serie'].errors && f['N_serie'].errors['minlength']">doit avoir au moins 3 caractères !</div>
                                     </div>

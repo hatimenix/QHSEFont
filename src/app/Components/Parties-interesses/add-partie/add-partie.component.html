@@ -25,7 +25,7 @@
                                 <label>Processus <label style="color: red;">*</label></label>
                                 <div *ngFor="let processus of processuss">
                                   <label>
-                                    <input type="checkbox" [checked]="partief.processus.includes(processus.id)" (change)="toggleProcessus(processus.id)">
+                                    <input type="checkbox" [checked]="partief.processus.includes(processus.id)" formControlName="processus" (change)="toggleProcessus(processus.id)" required>
                                     {{ processus.intitule }}
                                   </label>
                                 </div>
