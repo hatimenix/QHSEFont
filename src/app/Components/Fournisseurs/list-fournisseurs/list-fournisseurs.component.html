@@ -213,15 +213,22 @@
                   </tbody>
                 </table>
               </div>
-              <div class="pagination-container" style="display: flex; justify-content: flex-end;">
-                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
-                <div class="page-info">
-                  <span class="page-numbers">
-                    <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+              <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                <div>
+                  <span class="entry-info">
+                    {{ getDisplayedRange() }}
                   </span>
                 </div>
-                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
-              </div>
+                <div style="display: flex;justify-content: flex-end;">
+                  <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                  <div class="page-info">
+                    <span class="page-numbers">
+                      <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                    </span>
+                  </div>
+                  <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                </div>
+              </div>           
             </div>
             
 <!-- Modal -->
@@ -272,7 +279,7 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>N du siret </label>
-                        <input [(ngModel)]="numerodesiret" value="{{numerodesiret}}" type="text" formControlName="numerodesiret" class="form-control" data-errors="Please Enter Name." id="numerodesiret" >
+                        <input [(ngModel)]="numerodesiret" value="{{numerodesiret}}" type="number" formControlName="numerodesiret" class="form-control" data-errors="Please Enter Name." id="numerodesiret" >
                      </div>
                  </div>
                  <div class="col-md-3">                      
@@ -284,7 +291,7 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Numero de récépsissé de </label>
-                        <input [(ngModel)]="numero_de_recepisse_de_declaration_prefectorale" value="{{numero_de_recepisse_de_declaration_prefectorale}}" type="text" formControlName="numero_de_recepisse_de_declaration_prefectorale" class="form-control"  data-errors="Please Enter Name." id="numero_de_recepisse_de_declaration_prefectorale" >
+                        <input [(ngModel)]="numero_de_recepisse_de_declaration_prefectorale" value="{{numero_de_recepisse_de_declaration_prefectorale}}" type="number" formControlName="numero_de_recepisse_de_declaration_prefectorale" class="form-control"  data-errors="Please Enter Name." id="numero_de_recepisse_de_declaration_prefectorale" >
                      </div>
                  </div>
                  </div>
@@ -298,13 +305,13 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Téléphone</label>
-                        <input [(ngModel)]="telephone" type="text" value="{{telephone}}" formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
+                        <input [(ngModel)]="telephone" type="number" value="{{telephone}}" formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
                      </div>
                  </div>
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Numéro de télécopie</label>
-                        <input [(ngModel)]="numerodetelecopie" type="text" value="{{numerodetelecopie}}" formControlName="numerodetelecopie" class="form-control"  data-errors="Please Enter Name." id="numerodetelecopie" >
+                        <input [(ngModel)]="numerodetelecopie" type="number" value="{{numerodetelecopie}}" formControlName="numerodetelecopie" class="form-control"  data-errors="Please Enter Name." id="numerodetelecopie" >
                      </div>
                  </div>
                  <div class="col-md-3">                      
@@ -318,7 +325,7 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Code postal</label>
-                        <input [(ngModel)]="codepostal" type="text" value="{{codepostal}}" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal" >
+                        <input [(ngModel)]="codepostal" type="number" value="{{codepostal}}" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal" >
                      </div>
                  </div>
                  <div class="col-md-3">                      
@@ -356,13 +363,13 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Numéro de téléphone</label>
-                        <input [(ngModel)]="numerodetelephone" value="{{numerodetelephone}}" type="text" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
+                        <input [(ngModel)]="numerodetelephone" value="{{numerodetelephone}}" type="number" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
                      </div>
                  </div>
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Téléphone personnel</label>
-                        <input [(ngModel)]="telephonepersonnel" value="{{telephonepersonnel}}" type="text" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
+                        <input [(ngModel)]="telephonepersonnel" value="{{telephonepersonnel}}" type="number" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
                      </div>
                  </div>
                  </div>
