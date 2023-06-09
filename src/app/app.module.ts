@@ -78,6 +78,9 @@ import { InfoPartieComponent } from './Components/Parties-interesses/info-partie
 import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/add-typepartie.component';
 import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
 import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
+import { ListControlComponent } from './Components/Control/list-control/list-control.component';
+import { AddControlComponent } from './Components/Control/add-control/add-control.component';
+import { UpdateControlComponent } from './Components/Control/update-control/update-control.component';
 
 @NgModule({
   declarations: [
@@ -151,7 +154,10 @@ import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-an
     InfoPartieComponent,
     AddTypepartieComponent,
     InfoExigencesComponent,
-    InfoAnalyserisqueComponent
+    InfoAnalyserisqueComponent,
+    ListControlComponent,
+    AddControlComponent,
+    UpdateControlComponent
 
   ],
   imports: [

@@ -76,6 +76,9 @@ import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/
 import { InfoPartieComponent } from './Components/Parties-interesses/info-partie/info-partie.component';
 import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
 import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
+import { ListControlComponent } from './Components/Control/list-control/list-control.component';
+import { AddControlComponent } from './Components/Control/add-control/add-control.component';
+import { UpdateControlComponent } from './Components/Control/update-control/update-control.component';
 
 
 
@@ -159,19 +162,12 @@ const routes: Routes = [
   { path: 'partie/:id', component: InfoPartieComponent ,canActivate: [AuthGuardService]},
   { path: 'exigence/:id', component: InfoExigencesComponent ,canActivate: [AuthGuardService]},
   { path: 'analyserisque/:id', component: InfoAnalyserisqueComponent ,canActivate: [AuthGuardService]},
-
-
-
-
-
-
-
-
-
-
-
-
   
+  //suivie des contrôles réglementaires 
+  {path: 'listcontrol', component: ListControlComponent, canActivate: [AuthGuardService]},
+  {path: 'addcontrol', component: AddControlComponent, canActivate: [AuthGuardService]},
+  {path: 'updatecontrol/:id', component: UpdateControlComponent, canActivate: [AuthGuardService]},  
+
 ];
 
 @NgModule({
