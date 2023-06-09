@@ -1,33 +1,69 @@
-.container-fluid {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
-  
-  .swiper-slide {
-    width: 200px;
-  }
-  .card {
-    max-width: fit-content; 
-    padding: 5px;
-    font-size: 14px;
-    height: 100px;
-    border: none;
-    }
-    .icon {
-      height: 50px; 
-      width: 50px;
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: #91ADC2; 
+        opacity: 1; 
+      }
+      
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 50px; 
+      }
+      
+      .carousel-control-prev {
+        margin-left: -40px; 
+      }
+      
+      .carousel-control-next {
+        margin-right: -40px; 
+      }
+
+      .card {
+        height: 105px;
+      }
+      .carousel-item .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }  
-      .card-red {
-        color:#ED6A5A;
+      .icon-container i {
+        font-size: 3.5rem;
       }
-      .card-orange {
-        color: #F1A208;
+    
+      .card-title {
+        font-size: 16px;
+        font-weight: bold;
       }
+      
       .card-green {
-        color: #06A77D;
+        background-color: #51fb36;
+        color: #fff;
       }
+      
+      .card-red {
+        background-color: #ff647e;
+        color: #fff;
+      }
+      
+      .card-orange {
+        background-color: #ffe28a;
+        color: #000;
+      }
+      
       .card-brown {
-        color: #D5C67A;
+        background-color: #d09840;
+        color: #fff;
       }
+      
+      .card-purple {
+        background-color: #673ab7;
+        color: #fff;
+      }
+      
+      .card-black {
+        background-color: grey;
+        color: #fff;
+      }
+      
+      
+      
       

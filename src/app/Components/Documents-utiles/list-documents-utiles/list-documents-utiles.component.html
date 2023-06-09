@@ -118,15 +118,22 @@
             </tbody>
         </table>
         </div>
-        <div class="pagination-container" style="display: flex; justify-content: flex-end;">
-          <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
-          <div class="page-info">
-            <span class="page-numbers">
-              <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+        <div class="pagination-container" style="display: flex; justify-content: space-between;">
+          <div>
+            <span class="entry-info">
+              {{ getDisplayedRange() }}
             </span>
           </div>
-          <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
-        </div>
+          <div style="display: flex;justify-content: flex-end;">
+            <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+            <div class="page-info">
+              <span class="page-numbers">
+                <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+              </span>
+            </div>
+            <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+          </div>
+        </div>   
         
            
       </div>

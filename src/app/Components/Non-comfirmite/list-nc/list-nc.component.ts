@@ -43,9 +43,9 @@ export class ListNcComponent implements OnInit {
 
   
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPageOptions: number[] = [];
-  itemsPerPage: number= 5; 
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1; 
   get totalPages(): number {
     return Math.ceil(this.filteredNcs.length / this.itemsPerPage);
   }
@@ -91,8 +91,9 @@ export class ListNcComponent implements OnInit {
 
   ncs : Nc[] = []
 
+  selectedNcs: Nc[] = [];
   deleteModal: any;
-  idTodelete: number = 0;
+  selectedNcToDelete: number = 0;
   
   form = new FormGroup({
     intitule: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -345,27 +346,42 @@ navigateToNc() {
 }
 
 openDeleteModal(id: number) {
-  this.idTodelete = id;
+  this.selectedNcToDelete = id;
   this.deleteModal.show();
 }
-
-
-delete() {
-  this.ncservice.delete(this.idTodelete).subscribe({
-    next: (data) => {
-      this.ncs = this.ncs.filter(_ => _.id != this.idTodelete)
-      location.reload()
-      this.deleteModal.hide();
-    },
-    error:(err) => {
-      console.log(err);
-    }
-
-
-    
+delete(ids: number[]) {
+  ids.forEach(id => {
+    this.ncservice.delete(id).subscribe({
+      next: (data) => {
+        this.ncs = this.ncs.filter(nc => nc.id !== id);
+        location.reload()
+        this.deleteModal.hide();
+        },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   });
 }
+deleteItem() {
+  if (this.selectedNcs.length > 0) {
+    const idsToDelete = this.selectedNcs.map(n => n.id);
+    this.delete(idsToDelete);
+  } else if (this.selectedNcToDelete) {
+    const idToDelete = this.selectedNcToDelete;
+    this.delete([idToDelete]);
+  }
+}
 
+  toggleSelection(nc: Nc) {
+    const index = this.selectedNcs.indexOf(nc);
+    if (index > -1) {
+      this.selectedNcs.splice(index, 1); 
+    } else {
+      this.selectedNcs.push(nc);
+    }
+  }
+  
 exportToExcel() {
   const worksheet = XLSX.utils.json_to_sheet(this.filteredNcs.map((nc) => ({
     'ID': nc.id,
@@ -509,5 +525,10 @@ openUtilisateurModal(utilisateur: Utilsateur) {
 }
 closeModalutilisateur(){
     this.bsModalService.hide();
+}
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredNcs.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredNcs.length} entrées`;
 }
 }
