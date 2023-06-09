@@ -37,7 +37,7 @@ export class AddUsersComponent implements OnInit {
       nom_complet: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      actif: [true],
+      actif: [false],
       groupes_roles: this.formBuilder.array([]), 
       send_email: [false],
     });
@@ -67,47 +67,7 @@ export class AddUsersComponent implements OnInit {
   }
   
 
-  // onSubmit() {
-  //   if (this.userForm.invalid) {
-  //     return;
-  //   }
-  //   const selectedGroupes = this.userForm.value.groupes_roles || [];
-  //   const selectedIds = this.getSelectedCheckboxId();
-  
-  //   const newUser: UserApp = {
-  //     ...this.userForm.value,
-  //     groupes_roles: selectedIds,
-    
-  //   };
-  //   // Retrieve the permissions for each selected group
-  //   for (const groupId of selectedIds) {
-  //     const parsedGroupId = parseInt(groupId, 10); // Convert the groupId to a number
-  //     this.groupeUserService.getGroupPermissions(parsedGroupId).subscribe(
-  //       permissions => {
-  //         newUser.permissions = newUser.permissions.concat(permissions); // Add the retrieved permissions to the user object
-  //         if (parsedGroupId === parseInt(selectedIds[selectedIds.length - 1], 10)) {
-  //           // If it's the last group, create the user
-  //           this.userAppService.createUserApp(newUser).subscribe(
-  //             user => {
-  //               console.log('User created successfully:', user);
-  //               console.log("Permissions", permissions)
-  //               this.router.navigate(['/listuserapp']);
-  //               this.userForm.reset();
-  //             },
-  //             error => {
-  //               console.log('An error occurred while creating user:', error);
-  //             }
-  //           );
-  //         }
-  //       },
-  //       error => {
-  //         console.log(`An error occurred while fetching permissions for group ${parsedGroupId}:`, error);
-  //       }
-  //     );
-  //   }
  
-
-  // }
   onSubmit() {
     if (this.userForm.invalid) {
       return;
@@ -125,7 +85,8 @@ export class AddUsersComponent implements OnInit {
       const parsedGroupId = parseInt(groupId, 10); // Convert the groupId to a number
       this.groupeUserService.getGroupPermissions(parsedGroupId).subscribe(
         permissions => {
-          newUser.permissions = newUser.permissions.concat(permissions); // Add the retrieved permissions to the user object
+          newUser.permissions = newUser.permissions.concat(permissions);// Add the retrieved permissions to the user object
+           
   
           if (parsedGroupId === parseInt(selectedIds[selectedIds.length - 1], 10)) {
             // If it's the last group, create the user
@@ -148,6 +109,18 @@ export class AddUsersComponent implements OnInit {
       );
     }
   }
+  // Inside your component class
+generatePassword() {
+  const length = 10; // Change the length as needed
+  const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'; // Change the character set as needed
+  let password = '';
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+  }
+  this.userForm.controls['password'].setValue(password);
+}
+
   
 
 
