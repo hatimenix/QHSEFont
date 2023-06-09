@@ -29,9 +29,9 @@ export class ListRegistreTraitementComponent implements OnInit{
   filterField: string = '';
   fieldSearchQuery: string = '';
   showPopover: boolean = false;
-  p = 1; 
-  itemsPerPageOptions: number[] = [];
-  itemsPerPage: number= 5; 
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
   get totalPages(): number {
     return Math.ceil(this.filteredTraitements.length / this.itemsPerPage);
   }
@@ -41,8 +41,9 @@ export class ListRegistreTraitementComponent implements OnInit{
     const endIndex = startIndex + this.itemsPerPage;
     return this.filteredTraitements.slice(startIndex, endIndex);
   }
+  selectedTraitements: Traitement[] = [];
   deleteModal: any;
-  idTodelete: number = 0;
+  selectedTraitementToDelete: number = 0;
     id: any
     fournisseur: any
     typeregistre:any
@@ -160,7 +161,7 @@ export class ListRegistreTraitementComponent implements OnInit{
     this.filteredTraitements = this.originalTraitements;
   }
   openDeleteModal(id: number) {
-    this.idTodelete = id;
+    this.selectedTraitementToDelete = id;
     this.deleteModal.show();
   }
   filterByDateCreation(): void {
@@ -290,21 +291,38 @@ getTraitementData(
       this.fournisseur_representant=fournisseur_representant
 
     }
-    delete() {
-      this.traitementservice.delete(this.idTodelete).subscribe({
-        next: (data) => {
-          this.traitements = this.traitements.filter(_ => _.id != this.idTodelete)
-          location.reload()
-          this.deleteModal.hide();
-        },
-        error:(err) => {
-          console.log(err);
-        }
-    
-    
-        
+    delete(ids: number[]) {
+      ids.forEach(id => {
+        this.traitementservice.delete(id).subscribe({
+          next: (data) => {
+            this.traitements = this.traitements.filter(traitement => traitement.id !== id);
+            location.reload()
+            this.deleteModal.hide();
+            },
+          error: (err) => {
+            console.log(err);
+          }
+        });
       });
     }
+    deleteItem() {
+      if (this.selectedTraitements.length > 0) {
+        const idsToDelete = this.selectedTraitements.map(t => t.id);
+        this.delete(idsToDelete);
+      } else if (this.selectedTraitementToDelete) {
+        const idToDelete = this.selectedTraitementToDelete;
+        this.delete([idToDelete]);
+      }
+    }
+    
+      toggleSelection(traitement: Traitement) {
+        const index = this.selectedTraitements.indexOf(traitement);
+        if (index > -1) {
+          this.selectedTraitements.splice(index, 1); 
+        } else {
+          this.selectedTraitements.push(traitement);
+        }
+      }
     openModal() {
       this.modalRef = this.bsModalService.show(this.successModal);
     }
@@ -366,6 +384,11 @@ getTraitementData(
     }  
     resetSearchQuery() {
       this.searchQuery = '';
+    }
+    getDisplayedRange(): string {
+      const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+      const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredTraitements.length);
+      return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredTraitements.length} entrées`;
     }
 
 }

@@ -25,9 +25,9 @@ export class ListDocumentsUtilesComponent  {
     modified_date:true,
     typologie:true,
   };
-  p = 1; 
-  itemsPerPageOptions: number[] = [];
-  itemsPerPage: number= 5; 
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
   get totalPages(): number {
     return Math.ceil(this.documentsutiles.length / this.itemsPerPage);
   }
@@ -226,5 +226,10 @@ deleteItem() {
   }
   resetSearchQuery() {
     this.searchQuery = '';
+  }
+  getDisplayedRange(): string {
+    const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(this.p * this.itemsPerPage, this.documentsutiles.length);
+    return `Affichage de ${startIndex} à ${endIndex} de ${this.documentsutiles.length} entrées`;
   }
 }
