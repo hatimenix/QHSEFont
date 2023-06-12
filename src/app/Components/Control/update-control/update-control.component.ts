@@ -17,6 +17,7 @@ export class UpdateControlComponent {
   control!: Control;
   id!: number;
   site$ !: Observable<any>;
+  controlsPrecedents: any[] = [];
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -74,10 +75,12 @@ export class UpdateControlComponent {
         date_dernier_control: [''],
         date_control_suivant: [''],
         action_ouverte: [''],
+        rapport:['']
         
       });
     }
   }
+
   
   onSubmit() {
     console.log(this.ControlForm.value);
@@ -89,6 +92,7 @@ export class UpdateControlComponent {
     formData.append('date_dernier_control', this.ControlForm.get('date_dernier_control')?.value);
     formData.append('date_control_suivant', this.ControlForm.get('date_control_suivant')?.value);
     formData.append('action_ouverte', this.ControlForm.get('action_ouverte')?.value);
+    formData.append('rapport', this.ControlForm.get('rapport')?.value)
 
     this.controlService.updateControlFormdata(formData).subscribe(
       (data: any) => {
@@ -107,6 +111,10 @@ export class UpdateControlComponent {
   closeModal() {
     this.bsModalService.hide();
 }
-  
+onFileSelected(event: any, field: string) {
+  const file: File = event.target.files[0];
+  this.ControlForm.get(field)?.setValue(file);
+}
+
 
 }

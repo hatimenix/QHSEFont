@@ -14,11 +14,14 @@ import { Site } from 'src/app/models/site';
 })
 export class ListMenusComponent implements OnInit{
   menus!: Menus[];
+  searchQuery: string = '';
   //filtrage
   selectedSiteId: number | undefined;
-  site!: Site[];
+  site: any[] = [];
   site$!: Observable<any>;
+  selectedSite: Site | undefined;
   myForm: any;
+ 
   filteredMenus: Menus[] = [];
   MoisSelectionne!: string;
   //delete modal
@@ -26,36 +29,51 @@ export class ListMenusComponent implements OnInit{
   modalRef!: BsModalRef;
   menuIdToDelete: number = 0;
   filename: string = '';
+  @ViewChild('siteModal', { static: true }) siteModal:any;
+
 
   constructor(private menuService: MenusService, public modalService: BsModalService,
-    private siteService: ApiSiteService,) { }
+    private siteService: ApiSiteService, ) { }
 
+  // ngOnInit(): void {
+  //   this.myForm = new FormGroup({
+  //     site: new FormControl(),
+  //     mois_concerne:new FormControl()
+  //   });
+  //   this.getMenus();
+  //   this.site$ = this.siteService.getAllSite();
+  //   console.log("la liste des Menus:", this.menus);
+
+  //   const isFirstVisit = history.state.isFirstVisit;
+
+  //   if (!isFirstVisit) {
+  //     history.replaceState({ isFirstVisit: true }, '');
+  //     location.reload();
+  //   }
+  //   window.scrollTo(0, 0);
+  // }
   ngOnInit(): void {
     this.myForm = new FormGroup({
       site: new FormControl(),
       mois_concerne:new FormControl()
     });
+    this.siteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.site = data;
+        console.log(this.site); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );  
     this.getMenus();
-    this.site$ = this.siteService.getAllSite();
-
-    const isFirstVisit = history.state.isFirstVisit;
-
-    if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
-      history.replaceState({ isFirstVisit: true }, '');
-
-      // rafraîchir la page
-      location.reload();
-    }
-
-    // aller en haut de la page
-    window.scrollTo(0, 0);
+    
+   
   }
 
   getMenus(): void {
     this.menuService.getAllMenus().subscribe((menus) => {
       this.menus = menus;
-      
     });
   }
 
@@ -142,6 +160,16 @@ getFileNameFromPath(filePath: string | File | undefined): string {
   
   return filePath.name || 'Aucun fichier joint';
 }
-
+//site modal 
+openSiteModal(site: Site) {
+  this.selectedSite = site;
+  this.modalRef = this.modalService.show(this.siteModal);
+}
+closeModalsite(){
+  this.modalService.hide();
+}
+resetSearchQuery() {
+  this.searchQuery = '';
+}
 
 }

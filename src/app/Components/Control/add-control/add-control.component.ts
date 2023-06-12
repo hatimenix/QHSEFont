@@ -30,27 +30,18 @@ export class AddControlComponent {
       date_dernier_control: [''],
       date_control_suivant: [''],
       action_ouverte: [''],
-      
-     
+      rapport:['']
     });
   }
-
   ngOnInit(): void {
     const isFirstVisit = history.state.isFirstVisit;
     if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
       history.replaceState({ isFirstVisit: true }, '');
-      // rafraîchir la page
       location.reload();
     }
-    // aller en haut de la page
     window.scrollTo(0, 0);
     this.site$ = this.siteService.getAllSite();
   }
-  
-
- 
-
   onSubmit() {
     if (this.ControlForm.valid) {
       const formData = new FormData();
@@ -60,7 +51,7 @@ export class AddControlComponent {
       formData.append('date_dernier_control', this.ControlForm.get('date_dernier_control')?.value);
       formData.append('date_control_suivant', this.ControlForm.get('date_control_suivant')?.value);
       formData.append('action_ouverte', this.ControlForm.get('action_ouverte')?.value);
-      
+      formData.append('rapport', this.ControlForm.get('rapport')?.value);
       this.controlService.addControlFormData(formData).subscribe(
         (response) => {
           console.log('control ajoutée', response);
@@ -78,6 +69,10 @@ export class AddControlComponent {
   }
   closeModal() {
     this.bsModalService.hide();
+}
+onFileSelected(event: any, field: string) {
+  const file: File = event.target.files[0];
+  this.ControlForm.get(field)?.setValue(file);
 }
 
 }

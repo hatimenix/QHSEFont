@@ -55,8 +55,6 @@
                       <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
                     </td>
                     <ng-container *ngIf="site.expanded ">
-                            
-  
                       <ng-container *ngFor="let sante of santes| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
                         <tr *ngIf="(santes)?.length === 0">
                           <td colspan="11">Aucune demande trouvé </td>
