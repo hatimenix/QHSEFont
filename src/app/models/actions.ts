@@ -25,9 +25,7 @@ export class Actions {
     qualite !: number[];
     nc !: number[];
     analyserisque !: number[];
-
-
-
+    tache !:number[];
 
     constructor(
         intitule: string,
@@ -52,7 +50,8 @@ export class Actions {
         evenement: number[],
         qualite: number[],
         nc: number[],
-        analyserisque: number[]
+        analyserisque: number[],
+        tache:number[]
 
 
       ) {
@@ -79,6 +78,8 @@ export class Actions {
         this.qualite = qualite;
         this.nc = nc;
         this.analyserisque = analyserisque;
+        this.tache = tache;
+
 
 
 

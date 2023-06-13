@@ -6,96 +6,26 @@
            <div class="card">
               <div class="card-header d-flex justify-content-between" style="background-color:#17469d; color:white;">
                  <div class="header-title">
-                    <h4 class="card-title">Suivi des non-conformités</h4>
+                    <h4 class="card-title">Suivi des tâches</h4>
                  </div>
               </div>
               <div class="card-body">
                  <div class="iq-example-row">
                     <div class="container-fluid">
         <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
-            <li class="nav-item">
-               <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description du problème</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">Analyse</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">Actions</a>
+          <li class="nav-item col-12 col-md-12">
+            <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description de la tâche</a>
             </li>
          </ul>
          <div class="tab-content" id="pills-tabContent">
            <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
              <div class="table-responsive">
                <table class="table">
-                 <tr class="table-default">
-                   <td class="col-sm-4">Site:</td>
-                   <td class="col-sm-4">{{ nc.site_name }}</td>
-                 </tr>
-                 <tr class="table-info">
-                    <td>Nature:</td>
-                    <td>{{ nc.nature }}</td>
-                  </tr>
-                 <tr class="table-default">
-                    <td>Domaine:</td>
-                    <td>{{ nc.domaine }}</td>
-                  </tr>
-                <tr class="table-info">
-                    <td>Processus:</td>
-                    <td>{{ nc.processus_name }}</td>
-                  </tr>
-                  <tr class="table-default" >
-                <td>Intitulé de la non-conformité:</td>
-                <td>{{ nc.intitule }}</td>
-            </tr>
-                <tr class="table-info">
-                    <td>Date NC:</td>
-                    <td>{{ nc.date_nc }}</td>
-                  </tr>
                 <tr class="table-default">
-                    <td>Date de prise en compte:</td>
-                    <td>{{ nc.date_prise_en_compte }}</td>
-                  </tr>
-                  <tr class="table-info">
-                    <td>Description détailée:</td>
-                    <td>{{ nc.description_detailee }}</td>
-                  </tr>
-                  <tr class="table-default">
-                    <td>Resp traitement:</td>
-                    <td>{{ nc.responsable_name }}</td>
-                  </tr>
-               </table>
-             </div>
-           </div>
-           <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
-             <div class="table-responsive">
-               <table class="table">
-                 <tr class="table-default">
-                   <td>Causes type:</td>
-                   <td>{{ nc.type_cause }}</td>
-                 </tr>
-                 <tr class="table-info">
-                   <td>Détail cause:</td>
-                   <td>{{ nc.detail_cause }}</td>
-                 </tr>
-                 <tr class="table-default">
-                   <td>Coûts :</td>
-                   <td>{{ nc.cout }}</td>
-                 </tr>
-               </table>
-             </div>
-           </div>
-           <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
-            <div class="table-responsive">
-              <table class="table">
-                <tr class="table-default">
-                    <td>Fréquence :</td>
-                    <td>{{ nc.frequence ? 'Oui' : 'Non' }}</td>
-                  </tr>
-                  <tr class="table-info">
-                    <td>Gravité:</td>
-                    <td>{{ nc.gravite ? 'Oui' : 'Non' }}</td>
-                  </tr>
-                  <tbody>
+                    <td class="col-sm-1">Source :</td>
+                    <td class="col-sm-1">{{ tache.source_name }}</td>
+                   </tr>
+                   <tbody>
                     <tr>
                       <td style="width:20%">Action(s) associée(s) <a class="badge mr-2" style="background-color: #eac74b; color:white;" data-toggle="modal" data-target=".bd-action-modal-lg" data-placement="top" title=""
                          href=""><i class="ri-add-line"></i></a></td>
@@ -192,39 +122,105 @@
                       </td>
                     </tr>
                   </tbody>
-                  <tr class="table-default">
-                    <td>Action immediate :</td>
-                    <td>{{ nc.action_immediate ? 'Oui' : 'Non' }}</td>
+                 <tr class="table-info">
+                  <td class="col-sm-1">Nom de la tâche :</td>
+                  <td class="col-sm-1">{{ tache.nom_tache }}</td>
+                 </tr>
+                 <tr class="table-default">
+                    <td>Date de début :</td>
+                    <td>{{ tache.date_debut }}</td>
                   </tr>
                   <tr class="table-info">
-                    <td>Progression :</td>
-                    <td><div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
-                        {{ nc.progress }}%
-                      </div>
-                    </div></td>
+                    <td>Echéance :</td>
+                    <td>{{ tache.echeance }}</td>
                   </tr>
                   <tr class="table-default">
-                    <td>Nc cloture :</td>
-                    <td>{{ nc.nc_cloture ? 'Oui' : 'Non' }}</td>
+                    <td>Description :</td>
+                    <td>{{ tache.description }}</td>
                   </tr>
-                
-              </table>
+                  <tr class="table-info">
+                    <td>Priorité:</td>
+                    <td>
+                        {{ tache.priorite }}
+                        
+                        <ng-container *ngIf="tache.priorite === 'Basse'">
+                          <i class="flag-icon fas fa-flag text-success"> (3)</i>
+                        </ng-container>
+                        <ng-container *ngIf="tache.priorite === 'Normal'">
+                          <i class="flag-icon fas fa-flag text-warning"> (2)</i>
+                        </ng-container>
+                        <ng-container *ngIf="tache.priorite === 'Haute'">
+                          <i class="flag-icon fas fa-flag text-danger"> (1)</i>
+                        </ng-container>
+                      </td>                   
+                    </tr>
+                  <tr class="table-default">
+                    <td>Assigné à :</td>
+                    <td>{{tache.utilisateur_name}}</td>
+                </tr>
+                  <tr class="table-info">
+                    <td>Date de réalisation :</td>
+                    <td>{{tache.date_realisation }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Etat :</td>
+                    <td>
+                        <span *ngIf="tache.etat === 'Non commencé'">
+                          <i class="fas fa-circle-notch text-warning"></i>
+                          {{ tache.etat }}
+                        </span>
+                        <span *ngIf="tache.etat === 'Terminé'">
+                          <i class="fas fa-check-circle text-success"></i>
+                          {{ tache.etat }}
+                        </span>
+                        <div>
+                          <style>
+                            .rotating-icon {
+                              animation: rotate 1.5s infinite linear;
+                            }                               
+                            @keyframes rotate {
+                              0% {
+                                transform: rotate(0deg);
+                              }
+                              100% {
+                                transform: rotate(360deg);
+                              }
+                            }
+                          </style>                               
+                          <span *ngIf="tache.etat === 'En cours'">
+                            <i class="fas fa-spinner text-primary rotating-icon"></i>
+                            {{ tache.etat }}
+                          </span>
+                        </div>
+                      </td>                   
+                    </tr>
+                  <tr class="table-info">
+                    <td>Commentaires:</td>
+                    <td>{{tache.commentaire }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Pièce jointe:</td>
+                    <td><button class="btn  fa fa-download mr-3"   (click)="download(tache.piece_jointe)">  {{ tache.piece_jointe ? tache.piece_jointe.split('/').pop() : 'Aucun fichier joint' }}
+
+                    </button></td>                  
+                </tr>
+                  </table>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row mt-1 mb-2 justify-content-end">
+                    <a routerLink="/tache-list" class="btn add-list">
+                      <i class="fas fa-arrow-left"></i> Retourner vers la liste des tâches
+                    </a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="row mt-1 mb-2 justify-content-end">
-            <a routerLink="/nc-list" class="btn add-list">
-              <i class="fas fa-arrow-left"></i> Retourner vers la liste des non-conformités
-            </a>
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-         </div>
+        </div>
       </div>
     </div>
+                  
+  </div>
 </div>
 <!-- Page end -->
 <div class="modal fade bd-action-modal-lg" [class.show]="addModalVisible"  tabindex="-1" role="dialog"  aria-hidden="true">
