@@ -83,8 +83,11 @@
                  <th>Action</th>
                </tr>
              </thead>
+              <!-- expanded-->
             <ng-container *ngFor="let site of site">
+               <!-- expanded-->
                <tbody class="ligth-body">
+                <!-- expanded-->
                  <td data-column="name">
                    <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
                      <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
@@ -92,6 +95,7 @@
                    </a>
                    <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
                  </td>
+                 <!--expanded-->
                  <ng-container *ngIf="site.expanded">
                    <ng-container *ngFor ="let menu of menus | filter: searchQuery">
                      <tr *ngIf="(menus)?.length === 0">

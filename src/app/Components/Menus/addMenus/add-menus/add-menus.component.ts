@@ -13,6 +13,7 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
 })
 export class AddMenusComponent implements OnInit {
   MenuForm!: FormGroup;
+  //site from backend
   site$ !: Observable<any>;
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;

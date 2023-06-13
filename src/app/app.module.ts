@@ -81,6 +81,9 @@ import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-an
 import { ListControlComponent } from './Components/Control/list-control/list-control.component';
 import { AddControlComponent } from './Components/Control/add-control/add-control.component';
 import { UpdateControlComponent } from './Components/Control/update-control/update-control.component';
+import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
+import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
+import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
 
 @NgModule({
   declarations: [
@@ -157,7 +160,10 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
     InfoAnalyserisqueComponent,
     ListControlComponent,
     AddControlComponent,
-    UpdateControlComponent
+    UpdateControlComponent,
+    AddPjComponent,
+    ListPjComponent,
+    UpdatePjComponent
 
   ],
   imports: [
