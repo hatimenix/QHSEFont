@@ -44,7 +44,8 @@ export const environment = {
     API_exigences:"http://127.0.0.1:8001/exigences/",
     API_cotations:"http://127.0.0.1:8001/cotation/", 
     API_Details_group:"http://127.0.0.1:8001/groups/", 
-    API_Control: "http://127.0.0.1:8001/control/"
+    API_Control: "http:cd//127.0.0.1:8001/control/",
+    API_PJ :"http://127.0.0.1:8001/pj/"
 
 
     
