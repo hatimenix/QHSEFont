@@ -169,7 +169,11 @@ const routes: Routes = [
   { path: 'partie/:id', component: InfoPartieComponent ,canActivate: [AuthGuardService]},
   { path: 'exigence/:id', component: InfoExigencesComponent ,canActivate: [AuthGuardService]},
   { path: 'analyserisque/:id', component: InfoAnalyserisqueComponent ,canActivate: [AuthGuardService]},
-  
+  {path : 'tache-list', component: ListTachesComponent,canActivate: [AuthGuardService]},
+  {path : 'add-tache', component: AddTachesComponent,canActivate: [AuthGuardService]},
+  {path : 'add-sources', component: AddSourceComponent, canActivate: [AuthGuardService]},
+  { path: 'tache/:id', component: InfoTachesComponent ,canActivate: [AuthGuardService]},
+
   //suivie des contrôles réglementaires 
   {path: 'listcontrol', component: ListControlComponent, canActivate: [AuthGuardService]},
   {path: 'addcontrol', component: AddControlComponent, canActivate: [AuthGuardService]},
