@@ -15,52 +15,40 @@ export class NavbarComponent {
 
   @Input() showNavbar: boolean | undefined;
   user: UserApp  |null = null
+  group : GroupeUser | null=null
+  id!:any
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.getUserDetails();
+    this.getGroupDetails();
     
   }
 
-  getUserDetails(): void {
-    this.authService.getUserDetails().subscribe(
-      (response: UserApp) => {
-        this.user = response;
-        console.log('User details:', this.user);
-  
-        // Check if the user has a group assigned
-        if (this.user?.groupes_roles?.length) {
-          const groupeUser: GroupeUser = this.user.groupes_roles[0]; // Assuming only one group is assigned to the user
-          const groupId: number = groupeUser.id; // Extract the 'id' property as a number
-  
-          // Check if groupId is defined before making the API request
-          if (groupId !== undefined) {
-            this.authService.getGroupDetails(groupId).subscribe(
-              (groupDetails: any) => {
-                const autorisation = groupDetails.autorisation;
-                console.log('Group autorisation:', autorisation);
-                // Do whatever you need to do with the "autorisation" field here
-              },
-              (error: any) => {
-                console.error('Error retrieving group details:', error);
-              }
-            );
-          }
-        }
-      },
-      (error: any) => {
-        console.error(error);
-      }
-    );
-  }
-  
-  
-  
-  
-  
-  
-  
+ getUserDetails(): void {
+  this.authService.getUserDetails().subscribe(
+    (response: UserApp) => {
+      this.user = response;
+      console.log('User details:', this.user);
+    },
+    (error: any) => {
+      console.error(error);
+    }
+  );
+}
+getGroupDetails(): void {
+  this.authService.getGroupDetails().subscribe(
+    (response: GroupeUser ) => {
+      this.group = response;
+      console.log('Group details:', this.group);
+    },
+    (error: any) => {
+      console.error( error);
+    }
+  );
+}
+
   
   
   
@@ -70,5 +58,8 @@ export class NavbarComponent {
     this.user = null;
     this.router.navigate(['/']);
   }
+ 
+
+  
   
 }

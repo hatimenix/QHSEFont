@@ -80,6 +80,12 @@ import { ListTachesComponent } from './Components/Taches/list-taches/list-taches
 import { AddTachesComponent } from './Components/Taches/add-taches/add-taches.component';
 import { AddSourceComponent } from './Components/Source/add-source/add-source.component';
 import { InfoTachesComponent } from './Components/Taches/info-taches/info-taches.component';
+import { ListControlComponent } from './Components/Control/list-control/list-control.component';
+import { AddControlComponent } from './Components/Control/add-control/add-control.component';
+import { UpdateControlComponent } from './Components/Control/update-control/update-control.component';
+import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
+import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
+import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
 
 
 
@@ -163,29 +169,16 @@ const routes: Routes = [
   { path: 'partie/:id', component: InfoPartieComponent ,canActivate: [AuthGuardService]},
   { path: 'exigence/:id', component: InfoExigencesComponent ,canActivate: [AuthGuardService]},
   { path: 'analyserisque/:id', component: InfoAnalyserisqueComponent ,canActivate: [AuthGuardService]},
-  {path : 'tache-list', component: ListTachesComponent,canActivate: [AuthGuardService]},
-  {path : 'add-tache', component: AddTachesComponent,canActivate: [AuthGuardService]},
-  {path : 'add-sources', component: AddSourceComponent, canActivate: [AuthGuardService]},
-  { path: 'tache/:id', component: InfoTachesComponent ,canActivate: [AuthGuardService]},
-
-
-
-
   
-  
+  //suivie des contrôles réglementaires 
+  {path: 'listcontrol', component: ListControlComponent, canActivate: [AuthGuardService]},
+  {path: 'addcontrol', component: AddControlComponent, canActivate: [AuthGuardService]},
+  {path: 'updatecontrol/:id', component: UpdateControlComponent, canActivate: [AuthGuardService]},  
+  //récents
+  {path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService]},
+  {path: 'addPj', component: AddPjComponent, canActivate: [AuthGuardService]},
+  {path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService]},
 
-
-
-
-
-
-
-
-
-
-
-
-  
 ];
 
 @NgModule({

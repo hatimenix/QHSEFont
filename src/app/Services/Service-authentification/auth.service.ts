@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { UserApp } from 'src/app/models/UserApp';
 import { environment } from 'src/environments/environment.development';
 
@@ -82,13 +82,22 @@ export class AuthService {
       }
     });
   }
-  getGroupDetails(groupId: number): Observable<any> {
+  getGroupDetails(): Observable<any> {
     const accessToken = this.getAccessToken();
-    return this.http.get<any>(`${this.API_Details_group}${groupId}/`, {
+    const url = `${this.API_Details_group}`;
+  
+    return this.http.get<any>(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     });
   }
+  
+  
+  
+  
+
+  
+  
   
 }

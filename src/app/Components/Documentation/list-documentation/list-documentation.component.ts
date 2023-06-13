@@ -18,6 +18,7 @@ import { Site } from 'src/app/models/site';
   styleUrls: ['./list-documentation.component.css']
 })
 export class ListDocumentationComponent implements OnInit {
+  searchQuery: string = '';
   document: Documentation[] = [];
   myForm: any;
   filteredDocuments: Documentation[] = [];
@@ -31,7 +32,8 @@ export class ListDocumentationComponent implements OnInit {
   selectedSecteurId: number | undefined;
   secteur!: Secteur[];
   selectedProcessusId: number | undefined;
-  processus!: Processus[];
+  processus  : any[] = [];
+
 //filtrage par type de document
   typeDocSelectionne!: string;
 
@@ -48,6 +50,16 @@ constructor(
   ) {}
 
   ngOnInit(): void {
+    this.processusService.getProcessus().subscribe(
+      (data: any[]) => {
+        this.processus = data;
+        console.log(this.processus); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
+
     this.loaddocument();
     this.site$ = this.siteService.getAllSite();
     this.secteur$ = this.secteurService.getSecteur();
@@ -262,5 +274,7 @@ getFileNameFromPath(filePath: string | File | undefined): string {
   
   return filePath.name || 'Aucun fichier joint';
 }
-
+resetSearchQuery() {
+  this.searchQuery = '';
+}
 }

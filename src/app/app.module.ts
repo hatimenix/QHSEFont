@@ -78,10 +78,12 @@ import { InfoPartieComponent } from './Components/Parties-interesses/info-partie
 import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/add-typepartie.component';
 import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
 import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
-import { ListTachesComponent } from './Components/Taches/list-taches/list-taches.component';
-import { AddTachesComponent } from './Components/Taches/add-taches/add-taches.component';
-import { AddSourceComponent } from './Components/Source/add-source/add-source.component';
-import { InfoTachesComponent } from './Components/Taches/info-taches/info-taches.component';
+import { ListControlComponent } from './Components/Control/list-control/list-control.component';
+import { AddControlComponent } from './Components/Control/add-control/add-control.component';
+import { UpdateControlComponent } from './Components/Control/update-control/update-control.component';
+import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
+import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
+import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
 
 @NgModule({
   declarations: [
@@ -156,10 +158,12 @@ import { InfoTachesComponent } from './Components/Taches/info-taches/info-taches
     AddTypepartieComponent,
     InfoExigencesComponent,
     InfoAnalyserisqueComponent,
-    ListTachesComponent,
-    AddTachesComponent,
-    AddSourceComponent,
-    InfoTachesComponent
+    ListControlComponent,
+    AddControlComponent,
+    UpdateControlComponent,
+    AddPjComponent,
+    ListPjComponent,
+    UpdatePjComponent
 
   ],
   imports: [
