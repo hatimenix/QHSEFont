@@ -78,6 +78,10 @@ import { InfoPartieComponent } from './Components/Parties-interesses/info-partie
 import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/add-typepartie.component';
 import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
 import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
+import { ListTachesComponent } from './Components/Taches/list-taches/list-taches.component';
+import { AddTachesComponent } from './Components/Taches/add-taches/add-taches.component';
+import { AddSourceComponent } from './Components/Source/add-source/add-source.component';
+import { InfoTachesComponent } from './Components/Taches/info-taches/info-taches.component';
 
 @NgModule({
   declarations: [
@@ -151,7 +155,11 @@ import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-an
     InfoPartieComponent,
     AddTypepartieComponent,
     InfoExigencesComponent,
-    InfoAnalyserisqueComponent
+    InfoAnalyserisqueComponent,
+    ListTachesComponent,
+    AddTachesComponent,
+    AddSourceComponent,
+    InfoTachesComponent
 
   ],
   imports: [

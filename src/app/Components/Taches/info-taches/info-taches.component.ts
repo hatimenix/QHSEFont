@@ -10,25 +10,24 @@ import { ApiRealisationService } from 'src/app/Services/Service-document-unique/
 import { Realisations } from 'src/app/models/realisations';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
-import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
-import { Nc } from 'src/app/models/nc';
+import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
+import { Taches } from 'src/app/models/taches';
 
 declare var window:any;
 
 @Component({
-  selector: 'app-info-nc',
-  templateUrl: './info-nc.component.html',
-  styleUrls: ['./info-nc.component.css']
+  selector: 'app-info-taches',
+  templateUrl: './info-taches.component.html',
+  styleUrls: ['./info-taches.component.css']
 })
-export class InfoNcComponent implements OnInit {
+export class InfoTachesComponent {
   updateModalVisible: boolean = true;
   addModalVisible: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any; 
   @ViewChild('addModal', { static: true }) addModal:any;
   modalRef!: BsModalRef;
-  ncId !: number;
-  currentNc: any;
-  ncForm!: FormGroup;
+  tacheId !: number;
+  tacheForm!: FormGroup;
   actionForm!: FormGroup;
   sites$ !: Observable<any>;
   processus$ !: Observable<any>;
@@ -38,14 +37,13 @@ export class InfoNcComponent implements OnInit {
   deletModal : any;
   idToDelete: number = 0;
   showModal = false;
-  nc!: Nc;
+  tache!: Taches;
   idAction !: number;
   action !: Actions;
-  piece_jointe:any
-
+  piece_jointe:any;
   constructor(
     private route: ActivatedRoute,
-    private ncservice : ServicesNonConfirmitéService,
+    private tacheservice:ApiTachesService,
     private formBuilder: FormBuilder,
     private apiProcessusService: ApiProcessusService,
     private apiRealisationService: ApiRealisationService,
@@ -53,7 +51,6 @@ export class InfoNcComponent implements OnInit {
     private apiSiteService: ApiSiteService,
     private apiActionsService: ApiActionsService
   ) {}
-
   ngOnInit() {
     this.actionForm = this.formBuilder.group({ 
       intitule : ['', Validators.required],
@@ -74,33 +71,23 @@ export class InfoNcComponent implements OnInit {
       piece_jointe : ['']
     });
     
-    this.ncId = +this.route.snapshot.params['id'];
-
-    this.ncservice.get(this.ncId).subscribe(
-      (data: Nc) => {
-        this.nc = data;
-        this.ncForm.patchValue({
-          intitule: this.nc.intitule,
-          nature: this.nc.nature,
-          domaine: this.nc.domaine,
-          date_nc: this.nc.date_nc,
-          processus_name: this.nc.processus_name,
-          site_name: this.nc.site_name,
-          date_prise_en_compte: this.nc.date_prise_en_compte,
-          annee: this.nc.annee,
-          mois: this.nc.mois,
-          detail_cause: this.nc.detail_cause,
-          delai_prevu: this.nc.delai_prevu,
-          type_cause: this.nc.type_cause,
-          cout: this.nc.cout,
-          progress: this.nc.progress,
-          info_complementaires: this.nc.info_complementaires,
-          piece_jointe: this.nc.piece_jointe,
-          frequence: this.nc.frequence,
-          gravite: this.nc.gravite,
-          action_immediate: this.nc.action_immediate,
-          nc_cloture: this.nc.nc_cloture,
-          responsable_name: this.nc.responsable_name
+    this.tacheId = +this.route.snapshot.params['id'];
+    this.tacheservice.get(this.tacheId).subscribe(
+      (data: Taches) => {
+        this.tache = data;
+        this.tacheForm.patchValue({
+          nom_tache: this.tache.nom_tache,
+          date_debut: this.tache.date_debut,
+          echeance: this.tache.echeance,
+          description: this.tache.description,
+          priorite: this.tache.priorite,
+          date_realisation: this.tache.date_realisation,
+          etat: this.tache.etat,
+          commentaire: this.tache.commentaire,
+          realisation_associee: this.tache.realisation_associee,
+          piece_jointe: this.tache.piece_jointe,
+          utilisateur_name: this.tache.utilisateur_name,
+          source_name: this.tache.source_name,
 
         });
       },
@@ -108,22 +95,19 @@ export class InfoNcComponent implements OnInit {
     );
     this.sites$ = this.apiSiteService.getAllSite();
     this.processus$ = this.apiProcessusService.getAllProcessus();
-    this.sites$.subscribe((sites) => {
-      const site = sites.find((s:any) => s.id === this.nc.site);
-      if (site) {
-        this.siteName = site.site_nom;
-      }
-    });
-    this.getActionsByNcId(this.ncId);
+    this.getActionsByTacheId(this.tacheId);
     
     this.deletModal = new window.bootstrap.Modal(
       document.getElementById('deleteAction')
     );
 
   }
-  getActionsByNcId(ncId: number) {
+  download(piece_jointe: string): void {
+    this.tacheservice.downloadFile(piece_jointe);
+  }
+  getActionsByTacheId(tacheId: number) {
     this.actions$ = this.apiActionsService.getAllActions().pipe(
-      map((actions: Actions[]) => actions.filter(action => action.nc.includes(ncId))),
+      map((actions: Actions[]) => actions.filter(action => action.tache.includes(tacheId))),
       switchMap((actions: Actions[]) => {
         const actionObservables: Observable<any>[] = actions.map(action => {
           return this.apiRealisationService.getRealisationByActionId(action.id).pipe(
@@ -170,7 +154,7 @@ export class InfoNcComponent implements OnInit {
       formData.append('delai_mesure_eff', this.actionForm.get('delai_mesure_eff')!.value);
       formData.append('type_critere_eff', this.actionForm.get('type_critere_eff')!.value);
       formData.append('detail_critere_eff', this.actionForm.get('detail_critere_eff')!.value);
-      formData.append('nc', String(this.ncId));
+      formData.append('tache', String(this.tacheId));
 
       this.apiActionsService.addActionFormData(formData).subscribe(
         (response) => {
@@ -178,7 +162,7 @@ export class InfoNcComponent implements OnInit {
           const newActionId = response.id; // ou tout autre nom de propriété qui contient l'identifiant de l'action ajoutée
           console.log('Nouvel ID d\'action : ', newActionId);
           console.log('piece jointe : ', response.piece_jointe);
-          this.getActionsByNcId(this.ncId);
+          this.getActionsByTacheId(this.tacheId);
           this.actionForm.reset();
           this.openModaladd();
           this.addModalVisible = false;
@@ -209,12 +193,12 @@ export class InfoNcComponent implements OnInit {
       formData.append('delai_mesure_eff', this.actionForm.get('delai_mesure_eff')!.value);
       formData.append('type_critere_eff', this.actionForm.get('type_critere_eff')!.value);
       formData.append('detail_critere_eff', this.actionForm.get('detail_critere_eff')!.value);
-      formData.append('nc', String(this.ncId));
+      formData.append('tache', String(this.tacheId));
 
       this.apiActionsService.updateActionFormdata(this.idAction,formData).subscribe(
           () => {
-            console.log('Analyse a été modifiée avec succès.');
-            this.getActionsByNcId(this.ncId);
+            console.log('Action a été modifiée avec succès.');
+            this.getActionsByTacheId(this.tacheId);
             this.openModal();
             this.updateModalVisible = false;
           },
@@ -255,7 +239,7 @@ export class InfoNcComponent implements OnInit {
 
   deleteAction() {
     this.apiActionsService.delAction(this.idToDelete).subscribe(() => {
-      this.getActionsByNcId(this.ncId);
+      this.getActionsByTacheId(this.tacheId);
     })
   }
   onFileSelectedAction(event: any) {
@@ -285,4 +269,6 @@ export class InfoNcComponent implements OnInit {
     return 'Choose file';
   }
   
+    
+
 }

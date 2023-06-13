@@ -76,6 +76,10 @@ import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/
 import { InfoPartieComponent } from './Components/Parties-interesses/info-partie/info-partie.component';
 import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
 import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
+import { ListTachesComponent } from './Components/Taches/list-taches/list-taches.component';
+import { AddTachesComponent } from './Components/Taches/add-taches/add-taches.component';
+import { AddSourceComponent } from './Components/Source/add-source/add-source.component';
+import { InfoTachesComponent } from './Components/Taches/info-taches/info-taches.component';
 
 
 
@@ -159,6 +163,16 @@ const routes: Routes = [
   { path: 'partie/:id', component: InfoPartieComponent ,canActivate: [AuthGuardService]},
   { path: 'exigence/:id', component: InfoExigencesComponent ,canActivate: [AuthGuardService]},
   { path: 'analyserisque/:id', component: InfoAnalyserisqueComponent ,canActivate: [AuthGuardService]},
+  {path : 'tache-list', component: ListTachesComponent,canActivate: [AuthGuardService]},
+  {path : 'add-tache', component: AddTachesComponent,canActivate: [AuthGuardService]},
+  {path : 'add-sources', component: AddSourceComponent, canActivate: [AuthGuardService]},
+  { path: 'tache/:id', component: InfoTachesComponent ,canActivate: [AuthGuardService]},
+
+
+
+
+  
+  
 
 
 
