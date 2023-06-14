@@ -5,7 +5,7 @@
              <div class="card">
                 <div class="card-header d-flex justify-content-between">
                    <div class="header-title">
-                      <h4 class="card-title">PJ retours positifs </h4>
+                      <h4 class="card-title">Certificats calibration </h4>
                    </div>
                 </div>
                 <div class="card-body">
@@ -28,7 +28,7 @@
                          </div>
                          <div class="col-sm-6 col-md-6">
                            <div class="user-list-files d-flex align-items-center">
-                            <a routerLink="/addpj" class="bg1" href="javascript:void();">
+                            <a routerLink="/addcertificat" class="bg1" href="javascript:void();">
                                Ajouter
                             </a>
                            </div>
@@ -45,22 +45,22 @@
                             </tr>
                          </thead>
                          <tbody>
-                            <tr *ngFor="let pj of pj | filter: searchQuery">
+                            <tr *ngFor="let certificat of certificat | filter: searchQuery">
                              
                               
                               <td>
-                                <a href="{{ pj.url_document }}" download>{{  pj.nom  }}</a>
+                                <a href="{{ certificat.url_document }}" download>{{  certificat.nom  }}</a>
                                 
                               </td>
-                              <td>{{pj.date_modification}}</td>
-                              <td><span class="badge">{{ pj.user_name }}</span></td>
+                              <td>{{certificat.date_modification}}</td>
+                              <td><span class="badge">{{ certificat.user_name }}</span></td>
  
                               <td>
                                 <div class="flex align-items-center list-user-action">
                                   <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Edit" [routerLink]="['/updatepj', pj.id]"><i class="ri-pencil-line mr-0"></i></a>
+                                    data-original-title="Edit" [routerLink]="['/updatecertificat', certificat.id]"><i class="ri-pencil-line mr-0"></i></a>
                                   <a class="btn btn-sm bg" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Delete" (click)="pjIdToDelete = pj.id; modalRef = modalService.show(deleteModal);"><i
+                                    data-original-title="Delete" (click)="certificatIdToDelete = certificat.id; modalRef = modalService.show(deleteModal);"><i
                                       class="ri-delete-bin-line mr-0"></i></a>
                                 </div>
                               </td>

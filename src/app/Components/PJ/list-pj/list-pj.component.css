@@ -1,29 +1,32 @@
-.bg-danger{
-    background-color: #ffd140;
-    border-color: #ffd140;
+.btn-primary {
+  background-color: #FF731D;
+  border-color: #FF731D;
 }
-.bg{
-    background-color: #ffd140;
-    border-color: #ffd140;
-    color: #fff; 
-  }
-  thead {
-    background-color: #17469d;
-    color:#fff
-    
-  }
-  th {
-    color: rgb(255, 255, 255);
-    min-width: 200px;
-    
-  }
-  .bg-warning{
-    background-color: #e56b6f;
-    border-color: #e56b6f;
-    color: #fff; 
-  }
-  .btn-danger{
-    background-color: #e56b6f;
-    border-color: #e56b6f;
-    color: #fff; 
-  }
+.btn-warning{
+  background-color: #ffd140;
+  border-color: #ffd140;
+}
+
+
+
+button + button {
+  margin-left: 10px;
+}
+thead {
+  background-color: #17469d
+  
+  
+}
+th {
+color: rgb(255, 255, 255);
+min-width: 300px;
+
+}
+#user-list-table {
+  width: 100%;
+}
+.btn-danger{
+  background-color: #e56b6f;
+  border-color: #e56b6f;
+  color: #fff; 
+}

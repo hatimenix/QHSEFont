@@ -5,11 +5,11 @@
                <div class="card">
                    <div class="card-header d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Modifier </h4>
+                           <h4 class="card-title">Ajouter </h4>
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="pjForm" (ngSubmit)="onSubmit()">
+                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="rpForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
                                <div class="col-md-6">
                                    <div class="form-group">
@@ -18,7 +18,13 @@
                                        <div class="help-block with-errors"></div>
                                    </div>
                                </div> 
-                         
+                               <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="url_document">Url document </label>
+                                    <input type="file" class="form-control image-file" (change)="onFileSelected($event) " formControlName="url_document">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>  
                                <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label for="date_modification">Date du modification <label style="color: red;">*</label></label>
@@ -35,20 +41,18 @@
                                        </select>   
                                 </div> 
                                 </div> 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="url_document">Url document </label>
-                                        <input type="file" class="form-control image-file" (change)="onFileSelected($event) " formControlName="url_document">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>  
+                               
                            </div>     
-                          
+                           <div *ngIf="showModal">
+                            <ng-container *ngTemplateOutlet="successModal"></ng-container>
+                          </div>
                           
                           <!-- Affichage du message d'erreur -->
-                                               
-                           <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Modifier</button>
-                           <button type="reset" class="btn btn-danger" routerLink="/listpj">Annuler</button>
+                          <div *ngIf="errorMessage && !showModal" class="alert alert-danger">
+                            {{ errorMessage }}
+                          </div>                       
+                           <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listrapport">Annuler</button>
                        </form>
                    </div>
                </div>
@@ -66,7 +70,7 @@
       </button>
     </div>
     <div class="modal-body">
-      Le pj a été modifiée avec succès.
+      Le rapport a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>

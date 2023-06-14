@@ -82,6 +82,12 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
 import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
 import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
 import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
+import { ListRapportAuditComponent } from './Components/RapportAudit/list-rapport-audit/list-rapport-audit.component';
+import { AddRapportAuditComponent } from './Components/RapportAudit/add-rapport-audit/add-rapport-audit.component';
+import { UpdateRapportAuditComponent } from './Components/RapportAudit/update-rapport-audit/update-rapport-audit.component';
+import { ListCertificatComponent } from './Components/Certificat-Calibration/list-certificat/list-certificat.component';
+import { AddCertificatComponent } from './Components/Certificat-Calibration/add-certificat/add-certificat.component';
+import { UpdateCertificatComponent } from './Components/Certificat-Calibration/update-certificat/update-certificat.component';
 
 
 
@@ -171,9 +177,18 @@ const routes: Routes = [
   {path: 'addcontrol', component: AddControlComponent, canActivate: [AuthGuardService]},
   {path: 'updatecontrol/:id', component: UpdateControlComponent, canActivate: [AuthGuardService]},  
   //récents
-  {path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService]},
-  {path: 'addPj', component: AddPjComponent, canActivate: [AuthGuardService]},
-  {path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService]},
+  {path : 'listpj', component: ListPjComponent, canActivate:[AuthGuardService]},
+  {path : 'addpj', component: AddPjComponent, canActivate:[AuthGuardService]},
+  {path : 'updatepj/:id', component: UpdatePjComponent, canActivate:[AuthGuardService]},
+
+  {path: 'listrapport', component: ListRapportAuditComponent, canActivate: [AuthGuardService]},
+  {path: 'addrapport', component: AddRapportAuditComponent, canActivate: [AuthGuardService]},
+  {path: 'updateRp/:id', component: UpdateRapportAuditComponent, canActivate: [AuthGuardService]},
+
+  {path: 'listcertificat', component: ListCertificatComponent, canActivate: [AuthGuardService]},
+  {path: 'addcertificat', component: AddCertificatComponent, canActivate: [AuthGuardService]},
+  {path: 'updatecertificat/:id', component: UpdateCertificatComponent, canActivate: [AuthGuardService]},
+  
 
 ];
 

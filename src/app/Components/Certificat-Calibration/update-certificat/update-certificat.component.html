@@ -9,7 +9,7 @@
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="pjForm" (ngSubmit)="onSubmit()">
+                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="certificatForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
                                <div class="col-md-6">
                                    <div class="form-group">
@@ -48,7 +48,7 @@
                           <!-- Affichage du message d'erreur -->
                                                
                            <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Modifier</button>
-                           <button type="reset" class="btn btn-danger" routerLink="/listpj">Annuler</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listcertificat">Annuler</button>
                        </form>
                    </div>
                </div>
