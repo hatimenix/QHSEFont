@@ -42,5 +42,21 @@ export class ApiTachesService {
       })
     );
   }
+  updateTacheFormdata(idTache: number, formData: FormData): Observable<any> {
+    const url = `${this.API_URL_TA}${idTache}/`;
+    return this.http.put(url, formData);
+  }
+  downloadFile(piece_jointe: any): void {
+    this.http.get(piece_jointe, { responseType: 'blob' }).subscribe(blob => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = piece_jointe.split('/').pop();
+      link.click();
+    });
+  }
+  get(id: any): Observable<any> {
+    return this.http.get(`${this.API_URL_TA}${id}`);
+  }
+
   
 }

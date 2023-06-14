@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
+import { SourceService } from 'src/app/Services/Service-Source/source.service';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiMesuresService } from 'src/app/Services/Service-document-unique/api-mesures.service';
 import { ApiProcessusService } from 'src/app/Services/Service-document-unique/api-processus.service';
 import { ApiRealisationService } from 'src/app/Services/Service-document-unique/api-realisation.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 import { Actions } from 'src/app/models/actions';
 import { Mesures } from 'src/app/models/mesures';
 import { Realisations } from 'src/app/models/realisations';
@@ -21,6 +23,11 @@ declare var window:any;
   styleUrls: ['./info-action.component.css']
 })
 export class InfoActionComponent {
+
+  utilisateurs: any[] = [];
+  sources: any[] = [];
+  source:any;
+  assigne_a:any;
 
   actionForm!: FormGroup;
   realisationForm !: FormGroup;
@@ -54,10 +61,29 @@ export class InfoActionComponent {
     private activatedRoute: ActivatedRoute,
     private apiMesuresService: ApiMesuresService,
     private apiTachesService: ApiTachesService,
-    private apiActionsService: ApiActionsService
+    private apiActionsService: ApiActionsService,
+    private sourceservice :SourceService, private apiUtilisateurService: ApiUtilisateurService,
   ) { }
 
   ngOnInit(): void {
+    this.apiUtilisateurService.getAllUtilsateur().subscribe(
+      (data: any[]) => {
+        this.utilisateurs = data;
+        console.log(this.utilisateurs); // Print the utilisateurs to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
+    this.sourceservice.getAll().subscribe(
+      (data: any[]) => {
+        this.sources = data;
+        console.log(this.sources);
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );  
     this.actionForm = this.formBuilder.group({ 
       intitule : ['', Validators.required],
       type_action : ['', Validators.required],

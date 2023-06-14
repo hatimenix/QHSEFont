@@ -43,6 +43,8 @@ export const environment = {
     API_analyseRisque:"http://127.0.0.1:8001/analyseRisque/",
     API_exigences:"http://127.0.0.1:8001/exigences/",
     API_cotations:"http://127.0.0.1:8001/cotation/", 
+    API_source:"http://127.0.0.1:8001/source/",
+
     API_Details_group:"http://127.0.0.1:8001/groups/", 
     API_Control: "http:cd//127.0.0.1:8001/control/",
     //récents 

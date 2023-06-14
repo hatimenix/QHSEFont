@@ -274,8 +274,8 @@
                                                   <label for="etat">Etat </label>
                                                   <select id="etat" name="etat"  class="custom-select" formControlName="etat" data-style="py-0" required>
                                                    <option value="Non commencé"  selected>Non commencé</option>
-                                                   <option value="commencer" >commencer</option>
-                                                   <option value="Terminer" >Terminer</option>
+                                                   <option value="En cours" >En cours</option>
+                                                   <option value="Terminé" >Terminé</option>
                                                   </select>
                                                 </div>               
                                                 <div class="d-flex align-items-end flex-column" >
@@ -309,8 +309,8 @@
                                                   <label for="etat">Etat </label>
                                                   <select id="etat" name="etat"  class="custom-select" formControlName="etat" data-style="py-0" required>
                                                    <option value="Non commencé"  selected>Non commencé</option>
-                                                   <option value="commencer" >commencer</option>
-                                                   <option value="Terminer" >Terminer</option>
+                                                   <option value="En cours" >En cours</option>
+                                                   <option value="Terminé" >Terminé</option>
                                                   </select>
                                                 </div>               
                                                 <div class="d-flex align-items-end flex-column" >
@@ -333,13 +333,9 @@
                                           <div class="modal-body">
                                              <form [formGroup]="tacheForm" (ngSubmit)="addTache()"  class="needs-validation" enctype="multipart/form-data" novalidate>                                            
                                                 <div class="form-group">
-                                                   <label for="source">Source </label>
-                                                   <select id="source" name="source" class="custom-select" formControlName="source" data-style="py-0">
-                                                      <option value="Tâche"  selected>Tâche</option>
-                                                      <option value="Analyse 8D">Analyse 8D</option>
-                                                      <option value="Action d'amélioration">Action d'amélioration</option>
-                                                      <option value="Projet">Projet</option>
-                                                      <option value="Réunion">Réunion</option>
+                                                   <label>Source <span style="color: red;">*</span></label>
+                                                   <select [(ngModel)]="source" id="source" name="source" formControlName="source" class="form-control" class="custom-select" required>
+                                                    <option *ngFor="let source of sources" [value]="source.id">{{ source.nom }}</option>
                                                    </select>
                                                 </div>
                                                 <div class="form-group">
@@ -367,8 +363,10 @@
                                                   </select>
                                                 </div>
                                                 <div class="form-group">
-                                                   <label for="assigne_a">Assigné à :</label>
-                                                   <input type="text" class="form-control" formControlName="assigne_a"/>
+                                                   <label>Assigné à <span style="color: red;">*</span></label>
+                                                   <select id="realisation_associee" [(ngModel)]="assigne_a" name="assigne_a" formControlName="assigne_a"  class="custom-select">
+                                                       <option *ngFor="let assigne_a of utilisateurs" [value]="assigne_a.id">{{ assigne_a.nom }}</option>
+                                                      </select>
                                                 </div>
                                                 <div class="form-group">
                                                    <label for="date_realisation">Date de réalisation </label>
