@@ -1,0 +1,97 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+            <div style="display: flex; flex-direction: column;">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4 class="card-title">Ajouter une exigence</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <form [formGroup]="form" data-toggle="validator">
+                        <div class="row">
+                          <div class="col-md-4">                      
+                            <div class="form-group">
+                                <label>Partie intéressée <span style="color: red;">*</span></label>
+                                <select [(ngModel)]="exigencef.partieinteresses" id="partieinteresses" name="partieinteresses" formControlName="partieinteresses" class="form-control" class="custom-select" required>
+                                 <option *ngFor="let partieinteresses of partieinteressess" [value]="partieinteresses.id">{{ partieinteresses.partieinteresse }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">                      
+                             <div class="form-group">
+                                <label>Type d'exigence </label>
+                                <input [(ngModel)]="exigencef.type_exigence" type="text" formControlName="type_exigence" class="form-control" data-errors="Please Enter Name." id="type_exigence" >
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">                      
+                                <div class="form-group">
+                                      <label>Intitulé</label>
+                                    <input [(ngModel)]="exigencef.intitule" type="text" formControlName="intitule" class="form-control" data-errors="Please Enter Name." id="intitule" >
+                                       <div class="help-block with-errors"></div>
+                                </div>
+                                </div>
+                                   <div class="col-md-6">                      
+                                     <div class="form-group">
+                                    <label>Description</label>
+                                        <textarea [(ngModel)]="exigencef.description" type="text" formControlName="description" class="form-control"  data-errors="Please Enter Name." id="description" rows="3"></textarea>
+                                         <div class="help-block with-errors"></div>
+                                         </div>
+                                         </div>
+                                        <div class="col-md-6">                      
+                                       <div class="form-group">
+                                     <label>Commentaire</label>
+                                    <textarea [(ngModel)]="exigencef.commentaire" type="text" formControlName="commentaire" class="form-control" data-errors="Please Enter Name." id="commentaire"  rows="3"></textarea>
+                                 <div class="help-block with-errors"></div>
+                                 </div>
+                                 </div>
+                               <div class="col-md-6">                      
+                              <div class="form-group">
+                              <label>Action à mener</label>
+                              <select [(ngModel)]="exigencef.action" id="action" formControlName="action" class="selectpicker form-control" data-style="py-0">
+                                <option value="">Choisir une option</option>
+                                <option [ngValue]="true">Oui</option>
+                                <option [ngValue]="false">Non</option>
+                            </select>                                  
+                            <div class="help-block with-errors"></div>
+                                  </div>
+                                  </div>
+                                  <div class="col-md-6">                      
+                                    <div class="form-group">
+                                          <label>Evaluation de la maitrise</label>
+                                         <input [(ngModel)]="exigencef.evaluation_maitrise" type="text" formControlName="evaluation_maitrise" class="form-control" data-errors="Please Enter Name." id="evaluation_maitrise" >
+                                         </div>
+                                         </div>
+                                        <div class="help-block with-errors"></div>
+                                         </div>
+                                    </form>
+       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
+        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createExigence()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+        <button style="margin-bottom: 1%;" type="reset" routerLink="/exigence-list" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+      </div>
+      
+       </div>
+       </div>
+<!-- Page end  -->
+<ng-template #successModal>
+    <div class="modal-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      L'exigence a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+  </ng-template>
+
+
+
+
+
