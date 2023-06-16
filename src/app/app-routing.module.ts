@@ -88,6 +88,7 @@ import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
 import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
+import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
 
 
 
@@ -186,6 +187,7 @@ const routes: Routes = [
   {path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService]},
   {path : 'exigence-list', component: ListExigencesComponent,canActivate: [AuthGuardService]},
   {path : 'add-exigence', component: AddExigencesComponent,canActivate: [AuthGuardService]},
+  {path : 'graphiques', component: GraphiquesComponent,canActivate: [AuthGuardService]},
 
 
 

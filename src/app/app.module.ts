@@ -90,6 +90,9 @@ import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
 import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
+import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 
 @NgModule({
   declarations: [
@@ -175,7 +178,8 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
     ListPjComponent,
     UpdatePjComponent,
     ListExigencesComponent,
-    AddExigencesComponent
+    AddExigencesComponent,
+    GraphiquesComponent
 
   ],
   imports: [
@@ -187,6 +191,7 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    NgApexchartsModule
     
 
   ],

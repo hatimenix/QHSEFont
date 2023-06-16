@@ -60,5 +60,10 @@ getExistingFileUrl(id: number): Observable<any> {
     })
   );
 }
-
+getStatsByNature(): Observable<any[]> {
+   const url = `${this.ncurl}stats_by_nature/`;
+    return this.http.get<any>(url);
+  }  
 }
+
+

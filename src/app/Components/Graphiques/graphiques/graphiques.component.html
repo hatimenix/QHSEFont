@@ -1,0 +1,21 @@
+<div class="content-page">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="chart-title">Synthèse type d'actions</h3>
+        <apx-chart #chart [chart]="Actions" [series]="pieSeries" [labels]="pieLabels" [responsive]="responsive"></apx-chart>
+      </div>
+
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+      <h4 class="chart-title">Suivi type non-conformités</h4>
+      <apx-chart #ncChart [chart]="NC" [series]="barSeries" [labels]="barLabels" [responsive]="responsive"></apx-chart>
+      </div>
+    <div class="col-md-6">
+      <h3 class="chart-title">Taux de réponse aux remarques d'audit</h3>
+      <apx-chart #auditChart [chart]="Audits" [series]="auditSeries" [labels]="auditLabels" [responsive]="responsive"></apx-chart>
+    </div>
+  </div>
+</div>

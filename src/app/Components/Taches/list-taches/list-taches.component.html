@@ -53,7 +53,6 @@
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
-              <ng-container *ngFor="let utilisateur of utilisateurs">
               <ng-container *ngFor="let source of sources">
                   <tbody class="ligth-body">
                     <td data-column="name">
@@ -75,7 +74,7 @@
                             <td></td>
                             <td><a routerLink="/tache/{{ tache.id }}">{{tache.nom_tache}}</a></td>
                             <td>{{ tache.echeance }}</td>
-                          <td><a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateur)">{{ utilisateur.nom }}</a></td>
+                          <td><a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateurs[i])">{{ utilisateurs[i]?.nom }}</a></td>
                           <td>
                             {{ tache.priorite }}
                             
@@ -136,9 +135,7 @@
   
                       </ng-container>
                     </ng-container>
-                </ng-container>
-                </ng-container>
-  
+                </ng-container>  
             </table>
           </div>
           <div class="pagination-container" style="display: flex;justify-content: flex-end;">
