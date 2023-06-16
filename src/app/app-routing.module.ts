@@ -92,6 +92,7 @@ import { UpdateRapportAuditComponent } from './Components/RapportAudit/update-ra
 import { ListCertificatComponent } from './Components/Certificat-Calibration/list-certificat/list-certificat.component';
 import { AddCertificatComponent } from './Components/Certificat-Calibration/add-certificat/add-certificat.component';
 import { UpdateCertificatComponent } from './Components/Certificat-Calibration/update-certificat/update-certificat.component';
+import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
 
 
 
@@ -125,6 +126,7 @@ const routes: Routes = [
   {path : 'listProcessus', component:ListProcessusComponent, canActivate: [AuthGuardService]},
   {path: 'addProcessus', component: AddProcessusComponent, canActivate: [AuthGuardService]},
   {path : 'updateProcessus/:id', component: UpdateProcessusComponent, canActivate: [AuthGuardService]},
+  {path : 'detailProcessus/:id', component:DetailsProcessusComponent, canActivate:[AuthGuardService]},
   {path :'listsites', component: ListSiteComponent, canActivate: [AuthGuardService]},
   {path:'addSite', component:AddSiteComponent, canActivate: [AuthGuardService]},
   {path: 'updateSite/:id', component: UpdateSiteComponent, canActivate: [AuthGuardService]},

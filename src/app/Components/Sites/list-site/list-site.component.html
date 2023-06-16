@@ -7,6 +7,13 @@
                   <div class="header-title">
                      <h4 class="card-title">Liste des sites </h4>
                   </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="user-list-files d-flex align-items-center">
+                     <a routerLink="/addSite" class="bg1" href="javascript:void();">
+                        Ajouter un site 
+                     </a>
+                    </div>
+                  </div>
                </div>
                <div class="card-body">
                   <div class="table-responsive">
@@ -26,13 +33,20 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-6 col-md-6">
-                          <div class="user-list-files d-flex align-items-center">
-                           <a routerLink="/addSite" class="bg1" href="javascript:void();">
-                              Ajouter un site 
-                           </a>
+                        <div class="dropdown">
+                          <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Afficher {{ itemsPerPage }} résultats par page
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                            <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                              [ngClass]="{'selected': option === itemsPerPage}">
+                              <span>{{ option }}</span>
+                              <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                            </a>
                           </div>
                         </div>
+                        
                       </div>
                      <table id="user-list-table" class="table table-striped  mt-4" role="grid"
                         aria-describedby="user-list-page-info">
@@ -49,7 +63,7 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr *ngFor="let site of site | filter: searchQuery">
+                           <tr *ngFor="let site of displayedSites | filter: searchQuery">
                             
                              <td>{{site.site_nom}}</td>
                              <td>{{site.sigle}}</td>
@@ -72,26 +86,22 @@
                          
                      </table>
                   </div>
-                  <div class="row justify-content-between mt-3">
-                     <div id="user-list-page-info" class="col-md-6">
-                        <span>Showing 1 to 5 of 5 entries</span>
-                     </div>
-                     <div class="col-md-6">
-                        <nav aria-label="Page navigation example">
-                           <ul class="pagination justify-content-end mb-0">
-                              <li class="page-item disabled">
-                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                              </li>
-                              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li>
-                              <li class="page-item">
-                                 <a class="page-link" href="#">Next</a>
-                              </li>
-                           </ul>
-                        </nav>
-                     </div>
-                  </div>
+                  <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                    <div>
+                      <span class="entry-info">
+                        {{ getDisplayedRange() }}
+                      </span>
+                    </div>
+                    <div style="display: flex;justify-content: flex-end;">
+                      <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                      <div class="page-info">
+                        <span class="page-numbers">
+                          <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                        </span>
+                      </div>
+                      <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                    </div>
+                  </div>  
                </div>
             </div>
          </div>

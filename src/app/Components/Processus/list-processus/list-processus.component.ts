@@ -40,9 +40,11 @@ constructor(private processusService: ProcessusService,
   };
 }
 ngOnInit(): void {
+
 this.loadprocessus();
-
-
+//pagination
+this.itemsPerPageOptions = [5, 10, 15];
+this.itemsPerPage = this.itemsPerPageOptions[0]; 
 }
 loadprocessus() {
 this.processusService.getProcessus().subscribe(
@@ -88,4 +90,37 @@ deleteProcessus(id: number) :void{
   resetSearchQuery() {
     this.searchQuery = '';
   }
+
+  //pagination methods 
+itemsPerPageOptions: number[] = [5, 10, 15];
+itemsPerPage: number = this.itemsPerPageOptions[0];
+p: number = 1;
+get totalPages(): number {
+  return Math.ceil(this.processus.length / this.itemsPerPage);
+}
+
+get displayedProcessus(): any[] {
+  const startIndex = (this.p - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.processus.slice(startIndex, endIndex);
+}
+
+
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.processus.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.processus.length} entrées`;
+}
 }

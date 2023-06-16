@@ -94,6 +94,7 @@ import { UpdateRapportAuditComponent } from './Components/RapportAudit/update-ra
 import { ListCertificatComponent } from './Components/Certificat-Calibration/list-certificat/list-certificat.component';
 import { AddCertificatComponent } from './Components/Certificat-Calibration/add-certificat/add-certificat.component';
 import { UpdateCertificatComponent } from './Components/Certificat-Calibration/update-certificat/update-certificat.component';
+import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
 
 @NgModule({
   declarations: [
@@ -183,7 +184,8 @@ import { UpdateCertificatComponent } from './Components/Certificat-Calibration/u
     UpdateRapportAuditComponent,
     ListCertificatComponent,
     AddCertificatComponent,
-    UpdateCertificatComponent
+    UpdateCertificatComponent,
+    DetailsProcessusComponent
 
   ],
   imports: [

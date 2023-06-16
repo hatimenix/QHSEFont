@@ -17,7 +17,6 @@
             </div>
           </div>
      </div>
-     <div class="card-body">
       <div class="table-responsive">
      <div class="row justify-content-start">
        <div class="input-group mb-4 col-md-4">
@@ -62,10 +61,23 @@
                </select>
              </div>
            </div>
+           <div class="dropdown">
+            <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Afficher {{ itemsPerPage }} résultats par page
+            </button>
+            <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+              <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                [ngClass]="{'selected': option === itemsPerPage}">
+                <span>{{ option }}</span>
+                <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+              </a>
+            </div>
+          </div>
          </form>
        </div>
      </div>
-     <div>
+     
        <div class="col-lg-12">
          <div class="table-responsive rounded mb-3">
            <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
@@ -97,7 +109,7 @@
                  </td>
                  <!--expanded-->
                  <ng-container *ngIf="site.expanded">
-                   <ng-container *ngFor ="let menu of menus | filter: searchQuery">
+                   <ng-container *ngFor ="let menu of displayedMenus | filter: searchQuery">
                      <tr *ngIf="(menus)?.length === 0">
                        <td colspan="11">Aucune demande trouvée</td>
                      </tr>
@@ -141,10 +153,25 @@
                  </ng-container>
              </ng-container>
            </table>
+           
          </div>
-       </div>
-     </div>
-   </div>
+        <div class="pagination-container" style="display: flex; justify-content: space-between;">
+          <div>
+            <span class="entry-info">
+              {{ getDisplayedRange() }}
+            </span>
+          </div>
+          <div style="display: flex;justify-content: flex-end;">
+            <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+            <div class="page-info">
+              <span class="page-numbers">
+                <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+              </span>
+            </div>
+            <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+          </div>
+        </div>   
+      </div>
 </div>
  
  <!-- Confirmation modal for menus deletion -->

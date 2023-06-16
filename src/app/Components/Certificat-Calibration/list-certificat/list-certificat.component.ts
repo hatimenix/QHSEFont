@@ -52,7 +52,9 @@ export class ListCertificatComponent {
       site: new FormControl(),
      
     });
-    
+      //pagination 
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0];
   }
 
   loadCertificats(): void {
@@ -81,26 +83,51 @@ export class ListCertificatComponent {
     this.modalRef.hide();
   }
 
-  //function to open user modal and pass the user information
-  openUserModal(site: Site): void {
-    const selectedPersonnelId = site.responsable_site;
-    const selectedPersonnelName = site.responsable_name;
-  
-    console.log("Selected personnel ID: ", selectedPersonnelId);
-    console.log("Selected personnel name: ", selectedPersonnelName);
-  
-    this.personnelService.getPersonnelById(selectedPersonnelId).subscribe((personnel: Personnel) => {
-      console.log("Personnel details: ", personnel);
-      this.personnelDetails.personnel = personnel;
-      console.log("Personnel details after setting: ", this.personnelDetails);
-
-      this.modalRef = this.modalService.show(this.userModal);
-    });
-  }
+ 
 //search 
   resetSearchQuery() {
     this.searchQuery = '';
   }
   
 
+  openModal(certificat: CertificatCalibration): void {
+    this.personnelService.getPersonnelById(certificat.modifie_par).subscribe(
+      (personnel: Personnel) => {
+        this.personnel = personnel;
+        this.modalRef = this.modalService.show(this.userModal);
+      }
+    );
+  }
+  //pagination methods 
+itemsPerPageOptions: number[] = [5, 10, 15];
+itemsPerPage: number = this.itemsPerPageOptions[0];
+p: number = 1;
+get totalPages(): number {
+  return Math.ceil(this.certificat.length / this.itemsPerPage);
+}
+
+get displayedCertificats(): any[] {
+  const startIndex = (this.p - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.certificat.slice(startIndex, endIndex);
+}
+
+
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.certificat.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.certificat.length} entrées`;
+}
 }
