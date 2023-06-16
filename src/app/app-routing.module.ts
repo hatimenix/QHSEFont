@@ -86,6 +86,8 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
 import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
 import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
 import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
+import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
+import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 
 
 
@@ -182,6 +184,11 @@ const routes: Routes = [
   {path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService]},
   {path: 'addPj', component: AddPjComponent, canActivate: [AuthGuardService]},
   {path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService]},
+  {path : 'exigence-list', component: ListExigencesComponent,canActivate: [AuthGuardService]},
+  {path : 'add-exigence', component: AddExigencesComponent,canActivate: [AuthGuardService]},
+
+
+
 
 ];
 

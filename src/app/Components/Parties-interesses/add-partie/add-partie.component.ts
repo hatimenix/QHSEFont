@@ -76,7 +76,7 @@ export class AddPartieComponent {
     this.apiProcessusService.getProcessus().subscribe(
       (data: any[]) => {
         this.processuss = data;
-        console.log(this.processuss); // Print the sites to the console
+        console.log(this.processuss); 
       },
       (error: any) => {
         console.log(error); // Handle error

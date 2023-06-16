@@ -88,6 +88,8 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
 import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
 import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
 import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
+import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
+import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 
 @NgModule({
   declarations: [
@@ -171,7 +173,9 @@ import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component
     UpdateControlComponent,
     AddPjComponent,
     ListPjComponent,
-    UpdatePjComponent
+    UpdatePjComponent,
+    ListExigencesComponent,
+    AddExigencesComponent
 
   ],
   imports: [
