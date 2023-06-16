@@ -1,0 +1,644 @@
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Liste des Constats d'audit </h4>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="user-list-files d-flex align-items-center">
+                                <a routerLink="/addConstatAudit" class="custom-button" href="javascript:void();">
+                                    Ajouter un Constat d'audit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="row justify-content-between">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="input-group col-md-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-search" style="font-size: 1rem;"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Chercher"
+                                            [(ngModel)]="searchQuery">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Afficher {{ itemsPerPage }} résultats par page
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                        aria-labelledby="itemsPerPageDropdown">
+                                        <a class="dropdown-item" style="cursor: pointer;"
+                                            *ngFor="let option of itemsPerPageOptions"
+                                            (click)="onItemsPerPageChange(option)"
+                                            [ngClass]="{'selected': option === itemsPerPage}">
+                                            <span>{{ option }}</span>
+                                            <i style="margin-left: 1%;" class="fas fa-check"
+                                                *ngIf="option === itemsPerPage"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <table class="table rounded   mt-4" aria-describedby="user-list-page-info">
+                                <thead>
+                                    <tr>
+                                        <th>Processus</th>
+                                        <th>Intitulé du constat</th>
+                                        <th>Type de constat</th>
+                                        <th>Audit associé</th>
+                                        <th>Site</th>
+                                        <th>Responsable du traitement</th>
+
+                                        <th>Date de réponse</th>
+                                        <th>Localisation</th>
+                                        <th>Type d'audit </th>
+                                        <th>Rapport d'audit</th>
+
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <ng-container *ngFor="let process of processuss">
+                                    <tbody class="ligth-body">
+                                        <td data-column="name">
+                                            <a href="javascript:void(0);" class="toggle-icon"
+                                                (click)="process.expanded = !process.expanded">
+                                                <i class="fa fa-chevron-right" *ngIf="!process.expanded"></i>
+                                                <i class="fa fa-chevron-down" *ngIf="process.expanded"></i>
+                                            </a>
+                                            <a href="javascript:void(0);">{{ process.intitule }}</a>
+                                        </td>
+                                        <ng-container *ngIf="process.expanded ">
+
+
+                                            <ng-container
+                                                *ngFor="let const of displayedConstats | filter: searchQuery   let i = index ">
+                                                <tr *ngIf="(const)?.length === 0">
+                                                    <td colspan="11">Aucune demande trouvé </td>
+                                                </tr>
+
+                                                <tr *ngIf="const.processus == process.id"
+                                                    [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                                                    <td></td>
+                                                    <td> <a routerLink="/infoconstat/{{const.id}}">
+                                                            {{const.intitule_constat}}</a></td>
+                                                    <td>{{const.type_constat}}</td>
+                                                    <td>{{const.audit_associe}}</td>
+                                                    <td>{{const.site_}}</td>
+
+
+                                                    <td>
+                                                        <ng-container *ngFor="let utilisateur of utilisateurs">
+                                                            <ng-container
+                                                                *ngIf="const.responsable_traitement.includes(utilisateur.id)">
+                                                                <a href="javascript:void(0);"
+                                                                    (click)="openUtilisateurModal(utilisateur)">
+                                                                    {{ utilisateur?.nom }}
+                                                                </a>
+                                                                <br>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </td>
+                                                    <td>{{const.date_reponse}}</td>
+                                                    <td>{{const.localisation}}</td>
+                                                    <td>{{const.type_audit}}</td>
+                                                    <td>
+                                                        <a class="btn fa fa-download mr-3"
+                                                            href="{{ const.rapport_audit}}" download>
+                                                            {{ const.rapport_audit ?const.rapport_audit.split('/').pop()
+                                                            : 'Aucun
+                                                            fichier joint' }}
+                                                        </a>
+
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="badge btn-sm bg-primary" data-toggle="modal"
+                                                                data-target="#update" data-placement="top" title="Edit"
+                                                                (click)="getCAData(const.id, const.intitule_constat, const.type_constat, const.audit_associe, const.site, const.responsable_traitement, const.processus, const.date_reponse, const.localisation, const.type_audit , const.description_constat)">
+                                                                <i class="ri-pencil-line mr-0"></i>
+                                                            </a>
+                                                            <span class="spacer"></span> <!-- Add a spacer element -->
+                                                            <a class="badge btn-sm bg-danger" style="cursor: pointer;"
+                                                                data-toggle="tooltip"
+                                                                (click)="openDeleteModal(const.id)" data-placement="top"
+                                                                title="Delete">
+                                                                <i class="ri-delete-bin-line mr-0"></i>
+                                                            </a>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+
+
+                                            </ng-container>
+                                        </ng-container>
+                                </ng-container>
+
+                            </table>
+                        </div>
+                        <div class="pagination-container"
+                            style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <div>
+                                <span class="entry-info">
+                                    {{ getDisplayedRange() }}
+                                </span>
+                            </div>
+                            <div style="display: flex;justify-content: flex-end;">
+                                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                                <div class="page-info">
+                                    <span class="page-numbers">
+                                        <button class="btn page-number" *ngFor="let page of getPageNumbers()"
+                                            [disabled]="p === page" (click)="p = page"
+                                            [ngClass]="{'selected': p === page}">{{ page }}</button>
+                                    </span>
+                                </div>
+                                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal delete-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Attention , cette action est irréversible !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="delete()"><i
+                        class="fas fa-trash"></i>Supprimer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                        class="fas fa-times"></i>Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Modal Update-->
+
+<!-- Modal -->
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier un constat d'audit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <form [formGroup]="form">
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="intitule_constat" class="form-label">Demande de conseils : </label>
+
+                                <input type="text" class="form-control" placeholder="Entrer intitulé"
+                                    id="intitule_constat" name="intitule_constat" formControlName="intitule_constat"
+                                    value="{{intitule_constat}}" [(ngModel)]="intitule_constat">
+                            </div>
+                            <div class="col">
+                                <label for="type_constat" class="form-label">Type de constat : </label>
+
+                                <input type="text" class="form-control" placeholder="Entrer le type du constat"
+                                    id="type_constat" name="type_constat" formControlName="type_constat"
+                                    value="{{type_constat}}" [(ngModel)]="type_constat">
+                            </div>
+                            <div class="col">
+                                <label for="audit_associe" class="form-label">Audit associé : </label>
+
+                                <input type="text" class="form-control" placeholder="Entrer l'audit associé "
+                                    id="audit_associe" name="audit_associe" formControlName="audit_associe"
+                                    value="{{audit_associe}}" [(ngModel)]="audit_associe">
+                            </div>
+                        </div>
+                        <div class=" mt row">
+
+                            <div class="col">
+                                <label for="Site" class="form-label">Site : </label>
+                                <select [(ngModel)]="site" id="site" name="site" formControlName="site"
+                                    class="custom-select" data-style="py-0">
+                                    <option *ngFor="let site of site$ | async" [value]="site.id">
+                                        {{ site.site_nom }}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="processus" class="form-label">Processus : </label>
+                                <select [(ngModel)]="processus" id="processus" name="processus"
+                                    formControlName="processus" class="custom-select" data-style="py-0">
+                                    <option *ngFor="let processus of processuss " [value]="processus.id">
+                                        {{ processus.intitule }}</option>
+                                </select>
+                            </div>
+
+
+                            <div class="col">
+                                <label for="date_reponse" class="form-label">Date de réponse : </label>
+
+                                <input type="date" class="form-control" placeholder="Entrer la date de réponse "
+                                    id="date_reponse" name="date_reponse" formControlName="date_reponse"
+                                    value="{{date_reponse}}" [(ngModel)]="date_reponse">
+                            </div>
+                        </div>
+
+
+                        <div class="row mt">
+                            <div class="col">
+                                <label for="localisation" class="form-label">Localisation</label>
+                                <select [(ngModel)]="localisation" type="text" formControlName="localisation"
+                                    class="form-control" id="localisation" class="custom-select" data-style="py-0"
+                                    data-live-search="true">
+                                    <option value="États-Unis">États-Unis</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Albanie">Albanie</option>
+                                    <option value="Algérie">Algérie</option>
+                                    <option value="Samoa américaines">Samoa américaines</option>
+                                    <option value="Andorre">Andorre</option>
+                                    <option value="Angola">Angola</option>
+                                    <option value="Anguilla">Anguilla</option>
+                                    <option value="Antarctique">Antarctique</option>
+                                    <option value="Antigua">Antigua</option>
+                                    <option value="Argentine">Argentine</option>
+                                    <option value="Arménie">Arménie</option>
+                                    <option value="Aruba">Aruba</option>
+                                    <option value="Australie">Australie</option>
+                                    <option value="Autriche">Autriche</option>
+                                    <option value="Azerbaïdjan">Azerbaïdjan</option>
+                                    <option value="Bahamas">Bahamas</option>
+                                    <option value="Bahreïn">Bahreïn</option>
+                                    <option value="Bangladesh">Bangladesh</option>
+                                    <option value="Barbade">Barbade</option>
+                                    <option value="Bélarus">Bélarus</option>
+                                    <option value="Belgique">Belgique</option>
+                                    <option value="Belize">Belize</option>
+                                    <option value="Bénin">Bénin</option>
+                                    <option value="Bermudes">Bermudes</option>
+                                    <option value="Bhoutan">Bhoutan</option>
+                                    <option value="Bolivie">Bolivie</option>
+                                    <option value="Bosnie-Herzégovine">Bosnie-Herzégovine</option>
+                                    <option value="Botswana">Botswana</option>
+                                    <option value="Île Bouvet">Île Bouvet</option>
+                                    <option value="Brésil">Brésil</option>
+                                    <option value="Territoire britannique de l'océan Indien">Territoire
+                                        britannique de l'océan Indien</option>
+                                    <option value="Bolivie">Bolivie</option>
+                                    <option value="Bosnie-Herzégovine">Bosnie-Herzégovine</option>
+                                    <option value="Botswana">Botswana</option>
+                                    <option value="Île Bouvet">Île Bouvet</option>
+                                    <option value="Brésil">Brésil</option>
+                                    <option value="Territoire britannique de l'océan Indien">Territoire
+                                        britannique de l'océan Indien</option>
+                                    <option value="Tchad">Tchad</option>
+                                    <option value="Chili">Chili</option>
+                                    <option value="Chine">Chine</option>
+                                    <option value="Île Christmas">Île Christmas</option>
+                                    <option value="Îles Cocos">Îles Cocos</option>
+                                    <option value="Colombie">Colombie</option>
+                                    <option value="Comores">Comores</option>
+                                    <option value="Congo">Congo</option>
+                                    <option value="Îles Cook">Îles Cook</option>
+                                    <option value="Costa Rica">Costa Rica</option>
+                                    <option value="Croatie">Croatie</option>
+                                    <option value="Chypre">Chypre</option>
+                                    <option value="République tchèque">République tchèque</option>
+                                    <option value="Danemark">Danemark</option>
+                                    <option value="Djibouti">Djibouti</option>
+                                    <option value="Dominique">Dominique</option>
+                                    <option value="République dominicaine">République dominicaine</option>
+                                    <option value="Timor oriental">Timor oriental</option>
+                                    <option value="Équateur">Équateur</option>
+                                    <option value="Égypte">Égypte</option>
+                                    <option value="El Salvador">El Salvador</option>
+                                    <option value="Guinée équatoriale">Guinée équatoriale</option>
+                                    <option value="Érythrée">Érythrée</option>
+                                    <option value="Estonie">Estonie</option>
+                                    <option value="Éthiopie">Éthiopie</option>
+                                    <option value="Îles Féroé">Îles Féroé</option>
+                                    <option value="Îles Falkland">Îles Falkland</option>
+                                    <option value="Fidji">Fidji</option>
+                                    <option value="Finlande">Finlande</option>
+                                    <option value="France">France</option>
+                                    <option value="Guyane française">Guyane française</option>
+                                    <option value="Polynésie française">Polynésie française</option>
+                                    <option value="Terres australes françaises">Terres australes françaises
+                                    </option>
+                                    <option value="Gabon">Gabon</option>
+                                    <option value="Gambia">Gambia</option>
+                                    <option value="Georgia">Georgia</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Ghana">Ghana</option>
+                                    <option value="Gibraltar">Gibraltar</option>
+                                    <option value="Greece">Greece</option>
+                                    <option value="Greenland">Greenland</option>
+                                    <option value="Grenada">Grenada</option>
+                                    <option value="Guadeloupe">Guadeloupe</option>
+                                    <option value="Guam">Guam</option>
+                                    <option value="Guatemala">Guatemala</option>
+                                    <option value="Guinea">Guinea</option>
+                                    <option value="Guinea-Bissau">Guinea-Bissau</option>
+                                    <option value="Guyana">Guyana</option>
+                                    <option value="Haiti">Haiti</option>
+                                    <option value="Heard">Heard</option>
+                                    <option value="Honduras">Honduras</option>
+                                    <option value="Hong Kong">Hong Kong</option>
+                                    <option value="Hongrie">Hongrie</option>
+                                    <option value="Islande">Islande</option>
+                                    <option value="Inde">Inde</option>
+                                    <option value="Indonésie">Indonésie</option>
+                                    <option value="Irlande">Irlande</option>
+                                    <option value="Israël">Israël</option>
+                                    <option value="Italie">Italie</option>
+                                    <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                                    <option value="Jamaïque">Jamaïque</option>
+                                    <option value="Japon">Japon</option>
+                                    <option value="Jordanie">Jordanie</option>
+                                    <option value="Kazakhstan">Kazakhstan</option>
+                                    <option value="Kenya">Kenya</option>
+                                    <option value="Kiribati">Kiribati</option>
+                                    <option value="Koweït">Koweït</option>
+                                    <option value="Kirghizistan">Kirghizistan</option>
+                                    <option value="Laos">Laos</option>
+                                    <option value="Lettonie">Lettonie</option>
+                                    <option value="Liban">Liban</option>
+                                    <option value="Lesotho">Lesotho</option>
+                                    <option value="Liberia">Liberia</option>
+                                    <option value="Liechtenstein">Liechtenstein</option>
+                                    <option value="Lituanie">Lituanie</option>
+                                    <option value="Luxembourg">Luxembourg</option>
+                                    <option value="Macao">Macao</option>
+                                    <option value="Macédoine">Macédoine</option>
+                                    <option value="Madagascar">Madagascar</option>
+                                    <option value="Malawi">Malawi</option>
+                                    <option value="Malaisie">Malaisie</option>
+                                    <option value="Maldives">Maldives</option>
+                                    <option value="Mali">Mali</option>
+                                    <option value="Malte">Malte</option>
+                                    <option value="Îles Marshall">Îles Marshall</option>
+                                    <option value="Martinique">Martinique</option>
+                                    <option value="Mauritanie">Mauritanie</option>
+                                    <option value="Maurice">Maurice</option>
+                                    <option value="Mayotte">Mayotte</option>
+                                    <option value="Mexique">Mexique</option>
+                                    <option value="Micronésie">Micronésie</option>
+                                    <option value="MNP">MNP</option>
+                                    <option value="Moldavie">Moldavie</option>
+                                    <option value="Monaco">Monaco</option>
+                                    <option value="Mongolie">Mongolie</option>
+                                    <option value="Montserrat">Montserrat</option>
+                                    <option value="Maroc">Maroc</option>
+                                    <option value="Mozambique">Mozambique</option>
+                                    <option value="Myanmar">Myanmar</option>
+                                    <option value="Namibie">Namibie</option>
+                                    <option value="Nauru">Nauru</option>
+                                    <option value="Népal">Népal</option>
+                                    <option value="NER">NER</option>
+                                    <option value="Pays-Bas">Pays-Bas</option>
+                                    <option value="Zone neutre">Zone neutre</option>
+                                    <option value="Nouvelle-Calédonie">Nouvelle-Calédonie</option>
+                                    <option value="Nouvelle-Zélande">Nouvelle-Zélande</option>
+                                    <option value="Nicaragua">Nicaragua</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                    <option value="Niue">Niue</option>
+                                    <option value="Île Norfolk">Île Norfolk</option>
+                                    <option value="Corée du Nord">Corée du Nord</option>
+                                    <option value="Norvège">Norvège</option>
+                                    <option value="Oman">Oman</option>
+                                    <option value="Pakistan">Pakistan</option>
+                                    <option value="Palaos">Palaos</option>
+                                    <option value="Panama">Panama</option>
+                                    <option value="Papouasie-Nouvelle-Guinée">Papouasie-Nouvelle-Guinée
+                                    </option>
+                                    <option value="Paraguay">Paraguay</option>
+                                    <option value="Pérou">Pérou</option>
+                                    <option value="Philippines">Philippines</option>
+                                    <option value="Îles Pitcairn">Îles Pitcairn</option>
+                                    <option value="Pologne">Pologne</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Porto Rico">Porto Rico</option>
+                                    <option value="Qatar">Qatar</option>
+                                    <option value="Réunion">Réunion</option>
+                                    <option value="Roumanie">Roumanie</option>
+                                    <option value="Russie">Russie</option>
+                                    <option value="Rwanda">Rwanda</option>
+                                    <option value="Sainte-Hélène">Sainte-Hélène</option>
+                                    <option value="Sainte-Lucie">Sainte-Lucie</option>
+                                    <option value="Saint-Pierre">Saint-Pierre</option>
+                                    <option value="Saint-Vincent">Saint-Vincent</option>
+                                    <option value="Samoa">Samoa</option>
+                                    <option value="Saint-Marin">Saint-Marin</option>
+                                    <option value="Arabie saoudite">Arabie saoudite</option>
+                                    <option value="Ecosse">Ecosse</option>
+                                    <option value="Sénégal">Sénégal</option>
+                                    <option value="Seychelles">Seychelles</option>
+                                    <option value="Sierra Leone">Sierra Leone</option>
+                                    <option value="Singapour">Singapour</option>
+                                    <option value="République slovaque">République slovaque</option>
+                                    <option value="Slovénie">Slovénie</option>
+                                    <option value="Îles Salomon">Îles Salomon</option>
+                                    <option value="Somalie">Somalie</option>
+                                    <option value="Afrique du Sud">Afrique du Sud</option>
+                                    <option value="Géorgie du Sud">Géorgie du Sud</option>
+                                    <option value="Corée du Sud">Corée du Sud</option>
+                                    <option value="Espagne">Espagne</option>
+                                    <option value="Sri Lanka">Sri Lanka</option>
+                                    <option value="Saint-Kitts-et-Nevis">Saint-Kitts-et-Nevis</option>
+                                    <option value="STP">STP</option>
+                                    <option value="Suriname">Suriname</option>
+                                    <option value="Svalbard">Svalbard</option>
+                                    <option value="Swaziland">Swaziland</option>
+                                    <option value="Suède">Suède</option>
+                                    <option value="Suisse">Suisse</option>
+                                    <option value="Syrie">Syrie</option>
+                                    <option value="Taïwan">Taïwan</option>
+                                    <option value="Tadjikistan">Tadjikistan</option>
+                                    <option value="Tanzanie">Tanzanie</option>
+                                    <option value="TCA">TCA</option>
+                                    <option value="Thaïlande">Thaïlande</option>
+                                    <option value="Togo">Togo</option>
+                                    <option value="Togolais">Togolais</option>
+                                    <option value="Tokélaou">Tokélaou</option>
+                                    <option value="Tonga">Tonga</option>
+                                    <option value="Trinité-et-Tobago">Trinité-et-Tobago</option>
+                                    <option value="Tunisie">Tunisie</option>
+                                    <option value="Turquie">Turquie</option>
+                                    <option value="Turkménistan">Turkménistan</option>
+                                    <option value="Tuvalu">Tuvalu</option>
+                                    <option value="Ouganda">Ouganda</option>
+                                    <option value="Ukraine">Ukraine</option>
+                                    <option value="Émirats arabes">Émirats arabes</option>
+                                    <option value="Royaume-Uni">Royaume-Uni</option>
+                                    <option value="Haute-Volta">Haute-Volta</option>
+                                    <option value="Uruguay">Uruguay</option>
+                                    <option value="Ouzbékistan">Ouzbékistan</option>
+                                    <option value="Vanuatu">Vanuatu</option>
+                                    <option value="Vatican">Vatican</option>
+                                    <option value="Venezuela">Venezuela</option>
+                                    <option value="VI, britannique">VI, britannique</option>
+                                    <option value="Viet Nam">Vietnam</option>
+                                    <option value="Îles Vierges, États-Unis">Îles Vierges, États-Unis
+                                    </option>
+                                    <option value="Sahara occidental">Sahara occidental</option>
+                                    <option value="WLF">WLF</option>
+                                    <option value="Yémen">Yémen</option>
+                                    <option value="Yougoslavie">Yougoslavie</option>
+                                    <option value="Zaïre">Zaïre</option>
+                                    <option value="Zambie">Zambie</option>
+                                    <option value="Zimbabwe">Zimbabwe</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="type_audit" class="form-label">Type d'audit : </label>
+
+                                <input type="text" class="form-control" placeholder="Entrer l'audit associé "
+                                    id="type_audit" name="type_audit" formControlName="type_audit"
+                                    value="{{type_audit}}" [(ngModel)]="type_audit">
+                            </div>
+
+                            <div class="col">
+                                <label for="responsable_traitement" class="form-label">Responsable du traitement :
+                                </label>
+                                <div *ngFor="let responsable_traitement of (utilisateurs)">
+                                    <label>
+                                        <input type="checkbox"
+                                            [checked]="isResponsableSelected(responsable_traitement.id)"
+                                            formControlName="responsable_traitement"
+                                            (change)="toggleResponsable(responsable_traitement.id)" required>
+                                        {{ responsable_traitement?.nom }}
+                                    </label>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row mtx">
+                            <div class="col">
+                                <label>Description du constat</label>
+                                <textarea rows="2" class="form-control" placeholder="Entrer le description d'audit"
+                                    id="description_constat" name="description_constat"
+                                    formControlName="description_constat" value="{{description_constat}}"
+                                    [(ngModel)]="description_constat"></textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="row mtx">
+
+
+
+
+                            <div class="col">
+                                <label for="rapport_audit" class="form-label">Rapport d'audit :
+                                </label>
+                                <div class="custom-file">
+                                    <input (change)="updateFile($event)" [(ngModel)]="rapport_audit"
+                                        formControlName="rapport_audit" type="file" class="custom-file-input"
+                                        id="customFile">
+                                    <label class="custom-file-label" for="customFile">{{ getSelectedFileName()
+                                        }}</label>
+                                </div>
+                                <!-- <div *ngIf="existingFileUrl" class="mt-2">
+                                    <p class="d-inline">Fichier existant:</p>
+                                    <a [href]="existingFileUrl" target="_blank" class="ml-2">{{
+                                        getFileNameFromUrl(existingFileUrl) }}</a>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <br>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateConstatAudit()"><i
+                        class="fas fa-pencil-alt"></i>
+                    Modifier</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>
+                    Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Page end  : succes update Modal -->
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        La demande a été modifié avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>
+
+
+<!-- Utilisateur Modal -->
+<ng-template #utilisateurModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Responsable traitement Informations</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModalutilisateur()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p><strong>Compte :</strong> {{ selectedUtilisateur?.compte }}</p>
+        <p><strong>Nom:</strong> {{ selectedUtilisateur?.nom }}</p>
+        <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
+        <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
+        <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
+        <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image"
+                alt="Image"></p>
+        <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
+        <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
+        <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
+    </div>
+
+</ng-template>

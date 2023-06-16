@@ -81,6 +81,9 @@ import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-an
 import { ListControlComponent } from './Components/Control/list-control/list-control.component';
 import { AddControlComponent } from './Components/Control/add-control/add-control.component';
 import { UpdateControlComponent } from './Components/Control/update-control/update-control.component';
+import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
+import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
+import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +93,7 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
     ListNcComponent,
     ListRegistreTraitementComponent,
     SidebarComponent,
-    UpdateCommandeComponent, 
+    UpdateCommandeComponent,
     AddCommandeComponent,
     UpdateFicheComponent,
     AddFicheComponent,
@@ -110,7 +113,7 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
     ListFournisseursComponent,
     UpdateSecteurComponent,
     AddFournisseursComponent,
-    
+
     AddCommandeComponent,
     InfoEvenementComponent,
     InfoDangerComponent,
@@ -157,7 +160,10 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
     InfoAnalyserisqueComponent,
     ListControlComponent,
     AddControlComponent,
-    UpdateControlComponent
+    UpdateControlComponent,
+    ListConstatsComponent,
+    AddConstatComponent,
+    InfoConstatComponent
 
   ],
   imports: [
@@ -169,11 +175,11 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    
+
 
   ],
 
-  providers: [ ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
