@@ -90,6 +90,9 @@ import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
 import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
+import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
+import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
+import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +102,7 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
     ListNcComponent,
     ListRegistreTraitementComponent,
     SidebarComponent,
-    UpdateCommandeComponent, 
+    UpdateCommandeComponent,
     AddCommandeComponent,
     UpdateFicheComponent,
     AddFicheComponent,
@@ -119,7 +122,7 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
     ListFournisseursComponent,
     UpdateSecteurComponent,
     AddFournisseursComponent,
-    
+
     AddCommandeComponent,
     InfoEvenementComponent,
     InfoDangerComponent,
@@ -175,7 +178,10 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
     ListPjComponent,
     UpdatePjComponent,
     ListExigencesComponent,
-    AddExigencesComponent
+    AddExigencesComponent,
+    ListConstatsComponent,
+    AddConstatComponent,
+    InfoConstatComponent
 
   ],
   imports: [
@@ -187,11 +193,11 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    
+
 
   ],
 
-  providers: [ ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
