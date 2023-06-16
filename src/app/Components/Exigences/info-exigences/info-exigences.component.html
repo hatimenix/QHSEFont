@@ -31,7 +31,7 @@
                   </tr>
                   <tr class="table-default">
                     <td>Parties intéréssées:</td>
-                    <td>{{ exigence.partieinteresses_name }}</td>
+                    <td><a routerLink="/partie/{{ exigence.id }}">{{ exigence.partieinteresses_name}}</a></td>
                   </tr>
                   <tr class="table-info">
                     <td>Description détaillée:</td>
@@ -54,8 +54,8 @@
                   </div>
                   </div>
                   <div class="row mt-1 mb-2 justify-content-end">
-                    <a routerLink="/partie-list" class="btn add-list">
-                      <i class="fas fa-arrow-left"></i> Retourner vers la liste des parties intéressées
+                    <a routerLink="/exigence-list" class="btn add-list">
+                      <i class="fas fa-arrow-left"></i> Retourner vers la liste des exigences des parties intéressées
                     </a>
                 </div>
               </div>

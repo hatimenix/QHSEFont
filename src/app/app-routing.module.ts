@@ -93,6 +93,8 @@ import { ListCertificatComponent } from './Components/Certificat-Calibration/lis
 import { AddCertificatComponent } from './Components/Certificat-Calibration/add-certificat/add-certificat.component';
 import { UpdateCertificatComponent } from './Components/Certificat-Calibration/update-certificat/update-certificat.component';
 import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
+import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
+import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 
 
 
@@ -199,6 +201,14 @@ const routes: Routes = [
   {path: 'addcertificat', component: AddCertificatComponent, canActivate: [AuthGuardService]},
   {path: 'updatecertificat/:id', component: UpdateCertificatComponent, canActivate: [AuthGuardService]},
   
+  {path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService]},
+  {path: 'addPj', component: AddPjComponent, canActivate: [AuthGuardService]},
+  {path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService]},
+  {path : 'exigence-list', component: ListExigencesComponent,canActivate: [AuthGuardService]},
+  {path : 'add-exigence', component: AddExigencesComponent,canActivate: [AuthGuardService]},
+
+
+
 
 ];
 

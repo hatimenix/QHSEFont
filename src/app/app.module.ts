@@ -95,6 +95,8 @@ import { ListCertificatComponent } from './Components/Certificat-Calibration/lis
 import { AddCertificatComponent } from './Components/Certificat-Calibration/add-certificat/add-certificat.component';
 import { UpdateCertificatComponent } from './Components/Certificat-Calibration/update-certificat/update-certificat.component';
 import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
+import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
+import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 
 @NgModule({
   declarations: [
@@ -185,7 +187,9 @@ import { DetailsProcessusComponent } from './Components/Processus/details-proces
     ListCertificatComponent,
     AddCertificatComponent,
     UpdateCertificatComponent,
-    DetailsProcessusComponent
+    DetailsProcessusComponent, 
+    ListExigencesComponent,
+    AddExigencesComponent
 
   ],
   imports: [
