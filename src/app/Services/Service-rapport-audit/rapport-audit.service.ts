@@ -26,8 +26,7 @@ export class RapportAuditService {
     return this.http.post<RapportAudit>(this.API_Rapport_audit, formData);
   }
 
-  updateRapportFormdata(formData: FormData): Observable<any> {
-    const id = formData.get('id');
+  updateRapportFormdata(id: number, formData: FormData): Observable<any> {
     const url = `${this.API_Rapport_audit}${id}/`;
     return this.http.put(url, formData);
   }

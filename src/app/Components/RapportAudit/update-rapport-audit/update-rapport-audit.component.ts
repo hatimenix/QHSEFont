@@ -73,9 +73,13 @@ export class UpdateRapportAuditComponent {
   }
 
   onSubmit() {
-    console.log(this.rpForm.value);
     const formData = new FormData();
-    this.rpService.updateRapportFormdata(formData).subscribe(
+    formData.append('nom', this.rpForm.value.nom);
+    formData.append('url_document', this.rpForm.value.url_document);
+    formData.append('date_modification', this.rpForm.value.date_modification);
+    formData.append('modifie_par', this.rpForm.value.modifie_par);
+  
+    this.rpService.updateRapportFormdata(this.id, formData).subscribe(
       (data: any) => {
         console.log(data);
         console.log("modification avec succès");
@@ -86,7 +90,6 @@ export class UpdateRapportAuditComponent {
         console.log(error);
       }
     );
-
   }
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);

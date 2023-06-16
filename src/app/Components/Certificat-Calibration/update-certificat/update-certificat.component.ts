@@ -71,9 +71,13 @@ export class UpdateCertificatComponent {
   }
 
   onSubmit() {
-    console.log(this.certificatForm.value);
     const formData = new FormData();
-    this.certificatService.updateCertificatFormdata(formData).subscribe(
+    formData.append('nom', this.certificatForm.value.nom);
+    formData.append('url_document', this.certificatForm.value.url_document);
+    formData.append('date_modification', this.certificatForm.value.date_modification);
+    formData.append('modifie_par', this.certificatForm.value.modifie_par);
+  
+    this.certificatService.updateCertificatFormdata(this.id, formData).subscribe(
       (data: any) => {
         console.log(data);
         console.log("modification avec succès");
@@ -84,7 +88,6 @@ export class UpdateCertificatComponent {
         console.log(error);
       }
     );
-
   }
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);

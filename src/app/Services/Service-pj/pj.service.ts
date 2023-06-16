@@ -25,8 +25,7 @@ export class PjService {
     return this.http.post<Pj>(this.API_PJ, formData);
   }
 
-  updatePjFormdata(formData: FormData): Observable<any> {
-    const id = formData.get('id');
+  updatePjFormdata(id: number, formData: FormData): Observable<any> {
     const url = `${this.API_PJ}${id}/`;
     return this.http.put(url, formData);
   }

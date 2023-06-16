@@ -67,13 +67,25 @@ export class UpdatePjComponent {
       
     } else {
       console.log("ID de document introuvable dans l'URL");
+      this.pjForm = this.formBuilder.group({
+        nom: ['', Validators.required],
+        url_document: ['', Validators.required],
+        date_modification: [''],
+        modifie_par: [''],
+        
+        
+      });
     }
   }
 
   onSubmit() {
-    console.log(this.pjForm.value);
     const formData = new FormData();
-    this.pjService.updatePjFormdata(formData).subscribe(
+    formData.append('nom', this.pjForm.value.nom);
+    formData.append('url_document', this.pjForm.value.url_document);
+    formData.append('date_modification', this.pjForm.value.date_modification);
+    formData.append('modifie_par', this.pjForm.value.modifie_par);
+  
+    this.pjService.updatePjFormdata(this.id, formData).subscribe(
       (data: any) => {
         console.log(data);
         console.log("modification avec succès");
@@ -84,8 +96,9 @@ export class UpdatePjComponent {
         console.log(error);
       }
     );
-
   }
+  
+  
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }

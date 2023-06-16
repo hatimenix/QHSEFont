@@ -99,6 +99,7 @@ export class UpdateMenusComponent implements OnInit{
     formData.append('id', this.id.toString());
     formData.append('site', this.MenuForm.get('site')?.value);
     formData.append('mois_concerne', this.MenuForm.get('mois_concerne')?.value);
+    
   
   
 

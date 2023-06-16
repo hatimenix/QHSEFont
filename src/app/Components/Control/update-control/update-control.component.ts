@@ -34,6 +34,7 @@ export class UpdateControlComponent {
       date_dernier_control: new FormControl(),
       date_control_suivant: new FormControl(),
       action_ouverte: new FormControl(),
+      rapport: new FormControl()
      
     });
   }
@@ -59,6 +60,7 @@ export class UpdateControlComponent {
             date_dernier_control: [this.control.date_dernier_control, Validators.required],
             date_control_suivant: [this.control.date_control_suivant, Validators.required],
             action_ouverte: [this.control.action_ouverte, Validators.required],
+            rapport:[this.control.rapport, Validators.required]
             
           });
         },

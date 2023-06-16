@@ -24,9 +24,7 @@ export class CertificatService {
   addCertificatFormData(formData: FormData): Observable<CertificatCalibration> {
     return this.http.post<CertificatCalibration>(this.API_certificat_calibration, formData);
   }
-
-  updateCertificatFormdata(formData: FormData): Observable<any> {
-    const id = formData.get('id');
+  updateCertificatFormdata(id: number, formData: FormData): Observable<any> {
     const url = `${this.API_certificat_calibration}${id}/`;
     return this.http.put(url, formData);
   }

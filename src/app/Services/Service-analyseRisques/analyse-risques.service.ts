@@ -36,5 +36,5 @@ export class AnalyseRisquesService {
     const url = `${this.analyserisqueurl}${idAnalyseRisque}/`;
     return this.http.put(url, formData);
   }
-  
+
 }
