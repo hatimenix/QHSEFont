@@ -15,6 +15,10 @@ export class UpdateFicheComponent implements OnInit{
   ficheForm!: FormGroup;
   fiche!: FicheTechnique;
   id_fiche!: number;
+
+  fileToUpload: File | null = null;
+  selectedFileName: string | null = null;
+
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -77,10 +81,10 @@ export class UpdateFicheComponent implements OnInit{
     formData.append('nom_fiche', this.ficheForm.get('nom_fiche')?.value);
     formData.append('type_plat', this.ficheForm.get('type_plat')?.value);
   
-    if (this.ficheForm.get('fichier')?.value) {
-      const file: File = this.ficheForm.get('fichier')?.value;
-      formData.append('fichier', file, file.name);
-    }
+     // Include the file in the form data if it is not null
+  if (this.fileToUpload) {
+    formData.append('fichier', this.fileToUpload);
+  }
   
 
     this.ficheService.updateFicheFormdata(formData).subscribe(
@@ -102,10 +106,17 @@ export class UpdateFicheComponent implements OnInit{
 }
   
   
-  onFileSelected(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    const file: File = (fileInput.files as FileList)[0];
-    this.ficheForm.get('fichier')?.setValue(file);
+onFileSelected(event: any) {
+  const fileInput = event.target as HTMLInputElement;
+  const file: File | null = fileInput.files?.[0] || null;
+  this.fileToUpload = file;
+
+  if (file) {
+    this.selectedFileName = file.name;
+  } else {
+    this.selectedFileName = null;
   }
+}
+
   
 }

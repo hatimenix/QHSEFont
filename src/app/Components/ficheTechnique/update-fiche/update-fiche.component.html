@@ -39,7 +39,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="fichier">Fichier <label style="color: red;">*</label></label>
-                                        <input type="file" class="form-control image-file" (change)="onFileSelected($event)"formControlName="fichier">
+                                        <input type="file" id="fichier" (change)="onFileSelected($event)" class="form-control">
+                                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
+                                                                                
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>    
