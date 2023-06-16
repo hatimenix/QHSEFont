@@ -66,7 +66,6 @@ export class InfoQualiteComponent {
       domaine : ['', Validators.required],
       site : ['', Validators.required],
       processus : ['', Validators.required],
-      etat : ['', Validators.required],
       analyse_cause : ['', Validators.required],
       plan_action : ['', Validators.required],
       delai_mise_en_oeuvre : ['', Validators.required],
@@ -142,7 +141,7 @@ export class InfoQualiteComponent {
     if (this.actionForm.valid) {
       const formData = new FormData();
       formData.append('Site_name', '');
-      formData.append('etat', this.actionForm.get('etat')!.value);
+      formData.append('etat', '');
       formData.append('annee', new Date().toString());
       formData.append('piece_jointe', this.actionForm.get('piece_jointe')?.value ?? '');
       formData.append('intitule', this.actionForm.get('intitule')!.value);
@@ -180,7 +179,7 @@ export class InfoQualiteComponent {
   updateAction(): void {
       const formData = new FormData();
       formData.append('Site_name', '');
-      formData.append('etat', this.actionForm.get('etat')!.value);
+      formData.append('etat', '');
       formData.append('annee', new Date().toString());
       if (this.piece_jointe !== null && this.piece_jointe !== undefined) {
         formData.append("piece_jointe", this.piece_jointe);

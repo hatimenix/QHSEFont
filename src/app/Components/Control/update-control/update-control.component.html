@@ -57,6 +57,13 @@
                             </select>
                         </div> 
                     </div> 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="rapport">Rapport </label>
+                            <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'rapport') " formControlName="rapport">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div> 
                                           
                 </div>                            
                 <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Modifier</button>

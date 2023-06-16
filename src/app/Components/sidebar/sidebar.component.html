@@ -150,6 +150,11 @@
                                 <i class="las la-minus"></i><span>Parties intéressées </span>
                             </a>
                         </li>
+                        <li class="">
+                            <a routerLink="/exigence-list" style="color: white;">
+                                <i class="las la-minus"></i><span>Exigences des parties intéressées </span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class=" ">
@@ -205,6 +210,11 @@
                         <li class="">
                             <a routerLink="/constatsaudit-list" style="color: white;">
                                 <i class="las la-minus"></i><span>Constats d'audits</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/tache-list" style="color: white;">
+                                <i class="las la-minus"></i><span>Suivi des tâches</span>
                             </a>
                         </li>
                     </ul>
@@ -432,6 +442,42 @@
                             </a>
                         </li>
                     </ul>
+                <li class=" ">
+                    <a href="#product" class="collapsed" data-toggle="collapse" aria-expanded="false"
+                        style="color: white;">
+                        <svg class="svg-icon" id="lock-icon" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+
+                        <span class="ml-4">Récents</span>
+                        <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="10 15 15 20 20 15"></polyline>
+                            <path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                        </svg>
+                    </a>
+                    <ul id="product" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li class="">
+                            <a routerLink="/listpj" style="color: white;">
+                                <i class="las la-minus"></i><span>PJ retours positifs </span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a routerLink="/documents-utiles-list" style="color: white;">
+                                <i class="las la-minus"></i><span>Rapport d'audit qualité sécurité 5S</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a routerLink="/documents-utiles-list" style="color: white;">
+                                <i class="las la-minus"></i><span>Certificats calibration</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 

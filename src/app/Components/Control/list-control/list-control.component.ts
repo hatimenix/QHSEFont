@@ -19,6 +19,8 @@ export class ListControlComponent {
   site!: Site[];
   site$!: Observable<any>;
   myForm: any;
+   //search
+   searchQuery: string = '';
 
   //delete modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
@@ -119,8 +121,21 @@ filterControlsBySite(): void {
     this.getControl();
   }
 }
+//afficher juste le nom du fichier 
+getFileNameFromPath(filePath: string | File | undefined): string {
+  if (!filePath) return 'Aucun fichier joint';
+  
+  if (typeof filePath === 'string') {
+    const parts = filePath.split('/');
+    return parts.pop() || 'Aucun fichier joint';
+  }
+  
+  return filePath.name || 'Aucun fichier joint';
+}
 
-
-
+//search 
+resetSearchQuery() {
+  this.searchQuery = '';
+}
 
 }

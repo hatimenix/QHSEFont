@@ -1,0 +1,55 @@
+#update .modal-dialog {
+    max-width: 850px;
+  }
+  
+#update .modal-content {
+    width: 110%;
+    height: 110%;
+  }
+  .custom-button {
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff;
+  }
+  
+  button + button {
+    margin-left: 10px;
+  }
+  thead {
+    background-color: #17469d;
+    color:#fff;
+  }
+  th {
+  color: rgb(255, 255, 255);
+  min-width: 170px;
+  
+  }
+  #user-list-table {
+    width: 100%;
+  }
+  .badge{
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff; 
+  
+  }
+  .btn-danger{
+    background-color: #e56b6f;
+    border-color: #e56b6f;
+    color: #fff; 
+  }
+  .btn-primary {
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff;  /* ajustez la valeur selon vos préférences */
+  }
+ 
+  
+  
+  
+  .btn-secondary {
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
+  
+  

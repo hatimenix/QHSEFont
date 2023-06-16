@@ -78,9 +78,18 @@ import { InfoPartieComponent } from './Components/Parties-interesses/info-partie
 import { AddTypepartieComponent } from './Components/TypeParties/add-typepartie/add-typepartie.component';
 import { InfoExigencesComponent } from './Components/Exigences/info-exigences/info-exigences.component';
 import { InfoAnalyserisqueComponent } from './Components/AnalysesRisques/info-analyserisque/info-analyserisque.component';
+import { ListTachesComponent } from './Components/Taches/list-taches/list-taches.component';
+import { AddTachesComponent } from './Components/Taches/add-taches/add-taches.component';
+import { AddSourceComponent } from './Components/Source/add-source/add-source.component';
+import { InfoTachesComponent } from './Components/Taches/info-taches/info-taches.component';
 import { ListControlComponent } from './Components/Control/list-control/list-control.component';
 import { AddControlComponent } from './Components/Control/add-control/add-control.component';
 import { UpdateControlComponent } from './Components/Control/update-control/update-control.component';
+import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
+import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
+import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
+import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
+import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
 import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
 import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
@@ -158,9 +167,18 @@ import { InfoConstatComponent } from './Components/constatAudit/info-constat/inf
     AddTypepartieComponent,
     InfoExigencesComponent,
     InfoAnalyserisqueComponent,
+    ListTachesComponent,
+    AddTachesComponent,
+    AddSourceComponent,
+    InfoTachesComponent,
     ListControlComponent,
     AddControlComponent,
     UpdateControlComponent,
+    AddPjComponent,
+    ListPjComponent,
+    UpdatePjComponent,
+    ListExigencesComponent,
+    AddExigencesComponent,
     ListConstatsComponent,
     AddConstatComponent,
     InfoConstatComponent

@@ -1,0 +1,566 @@
+<div class="content-page">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          
+           <div class="card">
+              <div class="card-header d-flex justify-content-between" style="background-color:#17469d; color:white;">
+                 <div class="header-title">
+                    <h4 class="card-title">Suivi des tâches</h4>
+                 </div>
+              </div>
+              <div class="card-body">
+                 <div class="iq-example-row">
+                    <div class="container-fluid">
+        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+          <li class="nav-item col-12 col-md-12">
+            <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description de la tâche</a>
+            </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                <tr class="table-default">
+                    <td class="col-sm-1">Source :</td>
+                    <td class="col-sm-1">{{ tache.source_name }}</td>
+                   </tr>
+                   <tbody>
+                    <tr>
+                      <td style="width:20%">Action(s) associée(s) <a class="badge mr-2" style="background-color: #eac74b; color:white;" data-toggle="modal" data-target=".bd-action-modal-lg" data-placement="top" title=""
+                         href=""><i class="ri-add-line"></i></a></td>
+                      <td style="width:80%">
+                        <table class="table table-bordered table-striped text-center">
+                          <tbody>
+                            <tr style="background-color: #089bd7;">
+                              <th>Modifier / Supprimer</th>
+                              <th>Intitulé action</th>
+                              <th>Domaine</th>
+                              <th>Origine de l'action</th>
+                              <th>Site</th>
+                              <th>Etat</th>
+                              <th>Assigné à</th>
+                              <th>Date mise en oeuvre</th>
+                              <th>Année</th>
+                              <th>Priorité</th>
+                              <th>Référence action</th>
+                            </tr>
+                            <tr *ngIf="(actions$ | async)?.length === 0">
+                              <td colspan="11">Aucune action enregistré pour cette non-conformité.</td>
+                            </tr>
+                            <tr *ngFor="let actions of actions$ | async">
+                              <td>
+                                <div class="d-flex align-items-center list-action">
+                                  <a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_action" (click)="openUpdateModal(actions)"><i class="ri-pencil-line mr-0"></i></a>
+                                  <a class="badge bg-warning mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAction"
+                                  (click)="openDeleteModal(actions.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                </div>
+                              </td>
+                              <td><a [routerLink]="['/infoAction/', actions.id]">{{ actions.intitule }}</a></td>
+                              <td>{{ actions.domaine }}</td>
+                              <td>{{ actions.origine_action }}</td>
+                              <td>{{ actions.Site_name }}</td>
+                              <td>
+                                <span *ngIf="actions.etat === 'Non commencé'">
+                                  <i class="fas fa-circle-notch text-warning"></i>
+                                  {{ actions.etat }}
+                                </span>
+                                <span *ngIf="actions.etat === 'Terminé'">
+                                  <i class="fas fa-check-circle text-success"></i>
+                                  {{ actions.etat }}
+                                </span>
+                                <div>
+                                  <style>
+                                    .rotating-icon {
+                                      animation: rotate 1.5s infinite linear;
+                                    }                                
+                                    @keyframes rotate {
+                                      0% {
+                                        transform: rotate(0deg);
+                                      }
+                                      100% {
+                                        transform: rotate(360deg);
+                                      }
+                                    }
+                                  </style>                              
+                                  <span *ngIf="actions.etat === 'En cours'">
+                                    <i class="fas fa-spinner text-primary rotating-icon"></i>
+                                    {{ actions.etat }}
+                                  </span>
+                                </div>
+                              </td>                              
+                              <td>{{ actions.assigne_a }}</td>
+                              <td>{{ actions.delai_mise_en_oeuvre }}</td>
+                              <td>{{ actions.annee }}</td>
+                              <td>{{ actions.priorite }}</td>
+                              <td>{{ actions.reference }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="modal fade" id="deleteAction" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-body">
+                                      <div class="popup text-left">
+                                          <h4 class="mb-3">Confirmer la suppression</h4>
+                                          <div class="content create-workform bg-body">
+                                              <div class="pb-3">
+                                                  <label class="mb-2">Est ce que vous voulez supprimer cette action définitivement !!</label>
+                                              </div>
+                                              <div class="col-lg-12 mt-4">
+                                                  <div class="d-flex flex-wrap align-items-ceter justify-content-center">
+                                                      <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteAction()">Supprimer</div>
+                                                      <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                 <tr class="table-info">
+                  <td class="col-sm-1">Nom de la tâche :</td>
+                  <td class="col-sm-1">{{ tache.nom_tache }}</td>
+                 </tr>
+                 <tr class="table-default">
+                    <td>Date de début :</td>
+                    <td>{{ tache.date_debut }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Echéance :</td>
+                    <td>{{ tache.echeance }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Description :</td>
+                    <td>{{ tache.description }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Priorité:</td>
+                    <td>
+                        {{ tache.priorite }}
+                        
+                        <ng-container *ngIf="tache.priorite === 'Basse'">
+                          <i class="flag-icon fas fa-flag text-success"> (3)</i>
+                        </ng-container>
+                        <ng-container *ngIf="tache.priorite === 'Normal'">
+                          <i class="flag-icon fas fa-flag text-warning"> (2)</i>
+                        </ng-container>
+                        <ng-container *ngIf="tache.priorite === 'Haute'">
+                          <i class="flag-icon fas fa-flag text-danger"> (1)</i>
+                        </ng-container>
+                      </td>                   
+                    </tr>
+                  <tr class="table-default">
+                    <td>Assigné à :</td>
+                    <td>{{tache.utilisateur_name}}</td>
+                </tr>
+                  <tr class="table-info">
+                    <td>Date de réalisation :</td>
+                    <td>{{tache.date_realisation }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Etat :</td>
+                    <td>
+                        <span *ngIf="tache.etat === 'Non commencé'">
+                          <i class="fas fa-circle-notch text-warning"></i>
+                          {{ tache.etat }}
+                        </span>
+                        <span *ngIf="tache.etat === 'Terminé'">
+                          <i class="fas fa-check-circle text-success"></i>
+                          {{ tache.etat }}
+                        </span>
+                        <div>
+                          <style>
+                            .rotating-icon {
+                              animation: rotate 1.5s infinite linear;
+                            }                               
+                            @keyframes rotate {
+                              0% {
+                                transform: rotate(0deg);
+                              }
+                              100% {
+                                transform: rotate(360deg);
+                              }
+                            }
+                          </style>                               
+                          <span *ngIf="tache.etat === 'En cours'">
+                            <i class="fas fa-spinner text-primary rotating-icon"></i>
+                            {{ tache.etat }}
+                          </span>
+                        </div>
+                      </td>                   
+                    </tr>
+                  <tr class="table-info">
+                    <td>Commentaires:</td>
+                    <td>{{tache.commentaire }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Pièce jointe:</td>
+                    <td><button class="btn  fa fa-download mr-3"   (click)="download(tache.piece_jointe)">  {{ tache.piece_jointe ? tache.piece_jointe.split('/').pop() : 'Aucun fichier joint' }}
+
+                    </button></td>                  
+                </tr>
+                  </table>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row mt-1 mb-2 justify-content-end">
+                    <a routerLink="/tache-list" class="btn add-list">
+                      <i class="fas fa-arrow-left"></i> Retourner vers la liste des tâches
+                    </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+                  
+  </div>
+</div>
+<!-- Page end -->
+<div class="modal fade bd-action-modal-lg" [class.show]="addModalVisible"  tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+        <div class="modal-header" style="background-color: #089bd7;">
+           <h5 class="modal-title" style="color:white">Ajout action amélioration</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true" style="color:black">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+              <div class="card-body">
+               <form [formGroup]="actionForm" (ngSubmit)="addActionFormData()" class="needs-validation" enctype="multipart/form-data" novalidate>
+                 <div class="d-flex align-items">
+                 <div class="col-3">
+                  <div class="form-group">
+                    <label for="intitule">Intitulé :</label>
+                    <input type="text" class="form-control" formControlName="intitule" />
+                  </div>
+                 </div>
+                 <div class="col-3">
+                  <div class="form-group">
+                    <label for="type_action">Type d'action :</label>
+                    <select id="type_action" name="type_action" formControlName="type_action" class="custom-select" data-style="py-0" required>
+                     <option value="Corrective"  selected>Corrective</option>
+                     <option value="Préventive" >Préventive</option>
+                     <option value="Stratégique" >Stratégique</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div class="col-3">
+                  <div class="form-group">
+                    <label for="origine_action">Origine d'action :</label>
+                    <input type="text" class="form-control" formControlName="origine_action" />
+                  </div>
+                  </div>
+                  <div class="col-3">
+                  <div class="form-group">
+                    <label for="reference">Référence :</label>
+                    <input type="text" class="form-control" formControlName="reference" />
+                  </div>
+                  </div>
+                 </div>
+                 <div class="d-flex align-items">
+                   <div class="col-4">
+                  <div class="form-group">
+                    <label for="domaine">Domaine :</label>
+                    <select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0" required>
+                     <option value="Qualité"  selected>Qualité</option>
+                     <option value="Préventive" >Sécurité</option>
+                     <option value="Environement" >Environement</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div class="col-4">
+                  <div class="form-group">
+                    <label for="site">Site :</label>
+                    <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                     <option value="" selected disabled>Choisissez un site</option>
+                     <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div class="col-4">
+                  <div class="form-group">
+                    <label for="processus">Processus :</label>
+                    <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+                     <option value="" selected disabled>Choisissez un processus</option>
+                     <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                    </select>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="d-flex align-items">
+                   <div class="col-6">
+                  <div class="form-group">
+                    <label for="analyse_cause">Analyse cause (AC) / risques (AP) :</label>
+                    <textarea class="form-control" formControlName="analyse_cause"></textarea>
+                  </div>
+                  </div>
+                  <div class="col-6">
+                  <div class="form-group">
+                    <label for="plan_action">Plan d'action :</label>
+                    <textarea class="form-control" formControlName="plan_action"></textarea>
+                  </div>
+                 </div>
+                 </div>
+                  <div class="form-group">
+                     <h5>Prise en charge de l'action</h5>
+                  </div>
+                  <div class="d-flex align-items">
+                   <div class="col-4">
+                  <div class="form-group">
+                    <label for="delai_mise_en_oeuvre">Délai de mise en oeuvre :</label>
+                    <input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" />
+                  </div>
+                  </div>
+                  <div class="col-4">
+                  <div class="form-group">
+                    <label for="assigne_a">Assigné à :</label>
+                    <input type="text" class="form-control" formControlName="assigne_a" />
+                  </div>
+                  </div>
+                  <div class="col-4">
+                  <div class="form-group">
+                    <label for="priorite">Priorité :</label>
+                    <select id="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0" required>
+                     <option value="1"  selected>1</option>
+                     <option value="2" >2</option>
+                     <option value="3" >3</option>
+                    </select>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="form-group">
+                     <h5>Prise en charge de la mesure d'efficacité</h5>
+                  </div>
+                  <div class="d-flex align-items">
+                   <div class="col-4">
+                  <div class="form-group">
+                    <label for="delai_mesure_eff">Délai de mesure effective :</label>
+                    <input type="date" class="form-control" formControlName="delai_mesure_eff" />
+                  </div>
+                  </div>
+                  <div class="col-4">
+                  <div class="form-group">
+                    <label for="type_critere_eff">Type de critère effectif :</label>
+                    <input type="text" class="form-control" formControlName="type_critere_eff" />
+                  </div>
+                  </div>
+                  <div class="col-4">
+                  <div class="form-group">
+                    <label for="detail_critere_eff">Détails du critère effectif :</label>
+                    <textarea class="form-control" formControlName="detail_critere_eff"></textarea>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="col mb-2">
+                    <div class="custom-file">
+                      <input (change)="onFileSelectedAction($event)" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
+                      <label class="custom-file-label" for="customFile">{{ getSelectedFileName() }}</label>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex align-items-end flex-column" >
+                   <div class="mt-auto p-2">
+                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="actionForm.invalid"><i class="fas fa-plus"></i>Ajouter</button>
+                     <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                  </div>
+                  </div>
+               </form>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+
+<!-- update    -->
+<div class="modal fade bd-action-modal-lg" [class.show]="updateModalVisible"  id="update_action" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg">                          
+<div class="modal-content">
+<div class="modal-header" style="background-color: #089bd7;">
+<h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier action amélioration</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true" style="color:black">×</span>
+</button>
+</div>
+<div class="modal-body">
+<form [formGroup]="actionForm" (ngSubmit)="updateAction()"  class="needs-validation" novalidate>  
+<div class="row">   
+<div class="col">                                       
+<div class="form-group">
+<label for="intitule">Intitulé :</label>
+<input type="text" class="form-control" formControlName="intitule" />
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="type_action">Type d'action :</label>
+<select id="type_action" name="type_action" formControlName="type_action" class="custom-select" data-style="py-0" >
+<option value="Corrective"  selected>Corrective</option>
+<option value="Préventive" >Préventive</option>
+<option value="Stratégique" >Stratégique</option>
+</select>
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="origine_action">Origine d'action :</label>
+<input type="text" class="form-control" formControlName="origine_action" />
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="reference">Référence :</label>
+<input type="text" class="form-control" formControlName="reference" />
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col">
+<div class="form-group">
+<label for="domaine">Domaine :</label>
+<select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0" >
+<option value="Qualité"  selected>Qualité</option>
+<option value="Préventive" >Sécurité</option>
+<option value="Environement" >Environement</option>
+</select>
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="site">Site :</label>
+<select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" >
+<option value="" selected disabled>Choisissez un site</option>
+<option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+</select>
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="processus">Processus :</label>
+<select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" >
+<option value="" selected disabled>Choisissez un processus</option>
+<option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+</select>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col">
+<div class="form-group">
+<label for="analyse_cause">Analyse cause (AC) / risques (AP) :</label>
+<textarea class="form-control" formControlName="analyse_cause"></textarea>
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="plan_action">Plan d'action :</label>
+<textarea class="form-control" formControlName="plan_action"></textarea>
+</div>
+</div>
+</div>
+<div class="form-group">
+<h5>Prise en charge de l'action</h5>
+</div>
+<div class="row">
+<div class="col">
+<div class="form-group">
+<label for="delai_mise_en_oeuvre">Délai de mise en oeuvre :</label>
+<input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" />
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="assigne_a">Assigné à :</label>
+<input type="text" class="form-control" formControlName="assigne_a" />
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="priorite">Priorité :</label>
+<select id="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0" >
+<option value="1"  selected>1</option>
+<option value="2" >2</option>
+<option value="3" >3</option>
+</select>
+</div>
+</div>
+</div>
+<div class="form-group">
+<h5>Prise en charge de la mesure d'efficacité</h5>
+</div>
+<div class="row">
+<div class="col">
+<div class="form-group">
+<label for="delai_mesure_eff">Délai de mesure effective :</label>
+<input type="date" class="form-control" formControlName="delai_mesure_eff" />
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="type_critere_eff">Type de critère effectif :</label>
+<input type="text" class="form-control" formControlName="type_critere_eff" />
+</div>
+</div>
+<div class="col">
+<div class="form-group">
+<label for="detail_critere_eff">Détails du critère effectif :</label>
+<textarea class="form-control" formControlName="detail_critere_eff"></textarea>
+</div>
+</div>
+</div>
+<div class="col mb-2">
+  <div class="custom-file">
+    <input (change)="updateFile($event)"  formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
+    <label class="custom-file-label" for="customFile">{{ getSelectedFileName() }}</label>
+  </div>
+</div>
+
+<div class="d-flex align-items-end flex-column">
+<div class="mt-auto p-2">
+<button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+<button type="button" class="btn bg-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div> 
+<!-- Page end  -->
+<ng-template #successModal>
+<div class="modal-header">
+<h4 class="modal-title">Succès</h4>
+<button type="button" class="close" aria-label="Close" (click)="closeModal()">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+L'action a été modifié avec succès.
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+</div>
+</ng-template>
+<!-- Page end  -->
+<ng-template #addModal>
+<div class="modal-header">
+<h4 class="modal-title">Succès</h4>
+<button type="button" class="close" aria-label="Close" (click)="closeModal()">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+L'action a été ajoutée avec succès.
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+</div>
+</ng-template>
