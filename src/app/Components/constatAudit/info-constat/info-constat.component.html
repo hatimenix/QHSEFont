@@ -1,0 +1,274 @@
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between"
+                        style="background-color:#17469d; color:white;">
+                        <div class="header-title">
+                            <h4 class="card-title">COnstats d'audit</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="iq-example-row">
+                            <div class="container-fluid">
+                                <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+                                    <li class="nav-item col-12 col-md-12">
+                                        <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill"
+                                            href="#pills-home-fill" role="tab" aria-controls="pills-home"
+                                            aria-selected="true">Description des remarques</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel"
+                                        aria-labelledby="pills-home-tab-fill">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tr class="table-default">
+                                                    <td class="col-sm-1">Site :</td>
+                                                    <td class="col-sm-1">
+                                                        <a href="javascript:void(0);" *ngIf="constat"
+                                                            (click)="openSiteModal(getSiteById(constat.site))">
+                                                            {{ getSiteById(constat.site)?.site_nom }}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr class="table-info">
+                                                    <td>Type d'audit :</td>
+                                                    <td>{{ constat.type_audit }}</td>
+                                                </tr>
+                                                <tr class="table-default">
+                                                    <td>Localisation:</td>
+                                                    <td>{{ constat.localisation }}</td>
+                                                </tr>
+                                                <tr class="table-info">
+                                                    <td>Intitulé du constat:</td>
+                                                    <td>{{ constat.intitule_constat }}</td>
+                                                </tr>
+                                                <tr class="table-default">
+                                                    <td>Description du constat:</td>
+                                                    <td>{{ constat.description_constat }}</td>
+                                                </tr>
+                                                <tr class="table-info">
+                                                    <td>Rapport d'audit :</td>
+                                                    <td>
+                                                        <a class="btn fa fa-download mr-3"
+                                                            href="{{ constat.rapport_audit}}" download>
+                                                            {{ constat.rapport_audit
+                                                            ?constat.rapport_audit.split('/').pop()
+                                                            : 'Aucun
+                                                            fichier joint' }}
+                                                        </a>
+
+
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-default">
+                                                    <td>Responsable du traitement</td>
+                                                    <td>
+                                                        <ng-container *ngFor="let utilisateur of utilisateurs">
+                                                            <ng-container
+                                                                *ngIf="constat.responsable_traitement.includes(utilisateur.id)">
+                                                                <a href="javascript:void(0); "
+                                                                    (click)="openUtilisateurModal(utilisateur)">
+                                                                    {{ utilisateur?.nom }}
+                                                                </a>
+                                                                <br>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </td>
+                                                </tr>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width:20%">Action(s) associée(s) <a
+                                                                class="badge mr-2"
+                                                                style="background-color: #eac74b; color:white;"
+                                                                data-toggle="modal" data-target=".bd-action-modal-lg"
+                                                                data-placement="top" title="" href=""><i
+                                                                    class="ri-add-line"></i></a></td>
+                                                        <td style="width:80%">
+                                                            <table
+                                                                class="table table-bordered table-striped text-center">
+                                                                <tbody>
+                                                                    <tr style="background-color: #089bd7;">
+                                                                        <th>Modifier / Supprimer</th>
+                                                                        <th>Intitulé action</th>
+                                                                        <th>Domaine</th>
+                                                                        <th>Origine de l'action</th>
+                                                                        <th>Site</th>
+                                                                        <th>Etat</th>
+                                                                        <th>Assigné à</th>
+                                                                        <th>Date mise en oeuvre</th>
+                                                                        <th>Année</th>
+                                                                        <th>Priorité</th>
+                                                                        <th>Référence action</th>
+                                                                    </tr>
+                                                                    <tr *ngIf="(actions$ | async)?.length === 0">
+                                                                        <td colspan="11">Aucune action enregistré pour
+                                                                            cette non-conformité.</td>
+                                                                    </tr>
+                                                                    <tr *ngFor="let actions of actions$ | async">
+                                                                        <td>
+                                                                            <div
+                                                                                class="d-flex align-items-center list-action">
+                                                                                <a class="badge bg-primary mr-2"
+                                                                                    style="background-color: #ffd140; color:white;cursor: pointer;"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#update_action"><i
+                                                                                        class="ri-pencil-line mr-0"></i></a>
+                                                                                <a class="badge bg-warning mr-2"
+                                                                                    style="cursor: pointer;"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#deleteAction"><i
+                                                                                        class="ri-delete-bin-line mr-0"></i></a>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td><a
+                                                                                [routerLink]="['/infoAction/', actions.id]">{{
+                                                                                actions.intitule }}</a></td>
+                                                                        <td>{{ actions.domaine }}</td>
+                                                                        <td>{{ actions.origine_action }}</td>
+                                                                        <td>{{ actions.Site_name }}</td>
+                                                                        <td>
+                                                                            <span
+                                                                                *ngIf="actions.etat === 'Non commencé'">
+                                                                                <i
+                                                                                    class="fas fa-circle-notch text-warning"></i>
+                                                                                {{ actions.etat }}
+                                                                            </span>
+                                                                            <span *ngIf="actions.etat === 'Terminé'">
+                                                                                <i
+                                                                                    class="fas fa-check-circle text-success"></i>
+                                                                                {{ actions.etat }}
+                                                                            </span>
+                                                                            <div>
+                                                                                <style>
+                                                                                    .rotating-icon {
+                                                                                        animation: rotate 1.5s infinite linear;
+                                                                                    }
+
+                                                                                    @keyframes rotate {
+                                                                                        0% {
+                                                                                            transform: rotate(0deg);
+                                                                                        }
+
+                                                                                        100% {
+                                                                                            transform: rotate(360deg);
+                                                                                        }
+                                                                                    }
+                                                                                </style>
+                                                                                <span
+                                                                                    *ngIf="actions.etat === 'En cours'">
+                                                                                    <i
+                                                                                        class="fas fa-spinner text-primary rotating-icon"></i>
+                                                                                    {{ actions.etat }}
+                                                                                </span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>{{ actions.assigne_a }}</td>
+                                                                        <td>{{ actions.delai_mise_en_oeuvre }}</td>
+                                                                        <td>{{ actions.annee }}</td>
+                                                                        <td>{{ actions.priorite }}</td>
+                                                                        <td>{{ actions.reference }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="modal fade" id="deleteAction" tabindex="-1"
+                                                                role="dialog" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered"
+                                                                    role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-body">
+                                                                            <div class="popup text-left">
+                                                                                <h4 class="mb-3">Confirmer la
+                                                                                    suppression</h4>
+                                                                                <div
+                                                                                    class="content create-workform bg-body">
+                                                                                    <div class="pb-3">
+                                                                                        <label class="mb-2">Est ce que
+                                                                                            vous voulez supprimer cette
+                                                                                            action définitivement
+                                                                                            !!</label>
+                                                                                    </div>
+                                                                                    <div class="col-lg-12 mt-4">
+                                                                                        <div
+                                                                                            class="d-flex flex-wrap align-items-ceter justify-content-center">
+                                                                                            <div class="btn bg-warning mr-4"
+                                                                                                data-dismiss="modal">
+                                                                                                Supprimer</div>
+                                                                                            <div class="btn btn-outline-primary"
+                                                                                                data-dismiss="modal">
+                                                                                                Annuler</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-1 mb-2 justify-content-end">
+                                    <a routerLink="/constatsaudit-list" class="btn add-list">
+                                        <i class="fas fa-arrow-left"></i> Retourner vers la liste des constats d'audit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #utilisateurModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Responsable traitement Informations</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModalutilisateur()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p><strong>Compte :</strong> {{ selectedUtilisateur?.compte }}</p>
+        <p><strong>Nom:</strong> {{ selectedUtilisateur?.nom }}</p>
+        <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
+        <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
+        <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
+        <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image"
+                alt="Image"></p>
+        <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
+        <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
+        <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
+    </div>
+
+</ng-template>
+
+
+<ng-template #siteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Site Informations</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModalsite()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p><strong>Site :</strong> {{ selectedSite?.site_nom }}</p>
+        <p><strong>Sigle:</strong> {{ selectedSite?.sigle }}</p>
+        <p><strong>Responsable du Site:</strong> {{ selectedSite?.responsable_name }}</p>
+        <p><strong>Groupe Retso:</strong> {{ selectedSite?.groupe_retso }}</p>
+    </div>
+
+</ng-template>
