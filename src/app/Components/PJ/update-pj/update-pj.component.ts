@@ -17,6 +17,9 @@ export class UpdatePjComponent {
   pj!: Pj;
   id!: number;
   personnel$!: Observable<any>;
+  selectedFile!: File;
+  fileToUpload: File | null = null;
+ selectedFileName: string | null = null;
   //modal
   @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
@@ -81,9 +84,14 @@ export class UpdatePjComponent {
   onSubmit() {
     const formData = new FormData();
     formData.append('nom', this.pjForm.value.nom);
-    formData.append('url_document', this.pjForm.value.url_document);
     formData.append('date_modification', this.pjForm.value.date_modification);
     formData.append('modifie_par', this.pjForm.value.modifie_par);
+    
+if (this.fileToUpload) {
+  formData.append('url_document', this.fileToUpload);
+}
+ 
+
   
     this.pjService.updatePjFormdata(this.id, formData).subscribe(
       (data: any) => {
@@ -106,8 +114,14 @@ export class UpdatePjComponent {
     this.bsModalService.hide();
   }
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.pjForm.get('url_document')?.setValue(file);
+    const fileInput = event.target as HTMLInputElement;
+    const file: File | null = fileInput.files?.[0] || null;
+    this.fileToUpload = file;
+  
+    if (file) {
+      this.selectedFileName = file.name;
+    } else {
+      this.selectedFileName = null;
+    }
   }
-
 }

@@ -20,6 +20,10 @@ export class UpdateDocumentationComponent {
   doc!: Documentation;
   id!: number;
   selectedFile!: File;
+  fileToUpload: File | null = null;
+
+  selectedFileName: string | null = null;
+
 
   site$ !: Observable<any>;
   secteur$!: Observable<any>;
@@ -137,8 +141,10 @@ export class UpdateDocumentationComponent {
     formData.append('secteur', this.DocForm.get('secteur')?.value);
     formData.append('processus', this.DocForm.get('processus')?.value);
     formData.append('personnel', this.DocForm.get('personnel')?.value);
-
-    formData.append('url_document', this.selectedFile);
+    // Include the file in the form data if it is not null
+    if (this.fileToUpload) {
+      formData.append('fichier', this.fileToUpload);
+    }
 
 
     this.documentService.updateDocFormdata(formData).subscribe(
@@ -162,7 +168,15 @@ export class UpdateDocumentationComponent {
   }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const fileInput = event.target as HTMLInputElement;
+    const file: File | null = fileInput.files?.[0] || null;
+    this.fileToUpload = file;
+  
+    if (file) {
+      this.selectedFileName = file.name;
+    } else {
+      this.selectedFileName = null;
+    }
   }
 
 }

@@ -39,6 +39,8 @@
                                     <div class="form-group">
                                         <label for="url_document">Url document </label>
                                         <input type="file" class="form-control image-file" (change)="onFileSelected($event) " formControlName="url_document">
+                                        
+                                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>  

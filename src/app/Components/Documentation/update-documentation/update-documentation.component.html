@@ -109,13 +109,16 @@
                                 </select>
                             </div> 
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="url_document">Url de document <label style="color: red;">*</label></label>
-                              <input type="file" class="form-control image-file" (change)="onFileSelected($event)"formControlName="url_document">
-                              <div class="help-block with-errors"></div>
-                          </div>
-                      </div>
+                       
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="url_document">Url de document <label style="color: red;">*</label></label>
+                            <input type="file" id="url_document" (change)="onFileSelected($event)" class="form-control">
+                            <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
+                                                                    
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div> 
                          </div>                            
                          <button type="submit" class="btn btn-primary mr-2 ">Modifier</button>
                          <button type="reset" class="btn btn-danger" routerLink="/listdocument">Annuler</button>

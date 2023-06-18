@@ -44,7 +44,6 @@ export class AddFicheComponent {
     this.ficheForm.get('fichier')?.setValue(file);
   }
 
- // ... Component code ...
 
 onSubmit() {
   if (this.ficheForm.valid) {
@@ -65,10 +64,6 @@ onSubmit() {
     );
   }
 }
-
-// ... Component code ...
-
-
    //modal functions 
    openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);

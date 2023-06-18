@@ -17,6 +17,9 @@ export class UpdateMenusComponent implements OnInit{
   menu!: Menus;
   id!: number;
   site$ !: Observable<any>;
+  selectedFile!: File;
+  fileToUpload: File | null = null;
+  selectedFileName: string | null = null;
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -99,10 +102,24 @@ export class UpdateMenusComponent implements OnInit{
     formData.append('id', this.id.toString());
     formData.append('site', this.MenuForm.get('site')?.value);
     formData.append('mois_concerne', this.MenuForm.get('mois_concerne')?.value);
-    
-  
-  
 
+    const fields = [
+    
+      'menus_generaux',
+      'menus_dessert',
+      'menu_s1',
+      'menu_s2',
+      'menu_s3',
+      'menu_s4',
+      'menu_s5'
+    ];
+    
+    for (const field of fields) {
+      if (this.fileToUpload) {
+        formData.append(field, this.fileToUpload);
+      }
+    }
+  
     this.menuService.updateMenuFormdata(formData).subscribe(
       (data: any) => {
         console.log(data);
@@ -122,9 +139,16 @@ export class UpdateMenusComponent implements OnInit{
 }
   
   
-onFileSelected(event: any, field: string) {
-  const file: File = event.target.files[0];
-  this.MenuForm.get(field)?.setValue(file);
+onFileSelected(event: any) {
+  const fileInput = event.target as HTMLInputElement;
+  const file: File | null = fileInput.files?.[0] || null;
+  this.fileToUpload = file;
+
+  if (file) {
+    this.selectedFileName = file.name;
+  } else {
+    this.selectedFileName = null;
+  }
 }
 
   

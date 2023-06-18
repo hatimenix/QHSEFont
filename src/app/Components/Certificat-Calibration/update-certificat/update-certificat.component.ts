@@ -17,6 +17,9 @@ export class UpdateCertificatComponent {
   certificat!: CertificatCalibration;
   id!: number;
   personnel$!: Observable<any>;
+  selectedFile!: File;
+  fileToUpload: File | null = null;
+ selectedFileName: string | null = null;
   //modal
   @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
@@ -73,9 +76,12 @@ export class UpdateCertificatComponent {
   onSubmit() {
     const formData = new FormData();
     formData.append('nom', this.certificatForm.value.nom);
-    formData.append('url_document', this.certificatForm.value.url_document);
     formData.append('date_modification', this.certificatForm.value.date_modification);
     formData.append('modifie_par', this.certificatForm.value.modifie_par);
+    if (this.fileToUpload) {
+      formData.append('fichier', this.fileToUpload);
+    }
+
   
     this.certificatService.updateCertificatFormdata(this.id, formData).subscribe(
       (data: any) => {
@@ -96,8 +102,14 @@ export class UpdateCertificatComponent {
     this.bsModalService.hide();
   }
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.certificatForm.get('url_document')?.setValue(file);
+    const fileInput = event.target as HTMLInputElement;
+    const file: File | null = fileInput.files?.[0] || null;
+    this.fileToUpload = file;
+  
+    if (file) {
+      this.selectedFileName = file.name;
+    } else {
+      this.selectedFileName = null;
+    }
   }
-
 }

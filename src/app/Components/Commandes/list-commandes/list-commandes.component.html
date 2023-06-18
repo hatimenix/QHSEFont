@@ -111,7 +111,7 @@
                          </thead>
                          <tbody>
                             <tr  *ngFor="let commande of displayedCommandes let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
-                               <td>{{ commande.date_commande }}</td>
+                              <td>{{ commande.date_commande }}</td>
                               <td>{{ commande.type_commande}}</td>
                               <td>{{ commande.quantite }}</td>
                               <td>{{ commande.specificite_regime }}</td>
