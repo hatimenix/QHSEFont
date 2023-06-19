@@ -37,7 +37,7 @@ span {
 }
 
 a {
-	color: #333;
+	color: #FFFFFF;
 	font-size: 14px;
 	text-decoration: none;
 	margin: 15px 0;
@@ -45,8 +45,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #089bd7;
-	background-color: #089bd7;
+	border: 1px solid #ffd140;
+	background-color: #ffd140;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -70,7 +70,7 @@ button.ghost {
 }
 
 form {
-	background-color: #FFFFFF;
+	background-color: #FFB200;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -159,13 +159,13 @@ input {
 }
 
 .overlay {
-	background: #089bd7;
-	background: -webkit-linear-gradient(to right, #089bd7, #089bd7);
-	background: linear-gradient(to right, #089bd7, #089bd7);
+	background: #FFFFFF;
+	background: -webkit-linear-gradient(to right, #FFFFFF, #FFFFFF);
+	background: linear-gradient(to right, #FFFFFF, #FFFFFF);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
-	color: #FFFFFF;
+	color: #FFB200;
 	position: relative;
 	left: -100%;
 	height: 100%;
@@ -246,6 +246,10 @@ footer i {
 }
 
 footer a {
-    color: #3c97bf;
+    color: #FFB200;
     text-decoration: none;
 }
+.image-petite {
+	max-width: 200px; /* Spécifiez la largeur maximale souhaitée */
+	max-height: 200px; /* Spécifiez la hauteur maximale souhaitée */
+  }

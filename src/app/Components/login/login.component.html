@@ -10,28 +10,35 @@
   
 	<div class="form-container sign-in-container">
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      	<h1>Se connecter</h1>
+      <style>
+        .texte-rouge {
+          color: white;
+        }
+        </style>
+        
+        <h1 class="texte-rouge">Se connecter</h1>
 			
         
         <input class="floating-input form-control" type="email" placeholder="Email" formControlName="email">
         
-        <div *ngIf="loginForm.controls['email'].errors?.['required'] && loginForm.controls['email'].touched" class="error-message" style="color: #e56b6f;">
+        <div *ngIf="loginForm.controls['email'].errors?.['required'] && loginForm.controls['email'].touched" class="error-message" style="color: #201f1f;">
           L'email est requis.
         </div>
-        <div *ngIf="loginForm.controls['email'].errors?.['email'] && loginForm.controls['email'].touched" class="error-message" style="color: #e56b6f;">
+        <div *ngIf="loginForm.controls['email'].errors?.['email'] && loginForm.controls['email'].touched" class="error-message" style="color: #201f1f;">
           L'email n'est pas valide.
         </div>
         
         <input class="floating-input form-control" type="password" placeholder="Password" formControlName="password">
         
-        <div *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched" class="error-message" style="color: #e56b6f;">
+        <div *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched" class="error-message" style="color: #201f1f;">
           Le mot de passe est requis.
         </div>
-        	<a href="#">Forgot your password?</a>
-          <div *ngIf="errorMessage" class="error-message" style="color: #e56b6f;">
+          <div *ngIf="errorMessage" class="error-message" style="color: #201f1f;">
             {{ errorMessage }}
           </div>
           <button type="submit" class="btn btn-primary">Se connecter</button>
+          <a href="#">Forgot your password?</a>
+
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -39,8 +46,15 @@
 		<div class="overlay">
 			
 			<div class="overlay-panel overlay-right">
+        <style>
+          .image-petite {
+            max-width: 200px !important;
+            max-height: 200px !important;
+          }
+          </style>
+        
         <div class="col-lg-5 d-flex align-items-center justify-content-center text-center">
-          <img src="../assets/images/login/01.png" alt="">
+          <img class="image-petite" src="../assets/images/login/01.jpg" alt="">
         </div>
 				<h1>Bienvenue !</h1>
 				<p>Entrez vos données personnelles</p>
