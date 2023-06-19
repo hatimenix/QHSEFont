@@ -33,7 +33,7 @@ export class UpdateUsersComponent {
       nom_complet: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      actif: [true],
+      actif: [''],
       groupes_roles: this.formBuilder.array([])
     });
 

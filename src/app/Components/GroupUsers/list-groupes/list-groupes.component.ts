@@ -45,9 +45,9 @@ export class ListGroupesComponent{
   resetSearchQuery() {
     this.searchQuery = '';
   }
-
-
   
+
+
 
 
 }

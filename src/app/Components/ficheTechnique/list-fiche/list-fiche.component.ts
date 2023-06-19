@@ -44,6 +44,9 @@ export class ListFicheComponent implements OnInit {
 
     // aller en haut de la page
     window.scrollTo(0, 0);
+    //pagination 
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
   }
 
   getFiches(): void {
@@ -99,5 +102,38 @@ getFileNameFromPath(filePath: string | File | undefined): string {
   
   return filePath.name || 'Aucun fichier joint';
 }
+//pagination methods 
+itemsPerPageOptions: number[] = [5, 10, 15];
+itemsPerPage: number = this.itemsPerPageOptions[0];
+p: number = 1;
+get totalPages(): number {
+  return Math.ceil(this.fiches.length / this.itemsPerPage);
+}
+
+get displayedFiches(): any[] {
+  const startIndex = (this.p - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.fiches.slice(startIndex, endIndex);
+}
+
+
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.fiches.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.fiches.length} entrées`;
+}
+
 
 }

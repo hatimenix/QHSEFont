@@ -35,23 +35,7 @@ export class ListMenusComponent implements OnInit{
   constructor(private menuService: MenusService, public modalService: BsModalService,
     private siteService: ApiSiteService, ) { }
 
-  // ngOnInit(): void {
-  //   this.myForm = new FormGroup({
-  //     site: new FormControl(),
-  //     mois_concerne:new FormControl()
-  //   });
-  //   this.getMenus();
-  //   this.site$ = this.siteService.getAllSite();
-  //   console.log("la liste des Menus:", this.menus);
 
-  //   const isFirstVisit = history.state.isFirstVisit;
-
-  //   if (!isFirstVisit) {
-  //     history.replaceState({ isFirstVisit: true }, '');
-  //     location.reload();
-  //   }
-  //   window.scrollTo(0, 0);
-  // }
   ngOnInit(): void {
     this.myForm = new FormGroup({
       site: new FormControl(),
@@ -67,7 +51,9 @@ export class ListMenusComponent implements OnInit{
       }
     );  
     this.getMenus();
-    
+     //pagination 
+     this.itemsPerPageOptions = [5, 10, 15];
+     this.itemsPerPage = this.itemsPerPageOptions[0]; 
    
   }
 
@@ -172,4 +158,36 @@ resetSearchQuery() {
   this.searchQuery = '';
 }
 
+//pagination methods 
+itemsPerPageOptions: number[] = [5, 10, 15];
+itemsPerPage: number = this.itemsPerPageOptions[0];
+p: number = 1;
+get totalPages(): number {
+  return Math.ceil(this.menus.length / this.itemsPerPage);
+}
+
+get displayedMenus(): any[] {
+  const startIndex = (this.p - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.menus.slice(startIndex, endIndex);
+}
+
+
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.menus.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.menus.length} entrées`;
+}
 }

@@ -88,6 +88,13 @@ import { UpdateControlComponent } from './Components/Control/update-control/upda
 import { AddPjComponent } from './Components/PJ/add-pj/add-pj.component';
 import { ListPjComponent } from './Components/PJ/list-pj/list-pj.component';
 import { UpdatePjComponent } from './Components/PJ/update-pj/update-pj.component';
+import { ListRapportAuditComponent } from './Components/RapportAudit/list-rapport-audit/list-rapport-audit.component';
+import { AddRapportAuditComponent } from './Components/RapportAudit/add-rapport-audit/add-rapport-audit.component';
+import { UpdateRapportAuditComponent } from './Components/RapportAudit/update-rapport-audit/update-rapport-audit.component';
+import { ListCertificatComponent } from './Components/Certificat-Calibration/list-certificat/list-certificat.component';
+import { AddCertificatComponent } from './Components/Certificat-Calibration/add-certificat/add-certificat.component';
+import { UpdateCertificatComponent } from './Components/Certificat-Calibration/update-certificat/update-certificat.component';
+import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
@@ -177,6 +184,13 @@ import { InfoConstatComponent } from './Components/constatAudit/info-constat/inf
     AddPjComponent,
     ListPjComponent,
     UpdatePjComponent,
+    ListRapportAuditComponent,
+    AddRapportAuditComponent,
+    UpdateRapportAuditComponent,
+    ListCertificatComponent,
+    AddCertificatComponent,
+    UpdateCertificatComponent,
+    DetailsProcessusComponent, 
     ListExigencesComponent,
     AddExigencesComponent,
     ListConstatsComponent,

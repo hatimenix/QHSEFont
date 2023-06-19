@@ -12,7 +12,7 @@ export class AnalyseRisques {
     origine !: string;
     Proccesus_name !: string;
     Site_name !: string;
-    processus !: number;
+    processus !: number[];
     contexte_int !: string;
     contexte_ext !: string;
     consequences!: string;
@@ -36,7 +36,7 @@ export class AnalyseRisques {
         date_evaluation: Date,
         opportunite: string,
         origine: string,
-        processus: number,
+        processus: number[],
         contexte_int: string,
         contexte_ext: string,
         impact: string,
