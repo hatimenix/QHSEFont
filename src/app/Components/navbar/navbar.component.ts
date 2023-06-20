@@ -22,7 +22,7 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     this.getUserDetails();
-    this.getGroupDetails();
+    // this.getGroupDetails();
     
   }
 
@@ -37,17 +37,17 @@ export class NavbarComponent {
     }
   );
 }
-getGroupDetails(): void {
-  this.authService.getGroupDetails().subscribe(
-    (response: GroupeUser ) => {
-      this.group = response;
-      console.log('Group details:', this.group);
-    },
-    (error: any) => {
-      console.error( error);
-    }
-  );
-}
+// getGroupDetails(): void {
+//   this.authService.getGroupDetails().subscribe(
+//     (response: GroupeUser ) => {
+//       this.group = response;
+//       console.log('Group details:', this.group);
+//     },
+//     (error: any) => {
+//       console.error( error);
+//     }
+//   );
+// }
 
   
   

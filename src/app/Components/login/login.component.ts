@@ -38,14 +38,14 @@ export class LoginComponent {
           },
           error => {
             console.error(error);
-            this.errorMessage = 'An error occurred during login.';
+            this.errorMessage = "Une erreur s'est produite lors de la connexion";
           }
         );
       },
       error => {
         console.error(error);
         if (error instanceof HttpErrorResponse && error.error instanceof ErrorEvent) {
-          this.errorMessage = 'An error occurred during login.';
+          this.errorMessage = "Une erreur s'est produite lors de la connexion";
         } else if (error instanceof HttpErrorResponse && error.status === 400) {
           if (this.loginAttempts < 2) {
             this.errorMessage = error.error?.message || 'Invalid email or password.';
@@ -54,7 +54,7 @@ export class LoginComponent {
           }
           this.loginAttempts++;
         } else {
-          this.errorMessage = 'An error occurred during login.';
+          this.errorMessage = "Une erreur s'est produite lors de la connexion";
         }
       }
     );
