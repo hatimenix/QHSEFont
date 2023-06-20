@@ -249,8 +249,84 @@ footer a {
     color: #FFB200;
     text-decoration: none;
 }
+
 .image-petite {
 	max-width: 200px; /* Spécifiez la largeur maximale souhaitée */
 	max-height: 200px; /* Spécifiez la hauteur maximale souhaitée */
+}
+
+/* Ajouter des règles CSS pour rendre la mise en page réactive */
+
+/* Pour les écrans de taille moyenne */
+@media screen and (max-width: 768px) {
+  body {
+    margin: 0;
   }
   
+  .container {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: none;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-container,
+  .overlay-container {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    transform: none;
+    transition: none;
+  }
+  
+  .overlay {
+    display: none;
+  }
+  
+  .container.right-panel-active .overlay-container {
+    display: flex;
+  }
+  
+  .overlay-panel {
+    width: 100%;
+    transform: none;
+    transition: none;
+  }
+  
+  .overlay-left,
+  .overlay-right {
+    display: none;
+  }
+  
+  .container.right-panel-active .overlay-left,
+  .container.right-panel-active .overlay-right {
+    display: block;
+  }
+  
+  .image-petite {
+    max-width: 100%;
+    max-height: none;
+  }
+}
+
+/* Pour les écrans plus petits */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  
+  button {
+    padding: 10px 30px;
+    font-size: 10px;
+  }
+  
+  footer {
+    font-size: 12px;
+  }
+}
