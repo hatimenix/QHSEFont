@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { UserApp } from 'src/app/models/UserApp';
 import { environment } from 'src/environments/environment.development';
 
@@ -35,5 +35,10 @@ export class UsersService {
     const url = `${this.API_UsersApp}${id}`;
     return this.http.delete<void>(url);
   }
-
+  
+  
+  
+  
+  
+  
 }

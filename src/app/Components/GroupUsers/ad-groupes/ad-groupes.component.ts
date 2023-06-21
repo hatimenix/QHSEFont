@@ -72,8 +72,9 @@ export class AdGroupesComponent {
       };
       
 
-      newGroup.proprietaire_groupe_names = this.getSelectedUserNames(newGroup.proprietaire_groupe);
+      // newGroup.proprietaire_groupe_names = this.getSelectedUserNames(newGroup.proprietaire_groupe);
       this.groupService.createGroupeUser(newGroup).subscribe(createdGroup => {
+        console.log("group",this.group$ )
         this.openModal();
         this.router.navigate(['/listgroupeusers']); 
         console.log('Groupe utilisateur créé :', createdGroup);
