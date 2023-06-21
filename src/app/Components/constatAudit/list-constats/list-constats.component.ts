@@ -8,6 +8,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 import { Utilsateur } from 'src/app/models/utilsateur';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import { Site } from 'src/app/models/site';
 
 
 
@@ -22,7 +25,6 @@ declare var window: any;
 export class ListConstatsComponent implements OnInit {
   existingFileUrl: string = '';
   selectedUtilisateur: Utilsateur | undefined
-
   site$ !: Observable<any>;
   processuss$ !: Observable<any>;
   utilisateurs: any[] = [];
@@ -91,6 +93,9 @@ export class ListConstatsComponent implements OnInit {
   p: number = 1;
 
 
+  myForm: any;
+
+
 
   get totalPages(): number {
     return Math.ceil(this.constatAudit.length / this.itemsPerPage);
@@ -156,6 +161,13 @@ export class ListConstatsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+    this.myForm = new FormGroup({
+      site: new FormControl(''),
+
+    });
+
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
@@ -294,4 +306,108 @@ export class ListConstatsComponent implements OnInit {
   closeModalutilisateur() {
     this.bsModalService.hide();
   }
+
+
+  exportToExcel() {
+    const worksheet = XLSX.utils.json_to_sheet(this.constatAudit.map((ca) => ({
+      'ID': ca.id,
+      'Intitule constat': ca.intitule_constat,
+      'type_constat': ca.type_constat,
+      'audit_associe': ca.audit_associe,
+      'site': ca.site,
+      'Responsable traitement': ca.responsable_traitement,
+      'processus': ca.processus,
+      'date_reponse': ca.date_reponse,
+      'localisation': ca.localisation,
+      'type_audit': ca.type_audit,
+      'description_constat': ca.description_constat,
+
+    })));
+    const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const filename = 'paiperleck_constat_audit.xlsx';
+    saveAs(blob, filename);
+  }
+
+  selectedSiteId: number | undefined;
+
+
+
+  filterConstatBySite(): void {
+    const selectedSite = parseInt(this.myForm.get('site')?.value);
+    console.log(this.myForm.get('site')?.value)
+
+    if (selectedSite) {
+
+      this.constatAuditService.getConstatAudits().subscribe(
+        (data: ConstatAudit[]) => {
+          const ca = data;
+          const filteredMenus = ca.filter(d => {
+            const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
+            return siteIds.includes(selectedSite);
+          });
+
+          if (filteredMenus.length > 0) {
+            this.selectedSiteId = selectedSite;
+            this.constatAudit = filteredMenus;
+          } else {
+            console.log(`Aucun menu trouvé pour le site sélectionné: ${selectedSite}`);
+            this.constatAudit = [];
+          }
+
+          console.log("menus filtrés", this.constatAudit);
+          console.log("site sélectionné", this.selectedSiteId);
+          console.log("liste des menus", this.constatAudit);
+          console.log("menus length", this.constatAudit.length);
+
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+
+    } else {
+      this.myForm.reset();
+      this.selectedSiteId = undefined;
+      console.log("id de ce site", this.selectedSiteId);
+      this.loadData();
+    }
+  }
+  selectedType: string = '';
+
+  filterConstatByType(type: string): void {
+    this.constatAuditService.getConstatAudits().subscribe(
+      (data: ConstatAudit[]) => {
+        const filteredConstats = data.filter((constat: ConstatAudit) => {
+          return constat.type_constat === type;
+        });
+
+        if (filteredConstats.length > 0) {
+          this.constatAudit = filteredConstats;
+        } else {
+          console.log(`No constat found for type: ${type}`);
+          this.constatAudit = [];
+        }
+
+        console.log("Filtered constats:", this.constatAudit);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  resetSiteFilters(): void {
+    // Reset the selected filters and reload the data
+    this.selectedType = ''; // Reset the selected type filter
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.loadData(); // Reload the data
+  }
+  resetFilters(): void {
+    this.myForm.get('site')?.setValue(''); // Reset the site filter to empty value
+    this.filterConstatBySite(); // Apply the filter based on the reset site value
+  }
+
 }
