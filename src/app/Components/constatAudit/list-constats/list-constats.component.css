@@ -78,3 +78,10 @@ table {
 .mtx {
     margin-top: 15px;
 }
+
+
+.custom-excel-btn {
+    color: #237804;
+    background-color: #c6e0b3;
+    border-color: #c6e0b3;
+}
