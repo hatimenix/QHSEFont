@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/Services/Service-authentification/auth.serv
 export class LoginComponent {
   errorMessage!: string;
   loginForm!: FormGroup;
+  loginAttempts: number = 0;
+
 
   constructor(
     private authService: AuthService,
@@ -26,7 +28,7 @@ export class LoginComponent {
 
   onLogin(): void {
     const { email, password } = this.loginForm.value;
-
+  
     this.authService.login(email, password).subscribe(
       response => {
         this.authService.saveTokens(response);
@@ -36,20 +38,26 @@ export class LoginComponent {
           },
           error => {
             console.error(error);
-            this.errorMessage = 'An error occurred during login.';
+            this.errorMessage = "Une erreur s'est produite lors de la connexion";
           }
         );
       },
       error => {
         console.error(error);
         if (error instanceof HttpErrorResponse && error.error instanceof ErrorEvent) {
-          this.errorMessage = 'An error occurred during login.';
+          this.errorMessage = "Une erreur s'est produite lors de la connexion";
         } else if (error instanceof HttpErrorResponse && error.status === 400) {
-          this.errorMessage = error.error?.message || 'Invalid email or password.';
+          if (this.loginAttempts < 2) {
+            this.errorMessage = error.error?.message || 'Invalid email or password.';
+          } else {
+            this.errorMessage = 'Attention, après 3 mauvaises saisies de mot de passe, votre compte sera bloqué. Pour le débloquer, merci de contacter votre administrateur.';
+          }
+          this.loginAttempts++;
         } else {
-          this.errorMessage = 'An error occurred during login.';
+          this.errorMessage = "Une erreur s'est produite lors de la connexion";
         }
       }
     );
   }
+  
 }

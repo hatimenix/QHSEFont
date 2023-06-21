@@ -1,0 +1,96 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+    </head>
+  <body class="  ">
+ 
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+      
+      <div class="content-page">
+         <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+               <h4 class="card-title">Détails du Processus </h4>
+            </div>
+            <div class="col-sm-6 col-md-6">
+               <div class="user-list-files d-flex">
+                  
+                 <div class="d-flex align-items-center">
+                    <a routerLink="/listProcessus" class="btn btn-danger add-list"><i class="las la-plus mr-3"></i>Retour</a>
+                </div>
+               </div>
+            </div>
+         </div>
+      <div class="container-fluid">
+
+                     <table class="table">
+                       
+                        <tr class="table-default">
+                          <td>Intitulé </td>
+                          <td >
+                            {{ currentId.intitule}}
+                          </td>
+                        </tr>
+                        <tr class="table-info">
+                           <td>Typologie</td>
+                           <td>{{ currentId.typologie }}</td>
+                         </tr>
+                        <tr class="table-default">
+                           <td>Sigle</td>
+                           <td>{{ currentId.sigle }}</td>
+                         </tr>
+                       <tr class="table-info">
+                           <td>Finalité </td>
+                           <td>{{ currentId.finalite }}</td>
+                         </tr>
+                         <tr class="table-default" >
+                       <td>Pilote </td>
+                       <td>{{ currentId.pilote_name }}</td>
+                   </tr>
+                       <tr class="table-info">
+                           <td>Acteurs  </td>
+                           <td>{{ currentId.acteurs }}</td>
+                         </tr>
+                       <tr class="table-default">
+                           <td>Donnée entrée</td>
+                           <td>{{ currentId.donnee_entree}}</td>
+                         </tr>
+                         <tr class="table-info">
+                           <td>Donnée Sortie:</td>
+                           <td>{{ currentId.donnee_sortie }}</td>
+                         </tr>
+                         <tr class="table-default">
+                           <td>Aactivités</td>
+                           <td>{{ currentId.activites }}</td>
+                         </tr>
+                         <tr class="table-info">
+                           <td>Ressource Tech Org</td>
+                           <td>{{ currentId.ressources_tech_org}}</td>
+                         </tr>
+                         <tr class="table-default">
+                            <td>Objectifs Indicateurs</td>
+                            <td>{{ currentId.objectifs_ind}}</td>
+                          </tr>
+                          <tr class="table-info">
+                            <td>Outils de surveillance</td>
+                            <td>{{ currentId.outils_surveil}}</td>
+                          </tr>
+                          
+                      </table>
+                              
+                           </div>
+                        </div>
+                        
+                     </div>
+      
+    
+    <!-- Wrapper End-->
+ 
+   
+  </body>
+</html>
