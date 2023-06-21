@@ -180,12 +180,12 @@ ngOnDestroy() {
   }  
   
   filterByEtatTrue() {
-    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === true);
+    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === false);
   }
   
   filterByEtatFalse() {
 
-    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === false);
+    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === true);
   }
   resetFilter() {
     this.filteredNcs = this.originalNcs;

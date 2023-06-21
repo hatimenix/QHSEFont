@@ -93,6 +93,9 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
 import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
+import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
+import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
+import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +105,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ListNcComponent,
     ListRegistreTraitementComponent,
     SidebarComponent,
-    UpdateCommandeComponent, 
+    UpdateCommandeComponent,
     AddCommandeComponent,
     UpdateFicheComponent,
     AddFicheComponent,
@@ -122,7 +125,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ListFournisseursComponent,
     UpdateSecteurComponent,
     AddFournisseursComponent,
-    
+
     AddCommandeComponent,
     InfoEvenementComponent,
     InfoDangerComponent,
@@ -179,7 +182,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     UpdatePjComponent,
     ListExigencesComponent,
     AddExigencesComponent,
-    GraphiquesComponent
+    GraphiquesComponent,
+    ListConstatsComponent,
+    AddConstatComponent,
+    InfoConstatComponent
 
   ],
   imports: [
@@ -196,7 +202,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 
   ],
 
-  providers: [ ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

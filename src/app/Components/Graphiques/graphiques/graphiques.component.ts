@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, QueryList, ViewChild } from '@angular/core';
 import { ApexChart, ApexResponsive } from 'ng-apexcharts';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ChartComponent } from 'ng-apexcharts';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
+import { ConstatAuditService } from 'src/app/Services/Service-constatAudit/constat-audit.service';
 
 @Component({
   selector: 'app-graphiques',
@@ -10,22 +11,41 @@ import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-con
   styleUrls: ['./graphiques.component.css']
 })
 export class GraphiquesComponent implements AfterViewInit {
-  @ViewChildren(ChartComponent) charts!: QueryList<ChartComponent>;
-
+  filteredData: any[] = [];
+  data: any[] = [];
+  filteredChartData: any[] = [];
+  selectedSite: string = 'All';
+  sites: string[] = [];
+  selectedActionYear: string = 'All';
+  actionYears: string[] = [];
+  ncdata: any[] = [];
+  filteredNCChartData: any[] = [];  
+  selectedNCYear: string = 'All';
+  ncYears: string[] = [];
+  @ViewChild('actionsChart') actionsChart!: ChartComponent;
+  @ViewChild('ncChart') ncChart!: ChartComponent;
+  @ViewChild('auditChart') auditChart!: ChartComponent;
+  @ViewChild('datencChart') datencChart!: ChartComponent;
   public Actions: ApexChart = {
-    type: 'donut',
-    width: 380,
+    type: 'pie',
+    width: 390,
   };
 
   public NC: ApexChart = {
     type: 'bar',
-    width: 380,
+    width: 370,
   };
 
-  public Audits: ApexChart = {
-    type: 'donut',
-    width: 380,
+  public Audit: ApexChart = {
+    type: 'donut', 
+    width: 420,
   };
+
+  public datenc: ApexChart = {
+    type: 'bar',
+    width: 430,
+  };
+  
 
   public pieSeries: number[] = [];
   public pieLabels: string[] = [];
@@ -33,8 +53,11 @@ export class GraphiquesComponent implements AfterViewInit {
   public barSeries: number[] = [];
   public barLabels: string[] = [];
 
-  public auditSeries: number[] = [100];
-  public auditLabels: string[] = ['Label A'];
+  public thirdChartSeries: number[] = [];
+  public thirdChartLabels: string[] = [];
+  
+  public datencSeries: number[] = [];
+  public datencLabels: string[] = [];
 
   public responsive: ApexResponsive[] = [
     {
@@ -50,85 +73,139 @@ export class GraphiquesComponent implements AfterViewInit {
     },
   ];
 
-  constructor(private apiActionsService: ApiActionsService, private ncservice: ServicesNonConfirmitéService) {}
-
+  constructor(
+    private apiActionsService: ApiActionsService,
+    private ncservice: ServicesNonConfirmitéService,
+    private thirdChartService: ConstatAuditService
+  ) {}
   ngAfterViewInit(): void {
     this.loadChartFromLocalStorage();
     this.fetchChartData();
     this.fetchNCChartData();
+    this.fetchThirdChartData();
   }
-
+  
   private loadChartFromLocalStorage(): void {
     const storedData = localStorage.getItem('chartData');
     if (storedData) {
       try {
         const { series, labels } = JSON.parse(storedData);
-        this.pieSeries = series[0];
-        this.pieLabels = labels[0];
-        this.barSeries = series[1];
-        this.barLabels = labels[1];
+        [this.pieSeries, this.barSeries, this.thirdChartSeries, this.datencSeries] = series;
+        [this.pieLabels, this.barLabels, this.thirdChartLabels, this.datencLabels] = labels;
         this.refreshCharts();
       } catch (error) {
         console.error('Error parsing stored chart data:', error);
       }
     }
   }
-
+  
   private storeChartData(): void {
-    const chartData = { series: [this.pieSeries, this.barSeries], labels: [this.pieLabels, this.barLabels] };
+    const chartData = {
+      series: [this.pieSeries, this.barSeries, this.thirdChartSeries, this.datencSeries],
+      labels: [this.pieLabels, this.barLabels, this.thirdChartLabels, this.datencLabels],
+    };
     localStorage.setItem('chartData', JSON.stringify(chartData));
   }
-
+  
   fetchChartData(): void {
     this.apiActionsService.getStatsByTypeAction().subscribe((data: any[]) => {
-      this.pieSeries = data.map((item) => item.count);
-      this.pieLabels = data.map((item) => item.type_action);
-      this.storeChartData();
-      this.refreshCharts();
+      this.data = data;
+      this.filteredChartData = data;
+      this.sites = Array.from(new Set(data.map(item => item.site__site_nom)));
+      this.actionYears = Array.from(new Set(data.map(item => item.year)));
+      this.ncservice.getStatsDelaiPrevuVsDateNc().subscribe((ncData: any[]) => {
+        this.datencSeries = ncData.map(item => item.delai_days);
+        this.datencLabels = ncData.map(item => item.year);
+        this.storeChartData();
+        this.refreshCharts();
+      });
     });
   }
-
+  
+  onSiteChange(): void {
+    this.filteredChartData = (this.selectedSite === 'All')
+      ? this.data
+      : this.data.filter(item => item.site__site_nom === this.selectedSite);
+    this.pieSeries = this.filteredChartData.map(item => item.count);
+    this.pieLabels = this.filteredChartData.map(item => item.type_action);
+    this.refreshCharts();
+  }
+  
+  onActionYearChange(): void {
+    this.filteredChartData = (this.selectedActionYear === 'All')
+      ? this.data
+      : this.data.filter(item => item.year === this.selectedActionYear);
+    this.pieSeries = this.filteredChartData.map(item => item.count);
+    this.pieLabels = this.filteredChartData.map(item => item.type_action);
+    this.refreshCharts();
+  }
+  
+  onNCYearChange(): void {
+    if (this.selectedNCYear === 'All') {
+      this.filteredNCChartData = this.ncdata;
+      this.barSeries = this.filteredNCChartData.map(item => item.count);
+      this.barLabels = this.filteredNCChartData.map(item => item.nature);
+      this.refreshCharts();
+    } else {
+      this.fetchNCChartData();
+    }
+  }
+  
   fetchNCChartData(): void {
     this.ncservice.getStatsByNature().subscribe((data: any[]) => {
-      console.log('Fetched NC Chart Data:', data);
-
-      this.barSeries = data.map((item) => item.count);
-      this.barLabels = data.map((item) => item.nature);
-      console.log('Bar Series:', this.barSeries);
-      console.log('Bar Labels:', this.barLabels);
-
+      this.ncdata = data;
+      this.filteredNCChartData = (this.selectedNCYear === 'All')
+        ? this.ncdata
+        : this.ncdata.filter(item => item.year === this.selectedNCYear);
+      this.barSeries = this.filteredNCChartData.map(item => item.count);
+      this.barLabels = this.filteredNCChartData.map(item => item.nature);
+      this.ncYears = Array.from(new Set(this.ncdata.map(item => item.year)));
       this.storeChartData();
       this.refreshCharts();
     });
   }
-
+  
+  fetchThirdChartData(): void {
+    this.thirdChartService.getStatsByIntituleConstat().subscribe((data: any[]) => {
+      this.thirdChartSeries = data.map(item => item.count);
+      this.thirdChartLabels = data.map(item => item.intitule_constat);
+      this.storeChartData();
+      this.refreshCharts();
+    });
+  }
+  
   refreshCharts(): void {
-    const actionsUpdatedSeries = [{ data: this.pieSeries }];
-    const actionsUpdatedLabels = this.pieLabels;
-    const actionsOptions = { labels: actionsUpdatedLabels, series: actionsUpdatedSeries };
-
-    const auditUpdatedSeries = [{ data: this.auditSeries }];
-    const auditUpdatedLabels = this.auditLabels;
-    const auditOptions = { labels: auditUpdatedLabels, series: auditUpdatedSeries };
-
-    const ncUpdatedSeries = [{ data: this.barSeries }];
-    const ncUpdatedLabels = this.barLabels;
-    const ncOptions = { labels: ncUpdatedLabels, series: ncUpdatedSeries };
-
     setTimeout(() => {
-      this.charts.forEach((chart) => {
-        if (chart.chart) {
-          const chartType = chart.chart.type;
-
-          if (chartType === 'pie') {
-            chart.updateSeries(actionsUpdatedSeries);
-            chart.updateOptions(actionsOptions);
-          } else if (chartType === 'bar') {
-            chart.updateSeries(ncUpdatedSeries);
-            chart.updateOptions(ncOptions);
-          }
-        }
-      });
+      if (this.actionsChart) {
+        this.actionsChart.updateOptions({ labels: this.pieLabels });
+        this.actionsChart.updateSeries(this.filteredChartData.map(item => item.count));
+      }
+      if (this.ncChart) {
+        this.ncChart.updateOptions({ xaxis: { categories: this.barLabels } });
+        this.ncChart.updateSeries([{ data: this.barSeries }]);
+      }
+      if (this.auditChart) {
+        this.auditChart.updateOptions({ labels: this.thirdChartLabels });
+        this.auditChart.updateSeries(this.thirdChartSeries);
+      }
+      if (this.datencChart) {
+        this.datencChart.updateOptions({ xaxis: { categories: this.datencLabels } });
+        this.datencChart.updateSeries([{ data: this.datencSeries }]);
+      }
     }, 500);
   }
+  
+  getTotalActions(): number {
+    return this.pieSeries?.reduce((total, value) => total + value, 0) || 0;
+  }
+  
+  getTotalNc(): number {
+    return this.barSeries?.reduce((total, value) => total + value, 0) || 0;
+  }
+  
+  getTotalAudit(): number {
+    return this.thirdChartSeries?.reduce((total, value) => total + value, 0) || 0;
+  }
+  
+  
 }

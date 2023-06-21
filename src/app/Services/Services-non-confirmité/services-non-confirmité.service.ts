@@ -64,6 +64,11 @@ getStatsByNature(): Observable<any[]> {
    const url = `${this.ncurl}stats_by_nature/`;
     return this.http.get<any>(url);
   }  
+  getStatsDelaiPrevuVsDateNc(): Observable<any[]> {
+    const url = `${this.ncurl}stats_delai_prevu_vs_date_nc/`;
+    return this.http.get<any[]>(url);
+  }
+  
 }
 
 
