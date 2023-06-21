@@ -37,5 +37,10 @@ export class ApiActionsService {
     const url = `${this.API_URL_AC}${idAction}/`;
     return this.http.put(url, formData);
   }
+  getStatsByTypeAction(): Observable<any> {
+    const url = `${this.API_URL_AC}stats_by_type_action/`;
+    return this.http.get<any>(url);
+  }
+
 
 }

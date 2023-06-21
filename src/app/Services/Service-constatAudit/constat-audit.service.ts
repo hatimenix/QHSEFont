@@ -33,4 +33,8 @@ export class ConstatAuditService {
   deleteConstatAudit(id: number): Observable<string> {
     return this.http.delete<string>(`${this.API_constatAudit}${id}`);
   }
+  getStatsByIntituleConstat(): Observable<any> {
+    const url = `${this.API_constatAudit}stats_by_intitule_constat/`;
+    return this.http.get<any>(url);
+  }
 }

@@ -97,6 +97,9 @@ import { UpdateCertificatComponent } from './Components/Certificat-Calibration/u
 import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
+import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
 import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
 import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
@@ -193,6 +196,7 @@ import { InfoConstatComponent } from './Components/constatAudit/info-constat/inf
     DetailsProcessusComponent, 
     ListExigencesComponent,
     AddExigencesComponent,
+    GraphiquesComponent,
     ListConstatsComponent,
     AddConstatComponent,
     InfoConstatComponent
@@ -207,7 +211,8 @@ import { InfoConstatComponent } from './Components/constatAudit/info-constat/inf
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-
+    NgApexchartsModule
+    
 
   ],
 
