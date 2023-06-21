@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/Services/Service-Users/users.service';
 import { PermissionService } from 'src/app/Services/Service-permission/permission.service';
 import { GroupeUserService } from 'src/app/Services/Services-GroupesUser/groupe-user.service';
@@ -16,17 +17,19 @@ import { UserApp } from 'src/app/models/UserApp';
 export class AddUsersComponent implements OnInit {
   userForm!: FormGroup;
   groupes!: GroupeUser[];
- 
   
- 
-
+   //modal
+   @ViewChild('successModal', { static: true }) successModal:any;
+   modalRef!: BsModalRef;
+  emailExistsError: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private userAppService: UsersService,
     private groupeUserService: GroupeUserService,
     private router: Router,
     private http: HttpClient, 
-    private permissionService: PermissionService
+    private permissionService: PermissionService, 
+    private bsModalService: BsModalService,
 
      
   ) { }
@@ -35,7 +38,7 @@ export class AddUsersComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       nom_user: ['', Validators.required],
       nom_complet: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}')]],
       email: ['', [Validators.required, Validators.email]],
       actif: [false],
       groupes_roles: this.formBuilder.array([]), 
@@ -94,6 +97,7 @@ export class AddUsersComponent implements OnInit {
               user => {
                 console.log('User created successfully:', user);
                 console.log("Permissions", permissions)
+                this.openModal();
                 this.router.navigate(['/listuserapp']);
                 this.userForm.reset();
               },
@@ -110,17 +114,15 @@ export class AddUsersComponent implements OnInit {
     }
   }
   // Inside your component class
-generatePassword() {
-  const length = 10; // Change the length as needed
-  const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'; // Change the character set as needed
-  let password = '';
-  for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      password += charset.charAt(randomIndex);
-  }
-  this.userForm.controls['password'].setValue(password);
-}
+// 
 
+  //modal functions 
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+}
   
 
 
