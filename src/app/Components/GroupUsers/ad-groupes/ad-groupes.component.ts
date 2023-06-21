@@ -44,12 +44,9 @@ export class AdGroupesComponent {
   ngOnInit(): void {
     const isFirstVisit = history.state.isFirstVisit;
     if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
       history.replaceState({ isFirstVisit: true }, '');
-      // rafraîchir la page
       location.reload();
     }
-    // aller en haut de la page
     window.scrollTo(0, 0);
     this.userService.getUsers().subscribe(users => {
       this.users = users;
@@ -57,15 +54,7 @@ export class AdGroupesComponent {
     this.userapp$ = this.userService.getUsers();
     this.group$=this.groupService.getGroupes();
   }
-  //récuperer les checkbox selectionné
-  getSelectedCheckboxId(): string[]  {
-    const checkboxes = document.querySelectorAll('#idGroupe input[type="checkbox"]:checked');
-    const selectedIds: string[] = [];
-    checkboxes.forEach((checkbox) => {
-    selectedIds.push((checkbox as HTMLInputElement).value);
-    });
-    return selectedIds;
-    }
+ 
 
   onSubmit(): void {
     if (this.groupForm.valid) {

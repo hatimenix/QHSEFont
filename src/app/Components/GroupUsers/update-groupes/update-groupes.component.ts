@@ -16,11 +16,11 @@ import { UserApp } from 'src/app/models/UserApp';
 export class UpdateGroupesComponent {
   groupForm: FormGroup;
   users: UserApp[];
-  userapp$ !: Observable<any>;
-  groupId!:number;
+  userapp$!: Observable<any>;
+  groupId!: number;
 
-     //modal
-  @ViewChild('successModal', { static: true }) successModal:any;
+  //modal
+  @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
   constructor(
     private formBuilder: FormBuilder,
@@ -34,7 +34,7 @@ export class UpdateGroupesComponent {
       nom: ['', Validators.required],
       description: ['', Validators.required],
       proprietaire_groupe: [[]],
-      autorisation:['']
+      autorisation: ['']
     });
     this.users = [];
     this.groupId = Number(this.route.snapshot.params['id']);
@@ -43,61 +43,53 @@ export class UpdateGroupesComponent {
   ngOnInit(): void {
     const isFirstVisit = history.state.isFirstVisit;
     if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
       history.replaceState({ isFirstVisit: true }, '');
-      // rafraîchir la page
       location.reload();
     }
-    // aller en haut de la page
     window.scrollTo(0, 0);
-    // Récupérer la liste des utilisateurs depuis le service UserService
     this.userService.getUsers().subscribe(users => {
       this.users = users;
 
-      this.groupService.getGroupeUserById(this.groupId).subscribe(groupData=>{
+      this.groupService.getGroupeUserById(this.groupId).subscribe(groupData => {
         this.groupForm.patchValue({
-          nom:groupData.nom,
-          description:groupData.description,
+          nom: groupData.nom,
+          description: groupData.description,
           proprietaire_groupe: groupData.proprietaire_groupe,
-          autorisation:groupData.autorisation
+          autorisation: groupData.autorisation[0] // Retrieve the first element of the autorisation array
         });
       });
     });
-    
- 
-    this.userapp$ = this.userService.getUsers();
-    
-  }
 
+    this.userapp$ = this.userService.getUsers();
+  }
 
   onSubmit(): void {
     if (this.groupForm.valid) {
-      const groupId: number = this.groupId; // Obtenez l'ID du groupe que vous souhaitez modifier ;
-  
-      // Créer un nouvel objet GroupeUser à partir des valeurs du formulaire
-       const updatedGroup: GroupeUser = {
-         nom: this.groupForm.value.nom,
-         description: this.groupForm.value.description,
-         proprietaire_groupe: this.groupForm.value.proprietaire_groupe,
-         proprietaire_groupe_names: '',
-         membres_names: '',
-         id: groupId,
-         groupe_name: this.groupForm.value.groupe_name,
-         autorisation: ''
-       };
-  
+      const groupId: number = this.groupId; // Obtain the ID of the group you want to modify;
+
+      // Create a new GroupeUser object from the form values
+      const updatedGroup: GroupeUser = {
+        nom: this.groupForm.value.nom,
+        description: this.groupForm.value.description,
+        proprietaire_groupe: this.groupForm.value.proprietaire_groupe,
+        proprietaire_groupe_names: '',
+        membres_names: '',
+        id: groupId,
+        groupe_name: this.groupForm.value.groupe_name,
+        autorisation: [this.groupForm.value.autorisation] // Update the autorisation field
+      };
+
       updatedGroup.proprietaire_groupe_names = this.getSelectedUserNames(updatedGroup.proprietaire_groupe);
-  
+
       this.groupService.updateGroupeUser(groupId, updatedGroup).subscribe(updatedGroupData => {
-        // Effectuer les actions nécessaires après la modification du groupe
+        // Perform necessary actions after modifying the group
         this.openModal();
-        this.router.navigate(['/listgroupeusers']); 
-        console.log('Groupe utilisateur modifié :', updatedGroupData);
+        this.router.navigate(['/listgroupeusers']);
+        console.log('Groupe utilisateur modifié:', updatedGroupData);
       });
     }
   }
-  
-  
+
   getSelectedUserNames(selectedUsers: UserApp[]): string {
     return selectedUsers.map(user => user.nom_complet).join(', ');
   }
@@ -114,10 +106,8 @@ export class UpdateGroupesComponent {
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
+
   closeModal() {
     this.bsModalService.hide();
-}
-  
-  
-
+  }
 }

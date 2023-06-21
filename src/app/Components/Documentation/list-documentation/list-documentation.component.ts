@@ -70,6 +70,10 @@ constructor(
       type_docs : new FormControl(), 
       processus : new FormControl
     });
+
+     //pagination 
+     this.itemsPerPageOptions = [5, 10, 15];
+     this.itemsPerPage = this.itemsPerPageOptions[0]; 
     
   }
 
@@ -276,5 +280,39 @@ getFileNameFromPath(filePath: string | File | undefined): string {
 }
 resetSearchQuery() {
   this.searchQuery = '';
+}
+
+
+//pagination methods 
+itemsPerPageOptions: number[] = [5, 10, 15];
+itemsPerPage: number = this.itemsPerPageOptions[0];
+p: number = 1;
+get totalPages(): number {
+  return Math.ceil(this.document.length / this.itemsPerPage);
+}
+
+get displayedDocuments(): any[] {
+  const startIndex = (this.p - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.document.slice(startIndex, endIndex);
+}
+
+
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.document.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.document.length} entrées`;
 }
 }

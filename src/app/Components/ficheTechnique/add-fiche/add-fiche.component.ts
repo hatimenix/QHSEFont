@@ -13,14 +13,17 @@ import { FicheserService } from 'src/app/Services/Service-fiche-restauration/fic
 })
 export class AddFicheComponent {
   ficheForm: FormGroup;
+
+
+
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
 
-
-  constructor(private formBuilder: FormBuilder, private ficheService: FicheserService, private router: Router, private bsModalService: BsModalService) {
+  constructor(private formBuilder: FormBuilder, private ficheService: FicheserService, private router: Router,
+    private bsModalService: BsModalService
+    ) {
     this.ficheForm = this.formBuilder.group({
-      
       nom_fiche: ['', Validators.required],
       type_plat: ['', Validators.required],
       fichier: ['', Validators.required]
@@ -30,12 +33,9 @@ export class AddFicheComponent {
   ngOnInit(): void {
     const isFirstVisit = history.state.isFirstVisit;
     if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
       history.replaceState({ isFirstVisit: true }, '');
-      // rafraîchir la page
       location.reload();
     }
-    // aller en haut de la page
     window.scrollTo(0, 0);
   }
 
@@ -44,26 +44,28 @@ export class AddFicheComponent {
     this.ficheForm.get('fichier')?.setValue(file);
   }
 
-  onSubmit() {
-    if (this.ficheForm.valid) {
-      const formData = new FormData();
-      formData.append('nom_fiche', this.ficheForm.get('nom_fiche')?.value);
-      formData.append('type_plat', this.ficheForm.get('type_plat')?.value);
-      formData.append('fichier', this.ficheForm.get('fichier')?.value);
-  
-      this.ficheService.addFicheFormData(formData).subscribe(
-        (response) => {
-          console.log('fiche ajoutée', response);
-          this.openModal();
-          this.router.navigate(['/listF']);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    }
+
+onSubmit() {
+  if (this.ficheForm.valid) {
+    const formData = new FormData();
+    formData.append('nom_fiche', this.ficheForm.get('nom_fiche')?.value);
+    formData.append('type_plat', this.ficheForm.get('type_plat')?.value);
+    formData.append('fichier', this.ficheForm.get('fichier')?.value);
+
+    this.ficheService.addFicheFormData(formData).subscribe(
+      (response) => {
+        console.log('fiche ajoutée', response);
+        this.openModal();
+        this.router.navigate(['/listF']);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
-  openModal() {
+}
+   //modal functions 
+   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
   closeModal() {
