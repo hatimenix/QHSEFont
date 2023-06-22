@@ -100,6 +100,9 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
 import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
 import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
 import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
+import { ListAnalyseRisqueComponent } from './Components/AnalysesRisques/list-analyse-risque/list-analyse-risque.component';
+import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-analyse-risque/add-analyse-risque.component';
+import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
 
 @NgModule({
   declarations: [
@@ -195,7 +198,10 @@ import { InfoConstatComponent } from './Components/constatAudit/info-constat/inf
     AddExigencesComponent,
     ListConstatsComponent,
     AddConstatComponent,
-    InfoConstatComponent
+    InfoConstatComponent,
+    ListAnalyseRisqueComponent,
+    AddAnalyseRisqueComponent,
+    UpdateAnalyseRisqueComponent
 
   ],
   imports: [
