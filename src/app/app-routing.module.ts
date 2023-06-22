@@ -98,6 +98,7 @@ import { UpdateCertificatComponent } from './Components/Certificat-Calibration/u
 import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
+import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
 
 
 
@@ -200,9 +201,7 @@ const routes: Routes = [
 
 
   //récents
-  {path : 'listpj', component: ListPjComponent, canActivate:[AuthGuardService]},
-  {path : 'addpj', component: AddPjComponent, canActivate:[AuthGuardService]},
-  {path : 'updatepj/:id', component: UpdatePjComponent, canActivate:[AuthGuardService]},
+
 
   {path: 'listrapport', component: ListRapportAuditComponent, canActivate: [AuthGuardService]},
   {path: 'addrapport', component: AddRapportAuditComponent, canActivate: [AuthGuardService]},
@@ -217,6 +216,7 @@ const routes: Routes = [
   {path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService]},
   {path : 'exigence-list', component: ListExigencesComponent,canActivate: [AuthGuardService]},
   {path : 'add-exigence', component: AddExigencesComponent,canActivate: [AuthGuardService]},
+  {path : 'graphiques', component: GraphiquesComponent,canActivate: [AuthGuardService]},
 
 
 

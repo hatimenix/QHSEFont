@@ -170,7 +170,7 @@
                               <th>Site</th>
                             </tr>
                             <tr *ngIf="(analyserisques$ | async)?.length === 0">
-                              <td colspan="11">Aucune action enregistré pour cette partie intéressée.</td>
+                              <td colspan="11">Aucune analyse enregistré pour cette partie intéressée.</td>
                             </tr>
                             <tr *ngFor="let analyserisques of analyserisques$ | async">
                               <td>

@@ -1,0 +1,72 @@
+<div class="content-page">
+  <div class="container-fluid">
+    <div style="margin-left: 1%;" class="row">
+      <div class="col-md-6">
+        <h4 class="chart-title">Synthèse type d'actions</h4>
+        <div class="form-group">
+          <div class="d-flex align-items-center">
+            <div class="mr-3">
+              <label for="siteDropdown">Site:</label>
+              <div class="dropdown d-inline-block ml-1">
+                <button class="btn btn-light dropdown-toggle" type="button" id="siteDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ selectedSite || 'All' }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="siteDropdown">
+                  <a class="dropdown-item" (click)="selectedSite = 'All'; onSiteChange()" style="cursor: pointer;">All</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" *ngFor="let site of sites" (click)="selectedSite = site; onSiteChange()" style="cursor: pointer;">{{ site }}</a>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="anneeDropdown">Année:</label>
+              <div class="dropdown d-inline-block ml-1">
+                <button class="btn btn-light dropdown-toggle" type="button" id="anneeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ selectedActionYear || 'All' }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="anneeDropdown">
+                  <a class="dropdown-item" (click)="selectedActionYear = 'All'; onActionYearChange()" style="cursor: pointer;">All</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" *ngFor="let year of actionYears" (click)="selectedActionYear = year; onActionYearChange()" style="cursor: pointer;">{{ year }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <apx-chart #actionsChart [chart]="Actions" [series]="pieSeries" [labels]="pieLabels" [responsive]="responsive"></apx-chart>
+        <p>Sur un total de {{ getTotalActions() }} actions d'améliorations</p>
+      </div>
+      
+      
+      <div class="col-md-6">
+        <h4 class="chart-title">Délais traitement des non-conformités</h4>
+        <apx-chart *ngIf="datencSeries.length && datencLabels.length" #datencChart [chart]="datenc" [series]="datencSeries" [labels]="datencLabels" [responsive]="responsive"></apx-chart>
+      </div>
+    </div>
+    <div style="margin-left: 1%;" class="row">
+      <div class="col-md-6">
+        <h4 class="chart-title">Suivi type non-conformités</h4>
+        <div class="form-group">
+          <label for="ncAnneeDropdown">Année:</label>
+          <div class="dropdown d-inline-block ml-1">
+            <button class="btn btn-light dropdown-toggle" type="button" id="ncAnneeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ selectedNCYear || 'All' }}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="ncAnneeDropdown">
+              <a class="dropdown-item" (click)="selectedNCYear = 'All'; onNCYearChange()" style="cursor: pointer;">All</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" *ngFor="let year of ncYears" (click)="selectedNCYear = year; onNCYearChange()" style="cursor: pointer;">{{ year }}</a>
+            </div>
+          </div>
+        </div>
+        <apx-chart *ngIf="barSeries.length && barLabels.length" #ncChart [chart]="NC" [series]="barSeries" [labels]="barLabels" [responsive]="responsive"></apx-chart>
+        <p>Sur un total de {{ getTotalNc() }} non-conformité(s)</p>
+      </div>
+      <div class="col-md-6">
+        <h4 class="chart-title">Taux de réponse aux remarques d'audit</h4>
+        <apx-chart *ngIf="thirdChartSeries.length && thirdChartLabels.length" #auditChart [chart]="Audit" [series]="thirdChartSeries" [labels]="thirdChartLabels" [responsive]="responsive"></apx-chart>
+        <p>Sur un total de {{ getTotalAudit() }} constat d'audits</p>
+      </div>
+    </div>
+  </div>
+</div>
