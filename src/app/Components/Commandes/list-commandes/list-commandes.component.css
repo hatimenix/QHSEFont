@@ -1,32 +1,58 @@
-.btn-primary {
-  background-color: #FF731D;
-  border-color: #FF731D;
+
+.bg{
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff; 
 }
 
-
+.btn-primary {
+  background-color: #089bd7;
+  border-color: #089bd7;
+}
+.btn-warning{
+  background-color: #ffd140;
+  border-color: #ffd140;
+}
 
 button + button {
   margin-left: 10px;
 }
 thead {
-  background-color: #17469d
-  
-  
+  background-color: #F1F3F8
 }
 th {
-color: rgb(255, 255, 255);
+  background-color: #F1F3F8;
+  color : #17469d;
+  font-size: 13px;
+  text-align: left; /* Aligne le texte au centre */
+
 
 }
 #user-list-table {
   width: 100%;
-}
-.bg{
-  background-color: #ffd140;
-  border-color: #ffd140;
-  color: #fff; 
 }
 .btn-danger{
   background-color: #e56b6f;
   border-color: #e56b6f;
   color: #fff; 
 }
+td{
+  font-size: 14px;
+}
+.custom-background {
+  background-color: #F1F3F8;
+}
+.card-title{
+  font-size: 20px;
+  color: #17469d;
+
+}
+
+.custom-icon-blue {
+  color: rgb(27, 27, 63);
+}
+.custom-blue {
+  color: #17469d;
+}
+
+

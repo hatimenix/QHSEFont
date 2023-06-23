@@ -11,79 +11,70 @@
                      <div class="user-list-files d-flex">
                         
                        <div class="d-flex align-items-center">
-                          <a routerLink="/add-document" class="btn btn-warning"><i class="las la-plus mr-3"></i>Ajouter un document</a>
+                          <a routerLink="/add-document" class="btn btn-warning">Ajouter</a>
                       </div>
                      </div>
                   </div>
                </div>
                <div class="card-body">
                   <div class="table-responsive">
-                     <div class="row justify-content-between">
-                        <div >
-                           <div id="user_list_datatable_info" class="dataTables_filter">
-                              <form class="mr-3 position-relative d-flex align-items-center" [formGroup]="myForm">
-                                 <div class="col-md-3">
-                                   <div class="form-group">
-                                     <label>Filtrer par Processus</label>
-                                     <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required (change)="filterDocumentsByProcessus()">
-                                       <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
-                                       <option value="">Tous</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                   <div class="form-group">
-                                     <label>Filtrer par Site</label>
-                                     <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySite()">
-                                       <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                                       <option value="">Tous</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                   <div class="form-group">
-                                     <label>Filtrer par Secteur</label>
-                                     <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySecteur()">
-                                       <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
-                                       <option value="">Tous</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                      <label>Filtrer par Type de document</label>
-                                      <select id="type_docs" name="type_docs" formControlName="type_docs" class="custom-select" data-style="py-0" (change)="filterDocumentByType()" [(ngModel)]="typeDocSelectionne" required>
-                                        <option value="">Tous</option>
-                                        <option value="Template">Template</option>
-                                        <option value="Formulaire">Formulaire</option>
-                                        <option value="Procédure">Procédure</option>
-                                        <option value="Référentiel">Référentiel</option>
-                                        <option value="Instruction">Instruction</option>
-                                        <option value="Descriptif de processus">Descriptif de processus</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  <div class="dropdown">
-                                    <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
-                                      aria-haspopup="true" aria-expanded="false">
-                                      Afficher {{ itemsPerPage }} résultats par page
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
-                                      <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
-                                        [ngClass]="{'selected': option === itemsPerPage}">
-                                        <span>{{ option }}</span>
-                                        <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
-                                      </a>
-                                    </div>
-                                  </div>
-                                  
-                               </form>
-                               
-                           </div>
+                    <div class="row justify-content-between">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Processus</label>
+                          <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required (change)="filterDocumentsByProcessus()">
+                            <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                            <option value="">Tous</option>
+                          </select>
                         </div>
-                        
-                     </div>
-                     
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Site</label>
+                          <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySite()">
+                            <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                            <option value="">Tous</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Secteur</label>
+                          <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySecteur()">
+                            <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
+                            <option value="">Tous</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Type de document</label>
+                          <select id="type_docs" name="type_docs" formControlName="type_docs" class="custom-select" data-style="py-0" (change)="filterDocumentByType()" [(ngModel)]="typeDocSelectionne" required>
+                            <option value="">Tous</option>
+                            <option value="Template">Template</option>
+                            <option value="Formulaire">Formulaire</option>
+                            <option value="Procédure">Procédure</option>
+                            <option value="Référentiel">Référentiel</option>
+                            <option value="Instruction">Instruction</option>
+                            <option value="Descriptif de processus">Descriptif de processus</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="dropdown">
+                          <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Afficher {{ itemsPerPage }} résultats par page
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                            <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
+                              <span>{{ option }}</span>
+                              <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
                      <table id="user-list-table" class="table table-striped  mt-4" role="grid"
                      aria-describedby="user-list-page-info">
                      <thead>

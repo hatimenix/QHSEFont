@@ -1,18 +1,21 @@
 .btn-primary {
-    background-color: #089bd7;
-    border-color: #089bd7;
-  }
- 
-  .btn-danger{
-    background-color: #FFB200;
-    border-color: #FFB200;
-    color: #fff; 
-  }
-  .card-header{
-    background-color: #17469d;
-    color: #fff;
-    
-  }
-  button + button {
-    margin-left: 10px;
-  }
+  background-color: #089bd7;
+  border-color: #089bd7;
+}
+
+.btn-danger{
+  background-color: #FFB200;
+  border-color: #FFB200;
+  color: #fff; 
+}
+.card-header{
+  color: #17469d;
+  font-size: 12px;
+  
+}
+button + button {
+  margin-left: 10px;
+}
+.custom-background {
+  background-color: #F1F3F8;
+}

@@ -11,11 +11,14 @@ button + button {
   margin-left: 10px;
 }
 thead {
-  background-color: #17469d
+  background-color: #F1F3F8
 }
 th {
-  background-color: #17469d;
-  color : #FFFFFF;
+  background-color: #F1F3F8;
+  color : #17469d;
+  font-size: 13px;
+  text-align: left; /* Aligne le texte au centre */
+
 
 }
 #user-list-table {
@@ -26,4 +29,23 @@ th {
   border-color: #e56b6f;
   color: #fff; 
 }
+td{
+  font-size: 14px;
+}
+.custom-background {
+  background-color: #F1F3F8;
+}
+.card-title{
+  font-size: 14px;
+  color: #17469d;
+
+}
+
+.custom-icon-blue {
+  color: rgb(27, 27, 63);
+}
+.custom-blue {
+  color: #17469d;
+}
+
 

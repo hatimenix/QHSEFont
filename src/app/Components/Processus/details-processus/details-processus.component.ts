@@ -60,7 +60,7 @@ export class DetailsProcessusComponent {
       }
     });
     this.analyseForm = this.formBuilder.group({ 
-      site : [''],
+      site : ['', Validators.required],
       description : ['', Validators.required],
       typologie : ['', Validators.required],
       axe : ['', Validators.required],
