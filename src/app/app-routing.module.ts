@@ -98,6 +98,8 @@ import { UpdateCertificatComponent } from './Components/Certificat-Calibration/u
 import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
+import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
+import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
 import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
 
 
@@ -105,41 +107,41 @@ import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiqu
 
 
 const routes: Routes = [
-  {path : '', component: LoginComponent },
-  {path : 'login', component: LoginComponent },
-  {path: 'home', component :HomeComponent, canActivate: [AuthGuardService] },
-  {path : 'danger', component: ListDangerComponent, canActivate: [AuthGuardService]},
-  {path : 'addDanger', component: AddDangerComponent, canActivate: [AuthGuardService]},
-  {path : 'updateDanger/:id', component: UpdateDangerComponent, canActivate: [AuthGuardService]},
-  {path : 'infoDanger/:id', component: InfoDangerComponent, canActivate: [AuthGuardService]},
-  {path : 'infoAction/:id', component: InfoActionComponent, canActivate: [AuthGuardService]},
-  {path : 'info_evenement/:id', component: InfoEvenementComponent, canActivate: [AuthGuardService]},
-  {path : 'evenement-list', component: EvenementListComponent, canActivate: [AuthGuardService]},
-  {path: 'list-registre-traitement', component: ListRegistreTraitementComponent, canActivate: [AuthGuardService]},
-  {path : 'nc-list', component: ListNcComponent, canActivate: [AuthGuardService]},
-  {path : 'nc-add', component: AddNcComponent, canActivate: [AuthGuardService]},
-  {path: 'listC', component: ListCommandesComponent, canActivate: [AuthGuardService]},
-  {path: 'addC', component: AddCommandeComponent, canActivate: [AuthGuardService]},
-  {path: 'updateC/:id_commande', component: UpdateCommandeComponent , canActivate: [AuthGuardService]},
-  {path: 'listF', component: ListFicheComponent, canActivate: [AuthGuardService]},
-  {path: 'addF', component: AddFicheComponent, canActivate: [AuthGuardService]},
-  {path: 'updateF/:id', component: UpdateFicheComponent, canActivate: [AuthGuardService] },
-  {path: 'detailsFiche/:id', component: DetailsFicheComponent, canActivate: [AuthGuardService]},
-  {path : 'listP', component: ListPersonnelComponent, canActivate: [AuthGuardService]},
-  {path :'addP', component: AddPersonnelComponent, canActivate: [AuthGuardService]},
-  {path:'updateP/:id', component :UpdatePersonnelComponent, canActivate: [AuthGuardService]},
-  {path:'addPersonnel', component :AddPersonnelComponent, canActivate: [AuthGuardService]},
-  {path : 'listProcessus', component:ListProcessusComponent, canActivate: [AuthGuardService]},
-  {path: 'addProcessus', component: AddProcessusComponent, canActivate: [AuthGuardService]},
-  {path : 'updateProcessus/:id', component: UpdateProcessusComponent, canActivate: [AuthGuardService]},
-  {path : 'detailProcessus/:id', component:DetailsProcessusComponent, canActivate:[AuthGuardService]},
-  {path :'listsites', component: ListSiteComponent, canActivate: [AuthGuardService]},
-  {path:'addSite', component:AddSiteComponent, canActivate: [AuthGuardService]},
-  {path: 'updateSite/:id', component: UpdateSiteComponent, canActivate: [AuthGuardService]},
-  {path: 'listSecteur', component:LisSecteurComponent, canActivate: [AuthGuardService]},
-  {path:'addSecteur', component:AddSecteurComponent, canActivate: [AuthGuardService]},
-  {path:'updateSecteur/:id', component:UpdateSecteurComponent, canActivate: [AuthGuardService]},
-  { path: 'nc/:id', component: InfoNcComponent , canActivate: [AuthGuardService]},
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: 'danger', component: ListDangerComponent, canActivate: [AuthGuardService] },
+  { path: 'addDanger', component: AddDangerComponent, canActivate: [AuthGuardService] },
+  { path: 'updateDanger/:id', component: UpdateDangerComponent, canActivate: [AuthGuardService] },
+  { path: 'infoDanger/:id', component: InfoDangerComponent, canActivate: [AuthGuardService] },
+  { path: 'infoAction/:id', component: InfoActionComponent, canActivate: [AuthGuardService] },
+  { path: 'info_evenement/:id', component: InfoEvenementComponent, canActivate: [AuthGuardService] },
+  { path: 'evenement-list', component: EvenementListComponent, canActivate: [AuthGuardService] },
+  { path: 'list-registre-traitement', component: ListRegistreTraitementComponent, canActivate: [AuthGuardService] },
+  { path: 'nc-list', component: ListNcComponent, canActivate: [AuthGuardService] },
+  { path: 'nc-add', component: AddNcComponent, canActivate: [AuthGuardService] },
+  { path: 'listC', component: ListCommandesComponent, canActivate: [AuthGuardService] },
+  { path: 'addC', component: AddCommandeComponent, canActivate: [AuthGuardService] },
+  { path: 'updateC/:id_commande', component: UpdateCommandeComponent, canActivate: [AuthGuardService] },
+  { path: 'listF', component: ListFicheComponent, canActivate: [AuthGuardService] },
+  { path: 'addF', component: AddFicheComponent, canActivate: [AuthGuardService] },
+  { path: 'updateF/:id', component: UpdateFicheComponent, canActivate: [AuthGuardService] },
+  { path: 'detailsFiche/:id', component: DetailsFicheComponent, canActivate: [AuthGuardService] },
+  { path: 'listP', component: ListPersonnelComponent, canActivate: [AuthGuardService] },
+  { path: 'addP', component: AddPersonnelComponent, canActivate: [AuthGuardService] },
+  { path: 'updateP/:id', component: UpdatePersonnelComponent, canActivate: [AuthGuardService] },
+  { path: 'addPersonnel', component: AddPersonnelComponent, canActivate: [AuthGuardService] },
+  { path: 'listProcessus', component: ListProcessusComponent, canActivate: [AuthGuardService] },
+  { path: 'addProcessus', component: AddProcessusComponent, canActivate: [AuthGuardService] },
+  { path: 'updateProcessus/:id', component: UpdateProcessusComponent, canActivate: [AuthGuardService] },
+  { path: 'detailProcessus/:id', component: DetailsProcessusComponent, canActivate: [AuthGuardService] },
+  { path: 'listsites', component: ListSiteComponent, canActivate: [AuthGuardService] },
+  { path: 'addSite', component: AddSiteComponent, canActivate: [AuthGuardService] },
+  { path: 'updateSite/:id', component: UpdateSiteComponent, canActivate: [AuthGuardService] },
+  { path: 'listSecteur', component: LisSecteurComponent, canActivate: [AuthGuardService] },
+  { path: 'addSecteur', component: AddSecteurComponent, canActivate: [AuthGuardService] },
+  { path: 'updateSecteur/:id', component: UpdateSecteurComponent, canActivate: [AuthGuardService] },
+  { path: 'nc/:id', component: InfoNcComponent, canActivate: [AuthGuardService] },
   //documentation
   { path: 'listdocument', component: ListDocumentationComponent, canActivate: [AuthGuardService] },
   { path: 'add-document', component: AddtDocumentationComponent, canActivate: [AuthGuardService] },
@@ -156,6 +158,10 @@ const routes: Routes = [
   { path: 'constatsaudit-list', component: ListConstatsComponent, canActivate: [AuthGuardService] },
   { path: 'addConstatAudit', component: AddConstatComponent, canActivate: [AuthGuardService] },
   { path: 'infoconstat/:id', component: InfoConstatComponent, canActivate: [AuthGuardService] },
+
+  { path: 'plan-alimentaire-list', component: ListePlanAlimentaireComponent, canActivate: [AuthGuardService] },
+  { path: 'addPlanAlimentaire', component: AddPlanAlimentaireComponent, canActivate: [AuthGuardService] },
+
 
 
 
@@ -200,23 +206,23 @@ const routes: Routes = [
   { path: 'tache/:id', component: InfoTachesComponent, canActivate: [AuthGuardService] },
 
 
-  //récents
 
 
-  {path: 'listrapport', component: ListRapportAuditComponent, canActivate: [AuthGuardService]},
-  {path: 'addrapport', component: AddRapportAuditComponent, canActivate: [AuthGuardService]},
-  {path: 'updateRp/:id', component: UpdateRapportAuditComponent, canActivate: [AuthGuardService]},
 
-  {path: 'listcertificat', component: ListCertificatComponent, canActivate: [AuthGuardService]},
-  {path: 'addcertificat', component: AddCertificatComponent, canActivate: [AuthGuardService]},
-  {path: 'updatecertificat/:id', component: UpdateCertificatComponent, canActivate: [AuthGuardService]},
-  
-  {path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService]},
-  {path: 'addPj', component: AddPjComponent, canActivate: [AuthGuardService]},
-  {path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService]},
-  {path : 'exigence-list', component: ListExigencesComponent,canActivate: [AuthGuardService]},
-  {path : 'add-exigence', component: AddExigencesComponent,canActivate: [AuthGuardService]},
-  {path : 'graphiques', component: GraphiquesComponent,canActivate: [AuthGuardService]},
+  { path: 'listrapport', component: ListRapportAuditComponent, canActivate: [AuthGuardService] },
+  { path: 'addrapport', component: AddRapportAuditComponent, canActivate: [AuthGuardService] },
+  { path: 'updateRp/:id', component: UpdateRapportAuditComponent, canActivate: [AuthGuardService] },
+
+  { path: 'listcertificat', component: ListCertificatComponent, canActivate: [AuthGuardService] },
+  { path: 'addcertificat', component: AddCertificatComponent, canActivate: [AuthGuardService] },
+  { path: 'updatecertificat/:id', component: UpdateCertificatComponent, canActivate: [AuthGuardService] },
+
+  { path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService] },
+  { path: 'addPj', component: AddPjComponent, canActivate: [AuthGuardService] },
+  { path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService] },
+  { path: 'exigence-list', component: ListExigencesComponent, canActivate: [AuthGuardService] },
+  { path: 'add-exigence', component: AddExigencesComponent, canActivate: [AuthGuardService] },
+  { path: 'graphiques', component: GraphiquesComponent, canActivate: [AuthGuardService] },
 
 
 
