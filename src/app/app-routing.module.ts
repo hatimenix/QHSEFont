@@ -100,6 +100,7 @@ import { ListExigencesComponent } from './Components/Exigences/list-exigences/li
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
 import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
+import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
 
 
 
@@ -205,10 +206,8 @@ const routes: Routes = [
   { path: 'tache/:id', component: InfoTachesComponent, canActivate: [AuthGuardService] },
 
 
-  //récents
-  { path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService] },
-  { path: 'addpj', component: AddPjComponent, canActivate: [AuthGuardService] },
-  { path: 'updatepj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService] },
+
+
 
   { path: 'listrapport', component: ListRapportAuditComponent, canActivate: [AuthGuardService] },
   { path: 'addrapport', component: AddRapportAuditComponent, canActivate: [AuthGuardService] },
@@ -223,6 +222,7 @@ const routes: Routes = [
   { path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService] },
   { path: 'exigence-list', component: ListExigencesComponent, canActivate: [AuthGuardService] },
   { path: 'add-exigence', component: AddExigencesComponent, canActivate: [AuthGuardService] },
+  { path: 'graphiques', component: GraphiquesComponent, canActivate: [AuthGuardService] },
 
 
 

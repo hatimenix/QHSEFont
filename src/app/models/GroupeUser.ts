@@ -7,7 +7,7 @@ export class GroupeUser {
   proprietaire_groupe: UserApp[];
   proprietaire_groupe_names!:string;
   membres_names!:string;
-  autorisation!:[string];
+  autorisation!:string;
   groupe_name!:string;
 
 
@@ -23,6 +23,6 @@ export class GroupeUser {
     this.nom = nom;
     this.description = description;
     this.proprietaire_groupe = proprietaire_groupe;
-    this.autorisation=[autorisation]
+    this.autorisation=autorisation
   }
 }

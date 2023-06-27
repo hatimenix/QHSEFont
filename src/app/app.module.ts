@@ -97,11 +97,15 @@ import { UpdateCertificatComponent } from './Components/Certificat-Calibration/u
 import { DetailsProcessusComponent } from './Components/Processus/details-processus/details-processus.component';
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
+import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
 import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
 import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
-import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
-import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
+import { ListAnalyseRisqueComponent } from './Components/AnalysesRisques/list-analyse-risque/list-analyse-risque.component';
+import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-analyse-risque/add-analyse-risque.component';
+import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
 
 @NgModule({
   declarations: [
@@ -195,12 +199,13 @@ import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-pl
     DetailsProcessusComponent,
     ListExigencesComponent,
     AddExigencesComponent,
+    GraphiquesComponent,
     ListConstatsComponent,
     AddConstatComponent,
     InfoConstatComponent,
-
-    ListePlanAlimentaireComponent,
-      AddPlanAlimentaireComponent
+    ListAnalyseRisqueComponent,
+    AddAnalyseRisqueComponent,
+    UpdateAnalyseRisqueComponent
 
   ],
   imports: [
@@ -212,6 +217,7 @@ import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-pl
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    NgApexchartsModule
 
 
   ],

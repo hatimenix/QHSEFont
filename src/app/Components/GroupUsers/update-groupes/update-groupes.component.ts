@@ -55,7 +55,7 @@ export class UpdateGroupesComponent {
           nom: groupData.nom,
           description: groupData.description,
           proprietaire_groupe: groupData.proprietaire_groupe,
-          autorisation: groupData.autorisation[0] // Retrieve the first element of the autorisation array
+          autorisation: groupData.autorisation // Retrieve the first element of the autorisation array
         });
       });
     });
@@ -76,7 +76,7 @@ export class UpdateGroupesComponent {
         membres_names: '',
         id: groupId,
         groupe_name: this.groupForm.value.groupe_name,
-        autorisation: [this.groupForm.value.autorisation] // Update the autorisation field
+        autorisation: this.groupForm.value.autorisation // Update the autorisation field
       };
 
       updatedGroup.proprietaire_groupe_names = this.getSelectedUserNames(updatedGroup.proprietaire_groupe);
