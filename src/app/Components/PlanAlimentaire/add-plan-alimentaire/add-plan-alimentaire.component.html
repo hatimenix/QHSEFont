@@ -1,0 +1,380 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Ajouter Plan alimentaire</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="page-list-returns.html" data-toggle="validator" [formGroup]="planALimentaireForm"
+                            (ngSubmit)="onSubmit()">
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Matin <label style="color: red;">*</label></label>
+                                        <select id="matin" name="matin" formControlName="matin" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Client<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder="Entrer le non du client"
+                                            id="client" name="client" formControlName="client">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Régime<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder="Entrer le Régime"
+                                            id="regime" name="regime" formControlName="regime">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Midi <label style="color: red;">*</label></label>
+                                        <select id="midi" name="midi" formControlName="midi" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>ALcool<label style="color: red;">*</label></label>
+                                        <select id="alcool" name="alcool" formControlName="alcool" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Soir<label style="color: red;">*</label></label>
+                                        <select id="soir" name="soir" formControlName="soir" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Spécificité dièt. matin <label style="color: red;">*</label></label>
+                                        <textarea formControlName="specificite_diet_matin" class="form-control"
+                                            id="specificite_diet_matin" name="specificite_diet_matin"
+                                            rows="4"></textarea>
+
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Texture<label style="color: red;">*</label></label>
+                                        <textarea formControlName="texture" class="form-control" id="texture"
+                                            name="texture" rows="4"></textarea>
+
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Spécificité midi<label style="color: red;">*</label></label>
+                                        <textarea formControlName="specificites_midi" class="form-control"
+                                            id="specificites_midi" name="specificites_midi" rows="4"></textarea>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Dessert<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder="Entrer le dessert"
+                                            id="dessert" name="dessert" formControlName="dessert">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Menu velours matin<label style="color: red;">*</label></label>
+                                        <select id="menu_velours_matin" name="menu_velours_matin"
+                                            formControlName="menu_velours_matin" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Soupe midi<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder="Entrer la soupe de midi"
+                                            id="soupe_midi" name="soupe_midi" formControlName="soupe_midi">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Soupe soir<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder="Entrer la soupe du soir"
+                                            id="soupe_soir" name="soupe_soir" formControlName="soupe_soir">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Taille portion<label style="color: red;">*</label></label>
+
+
+                                        <input type="text" class="form-control"
+                                            placeholder="Entrer la  taille de portion" id="taille_portion"
+                                            name="taille_portion" formControlName="taille_portion">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Statut<label style="color: red;">*</label></label>
+                                        <select id="statut" name="statut" formControlName="statut" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Spécificité Dessert<label style="color: red;">*</label></label>
+                                        <textarea formControlName="specificite_dessert" class="form-control"
+                                            id="specificite_dessert" name="specificite_dessert" rows="4"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Spécificité Resto matin<label style="color: red;">*</label></label>
+                                        <textarea formControlName="specifite_resto_matin" class="form-control"
+                                            id="specifite_resto_matin" name="specifite_resto_matin" rows="4"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Spécificité Gouter<label style="color: red;">*</label></label>
+                                        <textarea formControlName="specifite_gouter" class="form-control"
+                                            id="specifite_gouter" name="specifite_gouter" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Gouter<label style="color: red;">*</label></label>
+                                        <select id="gouter" name="gouter" formControlName="gouter" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Localisation repas<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder=" localisation du repas"
+                                            id="localisation_repas" name="localisation_repas"
+                                            formControlName="localisation_repas">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Menu velours soir<label style="color: red;">*</label></label>
+                                        <select id="menu_velours_soir" name="menu_velours_soir"
+                                            formControlName="menu_velours_soir" class="custom-select" data-style="py-0">
+                                            <option [ngValue]="true">
+                                                Oui</option>
+                                            <option [ngValue]="false">
+                                                Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Spécificité Diet soir<label style="color: red;">*</label></label>
+                                        <textarea formControlName="specificite_diet_soir" class="form-control"
+                                            id="specificite_diet_soir" name="specificite_diet_soir" rows="4"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Spécificité Resto soir<label style="color: red;">*</label></label>
+                                        <textarea formControlName="specificite_resto_soir" class="form-control"
+                                            id="specificite_resto_soir" name="specificite_resto_soir"
+                                            rows="4"></textarea>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Autres info utiles<label style="color: red;">*</label></label>
+                                        <textarea formControlName="autres_infos_utiles" class="form-control"
+                                            id="autres_infos_utiles" name="autres_infos_utiles" rows="4"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Allérgie / Intolérance<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder=" Allérgie / Intolérance"
+                                            id="allergie_intolerance" name="allergie_intolerance"
+                                            formControlName="allergie_intolerance">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Convictions alimentaires<label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder=" Conviction alimentaire"
+                                            id="convictions_alimentaires" name="convictions_alimentaires"
+                                            formControlName="convictions_alimentaires">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Site <label style="color: red;">*</label></label>
+                                        <select id="site" name="site" formControlName="site" class="custom-select"
+                                            data-style="py-0">
+                                            <option *ngFor="let site of site$ | async" [value]="site.id">
+                                                {{ site.site_nom }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre des mesurettes de Nutilis ou texture IDDSI<label
+                                                style="color: red;">*</label></label>
+                                        <input type="text" class="form-control"
+                                            placeholder=" Nombre des mesurettes de Nutilis ou texture IDDSI"
+                                            id="nbr_mesurettes" name="nbr_mesurettes" formControlName="nbr_mesurettes">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>température des liquides / boissons<label
+                                                style="color: red;">*</label></label>
+                                        <input type="text" class="form-control"
+                                            placeholder=" température des liquides / boissons" id="temp_liquide_boisson"
+                                            name="temp_liquide_boisson" formControlName="temp_liquide_boisson">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="d-flex flex-wrap justify-content-center">
+
+                                <button [disabled]="planALimentaireForm.invalid" type="submit"
+                                    class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
+                                <button type="reset" class="btn btn-danger"
+                                    routerLink="/constatsaudit-list">Annuler</button>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page end  -->
+    </div>
+</div>
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Le constat d'audit a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>
