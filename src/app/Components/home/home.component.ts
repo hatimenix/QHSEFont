@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 import { Nc } from 'src/app/models/nc';
 
@@ -23,30 +23,31 @@ export class HomeComponent {
   ];
   currentSlide = 0;
 
-  ncs : Nc[] = []
+  ncs: Nc[] = []
 
   deleteModal: any;
   idTodelete: number = 0;
-  
 
-  constructor(private   ncservice : ServicesNonConfirmitéService){
+
+  constructor(private ncservice: ServicesNonConfirmitéService) {
 
   }
   ngOnInit(): void {
     this.getNcs();
-    
+
   }
 
-getNcs() {
-  this.ncservice.getAll().subscribe(
-    res => {
-      this.ncs = res;
-    },
-    error => {
-      console.log(error);
-    }
-  );
-}
+  getNcs() {
+    this.ncservice.getAll().subscribe(
+      res => {
+        this.ncs = res;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
 changeSlide(direction: number) {
   const totalCards = this.icons.length;
   const cardsPerPage = 8; // Number of cards to display per page

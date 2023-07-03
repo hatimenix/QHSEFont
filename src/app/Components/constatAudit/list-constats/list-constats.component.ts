@@ -26,7 +26,6 @@ export class ListConstatsComponent implements OnInit {
   existingFileUrl: string = '';
   selectedUtilisateur: Utilsateur | undefined
   site$ !: Observable<any>;
-  processuss$ !: Observable<any>;
   utilisateurs: any[] = [];
 
   modalRef!: BsModalRef;

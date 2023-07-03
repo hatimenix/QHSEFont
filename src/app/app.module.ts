@@ -106,6 +106,8 @@ import { InfoConstatComponent } from './Components/constatAudit/info-constat/inf
 import { ListAnalyseRisqueComponent } from './Components/AnalysesRisques/list-analyse-risque/list-analyse-risque.component';
 import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-analyse-risque/add-analyse-risque.component';
 import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
+import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
+import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
 
 @NgModule({
   declarations: [
@@ -196,7 +198,7 @@ import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/updat
     ListCertificatComponent,
     AddCertificatComponent,
     UpdateCertificatComponent,
-    DetailsProcessusComponent, 
+    DetailsProcessusComponent,
     ListExigencesComponent,
     AddExigencesComponent,
     GraphiquesComponent,
@@ -205,7 +207,9 @@ import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/updat
     InfoConstatComponent,
     ListAnalyseRisqueComponent,
     AddAnalyseRisqueComponent,
-    UpdateAnalyseRisqueComponent
+    UpdateAnalyseRisqueComponent,
+    AddPlanAlimentaireComponent,
+    ListePlanAlimentaireComponent
 
   ],
   imports: [
@@ -218,7 +222,7 @@ import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/updat
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgApexchartsModule
-    
+
 
   ],
 

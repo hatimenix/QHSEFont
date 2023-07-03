@@ -43,13 +43,14 @@ export const environment = {
     API_exigences: "http://127.0.0.1:8001/exigences/",
     API_cotations: "http://127.0.0.1:8001/cotation/",
     API_source: "http://127.0.0.1:8001/source/",
-    API_Details_group:"http://127.0.0.1:8001/groups/", 
+    API_Details_group: "http://127.0.0.1:8001/groups/",
     API_Control: "http://127.0.0.1:8001/control/",
     //récents 
-    API_PJ :"http://127.0.0.1:8001/pj/", 
-    API_Rapport_audit : "http://127.0.0.1:8001/rapportAudit/",
-    API_certificat_calibration : "http://127.0.0.1:8001/CertificatCalibration/",
+    API_PJ: "http://127.0.0.1:8001/pj/",
+    API_Rapport_audit: "http://127.0.0.1:8001/rapportAudit/",
+    API_certificat_calibration: "http://127.0.0.1:8001/CertificatCalibration/",
     API_constatAudit: "http://127.0.0.1:8001/constataudit/",
+    API_plan_alimentaire: "http://127.0.0.1:8001/planalimentaire/"
 
 
 
