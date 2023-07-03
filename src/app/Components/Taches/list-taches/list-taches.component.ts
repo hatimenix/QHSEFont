@@ -9,7 +9,6 @@ import { Taches } from 'src/app/models/taches';
 import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { SourceService } from 'src/app/Services/Service-Source/source.service';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
-import { ApiRealisationService } from 'src/app/Services/Service-document-unique/api-realisation.service';
 declare var window: any;
 
 @Component({
@@ -18,10 +17,9 @@ declare var window: any;
   styleUrls: ['./list-taches.component.css']
 })
 export class ListTachesComponent {
-  utilisateurs: any[] = [];
   sources: any[] = [];
-  realisations: any[] = [];
-  selectedUtilisateur: Utilsateur | undefined;
+  utilisateurs: any[] = [];
+  selectedUtilisateur: Utilsateur | undefined;  
   updateModalVisible: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any;
   @ViewChild('utilisateurModal', { static: true }) utilisateurModal:any;
@@ -38,7 +36,6 @@ export class ListTachesComponent {
   date_realisation:any
   etat:any
   commentaire:any
-  realisation_associee:any
   piece_jointe:any
   source:any
 
@@ -58,12 +55,11 @@ export class ListTachesComponent {
     date_realisation: new FormControl(''),
     etat: new FormControl(''),
     commentaire: new FormControl(''),
-    realisation_associee: new FormControl(''),
     piece_jointe: new FormControl(''),
     source: new FormControl(''),
 
   });
-  constructor(private   tacheservice : ApiTachesService, private router : Router,private sourceservice :SourceService, private apiUtilisateurService: ApiUtilisateurService, private realisationservice : ApiRealisationService, private bsModalService: BsModalService){
+  constructor(private   tacheservice : ApiTachesService, private router : Router,private sourceservice :SourceService, private apiUtilisateurService: ApiUtilisateurService, private bsModalService: BsModalService){
 
   }
   ngOnInit(): void {
@@ -80,15 +76,6 @@ export class ListTachesComponent {
       (data: any[]) => {
         this.sources = data;
         console.log(this.sources);
-      },
-      (error: any) => {
-        console.log(error); // Handle error
-      }
-    );  
-    this.realisationservice.getAllRealisations().subscribe(
-      (data: any[]) => {
-        this.realisations = data;
-        console.log(this.realisations);
       },
       (error: any) => {
         console.log(error); // Handle error
@@ -141,8 +128,6 @@ if (this.date_realisation !== null && this.date_realisation !== undefined) {
     formData.append("priorite", this.priorite);
     formData.append("etat", this.etat);
     formData.append("commentaire", this.commentaire);
-    formData.append("realisation_associee", this.realisation_associee);
-    formData.append("realisation_associee", this.realisation_associee);
     if (this.piece_jointe !== null && this.piece_jointe !== undefined) {
       formData.append("piece_jointe", this.piece_jointe);
   }    
@@ -170,7 +155,6 @@ getTacheData( id : number,
   date_realisation:any,
   etat:any,
   commentaire:any,
-  realisation_associee:any,
   source:any,
 
 ){
@@ -184,7 +168,6 @@ getTacheData( id : number,
   this.date_realisation=date_realisation,
   this.etat=etat,
   this.commentaire=commentaire,
-  this.realisation_associee=realisation_associee,
   this.source=source
 }
 openDeleteModal(id: number) {

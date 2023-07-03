@@ -79,27 +79,13 @@ export class GraphiquesComponent implements AfterViewInit {
     private thirdChartService: ConstatAuditService
   ) {}
   ngAfterViewInit(): void {
-    this.loadChartFromLocalStorage();
     this.fetchChartData();
     this.fetchNCChartData();
     this.fetchThirdChartData();
+    this.fetchDateNCChartData();
   }
-  
-  private loadChartFromLocalStorage(): void {
-    const storedData = localStorage.getItem('chartData');
-    if (storedData) {
-      try {
-        const { series, labels } = JSON.parse(storedData);
-        [this.pieSeries, this.barSeries, this.thirdChartSeries, this.datencSeries] = series;
-        [this.pieLabels, this.barLabels, this.thirdChartLabels, this.datencLabels] = labels;
-        this.refreshCharts();
-      } catch (error) {
-        console.error('Error parsing stored chart data:', error);
-      }
-    }
-  }
-  
-  private storeChartData(): void {
+
+   storeChartData(): void {
     const chartData = {
       series: [this.pieSeries, this.barSeries, this.thirdChartSeries, this.datencSeries],
       labels: [this.pieLabels, this.barLabels, this.thirdChartLabels, this.datencLabels],
@@ -107,37 +93,34 @@ export class GraphiquesComponent implements AfterViewInit {
     localStorage.setItem('chartData', JSON.stringify(chartData));
   }
   
-  fetchChartData(): void {
+   fetchChartData(): void {
     this.apiActionsService.getStatsByTypeAction().subscribe((data: any[]) => {
       this.data = data;
       this.filteredChartData = data;
       this.sites = Array.from(new Set(data.map(item => item.site__site_nom)));
       this.actionYears = Array.from(new Set(data.map(item => item.year)));
-      this.ncservice.getStatsDelaiPrevuVsDateNc().subscribe((ncData: any[]) => {
-        this.datencSeries = ncData.map(item => item.delai_days);
-        this.datencLabels = ncData.map(item => item.year);
-        this.storeChartData();
-        this.refreshCharts();
-      });
+        this.updateChartData();
     });
   }
-  
-  onSiteChange(): void {
-    this.filteredChartData = (this.selectedSite === 'All')
-      ? this.data
-      : this.data.filter(item => item.site__site_nom === this.selectedSite);
+   updateChartData(): void {
+    this.filteredChartData = this.data.filter(item => 
+      (this.selectedSite === 'All' || item.site__site_nom === this.selectedSite) &&
+      (this.selectedActionYear === 'All' || item.year === this.selectedActionYear)
+    );
     this.pieSeries = this.filteredChartData.map(item => item.count);
     this.pieLabels = this.filteredChartData.map(item => item.type_action);
+
     this.refreshCharts();
+  }
+  
+
+  
+  onSiteChange(): void {
+  this.updateChartData();
   }
   
   onActionYearChange(): void {
-    this.filteredChartData = (this.selectedActionYear === 'All')
-      ? this.data
-      : this.data.filter(item => item.year === this.selectedActionYear);
-    this.pieSeries = this.filteredChartData.map(item => item.count);
-    this.pieLabels = this.filteredChartData.map(item => item.type_action);
-    this.refreshCharts();
+  this.updateChartData();
   }
   
   onNCYearChange(): void {
@@ -206,6 +189,12 @@ export class GraphiquesComponent implements AfterViewInit {
   getTotalAudit(): number {
     return this.thirdChartSeries?.reduce((total, value) => total + value, 0) || 0;
   }
-  
+  fetchDateNCChartData(): void {
+    this.ncservice.getStatsDelaiPrevuVsDateNc().subscribe((data: any[]) => {
+      this.datencSeries = data.map(item => item.year);
+      this.datencLabels = data.map(item => item.delai_days);
+    });
+    
+  }
   
 }

@@ -50,7 +50,9 @@ export const environment = {
     API_Rapport_audit: "http://127.0.0.1:8001/rapportAudit/",
     API_certificat_calibration: "http://127.0.0.1:8001/CertificatCalibration/",
     API_constatAudit: "http://127.0.0.1:8001/constataudit/",
-    API_plan_alimentaire: "http://127.0.0.1:8001/planalimentaire/"
+    API_plan_alimentaire: "http://127.0.0.1:8001/planalimentaire/",
+    API_AxesStrategique: "http://127.0.0.1:8001/AxesStrategiques/",
+
 
 
 

@@ -84,7 +84,6 @@ export class InfoTachesComponent {
           date_realisation: this.tache.date_realisation,
           etat: this.tache.etat,
           commentaire: this.tache.commentaire,
-          realisation_associee: this.tache.realisation_associee,
           piece_jointe: this.tache.piece_jointe,
           utilisateur_name: this.tache.utilisateur_name,
           source_name: this.tache.source_name,

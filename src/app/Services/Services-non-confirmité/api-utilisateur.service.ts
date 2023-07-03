@@ -20,4 +20,8 @@ export class ApiUtilisateurService {
   create(data: any): Observable<any> {
     return this.http.post(this.utilisateurUrl, data);
   }
+  getUtilisateurById(id: number): Observable<Utilsateur> {
+    const url = `${this.utilisateurUrl}/${id}`;
+    return this.http.get<Utilsateur>(url);
+  }
 }

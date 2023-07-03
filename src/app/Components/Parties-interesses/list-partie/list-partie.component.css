@@ -47,6 +47,11 @@ min-width: 300px;
   background-color: #089bd7;
   border-color: #089bd7;
 }
+.checkbox-list{
+  max-height: 150px;
+  overflow-y: auto;
+}
+
 
 
 
