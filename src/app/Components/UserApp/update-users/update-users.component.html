@@ -1,11 +1,11 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Modifier un Utilisateur</h4>
+                           <h4 >Modifier un Utilisateur</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -43,10 +43,9 @@
                                 <div class="form-group">
                                     <label>Actif  <label style="color: red;">*</label></label>
                                     <input type="checkbox"  required id="actif" name="actif" formControlName="actif">
-                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6" id="idGroupe">
+                            <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
                                 <div class="form-group">
                                   <label for="groupes_roles">Groupes/Rôles:</label>
                                   <div *ngFor="let groupe of groupes">
@@ -73,7 +72,7 @@
        <!-- Page end  -->
    </div>
      </div>
-     <!-- Page end 
+     Page end 
      <ng-template #successModal>
         <div class="modal-header">
           <h4 class="modal-title">Succès</h4>
@@ -82,10 +81,10 @@
           </button>
         </div>
         <div class="modal-body">
-          Le site a été ajoutée avec succès.
+          L'utilisateur a été modifé avec succès.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
         </div>
       </ng-template>
-     -->
+    

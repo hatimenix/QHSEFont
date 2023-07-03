@@ -1,11 +1,11 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter un Utilisateur</h4>
+                           <h4>Ajouter un Utilisateur</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -27,24 +27,28 @@
                             </div> 
                             <div class="col-md-6">
                               <div class="form-group">
-                                  <label>Mot de passe <label style="color: red;">*</label></label>
-                                  <div class="input-group">
-                                      <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="password" name="password" formControlName="password">
-                                      <div class="input-group-append">
-                                          <button type="button" class="btn btn-primary" (click)="generatePassword()">Générer</button>
-                                      </div>
-                                  </div>
-                                  <div class="help-block with-errors"></div>
-                              </div>
-                          </div>
-                          
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Adresse Email <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer l'adresse email" required id="email" name="email" formControlName="email">
-                                    <div class="help-block with-errors"></div>
+                                <label>Mot de passe <label style="color: red;">*</label></label>
+                                <div class="input-group">
+                                  <input type="text" class="form-control" placeholder="Entrer le mot de passe" required id="password" name="password" formControlName="password" #passwordInput>
                                 </div>
-                            </div> 
+                                <div *ngIf="userForm.get('password')?.errors && (userForm.get('password')?.dirty || userForm.get('password')?.touched)">
+                                  <p *ngIf="userForm.get('password')?.hasError('pattern')"><label style="color: red;">Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial*</label></p>
+                                  <p *ngIf="userForm.get('password')?.valid">Mot de passe valide.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Adresse Email <label style="color: red;">*</label></label>
+                                <input type="text" class="form-control" placeholder="Entrer l'adresse email" required id="email" name="email" formControlName="email">
+                                <div class="help-block with-errors"></div>
+                                <div >
+                                  <p *ngIf="userForm.get('email')?.errors?.['required']"><label style="color: red;">*L'adresse email est requise.</label></p>
+                                  <p *ngIf="userForm.get('email')?.errors?.['email']"><label style="color: red;">*L'adresse email doit être valide.</label></p>
+
+                                </div>
+                              </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Actif  <label style="color: red;">*</label></label>
@@ -52,15 +56,17 @@
                                     
                                 </div>
                             </div>
-                            <div class="col-md-6" id="idGroupe" formGroupName="groupes_roles">
+                            <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
                                 <div class="form-group">
-                                  <label for="groupes_roles">Groupes/Rôles:</label>
+                                  <label for="groupes_roles">Groupes/Rôles:<label style="color: red;">*</label></label>
                                   <div *ngFor="let groupe of groupes">
                                     <input type="checkbox" [value]="groupe.id" formControlName="groupes_roles">
                                     {{ groupe.nom }}
                                   </div>
                                 </div>
                               </div>
+                              
+                              
                               <div class="col-md-6" >
                               <div class="form-group">
                                 <label>
@@ -79,8 +85,7 @@
        <!-- Page end  -->
    </div>
      </div>
-     <!-- Page end 
-     <ng-template #successModal>
+ <ng-template #successModal>
         <div class="modal-header">
           <h4 class="modal-title">Succès</h4>
           <button type="button" class="close" aria-label="Close" (click)="closeModal()">
@@ -88,10 +93,9 @@
           </button>
         </div>
         <div class="modal-body">
-          Le site a été ajoutée avec succès.
+          L'utilisateur a été ajouté avec succès.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
         </div>
       </ng-template>
-     -->

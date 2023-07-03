@@ -44,7 +44,7 @@ export class AnalyseRisques {
         maitrise : string,
         mesure : string,
         type_action : string,
-        partieinteresses: number[]
+        partieinteresses: number[], 
 
       ) {
         this.site = site;
@@ -66,7 +66,5 @@ export class AnalyseRisques {
         this.mesure = mesure;
         this.type_action = type_action;
         this.partieinteresses = partieinteresses;
-
-
       }
 }

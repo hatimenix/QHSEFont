@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/Services/Service-Users/users.service';
 import { GroupeUserService } from 'src/app/Services/Services-GroupesUser/groupe-user.service';
 import { GroupeUser } from 'src/app/models/GroupeUser';
@@ -16,13 +17,16 @@ export class UpdateUsersComponent {
   userForm!: FormGroup;
   groupes!: GroupeUser[];
   userId: number;
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
 
   constructor(
     private formBuilder: FormBuilder,
     private userAppService: UsersService,
     private groupeUserService: GroupeUserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private bsModalService: BsModalService
   ) {
     this.userId = Number(this.route.snapshot.params['id']);
   }
@@ -33,7 +37,7 @@ export class UpdateUsersComponent {
       nom_complet: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      actif: [''],
+      
       groupes_roles: this.formBuilder.array([])
     });
 
@@ -79,6 +83,7 @@ export class UpdateUsersComponent {
 
     const selectedGroupes = this.userForm.value.groupes_roles || [];
     const selectedIds = this.getSelectedCheckboxId();
+    
     const groupeUsers = this.groupes
       .filter(group => selectedGroupes.includes(group.id.toString()))
       .map(group => ({ id: group.id }));
@@ -91,6 +96,7 @@ export class UpdateUsersComponent {
     this.userAppService.updateUserApp(this.userId, updatedUser).subscribe(
       user => {
         console.log('User updated successfully:', user);
+        this.openModal();
         this.router.navigate(['/listuserapp']);
         this.userForm.reset();
       },
@@ -99,4 +105,13 @@ export class UpdateUsersComponent {
       }
     );
   }
+
+    //modal functions 
+    openModal() {
+      this.modalRef = this.bsModalService.show(this.successModal);
+    }
+    closeModal() {
+      this.bsModalService.hide();
+  }
+    
 }

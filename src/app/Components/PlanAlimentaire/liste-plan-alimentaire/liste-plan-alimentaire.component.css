@@ -1,0 +1,87 @@
+.btn-primary {
+    background-color: #FF731D;
+    border-color: #FF731D;
+}
+
+.btn-danger {
+    background-color: #FFB200;
+    border-color: #FFB200;
+    color: #fff;
+}
+
+.custom-button {
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff;
+}
+
+button+button {
+    margin-left: 10px;
+}
+
+thead {
+    background-color: #17469d
+}
+
+th {
+    color: rgb(255, 255, 255);
+    min-width: 200px;
+
+}
+
+#user-list-table {
+    width: 100%;
+}
+
+.badge {
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff;
+
+}
+
+.bg {
+    background-color: #e56b6f;
+    border-color: #e56b6f;
+    color: #fff;
+}
+
+table {
+    border-spacing: 10px;
+    /* ajustez la valeur selon vos préférences */
+}
+
+
+.page-number.selected {
+    background-color: #089bd7;
+    color: #ffffff;
+}
+
+.spacer {
+    margin-right: 10px;
+    /* Adjust the value to set the desired space */
+}
+
+#update .modal-dialog {
+    max-width: 700px;
+}
+
+#update .modal-content {
+    width: 100%;
+    height: 100%;
+}
+
+.mt {
+    margin-top: 30px;
+}
+
+.mtx {
+    margin-top: 15px;
+}
+
+
+.custom-excel-btn {
+    color: #237804;
+    background-color: #c6e0b3;
+    border-color: #c6e0b3;
+}

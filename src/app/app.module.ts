@@ -109,6 +109,11 @@ import { InfoAxesComponent } from './Components/AxesStratégiques/info-axes/info
 import { ListAnalyseSWOTComponent } from './Components/AnalysesRisques/list-analyse-swot/list-analyse-swot.component';
 import { CartographieRisquesComponent } from './Components/AnalysesRisques/cartographie-risques/cartographie-risques.component';
 import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
+import { ListAnalyseRisqueComponent } from './Components/AnalysesRisques/list-analyse-risque/list-analyse-risque.component';
+import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-analyse-risque/add-analyse-risque.component';
+import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
+import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
+import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
 
 @NgModule({
   declarations: [
@@ -199,7 +204,7 @@ import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/ad
     ListCertificatComponent,
     AddCertificatComponent,
     UpdateCertificatComponent,
-    DetailsProcessusComponent, 
+    DetailsProcessusComponent,
     ListExigencesComponent,
     AddExigencesComponent,
     GraphiquesComponent,
@@ -211,7 +216,12 @@ import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/ad
     InfoAxesComponent,
     ListAnalyseSWOTComponent,
     CartographieRisquesComponent,
-    AddRisquesComponent
+    AddRisquesComponent,
+    ListAnalyseRisqueComponent,
+    AddAnalyseRisqueComponent,
+    UpdateAnalyseRisqueComponent,
+    AddPlanAlimentaireComponent,
+    ListePlanAlimentaireComponent
 
   ],
   imports: [
@@ -224,7 +234,7 @@ import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/ad
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgApexchartsModule
-    
+
 
   ],
 
