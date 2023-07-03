@@ -1,1 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
+/* list */
+.btn-primary {
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
+  .btn-warning{
+    background-color: #ffd140;
+    border-color: #ffd140;
+  }
+  
+  button + button {
+    margin-left: 10px;
+  }
+  thead {
+    background-color: #F1F3F8
+  }
+  th {
+    background-color: #F1F3F8;
+    color : #17469d;
+    white-space: nowrap;
+    font-size: 12px; /* Ajustez la taille de police selon vos besoins */
+    padding: 5px; /* Aligne le texte au centre */
+  
+  
+  }
+  #user-list-table {
+    width: 100%;
+  }
+  .btn-danger{
+    background-color: #e56b6f;
+    border-color: #e56b6f;
+    color: #fff; 
+  }
+  td{
+    font-size: 14px;
+  }
+  .custom-background {
+    background-color: #F1F3F8;
+  }
+  .card-title{
+    font-size: 16px;
+    color: #089bd7;
+  
+  }
+  
+  .custom-icon-blue {
+    color: rgb(27, 27, 63);
+  }
+  .custom-blue {
+    color: #17469d;
+  }
+  /*add and update*/
+  .card-headers{
+    color: #fff;
+    background-color: #17469d ;
+    padding: 8px 16px; /* Adjust the padding as needed */
+    border-bottom: 1px solid #dee2e6; 
+    font-size: 13px;/* Add a bottom border */   
+  }
+  
+  .card-header {
+    padding: 10px 20px; /* Adjust the padding as needed */
+    background-color: #ffffff; /* Set the background color of the card header */
+    border-bottom: 1px solid #dee2e6;
+    width: 1245px;
+    height: 50px; /* Add a bottom border */
+  }
+  /* Add/update */
+
+ 
+  .btn-danger{
+    background-color: #FFB200;
+    border-color: #FFB200;
+    color: #fff; 
+  }
+ 
+  button + button {
+    margin-left: 10px;
+  }
+  .custom-background {
+    background-color: #F1F3F8;
+  }
+  .bg1{
+    background-color: #ffd140;
+    border-color: #ffd140;
+    color: #fff; 
+  }
+  
+  .badge{
+  background-color: #ffd140;
+  border-color: #ffd140;
+  color: #fff; 
+  }
+  custom-icon-blue {
+    color: rgb(27, 27, 63);
+  }
+  .custom-blue {
+    color: #17469d;
+  }
+  
+  

@@ -1,32 +1,11 @@
-.btn-primary {
-  background-color: #FF731D;
-  border-color: #FF731D;
-}
+.col-md-3 label {
+    font-size: 14px; /* Ajustez la taille de police du label selon vos besoins */
+  }
+  
+  .col-md-3 select {
+    font-size: 12px; /* Ajustez la taille de police du select selon vos besoins */
+  }
+  
 
-
-
-button + button {
-  margin-left: 10px;
-}
-thead {
-  background-color: #17469d
   
   
-}
-th {
-color: rgb(255, 255, 255);
-
-}
-#user-list-table {
-  width: 100%;
-}
-.bg{
-  background-color: #ffd140;
-  border-color: #ffd140;
-  color: #fff; 
-}
-.btn-danger{
-  background-color: #e56b6f;
-  border-color: #e56b6f;
-  color: #fff; 
-}
