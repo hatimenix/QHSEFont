@@ -1,37 +1,44 @@
 <head>
-
   <script>
     function refreshPage() {
       location.reload();
     }
   </script>
+  
 </head>
+
 <div class="content-page">
   <div class="container-fluid">
     <div class="row">
+    
+     
       <div class="col-lg-12 d-flex justify-content-center align-items-center mb-4">
         <div class="container">
           <div class="card-body text-center">
-            <h2 class="card-title" style="font-size: 23px; font-weight: bold; color: #089bd7; padding: 10px; border-radius: 10px; border: 1px solid #089bd7;">Accès rapide</h2>
+            <h2 class="card-title" style="font-size: 23px; font-weight: bold; color: #089bd7; padding: 10px; border-radius: 10px; border: 1px solid #089bd7;">Portail QHSE</h2>
           </div>
           <div id="carouselExample" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-              <li data-target="#carouselExample" [class.active]="i === 0" *ngFor="let icon of icons.slice(currentSlide, currentSlide + 6); let i = index"></li>
+              <li data-target="#carouselExample" [class.active]="i === currentSlide" *ngFor="let icon of icons.slice(currentSlide * 16, (currentSlide + 1) * 16); let i = index"></li>
             </ol>
             <div class="carousel-inner">
-              <div class="carousel-item" [class.active]="i === 0" *ngFor="let icon of icons.slice(currentSlide, currentSlide + 6); let i = index">
+              <div class="carousel-item" [class.active]="i === currentSlide" *ngFor="let icon of getVisibleIcons(); let i = index">
                 <div class="row">
-                  <div class="col-lg-2 col-md-2 col-sm-2" *ngFor="let icon of icons.slice(currentSlide, currentSlide + 6); let i = index">
-                    <a [routerLink]="icon.link" class="card-link">
-                      <div class="card icon-card" [ngClass]="icon.color">
-                        <div class="card-body text-center">
-                          <div class="icon-container">
-                            <i [class]="icon.iconClass"></i>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="d-flex justify-content-between">
+                      <div class="carousel-card mr-2" *ngFor="let icon of getVisibleIcons(); let i = index">
+                        <a [routerLink]="icon.link" class="card-link">
+                          <div class="card icon-card" [ngClass]="icon.color">
+                            <div class="card-body text-center">
+                              <div class="icon-container">
+                                <img src="{{ icon.imageSrc }}" alt="{{ icon.title }}" class="icon-image">
+                              </div>
+                              <h4 class="card-title">{{ icon.title }}</h4>
+                            </div>
                           </div>
-                          <h4 class="card-title">{{ icon.title }}</h4>
-                        </div>
+                        </a>
                       </div>
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -45,73 +52,76 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          
         </div>
       </div>
       
+
       <div class="row">
         <div class="col-lg-7">
-          <div class="card-body text-center">      
-      <h4 class="mb-3" style="font-size: 23px; font-weight: bold; color: #089bd7; padding: 10px; border-radius: 10px; border: 1px solid #089bd7;">Tableau de bord</h4>
-      </div>
-      <ul class="nav nav-tabs" id="myTab-1" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mes non-conformités</a>
-        </li>
-      </ul>
-      <div class="col-lg-12">
-        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-          <div class="table-responsive rounded mb-3">
-            <table class="data-tables table mb-0 tbl-server-info">
-              <thead>
-                <tr class="light ligth-data">
-                  <th>
-                    <div class="checkbox d-inline-block">
-                      <input type="checkbox" class="checkbox-input" id="checkbox1">
-                      <label for="checkbox1" class="mb-0"></label>
-                    </div>
-                  </th>
-                  <th scope="col">
-                    <a>Intitulé de la non-conformité</a>
-                    
-                  </th>
-                  <th scope="col">Nature</th>
-                  <th scope="col">Date_nc</th>
-                  <th scope="col">Avancement</th>
-                </tr>
-              </thead>
-              <tbody class="ligth-body">
-                <tr *ngFor="let nc of ncs  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
-                  <th scope="row" style="color: grey;">{{nc.id}}</th>
-                  <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
-                  <td>{{nc.nature}}</td>
-                  <td>{{ nc.date_nc | date }}</td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
-                        {{ nc.progress }}%
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="card-body text-center">
+            <h4 class="mb-3" style="font-size: 23px; font-weight: bold; color: #089bd7; padding: 10px; border-radius: 10px; border: 1px solid #089bd7;">Tableau de bord</h4>
           </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-5">
-        <h4 class="card-title mb-2" style="font-weight: bold;font-size: 23px;color: #089bd7;">​Vous êtes sur le portail QHSE !</h4>
-        <div class="card " style="margin-top: 3%;">
-          <div class="card-header" style="background-color: #a9ce24; color: white;">
-            <h4 class="card-title mb-1" style="font-weight: bold;">Actualités</h4>
-            <p class="card-text">Vous pouvez profiter de votre page d'accueil pour mettre en avant vos actualités.</p>
-
+          <ul class="nav nav-tabs" id="myTab-1" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mes non-conformités</a>
+            </li>
+          </ul>
+          <div class="col-lg-12">
+            <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+              <div class="table-responsive rounded mb-3">
+                <table class="data-tables table mb-0 tbl-server-info">
+                  <thead>
+                    <tr class="light ligth-data">
+                      <th>
+                        <div class="checkbox d-inline-block">
+                          <input type="checkbox" class="checkbox-input" id="checkbox1">
+                          <label for="checkbox1" class="mb-0"></label>
+                        </div>
+                      </th>
+                      <th scope="col">
+                        <a>Intitulé de la non-conformité</a>
+                      </th>
+                      <th scope="col">Nature</th>
+                      <th scope="col">Date_nc</th>
+                      <th scope="col">Avancement</th>
+                    </tr>
+                  </thead>
+                  <tbody class="ligth-body">
+                    <tr *ngFor="let nc of ncs  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                      <th scope="row" style="color: grey;">{{nc.id}}</th>
+                      <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
+                      <td>{{nc.nature}}</td>
+                      <td>{{ nc.date_nc | date }}</td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
+                            {{ nc.progress }}%
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-lg-4">
-          <img src="https://paiperleck.qualishare.com/qhse_risk/SiteAssets/SitePages/Accueil/QLS_puzzle.png" alt="Image" class="img-fluid">
+        <div class="col-lg-5">
+          <h4 class="card-title mb-2" style="font-weight: bold;font-size: 23px;color: #089bd7;">Vous êtes sur le portail QHSE !</h4>
+          <div class="card" style="margin-top: 3%;">
+            <div class="card-header" style="background-color: #a9ce24; color: white;">
+              <h4 class="card-title mb-1" style="font-weight: bold;">Actualités</h4>
+              <p class="card-text">Vous pouvez profiter de votre page d'accueil pour mettre en avant vos actualités.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <img src="https://paiperleck.qualishare.com/qhse_risk/SiteAssets/SitePages/Accueil/QLS_puzzle.png" alt="Image" class="img-fluid">
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+

@@ -8,13 +8,13 @@
                       <h4 class="card-title">Commande repas sur roues </h4>
                    </div>
                    <div class="col-sm-6 col-md-6">
-                     <div class="user-list-files d-flex">
-                        
-                        <a routerLink="/addC" class="bg" href="javascript:void();">
-                           Ajouter 
-                        </a>
-                     </div>
-                  </div>
+                    <div class="user-list-files d-flex">
+                       
+                       <a routerLink="/addC" class="bg1" href="javascript:void();">
+                          Nouvel élément 
+                       </a>
+                    </div>
+                 </div>
                 </div>
                 <div class="card-body">
                    <div class="table-responsive">
@@ -74,19 +74,9 @@
                                      </select>
                                  </div>
                              </div>
-                             <div class="dropdown">
-                              <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                Afficher {{ itemsPerPage }} résultats par page
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
-                                <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
-                                  [ngClass]="{'selected': option === itemsPerPage}">
-                                  <span>{{ option }}</span>
-                                  <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
-                                </a>
-                              </div>
-                            </div>
+                           
+                           
+                           
                 
                            </div>
                                </form>

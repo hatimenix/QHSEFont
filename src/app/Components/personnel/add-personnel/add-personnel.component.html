@@ -1,11 +1,11 @@
-<div class="content-page">
+<div class="content-page custom-background">
    <div class="container-fluid">
       <div class="row">
          <div class="col-xl-3 col-lg-4">
                <div class="card">
-                  <div class="card-header d-flex justify-content-between">
+                  <div class="card-headers d-flex justify-content-between">
                      <div class="header-title">
-                        <h4 class="card-title">Choisir l'image</h4>
+                        <h4 >Choisir l'image</h4>
                      </div>
                   </div>
                   <div class="card-body">
@@ -27,12 +27,12 @@
          </div>
 <div class="col-xl-9 col-lg-8">
    <div class="card">
-      <div class="card-header d-flex justify-content-between">
+      <div class="card-headers d-flex justify-content-between">
          <div class="header-title">
            <div class="user-list-files d-flex">
                               
               
-            <h4 class="card-title "style="margin-right: 460px;" >Ajouter un nouveau personnel</h4>
+            <h4  >Ajouter un nouveau personnel</h4>
            </div>
          </div>
       </div>
@@ -49,7 +49,7 @@
 <div *ngIf="PersonnelForm.controls['compte'].invalid && (PersonnelForm.controls['compte'].dirty || PersonnelForm.controls['compte'].touched)">
     <div *ngIf="PersonnelForm.controls['compte'].errors?.['required']"  style="color: rgb(142, 27, 86);">Compte est requis.</div>
     <div class="help-block with-errors"></div>
-    <div *ngIf="PersonnelForm.controls['compte'].errors?.['minlength']"  style="color: red;">Le compte doit contenir au moins 3 caractères.</div>
+    <div *ngIf="PersonnelForm.controls['compte'].errors?.['minlength']"  style="color: rgb(142, 27, 86);;">Le compte doit contenir au moins 3 caractères.</div>
 </div>
 
                   </div>
@@ -59,7 +59,7 @@
 
                      <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" formControlName="nom">
                     <div *ngIf="PersonnelForm.controls['nom'].invalid && (PersonnelForm.controls['nom'].dirty || PersonnelForm.controls['nom'].touched)">
-                    <div *ngIf="PersonnelForm.controls['nom'].errors?.['required']"  style="color: red;">Nom est requis.</div>
+                    <div *ngIf="PersonnelForm.controls['nom'].errors?.['required']"  style="color: rgb(142, 27, 86);">Nom est requis.</div>
 
                    </div>
                   </div>
@@ -67,8 +67,8 @@
                      <label for="courrier">Courrier:</label>
                      <input type="email" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier">
                      <div *ngIf="PersonnelForm.controls['courrier'].invalid && (PersonnelForm.controls['courrier'].dirty || PersonnelForm.controls['courrier'].touched)">
-                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['required']" style="color: red;">Courrier est requis.</div>
-                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['email']" style="color: red;">Courrier doit être une adresse email valide.</div>
+                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['required']" style="color: rgb(142, 27, 86);">Courrier est requis.</div>
+                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['email']" style="color: rgb(142, 27, 86);">Courrier doit être une adresse email valide.</div>
                      </div>
                    </div>
                    
@@ -77,8 +77,8 @@
                      <label for="numero_tel">Numéro :</label>
                      <input type="tel" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number" formControlName="numero_tel">
                      <div *ngIf="PersonnelForm.controls['numero_tel'].invalid && (PersonnelForm.controls['numero_tel'].dirty || PersonnelForm.controls['numero_tel'].touched)">
-                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['required']" style="color: red;">Numéro est requis.</div>
-                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['pattern']" style="color: red;">Numéro doit être un numéro de téléphone valide.</div>
+                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['required']" style="color: rgb(142, 27, 86);">Numéro est requis.</div>
+                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['pattern']" style="color: rgb(142, 27, 86);">Numéro doit être un numéro de téléphone valide.</div>
                      </div>
                    </div>
                    
@@ -103,7 +103,7 @@
 
                      <div *ngIf="PersonnelForm.controls['othermail'].invalid && (PersonnelForm.controls['othermail'].dirty || PersonnelForm.controls['othermail'].touched)">
                         
-                        <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" style="color: red;">Courrier doit être une adresse email valide.</div>
+                        <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" style="color: rgb(142, 27, 86);">Courrier doit être une adresse email valide.</div>
                       </div>
 
                   </div>
