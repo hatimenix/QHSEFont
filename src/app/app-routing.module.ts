@@ -99,6 +99,12 @@ import { DetailsProcessusComponent } from './Components/Processus/details-proces
 import { ListExigencesComponent } from './Components/Exigences/list-exigences/list-exigences.component';
 import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-exigences.component';
 import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
+import { ListAxesComponent } from './Components/AxesStratégiques/list-axes/list-axes.component';
+import { AddAxesComponent } from './Components/AxesStratégiques/add-axes/add-axes.component';
+import { InfoAxesComponent } from './Components/AxesStratégiques/info-axes/info-axes.component';
+import { ListAnalyseSWOTComponent } from './Components/AnalysesRisques/list-analyse-swot/list-analyse-swot.component';
+import { CartographieRisquesComponent } from './Components/AnalysesRisques/cartographie-risques/cartographie-risques.component';
+import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
 
 
 
@@ -217,6 +223,18 @@ const routes: Routes = [
   {path : 'exigence-list', component: ListExigencesComponent,canActivate: [AuthGuardService]},
   {path : 'add-exigence', component: AddExigencesComponent,canActivate: [AuthGuardService]},
   {path : 'graphiques', component: GraphiquesComponent,canActivate: [AuthGuardService]},
+  { path: 'axe-list', component: ListAxesComponent, canActivate: [AuthGuardService] },
+  { path: 'add-axe', component: AddAxesComponent, canActivate: [AuthGuardService] },
+  { path: 'axe/:id', component: InfoAxesComponent, canActivate: [AuthGuardService] },
+  { path: 'analyseSWOT', component: ListAnalyseSWOTComponent, canActivate: [AuthGuardService] },
+  { path: 'cartographieRisque', component: CartographieRisquesComponent, canActivate: [AuthGuardService] },
+  { path: 'add-risque', component: AddRisquesComponent, canActivate: [AuthGuardService] },
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,36 @@
+
+.checkbox-lg {
+    transform: scale(2.5);
+    margin-left: 20px;
+  }
+  .card-header{
+    background-color: #17469d;
+    color: #fff;
+    
+  }
+  .btn-primary {
+    background-color: #089bd7;
+    border-color: #089bd7;
+  }
+  
+  .btn-danger{
+    background-color: #FFB200;
+    border-color: #FFB200;
+    color: #fff; 
+  }
+  .drop-zone {
+    border: 2px dashed #ccc;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .drop-zone.drag-over {
+    border-color: #aaa;
+  }
+  a.nav-link.active {
+    color: white;
+    background-color: #ffd140;
+  }
+  
+
+  

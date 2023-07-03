@@ -19,6 +19,7 @@ declare var window: any;
   styleUrls: ['./list-nc.component.css']
 })
 export class ListNcComponent implements OnInit {
+  utilisateur:any;
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
@@ -288,6 +289,11 @@ filterByDateNC(): void {
   this.filteredNcs = filteredNcs;
 }
 
+resetDateFilter(): void {
+  this.startDate = undefined;
+  this.endDate = undefined;
+  this.filteredNcs = this.originalNcs;
+}
 
 
 getNcData( id : number,

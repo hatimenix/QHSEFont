@@ -103,6 +103,12 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
 import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
 import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
+import { ListAxesComponent } from './Components/AxesStratégiques/list-axes/list-axes.component';
+import { AddAxesComponent } from './Components/AxesStratégiques/add-axes/add-axes.component';
+import { InfoAxesComponent } from './Components/AxesStratégiques/info-axes/info-axes.component';
+import { ListAnalyseSWOTComponent } from './Components/AnalysesRisques/list-analyse-swot/list-analyse-swot.component';
+import { CartographieRisquesComponent } from './Components/AnalysesRisques/cartographie-risques/cartographie-risques.component';
+import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
 
 @NgModule({
   declarations: [
@@ -199,7 +205,13 @@ import { InfoConstatComponent } from './Components/constatAudit/info-constat/inf
     GraphiquesComponent,
     ListConstatsComponent,
     AddConstatComponent,
-    InfoConstatComponent
+    InfoConstatComponent,
+    ListAxesComponent,
+    AddAxesComponent,
+    InfoAxesComponent,
+    ListAnalyseSWOTComponent,
+    CartographieRisquesComponent,
+    AddRisquesComponent
 
   ],
   imports: [

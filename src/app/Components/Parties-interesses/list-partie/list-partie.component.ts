@@ -38,12 +38,13 @@ export class ListPartieComponent implements OnInit {
   cotation : any 
   impact : any 
   processus: number[] = [];
-  filteredOptions: string[] = [];
   searchQuery: string = '';
   parties : Partie[] = []
   deleteModal: any;
   idTodelete: number = 0;
-  searchOptions: string[] = ['Clients','Fournisseurs','Organismes','Prestataires','Collaborateurs','Etat','Prospects'];
+  searchOptions: string[] = ['Clients', 'Fournisseurs', 'Organismes', 'Prestataires', 'Collaborateurs', 'Etat', 'Prospects'];
+  filteredOptions: string[] = [];
+  filteredOptionsVisible: boolean = false;
 
   form = new FormGroup({
     typepartie: new FormControl(''),
@@ -62,6 +63,8 @@ export class ListPartieComponent implements OnInit {
   });
   selectedTypePartie: TypePartie | undefined;
   constructor(private   partieservice : PartieService,private apiProcessusService :ProcessusService, private router : Router,private typepartieservice :TypepartieService, private bsModalService: BsModalService){
+    this.filteredOptions = this.searchOptions.slice();
+
 
   }
   ngOnInit(): void {
@@ -198,13 +201,18 @@ filterOptions() {
   this.filteredOptions = this.searchOptions.filter(option =>
     option.toLowerCase().includes(this.searchQuery.toLowerCase())
   );
+  
+  this.filteredOptionsVisible = true;
 }
 
 selectOption(option: string) {
   this.searchQuery = option;
   this.filteredOptions = [];
+  this.filteredOptionsVisible = false;
 }
+
 resetSearchQuery() {
   this.searchQuery = '';
+  this.filteredOptionsVisible = false;
 }
 }

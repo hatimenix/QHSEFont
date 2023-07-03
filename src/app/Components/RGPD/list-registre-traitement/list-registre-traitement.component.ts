@@ -179,6 +179,12 @@ export class ListRegistreTraitementComponent implements OnInit{
   
     this.filteredTraitements = filteredTraitements;
   }
+  resetDateFilter(): void {
+    this.startDate = undefined;
+    this.endDate = undefined;
+    this.filteredTraitements = this.originalTraitements;
+  }
+  
   updatetraitement() : void {
     const formData = new FormData();
     formData.append('fournisseur', this.fournisseur);

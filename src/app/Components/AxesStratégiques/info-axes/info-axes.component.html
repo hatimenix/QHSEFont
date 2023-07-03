@@ -1,0 +1,67 @@
+<div class="content-page">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          
+           <div class="card">
+              <div class="card-header d-flex justify-content-between" style="background-color:#17469d; color:white;">
+                 <div class="header-title">
+                    <h4 class="card-title">Axes stratégiques</h4>
+                 </div>
+              </div>
+              <div class="card-body">
+                 <div class="iq-example-row">
+                    <div class="container-fluid">
+        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">AXE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">ACTION(s) AMÉLIORATIONS</a>
+           </li>
+           <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">INDICATEURS</a>
+           </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                 <tr class="table-default">
+                  <td class="col-sm-1">Axe de la politique :</td>
+                  <td class="col-sm-1">{{ axe.axe }}</td>
+                 </tr>
+                 <tr class="table-info">
+                    <td>Sigle :</td>
+                    <td>{{ axe.sigle }}</td>
+                  </tr>
+                  </table>
+                  </div>
+                  </div>
+                  <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+                      <tr class="table-default">
+                        <td class="col-sm-4">Action d'amélioration:</td>
+                        <td class="col-sm-4">Il n’y a aucun élément à représenter dans cet affichage.</td>
+                      </tr>
+                      </div>
+                      <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+                        <tr class="table-default">
+                          <td class="col-sm-4">Indicateur(s):</td>
+                          <td class="col-sm-4">Il n’y a aucun élément à représenter dans cet affichage.</td>
+                        </tr>
+                  </div>
+                  </div>
+                  <div class="row mt-1 mb-2 justify-content-end">
+                    <a routerLink="/axe-list" class="btn add-list">
+                      <i class="fas fa-arrow-left"></i> Retourner vers la liste des axes stratégiques 
+                    </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+                  
+  </div>
+</div>
