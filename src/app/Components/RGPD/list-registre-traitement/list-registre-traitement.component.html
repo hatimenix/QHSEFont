@@ -92,13 +92,20 @@
               </div>
             </div>
           </div>
-        <div class="col-md-2">
-        <div class="row justify-content-center">
-          <button style="margin-top: 1%;" class="btn btn-secondary" (click)="filterByDateCreation()">
-            <i class="fas fa-filter"></i> <span style="font-size: 0.85rem;">Filtrer par date de création</span>
-          </button>
+          <div class="col-md-2">
+            <div class="row justify-content-center">
+              <div class="input-group">
+                <div class="input-group-append">
+                  <button style="margin-top: 1.5%;" class="btn btn-secondary" (click)="filterByDateCreation()">
+                    <i class="fas fa-filter"></i> Filter par date
+                  </button>
+                  <button style="margin-top: 1.5%;" class="btn btn-light" (click)="resetDateFilter()">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
         </div>
            
              <div>

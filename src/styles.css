@@ -102,5 +102,37 @@
   .custom-blue {
     color: #17469d;
   }
+  #update .modal-dialog {
+    max-width: 850px;
+  }
+  
+  #update .modal-content {
+    width: 110%;
+    height: 110%;
+  }
+  .settings-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #888;
+    font-size: 20px;
+  }
+  
+  .settings-icon:hover {
+    color: #333;
+  }
+  .hidden-column {
+    display: none;
+  }
+  .page-number.selected {
+    background-color: #089bd7;
+    color: #ffffff; 
+  }
+  .dropdown-item.selected {
+    cursor: pointer;
+    font-weight: bold; 
+  }
+  
   
   

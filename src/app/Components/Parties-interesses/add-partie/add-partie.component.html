@@ -23,12 +23,14 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label>Processus <label style="color: red;">*</label></label>
-                                <div *ngFor="let processus of processuss">
+                                <div class="checkbox-list">
+                                <div *ngFor="let processus of processuss.slice(0.5);let i=index">
                                   <label>
                                     <input type="checkbox" [checked]="partief.processus.includes(processus.id)" formControlName="processus" (change)="toggleProcessus(processus.id)" required>
                                     {{ processus.intitule }}
                                   </label>
                                 </div>
+                              </div>
                               </div>
                             </div>
                                                    
