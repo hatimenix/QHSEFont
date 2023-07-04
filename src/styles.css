@@ -19,9 +19,7 @@
     color : #17469d;
     white-space: nowrap;
     font-size: 12px; /* Ajustez la taille de police selon vos besoins */
-    padding: 5px; /* Aligne le texte au centre */
-  
-  
+    padding: 5px; /* Aligne le texte au centre */  
   }
   #user-list-table {
     width: 100%;
@@ -64,6 +62,13 @@
     border-bottom: 1px solid #dee2e6;
     width: 1245px;
     height: 50px; /* Add a bottom border */
+  }
+  .card-headerH {
+    padding: 10px 20px; /* Adjust the padding as needed */
+    background-color: #ffffff; /* Set the background color of the card header */
+    border-bottom: 1px solid #dee2e6;
+    width: 500px;
+    height: 500px; /* Add a bottom border */
   }
   /* Add/update */
 

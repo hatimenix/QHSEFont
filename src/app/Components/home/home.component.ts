@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
+import { Actions } from 'src/app/models/actions';
 import { Nc } from 'src/app/models/nc';
 
 @Component({
@@ -19,17 +21,18 @@ export class HomeComponent {
     { link: '#', color: 'card-icon', imageSrc: 'assets/images/restauration.png', title: 'Menus restaurants' },
     { link: '#', color: 'card-icon', imageSrc: 'assets/images/des-documents.png', title: 'Fiches Techniques' },
     { link: '#', color: 'card-icon', imageSrc: 'assets/images/health-and-care.png', title: 'Santé mentale' },
-    
+    { link: '#', color: 'card-icon', imageSrc: 'assets/images/regime.png', title: 'Plan Alimentaire' },
   ];
   currentSlide = 0;
 
-  ncs: Nc[] = []
+  ncs: Nc[] = [];
+  actions : Actions[]=[];
 
   deleteModal: any;
   idTodelete: number = 0;
 
 
-  constructor(private ncservice: ServicesNonConfirmitéService) {
+  constructor(private ncservice: ServicesNonConfirmitéService,private actionService : ApiActionsService) {
 
   }
   ngOnInit(): void {
@@ -48,17 +51,25 @@ export class HomeComponent {
     );
   }
 
+getActions(){
+  this.actionService.getAllActions().subscribe(
+    res => {
+      this.actions = res;
+    },
+    (    error: any) => {
+      console.log(error);
+    }
+  );
+}
+
 changeSlide(direction: number) {
   const totalCards = this.icons.length;
-  const cardsPerPage = 8; // Number of cards to display per page
+  const cardsPerPage = 8; 
 
-  // Calculate the total number of slides
   const totalSlides = Math.ceil(totalCards / cardsPerPage);
 
-  // Calculate the new currentSlide based on the direction
   this.currentSlide += direction;
 
-  // Wrap around to the first or last slide if necessary
   if (this.currentSlide >= totalSlides) {
     this.currentSlide = 0;
   } else if (this.currentSlide < 0) {
@@ -67,7 +78,7 @@ changeSlide(direction: number) {
 }
 
 getVisibleIcons(): any[] {
-  const cardsPerPage = 8; // Number of cards to display per page
+  const cardsPerPage = 8; 
   const start = this.currentSlide * cardsPerPage;
   const end = start + cardsPerPage;
 
