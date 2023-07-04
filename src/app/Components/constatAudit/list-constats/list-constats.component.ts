@@ -199,6 +199,9 @@ export class ListConstatsComponent implements OnInit {
   }
 
 
+
+
+
   resetSearchQuery() {
     this.searchQuery = '';
   }

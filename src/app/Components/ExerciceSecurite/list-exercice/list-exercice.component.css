@@ -71,7 +71,7 @@ table {
     height: 100%;
 }
 
-.mt{
+.mt {
     margin-top: 30px;
 }
 
@@ -86,8 +86,18 @@ table {
     border-color: #c6e0b3;
 }
 
-.checkbox-list {
-    max-height: 70px;
-    /* Adjust the height as per your requirement */
-    overflow-y: auto;
+.red-ball {
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.green-ball {
+    background-color: green;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
 }

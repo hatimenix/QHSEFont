@@ -598,16 +598,18 @@
                             <div class="col">
                                 <label for="responsable_traitement" class="form-label">Responsable du traitement :
                                 </label>
-                                <div *ngFor="let responsable_traitement of (utilisateurs)">
-                                    <label>
-                                        <input type="checkbox"
-                                            [checked]="isResponsableSelected(responsable_traitement.id)"
-                                            formControlName="responsable_traitement"
-                                            (change)="toggleResponsable(responsable_traitement.id)" required>
-                                        {{ responsable_traitement?.nom }}
-                                    </label>
+                                <div class="checkbox-list">
+                                    <div class="checkbox-item"
+                                        *ngFor="let responsable_traitement of utilisateurs.slice(0, 5); let i = index">
+                                        <label>
+                                            <input type="checkbox"
+                                                [checked]="isResponsableSelected(responsable_traitement.id)"
+                                                formControlName="responsable_traitement"
+                                                (change)="toggleResponsable(responsable_traitement.id)" required>
+                                            {{ responsable_traitement?.nom }}
+                                        </label>
+                                    </div>
                                 </div>
-
 
                             </div>
                         </div>

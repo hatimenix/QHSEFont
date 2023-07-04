@@ -263,11 +263,11 @@ export class ListePlanAlimentaireComponent {
   get displayedplanalim(): any[] {
     const startIndex = (this.p - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.planalimentaire.slice(startIndex, endIndex);
+    return this.filteredPlanAlimentaire.slice(startIndex, endIndex);
   }
 
   get totalPages(): number {
-    return Math.ceil(this.planalimentaire.length / this.itemsPerPage);
+    return Math.ceil(this.filteredPlanAlimentaire.length / this.itemsPerPage);
   }
 
   onItemsPerPageChange(option: number) {
@@ -285,8 +285,8 @@ export class ListePlanAlimentaireComponent {
 
   getDisplayedRange(): string {
     const startIndex = (this.p - 1) * this.itemsPerPage + 1;
-    const endIndex = Math.min(this.p * this.itemsPerPage, this.planalimentaire.length);
-    return `Affichage de ${startIndex} à ${endIndex} de ${this.planalimentaire.length} entrées`;
+    const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredPlanAlimentaire.length);
+    return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredPlanAlimentaire.length} entrées`;
   }
 
 

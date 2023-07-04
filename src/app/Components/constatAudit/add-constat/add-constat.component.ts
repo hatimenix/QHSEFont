@@ -1,9 +1,9 @@
 import { ConstatAuditService } from './../../../Services/Service-constatAudit/constat-audit.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, startWith } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
@@ -21,6 +21,7 @@ import { frLocale } from 'ngx-bootstrap/locale';
   styleUrls: ['./add-constat.component.css']
 })
 export class AddConstatComponent implements OnInit {
+  filteredResponsables: any[] = [];
 
   constatAuditForm!: FormGroup;
   site$ !: Observable<any>;
@@ -29,6 +30,11 @@ export class AddConstatComponent implements OnInit {
   responsable_traitement: number[] = [];
   droppedFile: File | null = null;
   rapport_audit: any
+
+
+  searchControl = new FormControl('');
+
+  filteredUtilisateurs!: any[];
   //modal
   @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
@@ -62,7 +68,35 @@ export class AddConstatComponent implements OnInit {
     this.site$ = this.siteService.getAllSite();
     this.processuss$ = this.processusService.getProcessus();
     this.utilisateurs$ = this.userService.getAllUtilsateur();
+
     this.createForm();
+
+    // Subscribe to changes in the search query
+    this.filteredUtilisateurs = [];
+
+    this.searchControl.valueChanges
+      .pipe(
+        startWith(''),
+        debounceTime(100),
+        distinctUntilChanged()
+      )
+      .subscribe(searchQuery => {
+        if (searchQuery !== null) {
+          this.filterUtilisateurs(searchQuery);
+        }
+      });
+
+
+  }
+
+
+  filterUtilisateurs(searchQuery: string): void {
+    this.utilisateurs$.subscribe((utilisateurs: any[]) => {
+      this.filteredUtilisateurs = utilisateurs.filter(
+        (responsable_traitement: any) =>
+          responsable_traitement?.nom.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    });
   }
 
   createForm() {
@@ -185,6 +219,13 @@ export class AddConstatComponent implements OnInit {
 
     // Access the field parameter value here and perform any specific logic
     console.log(`File dropped in ${field}`);
+  }
+  onSearchQueryChange(searchQuery: string): void {
+    this.utilisateurs$.subscribe((utilisateurs: any[]) => {
+      this.filteredResponsables = utilisateurs.filter(responsable => {
+        return responsable.nom.toLowerCase().includes(searchQuery.toLowerCase());
+      });
+    });
   }
 
 

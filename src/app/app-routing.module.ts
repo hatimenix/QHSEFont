@@ -101,6 +101,9 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
 import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
 import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
 import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
+import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
+import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
+import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
 
 
 
@@ -161,6 +164,13 @@ const routes: Routes = [
 
   { path: 'plan-alimentaire-list', component: ListePlanAlimentaireComponent, canActivate: [AuthGuardService] },
   { path: 'addPlanAlimentaire', component: AddPlanAlimentaireComponent, canActivate: [AuthGuardService] },
+
+
+  { path: 'addReunion', component: AddReunionComponent, canActivate: [AuthGuardService] },
+
+  { path: 'addExerciceSecurite', component: AddExerciceComponent, canActivate: [AuthGuardService] },
+  { path: 'listExerciceSecurite', component: ListExerciceComponent, canActivate: [AuthGuardService] },
+
 
 
 

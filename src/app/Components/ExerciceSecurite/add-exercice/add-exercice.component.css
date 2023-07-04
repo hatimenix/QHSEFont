@@ -19,15 +19,15 @@ button+button {
     margin-left: 10px;
 }
 
- .drop-zone {
-     border: 2px dashed #ccc;
-     padding: 2rem;
-     text-align: center;
- }
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 2rem;
+    text-align: center;
+}
 
- .drop-zone.drag-over {
-     border-color: #aaa;
- }
+.drop-zone.drag-over {
+    border-color: #aaa;
+}
 
 
 

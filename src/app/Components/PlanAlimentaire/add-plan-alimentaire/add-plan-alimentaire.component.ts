@@ -16,6 +16,7 @@ export class AddPlanAlimentaireComponent {
 
   planALimentaireForm!: FormGroup;
   site$ !: Observable<any>;
+  selectedFragment: string = 'i1'; // Default value is 'i1'
 
 
   //modal
@@ -163,5 +164,189 @@ export class AddPlanAlimentaireComponent {
   closeModal() {
     this.bsModalService.hide();
   }
+
+
+
+  selectedCheckboxes: string[] = [];
+
+
+  // toggleCheckbox(checkboxValue: string): void {
+  //   const index = this.selectedCheckboxes.indexOf(checkboxValue);
+
+  //   if (index > -1) {
+  //     this.selectedCheckboxes.splice(index, 1);
+  //   } else {
+  //     this.selectedCheckboxes.push(checkboxValue);
+  //   }
+
+  //   // Update the form control value with the selected checkboxes
+  //   this.planALimentaireForm.controls['texture'].setValue(this.selectedCheckboxes);
+  // }
+
+  // toggleCheckboxreg(checkboxValue: string): void {
+  //   const index = this.selectedCheckboxes.indexOf(checkboxValue);
+
+  //   if (index > -1) {
+  //     this.selectedCheckboxes.splice(index, 1);
+  //   } else {
+  //     this.selectedCheckboxes.push(checkboxValue);
+  //   }
+
+  //   // Update the form control value with the selected checkboxes
+  //   this.planALimentaireForm.controls['regime'].setValue(this.selectedCheckboxes);
+  // }
+  // toggleCheckboxsoupe(checkboxValue: string): void {
+  //   const index = this.selectedCheckboxes.indexOf(checkboxValue);
+
+  //   if (index > -1) {
+  //     this.selectedCheckboxes.splice(index, 1);
+  //   } else {
+  //     this.selectedCheckboxes.push(checkboxValue);
+  //   }
+
+  //   // Update the form control value with the selected checkboxes
+  //   this.planALimentaireForm.controls['soupe_soir'].setValue(this.selectedCheckboxes);
+  // }
+
+  // toggleCheckboxtp(checkboxValue: string): void {
+  //   const index = this.selectedCheckboxes.indexOf(checkboxValue);
+
+  //   if (index > -1) {
+  //     this.selectedCheckboxes.splice(index, 1);
+  //   } else {
+  //     this.selectedCheckboxes.push(checkboxValue);
+  //   }
+
+  //   // Update the form control value with the selected checkboxes
+  //   this.planALimentaireForm.controls['taille_portion'].setValue(this.selectedCheckboxes);
+  // }
+
+  // toggleCheckboxconv(checkboxValue: string): void {
+  //   const index = this.selectedCheckboxes.indexOf(checkboxValue);
+
+  //   if (index > -1) {
+  //     this.selectedCheckboxes.splice(index, 1);
+  //   } else {
+  //     this.selectedCheckboxes.push(checkboxValue);
+  //   }
+
+  //   // Update the form control value with the selected checkboxes
+  //   this.planALimentaireForm.controls['convictions_alimentaires'].setValue(this.selectedCheckboxes);
+  // }
+  // toggleCheckboxtlb(checkboxValue: string): void {
+  //   const index = this.selectedCheckboxes.indexOf(checkboxValue);
+
+  //   if (index > -1) {
+  //     this.selectedCheckboxes.splice(index, 1);
+  //   } else {
+  //     this.selectedCheckboxes.push(checkboxValue);
+  //   }
+
+  //   // Update the form control value with the selected checkboxes
+  //   this.planALimentaireForm.controls['texture_liquides_boissons'].setValue(this.selectedCheckboxes);
+  // }
+  // toggleCheckboxsoupemd(checkboxValue: string): void {
+  //   const index = this.selectedCheckboxes.indexOf(checkboxValue);
+
+  //   if (index > -1) {
+  //     this.selectedCheckboxes.splice(index, 1);
+  //   } else {
+  //     this.selectedCheckboxes.push(checkboxValue);
+  //   }
+
+  //   // Update the form control value with the selected checkboxes
+  //   this.planALimentaireForm.controls['soupe_midi'].setValue(this.selectedCheckboxes);
+  // }
+  toggleCheckbox(checkboxValue: string, formControlName: string): void {
+    // Get the selected checkboxes for the specific field
+    let selectedCheckboxes = this.planALimentaireForm.controls[formControlName].value || [];
+
+    const index = selectedCheckboxes.indexOf(checkboxValue);
+
+    if (index > -1) {
+      selectedCheckboxes.splice(index, 1);
+    } else {
+      selectedCheckboxes.push(checkboxValue);
+    }
+
+    // Update the form control value with the selected checkboxes for the specific field
+    this.planALimentaireForm.controls[formControlName].setValue(selectedCheckboxes);
+  }
+
+
+
+
+
+  menuVeloursMatin: boolean = false;
+
+  toggleMenuVeloursMatin(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const menuVeloursMatinControl = this.planALimentaireForm.get('menu_velours_matin');
+    if (menuVeloursMatinControl) {
+      menuVeloursMatinControl.setValue(isChecked);
+    }
+  }
+
+
+  menuVeloursSoir: boolean = false;
+
+  toggleMenuVeloursSoir(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const menuVeloursSoirControl = this.planALimentaireForm.get('menu_velours_soir');
+    if (menuVeloursSoirControl) {
+      menuVeloursSoirControl.setValue(isChecked);
+    }
+  }
+  gouter: boolean = false;
+
+  togglegouter(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const gouterControl = this.planALimentaireForm.get('gouter');
+    if (gouterControl) {
+      gouterControl.setValue(isChecked);
+    }
+  }
+
+  soir: boolean = false;
+
+  togglesoir(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const soirControl = this.planALimentaireForm.get('soir');
+    if (soirControl) {
+      soirControl.setValue(isChecked);
+    }
+  }
+
+  matin: boolean = false;
+
+  togglematin(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const matinControl = this.planALimentaireForm.get('matin');
+    if (matinControl) {
+      matinControl.setValue(isChecked);
+    }
+  }
+
+  midi: boolean = false;
+
+  togglemidi(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const midiControl = this.planALimentaireForm.get('midi');
+    if (midiControl) {
+      midiControl.setValue(isChecked);
+    }
+  }
+
+  statut: boolean = false;
+
+  togglestatut(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const statutControl = this.planALimentaireForm.get('statut');
+    if (statutControl) {
+      statutControl.setValue(isChecked);
+    }
+  }
+
+
 
 }

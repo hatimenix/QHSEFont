@@ -180,7 +180,7 @@
 
 
                                             <ng-container
-                                                *ngFor="let dpa of filteredPlanAlimentaire | filter: searchQuery   let i = index ">
+                                                *ngFor="let dpa of displayedplanalim | filter: searchQuery   let i = index ">
                                                 <tr *ngIf="filteredPlanAlimentaire.length === 0">
                                                     <td colspan="11">Aucune demande trouvé </td>
                                                 </tr>

@@ -74,15 +74,26 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Responsable du traitement <label style="color: red;">*</label></label>
-                                        <div *ngFor="let responsable_traitement of (utilisateurs$ | async)">
-                                            <label>
-                                                <input type="checkbox"
-                                                    [checked]="isResponsableSelected(responsable_traitement.id)"
-                                                    formControlName="responsable_traitement"
-                                                    (change)="toggleResponsable(responsable_traitement.id)" required>
-                                                {{ responsable_traitement?.nom }}
-                                            </label>
+                                        <div>
+                                            <input type="text" class=" mb-3 form-control" [formControl]="searchControl"
+                                                placeholder="Search" />
                                         </div>
+
+                                        <div class="checkbox-list" *ngIf="(utilisateurs$ | async) as utilisateurs">
+                                            <div class="checkbox-item"
+                                                *ngFor="let responsable_traitement of filteredUtilisateurs; let i = index">
+                                                <label>
+                                                    <input type="checkbox"
+                                                        [checked]="isResponsableSelected(responsable_traitement?.id)"
+                                                        formControlName="responsable_traitement"
+                                                        (change)="toggleResponsable(responsable_traitement?.id)"
+                                                        required>
+                                                    {{ responsable_traitement?.nom }}
+                                                </label>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
 
@@ -362,8 +373,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Type d'audit <span style="color: red;">*</span></label>
-                                        <input type="text" class="form-control" placeholder="Entrer le type d'audit"
-                                            id="type_audit" name="type_audit" formControlName="type_audit">
+
+                                        <select type="text" formControlName="type_audit" class="form-control"
+                                            id="type_audit" class="selectpicker form-control" data-style="py-0">
+                                            <option value="" disabled> </option>
+                                            <option value="Audit 5Ss">Audit 5S</option>
+                                            <option value="Observation terrain">Observation terrain</option>
+                                        </select>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
