@@ -18,5 +18,9 @@
     border-color: #FFB200;
     color: #fff; 
   }
+  .checkbox-list{
+    max-height: 150px;
+    overflow-y: auto;
+  }
 
   

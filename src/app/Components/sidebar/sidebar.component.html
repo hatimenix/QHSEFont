@@ -90,7 +90,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="../backend/page-add-category.html" style="color: white;">
+                            <a routerLink="/axe-list" style="color: white;">
                                 <i class="las la-minus"></i><span>Liste axes stratégiques</span>
                             </a>
                         </li>
@@ -140,11 +140,11 @@
                         </svg>
                     </a>
                     <ul id="sale" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="color: white;">
-                        <li class="">
+                        <!-- <li class="">
                             <a href="../backend/page-list-sale.html" style="color: white;">
                                 <i class="las la-minus"></i><span>Vision 360 </span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="">
                             <a routerLink="/partie-list" style="color: white;">
                                 <i class="las la-minus"></i><span>Parties intéressées </span>
@@ -181,7 +181,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class=" ">
                     <a href="#return" class="collapsed" data-toggle="collapse" aria-expanded="false"
                         style="color: white;">
@@ -250,23 +250,24 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="../backend/page-add-customers.html" style="color: white;">
-                                <i class="las la-minus"></i><span>Registre des accidents</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="../backend/page-list-users.html" style="color: white;">
-                                <i class="las la-minus"></i><span>Risque chimique</span>
-                            </a>
-                        </li>
-                        <li class="">
                             <a routerLink="/listExerciceSecurite" style="color: white;">
                                 <i class="las la-minus"></i><span>Exercices sécurité</span>
                             </a>
                         </li>
+                        <!-- <li class="">
+                            <a href="../backend/page-add-customers.html" style="color: white;">
+                                <i class="las la-minus"></i><span>Registre des accidents</span>
+                            </a>
+                        </li> -->
+                        <!-- <li class="">
+                            <a href="../backend/page-list-users.html" style="color: white;">
+                                <i class="las la-minus"></i><span>Risque chimique</span>
+                            </a>
+                        </li>
+                     -->
                         <li class="">
                             <a href="/listcontrol" style="color: white;">
-                                <i class="las la-minus"></i><span>Suivie des contôles </span>
+                                <i class="las la-minus"></i><span>Suivie des contrôles </span>
                             </a>
                         </li>
                     </ul>
@@ -384,7 +385,7 @@
                     </a>
                     <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li class=" ">
-                            <a href="#user" class="collapsed" data-toggle="collapse" aria-expanded="false"
+                            <a routerLink="/analyseSWOT" class="collapsed" data-toggle="collapse" aria-expanded="false"
                                 style="color: white;">
                                 <svg class="svg-icon" id="p-dash10" width="20" height="20"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -395,6 +396,27 @@
                                     <polyline points="17 11 19 13 23 9"></polyline>
                                 </svg>
                                 <span class="ml-4">Analyse SWOT</span>
+                                <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="10 15 15 20 20 15"></polyline>
+                                    <path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a routerLink="/cartographieRisque" class="collapsed" data-toggle="collapse"
+                                aria-expanded="false" style="color: white;">
+                                <svg class="svg-icon" id="p-dash10" width="20" height="20"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                                <span class="ml-4">Carte Risque</span>
                                 <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"

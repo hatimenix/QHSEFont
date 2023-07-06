@@ -5,7 +5,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { SourceService } from 'src/app/Services/Service-Source/source.service';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
-import { ApiRealisationService } from 'src/app/Services/Service-document-unique/api-realisation.service';
 @Component({
   selector: 'app-add-taches',
   templateUrl: './add-taches.component.html',
@@ -14,11 +13,10 @@ import { ApiRealisationService } from 'src/app/Services/Service-document-unique/
 export class AddTachesComponent {
   utilisateurs: any[] = [];
   sources: any[] = [];
-  realisations: any[] = [];
   droppedFile: File | null = null;
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
-  constructor(private   tacheservice : ApiTachesService, private router : Router,private sourceservice :SourceService, private apiUtilisateurService: ApiUtilisateurService, private realisationservice : ApiRealisationService, private bsModalService: BsModalService){
+  constructor(private   tacheservice : ApiTachesService, private router : Router,private sourceservice :SourceService, private apiUtilisateurService: ApiUtilisateurService, private bsModalService: BsModalService){
 
   }
   mode = 'list';
@@ -33,7 +31,6 @@ export class AddTachesComponent {
     date_realisation:'',
     etat:'',
     commentaire:'',
-    realisation_associee:'',
     piece_jointe:'',
     source:'',
 
@@ -49,7 +46,6 @@ export class AddTachesComponent {
     date_realisation: new FormControl(''),
     etat: new FormControl(''),
     commentaire: new FormControl(''),
-    realisation_associee: new FormControl(''),
     piece_jointe: new FormControl(''),
     source: new FormControl(''),
 
@@ -85,15 +81,7 @@ export class AddTachesComponent {
         console.log(error); // Handle error
       }
     );  
-    this.realisationservice.getAllRealisations().subscribe(
-      (data: any[]) => {
-        this.realisations = data;
-        console.log(this.realisations);
-      },
-      (error: any) => {
-        console.log(error); // Handle error
-      }
-    );  
+  
     
   }
   createTache() {
@@ -109,7 +97,6 @@ export class AddTachesComponent {
     formData.append("priorite", this.tachef.priorite);
     formData.append("etat", this.tachef.etat);
     formData.append("commentaire", this.tachef.commentaire);
-    formData.append("realisation_associee", this.tachef.realisation_associee);
     formData.append("piece_jointe", this.tachef.piece_jointe);
     this.tacheservice.addTacheFormData(formData).subscribe({
 

@@ -1,4 +1,4 @@
-<div class="content-page">
+<div class="content-page custom-background">
    <div class="container-fluid">
       <div class="row">
          <div class="col-sm-12">
@@ -7,34 +7,29 @@
                   <div class="header-title">
                      <h4 class="card-title">Liste des processus </h4>
                   </div>
-                  <div class="col-sm-6 col-md-6">
-                     <div class="user-list-files d-flex align-items-center">
-                       <a routerLink="/addProcessus" class="custom-button" href="javascript:void();">
-                         Ajouter un processus
-                       </a>
-                     </div>
-                   </div>
+                 
+                   <div class="col-sm-6 col-md-6 d-flex justify-content-end">
+                    <div class="input-group col-md-6">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-search" style="font-size: 1rem;"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+                      <div class="input-group-append">
+                        <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                </div>
                <div class="card-body">
                   <div class="table-responsive">
                      <div class="row justify-content-between">
-                        <div class="col-sm-6 col-md-6">
-                          <div class="input-group col-md-6">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="fas fa-search" style="font-size: 1rem;"></i>
-                              </span>
-                            </div>
-                            <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
-                            <div class="input-group-append">
-                              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
-                                <i class="fas fa-times"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
+                      
                        
-                      </div>
+                      
                       <div class="dropdown">
                         <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
@@ -48,7 +43,14 @@
                           </a>
                         </div>
                       </div>
-          
+                      <div class="col-sm-6 col-md-6">
+                        <div class="user-list-files d-flex align-items-center">
+                          <a routerLink="/addProcessus" class="bg1" href="javascript:void();">
+                           Nouvel élément
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                      <table  class="table   mt-4" 
                         aria-describedby="user-list-page-info">
                         <thead >

@@ -6,7 +6,7 @@
               <div>
                 <h4 class="mb-3">Suivi des non-conformités</h4>
             </div>
-                 <a (click)="navigateToNc()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter une non-conformité</a>
+                 <a (click)="navigateToNc()" class="btn btn-warning add-list" style="color: white;"><i class="las la-plus mr-3"></i>Ajouter une non-conformité</a>
              </div>
          </div>
 
@@ -93,10 +93,21 @@
           </div>
           <div class="col-md-2">
             <div class="row justify-content-center">
-              <button style="margin-top: 1%;" class="btn btn-secondary" (click)="filterByDateNC()"><i class="fas fa-filter"></i> Filter par la date NC
-              </button>
+              <div class="input-group">
+                <div class="input-group-append">
+                  <button style="margin-top: 1.5%;" class="btn btn-primary" (click)="filterByDateNC()">
+                    <i class="fas fa-filter"></i> Filter par date
+                  </button>
+                  <button style="margin-top: 1.5%;" class="btn btn-light" (click)="resetDateFilter()">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
+          
+          
+          
         </div>
         
 
@@ -201,13 +212,15 @@
                  </thead>
                  <tbody class="ligth-body">
                   <tr *ngFor="let nc of displayedNcs | filter : searchQuery  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+                    <ng-container *ngFor="let utilisateur of utilisateurs">
+                      <ng-container *ngIf="nc.responsable_traitement==utilisateur.id">
                       <th scope="row" style="color: grey;">{{nc.id}}</th>
                       <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                       <td>{{nc.nature}}</td>
                       <td>{{ nc.processus_name }}</td>
                       <td>{{ nc.site_name }}</td>
                       <td>
-                        <a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateurs[i])">{{ utilisateurs[i]?.nom }}</a>
+                        <a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateur)">{{ utilisateur.nom }}</a>
                       </td>
                       <td *ngIf="fieldsVisible['domaine']">{{nc.domaine}}</td>
                       <td>{{nc.detail_cause}}</td>
@@ -239,7 +252,7 @@
                         <div class="d-flex justify-content-start align-items-center list-action">
                           <a class="badge bg-primary mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="get_url_file(nc.id); getNcData(nc.id, nc.intitule, nc.nature, nc.domaine, nc.detail_cause, nc.date_nc, nc.date_prise_en_compte, nc.description_detailee, nc.annee, nc.mois, nc.delai_prevu, nc.type_cause, nc.cout, nc.progress, nc.info_complementaires, nc.frequence, nc.gravite, nc.action_immediate, nc.nc_cloture, nc.site, nc.processus, nc.responsable_traitement)" data-placement="top" title="" data-original-title="Edit"><i class="ri-pencil-line mr-0"></i>                                                              </a>
 
-                          <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete">
+                          <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete">
                             <i class="ri-delete-bin-line mr-0"></i>
                           </a>
                              </div>
@@ -247,7 +260,9 @@
                          <td>
                           <input type="checkbox" [checked]="selectedNcs.includes(nc)" (change)="toggleSelection(nc)">
                         </td>
-                     </tr>  
+                      </ng-container>
+                    </ng-container>
+                     </tr>
                  </tbody>
              </table>
              </div>
@@ -285,8 +300,8 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="deleteItem()" ><i class="fas fa-trash"></i>Supprimer</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+      <button type="button" class="btn btn-warning" (click)="deleteItem()" ><i class="fas fa-trash"></i>Supprimer</button>
+      <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>
 </div>
@@ -476,7 +491,7 @@ aria-hidden="true">
 
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="updateNc()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
-          <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
         </div>
       </div>
     </div>

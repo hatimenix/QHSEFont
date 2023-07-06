@@ -101,6 +101,12 @@ import { AddExigencesComponent } from './Components/Exigences/add-exigences/add-
 import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
 import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
 import { GraphiquesComponent } from './Components/Graphiques/graphiques/graphiques.component';
+import { ListAxesComponent } from './Components/AxesStratégiques/list-axes/list-axes.component';
+import { AddAxesComponent } from './Components/AxesStratégiques/add-axes/add-axes.component';
+import { InfoAxesComponent } from './Components/AxesStratégiques/info-axes/info-axes.component';
+import { ListAnalyseSWOTComponent } from './Components/AnalysesRisques/list-analyse-swot/list-analyse-swot.component';
+import { CartographieRisquesComponent } from './Components/AnalysesRisques/cartographie-risques/cartographie-risques.component';
+import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
 import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
 import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
 import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
@@ -233,6 +239,12 @@ const routes: Routes = [
   { path: 'exigence-list', component: ListExigencesComponent, canActivate: [AuthGuardService] },
   { path: 'add-exigence', component: AddExigencesComponent, canActivate: [AuthGuardService] },
   { path: 'graphiques', component: GraphiquesComponent, canActivate: [AuthGuardService] },
+  { path: 'axe-list', component: ListAxesComponent, canActivate: [AuthGuardService] },
+  { path: 'add-axe', component: AddAxesComponent, canActivate: [AuthGuardService] },
+  { path: 'axe/:id', component: InfoAxesComponent, canActivate: [AuthGuardService] },
+  { path: 'analyseSWOT', component: ListAnalyseSWOTComponent, canActivate: [AuthGuardService] },
+  { path: 'cartographieRisque', component: CartographieRisquesComponent, canActivate: [AuthGuardService] },
+  { path: 'add-risque', component: AddRisquesComponent, canActivate: [AuthGuardService] },
 
 
 
