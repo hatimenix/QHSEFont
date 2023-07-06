@@ -4,13 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiAnalyseEvenementService } from 'src/app/Services/Service-document-unique/api-analyse-evenement.service';
-import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
+import { ApiArretTravailService } from 'src/app/Services/Service-document-unique/api-arret-travail.service';
 import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
 import { ApiProcessusService } from 'src/app/Services/Service-document-unique/api-processus.service';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Actions } from 'src/app/models/actions';
 import { Analyses } from 'src/app/models/analyses';
+import { ArretTravail } from 'src/app/models/arret-travail';
 import { Evenement } from 'src/app/models/evenement';
 
 declare var window:any;
@@ -25,6 +26,7 @@ export class InfoEvenementComponent {
   evenementForm!: FormGroup;
   actionForm!: FormGroup;
   analyseForm!: FormGroup;
+  arretForm!: FormGroup;
   sites$ !: Observable<any>;
   services$ !: Observable<any>;
   processus$ !: Observable<any>;
@@ -40,7 +42,12 @@ export class InfoEvenementComponent {
   idAnalyse !: number;
   deleteModalAction : any;
   idToDeleteAction : number = 0;
-  
+  idToDeleteArret : number = 0;
+  deletModalArret : any;
+  arretTarvail$ !: Observable<ArretTravail[]>;
+  arretTravailExiste = false;
+  arret !: ArretTravail;
+  idArret !: number;
 
 
   constructor(
@@ -52,7 +59,8 @@ export class InfoEvenementComponent {
     private apiActionsService: ApiActionsService,
     private apiSiteService: ApiSiteService,
     private apiServiceService: ApiServiceService,
-    private apiProcessusService: ApiProcessusService
+    private apiProcessusService: ApiProcessusService,
+    private apiArretTravailService : ApiArretTravailService,
   ){}
 
   ngOnInit(): void {
@@ -64,6 +72,18 @@ export class InfoEvenementComponent {
       severite: ['', Validators.required],
       niveau_risque: ['', Validators.required],
       arbe_cause: ['', Validators.required]
+    });
+
+    this.arretForm = this.formBuilder.group({
+      CMI_volet_recup : [''],
+      date_debut_arret : ['', Validators.required],
+      date_fin_arret : ['', Validators.required],
+      duree_arret : [''],
+      prolongation : [''],
+      duree_total_pro : [0],
+      rechute : [''],
+      duree_total_rechute : [0],
+      duree_total_arret : ['', Validators.required],
     });
 
     this.actionForm = this.formBuilder.group({ 
@@ -153,9 +173,14 @@ export class InfoEvenementComponent {
     this.processus$ = this.apiProcessusService.getAllProcessus();
     this.getAnalyseByEvenementId(this.evenementId);
     this.getActionsByEvenementId(this.evenementId);
+    this.getArretTravailByEvenementId(this.evenementId);
 
     this.deletModal = new window.bootstrap.Modal(
       document.getElementById('deleteAnalyse')
+    );
+
+    this.deletModalArret = new window.bootstrap.Modal(
+      document.getElementById('deleteArret')
     );
 
     this.deleteModalAction = new window.bootstrap.Modal(
@@ -175,9 +200,24 @@ export class InfoEvenementComponent {
     );
   }
 
+  getArretTravailByEvenementId(evenementId:number) {
+    this.arretTarvail$ = this.apiArretTravailService.getAllArretTravail().pipe(
+      map((arretTravails: ArretTravail[]) => {
+        const filteredArretTravails = arretTravails.filter(arretTravail => arretTravail.evenement === evenementId);
+        this.arretTravailExiste = filteredArretTravails.length > 0;
+        return filteredArretTravails;
+      })
+    );
+  }
+
   openDeleteModal(id: number) {
     this.idToDelete = id;
     this.deletModal.show();
+  }
+
+  openDeleteModalArret(id: number){
+    this.idToDeleteArret = id;
+    this.deletModalArret.show();
   }
 
   onFileSelected(event: any) {
@@ -190,6 +230,58 @@ export class InfoEvenementComponent {
       this.getAnalyseByEvenementId(this.evenementId);
       this.deletModal.hide();
     })
+  }
+
+  deleteArret(){
+    this.apiArretTravailService.delArret(this.idToDeleteArret).subscribe(() => {
+      this.getArretTravailByEvenementId(this.evenementId);
+      this.deletModalArret.hide();
+    })
+  }
+
+  openUpdateModalArret(arret : ArretTravail): void {
+    this.arret = arret;
+    this.idArret = this.arret.id;
+    this.arretForm.patchValue({
+      CMI_volet_recup: this.arret.CMI_volet_recup,
+      date_debut_arret: this.arret.date_debut_arret,
+      date_fin_arret: this.arret.date_fin_arret,
+      duree_arret: this.arret.duree_arret,
+      prolongation: this.arret.prolongation,
+      duree_total_pro: this.arret.duree_total_pro,
+      rechute: this.arret.rechute,
+      duree_total_rechute: this.arret.duree_total_rechute,
+      duree_total_arret: this.arret.duree_total_arret,
+    });
+    const modal = new window.bootstrap.Modal(document.getElementById('updateArret'));
+    modal.show();
+  }
+
+  updateArret():void{
+    const formData = this.arretForm.value;
+    console.log(formData);
+    const arret: ArretTravail = new ArretTravail(
+      formData.CMI_volet_recup,
+      formData.date_debut_arret,
+      formData.date_fin_arret,
+      formData.duree_arret,
+      formData.prolongation,
+      formData.duree_total_pro,
+      formData.rechute,
+      formData.duree_total_rechute,
+      formData.duree_total_arret
+    );
+
+    arret.evenement = this.evenementId;
+    console.log(arret);
+
+    this.apiArretTravailService.updateArret(this.idArret,arret).subscribe(
+      () => {
+        console.log('Arret a été modifié avec succès.');
+        this.getArretTravailByEvenementId(this.evenementId);
+      },
+      error => console.log(error)
+    );
   }
 
   onSubmit(): void{
@@ -308,5 +400,4 @@ export class InfoEvenementComponent {
     this.deleteModalAction.hide();
     });
   }
-
 }

@@ -1,10 +1,10 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid">
        <div class="row">
           <div class="col-sm-12">
             
              <div class="card">
-                <div class="card-header d-flex justify-content-between" style="background-color:#17469d; color:white;">
+                <div class="card-headers d-flex justify-content-between" style="background-color:#17469d; color:white;">
                    <div class="header-title">
                       <h4 class="card-title">Suivi des objectifs de qualité</h4>
                    </div>
@@ -57,8 +57,14 @@
                                           </tbody>
                                        </table>
                                     </div>
+                                    <div class="row mt-1 mb-2 justify-content-end">
+                                      <a routerLink="/qualite-list" class="btn add-list">
+                                        <i class="fas fa-arrow-left"></i> Retourner vers la liste des objectifs de qualité
+                                      </a>
+                                    </div>
                                  </div>
                             </div>
+                            
                             <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
                               <div id="table" class="table-editable table-responsive">
                                  <table class="table table-bordered table-striped text-center">
@@ -165,6 +171,12 @@
                                    </tbody>
                                  </table>
                                </div>
+                               <div class="row mt-1 mb-2 justify-content-end">
+                                <a routerLink="/qualite-list" class="btn add-list">
+                                  <i class="fas fa-arrow-left"></i> Retourner vers la liste des objectifs de qualité
+                                </a>
+                              </div>
+
                                <div class="modal fade bd-action-modal-lg" [class.show]="addModalVisible"  tabindex="-1" role="dialog"  aria-hidden="true">
                                  <div class="modal-dialog modal-lg">
                                     <div class="modal-content">

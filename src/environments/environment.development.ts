@@ -43,13 +43,19 @@ export const environment = {
     API_exigences: "https://qhseapi.paiperleckelearning.com/exigences/",
     API_cotations: "https://qhseapi.paiperleckelearning.com/cotation/",
     API_source: "https://qhseapi.paiperleckelearning.com/source/",
-    API_Details_group:"https://qhseapi.paiperleckelearning.com/groups/", 
+    API_Details_group: "https://qhseapi.paiperleckelearning.com/groups/",
     API_Control: "https://qhseapi.paiperleckelearning.com/control/",
     //récents 
-    API_PJ :"https://qhseapi.paiperleckelearning.com/pj/", 
-    API_Rapport_audit : "https://qhseapi.paiperleckelearning.com/rapportAudit/",
-    API_certificat_calibration : "https://qhseapi.paiperleckelearning.com/CertificatCalibration/",
+    API_PJ: "https://qhseapi.paiperleckelearning.com/pj/",
+    API_Rapport_audit: "https://qhseapi.paiperleckelearning.com/rapportAudit/",
+    API_certificat_calibration: "https://qhseapi.paiperleckelearning.com/CertificatCalibration/",
     API_constatAudit: "https://qhseapi.paiperleckelearning.com/constataudit/",
+    API_plan_alimentaire: "https://qhseapi.paiperleckelearning.com/planalimentaire/",
+    API_exercice_securite: "https://qhseapi.paiperleckelearning.com/exercicesecurite/",
+    API_reunion: "https://qhseapi.paiperleckelearning.com/reunion/",
+    API_AxesStrategique: "https://qhseapi.paiperleckelearning.com/AxesStrategiques/",
+    API_URL_AT:"https://qhseapi.paiperleckelearning.com/arret_travail/",
+
 
 
 

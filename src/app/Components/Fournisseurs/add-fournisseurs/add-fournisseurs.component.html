@@ -1,12 +1,12 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
             <div style="display: flex; flex-direction: column;">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter un fournisseur</h4>
+                           <h4 >Ajouter un fournisseur</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -64,7 +64,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Téléphone</label>
-                                    <input [(ngModel)]="fournisseurf.telephone" type="number" placeholder="+352 " formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
+                                    <input [(ngModel)]="fournisseurf.telephone" type="text" placeholder="+352 " formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['telephone'].valid && (f['telephone'].dirty || f['telephone'].touched)">
                                         Numéro de téléphone valide.
                                       </div>
@@ -385,7 +385,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Numéro de téléphone</label>
-                                    <input [(ngModel)]="fournisseurf.numerodetelephone" placeholder="+352 " type="number" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
+                                    <input [(ngModel)]="fournisseurf.numerodetelephone" placeholder="+352 " type="text" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelephone'].valid && (f['numerodetelephone'].dirty || f['numerodetelephone'].touched)">
                                         Numéro de téléphone valide.
                                       </div>
@@ -397,7 +397,7 @@
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Téléphone personnel</label>
-                                    <input [(ngModel)]="fournisseurf.telephonepersonnel" placeholder="+352 " type="number" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
+                                    <input [(ngModel)]="fournisseurf.telephonepersonnel" placeholder="+352 " type="text" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['telephonepersonnel'].valid && (f['telephonepersonnel'].dirty || f['telephonepersonnel'].touched)">
                                         Numéro de téléphone valide.
                                       </div>
@@ -410,8 +410,8 @@
                         
                     </form>
        <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
-        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createFournisseur()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
-        <button style="margin-bottom: 1%;" type="reset" routerLink="/fournisseur-list" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createFournisseur()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+        <button style="margin-bottom: 1%;" type="reset" routerLink="/fournisseur-list" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
       </div>
       
        </div>

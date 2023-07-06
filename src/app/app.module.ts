@@ -103,9 +103,24 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ListConstatsComponent } from './Components/constatAudit/list-constats/list-constats.component';
 import { AddConstatComponent } from './Components/constatAudit/add-constat/add-constat.component';
 import { InfoConstatComponent } from './Components/constatAudit/info-constat/info-constat.component';
+import { ListAxesComponent } from './Components/AxesStratégiques/list-axes/list-axes.component';
+import { AddAxesComponent } from './Components/AxesStratégiques/add-axes/add-axes.component';
+import { InfoAxesComponent } from './Components/AxesStratégiques/info-axes/info-axes.component';
+import { ListAnalyseSWOTComponent } from './Components/AnalysesRisques/list-analyse-swot/list-analyse-swot.component';
+import { CartographieRisquesComponent } from './Components/AnalysesRisques/cartographie-risques/cartographie-risques.component';
+import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
 import { ListAnalyseRisqueComponent } from './Components/AnalysesRisques/list-analyse-risque/list-analyse-risque.component';
 import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-analyse-risque/add-analyse-risque.component';
 import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
+import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
+import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
+import { ForgotPassComponent } from './Components/ForgotPass/forgot-pass/forgot-pass.component';
+import { ResetPassComponent } from './Components/ResetPass/reset-pass/reset-pass.component';
+import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
+import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
+import { ListReunionComponent } from './Components/Reunion/list-reunion/list-reunion.component';
+import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
+import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reunion.component';
 
 @NgModule({
   declarations: [
@@ -196,16 +211,31 @@ import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/updat
     ListCertificatComponent,
     AddCertificatComponent,
     UpdateCertificatComponent,
-    DetailsProcessusComponent, 
+    DetailsProcessusComponent,
     ListExigencesComponent,
     AddExigencesComponent,
     GraphiquesComponent,
     ListConstatsComponent,
     AddConstatComponent,
     InfoConstatComponent,
+    ListAxesComponent,
+    AddAxesComponent,
+    InfoAxesComponent,
+    ListAnalyseSWOTComponent,
+    CartographieRisquesComponent,
+    AddRisquesComponent,
     ListAnalyseRisqueComponent,
     AddAnalyseRisqueComponent,
-    UpdateAnalyseRisqueComponent
+    UpdateAnalyseRisqueComponent,
+    AddPlanAlimentaireComponent,
+    ListePlanAlimentaireComponent,
+    ForgotPassComponent,
+    ResetPassComponent, 
+    AddExerciceComponent,
+    ListExerciceComponent,
+    ListReunionComponent,
+    AddReunionComponent,
+    InfoReunionComponent
 
   ],
   imports: [
@@ -218,7 +248,7 @@ import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/updat
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgApexchartsModule
-    
+
 
   ],
 

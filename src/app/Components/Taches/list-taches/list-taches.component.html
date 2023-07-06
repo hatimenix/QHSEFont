@@ -1,21 +1,23 @@
-<div class="content-page">
-    <div class="container-fluid">
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
       <div class="row">
         <div class="col-lg-12">
-          <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-            <div>
-              <h4 class="mb-3">Suivi des tâches</h4>
+          <div class="card-header d-flex justify-content-between ">
+            <div class="header-title">
+              <h4 class="card-title">Suivi des tâches</h4>
             </div>
-            <div class="text-right">
-              <a (click)="navigateToSource()" style="color: white;" class="btn btn-secondary add-list "><i class="las la-plus mr-3"></i>Ajouter une source</a>
-            <a (click)="navigateToTache()" class="btn btn-primary add-list  ml-3"><i class="las la-plus mr-3"></i>Ajouter
-              une tache</a>
-              </div>
-
+              <a (click)="navigateToSource()" class="btn btn-primary btn-sm add-list" style="color: white; margin-right: -65.5%;">
+              <i class="las la-plus"></i> Ajouter une source
+            </a>          
+            <a (click)="navigateToTache()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%;">
+              <i class="las la-plus"></i> Ajouter une tâche
+            </a>
           </div>
         </div>
   
       </div>
+      <div class="card-body">
       <div class="row justify-content-start">
         <div class="input-group mb-4 col-md-4">
           <div class="input-group-prepend">
@@ -31,13 +33,48 @@
           </div>
         </div>
         </div>
-        <div>
-          <button class="btn " (click)="filterEnCours()">En cours</button>
-          <button class="btn " (click)="filterTermine()">Terminé</button>
-          <button class="btn " (click)="getTaches()">Toutes les Tâches</button>
-          <button class="btn "  (click)="exportToExcel()">Export excel</button>
-
+        <div class="mb-3">
+          <button class="btn btn-outline-secondary waves-effect" (click)="filterEnCours()">
+            <i class="fas fa-spinner mr-1"></i> En cours
+          </button>
+          <button class="btn btn-outline-warning waves-effect" (click)="filterTermine()">
+            <i class="fas fa-check-circle mr-1"></i> Terminé
+          </button>
+          <button class="btn btn-outline-danger waves-effect" (click)="getTaches()">
+            <i class="fas fa-list-alt mr-1"></i> Toutes les Tâches
+          </button>
+          <button class="btn btn-outline-success waves-effect" (click)="exportToExcel()">
+            <i class="fas fa-file-excel mr-1"></i> Export excel
+          </button>
         </div>
+        <div class="settings-dropdown" (click)="onDropdownClick($event)">
+          <div class="dropdown">
+            <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
+              <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
+            </button>
+            
+            <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
+              <label class="dropdown-item">Afficher / masquer les colonnes</label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['nom_tache']" /> Nom de la tâche
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['echeance']" /> Échéance
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['assigne_a']" /> Assigné à
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['priorite']" /> Priorité
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['etat']" /> État
+              </label>
+            </div>
+          </div>
+        </div>
+    
+        
       <div>
         <div class="col-lg-12">
           <div class="table-responsive rounded mb-3">
@@ -45,12 +82,22 @@
               <thead>
                 <tr >
                   <th scope="col">Source</th>
-                  <th scope="col">Nom de la tâche</th>
-                  <th scope="col">Échéance</th>
-                  <th scope="col">Assigné à</th>
-                  <th scope="col">Priorité</th>
-                  <th scope="col">État</th>
-                  <th scope="col">Actions</th>
+                  <ng-container *ngIf="fieldsVisible['nom_tache']">
+                    <th scope="col">Nom de la tâche</th>
+                    </ng-container>                  
+                    <ng-container *ngIf="fieldsVisible['echeance']">
+                      <th scope="col">Échéance</th>
+                      </ng-container>                    
+                      <ng-container *ngIf="fieldsVisible['assigne_a']">
+                        <th scope="col">Assigné à</th>
+                        </ng-container>                   
+                        <ng-container *ngIf="fieldsVisible['priorite']">
+                          <th scope="col">Priorité</th>
+                          </ng-container>                     
+                          <ng-container *ngIf="fieldsVisible['etat']">
+                            <th scope="col">État</th>
+                            </ng-container>                  
+                            <th scope="col">Actions</th>
                 </tr>
               </thead>
               <ng-container *ngFor="let source of sources">
@@ -72,10 +119,15 @@
   
                           <tr  *ngIf="tache.source == source.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                             <td></td>
-                            <td><a routerLink="/tache/{{ tache.id }}">{{tache.nom_tache}}</a></td>
-                            <td>{{ tache.echeance }}</td>
-                          <td><a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateurs[i])">{{ utilisateurs[i]?.nom }}</a></td>
-                          <td>
+                            <td *ngIf="fieldsVisible['nom_tache']"><a routerLink="/tache/{{ tache.id }}">{{tache.nom_tache}}</a></td>
+                            <td *ngIf="fieldsVisible['echeance']">{{ tache.echeance }}</td>
+                          <td *ngIf="fieldsVisible['assigne_a']"><ng-container *ngFor="let utilisateur of utilisateurs">
+                            <ng-container *ngIf="tache.assigne_a==utilisateur.id">
+                              <a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateur)">{{ utilisateur.nom }}</a>
+                              </ng-container>
+                              </ng-container>
+                            </td>
+                          <td *ngIf="fieldsVisible['priorite']">
                             {{ tache.priorite }}
                             
                             <ng-container *ngIf="tache.priorite === 'Basse'">
@@ -88,7 +140,7 @@
                               <i class="flag-icon fas fa-flag text-danger"> (1)</i>
                             </ng-container>
                           </td>                            
-                          <td>
+                          <td *ngIf="fieldsVisible['etat']">
                             <span *ngIf="tache.etat === 'Non commencé'">
                               <i class="fas fa-circle-notch text-warning"></i>
                               {{ tache.etat }}
@@ -119,11 +171,11 @@
                           </td>                               
                           <td>
                             <div class="d-flex justify-content-start align-items-center list-action">
-                              <a class="badge bg-primary mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="getTacheData(tache.id , tache.nom_tache,tache.date_debut,tache.echeance,tache.description,tache.priorite,tache.assigne_a,tache.date_realisation,tache.etat,tache.commentaire,tache.realisation_associee,tache.source)"
+                              <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="getTacheData(tache.id , tache.nom_tache,tache.date_debut,tache.echeance,tache.description,tache.priorite,tache.assigne_a,tache.date_realisation,tache.etat,tache.commentaire,tache.source)"
                                 data-placement="top" title="" data-original-title="Edit">
                                 <i class="ri-pencil-line mr-0"></i>
                               </a>
-                              <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                              <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip"
                                 (click)="openDeleteModal(tache.id)" data-placement="top" title=""
                                 data-original-title="Delete">
                                 <i class="ri-delete-bin-line mr-0"></i>
@@ -143,6 +195,8 @@
           </div>      
         </div>
       </div>
+      </div>
+      </div>
           <!-- Modal -->
     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -158,8 +212,8 @@
           Attention , cette action est irréversible !
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
         </div>
       </div>
     </div>
@@ -239,12 +293,6 @@
                    <option *ngFor="let source of sources" [value]="source.id">{{ source.nom }}</option>
                   </select>
                 </div>
-                <div class="col">
-                  <label>Réalisation associé <span style="color: red;">*</span></label>
-                  <select id="realisation_associee" [(ngModel)]="realisation_associee" name="realisation_associee" formControlName="realisation_associee"  class="custom-select">
-                      <option *ngFor="let realisation_associee of realisations" [value]="realisation_associee.id">{{ realisation_associee.action_realise }}</option>
-                     </select>
-                </div>
                 </div>
                 <br>
                 <div class="col mb-2">
@@ -262,7 +310,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="updateTache()"><i class="fas fa-pencil-alt"></i> Modifier</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
           </div>
         </div>
       </div>

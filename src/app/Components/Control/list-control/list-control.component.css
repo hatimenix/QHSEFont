@@ -1,29 +1,6 @@
-.bg-danger{
-    background-color: #ffd140;
-    border-color: #ffd140;
-}
-.bg{
-    background-color: #ffd140;
-    border-color: #ffd140;
-    color: #fff; 
+th {
+    white-space: nowrap;
+    font-size: 12px; /* Ajustez la taille de police selon vos besoins */
+    padding: 5px; /* Ajustez l'espacement interne selon vos besoins */
   }
-  thead {
-    background-color: #17469d;
-    color:#fff
-    
-  }
-  th {
-    color: rgb(255, 255, 255);
-    min-width: 200px;
-    
-  }
-  .bg-warning{
-    background-color: #e56b6f;
-    border-color: #e56b6f;
-    color: #fff; 
-  }
-  .btn-danger{
-    background-color: #e56b6f;
-    border-color: #e56b6f;
-    color: #fff; 
-  }
+  

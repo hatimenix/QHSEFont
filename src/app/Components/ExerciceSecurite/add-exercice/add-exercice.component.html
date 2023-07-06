@@ -1,0 +1,461 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Ajouter Exercice sécurité</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="page-list-returns.html" data-toggle="validator" [formGroup]="exsecForm"
+                            (ngSubmit)="onSubmit()">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Intitulé exercice<span style="color: red;">*</span> </label>
+                                        <input type="text" class="form-control" placeholder="Entrer titre" id="intitule"
+                                            name="intitule" formControlName="intitule">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Thème </label>
+                                        <input type="text" class="form-control" placeholder="Entrer titre" id="theme"
+                                            name="theme" formControlName="theme">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Site <span style="color: red;">*</span> </label>
+                                        <select id="site" name="site" formControlName="site" class="custom-select"
+                                            data-style="py-0">
+                                            <option *ngFor="let site of site$ | async" [value]="site.id">
+                                                {{ site.site_nom }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label>Date de l'exercice <span style="color: red;">*</span> </label>
+
+                                        <input type="date" class="form-control" id="date" name="date"
+                                            formControlName="date">
+
+
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mesure à prendre </label>
+                                        <input type="text" class="form-control" placeholder="Entrer mesure" id="mesure"
+                                            name="mesure" formControlName="mesure">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Animateurs </label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Entrer des noms ou des adresses de courriers" id="animateurs"
+                                            name="animateurs" formControlName="animateurs">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Observateurs </label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Entrer des noms ou des adresses de courriers" id="observateurs"
+                                            name="observateurs" formControlName="observateurs">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Durée de l'exercice <span style="color: red;">*</span></label>
+                                        <input type="number" class="form-control" id="duree" name="duree"
+                                            formControlName="duree">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label [title]="labelText3?.length > 20 ? labelText3 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText3?.length > 20 ? labelText3.slice(0, 34) + '...' : labelText3 }}
+                                        </label>
+                                        <select id="monde_signal_alarme" name="monde_signal_alarme"
+                                            formControlName="monde_signal_alarme" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Tout le monde a évacué </label>
+                                        <select id="monde_evacuation" name="monde_evacuation"
+                                            formControlName="monde_evacuation" class="custom-select" data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Ascenseur Inutilisé </label>
+                                        <select id="ascenseur_inutilise" name="ascenseur_inutilise"
+                                            formControlName="ascenseur_inutilise" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>L'ascenseur est resté inutilisé </label>
+                                        <select id="evacuation_immediate" name="evacuation_immediate"
+                                            formControlName="evacuation_immediate" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Evacuation en bon ordre </label>
+                                        <select id="evacuation_bon_ordre" name="evacuation_bon_ordre"
+                                            formControlName="evacuation_bon_ordre" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label [title]="labelText2?.length > 20 ? labelText2 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText2?.length > 20 ? labelText2.slice(0, 31) + '...' : labelText2 }}
+                                        </label>
+
+                                        <select id="monde_ressemblement" name="monde_ressemblement"
+                                            formControlName="monde_ressemblement" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label [title]="labelText?.length > 20 ? labelText : null" class="truncate-text"
+                                            #label>
+                                            {{ labelText?.length > 20 ? labelText.slice(0, 30) + '...' : labelText }}
+                                        </label>
+
+
+
+                                        <select id="monde_consigne" name="monde_consigne"
+                                            formControlName="monde_consigne" class="custom-select" data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Connaissance des moyens de lutte incendie
+                                        </label>
+                                        <select id="connaissance_incendie" name="connaissance_incendie"
+                                            formControlName="connaissance_incendie" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Dégagement des moyens de lutte incendie </label>
+                                        <select id="degagement_incendie" name="degagement_incendie"
+                                            formControlName="degagement_incendie" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Matériel Opérationnel </label>
+                                        <select id="materiel_operationnel" name="materiel_operationnel"
+                                            formControlName="materiel_operationnel" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Matériel Vérifié </label>
+                                        <select id="materiel_verifie" name="materiel_verifie"
+                                            formControlName="materiel_verifie" class="custom-select" data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Dégagement des issues de secours
+                                        </label>
+                                        <select id="degagement_secours" name="degagement_secours"
+                                            formControlName="degagement_secours" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Accueil des Secours </label>
+                                        <select id="acceuil_secours" name="acceuil_secours"
+                                            formControlName="acceuil_secours" class="custom-select" data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label [title]="labelText4?.length > 20 ? labelText4 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText4?.length > 20 ? labelText4.slice(0, 26) + '...' : labelText4 }}
+                                        </label>
+                                        <select id="mise_secours" name="mise_secours" formControlName="mise_secours"
+                                            class="custom-select" data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label [title]="labelText5?.length > 20 ? labelText5 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText5?.length > 20 ? labelText5.slice(0, 28) + '...' : labelText5 }}
+                                        </label>
+                                        <select id="interdiction_prestataire" name="interdiction_prestataire"
+                                            formControlName="interdiction_prestataire" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label [title]="labelText6?.length > 20 ? labelText6 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText6?.length > 20 ? labelText6.slice(0, 33) + '...' : labelText6 }}
+                                        </label>
+                                        <select id="blocage_portail" name="blocage_portail"
+                                            formControlName="blocage_portail" class="custom-select" data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label [title]="labelText7?.length > 20 ? labelText7 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText7?.length > 20 ? labelText7.slice(0, 28) + '...' : labelText7 }}
+                                        </label>
+                                        <select id="appreciation_urgence" name="appreciation_urgence"
+                                            formControlName="appreciation_urgence" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label [title]="labelText8?.length > 20 ? labelText8 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText8?.length > 20 ? labelText8.slice(0, 30) + '...' : labelText8 }}
+                                        </label>
+                                        <select id="centralisation_renseignements" name="centralisation_renseignements"
+                                            formControlName="centralisation_renseignements" class="custom-select"
+                                            data-style="py-0">
+                                            <option [ngValue]="true">Oui</option>
+                                            <option [ngValue]="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+
+                                        <label [title]="labelText9?.length > 20 ? labelText9 : null"
+                                            class="truncate-text" #label>
+                                            {{ labelText9?.length > 20 ? labelText9.slice(0, 30) + '...' : labelText9 }}
+                                        </label>
+                                        <textarea class="form-control" placeholder="Entrer commentaire appréciation"
+                                            id="commentaire_appreciation" name="commentaire_appreciation"
+                                            formControlName="commentaire_appreciation"></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label title="Commentaire">... </label>
+                                        <textarea class="form-control" placeholder="Entrer commentaire" id="commentaire"
+                                            name="commentaire" formControlName="commentaire"></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Scénario</label>
+                                        <textarea formControlName="scenario" class="form-control" id="scenario"
+                                            name="scenario" rows="1"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Taux conformité exercices </label>
+                                        <input type="number" class="form-control" id="taux_conformite"
+                                            name="taux_conformite" formControlName="taux_conformite">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <div class="d-flex flex-wrap justify-content-center">
+
+                                <button style="margin-bottom: 1%;" [disabled]="exsecForm.invalid" (click)="openModal()"
+                                    type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i
+                                        class="fas fa-plus"></i>Enregistrer</button>
+                                <button style="margin-bottom: 1%;" type="reset" routerLink="/listExerciceSecurite"
+                                    class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page end  -->
+    </div>
+</div>
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        La réunion a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>

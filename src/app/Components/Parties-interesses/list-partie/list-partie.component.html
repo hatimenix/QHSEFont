@@ -1,22 +1,26 @@
-<div class="content-page">
+<div class="content-page custom-background">
   <div class="container-fluid">
+    <div class="card">
     <div class="row">
       <div class="col-lg-12">
-        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-          <div>
-            <h4 class="mb-3">Partie intéressées</h4>
+        <div class="card-header d-flex justify-content-between ">
+          <div class="header-title">
+            <h4 class="card-title">Partie intéressées</h4>
           </div>
-          <div class="text-right">
-            <a (click)="navigateToTypePartie()" style="color: white;" class="btn btn-secondary add-list "><i class="las la-plus mr-3"></i>Ajouter un type de partie</a>
-            <a (click)="navigateToPartie()" class="btn btn-primary add-list ml-3"><i class="las la-plus mr-3"></i>Ajouter une partie intéressée</a>
-          </div>
+            <a (click)="navigateToTypePartie()" class="btn btn-primary btn-sm add-list" style="color: white; margin-right: -56.5%;">
+              <i class="las la-plus"></i> Ajouter un type de partie
+            </a>          
+            <a (click)="navigateToPartie()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
+              <i class="las la-plus"></i> Ajouter une partie intéressée
+            </a>
           
         </div>
       </div>
 
     </div>
+    <div class="card-body">
     <div class="row justify-content-start">
-      <div class="input-group mb-4 col-md-4">
+      <div class="input-group mb-3 col-md-4">
         <div class="input-group-prepend">
           <span class="input-group-text">
             <i class="fas fa-search" style="font-size: 1rem;"></i>
@@ -30,9 +34,8 @@
         </div>
       </div>
     </div>
-        
     
-    <ul class="list-inline" *ngIf="filteredOptions.length > 0">
+    <ul class="list-inline">
       <li class="list-inline-item" *ngFor="let option of filteredOptions.slice(0, 3)">
         <button class="btn" (click)="selectOption(option)">{{ option }}</button>
       </li>
@@ -41,10 +44,11 @@
           <i class="fas fa-ellipsis-h"></i>
         </button>
         <div class="dropdown-menu">
-          <button class="dropdown-item" *ngFor="let option of filteredOptions.slice(3)" (click)="selectOption(option)">{{ option }}</button>
+          <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of filteredOptions.slice(3)" (click)="selectOption(option)">{{ option }}</a>
         </div>
       </li>
     </ul>
+    
     
 
     <div>
@@ -101,12 +105,12 @@
                       
                         <td>
                           <div class="d-flex justify-content-start align-items-center list-action">
-                            <a class="badge bg-primary mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
+                            <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
                             (click)="getPartieData(partie.id , partie.typepartie,partie.partieinteresse,partie.importance,partie.nature,partie.enjeux,partie.besoin,partie.impactfinal,partie.impactentreprise,partie.cotation,partie.impact,partie.processus)"
                               data-placement="top" title="" data-original-title="Edit">
                               <i class="ri-pencil-line mr-0"></i>
                             </a>
-                            <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                            <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip"
                               (click)="openDeleteModal(partie.id)" data-placement="top" title=""
                               data-original-title="Delete">
                               <i class="ri-delete-bin-line mr-0"></i>
@@ -127,6 +131,8 @@
         </div>      
       </div>
     </div>
+    </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -142,8 +148,8 @@
             Attention , cette action est irréversible !
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+            <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
           </div>
         </div>
       </div>
@@ -248,11 +254,13 @@
                   </div>
                   <div class="col-md-4">
                     <label>Processus <label style="color: red;">*</label></label>
-                    <div *ngFor="let processus of processuss">
+                    <div class="checkbox-list">
+                    <div *ngFor="let processus of processuss.slice(0.5);let i=index">
                       <label>
                         <input type="checkbox" [checked]="isProcessusSelected(processus.id)" (change)="toggleProcessus(processus.id)">
                         {{ processus.intitule }}
                       </label>
+                      </div>
                     </div>
                   </div>
                   
@@ -265,7 +273,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="updatePartie()"><i class="fas fa-pencil-alt"></i> Modifier</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
           </div>
         </div>
       </div>
