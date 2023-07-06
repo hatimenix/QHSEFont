@@ -114,6 +114,11 @@ import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-anal
 import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
 import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
 import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
+import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
+import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
+import { ListReunionComponent } from './Components/Reunion/list-reunion/list-reunion.component';
+import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
+import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reunion.component';
 
 @NgModule({
   declarations: [
@@ -221,7 +226,12 @@ import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/list
     AddAnalyseRisqueComponent,
     UpdateAnalyseRisqueComponent,
     AddPlanAlimentaireComponent,
-    ListePlanAlimentaireComponent
+    ListePlanAlimentaireComponent,
+    AddExerciceComponent,
+    ListExerciceComponent,
+    ListReunionComponent,
+    AddReunionComponent,
+    InfoReunionComponent
 
   ],
   imports: [

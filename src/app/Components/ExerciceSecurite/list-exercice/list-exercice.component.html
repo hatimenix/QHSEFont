@@ -1,0 +1,681 @@
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Liste des Exercices de sécurité</h4>
+                        </div>
+                        <div class="col-sm-6 col-md-6 text-right" style="margin-right: 9%;">
+                            <div class="user-list-files d-flex align-items-center overflow-hidden">
+                                <a routerLink="/addExerciceSecurite" class="bg1">
+                                    <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-6 col-md-8">
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search" style="font-size: 1rem;"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" placeholder="Chercher"
+                                        [(ngModel)]="searchQuery">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="d-flex justify-content-end">
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Afficher {{ itemsPerPage }} résultats par page
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="itemsPerPageDropdown">
+                                    <a class="dropdown-item" style="cursor: pointer;"
+                                        *ngFor="let option of itemsPerPageOptions"
+                                        (click)="onItemsPerPageChange(option)"
+                                        [ngClass]="{'selected': option === itemsPerPage}">
+                                        <span>{{ option }}</span>
+                                        <i style="margin-left: 1%;" class="fas fa-check"
+                                            *ngIf="option === itemsPerPage"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+
+
+                            <table class="table rounded   mt-4" aria-describedby="user-list-page-info">
+                                <thead>
+                                    <tr>
+                                        <th>Site</th>
+                                        <th>Intitulé exercice*</th>
+                                        <th>Année</th>
+
+                                        <th>Date de l'exercice*</th>
+                                        <th>Taux conformité exercices</th>
+                                        <th>Indicateur</th>
+                                        <th>Thème</th>
+                                        <th>Plan d'actions</th>
+                                        <th>Scénario</th>
+                                        <th>Actions</th>
+
+                                    </tr>
+                                </thead>
+
+
+                                <ng-container *ngFor="let site of sites">
+                                    <tbody class="ligth-body">
+                                        <td data-column="name">
+                                            <a href="javascript:void(0);" class="toggle-icon"
+                                                (click)="site.expanded = !site.expanded">
+                                                <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
+                                                <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+                                            </a>
+                                            <a href="javascript:void(0);">Site : {{ site.site_nom }} : ( {{
+                                                getRecordCount(site) }} )</a>
+                                        </td>
+                                        <ng-container *ngIf="site.expanded ">
+
+
+                                            <ng-container
+                                                *ngFor="let exes of displayedES | filter: searchQuery   let i = index ">
+                                                <tr *ngIf="exes.length === 0">
+                                                    <td colspan="11">Aucun exercice de securité trouvé </td>
+                                                </tr>
+
+                                                <tr *ngIf="exes.site == site.id"
+                                                    [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                                                    <td></td>
+
+                                                    <td>{{exes.intitule}}</td>
+                                                    <td>{{ exes.date | date:'yyyy' }}</td>
+                                                    <td>{{exes.date}}</td>
+                                                    <td>{{exes.taux_conformite}}</td>
+
+
+                                                    <td>
+                                                        <span
+                                                            *ngIf="exes.taux_conformite !== undefined && exes.taux_conformite !== null"
+                                                            [ngClass]="{'red-ball': exes.taux_conformite < 50, 'green-ball': exes.taux_conformite >= 50}"></span>
+                                                    </td>
+
+
+
+
+
+                                                    <td>{{exes.theme}}</td>
+                                                    <td></td>
+                                                    <td>{{exes.scenario}}</td>
+
+
+
+                                                    <td>
+                                                        <div class="d-flex align-items-center list-action">
+                                                            <!-- <a class="badge btn-sm bg-primary" data-toggle="modal"
+                                                                data-target="#update" data-placement="top" title="Edit"
+                                                                (click)="getESData(exes.id,exes.intitule, exes.theme, exes.site, exes.date_exercice, exes.scenario, exes.animateur, exes.observateurs,
+ exes.duree_exercice, exes.signal_alarme, exes.evacuation, exes.ascenseur_inutilise, exes.evacuation_immediate,
+  exes.evacuation_bon_ordre, exes.point_rassemblement, exes.consigne_respectee, exes.connaissance_lutte_incendie,
+   exes.degagement_lutte_incendie, exes.materiel_operationnel, exes.materiel_verifie, exes.degagement_issues_secours
+   , exes.accueil_secours, exes.accueil_guide_secours, exes.interdiction_entree, exes.blocage_portails, exes.appreciation_situation,
+    exes.commentaire_appreciation, exes.centralisation_renseignements, 
+    exes.commentaire, exes.mesure_a_prendre)">
+                                                                <i class="ri-pencil-line mr-0"></i>
+                                                            </a>
+                                                            <span class="spacer"></span> 
+                                                            <a class="badge btn-sm bg-danger" style="cursor: pointer;"
+                                                                data-toggle="tooltip" (click)="openDeleteModal(exes.id)"
+                                                                data-placement="top" title="Delete">
+                                                                <i class="ri-delete-bin-line mr-0"></i>
+                                                            </a> -->
+
+
+                                                            <a class="badge bg-success mr-2" data-toggle="modal"
+                                                                data-target="#update" data-placement="top" title="Edit"
+                                                                (click)="getESData(
+    exes.id,
+    exes.intitule,
+    exes.theme,
+    exes.site,
+    exes.date,
+    exes.scenario,
+    exes.animateur,
+    exes.observateurs,
+    exes.duree,
+    exes.monde_signal_alarme,
+    exes.monde_evacuation,
+    exes.ascenseur_inutilise,
+    exes.evacuation_immediate,
+    exes.evacuation_bon_ordre,
+    exes.monde_ressemblement,
+    exes.monde_consigne,
+    exes.connaissance_incendie,
+    exes.degagement_incendie,
+    exes.materiel_operationnel,
+    exes.materiel_verifie,
+    exes.degagement_secours,
+    exes.acceuil_secours,
+    exes.mise_secours,
+    exes.interdiction_prestataire,
+    exes.blocage_portail,
+    exes.appreciation_urgence,
+    exes.commentaire_appreciation,
+    exes.centralisation_renseignements,
+    exes.commentaire,
+    exes.mesure
+);
+" queryParamsHandling="merge"><i class="ri-pencil-line mr-0"></i></a>
+                                                            <a class="badge btn-danger mr-2" data-toggle="tooltip"
+                                                                (click)="openDeleteModal(exes.id)" data-placement="top"
+                                                                title="Delete"><i
+                                                                    class="ri-delete-bin-line mr-0"></i></a>
+
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+
+
+                                            </ng-container>
+                                        </ng-container>
+                                </ng-container>
+
+                            </table>
+                        </div>
+                        <div class="pagination-container"
+                            style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <div>
+                                <span class="entry-info">
+                                    {{ getDisplayedRange() }}
+                                </span>
+                            </div>
+                            <div style="display: flex;justify-content: flex-end;">
+                                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                                <div class="page-info">
+                                    <span class="page-numbers">
+                                        <button class="btn page-number" *ngFor="let page of getPageNumbers()"
+                                            [disabled]="p === page" (click)="p = page"
+                                            [ngClass]="{'selected': p === page}">{{ page }}</button>
+                                    </span>
+                                </div>
+                                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal delete-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Attention , cette action est irréversible !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="delete()"><i
+                        class="fas fa-trash"></i>Supprimer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                        class="fas fa-times"></i>Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier une Réunion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <form [formGroup]="form">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Intitulé exercice</label>
+                                    <input type="text" class="form-control" placeholder="Entrer titre" id="intitule"
+                                        name="intitule" formControlName="intitule" [(ngModel)]="intitule"
+                                        value="{{ intitule }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Thème</label>
+                                    <input type="text" class="form-control" placeholder="Entrer theme" id="theme"
+                                        name="theme" formControlName="theme" [(ngModel)]="theme" value="{{ theme }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Site </label>
+                                    <select id="site" name="site" formControlName="site" class="custom-select"
+                                        data-style="py-0" [(ngModel)]="site">
+                                        <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Date de l'exercice *</label>
+                                    <input type="date" class="form-control" id="date" name="date" formControlName="date"
+                                        [(ngModel)]="date" [value]="date">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Mesure à prendre</label>
+                                    <input type="text" class="form-control" placeholder="Entrer mesure" id="mesure"
+                                        name="mesure" formControlName="mesure" [(ngModel)]="mesure"
+                                        value="{{ mesure }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Animateurs</label>
+                                    <input type="text" class="form-control"
+                                        placeholder="Entrer des noms ou des adresses de courriers" id="animateurs"
+                                        name="animateurs" formControlName="animateurs" [(ngModel)]="animateurs"
+                                        value="{{ animateurs }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Observateurs</label>
+                                    <input type="text" class="form-control"
+                                        placeholder="Entrer des noms ou des adresses de courriers" id="observateurs"
+                                        name="observateurs" formControlName="observateurs" [(ngModel)]="observateurs"
+                                        value="{{ observateurs }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Durée de l'exercice</label>
+                                    <input type="number" class="form-control" id="duree" name="duree"
+                                        formControlName="duree" [(ngModel)]="duree" [value]="duree">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText3?.length > 20 ? labelText3 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText3?.length > 20 ? labelText3.slice(0, 27) + '...' : labelText3 }}
+                                    </label>
+                                    <select id="monde_signal_alarme" name="monde_signal_alarme"
+                                        formControlName="monde_signal_alarme" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="monde_signal_alarme" [value]="monde_signal_alarme">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Tout le monde a évacué</label>
+                                    <select id="monde_evacuation" name="monde_evacuation"
+                                        formControlName="monde_evacuation" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="monde_evacuation">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>L'ascenseur est resté inutilisé</label>
+                                    <select id="ascenseur_inutilise" name="ascenseur_inutilise"
+                                        formControlName="ascenseur_inutilise" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="ascenseur_inutilise">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Evacuation immédiate </label>
+                                    <select id="evacuation_immediate" name="evacuation_immediate"
+                                        formControlName="evacuation_immediate" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="evacuation_immediate">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Evacuation en bon ordre</label>
+                                    <select id="evacuation_bon_ordre" name="evacuation_bon_ordre"
+                                        formControlName="evacuation_bon_ordre" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="evacuation_bon_ordre">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText2?.length > 20 ? labelText2 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText2?.length > 20 ? labelText2.slice(0, 31) + '...' : labelText2 }}
+                                    </label>
+                                    <select id="monde_ressemblement" name="monde_ressemblement"
+                                        formControlName="monde_ressemblement" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="monde_ressemblement">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText?.length > 20 ? labelText : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText?.length > 20 ? labelText.slice(0, 30) + '...' : labelText }}
+                                    </label>
+                                    <select id="monde_consigne" name="monde_consigne" formControlName="monde_consigne"
+                                        class="custom-select" data-style="py-0" [(ngModel)]="monde_consigne">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText10?.length > 20 ? labelText10 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText10?.length > 20 ? labelText10.slice(0, 24) + '...' : labelText10 }}
+                                    </label> <select id="connaissance_incendie" name="connaissance_incendie"
+                                        formControlName="connaissance_incendie" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="connaissance_incendie">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="lb11?.length > 20 ? lb11 : null" class="truncate-text" #label>
+                                        {{ lb11?.length > 20 ? lb11.slice(0, 21) + '...' : lb11 }}
+                                    </label> <select id="degagement_incendie" name="degagement_incendie"
+                                        formControlName="degagement_incendie" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="degagement_incendie">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Matériel Opérationnel</label>
+                                    <select id="materiel_operationnel" name="materiel_operationnel"
+                                        formControlName="materiel_operationnel" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="materiel_operationnel">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Matériel Vérifié</label>
+                                    <select id="materiel_verifie" name="materiel_verifie"
+                                        formControlName="materiel_verifie" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="materiel_verifie">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="lb12?.length > 20 ? lb12 : null" class="truncate-text" #label>
+                                        {{ lb12?.length > 20 ? lb12.slice(0, 24) + '...' : lb12 }}
+                                    </label> <select id="degagement_secours" name="degagement_secours"
+                                        formControlName="degagement_secours" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="degagement_secours">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Accueil des Secours</label>
+                                    <select id="acceuil_secours" name="acceuil_secours"
+                                        formControlName="acceuil_secours" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="acceuil_secours">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText4?.length > 20 ? labelText4 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText4?.length > 20 ? labelText4.slice(0, 26) + '...' : labelText4 }}
+                                    </label>
+                                    <select id="mise_secours" name="mise_secours" formControlName="mise_secours"
+                                        class="custom-select" data-style="py-0" [(ngModel)]="mise_secours">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText5?.length > 20 ? labelText5 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText5?.length > 20 ? labelText5.slice(0, 28) + '...' : labelText5 }}
+                                    </label>
+                                    <select id="interdiction_prestataire" name="interdiction_prestataire"
+                                        formControlName="interdiction_prestataire" class="custom-select"
+                                        data-style="py-0" [(ngModel)]="interdiction_prestataire">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText6?.length > 20 ? labelText6 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText6?.length > 20 ? labelText6.slice(0, 24) + '...' : labelText6 }}
+                                    </label>
+                                    <select id="blocage_portail" name="blocage_portail"
+                                        formControlName="blocage_portail" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="blocage_portail">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText7?.length > 20 ? labelText7 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText7?.length > 20 ? labelText7.slice(0, 28) + '...' : labelText7 }}
+                                    </label>
+                                    <select id="appreciation_urgence" name="appreciation_urgence"
+                                        formControlName="appreciation_urgence" class="custom-select" data-style="py-0"
+                                        [(ngModel)]="appreciation_urgence">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText8?.length > 20 ? labelText8 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText8?.length > 20 ? labelText8.slice(0, 19) + '...' : labelText8 }}
+                                    </label>
+                                    <select id="centralisation_renseignements" name="centralisation_renseignements"
+                                        formControlName="centralisation_renseignements" class="custom-select"
+                                        data-style="py-0" [(ngModel)]="centralisation_renseignements">
+                                        <option [ngValue]="true">Oui</option>
+                                        <option [ngValue]="false">Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label [title]="labelText9?.length > 20 ? labelText9 : null" class="truncate-text"
+                                        #label>
+                                        {{ labelText9?.length > 20 ? labelText9.slice(0, 19) + '...' : labelText9 }}
+                                    </label>
+                                    <textarea class="form-control" placeholder="Entrer commentaire appréciation"
+                                        id="commentaire_appreciation" name="commentaire_appreciation"
+                                        formControlName="commentaire_appreciation"
+                                        [(ngModel)]="commentaire_appreciation"></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label title="Commentaire">Commentaire </label>
+                                    <textarea class="form-control" placeholder="Entrer commentaire" id="commentaire"
+                                        name="commentaire" formControlName="commentaire"
+                                        [(ngModel)]="commentaire"></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Scénario</label>
+                                    <textarea formControlName="scenario" class="form-control" id="scenario"
+                                        name="scenario" rows="1" [(ngModel)]="scenario" [value]="scenario"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Taux conformité exercices </label>
+                                    <input type="number" class="form-control" id="taux_conformite"
+                                        name="taux_conformite" formControlName="taux_conformite"
+                                        [(ngModel)]="taux_conformite">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <br>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateExerciceSecurite()"><i
+                        class="fas fa-pencil-alt"></i>
+                    Modifier</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>
+                    Fermer</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        L'exercice de securité a été modifié avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>

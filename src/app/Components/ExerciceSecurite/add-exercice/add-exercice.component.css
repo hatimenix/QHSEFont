@@ -1,4 +1,4 @@
-/* .btn-primary {
+.btn-primary {
     background-color: #089bd7;
     border-color: #089bd7;
 }
@@ -19,19 +19,20 @@ button+button {
     margin-left: 10px;
 }
 
- .drop-zone {
-     border: 2px dashed #ccc;
-     padding: 2rem;
-     text-align: center;
- }
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 2rem;
+    text-align: center;
+}
 
- .drop-zone.drag-over {
-     border-color: #aaa;
- }
+.drop-zone.drag-over {
+    border-color: #aaa;
+}
 
 
 
 .checkbox-list {
     max-height: 70px;
+    /* Adjust the height as per your requirement */
     overflow-y: auto;
-} */
+}

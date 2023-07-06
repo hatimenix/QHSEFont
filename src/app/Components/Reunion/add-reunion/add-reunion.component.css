@@ -1,4 +1,4 @@
-/* .btn-primary {
+.btn-primary {
     background-color: #089bd7;
     border-color: #089bd7;
 }
@@ -33,5 +33,6 @@ button+button {
 
 .checkbox-list {
     max-height: 70px;
+    /* Adjust the height as per your requirement */
     overflow-y: auto;
-} */
+}
