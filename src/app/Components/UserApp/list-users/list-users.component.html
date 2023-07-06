@@ -53,6 +53,7 @@
                          aria-describedby="user-list-page-info">
                          <thead>
                             <tr >
+                              <th>Image</th>
                                <th>Nom de l'utilisateur</th>
                                <th>Adresse Email</th>
                                <th>Nom Complet</th>
@@ -66,7 +67,8 @@
                          </thead>
                          <tbody>
                             <tr *ngFor="let user of displayedUsers | filter: searchQuery">
-                             
+                              <td class="text-center"><img class="rounded img-fluid avatar-40"
+                                src="{{user.image}}" alt="profile"></td>
                               <td>{{user.nom_user}}</td>
                               <td>{{user.email}}</td>
                               <td>{{ user.nom_complet }}</td>

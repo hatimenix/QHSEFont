@@ -114,6 +114,8 @@ import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-anal
 import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
 import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
 import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
+import { ForgotPassComponent } from './Components/ForgotPass/forgot-pass/forgot-pass.component';
+import { ResetPassComponent } from './Components/ResetPass/reset-pass/reset-pass.component';
 import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
 import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
 import { ListReunionComponent } from './Components/Reunion/list-reunion/list-reunion.component';
@@ -227,6 +229,8 @@ import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reu
     UpdateAnalyseRisqueComponent,
     AddPlanAlimentaireComponent,
     ListePlanAlimentaireComponent,
+    ForgotPassComponent,
+    ResetPassComponent, 
     AddExerciceComponent,
     ListExerciceComponent,
     ListReunionComponent,
