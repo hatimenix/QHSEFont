@@ -62,7 +62,7 @@ export class AddPlanAlimentaireComponent {
 
 
       matin: [''],
-      client: ['', [Validators.required]],
+      client: [''],
       regime: [''],
       midi: [''],
       alcool: [''],
@@ -90,7 +90,7 @@ export class AddPlanAlimentaireComponent {
       texture_liquides_boissons: [''],
       nbr_mesurettes: [''],
       temp_liquide_boisson: [''],
-      site: ['', [Validators.required]],
+      site: [''],
 
 
 

@@ -5,16 +5,17 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Liste des Plan </h4>
+                            <h4 class="card-title">Liste des plans alimentaires</h4>
                         </div>
-                        <div class="col-sm-6 col-md-6">
-                            <div class="user-list-files d-flex align-items-center">
-                                <a routerLink="/addPlanAlimentaire" class="custom-button" href="javascript:void();">
-                                    Ajouter un Plan alimentaire
+                        <div class="col-sm-6 col-md-6 text-right" style="margin-right: 9%;">
+                            <div class="user-list-files d-flex align-items-center overflow-hidden">
+                                <a routerLink="/addPlanAlimentaire" class="bg1">
+                                    <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
                                 </a>
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body">
 
                         <div class="row justify-content-between">
@@ -42,34 +43,33 @@
 
 
                             <div class="mr-2 position-relative">
-                                <form [formGroup]="myForm">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-filter"></i>
-                                            </span>
+                                <div class="filter-container">
+                                    <form [formGroup]="myForm" class="filter-form">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-filter"></i>
+                                                </span>
+                                            </div>
+                                            <select id="site" name="site" formControlName="site"
+                                                class="custom-select filter-select" (change)="filterConstatBySite()">
+                                                <option value="">All Sites</option>
+                                                <option *ngFor="let site of site$ | async" [value]="site.id">{{
+                                                    site.site_nom }}</option>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary filter-reset"
+                                                    (click)="resetSiteFilters()">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <select id="site" name="site" formControlName="site" class="custom-select"
-                                            required (change)="filterConstatBySite()">
-                                            <option value="">All sites</option>
-                                            <option *ngFor="let site of site$ | async" [value]="site.id">{{
-                                                site.site_nom }}
-                                            </option>
+                                    </form>
+                                </div>
 
-                                        </select>
-                                        <div class="input-group-append">
-                                            <!-- Reset Site Filter Button -->
-                                            <button class="btn btn-secondary " (click)="resetSiteFilters()">
-                                                <i class="fas fa-undo"></i>
-                                                <!-- Replace "fa-undo" with the desired reset icon class -->
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
 
-                            <div class="mr-2 position-relative">
+                            <!-- <div class="mr-2 position-relative">
                                 <form [formGroup]="myForm">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -84,14 +84,15 @@
                                             <option value="false">False</option>
                                         </select>
                                         <div class="input-group-append">
-                                            <!-- Reset Site Filter Button -->
                                             <button class="btn btn-secondary" (click)="resetFilters()">
                                                 <i class="fas fa-undo"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div> -->
+
+
 
 
 
@@ -102,9 +103,54 @@
 
 
 
+                        <div class=" mt-3 d-flex justify-content-between">
+                            <div class="filter-container">
+                                <a class="hv" style="cursor: pointer;" [class.active]="selectedFilter === 'all'"
+                                    (click)="refreshTableDess('all');refreshTable('all')">Tous les éléments</a>
+                                <a class="hv" style="cursor: pointer;"
+                                    [class.active]="selectedFilter === 'dessert equilibre'"
+                                    (click)="refreshTableDess('dessert equilibre') ">Dessert
+                                    équilibre</a>
+                                <a class="hv" style="cursor: pointer;" [class.active]="selectedFilter === 'enrichie'"
+                                    (click)="refreshTableDess('enrichie')">Enrichie</a>
+                                <a class="hv" style="cursor: pointer;" [class.active]="selectedFilter === 'velours'"
+                                    (click)="refreshTableDess('velours')">Velours</a>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-link dropdown-toggle dropdown-toggle-icon" type="button"
+                                        id="filterDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'midi'"
+                                            (click)="refreshTable('midi')">Midi</a>
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'matin'"
+                                            (click)="refreshTable('matin')">Matin</a>
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'soir'"
+                                            (click)="refreshTable('soir')">Soir</a>
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'gouter'"
+                                            (click)="refreshTable('gouter')">Gouter</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="filter-container">
+                                <button class="btn btn-primary" [class.active]="selectedFilter === 'all'"
+                                    (click)="refreshTableDess('all')">All</button>
+                                <button class="btn btn-primary" [class.active]="selectedFilter === 'dessert equilibre'"
+                                    (click)="refreshTableDess('dessert equilibre')">Dessert équilibre</button>
+                                <button class="btn btn-primary" [class.active]="selectedFilter === 'dessert velours'"
+                                    (click)="refreshTableDess('dessert velours')">Dessert velours</button>
+                            </div> -->
 
 
-                        <div class="d-flex justify-content-end">
+
+
                             <div class="dropdown">
                                 <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -122,13 +168,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
 
 
-                            <table class="table rounded   mt-4" aria-describedby="user-list-page-info">
+
+                        <div class="table-responsive mb-4 rounded">
+
+
+                            <table class="table rounded   " aria-describedby="user-list-page-info">
                                 <thead>
                                     <tr>
-                                        <th>Site</th>
+                                        <th class="text-center" style="width: 10%">Site</th>
                                         <th>Matin</th>
                                         <th>Client</th>
                                         <th>Régime</th>
@@ -167,15 +216,27 @@
 
                                 <ng-container *ngFor="let site of sites">
                                     <tbody class="ligth-body">
-                                        <td data-column="name">
-                                            <a href="javascript:void(0);" class="toggle-icon"
-                                                (click)="site.expanded = !site.expanded">
-                                                <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
-                                                <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
-                                            </a>
-                                            <a href="javascript:void(0);">{{ site.site_nom }} : ( {{
-                                                getRecordCount(site) }} )</a>
+
+                                        <td style="white-space: nowrap; vertical-align: middle;" data-column="name">
+                                            <div class="d-flex align-items-center">
+                                                <div class="pr-2">
+                                                    <a href="javascript:void(0);" class="toggle-icon"
+                                                        (click)="site.expanded = !site.expanded">
+                                                        <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
+                                                        <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="mr-3">
+                                                    <a href="javascript:void(0);" style="display: inline-block;"
+                                                        [class.expanded]="site.expanded || site.id === selectedSiteId"
+                                                        desse>Site:
+                                                        {{ site.site_nom }} : ({{
+                                                        getRecordCount(site) }})</a>
+                                                </div>
+                                            </div>
                                         </td>
+
+
                                         <ng-container *ngIf="site.expanded ">
 
 

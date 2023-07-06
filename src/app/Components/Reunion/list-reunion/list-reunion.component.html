@@ -1,1 +1,395 @@
-<p>list-reunion works!</p>
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Liste des réunions</h4>
+                        </div>
+                        <div class="col-sm-6 col-md-6 text-right" style="margin-right: 9%;">
+                            <div class="user-list-files d-flex align-items-center overflow-hidden">
+                                <a routerLink="/addReunion" class="bg1">
+                                    <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-6 col-md-8">
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search" style="font-size: 1rem;"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" placeholder="Chercher"
+                                        [(ngModel)]="searchQuery">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="d-flex justify-content-end">
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Afficher {{ itemsPerPage }} résultats par page
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="itemsPerPageDropdown">
+                                    <a class="dropdown-item" style="cursor: pointer;"
+                                        *ngFor="let option of itemsPerPageOptions"
+                                        (click)="onItemsPerPageChange(option)"
+                                        [ngClass]="{'selected': option === itemsPerPage}">
+                                        <span>{{ option }}</span>
+                                        <i style="margin-left: 1%;" class="fas fa-check"
+                                            *ngIf="option === itemsPerPage"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary custom-button" [disabled]="buttonClickedref"
+                            (click)="refreshTable()">Réunion(s) réalisée(s)</button>
+
+                        <button class="btn btn-primary custom-button" [disabled]="buttonClickedrefs"
+                            (click)="resetTable()">Réunion(s)
+                            a venir</button>
+
+
+                        <div class="table-responsive">
+
+                            <table class="table rounded mt-4" aria-describedby="user-list-page-info">
+                                <thead>
+                                    <tr>
+                                        <th>Titre</th>
+
+                                        <td *ngIf="showColumn7">Date prévisionnelle réunion </td>
+                                        <td *ngIf="showColumn8">Date réalisation réunion </td>
+
+                                        <th *ngIf="showColumn1">Ordre du jour</th>
+                                        <th *ngIf="showColumn2">Type de reunion</th>
+                                        <th *ngIf="showColumn3">Plan d'actions</th>
+                                        <th *ngIf="showColumn4">Ordre du jour</th>
+
+                                        <th *ngIf="showColumn5">Liste de diffusion</th>
+                                        <th *ngIf="showColumn6">Présents</th>
+
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let ren of displayedRN | filter: searchQuery; let i = index">
+                                        <tr *ngIf="ren.length === 0">
+                                            <td colspan="6">Aucune réunion</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a routerLink="/infoReunion/{{ren.id}}">{{ren.titre}}</a></td>
+                                            <td *ngIf="showColumn7">{{ ren.date_previsionnelle_reunion }}</td>
+                                            <td *ngIf="showColumn8">{{ ren.date_realisation_reunion }}</td>
+
+                                            <td *ngIf="showColumn1">{{ ren.ordre_jour }}</td>
+                                            <td *ngIf="showColumn2">{{ ren.type_reunion }}</td>
+
+                                            <td *ngIf="showColumn3"></td>
+                                            <td *ngIf="showColumn4">{{ ren.ordre_jour }}</td>
+
+                                            <td *ngIf="showColumn5"><ng-container
+                                                    *ngFor="let utilisateur of utilisateurs">
+                                                    <ng-container *ngIf="ren.liste_diffusion.includes(utilisateur.id)">
+                                                        <a href="javascript:void(0);"
+                                                            (click)="openUtilisateurModal(utilisateur)">{{
+                                                            utilisateur?.nom }}</a><br>
+                                                    </ng-container>
+                                                </ng-container></td>
+                                            <td *ngIf="showColumn6"><ng-container
+                                                    *ngFor="let utilisateur of utilisateurs">
+                                                    <ng-container *ngIf="ren.presents.includes(utilisateur.id)">
+                                                        <a href="javascript:void(0);"
+                                                            (click)="openUtilisateurModal(utilisateur)">{{
+                                                            utilisateur?.nom }}</a><br>
+                                                    </ng-container>
+                                                </ng-container></td>
+
+                                            <td>
+                                                <div class="d-flex align-items-center list-action">
+                                                    <a class="badge bg-success mr-2" data-toggle="modal"
+                                                        data-target="#update" data-placement="top" title="Edit" (click)="getReunionData(
+              ren.id,
+              ren.titre,
+              ren.type_reunion,
+              ren.date_previsionnelle_reunion,
+              ren.date_realisation_reunion,
+              ren.presents,
+              ren.personnes_exterieurs,
+              ren.liste_diffusion,
+              ren.ordre_jour
+            )" queryParamsHandling="merge">
+                                                        <i class="ri-pencil-line mr-0"></i>
+                                                    </a>
+                                                    <a class="badge btn-danger mr-2" data-toggle="tooltip"
+                                                        (click)="openDeleteModal(ren.id)" data-placement="top"
+                                                        title="Delete">
+                                                        <i class="ri-delete-bin-line mr-0"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="pagination-container"
+                            style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <div>
+                                <span class="entry-info">
+                                    {{ getDisplayedRange() }}
+                                </span>
+                            </div>
+                            <div style="display: flex;justify-content: flex-end;">
+                                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                                <div class="page-info">
+                                    <span class="page-numbers">
+                                        <button class="btn page-number" *ngFor="let page of getPageNumbers()"
+                                            [disabled]="p === page" (click)="p = page"
+                                            [ngClass]="{'selected': p === page}">{{ page }}</button>
+                                    </span>
+                                </div>
+                                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal delete-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Attention , cette action est irréversible !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="delete()"><i
+                        class="fas fa-trash"></i>Supprimer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                        class="fas fa-times"></i>Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier une Réunion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <form [formGroup]="form">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Titre <label style="color: red;">*</label></label>
+                                    <input type="text" class="form-control" placeholder="Entrer titre" id="titre"
+                                        name="titre" formControlName="titre" [(ngModel)]="titre" value="{{ titre }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Type de réunion</label>
+                                    <select formControlName="type_reunion" class="form-control" id="type_reunion"
+                                        class="selectpicker form-control" data-style="py-0" data-live-search="true"
+                                        [(ngModel)]="type_reunion">
+                                        <option value="" disabled>Choisir un type</option>
+                                        <option value="Revue de direction">Revue de direction</option>
+                                        <option value="Revue de processus">Revue de processus</option>
+                                        <option value="Réunion d'échange Jour fixe">Réunion d'échange Jour fixe</option>
+                                        <option value="Suivi de projet">Suivi de projet</option>
+                                        <option value="Réunion référent">Réunion référent</option>
+                                        <option value="Réunion qualité, sécurité">Réunion qualité, sécurité</option>
+                                        <option value="Comité de formation">Comité de formation</option>
+                                        <option value="Réunion soins/ménage">Réunion soins/ménage</option>
+                                        <option value="Réunion soins/restauration">Réunion soins/restauration</option>
+                                        <option value="Réunion soins/CPG">Réunion soins/CPG</option>
+                                        <option value="Réunion pluridisciplinaire">Réunion pluridisciplinaire</option>
+                                        <option value="Réunion d'équipe">Réunion d'équipe</option>
+                                        <option value="Audit">Audit</option>
+                                        <option value="COPIL Humanitude">COPIL Humanitude</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Date prévisionnelle de réunion <span style="color: red;">*</span></label>
+                                    <input type="date" class="form-control" id="date_previsionnelle_reunion"
+                                        name="date_previsionnelle_reunion" formControlName="date_previsionnelle_reunion"
+                                        [(ngModel)]="date_previsionnelle_reunion"
+                                        value="{{ date_previsionnelle_reunion }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Date réalisation de réunion <span style="color: red;">*</span></label>
+                                    <input type="date" class="form-control" id="date_realisation_reunion"
+                                        name="date_realisation_reunion" formControlName="date_realisation_reunion"
+                                        [(ngModel)]="date_realisation_reunion" value="{{ date_realisation_reunion }}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Présents <label style="color: red;">*</label></label>
+
+
+
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item"
+                                            *ngFor="let pres of utilisateurs.slice(0, 5); let i = index">
+                                            <label>
+                                                <input type="checkbox" [checked]="isPresentSelected(pres.id)"
+                                                    formControlName="presents" (change)="togglePresent(pres.id)"
+                                                    required>
+                                                {{ pres?.nom }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Liste de diffusion du compte rendu <label
+                                            style="color: red;">*</label></label>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item"
+                                            *ngFor="let ld of utilisateurs.slice(0, 5); let i = index">
+                                            <label>
+                                                <input type="checkbox" [checked]="isListDiffSelected(ld.id)"
+                                                    formControlName="presents" (change)="toggleListDiff(ld.id)"
+                                                    required>
+                                                {{ ld?.nom }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Personnes extérieures <label style="color: red;">*</label></label>
+                                    <textarea [value]="personnes_exterieurs" formControlName="personnes_exterieurs"
+                                        class="form-control" id="personnes_exterieurs" name="personnes_exterieurs"
+                                        rows="2" [(ngModel)]="personnes_exterieurs"></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Ordre du jour <label style="color: red;">*</label></label>
+                                    <textarea [value]="ordre_jour" formControlName="ordre_jour" class="form-control"
+                                        id="ordre_jour" name="ordre_jour" rows="2" [(ngModel)]="ordre_jour"></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateReunion()"><i
+                        class="fas fa-pencil-alt"></i>
+                    Modifier</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>
+                    Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page end  : succes update Modal -->
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        La réunion a été modifié avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>
+
+
+<!-- Utilisateur Modal -->
+<ng-template #utilisateurModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Présent Informations</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModalutilisateur()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p><strong>Compte :</strong> {{ selectedUtilisateur?.compte }}</p>
+        <p><strong>Nom:</strong> {{ selectedUtilisateur?.nom }}</p>
+        <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
+        <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
+        <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
+        <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image"
+                alt="Image"></p>
+        <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
+        <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
+        <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
+    </div>
+
+</ng-template>

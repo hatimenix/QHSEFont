@@ -130,4 +130,18 @@
   }
   
   
+    .red-ball {
+      background-color: red;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+    }
   
+    .green-ball {
+      background-color: green;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+    }

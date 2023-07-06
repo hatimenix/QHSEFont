@@ -14,6 +14,25 @@ declare var window: any;
   styleUrls: ['./list-exercice.component.css']
 })
 export class ListExerciceComponent {
+
+
+
+  labelText: any = "     Tout le monde a respecté la consigne de ne pas revenir en arrière sans autorisation"
+  labelText2: any = "     Tout le monde a rejoint le point de rassemblement"
+
+  labelText3: any = "Tout le monde a entendu le signal d'alarme"
+  labelText4: any = "Mis en place d'un accueil à l'entrée du site pour guider les secours"
+  labelText5: any = "Interdiction de faire entrer des usagers ou prestataire"
+  labelText6: any = "Blocage des portails ou barrières d'accès en position ouverte"
+  labelText7: any = "Appréciation de la situation d'urgence"
+  labelText8: any = "Centralisation des renseignements vers un interlocuteur unique"
+  labelText9: any = "Commentaire lié à l'appréciation de la situation d'urgence"
+  labelText10: any = "Connaissance des moyens de lutte incendie"
+  lb11: any = "Dégagement des moyens de lutte incendie"
+  lb12: any = "Dégagement des issues de secours"
+
+
+
   @ViewChild('successModal', { static: true }) successModal: any;
 
   modalRef!: BsModalRef;
@@ -68,6 +87,7 @@ export class ListExerciceComponent {
   centralisation_renseignements: any;
   commentaire: any;
   mesure: any;
+  taux_conformite: any
 
   site: any
 
@@ -129,7 +149,7 @@ export class ListExerciceComponent {
     commentaire: new FormControl(''),
     mesure: new FormControl(''),
     site: new FormControl('', [Validators.required]),
-
+    taux_conformite: new FormControl(''),
 
 
 
@@ -189,26 +209,26 @@ export class ListExerciceComponent {
     formData.append('scenario', this.scenario);
     formData.append('animateurs', this.animateurs);
     formData.append('observateurs', this.observateurs);
-    formData.append('duree', String(this.duree));
-    formData.append('monde_signal_alarme', String(this.monde_signal_alarme));
-    formData.append('monde_evacuation', String(this.monde_evacuation));
-    formData.append('ascenseur_inutilise', String(this.ascenseur_inutilise));
-    formData.append('evacuation_immediate', String(this.evacuation_immediate));
-    formData.append('evacuation_bon_ordre', String(this.evacuation_bon_ordre));
-    formData.append('monde_ressemblement', String(this.monde_ressemblement));
-    formData.append('monde_consigne', String(this.monde_consigne));
-    formData.append('connaissance_incendie', String(this.connaissance_incendie));
-    formData.append('degagement_incendie', String(this.degagement_incendie));
-    formData.append('materiel_operationnel', String(this.materiel_operationnel));
-    formData.append('materiel_verifie', String(this.materiel_verifie));
-    formData.append('degagement_secours', String(this.degagement_secours));
-    formData.append('acceuil_secours', String(this.acceuil_secours));
-    formData.append('mise_secours', String(this.mise_secours));
-    formData.append('interdiction_prestataire', String(this.interdiction_prestataire));
-    formData.append('blocage_portail', String(this.blocage_portail));
-    formData.append('appreciation_urgence', String(this.appreciation_urgence));
+    formData.append('duree', this.duree);
+    formData.append('monde_signal_alarme', this.monde_signal_alarme);
+    formData.append('monde_evacuation', this.monde_evacuation);
+    formData.append('ascenseur_inutilise', this.ascenseur_inutilise);
+    formData.append('evacuation_immediate', this.evacuation_immediate);
+    formData.append('evacuation_bon_ordre', this.evacuation_bon_ordre);
+    formData.append('monde_ressemblement', this.monde_ressemblement);
+    formData.append('monde_consigne', this.monde_consigne);
+    formData.append('connaissance_incendie', this.connaissance_incendie);
+    formData.append('degagement_incendie', this.degagement_incendie)
+    formData.append('materiel_operationnel', this.materiel_operationnel);
+    formData.append('materiel_verifie', this.materiel_verifie);
+    formData.append('degagement_secours', this.degagement_secours);
+    formData.append('acceuil_secours', this.acceuil_secours);
+    formData.append('mise_secours', this.mise_secours);
+    formData.append('interdiction_prestataire', this.interdiction_prestataire);
+    formData.append('blocage_portail', this.blocage_portail);
+    formData.append('appreciation_urgence', this.appreciation_urgence);
     formData.append('commentaire_appreciation', this.commentaire_appreciation);
-    formData.append('centralisation_renseignements', String(this.centralisation_renseignements));
+    formData.append('centralisation_renseignements', this.centralisation_renseignements);
     formData.append('commentaire', this.commentaire);
     formData.append('mesure', this.mesure);
 
@@ -277,6 +297,12 @@ export class ListExerciceComponent {
     return Math.ceil(this.exerSec.length / this.itemsPerPage);
   }
 
+  get displayedES(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.exerSec.slice(startIndex, endIndex);
+  }
+
   onItemsPerPageChange(option: number) {
     this.p = 1;
     this.itemsPerPage = option;
@@ -302,39 +328,41 @@ export class ListExerciceComponent {
   }
   getESData(
     id: number,
-    intitule: string,
-    theme: string,
-    date: string,
-    scenario: string,
-    animateurs: string,
-    observateurs: string,
-    duree: number,
-    monde_signal_alarme: boolean,
-    monde_evacuation: boolean,
-    ascenseur_inutilise: boolean,
-    evacuation_immediate: boolean,
-    evacuation_bon_ordre: boolean,
-    monde_ressemblement: boolean,
-    monde_consigne: boolean,
-    connaissance_incendie: boolean,
-    degagement_incendie: boolean,
-    materiel_operationnel: boolean,
-    materiel_verifie: boolean,
-    degagement_secours: boolean,
-    acceuil_secours: boolean,
-    mise_secours: boolean,
-    interdiction_prestataire: boolean,
-    blocage_portail: boolean,
-    appreciation_urgence: boolean,
-    commentaire_appreciation: string,
-    centralisation_renseignements: boolean,
-    commentaire: string,
-    mesure: string,
-    site: number
+    intitule: any,
+    theme: any,
+    site: any,
+    date: any,
+    scenario: any,
+    animateurs: any,
+    observateurs: any,
+    duree: any,
+    monde_signal_alarme: any,
+    monde_evacuation: any,
+    ascenseur_inutilise: any,
+    evacuation_immediate: any,
+    evacuation_bon_ordre: any,
+    monde_ressemblement: any,
+    monde_consigne: any,
+    connaissance_incendie: any,
+    degagement_incendie: any,
+    materiel_operationnel: any,
+    materiel_verifie: any,
+    degagement_secours: any,
+    acceuil_secours: any,
+    mise_secours: any,
+    interdiction_prestataire: any,
+    blocage_portail: any,
+    appreciation_urgence: any,
+    commentaire_appreciation: any,
+    centralisation_renseignements: any,
+    commentaire: any,
+    mesure: any,
   ) {
     this.id = id;
     this.intitule = intitule;
     this.theme = theme;
+    this.site = site;
+
     this.date = date;
     this.scenario = scenario;
     this.animateurs = animateurs;
@@ -361,7 +389,6 @@ export class ListExerciceComponent {
     this.centralisation_renseignements = centralisation_renseignements;
     this.commentaire = commentaire;
     this.mesure = mesure;
-    this.site = site;
   }
 
   getRecordCount(site: any): number {

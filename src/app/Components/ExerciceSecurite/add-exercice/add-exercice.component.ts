@@ -37,6 +37,44 @@ export class AddExerciceComponent implements OnInit {
   @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
 
+
+
+
+
+
+
+  monde_signal_alarme: any = false
+  monde_evacuation: any = false
+  ascenseur_inutilise: any = false
+  evacuation_immediate: any = false
+  evacuation_bon_ordre: any = false
+  monde_ressemblement: any = false
+  monde_consigne: any = false
+  connaissance_incendie: any = false
+  degagement_incendie: any = false
+  materiel_operationnel: any = false
+  materiel_verifie: any = false
+  degagement_secours: any = false
+  acceuil_secours: any = false
+  mise_secours: any = false
+  interdiction_prestataire: any = false
+  blocage_portail: any = false
+  appreciation_urgence: any = false
+  centralisation_renseignements: any = false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   constructor(private fb: FormBuilder, private exs: ExerciceSecuriteService,
     private router: Router,
     private siteService: ApiSiteService,
@@ -79,13 +117,13 @@ export class AddExerciceComponent implements OnInit {
 
 
 
-      intitule: [''],
+      intitule: ['', Validators.required],
       theme: [''],
-      date: [''],
+      date: ['', Validators.required],
       scenario: [''],
       animateurs: [''],
       observateurs: [''],
-      duree: [''],
+      duree: ['', Validators.required],
       monde_signal_alarme: [''],
       monde_evacuation: [''],
       ascenseur_inutilise: [''],
@@ -121,6 +159,7 @@ export class AddExerciceComponent implements OnInit {
 
     if (this.exsecForm.valid) {
       const formData = new FormData();
+
       formData.append('titre', this.exsecForm.get('titre')?.value);
       formData.append('type_reunion', this.exsecForm.get('type_reunion')?.value);
       formData.append('date_previsionnelle_reunion', this.exsecForm.get('date_previsionnelle_reunion')?.value);
@@ -136,29 +175,30 @@ export class AddExerciceComponent implements OnInit {
       formData.append('animateurs', this.exsecForm.get('animateurs')?.value);
       formData.append('observateurs', this.exsecForm.get('observateurs')?.value);
       formData.append('duree', this.exsecForm.get('duree')?.value);
-      formData.append('monde_signal_alarme', this.exsecForm.get('monde_signal_alarme')?.value);
-      formData.append('monde_evacuation', this.exsecForm.get('monde_evacuation')?.value);
-      formData.append('ascenseur_inutilise', this.exsecForm.get('ascenseur_inutilise')?.value);
-      formData.append('evacuation_immediate', this.exsecForm.get('evacuation_immediate')?.value);
-      formData.append('evacuation_bon_ordre', this.exsecForm.get('evacuation_bon_ordre')?.value);
-      formData.append('monde_ressemblement', this.exsecForm.get('monde_ressemblement')?.value);
-      formData.append('monde_consigne', this.exsecForm.get('monde_consigne')?.value);
-      formData.append('connaissance_incendie', this.exsecForm.get('connaissance_incendie')?.value);
-      formData.append('degagement_incendie', this.exsecForm.get('degagement_incendie')?.value);
-      formData.append('materiel_operationnel', this.exsecForm.get('materiel_operationnel')?.value);
-      formData.append('materiel_verifie', this.exsecForm.get('materiel_verifie')?.value);
-      formData.append('degagement_secours', this.exsecForm.get('degagement_secours')?.value);
-      formData.append('acceuil_secours', this.exsecForm.get('acceuil_secours')?.value);
-      formData.append('mise_secours', this.exsecForm.get('mise_secours')?.value);
-      formData.append('interdiction_prestataire', this.exsecForm.get('interdiction_prestataire')?.value);
-      formData.append('blocage_portail', this.exsecForm.get('blocage_portail')?.value);
-      formData.append('appreciation_urgence', this.exsecForm.get('appreciation_urgence')?.value);
+      formData.append('monde_signal_alarme', this.monde_signal_alarme);
+      formData.append('monde_evacuation', this.monde_evacuation);
+      formData.append('ascenseur_inutilise', this.ascenseur_inutilise);
+      formData.append('evacuation_immediate', this.evacuation_immediate);
+      formData.append('evacuation_bon_ordre', this.evacuation_bon_ordre);
+      formData.append('monde_ressemblement', this.monde_ressemblement);
+      formData.append('monde_consigne', this.monde_consigne);
+      formData.append('connaissance_incendie', this.connaissance_incendie);
+      formData.append('degagement_incendie', this.degagement_incendie);
+      formData.append('materiel_operationnel', this.materiel_operationnel);
+      formData.append('materiel_verifie', this.materiel_verifie);
+      formData.append('degagement_secours', this.degagement_secours);
+      formData.append('acceuil_secours', this.acceuil_secours);
+      formData.append('mise_secours', this.mise_secours);
+      formData.append('interdiction_prestataire', this.interdiction_prestataire);
+      formData.append('blocage_portail', this.blocage_portail);
+      formData.append('appreciation_urgence', this.appreciation_urgence);
       formData.append('commentaire_appreciation', this.exsecForm.get('commentaire_appreciation')?.value);
-      formData.append('centralisation_renseignements', this.exsecForm.get('centralisation_renseignements')?.value);
+      formData.append('centralisation_renseignements', this.centralisation_renseignements);
       formData.append('commentaire', this.exsecForm.get('commentaire')?.value);
       formData.append('mesure', this.exsecForm.get('mesure')?.value);
       formData.append('site', this.exsecForm.get('site')?.value);
       formData.append('taux_conformite', this.exsecForm.get('taux_conformite')?.value);
+
 
 
       this.exs.addExerciceSecurite(formData).subscribe(

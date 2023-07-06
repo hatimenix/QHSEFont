@@ -1,4 +1,4 @@
-.btn-primary {
+/* .btn-primary {
     background-color: #FF731D;
     border-color: #FF731D;
 }
@@ -48,7 +48,6 @@ th {
 
 table {
     border-spacing: 10px;
-    /* ajustez la valeur selon vos préférences */
 }
 
 
@@ -59,7 +58,6 @@ table {
 
 .spacer {
     margin-right: 10px;
-    /* Adjust the value to set the desired space */
 }
 
 #update .modal-dialog {
@@ -100,4 +98,4 @@ table {
     height: 20px;
     border-radius: 50%;
     display: inline-block;
-}
+} */

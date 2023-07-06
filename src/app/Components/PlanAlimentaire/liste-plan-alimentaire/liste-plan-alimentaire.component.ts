@@ -118,6 +118,7 @@ export class ListePlanAlimentaireComponent {
     this.paservice.getPlanAlimentaires().subscribe(
       (data: PlanAlimentaire[]) => {
         this.planalimentaire = data;
+        this.filteredPlanAlimentaire = data;
         this.filterPlanAlimentaireByGouter(); // Call the filter method after fetching the data
         // Close all sites
         this.sites.forEach(site => {
@@ -244,7 +245,6 @@ export class ListePlanAlimentaireComponent {
 
     this.filteredPlanAlimentaire = this.planalimentaire;
 
-
     console.log('Plan Alimentaire:', this.planalimentaire);
     console.log('Filtered Plan Alimentaire:', this.filteredPlanAlimentaire);
 
@@ -259,11 +259,27 @@ export class ListePlanAlimentaireComponent {
 
 
   }
+  selectedFilter: string = 'all';
 
   get displayedplanalim(): any[] {
+
+    let filteredData: any[];
+
+    if (this.selectedFilter === 'all') {
+      filteredData = this.filteredPlanAlimentaire;
+    } else {
+      filteredData = this.filteredPlanAlimentaire.filter((ren) => ren.midi && this.selectedFilter === 'midi' ||
+        ren.matin && this.selectedFilter === 'matin' ||
+        ren.soir && this.selectedFilter === 'soir' ||
+        ren.gouter && this.selectedFilter === 'gouter');
+    }
+
     const startIndex = (this.p - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.filteredPlanAlimentaire.slice(startIndex, endIndex);
+
+    return filteredData.slice(startIndex, endIndex);
+
+
   }
 
   get totalPages(): number {
@@ -295,7 +311,7 @@ export class ListePlanAlimentaireComponent {
   }
 
   getRecordCount(site: any): number {
-    const sitePlans = this.planalimentaire.filter(plan => plan.site === site.id);
+    const sitePlans = this.filteredPlanAlimentaire.filter(plan => plan.site === site.id);
     return sitePlans.length;
   }
 
@@ -372,10 +388,8 @@ export class ListePlanAlimentaireComponent {
 
   filterConstatBySite(): void {
     const selectedSite = parseInt(this.myForm.get('site')?.value);
-    console.log(this.myForm.get('site')?.value)
 
     if (selectedSite) {
-
       this.paservice.getPlanAlimentaires().subscribe(
         (data: PlanAlimentaire[]) => {
           const ca = data;
@@ -386,16 +400,14 @@ export class ListePlanAlimentaireComponent {
 
           if (filteredMenus.length > 0) {
             this.selectedSiteId = selectedSite;
-            this.planalimentaire = filteredMenus;
+            this.filteredPlanAlimentaire = filteredMenus; // Update the filteredPlanAlimentaire array
           } else {
             console.log(`Aucun menu trouvé pour le site sélectionné: ${selectedSite}`);
-            this.planalimentaire = [];
+            this.filteredPlanAlimentaire = []; // Reset the filteredPlanAlimentaire array
           }
 
-          console.log("menus filtrés", this.planalimentaire);
+          console.log("menus filtrés", this.filteredPlanAlimentaire);
           console.log("site sélectionné", this.selectedSiteId);
-          console.log("liste des menus", this.planalimentaire);
-          console.log("menus length", this.planalimentaire.length);
 
         },
         (error: any) => {
@@ -403,13 +415,21 @@ export class ListePlanAlimentaireComponent {
         }
       );
 
+      this.sites.forEach((site) => {
+        site.expanded = site.id === selectedSite;
+      });
+
     } else {
       this.myForm.reset();
       this.selectedSiteId = undefined;
       console.log("id de ce site", this.selectedSiteId);
       this.loadData();
+      this.sites.forEach((site) => {
+        site.expanded = true;
+      });
     }
   }
+
   selectedType: string = '';
 
 
@@ -421,6 +441,8 @@ export class ListePlanAlimentaireComponent {
   }
 
   filteredPlanAlimentaire: PlanAlimentaire[] = [];
+  filteredPA: PlanAlimentaire[] = [];
+
   selectedGouter: boolean | null = null;
 
   filterPlanAlimentaireByGouter() {
@@ -455,6 +477,54 @@ export class ListePlanAlimentaireComponent {
 
     console.log('Selected Gouter:', this.selectedGouter);
     console.log('Filtered Plan Alimentaire:', this.filteredPlanAlimentaire);
+  }
+  refreshTable(filter: string): void {
+    this.selectedFilter = filter;
+  }
+
+  // filterKeyword: string = '';
+  // applyStaticFilter(keyword: string): void {
+  //   const words = keyword.toLowerCase().split(' ');
+  //   this.filteredPlanAlimentaire = this.planalimentaire.filter(item => {
+  //     const sentence = item.dessert.toLowerCase();
+  //     return words.some(word => sentence.split(' ').includes(word));
+  //   });
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+  selectedFilterDess: string = 'all';
+
+  refreshTableDess(filter: string): void {
+    this.selectedFilterDess = filter;
+    this.filterTable();
+  }
+
+  filterTable(): void {
+    if (this.selectedFilterDess === 'all') {
+      this.filteredPlanAlimentaire = this.planalimentaire;
+    } else {
+      const staticWord = this.selectedFilterDess.toLowerCase();
+
+      this.filteredPlanAlimentaire = this.planalimentaire.filter((item) => {
+        const dessert = item.dessert.toLowerCase();
+        return dessert.includes(staticWord);
+      });
+    }
+  }
+
+  resetFiltersDess(): void {
+    this.selectedFilterDess = 'all';
+    this.filteredPlanAlimentaire = this.planalimentaire;
   }
 
 
