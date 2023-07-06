@@ -9,12 +9,10 @@
 <div class="content-page custom-background">
   <div class="container-fluid">
     <div class="row">
-    
-     
-      <div class="col-lg-12 d-flex justify-content-center align-items-center mb-4">
-        <div class="container">
-          <div class="card-body text-center">
-            <h2 class="card-title" style="font-size: 23px; font-weight: bold; color: #089bd7; padding: 10px; border-radius: 10px; border: 1px solid #089bd7;">Portail QHSE</h2>
+      <div class="col-lg-12 d-flex justify-content-center align-items-center mb-0">
+        <div class="container ">
+          <div class=" text-center mb-0">
+            <h2 class="card-title text-left" style="font-size: 23px; font-weight: bold; margin-top: -1%;">Portail QHSE</h2>
           </div>
           <div id="carouselExample" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -74,68 +72,221 @@
               <a class="nav-link" id="constat-tab" data-toggle="tab" href="#constats" role="tab" aria-controls="constats" aria-selected="true">Mes constats d'audit</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mes non-conformités</a>
-            <h4 class="mb-3"
-              style="font-size: 23px; font-weight: bold; color: #089bd7; padding: 10px; border-radius: 10px; border: 1px solid #089bd7;">
-              Tableau de bord</h4>
-          </div>
-          <ul class="nav nav-tabs" id="myTab-1" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                aria-selected="true">Mes non-conformités</a>
+              <a class="nav-link" id="tache-tab" data-toggle="tab" href="#taches" role="tab" aria-controls="taches" aria-selected="true">Mes tâches</a>
             </li>
-          </ul>
-          <div class="col-lg-12">
-            <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-              <div class="table-responsive rounded mb-3">
-                <table class="data-tables table mb-0 tbl-server-info">
-                  <thead>
-                    <tr class="light ligth-data">
-                      <th>
-                        <div class="checkbox d-inline-block">
-                          <input type="checkbox" class="checkbox-input" id="checkbox1">
-                          <label for="checkbox1" class="mb-0"></label>
-                        </div>
-                      </th>
-                      <th scope="col">
-                        <a>Intitulé de la non-conformité</a>
-
-                      </th>
-                      <th scope="col">Nature</th>
-                      <th scope="col">Date_nc</th>
-                      <th scope="col">Avancement</th>
-                    </tr>
-                  </thead>
-                  <tbody class="ligth-body">
-                    <tr *ngFor="let nc of ncs  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
-                    <tr *ngFor="let nc of ncs  let i = index"
-                      [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
-                      <th scope="row" style="color: grey;">{{nc.id}}</th>
-                      <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
-                      <td>{{nc.nature}}</td>
-                      <td>{{ nc.date_nc | date }}</td>
-                      <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
-                          <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress"
-                            [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
-                            {{ nc.progress }}%
+            <li class="nav-item">
+              <a class="nav-link" id="favoris-tab" data-toggle="tab" href="#favoris" role="tab" aria-controls="favoris" aria-selected="true">Mes favoris</a>
+            </li>
+           </ul>
+          
+           <!-- Tab panes -->
+          
+          <div class="tab-content" id="myTabContent-1">
+          
+            <!-- Mes actions tab content -->
+            <div class="tab-pane fade" id="actions" role="tabpanel" aria-labelledby="actions-tab">
+              <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-0">
+                <div class="table-responsive rounded mb-0">
+                  <table class="data-tables table mb-0 tbl-server-info">
+                    <thead>
+                      <tr class="light ligth-data">
+                        <th>
+                          <div class="checkbox d-inline-block">
+                            <input type="checkbox" class="checkbox-input" id="checkbox2">
+                            <label for="checkbox2" class="mb-0"></label>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                        </th>
+                        <th scope="col">
+                          <a>Intitulé de l'action</a>
+                        </th>
+                        <th scope="col">Domaine</th>
+                        <th scope="col">Type d'action</th>
+                        <th scope="col">Site</th>
+                        <th scope="col">Délai mise en oeuvre</th>
+                        <th scope="col">Etat</th>
+                      </tr>
+                    </thead>
+                    <tbody class="ligth-body">
+                      <tr *ngFor="let action of actions; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                        <th scope="row" style="color: grey;">{{action.id}}</th>
+                        <td><a routerLink="/action/{{ action.id }}">{{action.intitule}}</a></td>
+                        <td>{{action.origine_action}}</td>
+                        <td>{{ action.type_action}}</td>
+                        <td>{{ action.site}}</td>
+                        <td>{{ action.delai_mise_en_oeuvre}}</td>
+                        <td>{{ action.etat}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
+            <!-- End of Mes actions tab content -->
+          
+            <!-- Mes non-conformités tab content -->
+            <div class="tab-pane fade show active" id="ncs" role="tabpanel" aria-labelledby="nc-tab">
+              <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-0">
+                <div class="table-responsive rounded mb-0">
+                  <table class="data-tables table mb-0 tbl-server-info">
+                    <thead>
+                      <tr class="light ligth-data">
+                        <th>
+                          <div class="checkbox d-inline-block">
+                            <input type="checkbox" class="checkbox-input" id="checkbox2">
+                            <label for="checkbox2" class="mb-0"></label>
+                          </div>
+                        </th>
+                        <th scope="col">
+                          <a>Intitulé de la non-conformité</a>
+                        </th>
+                        <th scope="col">Nature</th>
+                        <th scope="col">Date_nc</th>
+                        <th scope="col">Avancement</th>
+                      </tr>
+                    </thead>
+                    <tbody class="ligth-body">
+                      <tr *ngFor="let nc of ncs; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                        <th scope="row" style="color: grey;">{{nc.id}}</th>
+                        <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
+                        <td>{{nc.nature}}</td>
+                        <td>{{ nc.date_nc | date }}</td>
+                        <td>
+                          <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
+                              {{ nc.progress }}%
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- End of Mes non-conformités tab content -->
+          
+            <!-- Mes constats d'audit tab content -->
+            <div class="tab-pane fade" id="constats" role="tabpanel" aria-labelledby="constat-tab">
+              <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-0">
+                <div class="table-responsive rounded mb-0">
+                  <table class="data-tables table mb-0 tbl-server-info">
+                    <thead>
+                      <tr class="light ligth-data">
+                        <th>
+                          <div class="checkbox d-inline-block">
+                            <input type="checkbox" class="checkbox-input" id="checkbox2">
+                            <label for="checkbox2" class="mb-0"></label>
+                          </div>
+                        </th>
+                        <th scope="col">
+                          <a>Intitulé du constat</a>
+                        </th>
+                        <th scope="col">Type de constat</th>
+                        <th scope="col">Processus</th>
+                        <th scope="col">Site</th>
+                      </tr>
+                    </thead>
+                    <tbody class="ligth-body">
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- End of Mes constats d'audit tab content -->
+          
+            <!-- Mes tâches tab content -->
+            <div class="tab-pane fade" id="taches" role="tabpanel" aria-labelledby="tache-tab">
+              <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-0">
+                <div class="table-responsive rounded mb-0">
+                  <table class="data-tables table mb-0 tbl-server-info">
+                    <thead>
+                      <tr class="light ligth-data">
+                        <th>
+                          <div class="checkbox d-inline-block">
+                            <input type="checkbox" class="checkbox-input" id="checkbox2">
+                            <label for="checkbox2" class="mb-0"></label>
+                          </div>
+                        </th>
+                        <th scope="col">
+                          <a>Nom de la tâche</a>
+                        </th>
+                        <th scope="col">Echéance</th>
+                        <th scope="col">Priorité </th>
+                        <th scope="col">Etat</th>
+                        <th scope="col">Processus </th>
+                        <th scope="col">
+                          Lien élément déclencheur</th>
+                      </tr>
+                    </thead>
+                    <tbody class="ligth-body">
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Mes favoris tab content -->
+            <div class="tab-pane fade" id="favoris" role="tabpanel" aria-labelledby="favoris-tab">
+              <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-0">
+                <div class="table-responsive rounded mb-0">
+                  <table class="data-tables table mb-0 tbl-server-info">
+                    <thead>
+                      <tr class="light ligth-data">
+                        <th>
+                          <div class="checkbox d-inline-block">
+                            <input type="checkbox" class="checkbox-input" id="checkbox2">
+                            <label for="checkbox2" class="mb-0"></label>
+                          </div>
+                        </th>
+                        
+                        <th scope="col">Objet</th>
+                        <th scope="col">Favoris </th>
+                        
+                    </thead>
+                    <tbody class="ligth-body">
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>            </div>
+          
           </div>
-        </div>
-        <div class="col-lg-5">
-          <h4 class="card-title mb-2" style="font-weight: bold;font-size: 23px;color: #089bd7;">Vous êtes sur le portail QHSE !</h4>
-          <div class="card" style="margin-top: 3%;">
-            <div class="card-header" style="background-color: #a9ce24; color: white;">
-              <h4 class="card-title mb-1" style="font-weight: bold;">Actualités</h4>
-              <p class="card-text">Vous pouvez profiter de votre page d'accueil pour mettre en avant vos actualités.</p>
+          <!-- End of Tab panes -->
+          <!-- End of Mes constats d'audit  tab content -->
+
+        <!-- Mes tâches  tab content --> 
+        <div class="tab-pane fade" id="constats" role="tabpanel" aria-labelledby="constat-tab">
+          <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-0">
+            <div class="table-responsive rounded mb-0">
+              <table class="data-tables table mb-0 tbl-server-info">
+                <thead>
+                  <tr class="light ligth-data">
+                    <th>
+                      <div class="checkbox d-inline-block">
+                        <input type="checkbox" class="checkbox-input" id="checkbox2">
+                        <label for="checkbox2" class="mb-0"></label>
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <a>Intitulé du constat</a>
+                    </th>
+                    <th scope="col">Type de constat</th>
+                    <th scope="col">Processus</th>
+                    <th scope="col">Site</th>
+                  </tr>
+                </thead>
+                <tbody class="ligth-body">
+                  <tr *ngFor="let action of actions  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                    <th scope="row" style="color: grey;">{{action.id}}</th>
+                    <td><a routerLink="/action/{{ action.id }}">{{action.intitule}}</a></td>
+                    <td>{{action.origine_action}}</td>
+                    <td>{{ action.type_action}}</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -166,5 +317,4 @@
     </div>
   </div>
 </div>
-
 

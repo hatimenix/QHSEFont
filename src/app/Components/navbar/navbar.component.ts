@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
 import { GroupeUser } from 'src/app/models/GroupeUser';
@@ -18,48 +19,31 @@ export class NavbarComponent {
   group : GroupeUser | null=null
   id!:any
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.getUserDetails();
-    // this.getGroupDetails();
     
   }
+  getUserDetails(): void {
+    this.authService.getUserDetails().subscribe(
+      (response: UserApp) => {
+        this.user = response;
+        console.log('User details:', this.user);
+        console.log('User image URL:', this.user?.image);
 
- getUserDetails(): void {
-  this.authService.getUserDetails().subscribe(
-    (response: UserApp) => {
-      this.user = response;
-      console.log('User details:', this.user);
-    },
-    (error: any) => {
-      console.error(error);
-    }
-  );
-}
-// getGroupDetails(): void {
-//   this.authService.getGroupDetails().subscribe(
-//     (response: GroupeUser ) => {
-//       this.group = response;
-//       console.log('Group details:', this.group);
-//     },
-//     (error: any) => {
-//       console.error( error);
-//     }
-//   );
-// }
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
 
-  
-  
-  
+
   onLogout(): void {
     this.authService.logout();
     localStorage.removeItem('user');
     this.user = null;
     this.router.navigate(['/']);
   }
- 
-
-  
-  
 }

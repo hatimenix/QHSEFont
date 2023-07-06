@@ -60,7 +60,6 @@
     padding: 10px 20px; /* Adjust the padding as needed */
     background-color: #ffffff; /* Set the background color of the card header */
     border-bottom: 1px solid #dee2e6;
-    width: 1245px;
     height: 50px; /* Add a bottom border */
   }
   .card-headerH {
