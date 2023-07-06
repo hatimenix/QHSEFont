@@ -1,10 +1,10 @@
-<div class="content-page">
-    <div class="container-fluid">
+<div class="content-page custom-background">
+  <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
           
            <div class="card">
-              <div class="card-header d-flex justify-content-between" style="background-color:#17469d; color:white;">
+              <div class="card-headers d-flex justify-content-between" style="background-color:#17469d; color:white;">
                  <div class="header-title">
                     <h4 class="card-title">Suivi des non-conformités</h4>
                  </div>
@@ -372,7 +372,7 @@
                   
                   <div class="d-flex align-items-end flex-column" >
                    <div class="mt-auto p-2">
-                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="actionForm.invalid"><i class="fas fa-plus"></i>Ajouter</button>
+                     <button type="submit" class="btn " style="background-color: #ffd140; color:white;" [disabled]="actionForm.invalid"><i class="fas fa-plus"></i>Ajouter</button>
                      <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
                   </div>
                   </div>
@@ -529,7 +529,7 @@
 
 <div class="d-flex align-items-end flex-column">
 <div class="mt-auto p-2">
-<button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+<button type="submit" class="btn " style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
 <button type="button" class="btn bg-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
 </div>
 </div>
@@ -565,6 +565,6 @@ L'action a été modifié avec succès.
 L'action a été ajoutée avec succès.
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+<button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
 </div>
 </ng-template>

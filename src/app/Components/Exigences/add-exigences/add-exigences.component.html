@@ -1,12 +1,12 @@
-<div class="content-page">
-    <div class="container-fluid add-form-list">
+<div class="content-page custom-background">
+  <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
             <div style="display: flex; flex-direction: column;">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter une exigence</h4>
+                           <h4>Ajouter une exigence</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -69,8 +69,8 @@
                                          </div>
                                     </form>
        <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
-        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createExigence()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
-        <button style="margin-bottom: 1%;" type="reset" routerLink="/exigence-list" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createExigence()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+        <button style="margin-bottom: 1%;" type="reset" routerLink="/exigence-list" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
       </div>
       
        </div>

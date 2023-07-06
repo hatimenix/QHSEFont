@@ -1,15 +1,15 @@
-<div class="content-page">
+<div class="content-page custom-background">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
-        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-2">
           <div>
-            <h4 class="mb-2">Cartographie des risques</h4>
+            <h4 style="font-size: 18px; font-weight: bold; color: #089bd7">Cartographie des risques</h4>
           </div>
         </div>
       </div>
     </div>
-    <div class="mb-1">
+    <div class="mb-3" style="margin-left: -1.5%;">
       <a class="btn btn-link text-primary" routerLink="/add-risque">
         <span class="fa-stack">
           <i class="fas fa-circle fa-stack-2x"></i>
@@ -23,8 +23,8 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="card border-success">
-          <div class="card-header bg-success">
-            <h4 class="card-title">Risque faible</h4>
+          <div class="card-headers bg-success">
+            <h4 class="card-title" style="color: white;">Risque faible</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
@@ -54,10 +54,10 @@
         </div>
       </div>
 
-      <div class="col-lg-4" *ngIf="isRisqueModereVisible">
+      <div class="col-lg-4">
         <div class="card border-warning">
-          <div class="card-header bg-warning">
-            <h4 class="card-title">Risque modéré</h4>
+          <div class="card-headers bg-warning">
+            <h4 class="card-title" style="color: white;">Risque modéré</h4>
           </div>
           <div class="card-body">
             <table class="table table-striped">
@@ -85,10 +85,10 @@
         </div>
       </div>
 
-      <div class="col-lg-4" *ngIf="isRisqueEleveVisible">
+      <div class="col-lg-4">
         <div class="card border-danger">
-          <div class="card-header bg-danger">
-            <h4 class="card-title">Risque élevé</h4>
+          <div class="card-headers bg-danger">
+            <h4 class="card-title" style="color: white;">Risque élevé</h4>
           </div>
           <div class="card-body">
             <table class="table table-striped">
@@ -116,11 +116,11 @@
         </div>
       </div>
     </div>
-    <div class="row"></div>
+    <div class="row">
     <div class="col-lg-12">
       <div class="card border-primary">
-        <div class="card-header bg-primary">
-          <h4 class="card-title">Risques à évaluer</h4>
+        <div class="card-headers bg-primary">
+          <h4 class="card-title" style="color: white;">Risques à évaluer</h4>
         </div>
         <div class="card-body">
           <table class="table table-striped">
@@ -142,13 +142,14 @@
                       <a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a>
                     </td>
                     <td>{{analyseRisque.typologie}}</td>
-                    <td>{{analyseRisque.Proccesus_name}}</td>
+                    <td>{{analyseRisque.processus_name}}</td>
                   </tr>
                 </ng-container>
               </ng-container>
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </div>
     

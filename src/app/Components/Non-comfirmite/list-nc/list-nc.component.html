@@ -1,16 +1,19 @@
-<div class="content-page">
+<div class="content-page custom-background">
   <div class="container-fluid">
+    <div class="card">
      <div class="row">
          <div class="col-lg-12">
-             <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-              <div>
-                <h4 class="mb-3">Suivi des non-conformités</h4>
+          <div class="card-header d-flex justify-content-between ">
+            <div class="header-title">
+              <h4 class="card-title">Suivi des non-conformités</h4>
             </div>
-                 <a (click)="navigateToNc()" class="btn btn-warning add-list" style="color: white;"><i class="las la-plus mr-3"></i>Ajouter une non-conformité</a>
-             </div>
-         </div>
-
+            <a (click)="navigateToNc()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%;">
+              <i class="las la-plus"></i> Ajouter une non-conformité
+            </a>
+            </div>
+            </div>
         </div>
+        <div class="card-body">
         <div class="row justify-content-start">
           <div class="input-group mb-4 col-md-4">
             <div class="input-group-prepend">
@@ -113,12 +116,20 @@
 
          <div>
           <div class="row justify-content-between">
-          <div>
-          <button class="btn " (click)="filterByEtatTrue()"> NC en cours</button>
-          <button class="btn " (click)="filterByEtatFalse()">NC closes</button>
-          <button class="btn " (click)="getNcs()">Toutes les NCs</button>
-          <button class="btn " (click)="exportToExcel()"><i class="fas fa-file-excel mr-1"></i>Export excel</button>
-        </div>
+            <div style="margin-left: 1.5%;">
+              <button class="btn btn-outline-secondary waves-effect" (click)="filterByEtatTrue()">
+                <i class="fas fa-spinner mr-1"></i> NC en cours
+              </button>
+              <button class="btn btn-outline-warning waves-effect" (click)="filterByEtatFalse()">
+                <i class="fas fa-check-circle mr-1"></i> NC closes
+              </button>
+              <button class="btn btn-outline-danger waves-effect" (click)="getNcs()">
+                <i class="fas fa-list-alt mr-1"></i> Toutes les NCs
+              </button>
+              <button class="btn btn-outline-success waves-effect" (click)="exportToExcel()">
+                <i class="fas fa-file-excel mr-1"></i> Export excel
+              </button>
+            </div>
             <div class="dropdown">
               <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -250,7 +261,7 @@
 
                       <td>
                         <div class="d-flex justify-content-start align-items-center list-action">
-                          <a class="badge bg-primary mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="get_url_file(nc.id); getNcData(nc.id, nc.intitule, nc.nature, nc.domaine, nc.detail_cause, nc.date_nc, nc.date_prise_en_compte, nc.description_detailee, nc.annee, nc.mois, nc.delai_prevu, nc.type_cause, nc.cout, nc.progress, nc.info_complementaires, nc.frequence, nc.gravite, nc.action_immediate, nc.nc_cloture, nc.site, nc.processus, nc.responsable_traitement)" data-placement="top" title="" data-original-title="Edit"><i class="ri-pencil-line mr-0"></i>                                                              </a>
+                          <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="get_url_file(nc.id); getNcData(nc.id, nc.intitule, nc.nature, nc.domaine, nc.detail_cause, nc.date_nc, nc.date_prise_en_compte, nc.description_detailee, nc.annee, nc.mois, nc.delai_prevu, nc.type_cause, nc.cout, nc.progress, nc.info_complementaires, nc.frequence, nc.gravite, nc.action_immediate, nc.nc_cloture, nc.site, nc.processus, nc.responsable_traitement)" data-placement="top" title="" data-original-title="Edit"><i class="ri-pencil-line mr-0"></i>                                                              </a>
 
                           <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete">
                             <i class="ri-delete-bin-line mr-0"></i>
@@ -284,6 +295,7 @@
             </div>          
           </div>
      </div>
+     </div>
 
       <!-- Modal -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -300,8 +312,8 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-warning" (click)="deleteItem()" ><i class="fas fa-trash"></i>Supprimer</button>
-      <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+      <button type="button" class="btn btn-primary" (click)="deleteItem()" ><i class="fas fa-trash"></i>Supprimer</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>
 </div>
@@ -528,7 +540,7 @@ aria-hidden="true">
     <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
     <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
     <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
-    <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image" alt="Image"></p>
+    <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image" alt="image"></p>
     <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
     <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
     <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
