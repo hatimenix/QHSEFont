@@ -199,6 +199,9 @@ export class ListConstatsComponent implements OnInit {
   }
 
 
+
+
+
   resetSearchQuery() {
     this.searchQuery = '';
   }
@@ -241,7 +244,11 @@ export class ListConstatsComponent implements OnInit {
     formData.append('description_constat', this.description_constat);
     if (this.rapport_audit !== null && this.rapport_audit !== undefined) {
       formData.append("rapport_audit", this.rapport_audit);
-    } this.responsable_traitement.forEach((responsable_traitementId: number) => {
+
+
+    }
+
+    this.responsable_traitement.forEach((responsable_traitementId: number) => {
       formData.append('responsable_traitement', responsable_traitementId.toString());
 
     })

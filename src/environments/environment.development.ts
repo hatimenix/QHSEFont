@@ -51,6 +51,8 @@ export const environment = {
     API_certificat_calibration: "http://127.0.0.1:8001/CertificatCalibration/",
     API_constatAudit: "http://127.0.0.1:8001/constataudit/",
     API_plan_alimentaire: "http://127.0.0.1:8001/planalimentaire/",
+    API_exercice_securite: "http://127.0.0.1:8001/exercicesecurite/",
+    API_reunion: "http://127.0.0.1:8001/reunion/",
     API_AxesStrategique: "http://127.0.0.1:8001/AxesStrategiques/",
 
 

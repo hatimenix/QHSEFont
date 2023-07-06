@@ -7558,7 +7558,7 @@ button:focus {
   justify-content: flex-end; }
   .user-list-files a {
     padding: 10px 15px;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 30px;
     border-radius: 5px;
     line-height: normal; }
 

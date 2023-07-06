@@ -11,11 +11,11 @@
                     <div class="card-body">
                         <form action="page-list-returns.html" data-toggle="validator" [formGroup]="planALimentaireForm"
                             (ngSubmit)="onSubmit()">
-                            <div class="row">
+                            <!-- <div class="row">
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Matin <label style="color: red;">*</label></label>
+                                        <label>Matin </label>
                                         <select id="matin" name="matin" formControlName="matin" class="custom-select"
                                             data-style="py-0">
                                             <option [ngValue]="true">
@@ -28,7 +28,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Client<label style="color: red;">*</label></label>
+                                        <label>Client</label>
                                         <input type="text" class="form-control" placeholder="Entrer le non du client"
                                             id="client" name="client" formControlName="client">
                                         <div class="help-block with-errors"></div>
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Régime<label style="color: red;">*</label></label>
+                                        <label>Régime</label>
                                         <input type="text" class="form-control" placeholder="Entrer le Régime"
                                             id="regime" name="regime" formControlName="regime">
                                         <div class="help-block with-errors"></div>
@@ -48,7 +48,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Midi <label style="color: red;">*</label></label>
+                                        <label>Midi </label>
                                         <select id="midi" name="midi" formControlName="midi" class="custom-select"
                                             data-style="py-0">
                                             <option [ngValue]="true">
@@ -61,7 +61,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>ALcool<label style="color: red;">*</label></label>
+                                        <label>ALcool</label>
                                         <select id="alcool" name="alcool" formControlName="alcool" class="custom-select"
                                             data-style="py-0">
                                             <option [ngValue]="true">
@@ -75,7 +75,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Soir<label style="color: red;">*</label></label>
+                                        <label>Soir</label>
                                         <select id="soir" name="soir" formControlName="soir" class="custom-select"
                                             data-style="py-0">
                                             <option [ngValue]="true">
@@ -91,7 +91,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Spécificité dièt. matin <label style="color: red;">*</label></label>
+                                        <label>Spécificité dièt. matin </label>
                                         <textarea formControlName="specificite_diet_matin" class="form-control"
                                             id="specificite_diet_matin" name="specificite_diet_matin"
                                             rows="4"></textarea>
@@ -102,7 +102,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Texture<label style="color: red;">*</label></label>
+                                        <label>Texture</label>
                                         <textarea formControlName="texture" class="form-control" id="texture"
                                             name="texture" rows="4"></textarea>
 
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Spécificité midi<label style="color: red;">*</label></label>
+                                        <label>Spécificité midi</label>
                                         <textarea formControlName="specificites_midi" class="form-control"
                                             id="specificites_midi" name="specificites_midi" rows="4"></textarea>
 
@@ -124,7 +124,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Dessert<label style="color: red;">*</label></label>
+                                        <label>Dessert</label>
                                         <input type="text" class="form-control" placeholder="Entrer le dessert"
                                             id="dessert" name="dessert" formControlName="dessert">
                                         <div class="help-block with-errors"></div>
@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Menu velours matin<label style="color: red;">*</label></label>
+                                        <label>Menu velours matin</label>
                                         <select id="menu_velours_matin" name="menu_velours_matin"
                                             formControlName="menu_velours_matin" class="custom-select"
                                             data-style="py-0">
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Soupe midi<label style="color: red;">*</label></label>
+                                        <label>Soupe midi</label>
                                         <input type="text" class="form-control" placeholder="Entrer la soupe de midi"
                                             id="soupe_midi" name="soupe_midi" formControlName="soupe_midi">
                                         <div class="help-block with-errors"></div>
@@ -158,7 +158,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Soupe soir<label style="color: red;">*</label></label>
+                                        <label>Soupe soir</label>
                                         <input type="text" class="form-control" placeholder="Entrer la soupe du soir"
                                             id="soupe_soir" name="soupe_soir" formControlName="soupe_soir">
                                         <div class="help-block with-errors"></div>
@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Taille portion<label style="color: red;">*</label></label>
+                                        <label>Taille portion</label>
 
 
                                         <input type="text" class="form-control"
@@ -177,7 +177,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Statut<label style="color: red;">*</label></label>
+                                        <label>Statut</label>
                                         <select id="statut" name="statut" formControlName="statut" class="custom-select"
                                             data-style="py-0">
                                             <option [ngValue]="true">
@@ -193,7 +193,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Spécificité Dessert<label style="color: red;">*</label></label>
+                                        <label>Spécificité Dessert</label>
                                         <textarea formControlName="specificite_dessert" class="form-control"
                                             id="specificite_dessert" name="specificite_dessert" rows="4"></textarea>
 
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Spécificité Resto matin<label style="color: red;">*</label></label>
+                                        <label>Spécificité Resto matin</label>
                                         <textarea formControlName="specifite_resto_matin" class="form-control"
                                             id="specifite_resto_matin" name="specifite_resto_matin" rows="4"></textarea>
 
@@ -209,7 +209,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Spécificité Gouter<label style="color: red;">*</label></label>
+                                        <label>Spécificité Gouter</label>
                                         <textarea formControlName="specifite_gouter" class="form-control"
                                             id="specifite_gouter" name="specifite_gouter" rows="4"></textarea>
                                     </div>
@@ -221,7 +221,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gouter<label style="color: red;">*</label></label>
+                                        <label>Gouter</label>
                                         <select id="gouter" name="gouter" formControlName="gouter" class="custom-select"
                                             data-style="py-0">
                                             <option [ngValue]="true">
@@ -233,7 +233,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Localisation repas<label style="color: red;">*</label></label>
+                                        <label>Localisation repas</label>
                                         <input type="text" class="form-control" placeholder=" localisation du repas"
                                             id="localisation_repas" name="localisation_repas"
                                             formControlName="localisation_repas">
@@ -242,7 +242,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Menu velours soir<label style="color: red;">*</label></label>
+                                        <label>Menu velours soir</label>
                                         <select id="menu_velours_soir" name="menu_velours_soir"
                                             formControlName="menu_velours_soir" class="custom-select" data-style="py-0">
                                             <option [ngValue]="true">
@@ -258,7 +258,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Spécificité Diet soir<label style="color: red;">*</label></label>
+                                        <label>Spécificité Diet soir</label>
                                         <textarea formControlName="specificite_diet_soir" class="form-control"
                                             id="specificite_diet_soir" name="specificite_diet_soir" rows="4"></textarea>
 
@@ -266,7 +266,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Spécificité Resto soir<label style="color: red;">*</label></label>
+                                        <label>Spécificité Resto soir</label>
                                         <textarea formControlName="specificite_resto_soir" class="form-control"
                                             id="specificite_resto_soir" name="specificite_resto_soir"
                                             rows="4"></textarea>
@@ -277,7 +277,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Autres info utiles<label style="color: red;">*</label></label>
+                                        <label>Autres info utiles</label>
                                         <textarea formControlName="autres_infos_utiles" class="form-control"
                                             id="autres_infos_utiles" name="autres_infos_utiles" rows="4"></textarea>
                                     </div>
@@ -289,7 +289,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Allérgie / Intolérance<label style="color: red;">*</label></label>
+                                        <label>Allérgie / Intolérance</label>
                                         <input type="text" class="form-control" placeholder=" Allérgie / Intolérance"
                                             id="allergie_intolerance" name="allergie_intolerance"
                                             formControlName="allergie_intolerance">
@@ -298,7 +298,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Convictions alimentaires<label style="color: red;">*</label></label>
+                                        <label>Convictions alimentaires</label>
                                         <input type="text" class="form-control" placeholder=" Conviction alimentaire"
                                             id="convictions_alimentaires" name="convictions_alimentaires"
                                             formControlName="convictions_alimentaires">
@@ -308,7 +308,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Site <label style="color: red;">*</label></label>
+                                        <label>Site </label>
                                         <select id="site" name="site" formControlName="site" class="custom-select"
                                             data-style="py-0">
                                             <option *ngFor="let site of site$ | async" [value]="site.id">
@@ -354,7 +354,840 @@
                                 <button type="reset" class="btn btn-danger"
                                     routerLink="/constatsaudit-list">Annuler</button>
 
+                            </div> -->
+
+
+                            <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill"
+                                        href="#pills-home-fill" role="tab" aria-controls="pills-home"
+                                        aria-selected="true">Informations générales</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill"
+                                        href="#pills-profile-fill" role="tab" aria-controls="pills-profile"
+                                        aria-selected="false">Evaluation diététique</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel"
+                                    aria-labelledby="pills-home-tab-fill">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Client</label>
+                                                <input type="text" class="form-control"
+                                                    placeholder="Entrer le non du client" id="client" name="client"
+                                                    formControlName="client">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Site </label>
+                                                <select id="site" name="site" formControlName="site"
+                                                    class="custom-select" data-style="py-0">
+                                                    <option *ngFor="let site of site$ | async" [value]="site.id">
+                                                        {{ site.site_nom }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                    <div class="row">
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Localisation repas</label>
+
+                                                <select id="localisation_repas" name="localisation_repas"
+                                                    formControlName="localisation_repas" class="custom-select"
+                                                    data-style="py-0">
+                                                    <option value="restaurant">Restaurant</option>
+                                                    <option value="secteur fermé">Secteur fermé</option>
+                                                    <option value="foyer">Foyer</option>
+                                                </select>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>ALcool</label>
+                                                <select id="alcool" name="alcool" formControlName="alcool"
+                                                    class="custom-select" data-style="py-0">
+                                                    <option [ngValue]="true">
+                                                        Oui</option>
+                                                    <option [ngValue]="false">
+                                                        Non</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+                                    <div class="row">
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Allérgie / Intolérance</label>
+                                                <input type="text" class="form-control"
+                                                    placeholder=" Allérgie / Intolérance" id="allergie_intolerance"
+                                                    name="allergie_intolerance" formControlName="allergie_intolerance">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label>Texture</label>
+                                            <div class="checkbox-list">
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox" [value]="'Risque de fausse route'"
+                                                            (change)="toggleCheckbox('Risque de fausse route', 'texture')">
+                                                        Risque de fausse route
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox"
+                                                            [value]="'Vinue coupée / IDDSI 6 (Petits morceaux tendres, taille d une'"
+                                                            (change)="toggleCheckbox('                                                        bouchée)', 'texture')">
+                                                        Vinue coupée / IDDSI 6 (Petits morceaux tendres, taille d'une
+                                                        bouchée)
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox"
+                                                            [value]="'    Tout coupé / IDDSI 6 (Petits morceaux tendres, taille d une'"
+                                                            (change)="toggleCheckbox('                                                        bouchée)', 'texture')">
+                                                        Tout coupé / IDDSI 6 (Petits morceaux tendres, taille d'une
+                                                        bouchée)
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox" [value]="'                                                        Viande hachée fine / IDDSI 5 (finement haché, lubrifié)
+'" (change)="toggleCheckbox('                                                        Viande hachée fine / IDDSI 5 (finement haché, lubrifié)
+', 'texture')">
+                                                        Viande hachée fine / IDDSI 5 (finement haché, lubrifié)
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox"
+                                                            [value]="'  Tout haché fin / IDDSI 5 (finement haché, lubrifié)'"
+                                                            (change)="toggleCheckbox('  Tout haché fin / IDDSI 5 (finement haché, lubrifié)', 'texture')">
+                                                        Tout haché fin / IDDSI 5 (finement haché, lubrifié)
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox" [value]="'                                                        Viande/poisson velours / IDDSI 4 (mixé lisse)
+'" (change)="toggleCheckbox('                                                        Viande/poisson velours / IDDSI 4 (mixé lisse)
+', 'texture')">
+                                                        Viande/poisson velours / IDDSI 4 (mixé lisse)
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox" [value]="'                                                        Tout velours / IDDSI 4 (mixé lisse)
+'" (change)="toggleCheckbox('                                                        Tout velours / IDDSI 4 (mixé lisse)
+', 'texture')">
+                                                        Tout velours / IDDSI 4 (mixé lisse)
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox" [value]="'                                                        Liquide / IDDSI 3
+'" (change)="toggleCheckbox('                                                        Liquide / IDDSI 3
+', 'texture')">
+                                                        Liquide / IDDSI 3
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox" [value]="'                                                        Finger food
+'" (change)="toggleCheckbox('                                                        Finger food
+', 'texture')">
+                                                        Finger food
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Autres info utiles</label>
+                                                <textarea formControlName="autres_infos_utiles" class="form-control"
+                                                    id="autres_infos_utiles" name="autres_infos_utiles"
+                                                    rows="4"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel"
+                                    aria-labelledby="pills-profile-tab-fill">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Dessert</label>
+                                                <input type="text" class="form-control" placeholder="Entrer le dessert"
+                                                    id="dessert" name="dessert" formControlName="dessert">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Menu velours matin</label>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" [formControlName]="'menu_velours_matin'"
+                                                            (change)="toggleMenuVeloursMatin($event)">
+                                                        {{ planALimentaireForm.get('menu_velours_matin')?.value ? 'Oui'
+                                                        : 'Non' }}
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Régime</label>
+                                                <div class="checkbox-list">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Riche en fibres (35g/j)"
+                                                                (change)="toggleCheckbox('Riche en fibres (35g/j)', 'regime')">
+                                                            Riche en fibres (35g/j)
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                value="Pauvre en fibres stricte (10-14g/j)"
+                                                                (change)="toggleCheckbox('Pauvre en fibres stricte (10-14g/j)', 'regime')">
+                                                            Pauvre en fibres stricte (10-14g/j)
+                                                        </label>
+                                                    </div>
+
+                                                    <!-- Add the remaining checkboxes with their respective labels and values -->
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Sans gluten"
+                                                                (change)="toggleCheckbox('Sans gluten', 'regime')">
+                                                            Sans gluten
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Sans lactose"
+                                                                (change)="toggleCheckbox('Sans lactose', 'regime')">
+                                                            Sans lactose
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Sans fructose"
+                                                                (change)="toggleCheckbox('Sans fructose', 'regime')">
+                                                            Sans fructose
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Pauvre en fibres (15-20g/j)"
+                                                                (change)="toggleCheckbox('Pauvre en fibres (15-20g/j)', 'regime')">
+                                                            Pauvre en fibres (15-20g/j)
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="IRC"
+                                                                (change)="toggleCheckbox('IRC', 'regime')">
+                                                            IRC
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Hyposodé"
+                                                                (change)="toggleCheckbox('Hyposodé', 'regime')">
+                                                            Hyposodé
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Enrichi"
+                                                                (change)="toggleCheckbox('Enrichi', 'regime')">
+                                                            Enrichi
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Diabétique"
+                                                                (change)="toggleCheckbox('Diabétique', 'regime')">
+                                                            Diabétique
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Alimentation plaisir"
+                                                                (change)="toggleCheckbox('Alimentation plaisir', 'regime')">
+                                                            Alimentation plaisir
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Dialyse"
+                                                                (change)="toggleCheckbox('Dialyse', 'regime')">
+                                                            Dialyse
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Personnalisé"
+                                                                (change)="toggleCheckbox('Personnalisé', 'regime')">
+                                                            Personnalisé
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Spécificité Dessert</label>
+
+                                                <input type="text" class="form-control"
+                                                    placeholder="Spécificité Dessert" id="specificite_dessert"
+                                                    name="specificite_dessert" formControlName="specificite_dessert">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Spécificité Resto matin<label
+                                                        style="color: red;">*</label></label>
+
+                                                <input type="text" class="form-control"
+                                                    placeholder="Spécificité Resto matin" id="specifite_resto_matin"
+                                                    name="specifite_resto_matin"
+                                                    formControlName="specifite_resto_matin">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Spécificité Gouter</label>
+
+                                                <input type="text" class="form-control" placeholder="Spécificité Gouter"
+                                                    id="specifite_gouter" name="specifite_gouter"
+                                                    formControlName="specifite_gouter">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nombre des mesurettes de Nutilis ou texture IDDSI<label
+                                                        style="color: red;">*</label></label>
+                                                <input type="text" class="form-control"
+                                                    placeholder=" Nombre des mesurettes de Nutilis ou texture IDDSI"
+                                                    id="nbr_mesurettes" name="nbr_mesurettes"
+                                                    formControlName="nbr_mesurettes">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>température des liquides / boissons<label
+                                                        style="color: red;">*</label></label>
+                                                <input type="text" class="form-control"
+                                                    placeholder=" température des liquides / boissons"
+                                                    id="temp_liquide_boisson" name="temp_liquide_boisson"
+                                                    formControlName="temp_liquide_boisson">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Convictions alimentaires<label
+                                                        style="color: red;">*</label></label>
+                                                <div class="checkbox-list">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="Sans viande"
+                                                                (change)="toggleCheckbox('Sans viande', 'convictions_alimentaires')">
+                                                            Sans viande
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="sans poisson"
+                                                                (change)="toggleCheckbox('sans poisson', 'convictions_alimentaires')">
+                                                            Sans poisson
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="sans porc"
+                                                                (change)="toggleCheckbox('sans porc', 'convictions_alimentaires')">
+                                                            Sans porc
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" value="végétarien"
+                                                                (change)="toggleCheckbox('végétarien', 'convictions_alimentaires')">
+                                                            Végétarien
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Soir</label>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" [formControlName]="'matin'"
+                                                            (change)="togglematin($event)">
+                                                        {{ planALimentaireForm.get('matin')?.value ?
+                                                        'Oui'
+                                                        : 'Non' }}
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Soupe midi</label>
+                                                <div class="form-group">
+                                                    <div class="checkbox-list">
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe ENrichie"
+                                                                    (change)="toggleCheckbox('Soupe ENrichie', 'soupe_midi')">
+                                                                Soupe ENrichie
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Sans soupe"
+                                                                    (change)="toggleCheckbox('Sans soupe', 'soupe_midi')">
+                                                                Sans soupe
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe enrichie X2"
+                                                                    (change)="toggleCheckbox('Soupe enrichie X2', 'soupe_midi')">
+                                                                Soupe enrichie X2
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe mixée lisse"
+                                                                    (change)="toggleCheckbox('Soupe mixée lisse', 'soupe_midi')">
+                                                                Soupe mixée lisse
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe épaisse"
+                                                                    (change)="toggleCheckbox('Soupe épaisse', 'soupe_midi')">
+                                                                Soupe épaisse
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Menu velours soir</label>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" [formControlName]="'menu_velours_soir'"
+                                                            (change)="toggleMenuVeloursSoir($event)">
+                                                        {{ planALimentaireForm.get('menu_velours_soir')?.value ?
+                                                        'Oui'
+                                                        : 'Non' }}
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Spécificité Resto soir<label
+                                                        style="color: red;">*</label></label>
+
+                                                <input type="text" class="form-control"
+                                                    placeholder="Spécificité Resto soir" id="specificite_resto_soir"
+                                                    name="specificite_resto_soir"
+                                                    formControlName="specificite_resto_soir">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Spécificité Diet soir</label>
+
+                                                <input type="text" class="form-control"
+                                                    placeholder="Spécificité Diet soir" id="specificite_diet_soir"
+                                                    name="specificite_diet_soir"
+                                                    formControlName="specificite_diet_soir">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Soupe soir</label>
+                                                <div class="form-group">
+                                                    <div class="checkbox-list">
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe enrichie"
+                                                                    (change)="toggleCheckbox('Soupe enrichie', 'soupe_soir')">
+                                                                Soupe enrichie
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Sans soupe"
+                                                                    (change)="toggleCheckbox('Sans soupe', 'soupe_soir')">
+                                                                Sans soupe
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe enrichie X2"
+                                                                    (change)="toggleCheckbox('Soupe enrichie X2', 'soupe_soir')">
+                                                                Soupe enrichie X2
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe mixée lisse"
+                                                                    (change)="toggleCheckbox('Soupe mixée lisse', 'soupe_soir')">
+                                                                Soupe mixée lisse
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="Soupe épaisse"
+                                                                    (change)="toggleCheckbox('Soupe épaisse', 'soupe_soir')">
+                                                                Soupe épaisse
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Taille portion</label>
+                                                <div class="form-group">
+                                                    <div class="checkbox-list">
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="1/2"
+                                                                    (change)="toggleCheckbox('1/2', 'taille_portion')">
+                                                                1/2
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="XL"
+                                                                    (change)="toggleCheckbox('XL', 'taille_portion')">
+                                                                XL
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="+ de légumes"
+                                                                    (change)="toggleCheckbox('+ de légumes', 'taille_portion')">
+                                                                + de légumes
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>
+                                                                <input type="checkbox" value="- de féculents"
+                                                                    (change)="toggleCheckbox('- de féculents', 'taille_portion')">
+                                                                - de féculents
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Statut</label>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" [formControlName]="'statut'"
+                                                            (change)="togglestatut($event)">
+                                                        {{ planALimentaireForm.get('statut')?.value ?
+                                                        'Oui'
+                                                        : 'Non' }}
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Spécificité Midi</label>
+
+                                                <input type="text" class="form-control" placeholder="Spécificité midi"
+                                                    id="specificites_midi" name="specificites_midi"
+                                                    formControlName="specificites_midi">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Gouter</label>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" [formControlName]="'gouter'"
+                                                            (change)="togglegouter($event)">
+                                                        {{ planALimentaireForm.get('gouter')?.value ?
+                                                        'Oui'
+                                                        : 'Non' }}
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Soir</label>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" [formControlName]="'soir'"
+                                                            (change)="togglesoir($event)">
+                                                        {{ planALimentaireForm.get('soir')?.value ?
+                                                        'Oui'
+                                                        : 'Non' }}
+
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Spécificité Diet Matin</label>
+
+                                                <input type="text" class="form-control"
+                                                    placeholder="Spécificité Diet matin" id="specificite_diet_matin"
+                                                    name="specificite_diet_matin"
+                                                    formControlName="specificite_diet_matin">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Midi</label>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" [formControlName]="'midi'"
+                                                            (change)="togglemidi($event)">
+                                                        {{ planALimentaireForm.get('midi')?.value ?
+                                                        'Oui'
+                                                        : 'Non' }}
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Texture des liquides / boissons</label>
+                                                <div class="checkbox-list">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" [value]="'checkbox1'"
+                                                                (change)="toggleCheckbox('checkbox1' , 'texture_liquides_boissons')">
+                                                            Eau / boisson plate
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" [value]="'checkbox2'"
+                                                                (change)="toggleCheckbox('checkbox2', 'texture_liquides_boissons')">
+                                                            Eau / boisson gazeuse
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" [value]="'checkbox3'"
+                                                                (change)="toggleCheckbox('checkbox3', 'texture_liquides_boissons')">
+                                                            Boisson stimulante , avec du gout
+                                                        </label>
+                                                    </div>
+
+                                                    <!-- Add the remaining checkboxes with their respective labels -->
+                                                    <div class="form-group">
+                                                        <label>
+                                                            <input type="checkbox" [value]="'checkbox4'"
+                                                                (change)="toggleCheckbox('checkbox4', 'texture_liquides_boissons')">
+                                                            Epaissie
+                                                        </label>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-center">
+
+                                    <button [disabled]="planALimentaireForm.invalid" type="submit"
+                                        class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
+                                    <button type="reset" class="btn btn-danger"
+                                        routerLink="/constatsaudit-list">Annuler</button>
+
+                                </div>
+
                             </div>
+
+
+
 
                         </form>
                     </div>
@@ -378,3 +1211,106 @@
         <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
     </div>
 </ng-template>
+
+
+
+
+
+<!-- 
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Soupe midi</label>
+        <input type="text" class="form-control" placeholder="Entrer la soupe de midi" id="soupe_midi" name="soupe_midi"
+            formControlName="soupe_midi">
+        <div class="help-block with-errors"></div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Soir</label>
+        <select id="soir" name="soir" formControlName="soir" class="custom-select" data-style="py-0">
+            <option [ngValue]="true">
+                Oui</option>
+            <option [ngValue]="false">
+                Non</option>
+        </select>
+    </div>
+</div>
+
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Spécificité dièt. matin </label>
+        <textarea formControlName="specificite_diet_matin" class="form-control" id="specificite_diet_matin"
+            name="specificite_diet_matin" rows="4"></textarea>
+
+        <div class="help-block with-errors"></div>
+    </div>
+</div>
+
+
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Spécificité midi</label>
+        <textarea formControlName="specificites_midi" class="form-control" id="specificites_midi"
+            name="specificites_midi" rows="4"></textarea>
+
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Gouter</label>
+        <select id="gouter" name="gouter" formControlName="gouter" class="custom-select" data-style="py-0">
+            <option [ngValue]="true">
+                Oui</option>
+            <option [ngValue]="false">
+                Non</option>
+        </select>
+    </div>
+</div>
+
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Menu velours soir</label>
+        <select id="menu_velours_soir" name="menu_velours_soir" formControlName="menu_velours_soir"
+            class="custom-select" data-style="py-0">
+            <option [ngValue]="true">
+                Oui</option>
+            <option [ngValue]="false">
+                Non</option>
+        </select>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Spécificité Diet soir</label>
+        <textarea formControlName="specificite_diet_soir" class="form-control" id="specificite_diet_soir"
+            name="specificite_diet_soir" rows="4"></textarea>
+
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+        <label>Spécificité Resto soir</label>
+        <textarea formControlName="specificite_resto_soir" class="form-control" id="specificite_resto_soir"
+            name="specificite_resto_soir" rows="4"></textarea>
+    </div>
+</div> -->
+<!-- 
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Midi </label>
+            <select id="midi" name="midi" formControlName="midi" class="custom-select" data-style="py-0">
+                <option [ngValue]="true">
+                    Oui</option>
+                <option [ngValue]="false">
+                    Non</option>
+            </select>
+        </div>
+    </div> -->

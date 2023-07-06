@@ -28,7 +28,7 @@ export class Actions {
   tache !: number[];
   ca !: number[];
 
-
+  rn !: number[];
   constructor(
     intitule: string,
     type_action: string,
@@ -54,7 +54,8 @@ export class Actions {
     nc: number[],
     analyserisque: number[],
     tache: number[],
-    ca: number[]
+    ca: number[],
+    rn: number[]
 
 
 
@@ -84,7 +85,7 @@ export class Actions {
     this.analyserisque = analyserisque;
     this.tache = tache;
     this.ca = ca;
-
+    this.rn = rn;
 
 
 

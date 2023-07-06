@@ -1,0 +1,8 @@
+.custom-button {
+  background-color: transparent;
+  color: black;
+}
+
+.custom-button:focus, .custom-button:active {
+  color: blue;
+}

@@ -1,4 +1,4 @@
-.btn-primary {
+/* .btn-primary {
     background-color: #FF731D;
     border-color: #FF731D;
 }
@@ -48,7 +48,6 @@ th {
 
 table {
     border-spacing: 10px;
-    /* ajustez la valeur selon vos préférences */
 }
 
 
@@ -59,7 +58,6 @@ table {
 
 .spacer {
     margin-right: 10px;
-    /* Adjust the value to set the desired space */
 }
 
 #update .modal-dialog {
@@ -85,3 +83,8 @@ table {
     background-color: #c6e0b3;
     border-color: #c6e0b3;
 }
+
+.checkbox-list {
+    max-height: 70px;
+    overflow-y: auto;
+} */

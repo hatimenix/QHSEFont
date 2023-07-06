@@ -116,6 +116,11 @@ import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-pl
 import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
 import { ForgotPassComponent } from './Components/ForgotPass/forgot-pass/forgot-pass.component';
 import { ResetPassComponent } from './Components/ResetPass/reset-pass/reset-pass.component';
+import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
+import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
+import { ListReunionComponent } from './Components/Reunion/list-reunion/list-reunion.component';
+import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
+import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reunion.component';
 
 @NgModule({
   declarations: [
@@ -225,7 +230,12 @@ import { ResetPassComponent } from './Components/ResetPass/reset-pass/reset-pass
     AddPlanAlimentaireComponent,
     ListePlanAlimentaireComponent,
     ForgotPassComponent,
-    ResetPassComponent
+    ResetPassComponent, 
+    AddExerciceComponent,
+    ListExerciceComponent,
+    ListReunionComponent,
+    AddReunionComponent,
+    InfoReunionComponent
 
   ],
   imports: [

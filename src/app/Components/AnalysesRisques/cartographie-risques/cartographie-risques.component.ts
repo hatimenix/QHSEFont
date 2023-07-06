@@ -30,9 +30,6 @@ export class CartographieRisquesComponent {
   idAnalyse !: number;
   analyse !: AnalyseRisques;
   indice : any;
-  isRisqueFaibleVisible = false;
-  isRisqueModereVisible = false;
-  isRisqueEleveVisible = false;
 
   constructor(
     private risqueservice: AnalyseRisquesService,
@@ -168,13 +165,13 @@ export class CartographieRisquesComponent {
   }
 
   updateRiskTableVisibility() {
-    this.isRisqueFaibleVisible = this.risques.length > 0;
-    this.isRisqueModereVisible = this.risques.some(
+  this.risques.length > 0;
+  this.risques.some(
       (risque) =>
         this.toNumber(this.getCotationIPR(risque)) >= 0 &&
         this.toNumber(this.getCotationIPR(risque)) <= 5
     );
-    this.isRisqueEleveVisible = this.risques.some(
+   this.risques.some(
       (risque) => this.toNumber(this.getCotationIPR(risque)) > 10
     );
   }

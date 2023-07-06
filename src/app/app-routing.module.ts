@@ -109,6 +109,11 @@ import { CartographieRisquesComponent } from './Components/AnalysesRisques/carto
 import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
 import { ForgotPassComponent } from './Components/ForgotPass/forgot-pass/forgot-pass.component';
 import { ResetPassComponent } from './Components/ResetPass/reset-pass/reset-pass.component';
+import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
+import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
+import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
+import { ListReunionComponent } from './Components/Reunion/list-reunion/list-reunion.component';
+import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reunion.component';
 
 
 
@@ -169,6 +174,15 @@ const routes: Routes = [
 
   { path: 'plan-alimentaire-list', component: ListePlanAlimentaireComponent, canActivate: [AuthGuardService] },
   { path: 'addPlanAlimentaire', component: AddPlanAlimentaireComponent, canActivate: [AuthGuardService] },
+
+  { path: 'listReunion', component: ListReunionComponent, canActivate: [AuthGuardService] },
+  { path: 'infoReunion/:id', component: InfoReunionComponent, canActivate: [AuthGuardService] },
+
+  { path: 'addReunion', component: AddReunionComponent, canActivate: [AuthGuardService] },
+
+  { path: 'addExerciceSecurite', component: AddExerciceComponent, canActivate: [AuthGuardService] },
+  { path: 'listExerciceSecurite', component: ListExerciceComponent, canActivate: [AuthGuardService] },
+
 
 
 
