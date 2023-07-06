@@ -86,8 +86,7 @@
                                                     <input type="checkbox"
                                                         [checked]="isResponsableSelected(responsable_traitement?.id)"
                                                         formControlName="responsable_traitement"
-                                                        (change)="toggleResponsable(responsable_traitement?.id)"
-                                                        required>
+                                                        (change)="toggleResponsable(responsable_traitement?.id)">
                                                     {{ responsable_traitement?.nom }}
                                                 </label>
                                             </div>
@@ -138,7 +137,7 @@
 
                                         <select type="text" formControlName="type_audit" class="form-control"
                                             id="type_audit" class="selectpicker form-control" data-style="py-0">
-                                            <option value="" disabled> </option>
+                                            <option value="Choisir une option " disabled> Choisir une option</option>
                                             <option value="Audit 5Ss">Audit 5S</option>
                                             <option value="Observation terrain">Observation terrain</option>
                                         </select>
