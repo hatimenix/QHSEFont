@@ -10,7 +10,7 @@ export class AnalyseRisques {
     date_evaluation !: Date;
     opportunite !: string;
     origine !: string;
-    Proccesus_name !: string;
+    processus_name !: string;
     Site_name !: string;
     processus !: number[];
     contexte_int !: string;
@@ -45,6 +45,8 @@ export class AnalyseRisques {
         mesure : string,
         type_action : string,
         partieinteresses: number[], 
+        processus_name : string,
+
 
       ) {
         this.site = site;
@@ -66,5 +68,6 @@ export class AnalyseRisques {
         this.mesure = mesure;
         this.type_action = type_action;
         this.partieinteresses = partieinteresses;
+        this.processus_name = processus_name;
       }
 }
