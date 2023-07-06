@@ -1,0 +1,183 @@
+<div class="content-page custom-background ">
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-sm-12">
+             <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                   <div class="header-title">
+                      <h4 class="card-title"> Rapport d'audit qualité sécurité 5S </h4>
+                   </div>
+                   <div class="col-sm-6 col-md-6 d-flex justify-content-end">
+                    <div class="input-group col-md-6">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-search" style="font-size: 1rem;"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+                      <div class="input-group-append">
+                        <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                   <div class="table-responsive">
+                      <div class="row justify-content-between">
+                      
+                       
+                         <div class="dropdown">
+                          <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Afficher {{ itemsPerPage }} résultats par page
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                            <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                              [ngClass]="{'selected': option === itemsPerPage}">
+                              <span>{{ option }}</span>
+                              <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <div class="user-list-files d-flex align-items-center">
+                           <a routerLink="/addrapport" class="bg1" href="javascript:void();">
+                              Nouvel élément
+                           </a>
+                          </div>
+                        </div>
+                       </div>
+                      <table id="user-list-table" class="table table-striped  mt-4" role="grid"
+                         aria-describedby="user-list-page-info">
+                         <thead>
+                            <tr >
+                               <th>Nom </th>
+                               <th>Date de modification</th>
+                               <th>Modifié par </th>
+                               <th style="min-width: 100px">Action</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            <tr *ngFor="let rp of displayedRapports | filter: searchQuery">
+                             
+                              
+                              <td>
+                                <a href="{{ rp.url_document }}" download>{{  rp.nom  }}</a>
+                                
+                              </td>
+                              <td>{{rp.date_modification}}</td>
+                              <td (click)="openModal(rp)"><span class="badge">{{ rp.user_name }}</span></td> 
+                              <td>
+                                <div class="flex align-items-center list-user-action">
+                                  <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title=""
+                                    data-original-title="Edit" [routerLink]="['/updateRp', rp.id]"><i class="ri-pencil-line mr-0"></i></a>
+                                  <a class="badge btn-danger mr-2" data-toggle="tooltip" data-placement="top" title=""
+                                    data-original-title="Delete" (click)="rpIdToDelete = rp.id; modalRef = modalService.show(deleteModal);"><i
+                                      class="ri-delete-bin-line mr-0"></i></a>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                          
+                      </table>
+                   </div>
+                   <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                    <div>
+                      <span class="entry-info">
+                        {{ getDisplayedRange() }}
+                      </span>
+                    </div>
+                    <div style="display: flex;justify-content: flex-end;">
+                      <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                      <div class="page-info">
+                        <span class="page-numbers">
+                          <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                        </span>
+                      </div>
+                      <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                    </div>
+                  </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+          </div>
+ <!-- Confirmation modal for command deletion -->
+ <ng-template #deleteModal>
+   <div class="modal-header">
+     <h4 class="modal-title">Confirmation de la suppression</h4>
+     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Êtes-vous sûr de vouloir supprimer ce site ?
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn bg" (click)="confirmDelete()">Supprimer</button>
+   </div>
+ </ng-template>
+ 
+ <!-- userModal component -->
+<!-- userModal component -->
+
+ 
+<ng-template #userModal>
+    <div class="modal-header">
+      <h4 class="modal-title">Informations de l'utilisateur</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="personnel">
+      <dl>
+        <div class="row">
+          <dt class="col-sm-5">Compte :</dt>
+          <dd class="col-sm-3">{{ personnel.compte }}</dd>
+        </div>
+        <div class="row">
+          <dt class="col-sm-5">Nom :</dt>
+          <dd class="col-sm-3">{{ personnel.nom }}</dd>
+        </div>
+        <div class="row">
+          <dt class="col-sm-5">Courrier :</dt>
+          <dd class="col-sm-3">{{ personnel.courrier }}</dd>
+        </div>
+        <div class="row">
+          <dt class="col-sm-5">Numéro de téléphone :</dt>
+          <dd class="col-sm-3">{{ personnel.numero_tel }}</dd>
+        </div>
+        <div class="row">
+          <dt class="col-sm-5">Présentez-vous :</dt>
+          <dd class="col-sm-3">{{ personnel.presente_vous }}</dd>
+        </div>
+        <div class="row">
+          <dt class="col-sm-5">Fonction :</dt>
+          <dd class="col-sm-3">{{ personnel.fonction }}</dd>
+        </div>
+        <div class="row">
+          <dt class="col-sm-5">Adresse SIP :
+          </dt>
+          <dd class="col-sm-3">{{ personnel.adresse_sip }}</dd>
+        </div>
+        <div class="row">
+          <dt class="col-sm-5">Adresse email secondaire :</dt>
+          <dd class="col-sm-3">{{ personnel.othermail }}</dd>
+        </div>
+        
+      </dl>
+    </div>
+  </ng-template>
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 

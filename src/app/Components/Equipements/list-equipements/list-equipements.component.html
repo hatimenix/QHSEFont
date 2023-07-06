@@ -1,39 +1,57 @@
-<div class="content-page">
+<div class="content-page custom-background">
   <div class="container-fluid">
+    <div class="card">
     <div class="row">
       <div class="col-lg-12">
-        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-          <div>
-            <h4 class="mb-3">Suivi des équipements de mesure</h4>
+        <div class="card-header d-flex justify-content-between ">
+          <div class="header-title">
+            <h4 class="card-title">Suivi des équipements de mesure</h4>
           </div>
-          <a (click)="navigateToEquipement()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter
-            un équipement</a>
+            <a routerLink="/addSecteur" class="btn btn-primary btn-sm add-list" style="color: white; margin-right: -52%;">
+              <i class="las la-plus"></i> Ajouter une secteur
+            </a>          
+            <a (click)="navigateToEquipement()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
+              <i class="las la-plus"></i> Ajouter une équipement
+            </a>
         </div>
       </div>
 
     </div>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
-    </div>
+    <div class="card-body">
+    <div class="row justify-content-start">
+      <div class="input-group mb-4 col-md-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-search" style="font-size: 1rem;"></i>
+          </span>
+        </div>
+        <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+        <div class="input-group-append">
+          <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      </div>
 
     <div>
       <div class="col-lg-12">
         <div class="table-responsive rounded mb-3">
           <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
-            <thead class="bg-white text-uppercase">
-              <tr class="ligth ligth-data">
+            <thead>
+              <tr >
                 <th scope="col">Site</th>
                 <th scope="col">Secteur</th>
                 <th scope="col">Type d'équipement</th>
                 <th scope="col">Codification</th>
                 <th scope="col">Date mise en service</th>
-                <th scope="col">Date dernière modification</th>
-                <th scope="col">Verification interne/externe</th>
+                <th scope="col" title="Date dernière modification">dernière modification...</th>
+                <th scope="col" title="Verification interne/externe">Verification...</th>
                 <th scope="col">Prochaine Verification</th>
                 <th scope="col">Commentaires</th>
                 <th scope="col">Equipement déclassé</th>
-                <th scope="col">N série(si thermomètreGenius)</th>
-                <th scope="col">Certificat de calibration(thermomètres)</th>
+                <th scope="col" title="N série(si thermomètreGenius)">N série...</th>
+                <th scope="col" title="Certificat de calibration(thermomètres)">Certificat...</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -44,7 +62,7 @@
                       <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
                       <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
                     </a>
-                    {{ site.site_nom }}
+                    <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
                   </td>
                   <ng-container *ngIf="site.expanded ">
                     <ng-container *ngFor="let secteur of secteurs">
@@ -54,13 +72,13 @@
                         <i class="fa fa-chevron-right" *ngIf="!secteur.expanded"></i>
                         <i class="fa fa-chevron-down" *ngIf="secteur.expanded"></i>
                       </a>
-                      {{ secteur.secteur_nom }}
+                      <a href="javascript:void(0);" (click)="openSecteurModal(secteur)">{{ secteur.secteur_nom }}</a>
                     </td>
                   </div>
                           
                         <ng-container *ngIf="secteur.expanded">
 
-                    <ng-container *ngFor="let equipement of equipements| filter: searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index ">
+                    <ng-container *ngFor="let equipement of equipements| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
                       <tr *ngIf="(equipements)?.length === 0">
                         <td colspan="11">Aucun équipement trouvé </td>
                       </tr>
@@ -77,15 +95,15 @@
                         <td>{{equipement.commentaires}}</td>
                         <td>{{equipement.Equipement_declasse ? 'Oui' : 'Non'}}</td>
                         <td>{{equipement.N_serie}}</td>
-                        <td><a href="{{ equipement.Certificat }}" download>{{ equipement.Certificat }}</a></td>
+                        <td><button class="btn fa fa-download mr-3"   (click)="download(equipement.Certificat)"> {{ equipement.Certificat ? equipement.Certificat.split('/').pop() : 'Aucun fichier joint' }}</button></td>
                         <td>
-                          <div class="d-flex align-items-center list-action">
-                            <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update"
-                              (click)="getEquipementData(equipement.id , equipement.site, equipement.secteur, equipement.site_name,equipement.secteur_name,equipement.type_equipement,equipement.codification,equipement.date_mise_en_service,equipement.date_modification,equipement.verification,equipement.prochaine_verification,equipement.commentaires,equipement.Equipement_declasse,equipement.N_serie)"
+                          <div class="d-flex justify-content-start align-items-center list-action">
+                            <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
+                              (click)="getEquipementData(equipement.id , equipement.site, equipement.secteur,equipement.type_equipement,equipement.codification,equipement.date_mise_en_service,equipement.date_modification,equipement.verification,equipement.prochaine_verification,equipement.commentaires,equipement.Equipement_declasse,equipement.N_serie)"
                               data-placement="top" title="" data-original-title="Edit">
                               <i class="ri-pencil-line mr-0"></i>
                             </a>
-                            <a class="badge bg-warning mr-2" data-toggle="tooltip"
+                            <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip"
                               (click)="openDeleteModal(equipement.id)" data-placement="top" title=""
                               data-original-title="Delete">
                               <i class="ri-delete-bin-line mr-0"></i>
@@ -103,7 +121,9 @@
 
           </table>
         </div>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>      
       </div>
     </div>
     <!-- Modal -->
@@ -121,8 +141,8 @@
             Attention , cette action est irréversible !
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="delete()">Supprimer</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
           </div>
         </div>
       </div>
@@ -211,7 +231,7 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="dob">Prochaine verification*</label>
+                    <label for="dob">Prochaine verification</label>
                     <input [(ngModel)]="prochaine_verification" formControlName="prochaine_verification" type="date"
                       class="form-control" id="prochaine_verification" name="prochaine_verification" />
                     <label class="text-blue " for="gravite">Verifications Internes</label>
@@ -256,22 +276,25 @@
                 <div class="col mb-2">
                   <div class="custom-file">
                     <input (change)="updateFile($event)" [(ngModel)]="Certificat" formControlName="Certificat"
-                      type="file" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Certificat</label>
+                      type="file" class="custom-file-input" id="customFile2">
+                    <label class="custom-file-label" for="customFile2">{{ getSelectedCertificatFileName() }}</label>
                   </div>
                 </div>
+                
               </form>
             </div>
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="updateEquipement()">Modifier</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" (click)="updateEquipement()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 <!-- Page end  -->
 <ng-template #successModal>
@@ -287,4 +310,35 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
   </div>
+</ng-template>
+<!-- Site Modal -->
+<ng-template #siteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Site Informations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalsite()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <p><strong>Site :</strong> {{ selectedSite?.site_nom }}</p>
+    <p><strong>Sigle:</strong> {{ selectedSite?.sigle }}</p>
+    <p><strong>Responsable du Site:</strong> {{ selectedSite?.responsable_name }}</p>
+    <p><strong>Groupe Retso:</strong> {{ selectedSite?.groupe_retso }}</p>
+  </div>
+  
+</ng-template>
+<!-- Secteur Modal -->
+<ng-template #secteurModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Secteur Informations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalsecteur()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <p><strong>Secteur :</strong> {{ selectedSecteur?.secteur_nom }}</p>
+  </div>
+  
 </ng-template>

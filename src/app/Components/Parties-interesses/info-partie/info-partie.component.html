@@ -1,0 +1,813 @@
+<div class="content-page custom-background">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          
+           <div class="card">
+              <div class="card-headers d-flex justify-content-between" style="background-color:#17469d; color:white;">
+                 <div class="header-title">
+                    <h4 class="card-title">Parties intéressées</h4>
+                 </div>
+              </div>
+              <div class="card-body">
+                 <div class="iq-example-row">
+                    <div class="container-fluid">
+        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+            <li class="nav-item">
+               <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description du problème</a>
+            </li>
+
+            <li class="nav-item">
+               <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">ANALYSE DES RISQUES ET OPPORTUNITÉS</a>
+            </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+           <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+             <div class="table-responsive">
+               <table class="table">
+                 <tr class="table-default">
+                   <td class="col-sm-2">Type partie:</td>
+                   <td class="col-sm-2">{{ partie.typepartie_name }}</td>
+                 </tr>
+                 <tr class="table-info">
+                    <td>Partie intéressée:</td>
+                    <td>{{ partie.partieinteresse }}</td>
+                  </tr>
+                 <tr class="table-default">
+                    <td>Importance:</td>
+                    <td>
+                      <ng-container *ngIf="partie.importance !== null">
+                        <ng-container *ngIf="+partie.importance <= 5">
+                          <i class="fas fa-flag text-success"></i>
+                        </ng-container>
+                        <ng-container *ngIf="+partie.importance > 5 && +partie.importance <= 10">
+                          <i class="fas fa-flag text-warning"></i>
+                        </ng-container>
+                        <ng-container *ngIf="+partie.importance > 10">
+                          <i class="fas fa-flag text-danger"></i>
+                        </ng-container>
+                      </ng-container>
+                    </td>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td >Exigence(s) associée(s) <a class="badge mr-2" style="background-color: #eac74b; color:white;" data-toggle="modal" data-target=".bd-exigence-modal-lg" data-placement="top" title=""
+                         href=""><i class="ri-add-line"></i></a></td>
+                      <td style="width:100%">
+                        <table class="table table-bordered table-striped text-center">
+                          <tbody>
+                            <tr style="background-color: #089bd7;">
+                              <th>Modifier / Supprimer</th>
+                              <th>Types d'exigences</th>
+                              <th>intitulé</th>
+                              <th>Evaluation de la maitrise</th>
+                              <th>Action à mener</th>
+                            </tr>
+                            <tr *ngIf="(exigences$ | async)?.length === 0">
+                              <td colspan="11">Aucune exigence enregistré pour cette partie intéressée.</td>
+                            </tr>
+                            <tr *ngFor="let exigences of exigences$ | async">
+                              <td>
+                                <div class="d-flex align-items-center list-action">
+                                  <a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_exigence" (click)="openUpdateExigenceModal(exigences)" ><i class="ri-pencil-line mr-0"></i></a>
+                                  <a class="badge bg-warning mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteExigence"
+                                  (click)="openDeleteModalExigence(exigences.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                </div>
+                              </td>
+                              <td><a>{{ exigences.type_exigence }}</a></td>
+                              <td><a routerLink="/exigence/{{ exigences.id }}">{{exigences.intitule}}</a></td>
+                              <td>
+                                {{ exigences.evaluation_maitrise }}
+                                <ng-container *ngIf="exigences.evaluation_maitrise === 'Exigence totalement maitrisée'">
+                                  <i class="flag-icon fas fa-flag text-success"></i>
+                                </ng-container>
+                              </td>                              
+                              <td>{{exigences.action ? 'Oui' : 'Non'}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="modal fade" id="deleteExigence" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-body">
+                                      <div class="popup text-left">
+                                          <h4 class="mb-3">Confirmer la suppression</h4>
+                                          <div class="content create-workform bg-body">
+                                              <div class="pb-3">
+                                                  <label class="mb-2">Est ce que vous voulez supprimer cette exigence définitivement !!</label>
+                                              </div>
+                                              <div class="col-lg-12 mt-4">
+                                                  <div class="d-flex flex-wrap align-items-ceter justify-content-center">
+                                                    <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteExigence()">Supprimer</div>
+                                                    <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                <tr class="table-info">
+                    <td>Nature:</td>
+                    <td>{{ partie.nature }}</td>
+                  </tr>
+                  <tr class="table-default" >
+                <td>Enjeux :</td>
+                <td>{{ partie.enjeux }}</td>
+            </tr>
+                <tr class="table-info">
+                    <td>Besoin:</td>
+                    <td>{{ partie.besoin }}</td>
+                  </tr>
+                <tr class="table-default">
+                    <td>Impact final:</td>
+                    <td>{{ partie.impactfinal }}</td>
+                  </tr>
+                  <tr class="table-info">
+                    <td>Impact entreprise:</td>
+                    <td>{{ partie.impactentreprise }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Processus ayant un impact sur la partie interessée:</td>
+                    <td>{{(partie.processus_name)}} </td>
+                  </tr>
+
+                  <tr class="table-info">
+                    <td>Cotation:</td>
+                    <td>{{ partie.cotation }}</td>
+                  </tr>
+                  <tr class="table-default">
+                    <td>Impact:</td>
+                    <td>{{ partie.impact }}</td>
+                  </tr>
+               </table>
+             </div>
+           </div>
+          <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+            <div class="table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr>
+                      <td style="width:20%">Analyse(s) associée(s) <a class="badge mr-2" style="background-color: #eac74b; color:white;" data-toggle="modal" data-target=".bd-analyse-modal-lg" data-placement="top" title=""
+                         href=""><i class="ri-add-line"></i></a></td>
+                      <td style="width:80%">
+                        <table class="table table-bordered table-striped text-center">
+                          <tbody>
+                            <tr style="background-color: #089bd7;">
+                              <th>Modifier / Supprimer</th>
+                              <th>Description</th>
+                              <th>Typologie</th>
+                              <th>Axe stratégique lié</th>
+                              <th>Famille</th>
+                              <th>Indice risque</th>
+                              <th>Niveau de risque</th>
+                              <th>Date dernière évaluation</th>
+                              <th>Oppurtinité identifié</th>
+                              <th>Site</th>
+                            </tr>
+                            <tr *ngIf="(analyserisques$ | async)?.length === 0">
+                              <td colspan="11">Aucune analyse enregistré pour cette partie intéressée.</td>
+                            </tr>
+                            <tr *ngFor="let analyserisques of analyserisques$ | async">
+                              <td>
+                                <div class="d-flex align-items-center list-action">
+                                  <a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyserisques)"><i class="ri-pencil-line mr-0"></i></a>
+                                  <a class="badge bg-warning mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAnalyse"
+                                  (click)="openDeleteModal(analyserisques.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                </div>
+                              </td>
+                              <td><a routerLink="/analyserisque/{{ analyserisques.id }}">{{analyserisques.description}}</a></td>
+                              <td>{{ analyserisques.typologie }}</td>
+                              <td>{{ analyserisques.axe }}</td>
+                              <td>{{ analyserisques.famille }}</td>
+                              <td>
+                                <ng-container *ngIf="analyserisques.indice!== null">
+                                  <ng-container *ngIf="+analyserisques.indice<= 5">
+                                    <i class="fas fa-flag text-success"></i>
+                                  </ng-container>
+                                  <ng-container *ngIf="+analyserisques.indice> 5 && +analyserisques.indice<= 10">
+                                    <i class="fas fa-flag text-warning"></i>
+                                  </ng-container>
+                                  <ng-container *ngIf="+analyserisques.indice> 10">
+                                    <i class="fas fa-flag text-danger"></i>
+                                  </ng-container>
+                                </ng-container>
+                              </td>                              
+                              <td>{{ analyserisques.niveau_risque }}</td>
+                              <td>{{ analyserisques.date_evaluation }}</td>
+                              <td>{{ analyserisques.opportunite }}</td>
+                              <td>{{ analyserisques.Site_name }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="modal fade" id="deleteAnalyse" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-body">
+                                      <div class="popup text-left">
+                                          <h4 class="mb-3">Confirmer la suppression</h4>
+                                          <div class="content create-workform bg-body">
+                                              <div class="pb-3">
+                                                  <label class="mb-2">Est ce que vous voulez supprimer cette analyse de risque définitivement !!</label>
+                                              </div>
+                                              <div class="col-lg-12 mt-4">
+                                                  <div class="d-flex flex-wrap align-items-ceter justify-content-center">
+                                                      <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteAnalyse()">Supprimer</div>
+                                                      <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      </td>
+
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row mt-1 mb-2 justify-content-end">
+            <a routerLink="/partie-list" class="btn add-list">
+              <i class="fas fa-arrow-left"></i> Retourner vers la liste des parties intéressées
+            </a>
+          </div>
+          
+         </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+<!-- ADD Analyse risque end -->
+
+<div class="modal fade bd-analyse-modal-lg" [class.show]="addModalVisible"  tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+        <div class="modal-header" style="background-color: #089bd7;">
+           <h5 class="modal-title" style="color:white">Ajout analyse risque</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true" style="color:black">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+              <div class="card-body">
+               <form [formGroup]="analyseForm" (ngSubmit)="addAnalyseFormData()" class="needs-validation" enctype="multipart/form-data" novalidate>
+                 <div class="d-flex align-items">
+                 <div class="col-3">
+                  <div class="form-group">
+                    <label for="typologie">Typologie :</label>
+                    <input type="text" class="form-control" formControlName="typologie" />
+                  </div>
+                 </div>
+                  <div class="col-3">
+                  <div class="form-group">
+                    <label for="famille">Famille :</label>
+                    <input type="text" class="form-control" formControlName="famille" />
+                  </div>
+                  </div>
+                  <div class="col-3">
+                  <div class="form-group">
+                    <label for="origine">Origin :</label>
+                    <input type="text" class="form-control" formControlName="origine" />
+                  </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="site">Site :</label>
+                      <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                       <option value="" selected disabled>Choisissez un site</option>
+                       <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                      </select>
+                    </div>
+                    </div>
+                 </div>
+                 <div class="d-flex align-items">
+                  <div class="col-3">
+                  <div class="form-group">
+                    <label for="processus">Processus :</label>
+                    <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+                     <option value="" selected disabled>Choisissez un processus</option>
+                     <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="axe">Axe stratégique lié :</label>
+                      <input type="text" class="form-control" formControlName="axe" />
+                    </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label for="description">Description :</label>
+                        <input type="text" class="form-control" formControlName="description" />
+                      </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="form-group">
+                          <label for="contexte_ext">Contexte externe :</label>
+                          <input type="text" class="form-control" formControlName="contexte_ext" />
+                        </div>
+                        </div>
+                  </div>
+                  <div class="d-flex align-items">
+                  <div class="col-12">
+                  <div class="form-group">
+                    <label for="contexte_int">Context interne :</label>
+                    <textarea class="form-control" formControlName="contexte_int"></textarea>
+                  </div>
+                 </div>
+                 </div>
+                  <div class="d-flex align-items">
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="consequences">Conséquences :</label>
+                      <input type="text" class="form-control" formControlName="consequences" />
+                    </div>
+                    </div>
+                  <div class="col-3">
+                  <div class="form-group">
+                    <label for="opportunite" title="Opportunité identifiée">Opportunité :</label>
+                    <input class="form-control" formControlName="opportunite">
+                  </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="indice">Indice risque :</label>
+                      <input type="number" class="form-control" formControlName="indice">
+                      <div class="flag-icons">
+                        <div class="flag-label-row">
+                          <span class="flag-label success">0-5 :</span>
+                          <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +indice >= 0 && +indice <= 5}"></i>
+                        </div>
+                        <div class="flag-label-row">
+                          <span class="flag-label warning">5-10 :</span>
+                          <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +indice > 5 && +indice <= 10}"></i>
+                        </div>
+                        <div class="flag-label-row">
+                          <span class="flag-label danger">10 ou plus :</span>
+                          <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +indice > 10}"></i>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+                  
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label for="niveau_risque">Niveau de risque :</label>
+                        <input class="form-control" formControlName="niveau_risque">
+                      </div>
+                      </div>
+                </div>
+                  <div class="form-group">
+                    <h5>Evaluation</h5>
+                 </div>
+                 <div class="d-flex align-items">
+                 <div class="col-6">
+                  <div class="form-group">
+                    <label for="date_evaluation">Date évaluation :</label>
+                    <input type="date" class="form-control" formControlName="date_evaluation" />
+                  </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="impact">Impact :</label>
+                      <input class="form-control" formControlName="impact">
+                    </div>
+                    </div>
+                    </div>
+                    <div class="d-flex align-items">
+                      <div class="col-4">
+                        <div class="form-group">
+                          <label for="maitrise">Maitrise :</label>
+                          <input class="form-control" formControlName="maitrise">
+                        </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <label for="mesure">Mesures en place :</label>
+                            <input class="form-control" formControlName="mesure">
+                          </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label for="probabilite">Probabilité :</label>
+                              <input class="form-control" formControlName="probabilite">
+                            </div>
+                            </div>
+                          </div>
+                  <div class="form-group">
+                    <h5>Plan d'action</h5>
+                 </div>
+                 <div class="col-12">
+                  <div class="form-group">
+                    <label for="type_action">Type d'action :</label>
+                    <input class="form-control" formControlName="type_action">
+                  </div>
+                  </div>
+                  
+                  <div class="d-flex align-items-end flex-column" >
+                   <div class="mt-auto p-2">
+                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="analyseForm.invalid"  ><i class="fas fa-plus"></i>Ajouter</button>
+                     <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                  </div>
+                  </div>
+               </form>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+  <!-- update    -->
+<div class="modal fade bd-analyse-modal-lg" [class.show]="updateModalVisible"  id="updateAnalyse" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">                          
+  <div class="modal-content">
+  <div class="modal-header" style="background-color: #089bd7;">
+  <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier analyse risque</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true" style="color:black">×</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  <form [formGroup]="analyseForm" (ngSubmit)="updateAnalyse()" class="needs-validation" novalidate>  
+  <div class="row">   
+  <div class="col">                                       
+    <div class="form-group">
+      <label for="typologie">Typologie :</label>
+      <input type="text" class="form-control" formControlName="typologie" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="famille">Famille :</label>
+      <input type="text" class="form-control" formControlName="famille" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="origine">Origin :</label>
+      <input type="text" class="form-control" formControlName="origine" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="site">Site :</label>
+      <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+       <option value="" selected disabled>Choisissez un site</option>
+       <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+      </select>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="processus">Processus :</label>
+      <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+       <option value="" selected disabled>Choisissez un processus</option>
+       <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="axe">Axe stratégique lié :</label>
+      <input type="text" class="form-control" formControlName="axe" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="description">Description :</label>
+      <input type="text" class="form-control" formControlName="description" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="contexte_ext">Contexte externe :</label>
+      <input type="text" class="form-control" formControlName="contexte_ext" />
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="contexte_int">Context interne :</label>
+      <textarea class="form-control" formControlName="contexte_int"></textarea>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="consequences">Conséquences :</label>
+      <input type="text" class="form-control" formControlName="consequences" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="opportunite">Opportunité identifiée :</label>
+      <input class="form-control" formControlName="opportunite">
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="indice">Indice risque :</label>
+      <input type="number" class="form-control" formControlName="indice">
+      <div class="flag-icons">
+        <div class="flag-label-row">
+          <span class="flag-label success">0-5 :</span>
+          <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +indice >= 0 && +indice <= 5}"></i>
+        </div>
+        <div class="flag-label-row">
+          <span class="flag-label warning">5-10 :</span>
+          <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +indice > 5 && +indice <= 10}"></i>
+        </div>
+        <div class="flag-label-row">
+          <span class="flag-label danger">10 ou plus :</span>
+          <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +indice > 10}"></i>
+        </div>
+      </div>  
+    </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="niveau_risque">Niveau de risque :</label>
+        <input class="form-control" formControlName="niveau_risque">
+      </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <div class="form-group">
+      <h5>Evaluation</h5>
+   </div>
+   </div>
+   </div>
+   <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="date_evaluation">Date évaluation :</label>
+      <input type="date" class="form-control" formControlName="date_evaluation" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="impact">Impact :</label>
+      <input class="form-control" formControlName="impact">
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="maitrise">Maitrise :</label>
+      <input class="form-control" formControlName="maitrise">
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="mesure">Mesures en place :</label>
+        <input class="form-control" formControlName="mesure">
+      </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="probabilite">Probabilité :</label>
+          <input class="form-control" formControlName="probabilite">
+        </div>
+        </div>      
+</div>
+    <div class="form-group">
+      <h5>Plan d'action</h5>
+    </div>
+    <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="type_action">Type d'action :</label>
+        <input class="form-control" formControlName="type_action">
+      </div>
+      </div>
+    </div>
+  
+  <div class="d-flex align-items-end flex-column">
+  <div class="mt-auto p-2">
+  <button type="submit" class="btn mr-2"  style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+  <button type="button" class="btn bg-warning" (click)="analyseForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+  </div>
+  </div>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div> 
+  <!-- ADD exigence end -->
+
+<div class="modal fade bd-exigence-modal-lg" [class.show]="addModalVisible"  tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+        <div class="modal-header" style="background-color: #089bd7;">
+           <h5 class="modal-title" style="color:white">Ajout Exigence</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true" style="color:black">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+              <div class="card-body">
+               <form [formGroup]="exigenceForm" (ngSubmit)="addExigenceFormData()" class="needs-validation" enctype="multipart/form-data" novalidate>
+                 <div class="d-flex align-items">
+                 <div class="col-6">
+                  <div class="form-group">
+                    <label for="type_exigence">Types d'exigences :</label>
+                    <input type="text" class="form-control" formControlName="type_exigence" />
+                  </div>
+                 </div>
+                  <div class="col-6">
+                  <div class="form-group">
+                    <label for="intitule">Intitulé :</label>
+                    <input type="text" class="form-control" formControlName="intitule" />
+                  </div>
+                  </div>
+                  </div>
+                  <div class="d-flex align-items">
+                  <div class="col-6">
+                  <div class="form-group">
+                    <label for="evaluation_maitrise">Evaluation de la maitrise :</label>
+                    <input type="text" class="form-control" formControlName="evaluation_maitrise" />
+                  </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="description">Description détaillé:</label>
+                      <input type="text" class="form-control" formControlName="description" />
+                    </div>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="commentaire">Commentaire :</label>
+                        <input type="text" class="form-control" formControlName="commentaire" />
+                      </div>
+                      </div>
+                      <div class="col-md-6">                      
+                        <div class="form-group">
+                          <label for="action" class="form-label">Action à mener : </label>
+                          <select  id="action" formControlName="action"  class="custom-select" data-style="py-0">
+                            <option [ngValue]="true">Oui</option>
+                            <option [ngValue]="false">Non</option>
+                        </select>
+                        </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex align-items-end flex-column" >
+                   <div class="mt-auto p-2">
+                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="exigenceForm.invalid"  ><i class="fas fa-plus"></i>Ajouter</button>
+                     <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                  </div>
+                  </div>
+               </form>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+    <!-- update    -->
+<div class="modal fade bd-exigence-modal-lg" [class.show]="updateModalVisible"  id="updateExigence" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">                          
+  <div class="modal-content">
+  <div class="modal-header" style="background-color: #089bd7;">
+  <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier exigence</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true" style="color:black">×</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  <form [formGroup]="exigenceForm" (ngSubmit)="updateExigence()" class="needs-validation" novalidate>  
+  <div class="row">   
+  <div class="col">                                       
+    <div class="form-group">
+      <label for="type_exigence">Types d'exigences :</label>
+      <input type="text" class="form-control" formControlName="type_exigence" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="intitule">Intitulé :</label>
+      <input type="text" class="form-control" formControlName="intitule" />
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="evaluation_maitrise">Evaluation de la maitrise :</label>
+      <input type="text" class="form-control" formControlName="evaluation_maitrise" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="description">Description détaillé:</label>
+      <input type="text" class="form-control" formControlName="description" />
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="commentaire">Commentaire :</label>
+      <input type="text" class="form-control" formControlName="commentaire" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="action" class="form-label">Action à mener : </label>
+      <select  id="action" formControlName="action"  class="custom-select" data-style="py-0">
+        <option [ngValue]="true">Oui</option>
+        <option [ngValue]="false">Non</option>
+    </select>
+    </div>
+  </div>
+  </div>
+  <div class="d-flex align-items-end flex-column">
+  <div class="mt-auto p-2">
+  <button type="submit" class="btn mr-2"  style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+  <button type="button" class="btn bg-warning" (click)="exigenceForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+  </div>
+  </div>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div> 
+  <!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+  <h4 class="modal-title">Succès</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  L'analyse risque a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+  </ng-template>
+  <!-- Page end  -->
+  <ng-template #addModalAnalyse>
+  <div class="modal-header">
+  <h4 class="modal-title">Succès</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  L'analyse risque a été ajoutée avec succès.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+  </div>
+  </ng-template>
+   <!-- Page end  -->
+<ng-template #successModalexigence>
+  <div class="modal-header">
+  <h4 class="modal-title">Succès</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  L'exigence a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+  </ng-template>
+  <!-- Page end  -->
+  <ng-template #addModalExigence>
+  <div class="modal-header">
+  <h4 class="modal-title">Succès</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  L'exigence a été ajoutée avec succès.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+  </div>
+  </ng-template>
+

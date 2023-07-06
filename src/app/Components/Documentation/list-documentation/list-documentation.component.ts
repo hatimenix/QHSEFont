@@ -18,6 +18,7 @@ import { Site } from 'src/app/models/site';
   styleUrls: ['./list-documentation.component.css']
 })
 export class ListDocumentationComponent implements OnInit {
+  searchQuery: string = '';
   document: Documentation[] = [];
   myForm: any;
   filteredDocuments: Documentation[] = [];
@@ -31,7 +32,8 @@ export class ListDocumentationComponent implements OnInit {
   selectedSecteurId: number | undefined;
   secteur!: Secteur[];
   selectedProcessusId: number | undefined;
-  processus!: Processus[];
+  processus  : any[] = [];
+
 //filtrage par type de document
   typeDocSelectionne!: string;
 
@@ -39,11 +41,7 @@ export class ListDocumentationComponent implements OnInit {
    @ViewChild('deleteModal', { static: true }) deleteModal!: any;
    modalRef!: BsModalRef;
    DocIdToDelete: number = 0;
-
-
-
-
-  constructor(
+constructor(
     private documentService: DocumentationService,
     private siteService: ApiSiteService,
     private secteurService: SecteurService,
@@ -52,6 +50,16 @@ export class ListDocumentationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.processusService.getProcessus().subscribe(
+      (data: any[]) => {
+        this.processus = data;
+        console.log(this.processus); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
+
     this.loaddocument();
     this.site$ = this.siteService.getAllSite();
     this.secteur$ = this.secteurService.getSecteur();
@@ -62,6 +70,10 @@ export class ListDocumentationComponent implements OnInit {
       type_docs : new FormControl(), 
       processus : new FormControl
     });
+
+     //pagination 
+     this.itemsPerPageOptions = [5, 10, 15];
+     this.itemsPerPage = this.itemsPerPageOptions[0]; 
     
   }
 
@@ -255,5 +267,52 @@ filterDocumentByType(): void {
     }
   
   
+  //afficher juste le nom du fichier 
+getFileNameFromPath(filePath: string | File | undefined): string {
+  if (!filePath) return 'Aucun fichier joint';
   
+  if (typeof filePath === 'string') {
+    const parts = filePath.split('/');
+    return parts.pop() || 'Aucun fichier joint';
+  }
+  
+  return filePath.name || 'Aucun fichier joint';
+}
+resetSearchQuery() {
+  this.searchQuery = '';
+}
+
+
+//pagination methods 
+itemsPerPageOptions: number[] = [5, 10, 15];
+itemsPerPage: number = this.itemsPerPageOptions[0];
+p: number = 1;
+get totalPages(): number {
+  return Math.ceil(this.document.length / this.itemsPerPage);
+}
+
+get displayedDocuments(): any[] {
+  const startIndex = (this.p - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.document.slice(startIndex, endIndex);
+}
+
+
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.document.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.document.length} entrées`;
+}
 }

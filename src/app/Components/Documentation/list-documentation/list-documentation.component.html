@@ -1,9 +1,9 @@
-<div class="content-page">
+<div class="content-page custom-background">
    <div class="container-fluid">
       <div class="row">
          <div class="col-sm-12">
             <div class="card">
-               <div class="card-header d-flex justify-content-between">
+               <div class="card-header d-flex justify-content-between align-items-center">
                   <div class="header-title">
                      <h4 class="card-title">Liste des documents </h4>
                   </div>
@@ -11,70 +11,75 @@
                      <div class="user-list-files d-flex">
                         
                        <div class="d-flex align-items-center">
-                          <a routerLink="/add-document" class="btn btn-warning"><i class="las la-plus mr-3"></i>Ajouter un document</a>
+                          <a routerLink="/add-document" class="btn btn-warning">Nouvel élément</a>
                       </div>
                      </div>
                   </div>
                </div>
                <div class="card-body">
                   <div class="table-responsive">
-                     <div class="row justify-content-between">
-                        <div >
-                           <div id="user_list_datatable_info" class="dataTables_filter">
-                              <form class="mr-3 position-relative d-flex align-items-center" [formGroup]="myForm">
-                                 <div class="col-md-3">
-                                   <div class="form-group">
-                                     <label>Filtrer par Processus</label>
-                                     <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required (change)="filterDocumentsByProcessus()">
-                                       <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
-                                       <option value="">Tous</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                   <div class="form-group">
-                                     <label>Filtrer par Site</label>
-                                     <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySite()">
-                                       <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                                       <option value="">Tous</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                   <div class="form-group">
-                                     <label>Filtrer par Secteur</label>
-                                     <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySecteur()">
-                                       <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
-                                       <option value="">Tous</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                      <label>Filtrer par Type de document</label>
-                                      <select id="type_docs" name="type_docs" formControlName="type_docs" class="custom-select" data-style="py-0" (change)="filterDocumentByType()" [(ngModel)]="typeDocSelectionne" required>
-                                        <option value="">Tous</option>
-                                        <option value="Template">Template</option>
-                                        <option value="Formulaire">Formulaire</option>
-                                        <option value="Procédure">Procédure</option>
-                                        <option value="Référentiel">Référentiel</option>
-                                        <option value="Instruction">Instruction</option>
-                                        <option value="Descriptif de processus">Descriptif de processus</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  
-                               </form>
-                               
-                           </div>
+                    <div class="row justify-content-between">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Processus</label>
+                          <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required (change)="filterDocumentsByProcessus()">
+                            <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                            <option value="">Tous</option>
+                          </select>
                         </div>
-                        
-                     </div>
-                     
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Site</label>
+                          <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySite()">
+                            <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                            <option value="">Tous</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Secteur</label>
+                          <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySecteur()">
+                            <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
+                            <option value="">Tous</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Filtrer par Type de document</label>
+                          <select id="type_docs" name="type_docs" formControlName="type_docs" class="custom-select" data-style="py-0" (change)="filterDocumentByType()" [(ngModel)]="typeDocSelectionne" required>
+                            <option value="">Tous</option>
+                            <option value="Template">Template</option>
+                            <option value="Formulaire">Formulaire</option>
+                            <option value="Procédure">Procédure</option>
+                            <option value="Référentiel">Référentiel</option>
+                            <option value="Instruction">Instruction</option>
+                            <option value="Descriptif de processus">Descriptif de processus</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="dropdown">
+                          <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Afficher {{ itemsPerPage }} résultats par page
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                            <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
+                              <span>{{ option }}</span>
+                              <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
                      <table id="user-list-table" class="table table-striped  mt-4" role="grid"
                      aria-describedby="user-list-page-info">
                      <thead>
                         <tr >
+                           <th></th>
                            <th>Nom</th>
                            <th>Codification</th>
                            <th>Version</th>
@@ -87,17 +92,28 @@
                           
                           
                           
-                           <th style="min-width: 100px">Action</th>
+                           <th>Action</th>
                         </tr>
                      </thead>
+                  <ng-container *ngFor="let processus of processus">
                      <tbody>
-                      
-                                                
-                                                
-                        <tr *ngFor="let docs of document">
-                        
+                        <td data-column="name">
+                           <a href="javascript:void(0);" class="toggle-icon" (click)="processus.expanded = !processus.expanded">
+                             <i class="fa fa-chevron-right" *ngIf="!processus.expanded"></i>
+                             <i class="fa fa-chevron-down" *ngIf="processus.expanded"></i>
+                           </a>
+                           <a href="javascript:void(0);">{{ processus.intitule }}</a>
+                         </td>
+                     <ng-container *ngIf="processus.expanded">
+                        <ng-container *ngFor ="let docs of document | filter: searchQuery">
+                              <tr *ngIf="(docs)?.length === 0">
+                                <td colspan="11">Aucune demande trouvée</td>
+                              </tr>  
+                              <tr *ngIf="docs.processus == processus.id">
+                                 <td></td>                    
+                         
                            <td>
-                              <a href="{{ docs.url_document }}" download>{{ docs.nom}}</a>
+                              <a href="{{ docs.url_document }}" download>{{  getFileNameFromPath(docs.nom) }}</a>
                               
                             </td>
                           <td>{{docs.codification}}</td>
@@ -116,36 +132,36 @@
                                 data-original-title="Edit" [routerLink]="['/detailDocs', docs.id]"><i class="ri-eye-line mr-0"></i></a>
                               <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                 data-original-title="Edit" [routerLink]="['/updateDocument', docs.id]"><i class="ri-pencil-line mr-0"></i></a>
-                              <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
+                              <a class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title=""
                                 data-original-title="Delete" (click)="DocIdToDelete = docs.id; modalRef = modalService.show(deleteModal);"><i
                                   class="ri-delete-bin-line mr-0"  ></i></a>
                             </div>
                           </td>
                         </tr>
-                      </tbody>
+                     </ng-container>
+                     </ng-container>
+                     </ng-container>
+                     
                       
                   </table>
                   </div>
-                  <div class="row justify-content-between mt-3">
-                     <div id="user-list-page-info" class="col-md-6">
-                        <span>Showing 1 to 5 of 5 entries</span>
+                  <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                     <div>
+                       <span class="entry-info">
+                         {{ getDisplayedRange() }}
+                       </span>
                      </div>
-                     <div class="col-md-6">
-                        <nav aria-label="Page navigation example">
-                           <ul class="pagination justify-content-end mb-0">
-                              <li class="page-item disabled">
-                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                              </li>
-                              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li>
-                              <li class="page-item">
-                                 <a class="page-link" href="#">Next</a>
-                              </li>
-                           </ul>
-                        </nav>
+                     <div style="display: flex;justify-content: flex-end;">
+                       <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                       <div class="page-info">
+                         <span class="page-numbers">
+                           <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                         </span>
+                       </div>
+                       <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
                      </div>
-                  </div>
+                   </div>   
+           
                </div>
             </div>
          </div>
@@ -161,7 +177,7 @@
      </button>
    </div>
    <div class="modal-body">
-     Êtes-vous sûr de vouloir supprimer cette commande ?
+     Êtes-vous sûr de vouloir supprimer ce document ?
    </div>
    <div class="modal-footer">
      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>

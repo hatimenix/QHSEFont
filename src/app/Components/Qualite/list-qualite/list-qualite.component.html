@@ -1,0 +1,281 @@
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
+       <div class="row">
+           <div class="col-lg-12">
+            <div class="card-header d-flex justify-content-between ">
+              <div class="header-title">
+                <h4 class="card-title">Suivi des objectifs qualité</h4>
+              </div>
+              <a (click)="navigateToQualite()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%;">
+                <i class="las la-plus"></i> Ajouter une objectif de qualité
+              </a>               
+            </div>
+           </div>
+  
+          </div>
+          <div class="card-body">
+          <div class="row justify-content-start">
+            <div class="input-group mb-2 col-md-4">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-search" style="font-size: 1rem;"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+              <div class="input-group-append">
+                <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          <div class="dropdown">
+            <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+              <i class="fas fa-filter"></i>Filtrer par
+            </button>
+            <div class="dropdown-menu" aria-labelledby="filterDropdown">
+              <a class="dropdown-item" (click)="filterByField('titre')" style="cursor: pointer;">Titre</a>
+              <a class="dropdown-item" (click)="filterByField('site_name')" style="cursor: pointer;">Site</a>
+            </div>
+            <div class="dropdown dropright">
+              <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+                <div class="arrow"></div>
+                <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="popover-body" style="width: 500px; max-width: 100%;">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                  </div>
+                
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                      <div class="alert alert-info" role="alert" *ngIf="filterField && filteredQualites.length === 0">
+                        Aucun résultat.
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="row justify-content-end">
+                    <div class="col-md-4">
+                      <button class="btn" (click)="handleReset()">Fermer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           </div>
+          </div>
+          </div>
+
+          <div class="row mb-2 justify-content-end">
+            <div class="dropdown">
+              <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Afficher {{ itemsPerPage }} résultats par page
+              </button>
+              <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                  [ngClass]="{'selected': option === itemsPerPage}">
+                  <span>{{ option }}</span>
+                  <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+           <div class="col-lg-12">
+               <div class="table-responsive rounded mb-3">
+               <table class="data-tables table mb-0 tbl-server-info">
+                   <thead>
+                       <tr class="light ligth-data">                                                     
+                          <th scope="col">Titre</th>
+                            <th scope="col">Site</th>
+                            <th scope="col">Date analyse et revue</th>
+                            <th scope="col" title="Réflexion sur l'année précédente (Axes d'amélioration)">Réflexion...</th>
+                            <th scope="col" title="OBJECTIFS(globaux,escarre,chutes,sonettes...)">OBJECTIFS...</th>
+                            <th scope="col" title="Commentaires du responsable">Commentaires...</th>
+                            <th scope="col">Objectifs pour l'annèe</th>
+                            <th scope="col">Actions</th>
+  
+                       </tr>
+                   </thead>
+                   <tbody class="ligth-body">
+                    <tr *ngFor="let qualite of displayedQualites | filter : searchQuery let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+                        <td>{{qualite.titre}}</td>
+                        <ng-container *ngFor="let site of sites">
+                        <td>         <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
+                        </td>
+                        <td>{{ qualite.date_analyse }}</td>
+                        <td>{{qualite.reflexion}}</td>
+                        <td>{{ qualite.objectifs}}</td>
+                        <td>{{qualite.commentaires_responsable}}</td>
+                        <td>{{qualite.objectifs_annees}}</td>
+  
+  
+                        <td>
+                          <div class="d-flex justify-content-start align-items-center list-action">
+                            <a class="badge badge-primary mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
+                            [routerLink]="['/qualite/', qualite.id]"><i class="ri-eye-line mr-0"></i></a>                         
+                            <a class="badge bg-success mr-2" style="cursor: pointer;" (click)="getQualiteData(qualite.id,qualite.site,qualite.titre,qualite.date_analyse,qualite.reflexion,qualite.objectifs,qualite.commentaires_responsable,qualite.objectifs_annees)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
+                                <i class="ri-pencil-line mr-0"></i>
+                              </a>
+                                   <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(qualite.id)" data-placement="top" title="" data-original-title="Delete"
+                                       ><i class="ri-delete-bin-line mr-0"></i></a>
+                               </div>
+                           </td>
+                           </ng-container>
+                       </tr>  
+                   </tbody>
+               </table>
+               </div>
+               <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                <div>
+                  <span class="entry-info">
+                    {{ getDisplayedRange() }}
+                  </span>
+                </div>
+                <div style="display: flex;justify-content: flex-end;">
+                  <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                  <div class="page-info">
+                    <span class="page-numbers">
+                      <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                    </span>
+                  </div>
+                  <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                </div>
+              </div>          
+            </div>
+       </div>
+       </div>
+       </div>
+           <!-- Modal -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Attention , cette action est irréversible !
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- Modal -->
+   <div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+   aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div>
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Modifier une demande de supervision</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+
+
+         <div class="modal-body">
+           <form [formGroup]="form">
+
+             <div class="row">
+              <div class="col">
+                <label for="site" class="form-label">Site : </label>
+                <select [(ngModel)]="site"  id="site" name="site" formControlName="site" style="width: 100%;" class="form-control" class="custom-select" >
+                  <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
+                 </select> 
+                </div>  
+               <div class="col">
+                 <label for="titre" class="form-label">Titre : </label>
+                 <input name="titre" value="{{titre}}" [(ngModel)]="titre" formControlName="titre"
+                   style="width: 100%;" type="text" class="rounded-pill form-control" id="titre">
+               </div>
+               <div class="col">
+                <label for="date_analyse" class="form-label">Date analyse et revue : </label>
+                <input [(ngModel)]="date_analyse" value="{{date_analyse}}" formControlName="date_analyse" type="date" class="form-control" id="date_analyse" name="date_analyse" />
+              </div>
+           </div>
+           <div class="row">
+             <div class="col">
+               <label for="objectifs" class="form-label" title="(globaux,escarre,chutes,sonettes...)">OBJECTIFS : </label>
+               <input name="objectifs" value="{{objectifs}}" [(ngModel)]="objectifs" formControlName="objectifs"
+                 style="width: 100%;" type="text" class="rounded-pill form-control" id="objectifs">
+             </div>
+             <div class="col">
+               <label for="commentaires_responsable" class="form-label">Commentaires du responsable : </label>
+               <input name="commentaires_responsable" value="{{commentaires_responsable}}" [(ngModel)]="commentaires_responsable" formControlName="commentaires_responsable"
+                 style="width: 100%;" type="text" class="rounded-pill form-control" id="commentaires_responsable">
+             </div>
+             <div class="col">
+              <label for="reflexion" class="form-label" title="Réflexion sur l'année précédente (Axes d'amélioration)">RSAP : </label>
+              <input name="reflexion" value="{{reflexion}}" [(ngModel)]="reflexion" formControlName="reflexion"
+                style="width: 100%;" type="text" class="rounded-pill form-control" id="reflexion">
+            </div>
+             </div>
+             <div class="row">
+              <div class="col">
+                <label for="objectifs_annees" class="form-label">Objectifs pour l'année:</label>
+                <textarea name="objectifs_annees" [(ngModel)]="objectifs_annees" formControlName="objectifs_annees"
+                          style="width: 100%;" class="form-control" id="objectifs_annees" rows="4"></textarea>
+              </div>
+            </div>
+            
+             <br>
+           </form>
+         </div>
+       </div>
+
+       <div class="modal-footer">
+         <button type="button" class="btn btn-primary" (click)="updateQualite()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+<!-- Page end  -->
+<ng-template #successModal>
+<div class="modal-header">
+ <h4 class="modal-title">Succès</h4>
+ <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+   <span aria-hidden="true">&times;</span>
+ </button>
+</div>
+<div class="modal-body">
+ L'objectif a été modifié avec succès.
+</div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+</div>
+</ng-template>
+<!-- Site Modal -->
+<ng-template #siteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Site Informations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalsite()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <p><strong>Site :</strong> {{ selectedSite?.site_nom }}</p>
+    <p><strong>Sigle:</strong> {{ selectedSite?.sigle }}</p>
+    <p><strong>Responsable du Site:</strong> {{ selectedSite?.responsable_name }}</p>
+    <p><strong>Groupe Retso:</strong> {{ selectedSite?.groupe_retso }}</p>
+  </div>
+  
+</ng-template>

@@ -11,9 +11,10 @@ import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service
   templateUrl: './add-equipements.component.html',
   styleUrls: ['./add-equipements.component.css']
 })
-export class AddEquipementsComponent {
+export class AddEquipementsComponent implements OnInit {
   sites: any[] = [];
   secteurs: any[] = [];
+  droppedFile: File | null = null;
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor(private   equipementservice : ServicesEquipementservice , private router : Router, private apiSiteService :ApiSiteService,private apiSecteurService: SecteurService,private bsModalService: BsModalService){}
@@ -30,7 +31,7 @@ export class AddEquipementsComponent {
     verification:'',
     prochaine_verification:'',
     commentaires:'',
-    Equipement_declasse:'',
+    Equipement_declasse:false,
     N_serie:'',
     Certificat:'',
 
@@ -50,7 +51,7 @@ export class AddEquipementsComponent {
     commentaires: new FormControl('',[Validators.minLength(3)]),
     N_serie: new FormControl(''),
     Certificat: new FormControl(''),
-    Equipement_declasse: new FormControl(''),
+    Equipement_declasse: new FormControl(false),
 
 
   });
@@ -101,7 +102,7 @@ export class AddEquipementsComponent {
     formData.append("commentaires", this.equipementf.commentaires);
     formData.append("N_serie", this.equipementf.N_serie);
     formData.append("Certificat", this.equipementf.Certificat);
-    formData.append("Equipement_declasse", this.equipementf.Equipement_declasse);
+    formData.append("Equipement_declasse", this.equipementf.Equipement_declasse.toString());
 
 
     this.equipementservice.create(formData).subscribe({
@@ -119,13 +120,10 @@ export class AddEquipementsComponent {
     }
   })
 }
-  onCancel() {
-    this.mode = 'list';
-  }
-
 
   uploadFile(event: any) {
     const file = event.target.files[0];
+    this.droppedFile = file;
     this.equipementf.Certificat=file
 
   }
@@ -141,5 +139,28 @@ export class AddEquipementsComponent {
   }
   closeModal() {
     this.bsModalService.hide();
+}
+onDragOver(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  event.dataTransfer.dropEffect = 'copy';
+}
+
+onDragLeave(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+}
+
+onDrop(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  const file = event.dataTransfer.files[0];
+  this.droppedFile = file;
+  this.equipementf.Certificat=file;
+  const dropZone = document.querySelector('.drop-zone');
+  if (dropZone) {
+    dropZone.innerHTML = file.name;
+  }
+  
 }
 }

@@ -1,24 +1,145 @@
-<div class="content-page">
-    <div class="container-fluid">
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
        <div class="row">
            <div class="col-lg-12">
-               <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
-                   <div>
-                       <h4 class="mb-3">Registre de traitement</h4>
+            <div class="card-header d-flex justify-content-between ">
+              <div class="header-title">
+                <h4 class="card-title">Registre de traitement</h4>
                    </div>
-                   <a routerLink="/add-RGPD" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter registe de traitement</a>
-               </div>
+                   <a routerLink="/add-RGPD"  class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%;">
+                    <i class="las la-plus"></i> Ajouter registe de traitement
+                  </a>               
+                </div>
            </div>
-           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
+           </div>
+           <div class="card-body">
+           <div class="row justify-content-start">
+            <div class="input-group mb-4 col-md-4">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-search" style="font-size: 1rem;"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+              <div class="input-group-append">
+                <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          
+          <div class="dropdown">
+            <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+              <i class="fas fa-filter"></i>Filtrer par
+            </button>
+            <div class="dropdown-menu" aria-labelledby="filterDropdown">
+              <a class="dropdown-item" (click)="filterByField('typeregistre')" style="cursor: pointer;">Registre</a>
+              <a class="dropdown-item" (click)="filterByField('responsable_traitement')" style="cursor: pointer;">Responsable du traitement</a>
+              <a class="dropdown-item" (click)="filterByField('nomtraitement')" style="cursor: pointer;">Nom du traitement</a>
+
+            </div>
+            <div class="dropdown dropright">
+              <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+                <div class="arrow"></div>
+                <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="popover-body" style="width: 500px; max-width: 100%;">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                  </div>
+                
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                      <div class="alert alert-info" role="alert" *ngIf="filterField && filteredTraitements.length === 0">
+                        Aucun résultat.
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="row justify-content-end">
+                    <div class="col-md-4">
+                      <button class="btn" (click)="handleReset()">Fermer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           </div>
+          </div>
+        </div> 
+        
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Depuis :</span>
+                </div>
+                <input type="date" class="form-control" id="start_date" [(ngModel)]="startDate">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Vers :</span>
+                </div>
+                <input type="date" class="form-control" id="end_date" [(ngModel)]="endDate">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="row justify-content-center">
+              <div class="input-group">
+                <div class="input-group-append">
+                  <button style="margin-top: 1.5%;" class="btn btn-primary" (click)="filterByDateCreation()">
+                    <i class="fas fa-filter"></i> Filter par date
+                  </button>
+                  <button style="margin-top: 1.5%;" class="btn btn-light" (click)="resetDateFilter()">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="btn " (click)="filterByTypeRegistre()"> Traitements par registre</button>
-          <button class="btn " (click)="filterByRespRegistre()">Registre par responsable de traitement</button>
+           
+             <div>
+              <div class="row justify-content-between">
+                <div>
+                  <button class="btn" (click)="filterByTypeRegistre()">Traitements par registre</button>
+                  <button class="btn" (click)="filterByRespRegistre()">Registre par responsable de traitement</button>
+                </div>
+              
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Afficher {{ itemsPerPage }} résultats par page
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                    <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                      [ngClass]="{'selected': option === itemsPerPage}">
+                      <span>{{ option }}</span>
+                      <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+
                 <div class="col-lg-12">
                     <div class="table-responsive rounded mb-3">
-                    <table class="data-table table mb-0 tbl-server-info">
-                        <thead class="bg-white text-uppercase">
-                            <tr class="ligth ligth-data">
+                    <table class="data-tables table mb-0 tbl-server-info">
+                        <thead>
+                            <tr class=" ligth-data">
                               <th scope="col" *ngIf="showTypeRegistre">Registre</th>
                                 <th scope="col" *ngIf="showRespRegistre">Responsable du traitement</th>
                                 <th>Ref traitement</th>
@@ -29,10 +150,12 @@
                                 <th>Personne Concernee</th>
                                 <th>Precisions</th>
                                 <th style="min-width: 100px">Action</th>
+                                <th scope="col">Supprimer les colonnes</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let traitement of filteredTraitements | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+                            <tr *ngFor="let traitement of displayedTraitements | filter : searchQuery let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
                               <td *ngIf="showTypeRegistre"><a routerLink="/traitement/{{ traitement.id }}">{{traitement.typeregistre}}</a></td>
                               <td *ngIf="showRespRegistre">{{traitement.responsable_traitement}}</td>
                               <td>{{traitement.id}}</td>
@@ -43,19 +166,40 @@
                                 <td>{{traitement.personneconcernees}}</td>
                                 <td>{{traitement.precision}}</td>
                                 <td>
-                                  <div class="d-flex align-items-center list-action">
-                                          <a class="badge bg-success mr-2" (click)="getTraitementData(traitement.id , traitement.fournisseur, traitement.typeregistre, traitement.nomtraitement,traitement.description_generale,traitement.datedecreation,traitement.datedemiseajour,traitement.responsable_traitement,traitement.finaliteprincipale,traitement.sous_finalite1,traitement.sous_finalite2,traitement.sous_finalite3,traitement.sous_finalite4,traitement.donneesensible,traitement.type_donnee,traitement.categorie,traitement.description,traitement.dureedeconcesrvation,traitement.personneconcernees,traitement.precisions,traitement.typedestinataire,traitement.precision,traitement.donneeconcernees,traitement.mtypedemesuredesecurite,traitement.destinataire,traitement.pays,traitement.typedegarantie,traitement.lienversladocumentation,traitement.lesdonneesconcernee,traitement.fournisseur_dpo,traitement.fournisseur_representant)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit"
+                                  <div class="d-flex justify-content-start align-items-center list-action">
+                                    <a class="badge bg-success mr-2" style="cursor: pointer;" (click)="getTraitementData(traitement.id , traitement.fournisseur, traitement.typeregistre, traitement.nomtraitement,traitement.description_generale,traitement.datedecreation,traitement.datedemiseajour,traitement.responsable_traitement,traitement.finaliteprincipale,traitement.sous_finalite1,traitement.sous_finalite2,traitement.sous_finalite3,traitement.sous_finalite4,traitement.donneesensible,traitement.type_donnee,traitement.categorie,traitement.description,traitement.dureedeconcesrvation,traitement.personneconcernees,traitement.precisions,traitement.typedestinataire,traitement.precision,traitement.donneeconcernees,traitement.mtypedemesuredesecurite,traitement.destinataire,traitement.pays,traitement.typedegarantie,traitement.lienversladocumentation,traitement.lesdonneesconcernee,traitement.fournisseur_dpo,traitement.fournisseur_representant)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit"
                                           ><i class="ri-pencil-line mr-0"></i></a>
-                                      <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(traitement.id)"  data-placement="top" title="" data-original-title="Delete"
-                                          ><i class="ri-delete-bin-line mr-0"></i></a>
+                                          <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(traitement.id)" data-placement="top" title="" data-original-title="Delete">
+                                            <i class="ri-delete-bin-line mr-0"></i>
+                                          </a>
                                   </div>
+                              </td>
+                              <td>
+                                <input type="checkbox" [checked]="selectedTraitements.includes(traitement)" (change)="toggleSelection(traitement)">
                               </td>
                             </tr>
                         </tbody> 
                     </table>
                 </div>
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-            </div>
+                <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                  <div>
+                    <span class="entry-info">
+                      {{ getDisplayedRange() }}
+                    </span>
+                  </div>
+                  <div style="display: flex;justify-content: flex-end;">
+                    <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                    <div class="page-info">
+                      <span class="page-numbers">
+                        <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                      </span>
+                    </div>
+                    <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                  </div>
+                </div>          
+              </div>
+              </div>
+              </div>
        <!-- Page end  -->
 <!-- Modal -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -72,8 +216,8 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="delete()" >Supprimer</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      <button type="button" class="btn btn-primary" (click)="deleteItem()" ><i class="fas fa-trash"></i>Supprimer</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>
 </div>
@@ -360,8 +504,8 @@ aria-hidden="true">
                               </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="updatetraitement()">Modifier</button> 
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="updatetraitement()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
         </div>
       </div>
     </div>

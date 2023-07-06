@@ -9,6 +9,7 @@ import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Utilsateur } from 'src/app/models/utilsateur';
 
 declare var window: any;
 
@@ -18,15 +19,43 @@ declare var window: any;
   styleUrls: ['./list-nc.component.css']
 })
 export class ListNcComponent implements OnInit {
+  utilisateur:any;
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
+  selectedUtilisateur: Utilsateur | undefined;
   updateModalVisible: boolean = true;
+  existingFileUrl: string = '';
+  isAscending: boolean = true;
+  isReverseSorting: boolean = false;
+  startDate: string | undefined;
+  endDate: string | undefined;
+  autoCloseDropdown: boolean = true;
+  showPopover: boolean = false;
+  fieldsVisible: { [key: string]: boolean } = {
+    domaine: true,
+    frequence: true,
+    cout:true,
+    annee:true,
+    mois:true,
+  };
   @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('utilisateurModal', { static: true }) utilisateurModal:any;
+
   
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1; 
+  get totalPages(): number {
+    return Math.ceil(this.filteredNcs.length / this.itemsPerPage);
+  }
+
+  get displayedNcs(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredNcs.slice(startIndex, endIndex);
+  }
 
   id : any 
   intitule : any
@@ -56,17 +85,16 @@ export class ListNcComponent implements OnInit {
   responsable_traitement:any
 
   searchQuery: string = '';
-
+  filterField: string = '';
+  fieldSearchQuery: string = '';
   originalNcs: Nc[] = [];
   filteredNcs: Nc[] = [];
 
-
   ncs : Nc[] = []
 
-
-
+  selectedNcs: Nc[] = [];
   deleteModal: any;
-  idTodelete: number = 0;
+  selectedNcToDelete: number = 0;
   
   form = new FormGroup({
     intitule: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -126,23 +154,39 @@ export class ListNcComponent implements OnInit {
         console.log(error); // Handle error
       }
     ); 
-
-
-
     this.getNcs();
     this.originalNcs = this.ncs.slice(); // create a copy of the original list
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
-  }
+    this.startDate = ''; 
+  this.endDate = ''; 
+  document.addEventListener('click', this.onDocumentClick.bind(this));
+  this.itemsPerPageOptions = [5, 10, 15];
+  this.itemsPerPage = this.itemsPerPageOptions[0]; 
+
+}
+ngOnDestroy() {
+  document.removeEventListener('click', this.onDocumentClick.bind(this));
+}
+  sortByReverseAlphabet() {
+    if (this.isReverseSorting) {
+    this.filteredNcs.sort((a, b) => (a.intitule ?? '').localeCompare(b.intitule ?? ''));
+    this.isAscending = false;
+    this.isReverseSorting = false;
+    }else {
+      this.filteredNcs.sort((a, b) => (b.intitule ?? '').localeCompare(a.intitule ?? ''));
+      this.isReverseSorting = true;
+    }
+  }  
   
   filterByEtatTrue() {
-    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === true);
+    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === false);
   }
   
   filterByEtatFalse() {
 
-    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === false);
+    this.filteredNcs = this.originalNcs.filter(nc => nc.nc_cloture === true);
   }
   resetFilter() {
     this.filteredNcs = this.originalNcs;
@@ -154,6 +198,7 @@ getNcs() {
     res => {
       this.originalNcs = res;
       this.filteredNcs = res;
+      this.ncs=res;
     },
     error => {
       console.log(error);
@@ -169,9 +214,14 @@ updateNc() : void {
     formData.append("domaine", this.domaine);
     formData.append("detail_cause", this.detail_cause);
     formData.append("date_nc", this.date_nc);
-    formData.append("date_prise_en_compte", this.date_prise_en_compte);
     formData.append("description_detailee", this.description_detailee);
-    formData.append("delai_prevu", this.delai_prevu);
+    if (this.delai_prevu !== null && this.delai_prevu !== undefined) {
+      formData.append("delai_prevu", this.delai_prevu);
+  }      if (this.date_prise_en_compte !== null && this.date_prise_en_compte !== undefined) {
+      formData.append("date_prise_en_compte", this.date_prise_en_compte);
+  }  
+    formData.append("annee", this.annee);
+    formData.append("mois", this.mois);
     formData.append("type_cause", this.type_cause);
     formData.append("cout", this.cout);
     formData.append("progress", this.progress);
@@ -198,32 +248,54 @@ updateNc() : void {
               console.error(e);
           }
       });
-} 
-
+      }      
+      get_url_file(id: number): void {
+        this.ncservice.getExistingFileUrl(id).subscribe({
+          next: (res) => {
+            if (res) {
+              console.log('Existing File URL:', res);
+              this.existingFileUrl = res;
+            } else {
+              console.error('Invalid response: missing fileUrl');
+            }
+          },
+          error: (e) => {
+            console.error(e);
+          }
+        });
+      }
+      
+      
 updateFile(event: any) {
-  const file = event.target.files[0];
-  this.piece_jointe=file
+  this.piece_jointe = event.target.files[0];
 
 }
-downloadPiece(id: number): void {
-  this.ncservice.downloadPiece(id).subscribe(
-    (response: any) => {
-      const blob = new Blob([response], { type: 'application/octet-stream' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      const filename = response.fichier.split('/').pop();
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    },
-    (error: any) => {
-      console.log(error);
-    }
-  );
+download(piece_jointe: string): void {
+  this.ncservice.downloadFile(piece_jointe);
 }
+filterByDateNC(): void {
+  const startDate = this.startDate ? new Date(this.startDate) : null;
+  const endDate = this.endDate ? new Date(this.endDate) : null;
+
+  const filteredNcs = this.originalNcs.filter(nc => {
+    const ncDate = nc.date_nc ? new Date(nc.date_nc) : null;
+
+    if (startDate instanceof Date && endDate instanceof Date && ncDate instanceof Date) {
+      return ncDate >= startDate && ncDate <= endDate;
+    }
+    return false;
+  });
+
+  this.filteredNcs = filteredNcs;
+}
+
+resetDateFilter(): void {
+  this.startDate = undefined;
+  this.endDate = undefined;
+  this.filteredNcs = this.originalNcs;
+}
+
+
 getNcData( id : number,
   intitule:any,
   nature : any,
@@ -243,10 +315,6 @@ getNcData( id : number,
   gravite:any,
   action_immediate:any,
   nc_cloture:any,
-  processus_name:any,
-  site_name:any,
-
-  responsable_name:any,
   processus:any,
   site:any,
   responsable_traitement:any,
@@ -272,9 +340,6 @@ getNcData( id : number,
     this.gravite=gravite,
     this.action_immediate=action_immediate,
     this.nc_cloture=nc_cloture,
-    this.processus_name=processus_name,
-    this.site_name=site_name
-    this.responsable_name=responsable_name,
     this.processus=processus,
     this.site=site,
     this.responsable_traitement=responsable_traitement
@@ -287,29 +352,44 @@ navigateToNc() {
 }
 
 openDeleteModal(id: number) {
-  this.idTodelete = id;
+  this.selectedNcToDelete = id;
   this.deleteModal.show();
 }
-
-
-delete() {
-  this.ncservice.delete(this.idTodelete).subscribe({
-    next: (data) => {
-      this.ncs = this.ncs.filter(_ => _.id != this.idTodelete)
-      location.reload()
-      this.deleteModal.hide();
-    },
-    error:(err) => {
-      console.log(err);
-    }
-
-
-    
+delete(ids: number[]) {
+  ids.forEach(id => {
+    this.ncservice.delete(id).subscribe({
+      next: (data) => {
+        this.ncs = this.ncs.filter(nc => nc.id !== id);
+        location.reload()
+        this.deleteModal.hide();
+        },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   });
 }
+deleteItem() {
+  if (this.selectedNcs.length > 0) {
+    const idsToDelete = this.selectedNcs.map(n => n.id);
+    this.delete(idsToDelete);
+  } else if (this.selectedNcToDelete) {
+    const idToDelete = this.selectedNcToDelete;
+    this.delete([idToDelete]);
+  }
+}
 
+  toggleSelection(nc: Nc) {
+    const index = this.selectedNcs.indexOf(nc);
+    if (index > -1) {
+      this.selectedNcs.splice(index, 1); 
+    } else {
+      this.selectedNcs.push(nc);
+    }
+  }
+  
 exportToExcel() {
-  const worksheet = XLSX.utils.json_to_sheet(this.ncs.map((nc) => ({
+  const worksheet = XLSX.utils.json_to_sheet(this.filteredNcs.map((nc) => ({
     'ID': nc.id,
     'Intitule': nc.intitule,
     'Nature': nc.nature,
@@ -347,5 +427,114 @@ openModal() {
 closeModal() {
   this.bsModalService.hide();
   location.reload();
+}
+getVisibleColumnsCount(): number {
+  let count = 0;
+  const fields = [
+    'domaine',
+    'frequence',
+    'cout',
+    'annee',
+    'mois',
+  ];
+
+  for (const field of fields) {
+    if (this.fieldsVisible[field]) {
+      count++;
+    }
+  }
+
+  return count;
+}
+onDropdownClick(event: MouseEvent) {
+  event.stopPropagation();
+}
+
+toggleDropdown() {
+  this.autoCloseDropdown = !this.autoCloseDropdown;
+}
+
+onDocumentClick(event: MouseEvent) {
+  this.autoCloseDropdown = true;
+}
+getSelectedFileName(): string {
+  const fileInput = document.getElementById('customFile2') as HTMLInputElement;
+  if (fileInput && fileInput.files && fileInput.files.length > 0) {
+    return fileInput.files[0].name;
+  }
+  return 'Choose file';
+}
+
+getFileNameFromUrl(url: string): string {
+  const fileName = url.substring(url.lastIndexOf('/') + 1);
+  return decodeURIComponent(fileName); // Decode the URI component
+}
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+
+filterByField(fieldName: string): void {
+  this.filterField = fieldName;
+  this.togglePopover();
+  this.searchQuery = '';
+}
+applyFieldFilter(): void {
+  const searchValue = this.fieldSearchQuery?.toLowerCase();
+
+  this.filteredNcs = this.ncs.filter((nc) => {
+    const fieldValue = nc[this.filterField]?.toLowerCase();
+
+    if (fieldValue && searchValue) {
+      return fieldValue.includes(searchValue);
+    }
+
+    return true;
+  });
+}
+
+resetTable(): void {
+  if (this.fieldSearchQuery && this.filteredNcs.length === 0) {
+    this.fieldSearchQuery = ''; 
+    this.filterField = '';
+    this.filteredNcs = this.ncs;
+  }
+}
+ 
+togglePopover() {
+  this.showPopover = !this.showPopover;
+}
+closePopover(): void {
+  this.showPopover = false;
+}
+handleReset(): void {
+  if (this.filteredNcs.length === 0) {
+    this.resetTable();
+    this.closePopover();
+  } else {
+    this.closePopover();
+  }
+}
+resetSearchQuery() {
+  this.searchQuery = '';
+}
+openUtilisateurModal(utilisateur: Utilsateur) {
+  this.selectedUtilisateur = utilisateur;
+  this.modalRef = this.bsModalService.show(this.utilisateurModal);
+}
+closeModalutilisateur(){
+    this.bsModalService.hide();
+}
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredNcs.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredNcs.length} entrées`;
 }
 }

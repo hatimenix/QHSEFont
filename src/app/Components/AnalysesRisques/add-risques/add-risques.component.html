@@ -1,0 +1,247 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+       <div class="row">
+           <div class="col-sm-12">
+            <div style="display: flex; flex-direction: column;">
+               <div class="card">
+                   <div class="card-header d-flex justify-content-between">
+                       <div class="header-title">
+                           <h4>Ajouter un risque</h4>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                 <form [formGroup]="analyseForm" (ngSubmit)="addAnalyseFormData()" class="needs-validation" enctype="multipart/form-data" novalidate>
+                  <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+                    <li class="nav-item">
+                       <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">IDENTIFICATION</a>
+                    </li>
+                    <li class="nav-item">
+                       <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">EVALUATION</a>
+                    </li>
+                    <li class="nav-item">
+                       <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">PLAN D'ACTIONS</a>
+                    </li>
+                 </ul>
+                 <div class="tab-content" id="pills-tabContent">
+                  <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+                   <div class="d-flex align-items">
+                   <div class="col-4">
+                    <div class="form-group">
+                      <label for="typologie">Typologie :</label>
+                      <input type="text" class="form-control" formControlName="typologie" />
+                    </div>
+                   </div>
+                    <div class="col-4">
+                    <div class="form-group">
+                      <label for="famille">Famille :</label>
+                      <input type="text" class="form-control" formControlName="famille" />
+                    </div>
+                    </div>
+                    <div class="col-4">
+                    <div class="form-group">
+                      <label for="origine">Origin :</label>
+                      <input type="text" class="form-control" formControlName="origine" />
+                    </div>
+                    </div>
+                   </div>
+                   <div class="d-flex align-items">
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label for="site">Site :</label>
+                        <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                         <option value="" selected disabled>Choisissez un site</option>
+                         <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                        </select>
+                      </div>
+                      </div>
+                    <div class="col-4">
+                    <div class="form-group">
+                      <label for="processus">Processus :</label>
+                      <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+                       <option value="" selected disabled>Choisissez un processus</option>
+                       <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+                      </select>
+                    </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label for="axe">Axe stratégique lié :</label>
+                        <input type="text" class="form-control" formControlName="axe" />
+                      </div>
+                      </div>
+                    </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="description">Description :<span style="color: red;">*</span></label>
+                          <textarea type="text" class="form-control" formControlName="description" ></textarea>
+                        </div>
+                        </div>
+                      <div class="d-flex align-items">
+                    <div class="col-4">
+                    <div class="form-group">
+                      <label for="opportunite" title="Opportunité identifiée">Opportunité :</label>
+                      <input class="form-control" formControlName="opportunite">
+                    </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label for="indice">Indice risque :</label>
+                        <input type="number" class="form-control" formControlName="indice">
+                        <div class="flag-icons">
+                          <div class="flag-label-row">
+                            <span class="flag-label success">0-5 :</span>
+                            <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +indice >= 0 && +indice <= 5}"></i>
+                          </div>
+                          <div class="flag-label-row">
+                            <span class="flag-label warning">5-10 :</span>
+                            <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +indice > 5 && +indice <= 10}"></i>
+                          </div>
+                          <div class="flag-label-row">
+                            <span class="flag-label danger">10 ou plus :</span>
+                            <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +indice > 10}"></i>
+                          </div>
+                        </div>  
+                      </div>
+                    </div>
+                    
+                      <div class="col-4">
+                        <div class="form-group">
+                          <label for="niveau_risque">Niveau de risque :</label>
+                          <input class="form-control" formControlName="niveau_risque">
+                        </div>
+                        </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="contexte_int">Context interne :</label>
+                      <textarea class="form-control" formControlName="contexte_int"></textarea>
+                      <label class="text-blue " for="contexte_int">Environnement dans lequel l'organisme cherche à atteindre ses objectifs</label>
+                    </div>
+                   </div>
+                   <div class="col-12">
+                    <div class="form-group">
+                      <label for="contexte_ext">Contexte externe :</label>
+                      <textarea type="text" class="form-control" formControlName="contexte_ext" ></textarea>
+                      <label class="text-blue " for="contexte_ext">Le contexte externe est l'environnement externe dans lequel l'organisme cherche à atteindre ses objectifs.</label>
+                    </div>
+                    </div>
+                   <div class="col-12">
+                    <div class="form-group">
+                      <label for="consequences">Conséquences :</label>
+                      <textarea type="text" class="form-control" formControlName="consequences" ></textarea>
+                      <label class="text-blue " for="info_complementaires">Décrire ici les conséquences possibles de ce risque / opportunité</label>
+                    </div>
+                    </div>
+                </div>
+              <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+                   <div class="d-flex align-items">
+                   <div class="col-6">
+                    <div class="form-group">
+                      <label for="date_evaluation">Date évaluation :</label>
+                      <input type="date" class="form-control" formControlName="date_evaluation" />
+                    </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="impact">Impact :</label>
+                        <select formControlName="impact" class="selectpicker form-control" data-style="py-0">
+                          <option value="">Choisir une option</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                      </select>
+                      <br>
+                      <label class="text-blue " for="gravite">1.Aucune incidence sur l'organisme</label>
+                      <br>
+                      <label class="text-blue " for="gravite">2.Incidence faible</label>
+                      <br>
+                      <label class="text-blue "for="gravite">3.Incidence forte sur une ou des activités de l'organisme</label> 
+                      <br>
+                      <label class="text-blue "for="gravite">4.Incidence sur tout l'organisme</label>                                           
+                      </div>
+                      </div>
+                      <div class="d-flex align-items">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="maitrise">Maitrise :</label>
+                            <select formControlName="maitrise" class="selectpicker form-control" data-style="py-0">
+                              <option value="">Choisir une option</option>
+                              <option>1</option>
+                              <option>0.9</option>
+                              <option>0.7</option>
+                              <option>0.4</option>
+                          </select>  
+                          <br>
+                          <label class="text-blue " for="gravite">1.Absence de mesure de prévention</label>
+                          <br>
+                          <label class="text-blue " for="gravite">0.9.Un seul type de mesure existant</label>
+                          <br>
+                          <label class="text-blue "for="gravite">0.7.Deux types de mesures existants</label> 
+                          <br>
+                          <label class="text-blue "for="gravite">0.4.Trois types de mesures existants</label>           
+                          <br>                      
+                        </div>
+                          </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="probabilite">Probabilité :</label>
+                                <select formControlName="probabilite" class="selectpicker form-control" data-style="py-0">
+                                  <option value="">Choisir une option</option>
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                              </select>
+                              <label class="text-blue " for="gravite">1.Improbable</label>
+                              <br>
+                              <label class="text-blue " for="gravite">2.Rare</label>
+                              <br>
+                              <label class="text-blue "for="gravite">3.Possible</label> 
+                              <br>
+                              <label class="text-blue "for="gravite">4.Probable</label>                             
+                            </div>
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <div class="form-group">
+                                <label for="mesure">Mesures en place :</label>
+                                <textarea class="form-control" formControlName="mesure"></textarea>
+                              </div>
+                              </div>
+                            </div>
+                   <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+                   <div class="col-12">
+                    <div class="form-group">
+                      <label for="type_action">Type d'action :</label>
+                      <input class="form-control" formControlName="type_action">
+                    </div>
+                    </div>
+                    </div>
+                  </div>
+                    <div class="d-flex align-items-center flex-column" >
+                     <div class="mt-auto p-2">
+                       <button type="submit"  class="btn btn-primary mb-2 mb-sm-0"  [disabled]="analyseForm.invalid"  ><i class="fas fa-plus"></i>Ajouter</button>
+                       <button type="button" class="btn btn-warning mb-2 mb-sm-0" routerLink="/cartographieRisque" ><i class="fas fa-times"></i>Annuler</button>
+                    </div>
+                    </div>
+                 </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- Page end  -->
+  <ng-template #addModalAnalyse>
+    <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    L'analyse risque a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+    </div>
+    </ng-template>

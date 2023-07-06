@@ -1,0 +1,214 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Ajouter Constat d'audit</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="page-list-returns.html" data-toggle="validator" [formGroup]="constatAuditForm"
+                            (ngSubmit)="onSubmit()">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Intitulé </label>
+                                        <input type="text" class="form-control" placeholder="Entrer intitulé"
+                                            id="intitule_constat" name="intitule_constat"
+                                            formControlName="intitule_constat">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Type de constat </label>
+                                        <input type="text" class="form-control" placeholder="Entrer le type du constat"
+                                            id="type_constat" name="type_constat" formControlName="type_constat">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Audit associé</label>
+                                        <input type="text" class="form-control" placeholder="Entrer l'audit associé"
+                                            id="audit_associe" name="audit_associe" formControlName="audit_associe">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Site </label>
+                                        <select id="site" name="site" formControlName="site" class="custom-select"
+                                            data-style="py-0">
+                                            <option *ngFor="let site of site$ | async" [value]="site.id">
+                                                {{ site.site_nom }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Processus </label>
+                                        <select id="processus" name="processus" formControlName="processus"
+                                            class="custom-select" data-style="py-0">
+                                            <option *ngFor="let processus of processuss$ | async"
+                                                [value]="processus.id">
+                                                {{ processus.intitule }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Responsable du traitement </label>
+                                        <div>
+                                            <input type="text" class=" mb-3 form-control" [formControl]="searchControl"
+                                                placeholder="Search" />
+                                        </div>
+
+                                        <div class="checkbox-list" *ngIf="(utilisateurs$ | async) as utilisateurs">
+                                            <div class="checkbox-item"
+                                                *ngFor="let responsable_traitement of filteredUtilisateurs; let i = index">
+                                                <label>
+                                                    <input type="checkbox"
+                                                        [checked]="isResponsableSelected(responsable_traitement?.id)"
+                                                        formControlName="responsable_traitement"
+                                                        (change)="toggleResponsable(responsable_traitement?.id)"
+                                                        required>
+                                                    {{ responsable_traitement?.nom }}
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <label>Date de réponse</label>
+
+                                        <input type="date" class="form-control" id="date_reponse" name="date_reponse"
+                                            formControlName="date_reponse">
+
+
+
+
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Localisation</label>
+                                        <input type="text" class="form-control" placeholder="Entrer la localisation"
+                                            id="localisation" name="localisation" formControlName="localisation">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row align-items-start">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Type d'audit <span style="color: red;">*</span></label>
+
+                                        <select type="text" formControlName="type_audit" class="form-control"
+                                            id="type_audit" class="selectpicker form-control" data-style="py-0">
+                                            <option value="" disabled> </option>
+                                            <option value="Audit 5Ss">Audit 5S</option>
+                                            <option value="Observation terrain">Observation terrain</option>
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Description du constat </label>
+                                        <input type="text" class="form-control" placeholder="Entrer le type d'audit"
+                                            id="description_constat" name="description_constat"
+                                            formControlName="description_constat">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="rapport_audit">Rapport d'audit:</label>
+                                        <div class="drop-zone" style="position: relative;cursor: pointer"
+                                            (dragover)="onDragOver($event, 'rapport_audit')"
+                                            (dragleave)="onDragLeave($event, 'rapport_audit')"
+                                            (drop)="onDrop($event, 'rapport_audit')" (click)="fileInput.click()">
+                                            <input style="position: absolute;top: -9999px;left: -9999px;opacity: 0;"
+                                                #fileInput type="file" class="form-control image-file"
+                                                (change)="onFileSelected($event, 'rapport_audit')">
+                                            <p *ngIf="droppedFile">{{ droppedFile.name }}</p>
+                                            <p *ngIf="!droppedFile">Glissez-déposez le fichier ici ou cliquez
+                                                pour sélectionner un fichier</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex flex-wrap justify-content-center">
+
+                                <button [disabled]="constatAuditForm.invalid" type="submit" class="btn btn-primary mr-2"
+                                    (click)="openModal()">Ajouter</button>
+                                <button type="reset" class="btn btn-danger"
+                                    routerLink="/constatsaudit-list">Annuler</button>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page end  -->
+    </div>
+</div>
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Le constat d'audit a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>

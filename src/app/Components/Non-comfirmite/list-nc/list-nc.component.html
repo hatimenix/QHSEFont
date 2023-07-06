@@ -1,103 +1,300 @@
-<div class="content-page">
+<div class="content-page custom-background">
   <div class="container-fluid">
+    <div class="card">
      <div class="row">
          <div class="col-lg-12">
-             <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-              <div>
-                <h4 class="mb-3">Suivi des non-conformités</h4>
+          <div class="card-header d-flex justify-content-between ">
+            <div class="header-title">
+              <h4 class="card-title">Suivi des non-conformités</h4>
             </div>
-                 <a (click)="navigateToNc()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter une non-conformité</a>
-             </div>
-         </div>
-
+            <a (click)="navigateToNc()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%;">
+              <i class="las la-plus"></i> Ajouter une non-conformité
+            </a>
+            </div>
+            </div>
         </div>
-        <div class="input-group mb-3">
-         <input type="text" class="form-control" placeholder="Chercher" [(ngModel)]="searchQuery">
-     </div>
+        <div class="card-body">
+        <div class="row justify-content-start">
+          <div class="input-group mb-4 col-md-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-search" style="font-size: 1rem;"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+            <div class="input-group-append">
+              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+        <div class="dropdown">
+          <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+            <i class="fas fa-filter"></i>Filtrer par
+          </button>
+          <div class="dropdown-menu" aria-labelledby="filterDropdown">
+            <a class="dropdown-item" (click)="filterByField('intitule')" style="cursor: pointer;">Intitulé de la non-conformité</a>
+            <a class="dropdown-item" (click)="filterByField('processus_name')" style="cursor: pointer;">Processus</a>
+            <a class="dropdown-item" (click)="filterByField('site_name')" style="cursor: pointer;">Site</a>
+            <a class="dropdown-item" (click)="filterByField('responsable_name')" style="cursor: pointer;">Responsable de traitement</a>
+          </div>
+          <div class="dropdown dropright">
+            <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+              <div class="arrow"></div>
+              <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="popover-body" style="width: 500px; max-width: 100%;">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-search"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                </div>
+              
+                <div class="row justify-content-center">
+                  <div class="col-md-12">
+                    <div class="alert alert-info" role="alert" *ngIf="filterField && filteredNcs.length === 0">
+                      Aucun résultat.
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row justify-content-end">
+                  <div class="col-md-4">
+                    <button class="btn" (click)="handleReset()">Fermer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+        </div>
+      </div>       
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Depuis :</span>
+                </div>
+                <input type="date" class="form-control" id="start_date" [(ngModel)]="startDate">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Vers :</span>
+                </div>
+                <input type="date" class="form-control" id="end_date" [(ngModel)]="endDate">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="row justify-content-center">
+              <div class="input-group">
+                <div class="input-group-append">
+                  <button style="margin-top: 1.5%;" class="btn btn-primary" (click)="filterByDateNC()">
+                    <i class="fas fa-filter"></i> Filter par date
+                  </button>
+                  <button style="margin-top: 1.5%;" class="btn btn-light" (click)="resetDateFilter()">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+        </div>
+        
 
          <div>
-          <button class="btn " (click)="filterByEtatTrue()"> NC en cours</button>
-          <button class="btn " (click)="filterByEtatFalse()">NC closes</button>
-          <button class="btn " (click)="getNcs()">Toutes les NCs</button>
-          <button class="btn "  (click)="exportToExcel()">Export excel</button>
+          <div class="row justify-content-between">
+            <div style="margin-left: 1.5%;">
+              <button class="btn btn-outline-secondary waves-effect" (click)="filterByEtatTrue()">
+                <i class="fas fa-spinner mr-1"></i> NC en cours
+              </button>
+              <button class="btn btn-outline-warning waves-effect" (click)="filterByEtatFalse()">
+                <i class="fas fa-check-circle mr-1"></i> NC closes
+              </button>
+              <button class="btn btn-outline-danger waves-effect" (click)="getNcs()">
+                <i class="fas fa-list-alt mr-1"></i> Toutes les NCs
+              </button>
+              <button class="btn btn-outline-success waves-effect" (click)="exportToExcel()">
+                <i class="fas fa-file-excel mr-1"></i> Export excel
+              </button>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Afficher {{ itemsPerPage }} résultats par page
+              </button>
+              <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                  [ngClass]="{'selected': option === itemsPerPage}">
+                  <span>{{ option }}</span>
+                  <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-dropdown" (click)="onDropdownClick($event)">
+            <div class="dropdown">
+              <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
+                <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
+              </button>
+              
+              <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
+                <label class="dropdown-item">Afficher / masquer les colonnes</label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['domaine']" /> Domaine
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['frequence']" /> Frequence
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['cout']" /> Cout
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['annee']" /> Année
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['mois']" /> Mois
+                </label>
+              </div>
+            </div>
+          </div>
       
          <div class="col-lg-12">
              <div class="table-responsive rounded mb-3">
              <table class="data-tables table mb-0 tbl-server-info">
-                 <thead class="bg-white text-uppercase">
-                     <tr class="ligth ligth-data">
+                 <thead>
+                     <tr class="light ligth-data">
                          <th>
-                             <div class="checkbox d-inline-block">
-                                 <input type="checkbox" class="checkbox-input" id="checkbox1">
-                                 <label for="checkbox1" class="mb-0"></label>
-                             </div>
                          </th>
-                          <th scope="col">Intitulé de la non-conformité</th>
-                          <th scope="col">Nature</th>
+                         <th scope="col">
+                          <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Intitulé de la non-conformité</a>
+                          <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
+                          <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
+                        </th>                                                                       
+                        <th scope="col">Nature</th>
                           <th scope="col">Processus</th>
                           <th scope="col">Site</th>
                           <th scope="col">Responsable traitement</th>
+                          <ng-container *ngIf="fieldsVisible['domaine']">
                           <th scope="col">Domaine</th>
+                          </ng-container>
                           <th scope="col">Detail_cause</th>
                           <th scope="col">Date_nc</th>
                           <th scope="col">Date prise en compte</th>
                           <th scope="col">Description detailée</th>
+                          <ng-container *ngIf="fieldsVisible['annee']">
                           <th scope="col">Année</th>
+                          </ng-container>
+                          <ng-container *ngIf="fieldsVisible['mois']">
                           <th scope="col">mois</th>
+                          </ng-container>
                           <th scope="col">delai_prevu</th>
                           <th scope="col">type_cause</th>
+                          <ng-container *ngIf="fieldsVisible['cout']">
                           <th scope="col">cout</th>
+                          </ng-container>
                           <th scope="col">Avancement</th>
                           <th scope="col">info_complementaires</th>
+                          <ng-container *ngIf="fieldsVisible['frequence']">
                           <th scope="col">frequence</th>
+                          </ng-container>
                           <th scope="col">gravite</th>
                           <th scope="col">action_immediate</th>
                           <th scope="col">nc_cloture</th>
                           <th scope="col">Pièce jointe</th>
                           <th scope="col">Actions</th>
+                          <th scope="col">Supprimer les colonnes</th>
+
 
                      </tr>
                  </thead>
                  <tbody class="ligth-body">
-                  <tr *ngFor="let nc of filteredNcs | filter : searchQuery | paginate: { itemsPerPage: 5, currentPage: p }  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
-                      <th scope="row">{{nc.id}}</th>
+                  <tr *ngFor="let nc of displayedNcs | filter : searchQuery  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+                    <ng-container *ngFor="let utilisateur of utilisateurs">
+                      <ng-container *ngIf="nc.responsable_traitement==utilisateur.id">
+                      <th scope="row" style="color: grey;">{{nc.id}}</th>
                       <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                       <td>{{nc.nature}}</td>
                       <td>{{ nc.processus_name }}</td>
                       <td>{{ nc.site_name }}</td>
-                      <td>{{ nc.responsable_name }}</td>
-                      <td>{{nc.domaine}}</td>
+                      <td>
+                        <a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateur)">{{ utilisateur.nom }}</a>
+                      </td>
+                      <td *ngIf="fieldsVisible['domaine']">{{nc.domaine}}</td>
                       <td>{{nc.detail_cause}}</td>
-                      <td>{{nc.date_nc}}</td>
+                      <td>{{ nc.date_nc | date }}</td>
                       <td>{{nc.date_prise_en_compte}}</td>
                       <td>{{nc.description_detailee}}</td>
-                      <td>{{nc.annee}}</td>
-                      <td>{{nc.mois}}</td>
+                      <td *ngIf="fieldsVisible['annee']">{{nc.annee}}</td>
+                      <td *ngIf="fieldsVisible['mois']">{{nc.mois}}</td>
                       <td>{{nc.delai_prevu}}</td>
                       <td>{{nc.type_cause}}</td>
-                      <td>{{nc.cout}}€</td>
-                      <td>{{nc.progress}}%</td>
+                      <td *ngIf="fieldsVisible['cout']">{{nc.cout}}€</td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" [style.width.%]="nc.progress" [attr.aria-valuenow]="nc.progress" aria-valuemin="0" aria-valuemax="100">
+                            {{ nc.progress }}%
+                          </div>
+                        </div>
+                      </td>
                       <td>{{nc.info_complementaires}}</td>
-                      <td>{{nc.frequence ? 'Oui' : 'Non'}}</td>
+                      <td *ngIf="fieldsVisible['frequence']">{{nc.frequence ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.gravite ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.action_immediate ? 'Oui' : 'Non'}}</td>
                       <td>{{nc.nc_cloture ? 'Oui' : 'Non'}}</td>
-                      <td><a href="{{ nc.piece_jointe }}" download>{{ nc.piece_jointe }}</a></td>
+                      <td><button class="btn  fa fa-download mr-3"   (click)="download(nc.piece_jointe)">  {{ nc.piece_jointe ? nc.piece_jointe.split('/').pop() : 'Aucun fichier joint' }}
+
+                      </button></td>
 
                       <td>
-                             <div class="d-flex align-items-center list-action">
-                                     <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update" (click)="getNcData(nc.id , nc.intitule , nc.nature , nc.domaine, nc.detail_cause,nc.date_nc,nc.date_prise_en_compte,nc.description_detailee,nc.annee,nc.mois,nc.delai_prevu,nc.type_cause,nc.cout,nc.progress,nc.info_complementaires,nc.frequence,nc.gravite,nc.action_immediate,nc.nc_cloture,nc.responsable_name,nc.site_name,nc.processus_name,nc.site,nc.processus,nc.responsable_traitement)"data-placement="top" title="" data-original-title="Edit"
-                                     ><i class="ri-pencil-line mr-0"></i></a>
-                                 <a class="badge bg-warning mr-2" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete"
-                                     ><i class="ri-delete-bin-line mr-0"></i></a>
+                        <div class="d-flex justify-content-start align-items-center list-action">
+                          <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="get_url_file(nc.id); getNcData(nc.id, nc.intitule, nc.nature, nc.domaine, nc.detail_cause, nc.date_nc, nc.date_prise_en_compte, nc.description_detailee, nc.annee, nc.mois, nc.delai_prevu, nc.type_cause, nc.cout, nc.progress, nc.info_complementaires, nc.frequence, nc.gravite, nc.action_immediate, nc.nc_cloture, nc.site, nc.processus, nc.responsable_traitement)" data-placement="top" title="" data-original-title="Edit"><i class="ri-pencil-line mr-0"></i>                                                              </a>
+
+                          <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(nc.id)" data-placement="top" title="" data-original-title="Delete">
+                            <i class="ri-delete-bin-line mr-0"></i>
+                          </a>
                              </div>
                          </td>
-                     </tr>  
+                         <td>
+                          <input type="checkbox" [checked]="selectedNcs.includes(nc)" (change)="toggleSelection(nc)">
+                        </td>
+                      </ng-container>
+                    </ng-container>
+                     </tr>
                  </tbody>
              </table>
              </div>
-             <pagination-controls (pageChange)="p = $event"></pagination-controls>
-         </div>
+             <div class="pagination-container" style="display: flex; justify-content: space-between;">
+              <div>
+                <span class="entry-info">
+                  {{ getDisplayedRange() }}
+                </span>
+              </div>
+              <div style="display: flex;justify-content: flex-end;">
+                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                <div class="page-info">
+                  <span class="page-numbers">
+                    <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                  </span>
+                </div>
+                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+              </div>
+            </div>          
+          </div>
+     </div>
      </div>
 
       <!-- Modal -->
@@ -115,8 +312,8 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="delete()" >Supprimer</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      <button type="button" class="btn btn-primary" (click)="deleteItem()" ><i class="fas fa-trash"></i>Supprimer</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>
 </div>
@@ -163,17 +360,31 @@ aria-hidden="true">
             <div class="row">
             <div class="col">
               <label for="date_nc" class="form-label">Date NC : </label>
-              <input [(ngModel)]="date_nc" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
+              <input [(ngModel)]="date_nc" value="{{date_nc}}" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
             </div>
             <div class="col">
-              <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
-              <input [(ngModel)]="date_prise_en_compte" formControlName="date_prise_en_compte" type="date" class="form-control" id="date_prise_en_compte" name="date_prise_en_compte" />
+              <label for="delai_prevu" class="form-label">Délai Prévu : </label>
+              <input [(ngModel)]="delai_prevu" value="{{delai_prevu}}" formControlName="delai_prevu" type="date" class="form-control" id="delai_prevu" name="delai_prevu" />
             </div>
             <div class="col">
               <label for="description_detailee" class="form-label">Description détaillée : </label>
               <input name="description_detailee"  value="{{description_detailee}}" [(ngModel)] = "description_detailee" formControlName="description_detailee" style="width: 100%;" type="text" class="rounded-pill form-control" id="description_detailee">
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <label for="date_prise_en_compte" class="form-label">Date prise en compte : </label>
+              <input [(ngModel)]="date_prise_en_compte" value="{{date_prise_en_compte}}" formControlName="date_prise_en_compte" type="date" class="form-control" id="date_prise_en_compte" name="date_prise_en_compte" />
+            </div>
+          <div class="col">
+            <label for="annee" class="form-label">Année : </label>
+            <input name="annee"  value="{{annee}}" [(ngModel)] = "annee" formControlName="annee" style="width: 100%;" type="text" class="rounded-pill form-control" id="annee">
+          </div>
+        <div class="col">
+          <label for="mois" class="form-label">Mois : </label>
+          <input name="mois"  value="{{mois}}" [(ngModel)] = "mois" formControlName="mois" style="width: 100%;" type="text" class="rounded-pill form-control" id="mois">
+        </div>
+      </div>
           <div class="row">
             <div class="col">
               <label for="action_immediate" class="form-label">Action immédiate : </label>
@@ -204,7 +415,7 @@ aria-hidden="true">
                 </div>
                 <div class="row">
                 <div class="col">                      
-                      <label class="text-dark font-weight-bold">Avancement *</label>
+                      <label class="text-dark font-weight-bold">Avancement </label>
 
                       <div class="progress-bar" role="progressbar" [style.width.%]="progress" [attr.aria-valuenow]="progress">
                       </div>
@@ -260,24 +471,39 @@ aria-hidden="true">
                                     </div>
                                 <div class="col">
                                   <label for="cout" class="form-label">Coût : </label>
-                                  <input name="cout"  value="{{cout}}" [(ngModel)] = "cout" formControlName="cout" style="width: 100%;" type="text" class="rounded-pill form-control" id="cout">
+                                  <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text">€</span>
+                                    </div>
+                                  <input name="cout"  value="{{cout}}" [(ngModel)] = "cout" formControlName="cout" type="text" class="form-control" id="cout" aria-label="Amount (to the nearest dollar)">
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">.00</span>
+                                 </div>
+                                 </div>
                                 </div>
                                 
                                 </div>
                                 <br>
-                              <div class="col mb-2">
-                              <div class="custom-file">
-                                <input (change)="updateFile($event)" [(ngModel)] = "piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Pièce jointe</label>
-                              </div>
-                              </div>
+                                <div class="col mb-2">
+                                  <div class="custom-file">
+                                    <input (change)="updateFile($event)" [(ngModel)]="piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">{{ getSelectedFileName() }}</label>
+                                  </div>
+                                  <div *ngIf="existingFileUrl" class="mt-2">
+                                    <p class="d-inline">Fichier existant:</p>
+                                    <a [href]="existingFileUrl" target="_blank" class="ml-2">{{ getFileNameFromUrl(existingFileUrl) }}</a>
+                                  </div>
+                                </div>
+                                
+                                
+                                
                               </form>
                               </div>
                               </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="updateNc()">Modifier</button> 
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="updateNc()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
         </div>
       </div>
     </div>
@@ -298,4 +524,26 @@ aria-hidden="true">
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
   </div>
+</ng-template>
+<!-- Utilisateur Modal -->
+<ng-template #utilisateurModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Responsable traitement Informations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalutilisateur()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <p><strong>Compte :</strong> {{ selectedUtilisateur?.compte }}</p>
+    <p><strong>Nom:</strong> {{ selectedUtilisateur?.nom }}</p>
+    <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
+    <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
+    <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
+    <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image" alt="image"></p>
+    <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
+    <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
+    <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
+  </div>
+  
 </ng-template>

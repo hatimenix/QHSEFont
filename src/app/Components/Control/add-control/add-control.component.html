@@ -1,0 +1,94 @@
+<div class="content-page custom-background">
+    <div class="container-fluid add-form-list">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-headers d-flex justify-content-between">
+              <div class="header-title">
+                <h4 >Ajouter un Control</h4>
+              </div>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="ControlForm" data-toggle="validator" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-6"> 
+                        <div class="form-group">
+                         <label>Site <label style="color: red;">*</label></label>
+                         <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                             <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                            </select>
+                     </div> 
+                     </div> 
+                     <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="nature_control">Nature de contrôle <label style="color: red;">*</label> </label>
+                          <input type="text" class="form-control" placeholder="Enter une codification" formControlName="nature_control" data-errors="Entrez un nom de document" required>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="origine_reglementaire">Origine réglementaire <label style="color: red;">*</label> </label>
+                          <input type="text" class="form-control" placeholder="Enter une codification" formControlName="origine_reglementaire" data-errors="Entrez un nom de document" required>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">                      
+                        <div class="form-group">
+                            <label for="date_dernier_control">Date du dernier contrôle <label style="color: red;">*</label></label>
+                            <input type="date" class="form-control" placeholder="Enter Name" data-errors="Please Enter Date."   type="date" id="date_dernier_control" formControlName="date_dernier_control"required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>    
+                    <div class="col-md-6">                      
+                        <div class="form-group">
+                            <label for="date_control_suivant">Date du contôle suivant <label style="color: red;">*</label></label>
+                            <input type="date" class="form-control" placeholder="Enter Name" data-errors="Please Enter Date."   type="date" id="date_control_suivant" formControlName="date_control_suivant"required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="action_ouverte">Action ouverte <label style="color: red;">*</label></label>
+                            <select name="type" class="selectpicker form-control" data-style="py-0" id="action_ouverte" formControlName="action_ouverte">
+                                <option>Oui</option>
+                                <option>Non</option>
+                                
+                            </select>
+                        </div> 
+                    </div> 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="rapport">Rapport </label>
+                            <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'rapport') " formControlName="rapport">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div> 
+                                          
+                </div>                            
+                <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
+                <button type="reset" class="btn btn-warning" routerLink="/listcontrol">Annuler</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- add modal -->
+  <ng-template #successModal>
+    <div class="modal-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Le Controle a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+  </ng-template>
+  
+  

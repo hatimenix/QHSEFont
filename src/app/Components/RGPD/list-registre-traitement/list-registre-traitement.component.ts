@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
@@ -13,23 +13,37 @@ declare var window: any;
   templateUrl: './list-registre-traitement.component.html',
   styleUrls: ['./list-registre-traitement.component.css']
 })
-export class ListRegistreTraitementComponent {
+export class ListRegistreTraitementComponent implements OnInit{
   fournisseurs: any[] = [];
   traitements: any[] = [];
   updateModalVisible: boolean = true
   showTypeRegistre = false;
   showRespRegistre = false;
+  startDate: string | undefined;
+  endDate: string | undefined;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
-  constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){ }
-  TraitementList:any=[];
   originalTraitements: Traitement[] = [];
   filteredTraitements: Traitement[] = [];
   searchQuery: string = '';
-  p = 1; 
-  itemsPerPage: number = 5;
+  filterField: string = '';
+  fieldSearchQuery: string = '';
+  showPopover: boolean = false;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.filteredTraitements.length / this.itemsPerPage);
+  }
+
+  get displayedTraitements(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredTraitements.slice(startIndex, endIndex);
+  }
+  selectedTraitements: Traitement[] = [];
   deleteModal: any;
-  idTodelete: number = 0;
+  selectedTraitementToDelete: number = 0;
     id: any
     fournisseur: any
     typeregistre:any
@@ -97,6 +111,8 @@ export class ListRegistreTraitementComponent {
 
 
     });
+    constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){ }
+
   ngOnInit(): void{
    this.refreshtraitementlist();
    this.originalTraitements = this.traitements.slice(); // create a copy of the original list
@@ -105,7 +121,9 @@ export class ListRegistreTraitementComponent {
   refreshtraitementlist(){
     this.traitementservice.getAll().subscribe(res=>{
       this.originalTraitements = res;
-      this.filteredTraitements = res;    })
+      this.filteredTraitements = res; 
+      this.traitements=res   
+    })
     this.fournisseurservice.getAll().subscribe(
       (data: any[]) => {
         this.fournisseurs = data;
@@ -127,6 +145,10 @@ export class ListRegistreTraitementComponent {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.startDate = ''; 
+    this.endDate = ''; 
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0];
   }
   filterByTypeRegistre() {
     this.showTypeRegistre = !this.showTypeRegistre;
@@ -139,9 +161,30 @@ export class ListRegistreTraitementComponent {
     this.filteredTraitements = this.originalTraitements;
   }
   openDeleteModal(id: number) {
-    this.idTodelete = id;
+    this.selectedTraitementToDelete = id;
     this.deleteModal.show();
   }
+  filterByDateCreation(): void {
+    const startDate = this.startDate ? new Date(this.startDate) : null;
+    const endDate = this.endDate ? new Date(this.endDate) : null;
+  
+    const filteredTraitements = this.traitements.filter(traitement => {
+      const traitementDate = traitement.datedecreation ? new Date(traitement.datedecreation) : null;
+  
+      if (startDate instanceof Date && endDate instanceof Date && traitementDate instanceof Date) {
+        return traitementDate >= startDate && traitementDate <= endDate;
+      }
+      return false;
+    });
+  
+    this.filteredTraitements = filteredTraitements;
+  }
+  resetDateFilter(): void {
+    this.startDate = undefined;
+    this.endDate = undefined;
+    this.filteredTraitements = this.originalTraitements;
+  }
+  
   updatetraitement() : void {
     const formData = new FormData();
     formData.append('fournisseur', this.fournisseur);
@@ -254,21 +297,38 @@ getTraitementData(
       this.fournisseur_representant=fournisseur_representant
 
     }
-    delete() {
-      this.traitementservice.delete(this.idTodelete).subscribe({
-        next: (data) => {
-          this.traitements = this.traitements.filter(_ => _.id != this.idTodelete)
-          location.reload()
-          this.deleteModal.hide();
-        },
-        error:(err) => {
-          console.log(err);
-        }
-    
-    
-        
+    delete(ids: number[]) {
+      ids.forEach(id => {
+        this.traitementservice.delete(id).subscribe({
+          next: (data) => {
+            this.traitements = this.traitements.filter(traitement => traitement.id !== id);
+            location.reload()
+            this.deleteModal.hide();
+            },
+          error: (err) => {
+            console.log(err);
+          }
+        });
       });
     }
+    deleteItem() {
+      if (this.selectedTraitements.length > 0) {
+        const idsToDelete = this.selectedTraitements.map(t => t.id);
+        this.delete(idsToDelete);
+      } else if (this.selectedTraitementToDelete) {
+        const idToDelete = this.selectedTraitementToDelete;
+        this.delete([idToDelete]);
+      }
+    }
+    
+      toggleSelection(traitement: Traitement) {
+        const index = this.selectedTraitements.indexOf(traitement);
+        if (index > -1) {
+          this.selectedTraitements.splice(index, 1); 
+        } else {
+          this.selectedTraitements.push(traitement);
+        }
+      }
     openModal() {
       this.modalRef = this.bsModalService.show(this.successModal);
     }
@@ -276,10 +336,65 @@ getTraitementData(
       this.bsModalService.hide();
       location.reload();
     }
-
-
-
-
-
+    onItemsPerPageChange(option: number) {
+      this.p = 1; 
+      this.itemsPerPage = option; 
+    }
+    getPageNumbers(): number[] {
+      const pageNumbers = [];
+      for (let i = 1; i <= this.totalPages; i++) {
+        pageNumbers.push(i);
+      }
+      return pageNumbers;
+    }
+    filterByField(fieldName: string): void {
+      this.filterField = fieldName;
+      this.togglePopover();
+      this.searchQuery = '';
+    }
+    applyFieldFilter(): void {
+      const searchValue = this.fieldSearchQuery?.toLowerCase();
+    
+      this.filteredTraitements = this.traitements.filter((traitement) => {
+        const fieldValue = traitement[this.filterField]?.toLowerCase();
+    
+        if (fieldValue && searchValue) {
+          return fieldValue.includes(searchValue);
+        }
+    
+        return true;
+      });
+    }
+    
+    resetTable(): void {
+      if (this.fieldSearchQuery && this.filteredTraitements.length === 0) {
+        this.fieldSearchQuery = ''; 
+        this.filterField = '';
+        this.filteredTraitements = this.traitements;
+      }
+    }
+     
+    togglePopover() {
+      this.showPopover = !this.showPopover;
+    }
+    closePopover(): void {
+      this.showPopover = false;
+    }
+    handleReset(): void {
+      if (this.filteredTraitements.length === 0) {
+        this.resetTable();
+        this.closePopover();
+      } else {
+        this.closePopover();
+      }
+    }  
+    resetSearchQuery() {
+      this.searchQuery = '';
+    }
+    getDisplayedRange(): string {
+      const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+      const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredTraitements.length);
+      return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredTraitements.length} entrées`;
+    }
 
 }

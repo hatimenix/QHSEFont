@@ -1,14 +1,8 @@
-.checkbox-lg {
-    transform: scale(2.5);
-    margin-left: 20px;
-  }
-  .card-header{
-    background-color: #3F497F;
-    color: #fff;
-    
-  }
-  .nav-item.disabled a {
+.nav-item.disabled a {
     color: #ff0000;
     cursor: not-allowed;
  }
- 
+ a.nav-link.active {
+  color: white;
+  background-color: #ffd140;
+}

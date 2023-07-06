@@ -1,11 +1,11 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter Site</h4>
+                           <h4 >Ajouter Site</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -29,7 +29,7 @@
                                 <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Responsable Site <label style="color: red;">*</label> </label>
-                                    <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required>
+                                    <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required >
                                         <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
                                        </select>   
                                 </div> 

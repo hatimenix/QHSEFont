@@ -4,6 +4,8 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
 import { Fournisseur } from 'src/app/models/fournisseur';
+import { HostBinding, ElementRef } from '@angular/core';
+
 
 declare var window: any;
 
@@ -13,12 +15,37 @@ declare var window: any;
   templateUrl: './list-fournisseurs.component.html',
   styleUrls: ['./list-fournisseurs.component.css']
 })
-export class ListFournisseursComponent {
+export class ListFournisseursComponent implements OnInit {
   updateModalVisible: boolean = true;
+  showPopover: boolean = false;
+  isAscending: boolean = true;
+  isReverseSorting: boolean = false;
+  fieldsVisible: { [key: string]: boolean } = {
+    siret: true,
+    prestation: true,
+    postal:true,
+    web:true,
+    adresse:true,
+  };
+  autoCloseDropdown: boolean = true;
+    isCollapsed = true;
+  isOpen = false;
   @ViewChild('successModal', { static: true }) successModal:any; 
+
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPage: number = 5;
+  textSize: number = 16;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.filteredFournisseurs.length / this.itemsPerPage);
+  }
+
+  get displayedFournisseurs(): Fournisseur[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredFournisseurs.slice(startIndex, endIndex);
+  }
   id : any 
   nom : any 
   numerodesiret : any 
@@ -37,9 +64,13 @@ export class ListFournisseursComponent {
   numerodetelephone :any
   telephonepersonnel :any
   searchQuery: string = '';
+  filterField: string = '';
+  fieldSearchQuery: string = '';
+  filteredFournisseurs: Fournisseur[] = [];
   fournisseurs : Fournisseur[] = []
+  selectedFournisseurs: Fournisseur[] = [];
   deleteModal: any;
-  idTodelete: number = 0;
+  selectedFournisseurToDelete: number = 0;
 
   form = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -60,16 +91,35 @@ export class ListFournisseursComponent {
     telephonepersonnel: new FormControl(''),
 
   });
-  constructor(private   fournisseurservice : FournisseurService, private router : Router, private bsModalService: BsModalService){
+  constructor(private el: ElementRef,private   fournisseurservice : FournisseurService, private router : Router, private bsModalService: BsModalService,){
 
   }
   ngOnInit(): void {
     this.getFournisseurs();
+    document.addEventListener('click', this.onDocumentClick.bind(this));
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
+
   }
+  ngOnDestroy() {
+    document.removeEventListener('click', this.onDocumentClick.bind(this));
+  }
+  sortByReverseAlphabet() {
+    if (this.isReverseSorting) {
+    this.fournisseurs.sort((a, b) => (a.nom ?? '').localeCompare(b.nom ?? ''));
+    this.isAscending = false;
+    this.isReverseSorting = false;
+    }else {
+      this.fournisseurs.sort((a, b) => (b.nom ?? '').localeCompare(a.nom ?? ''));
+      this.isReverseSorting = true;
+    }
+  }  
   getFournisseurs() {
     this.fournisseurservice.getAll().subscribe(
       res => {
         this.fournisseurs = res;
+        this.filteredFournisseurs = res; 
+
       },
       error => {
         console.log(error);
@@ -79,14 +129,12 @@ export class ListFournisseursComponent {
       document.getElementById('delete')
     );
   }
-  navigateToFournisseur() {
-    this.router.navigate(['/add-fournisseurs']);
-  }
-  
+ 
   openDeleteModal(id: number) {
-    this.idTodelete = id;
+    this.selectedFournisseurToDelete = id;
     this.deleteModal.show();
   }
+  
 
   updateFournisseur() : void {
     const formData =  new FormData()
@@ -158,25 +206,44 @@ getFournisseurData( id : number,
   this.numerodetelephone=numerodetelephone,
   this.telephonepersonnel=telephonepersonnel
 
-
-
+}
+toggleWindow(): void {
+  this.isOpen = !this.isOpen;
 }
   
-  delete() {
-    this.fournisseurservice.delete(this.idTodelete).subscribe({
+delete(ids: number[]) {
+  ids.forEach(id => {
+    this.fournisseurservice.delete(id).subscribe({
       next: (data) => {
-        this.fournisseurs = this.fournisseurs.filter(_ => _.id != this.idTodelete)
+        this.fournisseurs = this.fournisseurs.filter(fournisseur => fournisseur.id !== id);
         location.reload()
         this.deleteModal.hide();
-      },
-      error:(err) => {
+        },
+      error: (err) => {
         console.log(err);
       }
-  
-  
-      
     });
+  });
+}
+deleteItem() {
+  if (this.selectedFournisseurs.length > 0) {
+    const idsToDelete = this.selectedFournisseurs.map(f => f.id);
+    this.delete(idsToDelete);
+  } else if (this.selectedFournisseurToDelete) {
+    const idToDelete = this.selectedFournisseurToDelete;
+    this.delete([idToDelete]);
   }
+}
+
+  toggleSelection(fournisseur: Fournisseur) {
+    const index = this.selectedFournisseurs.indexOf(fournisseur);
+    if (index > -1) {
+      this.selectedFournisseurs.splice(index, 1); 
+    } else {
+      this.selectedFournisseurs.push(fournisseur);
+    }
+  }
+  
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
@@ -184,4 +251,116 @@ getFournisseurData( id : number,
     this.bsModalService.hide();
     location.reload();
   }
+  @HostBinding('style.fontSize.px')
+  get fontSize(): number {
+    return this.textSize;
+  }
+
+  increaseTextSize(): void {
+    this.textSize += 2;
+  }
+
+  decreaseTextSize(event: MouseEvent): boolean {
+    event.preventDefault();
+    if (this.textSize > 2) {
+      this.textSize -= 2;
+    }
+    return false;
+  }
+  getVisibleColumnsCount(): number {
+    let count = 0;
+    const fields = [
+      'siret',
+      'prestation',
+      'postal',
+      'web',
+      'adresse',
+    ];
+  
+    for (const field of fields) {
+      if (this.fieldsVisible[field]) {
+        count++;
+      }
+    }
+  
+    return count;
+  }
+  onDropdownClick(event: MouseEvent) {
+    event.stopPropagation();
+  }
+  
+  toggleDropdown() {
+    this.autoCloseDropdown = !this.autoCloseDropdown;
+  }
+  
+  onDocumentClick() {
+    this.autoCloseDropdown = true;
+  }
+  closeWindow() {
+    this.isOpen = false;
+  }
+  resetTextSize(): void {
+    this.textSize = 16; 
+  }
+  filterByField(fieldName: string): void {
+    this.filterField = fieldName;
+    this.togglePopover();
+    this.searchQuery = '';
+  }
+  applyFieldFilter(): void {
+    const searchValue = this.fieldSearchQuery?.toLowerCase();
+  
+    this.filteredFournisseurs = this.fournisseurs.filter((fournisseur) => {
+      const fieldValue = fournisseur[this.filterField]?.toLowerCase();
+  
+      if (fieldValue && searchValue) {
+        return fieldValue.includes(searchValue);
+      }
+  
+      return true;
+    });
+  }
+  
+  resetTable(): void {
+    if (this.fieldSearchQuery && this.filteredFournisseurs.length === 0) {
+      this.fieldSearchQuery = ''; 
+      this.filterField = '';
+      this.filteredFournisseurs = this.fournisseurs;
+    }
+  }
+   
+  togglePopover() {
+    this.showPopover = !this.showPopover;
+  }
+  closePopover(): void {
+    this.showPopover = false;
+  }
+  handleReset(): void {
+    if (this.filteredFournisseurs.length === 0) {
+      this.resetTable();
+      this.closePopover();
+    } else {
+      this.closePopover();
+    }
+  }  
+  onItemsPerPageChange(option: number) {
+    this.p = 1; 
+    this.itemsPerPage = option; 
+  }
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  resetSearchQuery() {
+    this.searchQuery = '';
+  }
+  getDisplayedRange(): string {
+    const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredFournisseurs.length);
+    return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredFournisseurs.length} entrées`;
+  }
+  
 }

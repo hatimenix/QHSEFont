@@ -1,0 +1,216 @@
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card-header d-flex justify-content-between ">
+            <div class="header-title">
+              <h4 class="card-title">Exigences des parties intéressées</h4>
+            </div>
+            <a (click)="navigateToExigence()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
+              <i class="las la-plus"></i> Ajouter
+              une exigence
+            </a>
+          </div>
+        </div>
+  
+      </div>
+      <div class="card-body">
+      <div class="row justify-content-start">
+        <div class="input-group mb-4 col-md-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-search" style="font-size: 1rem;"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+          <div class="input-group-append">
+            <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        </div>
+  
+      <div>
+        <div class="col-lg-12">
+          <div class="table-responsive rounded mb-3">
+            <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+              <thead>
+                <tr >
+                  <th scope="col">Partie intéressée</th>
+                  <th scope="col">Type d'exigences</th>
+                  <th scope="col">Intitulé</th>
+                  <th scope="col">Evaluation de la maitrise</th>
+                  <th scope="col">Action à mener</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <ng-container *ngFor="let partieinteresses of partieinteressess">
+                  <tbody class="ligth-body">
+                    <td data-column="name">
+                      <a href="javascript:void(0);" class="toggle-icon" (click)="partieinteresses.expanded = !partieinteresses.expanded">
+                        <i class="fa fa-chevron-right" *ngIf="!partieinteresses.expanded"></i>
+                        <i class="fa fa-chevron-down" *ngIf="partieinteresses.expanded"></i>
+                      </a>
+                      <a href="javascript:void(0);">{{ partieinteresses.partieinteresse }}</a>
+                    </td>
+                    <ng-container *ngIf="partieinteresses.expanded ">
+                      <ng-container *ngFor="let exigence of exigences| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
+                        <tr *ngIf="(exigences)?.length === 0">
+                          <td colspan="11">Aucune demande trouvé </td>
+                        </tr>
+  
+                          <tr  *ngIf="exigence.partieinteresses == partieinteresses.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                            <td></td>
+                          <td>{{ exigence.type_exigence }}</td>
+                          <td><a routerLink="/exigence/{{ exigence.id }}">{{exigence.intitule}}</a></td>
+                          <td>
+                            {{ exigence.evaluation_maitrise }}
+                            <ng-container *ngIf="exigence.evaluation_maitrise === 'Exigence totalement maitrisée'">
+                              <i class="flag-icon fas fa-flag text-success"></i>
+                            </ng-container>
+                          </td>                            
+                          <td>{{exigence.action ? 'Oui' : 'Non'}}</td>
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center list-action">
+                              <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
+                              (click)="getExigenceData(exigence.id , exigence.type_exigence,exigence.intitule,exigence.evaluation_maitrise,exigence.description,exigence.commentaire,exigence.action,exigence.partieinteresses)"
+                                data-placement="top" title="" data-original-title="Edit">
+                                <i class="ri-pencil-line mr-0"></i>
+                              </a>
+                              <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                                (click)="openDeleteModal(exigence.id)" data-placement="top" title=""
+                                data-original-title="Delete">
+                                <i class="ri-delete-bin-line mr-0"></i>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                       
+  
+                      </ng-container>
+                    </ng-container>
+                </ng-container>
+  
+            </table>
+          </div>
+          <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>      
+        </div>
+      </div>
+      </div>
+      </div>
+       <!-- Modal -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Attention , cette action est irréversible !
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modifier une exigence</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+
+          <div class="modal-body">
+            <form [formGroup]="form">
+
+              <div class="row">
+                <div class="col">
+                  <label for="type_exigence" class="form-label">Type d'exigence : </label>
+                  <input name="type_exigence" value="{{type_exigence}}" [(ngModel)]="type_exigence" formControlName="type_exigence"
+                    style="width: 100%;" type="text" class=" form-control" id="type_exigence">
+                </div>
+              <div class="col">
+                <label for="intitule" class="form-label">Intitulé : </label>
+                <input name="intitule" value="{{intitule}}" [(ngModel)]="intitule" formControlName="intitule"
+                  style="width: 100%;" type="text" class=" form-control" id="intitule">
+              </div>
+              <div class="col">
+                <label for="evaluation_maitrise" class="form-label">Evaluation de la maitrise : </label>
+                <input name="evaluation_maitrise" value="{{evaluation_maitrise}}" [(ngModel)]="evaluation_maitrise" formControlName="evaluation_maitrise"
+                  style="width: 100%;" type="text" class=" form-control" id="evaluation_maitrise">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="description" class="form-label">Description : </label>
+                <textarea name="description" value="{{description}}" [(ngModel)]="description" formControlName="description"
+                  style="width: 100%;" type="text" class=" form-control" id="description" rows="2"></textarea>
+              </div>
+              <div class="col">
+                <label for="commentaire" class="form-label" >Commentaire : </label>
+                <textarea name="commentaire" value="{{commentaire}}" [(ngModel)]="commentaire" formControlName="commentaire"
+                  style="width: 100%;" type="text" class=" form-control" id="commentaire" rows="2"></textarea>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="action" class="form-label">Action à mener : </label>
+                  <select [(ngModel)]="action" id="action" formControlName="action"  class="custom-select" data-style="py-0">
+                    <option [ngValue]="true">Oui</option>
+                    <option [ngValue]="false">Non</option>
+                </select>
+                </div>
+                <div class="col">
+                  <label for="partieinteresses" class="form-label">Partie intéressée : </label>
+                  <select [(ngModel)]="partieinteresses" id="partieinteresses" name="partieinteresses" formControlName="partieinteresses" style="width: 100%;"
+                    class="form-control" class="custom-select">
+                    <option *ngFor="let partieinteresses of partieinteressess" [value]="partieinteresses.id">{{ partieinteresses.partieinteresse }}</option>
+                  </select>
+                </div>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateExigence()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Page end  -->
+<ng-template #successModal>
+<div class="modal-header">
+  <h4 class="modal-title">Succès</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  L'exigence a été modifié avec succès.
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+</div>
+</ng-template>

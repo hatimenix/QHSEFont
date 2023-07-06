@@ -1,0 +1,311 @@
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-header d-flex justify-content-between ">
+          <div class="header-title">
+            <h4 class="card-title">Partie intéressées</h4>
+          </div>
+            <a (click)="navigateToTypePartie()" class="btn btn-primary btn-sm add-list" style="color: white; margin-right: -56.5%;">
+              <i class="las la-plus"></i> Ajouter un type de partie
+            </a>          
+            <a (click)="navigateToPartie()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
+              <i class="las la-plus"></i> Ajouter une partie intéressée
+            </a>
+          
+        </div>
+      </div>
+
+    </div>
+    <div class="card-body">
+    <div class="row justify-content-start">
+      <div class="input-group mb-3 col-md-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-search" style="font-size: 1rem;"></i>
+          </span>
+        </div>
+        <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" (input)="filterOptions()">
+        <div class="input-group-append">
+          <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <ul class="list-inline">
+      <li class="list-inline-item" *ngFor="let option of filteredOptions.slice(0, 3)">
+        <button class="btn" (click)="selectOption(option)">{{ option }}</button>
+      </li>
+      <li class="list-inline-item dropdown" *ngIf="filteredOptions.length > 3">
+        <button class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of filteredOptions.slice(3)" (click)="selectOption(option)">{{ option }}</a>
+        </div>
+      </li>
+    </ul>
+    
+    
+
+    <div>
+      <div class="col-lg-12">
+        <div class="table-responsive rounded mb-3">
+          <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+            <thead>
+              <tr >
+                <th scope="col">Type partie </th>
+                  <th scope="col">Partie intéressée</th>
+                  <th scope="col">Importance</th>
+                  <th scope="col">Nature de la partie intéressée</th>
+                  <th scope="col">Enjeux associés</th>
+                  <th scope="col">Besoin,attente,exigence de la partie intéressée</th>
+                  <th scope="col">Processus ayant un impact sur la partie interessée</th>
+                  <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <ng-container *ngFor="let typepartie of typeparties | filter: searchQuery">
+                <tbody class="ligth-body">
+                  <td data-column="name">
+                    <a href="javascript:void(0);" class="toggle-icon" (click)="typepartie.expanded = !typepartie.expanded">
+                      <i class="fa fa-chevron-right" *ngIf="!typepartie.expanded"></i>
+                      <i class="fa fa-chevron-down" *ngIf="typepartie.expanded"></i>
+                    </a>
+                    <a href="javascript:void(0);" (click)="openTypePartieModal(typepartie)">{{ typepartie.nom }}</a>
+                  </td>
+                  <ng-container *ngIf="typepartie.expanded ">
+                          
+
+                    <ng-container *ngFor="let partie of parties| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
+                      <tr *ngIf="(parties)?.length === 0">
+                        <td colspan="11">Aucune partie trouvé </td>
+                      </tr>
+
+                      <tr  *ngIf="partie.typepartie == typepartie.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                        <td></td>
+                        <td><a routerLink="/partie/{{ partie.id }}">{{partie.partieinteresse}}</a></td>
+                        <td>
+                          <ng-container *ngIf="partie.importance <= 5">
+                            <i class="fas fa-flag text-success"></i>
+                          </ng-container>
+                          <ng-container *ngIf="partie.importance > 5 && partie.importance <= 10">
+                            <i class="fas fa-flag text-warning"></i>
+                          </ng-container>
+                          <ng-container *ngIf="partie.importance > 10">
+                            <i class="fas fa-flag text-danger"></i>
+                          </ng-container>
+                        </td>                      
+                        <td>{{partie.nature}}</td>
+                      <td>{{partie.enjeux}}</td>
+                      <td>{{partie.besoin}}</td>
+                      <td>{{(partie.processus_name)}} </td>
+                      
+                        <td>
+                          <div class="d-flex justify-content-start align-items-center list-action">
+                            <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
+                            (click)="getPartieData(partie.id , partie.typepartie,partie.partieinteresse,partie.importance,partie.nature,partie.enjeux,partie.besoin,partie.impactfinal,partie.impactentreprise,partie.cotation,partie.impact,partie.processus)"
+                              data-placement="top" title="" data-original-title="Edit">
+                              <i class="ri-pencil-line mr-0"></i>
+                            </a>
+                            <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                              (click)="openDeleteModal(partie.id)" data-placement="top" title=""
+                              data-original-title="Delete">
+                              <i class="ri-delete-bin-line mr-0"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                     
+
+                    </ng-container>
+                  </ng-container>
+              </ng-container>
+
+          </table>
+        </div>
+        <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>      
+      </div>
+    </div>
+    </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Attention , cette action est irréversible !
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div>
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modifier une partie intéressée</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+
+            <div class="modal-body">
+              <form [formGroup]="form">
+
+                <div class="row">
+                  <div class="col">
+                    <label for="partieinteresse" class="form-label">Partie intéressée : </label>
+                    <input name="partieinteresse" value="{{partieinteresse}}" [(ngModel)]="partieinteresse" formControlName="partieinteresse"
+                      style="width: 100%;" type="text" class=" form-control" id="partieinteresse">
+                  </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Importance</label>
+                    <input [(ngModel)]="importance" type="number" value="{{importance}}" formControlName="importance" class="form-control" id="importance">                               
+                    <div class="flag-icons">
+                      <div class="flag-label-row">
+                        <span class="flag-label success">0-5 :</span>
+                        <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +importance >= 0 && +importance <= 5}"></i>
+                      </div>
+                      <div class="flag-label-row">
+                        <span class="flag-label warning">5-10 :</span>
+                        <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +importance > 5 && +importance <= 10}"></i>
+                      </div>
+                      <div class="flag-label-row">
+                        <span class="flag-label danger">10 ou plus :</span>
+                        <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +importance > 10}"></i>
+                      </div>
+                    </div>   
+                    </div>
+                </div>
+                <div class="col">
+                  <label for="nature" class="form-label">Nature de la partie intéressée : </label>
+                  <select [(ngModel)]="nature"  id="nature" formControlName="nature"  class="custom-select" data-style="py-0">
+                    <option >Interne</option>
+                    <option >Externe</option>
+                </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="enjeux" class="form-label" >Enjeux associés : </label>
+                  <input name="enjeux" value="{{enjeux}}" [(ngModel)]="enjeux" formControlName="enjeux"
+                    style="width: 100%;" type="text" class=" form-control" id="enjeux">
+                </div>
+                <div class="col">
+                  <label for="besoin" class="form-label" title="Besoin,attente,exigence de la partie intéressée"> Besoins : </label>
+                  <input name="besoin" value="{{besoin}}" [(ngModel)]="besoin"
+                    formControlName="besoin" style="width: 100%;" type="text" class=" form-control"
+                    id="besoin">
+                </div>
+                <div class="col">
+                  <label for="impactfinal" class="form-label">Impact sur le client final : </label>
+                  <input name="impactfinal" value="{{impactfinal}}" [(ngModel)]="impactfinal"
+                    formControlName="impactfinal" style="width: 100%;" type="text" class=" form-control"
+                    id="impactfinal">
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="impactentreprise" class="form-label">impactentreprise : </label>
+                    <input name="impactentreprise" value="{{impactentreprise}}" [(ngModel)]="impactentreprise"
+                      formControlName="impactentreprise" style="width: 100%;" type="text" class=" form-control"
+                      id="impactentreprise">
+                  </div>
+                  <div class="col">
+                  <label for="cotation" class="form-label">Cotation : </label>
+                  <input name="cotation" value="{{cotation}}" [(ngModel)]="cotation"
+                    formControlName="cotation" style="width: 100%;" type="text" class=" form-control"
+                    id="cotation">
+                </div>
+                <div class="col">
+                  <label for="impact" class="form-label">impact : </label>
+                  <input name="impact" value="{{impact}}" [(ngModel)]="impact"
+                    formControlName="impact" style="width: 100%;" type="text" class=" form-control"
+                    id="impact">
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8">
+                    <label for="typepartie" class="form-label">Type partie : </label>
+                    <select [(ngModel)]="typepartie" id="typepartie" name="typepartie" formControlName="typepartie" style="width: 100%;"
+                      class="form-control" class="custom-select">
+                      <option *ngFor="let typepartie of typeparties" [value]="typepartie.id">{{ typepartie.nom }}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label>Processus <label style="color: red;">*</label></label>
+                    <div class="checkbox-list">
+                    <div *ngFor="let processus of processuss.slice(0.5);let i=index">
+                      <label>
+                        <input type="checkbox" [checked]="isProcessusSelected(processus.id)" (change)="toggleProcessus(processus.id)">
+                        {{ processus.intitule }}
+                      </label>
+                      </div>
+                    </div>
+                  </div>
+                  
+              </div>
+
+                <br>
+              </form>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="updatePartie()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    La partie intéressée a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>
+<!-- TypePartie Modal -->
+<ng-template #typepartieModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Type partie Informations</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModalTypePartie()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <p><strong>Nom :</strong> {{ selectedTypePartie?.nom }}</p>
+    </div>
+    
+  </ng-template>

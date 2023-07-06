@@ -1,0 +1,356 @@
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card-header d-flex justify-content-between ">
+            <div class="header-title">
+              <h4 class="card-title">Suivi des tâches</h4>
+            </div>
+              <a (click)="navigateToSource()" class="btn btn-primary btn-sm add-list" style="color: white; margin-right: -65.5%;">
+              <i class="las la-plus"></i> Ajouter une source
+            </a>          
+            <a (click)="navigateToTache()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%;">
+              <i class="las la-plus"></i> Ajouter une tâche
+            </a>
+          </div>
+        </div>
+  
+      </div>
+      <div class="card-body">
+      <div class="row justify-content-start">
+        <div class="input-group mb-4 col-md-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-search" style="font-size: 1rem;"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+          <div class="input-group-append">
+            <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-outline-secondary waves-effect" (click)="filterEnCours()">
+            <i class="fas fa-spinner mr-1"></i> En cours
+          </button>
+          <button class="btn btn-outline-warning waves-effect" (click)="filterTermine()">
+            <i class="fas fa-check-circle mr-1"></i> Terminé
+          </button>
+          <button class="btn btn-outline-danger waves-effect" (click)="getTaches()">
+            <i class="fas fa-list-alt mr-1"></i> Toutes les Tâches
+          </button>
+          <button class="btn btn-outline-success waves-effect" (click)="exportToExcel()">
+            <i class="fas fa-file-excel mr-1"></i> Export excel
+          </button>
+        </div>
+        <div class="settings-dropdown" (click)="onDropdownClick($event)">
+          <div class="dropdown">
+            <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
+              <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
+            </button>
+            
+            <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
+              <label class="dropdown-item">Afficher / masquer les colonnes</label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['nom_tache']" /> Nom de la tâche
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['echeance']" /> Échéance
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['assigne_a']" /> Assigné à
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['priorite']" /> Priorité
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="fieldsVisible['etat']" /> État
+              </label>
+            </div>
+          </div>
+        </div>
+    
+        
+      <div>
+        <div class="col-lg-12">
+          <div class="table-responsive rounded mb-3">
+            <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+              <thead>
+                <tr >
+                  <th scope="col">Source</th>
+                  <ng-container *ngIf="fieldsVisible['nom_tache']">
+                    <th scope="col">Nom de la tâche</th>
+                    </ng-container>                  
+                    <ng-container *ngIf="fieldsVisible['echeance']">
+                      <th scope="col">Échéance</th>
+                      </ng-container>                    
+                      <ng-container *ngIf="fieldsVisible['assigne_a']">
+                        <th scope="col">Assigné à</th>
+                        </ng-container>                   
+                        <ng-container *ngIf="fieldsVisible['priorite']">
+                          <th scope="col">Priorité</th>
+                          </ng-container>                     
+                          <ng-container *ngIf="fieldsVisible['etat']">
+                            <th scope="col">État</th>
+                            </ng-container>                  
+                            <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <ng-container *ngFor="let source of sources">
+                  <tbody class="ligth-body">
+                    <td data-column="name">
+                      <a href="javascript:void(0);" class="toggle-icon" (click)="source.expanded = !source.expanded">
+                        <i class="fa fa-chevron-right" *ngIf="!source.expanded"></i>
+                        <i class="fa fa-chevron-down" *ngIf="source.expanded"></i>
+                      </a>
+                      <a href="javascript:void(0);">Source : {{ source.nom }}</a>
+                    </td>
+                    <ng-container *ngIf="source.expanded ">
+                            
+  
+                      <ng-container *ngFor="let tache of filteredTaches| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
+                        <tr *ngIf="(taches)?.length === 0">
+                          <td colspan="11">Aucune demande trouvé </td>
+                        </tr>
+  
+                          <tr  *ngIf="tache.source == source.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                            <td></td>
+                            <td *ngIf="fieldsVisible['nom_tache']"><a routerLink="/tache/{{ tache.id }}">{{tache.nom_tache}}</a></td>
+                            <td *ngIf="fieldsVisible['echeance']">{{ tache.echeance }}</td>
+                          <td *ngIf="fieldsVisible['assigne_a']"><ng-container *ngFor="let utilisateur of utilisateurs">
+                            <ng-container *ngIf="tache.assigne_a==utilisateur.id">
+                              <a href="javascript:void(0);" (click)="openUtilisateurModal(utilisateur)">{{ utilisateur.nom }}</a>
+                              </ng-container>
+                              </ng-container>
+                            </td>
+                          <td *ngIf="fieldsVisible['priorite']">
+                            {{ tache.priorite }}
+                            
+                            <ng-container *ngIf="tache.priorite === 'Basse'">
+                              <i class="flag-icon fas fa-flag text-success"> (3)</i>
+                            </ng-container>
+                            <ng-container *ngIf="tache.priorite === 'Normal'">
+                              <i class="flag-icon fas fa-flag text-warning"> (2)</i>
+                            </ng-container>
+                            <ng-container *ngIf="tache.priorite === 'Haute'">
+                              <i class="flag-icon fas fa-flag text-danger"> (1)</i>
+                            </ng-container>
+                          </td>                            
+                          <td *ngIf="fieldsVisible['etat']">
+                            <span *ngIf="tache.etat === 'Non commencé'">
+                              <i class="fas fa-circle-notch text-warning"></i>
+                              {{ tache.etat }}
+                            </span>
+                            <span *ngIf="tache.etat === 'Terminé'">
+                              <i class="fas fa-check-circle text-success"></i>
+                              {{ tache.etat }}
+                            </span>
+                            <div>
+                              <style>
+                                .rotating-icon {
+                                  animation: rotate 1.5s infinite linear;
+                                }                               
+                                @keyframes rotate {
+                                  0% {
+                                    transform: rotate(0deg);
+                                  }
+                                  100% {
+                                    transform: rotate(360deg);
+                                  }
+                                }
+                              </style>                               
+                              <span *ngIf="tache.etat === 'En cours'">
+                                <i class="fas fa-spinner text-primary rotating-icon"></i>
+                                {{ tache.etat }}
+                              </span>
+                            </div>
+                          </td>                               
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center list-action">
+                              <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update" (click)="getTacheData(tache.id , tache.nom_tache,tache.date_debut,tache.echeance,tache.description,tache.priorite,tache.assigne_a,tache.date_realisation,tache.etat,tache.commentaire,tache.source)"
+                                data-placement="top" title="" data-original-title="Edit">
+                                <i class="ri-pencil-line mr-0"></i>
+                              </a>
+                              <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                                (click)="openDeleteModal(tache.id)" data-placement="top" title=""
+                                data-original-title="Delete">
+                                <i class="ri-delete-bin-line mr-0"></i>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                       
+  
+                      </ng-container>
+                    </ng-container>
+                </ng-container>  
+            </table>
+          </div>
+          <div class="pagination-container" style="display: flex;justify-content: flex-end;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>      
+        </div>
+      </div>
+      </div>
+      </div>
+          <!-- Modal -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Attention , cette action est irréversible !
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!-- Modal -->
+      <div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div>
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modifier une tâche</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <form [formGroup]="form">
+
+                <div class="row">
+                  <div class="col">
+                    <label>Nom de la tâche <span style="color: red;">*</span></label>
+                    <input [(ngModel)]="nom_tache" value="{{nom_tache}}" type="text" formControlName="nom_tache" class="form-control" data-errors="Please Enter Name." id="nom_tache" >
+                  </div>
+                <div class="col">
+                  <label>Date de début <span style="color: red;">*</span></label>
+                  <input [(ngModel)]="date_debut" value="{{date_debut}}" formControlName="date_debut" type="date" class="form-control" id="date_debut" name="date_debut" />
+                </div>
+                <div class="col">
+                  <label>Échéance <span style="color: red;">*</span></label>
+                  <input [(ngModel)]="echeance" value="{{echeance}}" formControlName="echeance" type="date" class="form-control" id="echeance" name="echeance" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label>Description</label>
+                  <textarea [(ngModel)]="description" value="{{description}}" formControlName="description" class="form-control" id="description" name="description" rows="2"></textarea>
+                </div>
+                <div class="col">
+                  <label>Commentaires</label>
+                  <textarea [(ngModel)]="commentaire" value="{{commentaire}}" type="text" formControlName="commentaire" class="form-control" data-errors="Please Enter Name." id="commentaire" rows="2"></textarea>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label>Priorité</label>
+                    <select id="etat" [(ngModel)]="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0" >
+                     <option value="Basse"  selected>Basse</option>
+                     <option value="Normal" >Normal</option>
+                     <option value="Haute" >Haute</option>
+                     </select>   
+                  </div>
+                  <div class="col">
+                    <label>Date de réalisation <span style="color: red;">*</span></label>
+                    <input [(ngModel)]="date_realisation" formControlName="date_realisation" type="date" class="form-control" id="date_realisation" name="date_realisation" />
+                  </div>
+                  <div class="col">
+                    <label for="etat">Etat :</label>
+                    <select id="etat" [(ngModel)]="etat" name="etat" formControlName="etat" class="custom-select" data-style="py-0" >
+                    <option value="Non commencé"  selected>Non commencé</option>
+                    <option value="En cours" >En cours</option>
+                    <option value="Terminé" >Terminé</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                <div class="col">
+                  <label>Assigné à <span style="color: red;">*</span></label>
+                  <select id="realisation_associee" [(ngModel)]="assigne_a" name="assigne_a" formControlName="assigne_a"  class="custom-select">
+                      <option *ngFor="let assigne_a of utilisateurs" [value]="assigne_a.id">{{ assigne_a.nom }}</option>
+                     </select>
+                </div>
+                <div class="col">
+                  <label>Source <span style="color: red;">*</span></label>
+                  <select [(ngModel)]="source" id="source" name="source" formControlName="source" class="form-control" class="custom-select" required>
+                   <option *ngFor="let source of sources" [value]="source.id">{{ source.nom }}</option>
+                  </select>
+                </div>
+                </div>
+                <br>
+                <div class="col mb-2">
+                <div class="col">
+                  <div class="custom-file">
+                    <input (change)="updateFile($event)" [(ngModel)]="piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">{{ getSelectedFileName() }}</label>
+                  </div>
+                </div>
+                </div>
+                <br>
+              </form>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="updateTache()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    La tâche a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>
+<!-- Utilisateur Modal -->
+<ng-template #utilisateurModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Utilisateur Informations</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModalutilisateur()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <p><strong>Compte :</strong> {{ selectedUtilisateur?.compte }}</p>
+      <p><strong>Nom:</strong> {{ selectedUtilisateur?.nom }}</p>
+      <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
+      <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
+      <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
+      <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image" alt="Image"></p>
+      <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
+      <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
+      <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
+    </div>
+    
+  </ng-template>

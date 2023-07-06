@@ -32,8 +32,13 @@ export class ServicesEquipementservice{
 
 
 }
-downloadCertificat(id: number): Observable<Blob> {
-  return this.http.get(`${this.equipementurl}/${id}`, { responseType: 'blob' });
+downloadFile(Certificat: any): void {
+  this.http.get(Certificat, { responseType: 'blob' }).subscribe(blob => {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = Certificat.split('/').pop();
+    link.click();
+  });
 }
 getEquipementsBySecteurAndSite(secteur: number, site: number): Observable<Equipement[]> {
   const url = `${this.equipementurl}by_secteur_and_site/?secteur_id=${secteur}&site_id=${site}`;

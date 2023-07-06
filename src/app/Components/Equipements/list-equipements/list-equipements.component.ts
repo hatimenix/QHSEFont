@@ -5,6 +5,8 @@ import { Equipement } from 'src/app/models/equipement';
 import { ServicesEquipementservice } from 'src/app/Services/Service-equipements/services-equipements.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Site } from 'src/app/models/site';
+import { Secteur } from 'src/app/models/Secteur';
 
 declare var window: any;
 
@@ -13,15 +15,19 @@ declare var window: any;
   templateUrl: './list-equipements.component.html',
   styleUrls: ['./list-equipements.component.css']
 })
-export class ListEquipementsComponent {
+export class ListEquipementsComponent implements OnInit {
   sites: any[] = [];
   secteurs: any[] = [];
   updateModalVisible: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('siteModal', { static: true }) siteModal:any;
+  @ViewChild('secteurModal', { static: true }) secteurModal:any;
+
+
   
   modalRef!: BsModalRef;
   p = 1; 
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   id : any 
   site : any 
   secteur : any 
@@ -59,6 +65,8 @@ export class ListEquipementsComponent {
 
 
   });
+  selectedSite: Site | undefined;
+  selectedSecteur: Secteur | undefined;
   constructor(private   equipementservice : ServicesEquipementservice, private router : Router,private apiSiteService :ApiSiteService, private apiSecteurService :SecteurService, private bsModalService: BsModalService){
 
   }
@@ -133,30 +141,12 @@ updateFile(event: any) {
   this.Certificat=file
 
 }
-downloadCertificat(id: number): void {
-  this.equipementservice.downloadCertificat(id).subscribe(
-    (response: any) => {
-      const blob = new Blob([response], { type: 'application/octet-stream' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      const filename = response.fichier.split('/').pop();
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    },
-    (error: any) => {
-      console.log(error);
-    }
-  );
+download(Certificat: string): void {
+  this.equipementservice.downloadFile(Certificat);
 }
 getEquipementData( id : number,
   site : any,
   secteur : any,
-  site_name : any,
-  secteur_name : any , 
   type_equipement : any  ,
   codification : any , 
   date_mise_en_service :any,
@@ -170,8 +160,6 @@ getEquipementData( id : number,
   this.id = id,
   this.site=site,
   this.secteur = secteur,
-  this.site_name = site_name,
-  this.secteur_name = secteur_name,
   this.type_equipement = type_equipement,
   this.codification=codification,
 
@@ -212,5 +200,30 @@ closeModal() {
   this.bsModalService.hide();
   location.reload();
 }
+openSiteModal(site: Site) {
+  this.selectedSite = site;
+  this.modalRef = this.bsModalService.show(this.siteModal);
+}
+closeModalsite(){
+    this.bsModalService.hide();
+}
+openSecteurModal(secteur: Secteur) {
+  this.selectedSecteur = secteur;
+  this.modalRef = this.bsModalService.show(this.secteurModal);
+}
+closeModalsecteur(){
+    this.bsModalService.hide();
+}
+getSelectedCertificatFileName(): string {
+  const fileInput = document.getElementById('customFile2') as HTMLInputElement;
+  if (fileInput && fileInput.files && fileInput.files.length > 0) {
+    return fileInput.files[0].name;
+  }
+  return 'Choose file';
+}
+resetSearchQuery() {
+  this.searchQuery = '';
+}
+
 }
 

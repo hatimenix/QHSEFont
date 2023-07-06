@@ -12,49 +12,54 @@ import { Site } from 'src/app/models/site';
   templateUrl: './list-menus.component.html',
   styleUrls: ['./list-menus.component.css']
 })
-export class ListMenusComponent implements OnInit{
+export class ListMenusComponent implements OnInit {
   menus!: Menus[];
+  searchQuery: string = '';
   //filtrage
   selectedSiteId: number | undefined;
-  site!: Site[];
+  site: any[] = [];
   site$!: Observable<any>;
+  selectedSite: Site | undefined;
   myForm: any;
+
   filteredMenus: Menus[] = [];
   MoisSelectionne!: string;
   //delete modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
   menuIdToDelete: number = 0;
+  filename: string = '';
+  @ViewChild('siteModal', { static: true }) siteModal: any;
+
 
   constructor(private menuService: MenusService, public modalService: BsModalService,
     private siteService: ApiSiteService,) { }
 
+
   ngOnInit(): void {
     this.myForm = new FormGroup({
       site: new FormControl(),
-      mois_concerne:new FormControl()
+      mois_concerne: new FormControl()
     });
+    this.siteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.site = data;
+        console.log(this.site); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
     this.getMenus();
-    this.site$ = this.siteService.getAllSite();
+    //pagination 
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0];
 
-    const isFirstVisit = history.state.isFirstVisit;
-
-    if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
-      history.replaceState({ isFirstVisit: true }, '');
-
-      // rafraîchir la page
-      location.reload();
-    }
-
-    // aller en haut de la page
-    window.scrollTo(0, 0);
   }
 
   getMenus(): void {
     this.menuService.getAllMenus().subscribe((menus) => {
       this.menus = menus;
-      
     });
   }
 
@@ -64,88 +69,132 @@ export class ListMenusComponent implements OnInit{
     });
   }
 
-  downloadMenu(id: number): void {
-    this.menuService.downloadMenu(id).subscribe(
-      (response: any) => {
-        const blob = new Blob([response], { type: 'application/octet-stream' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        const filename = response.fichier.split('/').pop();
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
- 
+
+
   //delete modal 
-confirmDelete(): void {
-  this.menuService.deleteMenu(this.menuIdToDelete)
-    .subscribe(() => {
-      this.menus = this.menus.filter(f => f.id !== this.menuIdToDelete);
-      this.modalRef.hide();
-    });
-}
+  confirmDelete(): void {
+    this.menuService.deleteMenu(this.menuIdToDelete)
+      .subscribe(() => {
+        this.menus = this.menus.filter(f => f.id !== this.menuIdToDelete);
+        this.modalRef.hide();
+      });
+  }
 
   declineDelete(): void {
-  this.modalRef.hide();
+    this.modalRef.hide();
   }
 
- //filtrage par site
-filterMenusBySite(): void {
-  const selectedSite = parseInt(this.myForm.get('site')?.value);
+  //filtrage par site
+  filterMenusBySite(): void {
+    const selectedSite = parseInt(this.myForm.get('site')?.value);
 
-  if (selectedSite) {
+    if (selectedSite) {
 
-    this.menuService.getAllMenus().subscribe(
-      (data: Menus[]) => {
-        const menu = data;
-        const filteredMenus = menu.filter(d => {
-          const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
-          return siteIds.includes(selectedSite);
-        });
+      this.menuService.getAllMenus().subscribe(
+        (data: Menus[]) => {
+          const menu = data;
+          const filteredMenus = menu.filter(d => {
+            const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
+            return siteIds.includes(selectedSite);
+          });
 
-        if (filteredMenus.length > 0) {
-          this.selectedSiteId = selectedSite;
-          this.menus = filteredMenus;
-        } else {
-          console.log(`Aucun menu trouvé pour le site sélectionné: ${selectedSite}`);
-          this.menus = [];
+          if (filteredMenus.length > 0) {
+            this.selectedSiteId = selectedSite;
+            this.menus = filteredMenus;
+          } else {
+            console.log(`Aucun menu trouvé pour le site sélectionné: ${selectedSite}`);
+            this.menus = [];
+          }
+
+          console.log("menus filtrés", this.menus);
+          console.log("site sélectionné", this.selectedSiteId);
+          console.log("liste des menus", this.menus);
+          console.log("menus length", this.menus.length);
+
+        },
+        (error: any) => {
+          console.log(error);
         }
+      );
 
-        console.log("menus filtrés", this.menus);
-        console.log("site sélectionné", this.selectedSiteId);
-        console.log("liste des menus", this.menus);
-        console.log("menus length", this.menus.length);
-
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-
-  } else {
-    this.myForm.reset();
-    this.selectedSiteId = undefined;
-    console.log("id de ce site", this.selectedSiteId);
-    this.getMenus();
+    } else {
+      this.myForm.reset();
+      this.selectedSiteId = undefined;
+      console.log("id de ce site", this.selectedSiteId);
+      this.getMenus();
+    }
   }
-}
-//filtrage par mois
-filterMenuByMonth(): void {
-  if (this.MoisSelectionne) {
-    this.menuService.getAllMenus().subscribe((menus) => {
-      this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
-    });
-  } else {
-    this.getMenus();
-  
-}
-}
+  //filtrage par mois
+  filterMenuByMonth(): void {
+    if (this.MoisSelectionne) {
+      this.menuService.getAllMenus().subscribe((menus) => {
+        this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
+      });
+    } else {
+      this.getMenus();
+
+    }
+  }
+  //afficher juste le nom du fichier 
+  getFileNameFromPath(filePath: string | File | undefined): string {
+    if (!filePath) return 'Aucun fichier joint';
+
+    if (typeof filePath === 'string') {
+      const parts = filePath.split('/');
+      return parts.pop() || 'Aucun fichier joint';
+    }
+
+    return filePath.name || 'Aucun fichier joint';
+  }
+  //site modal 
+  openSiteModal(site: Site) {
+    this.selectedSite = site;
+    this.modalRef = this.modalService.show(this.siteModal);
+  }
+  closeModalsite() {
+    this.modalService.hide();
+  }
+  resetSearchQuery() {
+    this.searchQuery = '';
+  }
+
+
+
+
+
+
+
+
+  //pagination methods 
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.menus.length / this.itemsPerPage);
+  }
+
+  get displayedMenus(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.menus.slice(startIndex, endIndex);
+  }
+
+
+  onItemsPerPageChange(option: number) {
+    this.p = 1;
+    this.itemsPerPage = option;
+  }
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+
+  getDisplayedRange(): string {
+    const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(this.p * this.itemsPerPage, this.menus.length);
+    return `Affichage de ${startIndex} à ${endIndex} de ${this.menus.length} entrées`;
+  }
 }

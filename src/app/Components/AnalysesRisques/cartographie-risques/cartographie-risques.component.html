@@ -1,0 +1,355 @@
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-2">
+          <div>
+            <h4 style="font-size: 18px; font-weight: bold; color: #089bd7">Cartographie des risques</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3" style="margin-left: -1.5%;">
+      <a class="btn btn-link text-primary" routerLink="/add-risque">
+        <span class="fa-stack">
+          <i class="fas fa-circle fa-stack-2x"></i>
+          <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+        </span>
+        Nouvel élément
+      </a>
+    </div>
+    
+    
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card border-success">
+          <div class="card-headers bg-success">
+            <h4 class="card-title" style="color: white;">Risque faible</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive rounded mb-3">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Modifier</th>
+                    <th>Description</th>
+                    <th class="ipr-column">IPR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let analyseRisque of risques; let i = index">
+                    <ng-container *ngIf="toNumber(getCotationIPR(analyseRisque)) < 5">
+                      <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
+                        <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                        </td>
+                        <td><a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a></td>
+                        <td class="ipr-column">{{ getCotationIPR(analyseRisque) }}</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card border-warning">
+          <div class="card-headers bg-warning">
+            <h4 class="card-title" style="color: white;">Risque modéré</h4>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Modifier</th>
+                  <th>Description</th>
+                  <th class="ipr-column">IPR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let analyseRisque of risques; let i = index">
+                  <ng-container *ngIf="toNumber(getCotationIPR(analyseRisque)) >= 5 && toNumber(getCotationIPR(analyseRisque)) <= 10">
+                    <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
+                      <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                      </td>
+                      <td><a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a></td>
+                      <td class="ipr-column">{{ getCotationIPR(analyseRisque) }}</td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card border-danger">
+          <div class="card-headers bg-danger">
+            <h4 class="card-title" style="color: white;">Risque élevé</h4>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Modifier</th>
+                  <th>Description</th>
+                  <th class="ipr-column">IPR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let analyseRisque of risques; let i = index">
+                  <ng-container *ngIf="toNumber(getCotationIPR(analyseRisque)) > 10">
+                    <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
+                      <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                      </td>
+                      <td><a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a></td>
+                      <td class="ipr-column">{{ getCotationIPR(analyseRisque) }}</td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-lg-12">
+      <div class="card border-primary">
+        <div class="card-headers bg-primary">
+          <h4 class="card-title" style="color: white;">Risques à évaluer</h4>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Modifier</th>
+                <th>Description</th>
+                <th>Typologie</th>
+                <th>Processus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let analyseRisque of risques; let i = index">
+                <ng-container *ngIf="getCotationIPR(analyseRisque) === '' || getCotationIPR(analyseRisque) === null">
+                  <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
+                    <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                    </td>
+                    <td>
+                      <a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a>
+                    </td>
+                    <td>{{analyseRisque.typologie}}</td>
+                    <td>{{analyseRisque.processus_name}}</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </div>
+    
+    
+  </div>
+</div>
+<!-- update    -->
+<div class="modal fade bd-analyse-modal-lg" [class.show]="updateModalVisible"  id="updateAnalyse" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">                          
+  <div class="modal-content">
+  <div class="modal-header" style="background-color: #089bd7;">
+  <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier analyse risque</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true" style="color:black">×</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  <form [formGroup]="analyseForm" (ngSubmit)="updateAnalyse()" class="needs-validation" novalidate>  
+  <div class="row">   
+  <div class="col">                                       
+    <div class="form-group">
+      <label for="typologie">Typologie :</label>
+      <input type="text" class="form-control" formControlName="typologie" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="famille">Famille :</label>
+      <input type="text" class="form-control" formControlName="famille" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="origine">Origin :</label>
+      <input type="text" class="form-control" formControlName="origine" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="site">Site :</label>
+      <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+       <option value="" selected disabled>Choisissez un site</option>
+       <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+      </select>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="processus">Processus :</label>
+      <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+       <option value="" selected disabled>Choisissez un processus</option>
+       <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="axe">Axe stratégique lié :</label>
+      <input type="text" class="form-control" formControlName="axe" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="description">Description :</label>
+      <input type="text" class="form-control" formControlName="description" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="contexte_ext">Contexte externe :</label>
+      <input type="text" class="form-control" formControlName="contexte_ext" />
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="contexte_int">Context interne :</label>
+      <textarea class="form-control" formControlName="contexte_int"></textarea>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="consequences">Conséquences :</label>
+      <input type="text" class="form-control" formControlName="consequences" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="opportunite">Opportunité identifiée :</label>
+      <input class="form-control" formControlName="opportunite">
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="indice">Indice risque :</label>
+      <input type="number" class="form-control" formControlName="indice">
+      <div class="flag-icons">
+        <div class="flag-label-row">
+          <span class="flag-label success">0-5 :</span>
+          <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +indice >= 0 && +indice <= 5}"></i>
+        </div>
+        <div class="flag-label-row">
+          <span class="flag-label warning">5-10 :</span>
+          <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +indice > 5 && +indice <= 10}"></i>
+        </div>
+        <div class="flag-label-row">
+          <span class="flag-label danger">10 ou plus :</span>
+          <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +indice > 10}"></i>
+        </div>
+      </div>  
+    </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="niveau_risque">Niveau de risque :</label>
+        <input class="form-control" formControlName="niveau_risque">
+      </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <div class="form-group">
+      <h5>Evaluation</h5>
+   </div>
+   </div>
+   </div>
+   <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="date_evaluation">Date évaluation :</label>
+      <input type="date" class="form-control" formControlName="date_evaluation" />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="impact">Impact :</label>
+      <input class="form-control" formControlName="impact">
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="maitrise">Maitrise :</label>
+      <input class="form-control" formControlName="maitrise">
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="mesure">Mesures en place :</label>
+        <input class="form-control" formControlName="mesure">
+      </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="probabilite">Probabilité :</label>
+          <input class="form-control" formControlName="probabilite">
+        </div>
+        </div>      
+</div>
+    <div class="form-group">
+      <h5>Plan d'action</h5>
+    </div>
+    <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="type_action">Type d'action :</label>
+        <input class="form-control" formControlName="type_action">
+      </div>
+      </div>
+    </div>
+  
+  <div class="d-flex align-items-end flex-column">
+  <div class="mt-auto p-2">
+  <button type="submit" class="btn mr-2"  style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+  <button type="button" class="btn bg-warning" (click)="analyseForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+  </div>
+  </div>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div> 
+   <!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+  <h4 class="modal-title">Succès</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  Le risque a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+  </ng-template>

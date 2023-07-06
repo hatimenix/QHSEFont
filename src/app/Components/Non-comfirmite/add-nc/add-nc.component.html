@@ -1,25 +1,25 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
             <div style="display: flex; flex-direction: column;">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter une non-conformité</h4>
+                           <h4>Ajouter une non-conformité</h4>
                        </div>
                    </div>
                    <div class="card-body">
                        <form [formGroup]="form" data-toggle="validator">
                         <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
-                            <li class="nav-item">
-                               <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description du problème</a>
+                            <li class="nav-item" [ngClass]="{'disabled': form.controls['site'].invalid|| form.controls['processus'].invalid|| form.controls['responsable_traitement'].invalid || form.controls['intitule'].invalid || form.controls['nature'].invalid || form.controls['date_nc'].invalid}">
+                                <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Description du problème</a>
+                            </li>
+                            <li class="nav-item" [ngClass]="{'disabled': form.controls['type_cause'].invalid}">
+                                <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">Analyse</a>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link" id="pills-profile-tab-fill" data-toggle="pill" href="#pills-profile-fill" role="tab" aria-controls="pills-profile" aria-selected="false">Analyse</a>
-                            </li>
-                            <li class="nav-item">
-                               <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">Actions</a>
+                                <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#pills-contact-fill" role="tab" aria-controls="pills-contact" aria-selected="false">Actions</a>
                             </li>
                          </ul>
                          <div class="tab-content" id="pills-tabContent">
@@ -27,8 +27,8 @@
                            <div class="row">
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Site </label>
-                                    <select [(ngModel)]="ncf.site" id="site" name="site" formControlName="site" class="form-control" class="custom-select" >
+                                    <label>Site <label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="ncf.site" id="site" name="site" formControlName="site" class="form-control" class="custom-select" required >
                                      <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
                                     </select>
                                     <label class="text-blue " for="site">Précizez le site où est survenue la non-confirmité</label>
@@ -36,15 +36,15 @@
                             </div>
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Processus </label>
-                                    <select id="processus" [(ngModel)]="ncf.processus" name="processus" formControlName="processus"class="form-control" class="custom-select" >
+                                    <label>Processus <label style="color: red;">*</label></label>
+                                    <select id="processus" [(ngModel)]="ncf.processus" name="processus" formControlName="processus"class="form-control" class="custom-select" required >
                                      <option *ngFor="let processus of processuss" [value]="processus.id">{{ processus.intitule }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Responsable traitement </label>
+                                    <label>Responsable traitement <label style="color: red;">*</label></label>
                                     <select id="responsable_traitement" [(ngModel)]="ncf.responsable_traitement" name="responsable_traitement" formControlName="responsable_traitement"  class="custom-select">
                                      <option *ngFor="let responsable_traitement of utilisateurs" [value]="responsable_traitement.id">{{ responsable_traitement.nom }}</option>
                                     </select>
@@ -52,7 +52,7 @@
                             </div>
                                <div class="col-md-6">                      
                                    <div class="form-group">
-                                       <label>Intitulé de la non-conformité *</label>
+                                       <label>Intitulé de la non-conformité <label style="color: red;">*</label></label>
                                        <input [(ngModel)]="ncf.intitule" type="text" formControlName="intitule" class="form-control" placeholder="intitulé " data-errors="Please Enter Name." id="intitule" required>
                                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].touched && f['intitule'].invalid">
                                         <div *ngIf="f['intitule'].errors && f['intitule'].errors['required']">L'intitulé est requis.</div>
@@ -63,7 +63,7 @@
                                </div>
                                <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Nature *</label>
+                                    <label>Nature <label style="color: red;">*</label></label>
                                     <select [(ngModel)]="ncf.nature" id="nature" formControlName="nature" class="selectpicker form-control" data-style="py-0">
                                         <option value="">Choisir une nature</option>
                                         <option>Interne</option>
@@ -96,19 +96,19 @@
                             <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Année </label>
-                                    <input [(ngModel)]="ncf.annee" type="text" formControlName="annee" class="form-control" placeholder="annee " data-errors="Please Enter Name." id="annee" >
+                                    <input [(ngModel)]="ncf.annee" type="number" formControlName="annee" class="form-control" placeholder="annee " data-errors="Please Enter Name." id="annee" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['annee'].touched && f['annee'].invalid">
                                         <div *ngIf="f['annee'].errors && f['annee'].errors['minlength']">L'année doit avoir au moins 4 caractères!</div></div>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="dob">Date NC *</label>
+                                    <label for="dob">Date NC <span style="color: red;">*</span></label>
                                     <input [(ngModel)]="ncf.date_nc" formControlName="date_nc" type="date" class="form-control" id="date_nc" name="date_nc" />
                                 </div>
                             </div>   
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dob">Date prise en compte </label>
                                     <input [(ngModel)]="ncf.date_prise_en_compte" formControlName="date_prise_en_compte" type="date" class="form-control" id="date_prise_en_compte" name="date_prise_en_compte" />
@@ -125,8 +125,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="dob">Délai prévu</label>
-                                    <input [(ngModel)]="ncf.delai_prevu" formControlName="delai_prevu" type="date" class="form-control" id="delai_prevu" name="delai_prevu" />
+                                    <label for="dob">Délai prévu </label>
+                                    <input [(ngModel)]="ncf.delai_prevu" formControlName="delai_prevu" type="date" class="form-control" id="delai_prevu" name="delai_prevu" >
                                     <label class="text-blue " for="delai_prevu">Délais prévu pour la clôture de l'action</label>
                                 </div>
                             </div>  
@@ -143,15 +143,24 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="piece_jointe">Piece jointe:</label>
-                                    <input type="file" class="form-control image-file" [(ngModel)]="ncf.piece_jointe" (change)="uploadFile($event)"formControlName="piece_jointe">
+                                    <div class="drop-zone" style="position: relative;cursor: pointer"
+                                    (dragover)="onDragOver($event)"
+                                    (dragleave)="onDragLeave($event)"
+                                    (drop)="onDrop($event)"
+                                    (click)="fileInput.click()">
+                                 <input style="position: absolute;top: -9999px;left: -9999px;opacity: 0;" #fileInput type="file" class="form-control image-file" (change)="uploadFile($event)">
+                                 <p *ngIf="droppedFile">{{ droppedFile.name }}</p>
+                                 <p *ngIf="!droppedFile">Glissez-déposez le fichier ici ou cliquez pour sélectionner un fichier</p>
+                               </div>
                                 </div>
                             </div>
                             </div>
                             </div>
                             <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+                                <div class="row">
                             <div class="col-md-6">                      
                                 <div class="form-group">
-                                    <label>Type cause *</label>
+                                    <label>Type cause <span style="color: red;">*</span></label>
                                     <select [(ngModel)]="ncf.type_cause" id="type_cause" formControlName="type_cause" class="selectpicker form-control" data-style="py-0">
                                         <option value="">Choisir une type</option>
                                         <option>Matière première</option>
@@ -162,6 +171,20 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <label>Coût(s)</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text">€</span>
+                                    </div>
+                                    <input [(ngModel)]="ncf.cout" type="text" formControlName="cout" class="form-control" placeholder="Entrez un nombre " data-errors="Please Enter Name." id="cout" aria-label="Amount (to the nearest dollar)">
+                                    <div class="input-group-append">
+                                       <span class="input-group-text">.00</span>
+                                    </div>
+                                 </div>
+                                 <label class="text-blue" for="cout">Estimez les coûts (main d'oeuvre, remise client, etc...)</label>   
+                                </div>
+                                </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Détail cause</label>
@@ -171,25 +194,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                            <label>Coût(s)</label>
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                   <span class="input-group-text">€</span>
-                                </div>
-                                <input [(ngModel)]="ncf.cout" type="text" formControlName="cout" class="form-control" placeholder="Entrez un nombre " data-errors="Please Enter Name." id="cout" aria-label="Amount (to the nearest dollar)">
-                                <div class="input-group-append">
-                                   <span class="input-group-text">.00</span>
-                                </div>
-                             </div>
-                             <label class="text-blue" for="cout">Estimez les coûts (main d'oeuvre, remise client, etc...)</label>   
-                            </div>
                             </div>
                             <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
                                 <div class="row text-center">
                                     <div class="col-md-6">                      
                                         <div class="form-group">
-                                            <label >Fréquence *</label>
+                                            <label >Fréquence <span style="color: red;">*</span></label>
                                             <select [(ngModel)]="ncf.frequence" id="frequence" formControlName="frequence" class="selectpicker form-control" data-style="py-0">
                                                 <option value="">Choisir une option</option>
                                                 <option [ngValue]="true">Oui</option>
@@ -220,8 +230,8 @@
                                       </div>                                      
                                     <div class="col-md-6">                      
                                         <div class="form-group">
-                                            <label >NC clôturée </label>
-                                            <input [(ngModel)]="ncf.nc_cloture" type="checkbox" formControlName="nc_cloture" class="form-control" placeholder="NC Closed" data-errors="Please Enter Name." id="nc_cloture" >
+                                            <label >NC clôturée : </label>
+                                            <input style="margin-top: 4%;" [(ngModel)]="ncf.nc_cloture" type="checkbox" formControlName="nc_cloture" class="form-control" placeholder="NC Closed" class="checkbox-lg" data-errors="Please Enter Name." id="nc_cloture" >
                                             <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -229,7 +239,8 @@
                                         <div class="form-group">
                                             <label >Gravité </label>
                                             <div class="checkbox">
-                                                <input [(ngModel)]="ncf.gravite" type="checkbox" formControlName="gravite" class="form-control" placeholder="Gravite" data-errors="Please Enter Name." id="gravite">
+                                                <input style="margin-right: 3%;" [(ngModel)]="ncf.gravite" type="checkbox" formControlName="gravite" class="form-control" placeholder="Gravite" data-errors="Please Enter Name." class="checkbox-lg" id="gravite">
+                                                <br>
                                                 <label class="text-blue " for="gravite">Le problème impacte-t-il le client?</label>
                                                 <br>
                                                 <label class="text-blue " for="gravite">Le problème génère-t-il des coûts?</label>
@@ -248,8 +259,8 @@
                    </div>
                </div>
                <div style="margin-bottom: 2rem; margin-top: -15px;" class="d-flex flex-wrap justify-content-center">
-                <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createNC()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0">Enregistrer</button>
-                <button style="margin-bottom: 1%;" type="reset" (click)="onCancel()" class="btn btn-danger mb-2 mb-sm-0">Annuler</button>
+                <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createNC()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+                <button style="margin-bottom: 1%;" type="reset" routerLink="/nc-list"  class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
               </div>
               
                </div>

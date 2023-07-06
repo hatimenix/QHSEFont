@@ -1,0 +1,238 @@
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
+       <div class="row">
+           <div class="col-lg-12">
+            <div class="card-header d-flex justify-content-between ">
+              <div class="header-title">
+                <h4 class="card-title">Documents utiles</h4>
+              </div>
+              <a (click)="navigateToDocumentutile()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
+                <i class="las la-plus"></i> Ajouter un document
+              </a>               
+            </div>
+           </div>
+  
+          </div>
+          <div class="card-body">
+          <div class="row justify-content-start">
+            <div class="input-group mb-1 col-md-4">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-search" style="font-size: 1rem;"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+              <div class="input-group-append">
+                <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            </div>
+          <div class="row justify-content-end">
+            <div class="dropdown">
+              <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Afficher {{ itemsPerPage }} résultats par page
+              </button>
+              <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                  [ngClass]="{'selected': option === itemsPerPage}">
+                  <span>{{ option }}</span>
+                  <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="settings-dropdown" (click)="onDropdownClick($event)">
+            <div class="dropdown">
+              <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
+                <i class="toggle-icon fas" [class.fa-chevron-up]="!autoCloseDropdown" [class.fa-chevron-down]="autoCloseDropdown"></i>
+              </button>
+              
+              <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
+                <label class="dropdown-item">Afficher / masquer les colonnes</label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['document']" /> Document
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['modified_date']" /> Modifié
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['modified_by']" /> Modifié par
+                </label>
+                <label class="dropdown-item">
+                  <input type="checkbox" [(ngModel)]="fieldsVisible['typologie']" /> Typologie
+                </label>
+              </div>
+            </div>
+          </div>
+           
+          
+       <div class="col-lg-12">
+        <div class="table-responsive rounded mb-3">
+        <table class="data-tables table mb-0 tbl-server-info">
+            <thead >
+                <tr class=" ligth-data">
+                  <th scope="col">
+                    <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Nom</a>
+                    <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
+                    <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
+                  </th> 
+                  <ng-container *ngIf="fieldsVisible['document']">                     
+                    <th scope="col">Document</th>
+                    </ng-container>
+                    <ng-container *ngIf="fieldsVisible['modified_date']">
+                     <th scope="col">Modifié</th>
+                     </ng-container>
+                     <ng-container *ngIf="fieldsVisible['modified_by']">
+                     <th scope="col">Modifié par</th>
+                     </ng-container>
+                     <ng-container *ngIf="fieldsVisible['typologie']">
+                     <th scope="col">Typologie</th>
+                     </ng-container>
+                     <th scope="col">Actions</th>
+                     <th scope="col">Supprimer les colonnes</th>
+
+
+                </tr>
+            </thead>
+            <tbody class="ligth-body">
+             <tr *ngFor="let documentutile of displayedDocuments | filter : searchQuery  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
+              <td>{{ documentutile.nom}}</td>
+                <td *ngIf="fieldsVisible['document']"><button class="btn fa fa-download mr-3"   (click)="download(documentutile.document)"> {{ documentutile.document ? documentutile.document.split('/').pop() : 'Aucun fichier joint' }}</button></td>
+                 <td *ngIf="fieldsVisible['modified_date']">{{ documentutile.modified_date  | date:'yyyy-MM-dd'  }}</td>
+                 <td *ngIf="fieldsVisible['modified_by']">{{ documentutile.modified_by }}</td>
+                 <td *ngIf="fieldsVisible['typologie']">{{ documentutile.typologie }}</td>
+
+                 <td>
+                  <div class="d-flex justify-content-start align-items-center list-action">
+                    <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" (click)="getDocumentutileData(documentutile.id,documentutile.nom,documentutile.typologie,documentutile.modified_by)" data-target="#update" data-placement="top" title="" data-original-title="Edit"
+                                ><i class="ri-pencil-line mr-0"></i></a>
+                            <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(documentutile.id)" data-placement="top" title="" data-original-title="Delete"
+                                ><i class="ri-delete-bin-line mr-0"></i></a>
+                        </div>
+                    </td>
+                    <td>
+                      <input type="checkbox" [checked]="selectedDocuments.includes(documentutile)" (change)="toggleSelection(documentutile)">
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+        </div>
+        <div class="pagination-container" style="display: flex; justify-content: space-between;">
+          <div>
+            <span class="entry-info">
+              {{ getDisplayedRange() }}
+            </span>
+          </div>
+          <div style="display: flex;justify-content: flex-end;">
+            <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+            <div class="page-info">
+              <span class="page-numbers">
+                <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+              </span>
+            </div>
+            <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+          </div>
+        </div>   
+        
+           
+      </div>
+</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Attention , cette action est irréversible !
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="deleteItem()">
+        <i class="fas fa-trash"></i> Supprimer
+      </button>      
+      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier un document</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form [formGroup]="form" data-toggle="validator">
+                <div class="col">                      
+                    <div class="form-group">
+                        <label>Nom </label>
+                        <input [(ngModel)]="nom" type="text" value="{{nom}}" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" >
+                     </div>
+                 </div>
+                 <div class="col">                      
+                  <div class="form-group">
+                      <label>Typologie </label>
+                      <input [(ngModel)]="typologie" type="text" value="{{typologie}}" formControlName="typologie" class="form-control" data-errors="Please Enter Name." id="typologie" >
+                   </div>
+               </div>
+               <div class="col">                      
+                <div class="form-group">
+                    <label>Modifié par </label>
+                    <input [(ngModel)]="modified_by" type="text" value="{{modified_by}}" formControlName="modified_by" class="form-control" data-errors="Please Enter Name." id="modified_by" >
+                 </div>
+             </div>
+            <br>
+           <div class="col mb-2">
+            <div class="custom-file">
+              <input (change)="updateFile($event)" [(ngModel)]="document" formControlName="document"
+                type="file" class="custom-file-input" id="customFile">
+              <label class="custom-file-label" for="customFile">Document</label>
+            </div>
+          </div>
+            
+        </form>
+                              </div>
+                              </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateDocumentutile()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page end  -->
+<ng-template #successModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Succès</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    La document utile a été modifié avec succès.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>

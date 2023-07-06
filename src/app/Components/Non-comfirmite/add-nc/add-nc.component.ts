@@ -17,6 +17,7 @@ export class AddNcComponent implements OnInit {
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
+  droppedFile: File | null = null;
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor(private   ncservice : ServicesNonConfirmitéService , private router : Router,private apiProcessusService :ProcessusService,private apiSiteService :ApiSiteService,private apiUtilisateurService: ApiUtilisateurService,private bsModalService: BsModalService){}
@@ -39,10 +40,10 @@ export class AddNcComponent implements OnInit {
     cout:'',
     progress:'',
     info_complementaires:'',
-    frequence:'',
-    gravite:'',
-    action_immediate:'',
-    nc_cloture:'',
+    frequence:false,
+    gravite:false,
+    action_immediate:false,
+    nc_cloture:false,
     piece_jointe:'',
     processus:'',
     site:'',
@@ -67,10 +68,10 @@ export class AddNcComponent implements OnInit {
     cout: new FormControl(''),
     progress: new FormControl(''),
     info_complementaires: new FormControl('',[Validators.minLength(3)]),
-    frequence: new FormControl('',[Validators.required]),
-    gravite: new FormControl(''),
-    action_immediate: new FormControl(''),
-    nc_cloture: new FormControl(''),
+    frequence: new FormControl(false,[Validators.required]),
+    gravite: new FormControl(false),
+    action_immediate: new FormControl(false),
+    nc_cloture: new FormControl(false),
     piece_jointe: new FormControl(''),
     processus: new FormControl(''),
     site: new FormControl(''),
@@ -137,10 +138,10 @@ export class AddNcComponent implements OnInit {
     formData.append("cout", this.ncf.cout);
     formData.append("progress", this.ncf.progress);
     formData.append("info_complementaires", this.ncf.info_complementaires);
-    formData.append("frequence", this.ncf.frequence);
-    formData.append("gravite", this.ncf.gravite);
-    formData.append("action_immediate", this.ncf.action_immediate);
-    formData.append("nc_cloture", this.ncf.nc_cloture);
+    formData.append("frequence", this.ncf.frequence.toString());
+    formData.append("gravite", this.ncf.gravite.toString());
+    formData.append("action_immediate", this.ncf.action_immediate.toString());
+    formData.append("nc_cloture", this.ncf.nc_cloture.toString());
     formData.append("piece_jointe", this.ncf.piece_jointe);
     formData.append("processus", this.ncf.processus);
     formData.append("site", this.ncf.site);
@@ -163,13 +164,10 @@ export class AddNcComponent implements OnInit {
   })
 }
 
-  onCancel() {
-    this.mode = 'list';
-  }
-  
 
   uploadFile(event: any) {
     const file = event.target.files[0];
+    this.droppedFile = file;
     this.ncf.piece_jointe=file
 
   }
@@ -187,6 +185,29 @@ export class AddNcComponent implements OnInit {
   }
   closeModal() {
     this.bsModalService.hide();
+}
+onDragOver(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  event.dataTransfer.dropEffect = 'copy';
+}
+
+onDragLeave(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+}
+
+onDrop(event: any) {
+  event.preventDefault();
+  event.stopPropagation();
+  const file = event.dataTransfer.files[0];
+  this.droppedFile = file;
+  this.ncf.piece_jointe=file;
+  const dropZone = document.querySelector('.drop-zone');
+  if (dropZone) {
+    dropZone.innerHTML = file.name;
+  }
+  
 }
 }
 

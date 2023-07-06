@@ -1,11 +1,11 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter un Document</h4>
+                           <h4 >Ajouter un Document</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -69,7 +69,7 @@
                                </div>  
                                
                                
-                               <div class="col-md-6"> 
+                              <div class="col-md-6"> 
                                    <div class="form-group">
                                     <label for="type_docs">Type de document <label style="color: red;">*</label></label>
                                        <select name="type" class="selectpicker form-control" data-style="py-0" id="type_docs" formControlName="type_docs">
@@ -118,7 +118,7 @@
                               
                            </div>                            
                            <button type="submit" class="btn btn-primary mr-2 " (click)="openModal()">Ajouter</button>
-                           <button type="reset" class="btn btn-danger" routerLink="/listdocument">Annuler</button>
+                           <button type="reset" class="btn btn-warning" routerLink="/listdocument">Annuler</button>
                            
                        </form>
                        

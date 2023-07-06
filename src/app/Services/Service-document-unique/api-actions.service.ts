@@ -33,4 +33,14 @@ export class ApiActionsService {
   delAction(id:number){
     return this.http.delete<Actions>(this.API_URL_AC+id+'/');
   }
+  updateActionFormdata(idAction: number, formData: FormData): Observable<any> {
+    const url = `${this.API_URL_AC}${idAction}/`;
+    return this.http.put(url, formData);
+  }
+  getStatsByTypeAction(): Observable<any> {
+    const url = `${this.API_URL_AC}stats_by_type_action/`;
+    return this.http.get<any>(url);
+  }
+
+
 }

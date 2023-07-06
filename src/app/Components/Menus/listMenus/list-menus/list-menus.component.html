@@ -1,171 +1,186 @@
-<div class="content-page">
-    <div class="container-fluid">
-       <div class="row">
-          <div class="col-sm-12">
-             <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                   <div class="header-title">
-                      <h4 class="card-title">Liste des Menus </h4>
-                   </div>
-                   <div class="col-sm-6 col-md-6">
-                     <div class="user-list-files d-flex">
-                        
-                        <a routerLink="/addMenu" class="bg-danger" href="javascript:void();">
-                           Ajouter un Menu 
-                        </a>
-                     </div>
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="header-title">
+            <h4 class="card-title">Liste des Menus </h4>
+            </div>
+            <div class="col-sm-6 col-md-6 d-flex justify-content-end">
+              <div class="input-group col-md-6">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-search" style="font-size: 1rem;"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control form-control-sm custom-blue" placeholder="Chercher" [(ngModel)]="searchQuery">
+                <div class="input-group-append">
+                  <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="mr-2">Filtrer par Mois</label>
+                    <select id="mois_concerne" name="mois_concerne" formControlName="mois_concerne" class="custom-select" data-style="py-0" (change)="filterMenuByMonth()" [(ngModel)]="MoisSelectionne">
+                      <option value="">Tous</option>
+                      <option value="Janvier">Janvier</option>
+                      <option value="Février">Février</option>
+                      <option value="Mars">Mars</option>
+                      <option value="Avril">Avril</option>
+                      <option value="Mai">Mai</option>
+                      <option value="Juin">Juin</option>
+                      <option value="Juillet">Juillet</option>
+                      <option value="Aout">Aout</option>
+                      <option value="Septembre">Septembre</option>
+                      <option value="Octobre">Octobre</option>
+                      <option value="Novembre">Novembre</option>
+                      <option value="Décembre">Décembre</option>
+                    </select>
                   </div>
                 </div>
-                <div class="card-body">
-                   <div class="table-responsive">
-                      <div class="row justify-content-between">
-                         <div class="col-sm-6 col-md-6">
-                            <div id="user_list_datatable_info" class="dataTables_filter">
-                              <form class="mr-3 position-relative d-flex lign-items-center" [formGroup]="myForm">
-                                 <div class="col-md-6">
-                                   <div class="form-group">
-                                     <label class="mr-2">Filtrer par Site</label>
-                                     <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterMenusBySite()">
-                                       <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                                       <option value="">Tous</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                                 <div class="col-md-6">
-                                   <div class="form-group">
-                                     <label class="mr-2">Filtrer par Mois</label>
-                                     <select id="mois_concerne" name="mois_concerne" formControlName="mois_concerne" class="custom-select" data-style="py-0" (change)="filterMenuByMonth()" [(ngModel)]="MoisSelectionne">
-                                       <option value="">Tous</option>
-                                       <option value="Janvier">Janvier</option>
-                                       <option value="Février">Février</option>
-                                       <option value="Mars">Mars</option>
-                                       <option value="Avril">Avril</option>
-                                       <option value="Mai">Mai</option>
-                                       <option value="Juin">Juin</option>
-                                       <option value="Juillet">Juillet</option>
-                                       <option value="Aout">Aout</option>
-                                       <option value="Septembre">Septembre</option>
-                                       <option value="Octobre">Octobre</option>
-                                       <option value="Novembre">Novembre</option>
-                                       <option value="Décembre">Décembre</option>
-                                     </select>
-                                   </div>
-                                 </div>
-                               </form>
-                               
-                            </div>
-                         </div>
-                         
-                      </div>
-                      <table id="user-list-table" class="table table-striped  mt-4" role="grid"
-                         aria-describedby="user-list-page-info">
-                         <thead>
-                            <tr >
-                               <th>Site</th>
-                               <th>Mois Concerné</th>
-                               <th>Menus généraux</th>
-                               <th>Menus Dessert</th>
-                               <th>Menus S1</th>
-                               <th>Menus S2</th>
-                               <th>Menus S3</th>
-                               <th>Menus S4</th>
-                               <th>Menus S4</th>
-                               
-                               
-                               
-                               <th style="min-width: 100px">Action</th>
-                            </tr>
-                         </thead>
-                         <tbody>
-                            <tr *ngFor="let menu of menus">
-                             
-                              <td>{{menu.site_name}}</td>
-                              <td>{{menu.mois_concerne}}</td>
-                              <td>
-                                 <a href="{{ menu.menus_generaux }}" download>{{ menu.menus_generaux }}</a>
-                                 
-                              </td>
-                              <td>
-                                 <a href="{{ menu.menus_dessert }}" download>{{ menu.menus_dessert }}</a>
-                                 
-                              </td>
-                              <td>
-                                 <a href="{{ menu.menu_s1 }}" download>{{ menu.menu_s1 }}</a>
-                                 
-                              </td>
-                              <td>
-                                 <a href="{{ menu.menu_s2 }}" download>{{ menu.menu_s2 }}</a>
-                                 
-                              </td>
-                              <td>
-                                 <a href="{{ menu.menu_s3 }}" download>{{ menu.menu_s3 }}</a>
-                                 
-                              </td>
-                              <td>
-                                 <a href="{{ menu.menu_s4 }}" download>{{ menu.menu_s4 }}</a>
-                                 
-                              </td>
-                              <td>
-                                 <a href="{{ menu.menu_s5 }}" download>{{ menu.menu_s5 }}</a>
-                                 
-                              </td>
-                              
-                              
-                        
-                              
-                              <td>
-                                <div class="flex align-items-center list-user-action">
-                                  <a class="btn btn-sm bg-success" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Edit" [routerLink]="['/updateMenu', menu.id]"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="btn btn-sm bg-danger" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Delete" (click)="menuIdToDelete = menu.id; modalRef = modalService.show(deleteModal);"><i
-                                      class="ri-delete-bin-line mr-0"></i></a>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                          
-                      </table>
-                   </div>
-                   <div class="row justify-content-between mt-3">
-                      <div id="user-list-page-info" class="col-md-6">
-                         <span>Showing 1 to 5 of 5 entries</span>
-                      </div>
-                      <div class="col-md-6">
-                         <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end mb-0">
-                               <li class="page-item disabled">
-                                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                               </li>
-                               <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                               <li class="page-item"><a class="page-link" href="#">2</a></li>
-                               <li class="page-item"><a class="page-link" href="#">3</a></li>
-                               <li class="page-item">
-                                  <a class="page-link" href="#">Next</a>
-                               </li>
-                            </ul>
-                         </nav>
-                      </div>
-                   </div>
+                <div class="col-sm-9 col-md-9 text-right">
+                  <div class="user-list-files d-flex align-items-center">
+                    <a routerLink="/addMenu" class="bg1">Nouvel élément</a>
+                  </div>
                 </div>
-             </div>
+              </div>
+             <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+             <thead>
+               <tr>
+                 <th>Site</th>
+                 <th>Mois Concerné</th>
+                 <th>Menus généraux</th>
+                 <th>Menus Dessert</th>
+                 <th>Menus S1</th>
+                 <th>Menus S2</th>
+                 <th>Menus S3</th>
+                 <th>Menus S4</th>
+                 <th>Menus S5</th>
+                 <th>Action</th>
+               </tr>
+             </thead>
+              <!-- expanded-->
+            <ng-container *ngFor="let site of site">
+               <!-- expanded-->
+               <tbody class="ligth-body">
+                <!-- expanded-->
+                 <td data-column="name">
+                   <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
+                     <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
+                     <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+                   </a>
+                   <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
+                 </td>
+                 <!--expanded-->
+                 <ng-container *ngIf="site.expanded">
+                   <ng-container *ngFor ="let menu of displayedMenus | filter: searchQuery">
+                     <tr *ngIf="(menus)?.length === 0">
+                       <td colspan="11">Aucune demande trouvée</td>
+                     </tr>
+                     <tr *ngIf="menu.site == site.id">
+                       <td></td>
+                       
+                       <td>{{ menu.mois_concerne }}</td>
+                       <td>
+                         <a href="{{ menu.menus_generaux }}" download>{{ getFileNameFromPath(menu.menus_generaux) }}</a>
+                       </td>
+                       <td>
+                         <a href="{{ menu.menus_dessert }}" download>{{ getFileNameFromPath(menu.menus_dessert) }}</a>
+                       </td>
+                       <td>
+                         <a href="{{ menu.menu_s1 }}" download>{{ getFileNameFromPath(menu.menu_s1) }}</a>
+                       </td>
+                       <td>
+                         <a href="{{ menu.menu_s2 }}" download>{{ getFileNameFromPath(menu.menu_s2) }}</a>
+                       </td>
+                       <td>
+                         <a href="{{ menu.menu_s3 }}" download>{{ getFileNameFromPath(menu.menu_s3) }}</a>
+                       </td>
+                       <td>
+                         <a href="{{ menu.menu_s4 }}" download>{{ getFileNameFromPath(menu.menu_s4) }}</a>
+                       </td>
+                       <td>
+                         <a href="{{ menu.menu_s5 }}" download>{{ getFileNameFromPath(menu.menu_s5) }}</a>
+                       </td>
+                       <td>
+                         <div class="flex align-items-center list-user-action">
+                           <a class="btn btn-sm bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" [routerLink]="['/updateMenu', menu.id]">
+                             <i class="ri-pencil-line mr-0"></i>
+                           </a>
+                           <a class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" (click)="menuIdToDelete = menu.id; modalRef = modalService.show(deleteModal)">
+                             <i class="ri-delete-bin-line mr-0"></i>
+                           </a>
+                         </div>
+                       </td>
+                     </tr>
+                   </ng-container>
+                 </ng-container>
+             </ng-container>
+           </table>
+           
+              
+              <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                <div>
+                  <span class="entry-info">
+                    {{ getDisplayedRange() }}
+                  </span>
+                </div>
+                <div style="display: flex;justify-content: flex-end;">
+                  <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                  <div class="page-info">
+                    <span class="page-numbers">
+                      <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page"
+                        [ngClass]="{'selected': p === page}">{{ page }}</button>
+                    </span>
+                  </div>
+                  <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                </div>
+              </div>
+            </div>
           </div>
-       </div>
+        </div>
+      </div>
     </div>
-          </div>
- <!-- Confirmation modal for command deletion -->
- <ng-template #deleteModal>
+  </div>
+</div>
+
+<!-- Confirmation modal for command deletion -->
+<ng-template #deleteModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmation de la suppression</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Êtes-vous sûr de vouloir supprimer ce Menu?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+  </div>
+</ng-template>
+<!-- Site Modal -->
+ <ng-template #siteModal let-modal>
    <div class="modal-header">
-     <h4 class="modal-title">Confirmation de la suppression</h4>
-     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+     <h4 class="modal-title">Site Informations</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModalsite()">
        <span aria-hidden="true">&times;</span>
      </button>
    </div>
    <div class="modal-body">
-     Êtes-vous sûr de vouloir supprimer ce site ?
-   </div>
-   <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+     <p><strong>Site :</strong> {{ selectedSite?.site_nom }}</p>
+     <p><strong>Sigle:</strong> {{ selectedSite?.sigle }}</p>
+     <p><strong>Responsable du Site:</strong> {{ selectedSite?.responsable_name }}</p>
+     <p><strong>Groupe Retso:</strong> {{ selectedSite?.groupe_retso }}</p>
    </div>
  </ng-template>

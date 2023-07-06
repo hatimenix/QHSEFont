@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="card">
-            <div class="card-header d-flex justify-content-between">
+            <div class="card-headers d-flex justify-content-between">
               <div class="header-title">
                 <h4 class="card-title">Ajouter un Menu</h4>
               </div>
@@ -42,55 +42,62 @@
                   <div class="col-md-6">
                     <div class="form-group">
                         <label for="menus_generaux">Menus Généraux </label>
-                        <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'menus_generaux') " formControlName="menus_generaux">
+                        <input type="file" class="form-control image-file" (change)="onFileSelected($event) " formControlName="menus_generaux">
+                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>    
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="menus_dessert">Menus Dessert</label>
-                        <input type="file" class="form-control image-file" (change)="onFileSelected($event, 'menus_dessert') " formControlName="menus_dessert">
+                        <input type="file" class="form-control image-file" (change)="onFileSelected($event) " formControlName="menus_dessert">
+                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="menu_s1">Menus S1 </label>
-                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s1')"formControlName="menu_s1">
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event)"formControlName="menu_s1">
+                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="menu_s2">Menus S2 </label>
-                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s2')"formControlName="menu_s2">
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event)"formControlName="menu_s2">
+                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="menu_s3">Menus S3</label>
-                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s3')"formControlName="menu_s3">
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event)"formControlName="menu_s3">
+                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="menu_s4">Menus S4 </label>
-                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s4')"formControlName="menu_s4">
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event)"formControlName="menu_s4">
+                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="menu_s5">Menus S5 </label>
-                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event, 'menu_s5')"formControlName="menu_s5">
+                        <input type="file" class="form-control image-file"  (change)="onFileSelected($event)"formControlName="menu_s5">
+                        <div *ngIf="selectedFileName">{{ selectedFileName }}</div>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>                      
                 </div>                            
                 <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Modifier</button>
-                <button type="reset" class="btn btn-danger" routerLink="/listMenu">Annuler</button>
+                <button type="reset" class="btn btn-warning" routerLink="/listMenu">Annuler</button>
               </form>
             </div>
           </div>

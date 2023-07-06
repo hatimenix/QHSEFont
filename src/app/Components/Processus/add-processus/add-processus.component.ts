@@ -1,11 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { Processus } from 'src/app/models/pocesus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AnalyseRisques } from 'src/app/models/analyse-risques';
+import { AnalyseRisquesService } from 'src/app/Services/Service-analyseRisques/analyse-risques.service';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
+import { ApiProcessusService } from 'src/app/Services/Service-document-unique/api-processus.service';
+
+declare var window:any;
 
 @Component({
   selector: 'app-add-processus',
@@ -15,20 +21,32 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 export class AddProcessusComponent implements OnInit{
   processusForm!: FormGroup;
   personnel$ !: Observable<any>;
+  sites$ !: Observable<any>;
+  processus$ !: Observable<any>;
+  indice : any;
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('addModalAnalyse', { static: true }) addModalAnalyse:any;
   modalRef!: BsModalRef;
+  formBuilder: any;
+
 
   constructor(private fb: FormBuilder, private processusService: ProcessusService,
      private router: Router,
      private personnelService: PersonnelService,
-     private bsModalService: BsModalService
+     private bsModalService: BsModalService, 
+     private analyseservice: AnalyseRisquesService, 
+     private apiSiteService: ApiSiteService,
+     private apiProcessusService: ApiProcessusService,
      ) {
       this.createForm();
     
   }
 
   ngOnInit(): void {
+
+    //analyse form
+
     const isFirstVisit = history.state.isFirstVisit;
 
     if (!isFirstVisit) {
@@ -41,6 +59,8 @@ export class AddProcessusComponent implements OnInit{
     // aller en haut de la page
     window.scrollTo(0, 0);
     this.personnel$ = this.personnelService.getPersonnels();
+    this.sites$ = this.apiSiteService.getAllSite();
+    this.processus$ = this.apiProcessusService.getAllProcessus();
     this.createForm();
   }
 
@@ -99,5 +119,8 @@ export class AddProcessusComponent implements OnInit{
   closeModal() {
     this.bsModalService.hide();
 }
-  
+
+
+
+
 }

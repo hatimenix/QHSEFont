@@ -1,0 +1,766 @@
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Liste des plans alimentaires</h4>
+                        </div>
+                        <div class="col-sm-6 col-md-6 text-right" style="margin-right: 9%;">
+                            <div class="user-list-files d-flex align-items-center overflow-hidden">
+                                <a routerLink="/addPlanAlimentaire" class="bg1">
+                                    <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row justify-content-between">
+                            <div class="col-sm-6 col-md-8">
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search" style="font-size: 1rem;"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" placeholder="Chercher"
+                                        [(ngModel)]="searchQuery">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-3 d-flex align-items-center">
+
+
+
+                            <div class="mr-2 position-relative">
+                                <div class="filter-container">
+                                    <form [formGroup]="myForm" class="filter-form">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-filter"></i>
+                                                </span>
+                                            </div>
+                                            <select id="site" name="site" formControlName="site"
+                                                class="custom-select filter-select" (change)="filterConstatBySite()">
+                                                <option value="">All Sites</option>
+                                                <option *ngFor="let site of site$ | async" [value]="site.id">{{
+                                                    site.site_nom }}</option>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary filter-reset"
+                                                    (click)="resetSiteFilters()">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                            <!-- <div class="mr-2 position-relative">
+                                <form [formGroup]="myForm">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-filter"></i>
+                                            </span>
+                                        </div>
+                                        <select id="gouter" name="gouter" formControlName="gouter" class="custom-select"
+                                            required (change)="filterPlanAlimentaireByGouter()">
+                                            <option value="">Gouter</option>
+                                            <option value="true">True</option>
+                                            <option value="false">False</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" (click)="resetFilters()">
+                                                <i class="fas fa-undo"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> -->
+
+
+
+
+
+
+
+                        </div>
+
+
+
+
+                        <div class=" mt-3 d-flex justify-content-between">
+                            <div class="filter-container">
+                                <a class="hv" style="cursor: pointer;" [class.active]="selectedFilter === 'all'"
+                                    (click)="refreshTableDess('all');refreshTable('all')">Tous les éléments</a>
+                                <a class="hv" style="cursor: pointer;"
+                                    [class.active]="selectedFilter === 'dessert equilibre'"
+                                    (click)="refreshTableDess('dessert equilibre') ">Dessert
+                                    équilibre</a>
+                                <a class="hv" style="cursor: pointer;" [class.active]="selectedFilter === 'enrichie'"
+                                    (click)="refreshTableDess('enrichie')">Enrichie</a>
+                                <a class="hv" style="cursor: pointer;" [class.active]="selectedFilter === 'velours'"
+                                    (click)="refreshTableDess('velours')">Velours</a>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-link dropdown-toggle dropdown-toggle-icon" type="button"
+                                        id="filterDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'midi'"
+                                            (click)="refreshTable('midi')">Midi</a>
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'matin'"
+                                            (click)="refreshTable('matin')">Matin</a>
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'soir'"
+                                            (click)="refreshTable('soir')">Soir</a>
+                                        <a style="cursor: pointer;" class="dropdown-item"
+                                            [class.active]="selectedFilter === 'gouter'"
+                                            (click)="refreshTable('gouter')">Gouter</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="filter-container">
+                                <button class="btn btn-primary" [class.active]="selectedFilter === 'all'"
+                                    (click)="refreshTableDess('all')">All</button>
+                                <button class="btn btn-primary" [class.active]="selectedFilter === 'dessert equilibre'"
+                                    (click)="refreshTableDess('dessert equilibre')">Dessert équilibre</button>
+                                <button class="btn btn-primary" [class.active]="selectedFilter === 'dessert velours'"
+                                    (click)="refreshTableDess('dessert velours')">Dessert velours</button>
+                            </div> -->
+
+
+
+
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Afficher {{ itemsPerPage }} résultats par page
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="itemsPerPageDropdown">
+                                    <a class="dropdown-item" style="cursor: pointer;"
+                                        *ngFor="let option of itemsPerPageOptions"
+                                        (click)="onItemsPerPageChange(option)"
+                                        [ngClass]="{'selected': option === itemsPerPage}">
+                                        <span>{{ option }}</span>
+                                        <i style="margin-left: 1%;" class="fas fa-check"
+                                            *ngIf="option === itemsPerPage"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="table-responsive mb-4 rounded">
+
+
+                            <table class="table rounded   " aria-describedby="user-list-page-info">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 10%">Site</th>
+                                        <th>Matin</th>
+                                        <th>Client</th>
+                                        <th>Régime</th>
+                                        <th>Midi</th>
+                                        <th>ALcool</th>
+
+                                        <th>Texture</th>
+                                        <th>Spécificité dièt. matin</th>
+                                        <th>SOir </th>
+                                        <th>Soupe soir</th>
+
+                                        <th>Dessert</th>
+                                        <th>Menu velours matin</th>
+                                        <th>Soupe midi</th>
+                                        <th>Spécificité midi</th>
+                                        <th>Taille portion</th>
+                                        <th>Statut</th>
+                                        <th>Spécificité desset</th>
+                                        <th>Gouter</th>
+                                        <th>Spécificité gouter</th>
+                                        <th>localisation repas</th>
+                                        <th>Spécificité resto matin</th>
+                                        <th>menu velours soir</th>
+                                        <th>Spécificité diet soir</th>
+                                        <th>Spécificité resto soir</th>
+                                        <th>Convictions alimentaires</th>
+                                        <th>Allergie / intolerance</th>
+                                        <th>Autres infos utiles</th>
+                                        <th>Texture des liquides / boissons</th>
+                                        <th>Nombre des mesurettes de Nutilis ou texture IDDSI</th>
+                                        <th>température des liquides / boissons</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+
+                                <ng-container *ngFor="let site of sites">
+                                    <tbody class="ligth-body">
+
+                                        <td style="white-space: nowrap; vertical-align: middle;" data-column="name">
+                                            <div class="d-flex align-items-center">
+                                                <div class="pr-2">
+                                                    <a href="javascript:void(0);" class="toggle-icon"
+                                                        (click)="site.expanded = !site.expanded">
+                                                        <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
+                                                        <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="mr-3">
+                                                    <a href="javascript:void(0);" style="display: inline-block;"
+                                                        [class.expanded]="site.expanded || site.id === selectedSiteId"
+                                                        desse>Site:
+                                                        {{ site.site_nom }} : ({{
+                                                        getRecordCount(site) }})</a>
+                                                </div>
+                                            </div>
+                                        </td>
+
+
+                                        <ng-container *ngIf="site.expanded ">
+
+
+                                            <ng-container
+                                                *ngFor="let dpa of displayedplanalim | filter: searchQuery   let i = index ">
+                                                <tr *ngIf="filteredPlanAlimentaire.length === 0">
+                                                    <td colspan="11">Aucune demande trouvé </td>
+                                                </tr>
+
+                                                <tr *ngIf="dpa.site == site.id"
+                                                    [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                                                    <td></td>
+
+                                                    <td>{{dpa.matin ? "Oui" : "Non"}}</td>
+                                                    <td>{{dpa.client}}</td>
+                                                    <td>{{dpa.regime}}</td>
+
+
+
+                                                    <td>{{dpa.midi ? "Oui" : "Non"}}</td>
+                                                    <td>{{dpa.alcool ? "Oui" : "Non"}}</td>
+                                                    <td>{{dpa.texture}}</td>
+
+                                                    <td>{{dpa.specificite_diet_matin}}</td>
+                                                    <td>{{dpa.soir ? "Oui" : "Non"}}</td>
+                                                    <td>{{dpa.soupe_soir}}</td>
+                                                    <td>{{dpa.dessert}}</td>
+                                                    <td>{{dpa.menu_velours_matin ? "Oui" : "Non"}}</td>
+                                                    <td>{{dpa.soupe_midi}}</td>
+                                                    <td>{{dpa.specificites_midi}}</td>
+                                                    <td>{{dpa.taille_portion ? "Oui" : "Non"}}</td>
+                                                    <td>{{dpa.statut}}</td>
+                                                    <td>{{dpa.specificite_dessert}}</td>
+                                                    <td>{{dpa.gouter ? "Oui" : "Non"}}</td>
+                                                    <td>{{dpa.specifite_gouter}}</td>
+
+
+
+
+                                                    <td>{{dpa.localisation_repas}}</td>
+                                                    <td>{{dpa.specifite_resto_matin}}</td>
+                                                    <td>{{dpa.menu_velours_soir ? "oui" : "non"}}</td>
+
+
+
+                                                    <td>{{dpa.specificite_diet_soir}}</td>
+                                                    <td>{{dpa.specificite_resto_soir}}</td>
+                                                    <td>{{dpa.convictions_alimentaires}}</td>
+
+                                                    <td>{{dpa.allergie_intolerance}}</td>
+                                                    <td>{{dpa.autres_infos_utiles}}</td>
+                                                    <td>{{dpa.texture_liquides_boissons}}</td>
+
+
+
+                                                    <td>{{dpa.nbr_mesurettes}}</td>
+                                                    <td>{{dpa.temp_liquide_boisson}}</td>
+
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="badge btn-sm bg-primary" data-toggle="modal"
+                                                                data-target="#update" data-placement="top" title="Edit"
+                                                                (click)="getPAData(dpa.id, dpa.matin, dpa.client, dpa.regime, dpa.midi, dpa.alcool, dpa.texture, dpa.specificite_diet_matin, dpa.soir, dpa.soupe_soir, dpa.dessert, dpa.menu_velours_matin, dpa.soupe_midi, dpa.specificites_midi, dpa.taille_portion, dpa.statut, dpa.specificite_dessert, dpa.gouter, dpa.specifite_gouter, dpa.localisation_repas, dpa.specifite_resto_matin, dpa.menu_velours_soir, dpa.specificite_diet_soir, dpa.specificite_resto_soir, dpa.convictions_alimentaires, dpa.allergie_intolerance, dpa.autres_infos_utiles, dpa.texture_liquides_boissons, dpa.nbr_mesurettes, dpa.temp_liquide_boisson, dpa.site)">
+                                                                <i class="ri-pencil-line mr-0"></i>
+                                                            </a>
+                                                            <span class="spacer"></span> <!-- Add a spacer element -->
+                                                            <a class="badge btn-sm bg-danger" style="cursor: pointer;"
+                                                                data-toggle="tooltip" (click)="openDeleteModal(dpa.id)"
+                                                                data-placement="top" title="Delete">
+                                                                <i class="ri-delete-bin-line mr-0"></i>
+                                                            </a>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+
+
+                                            </ng-container>
+                                        </ng-container>
+                                </ng-container>
+
+                            </table>
+                        </div>
+                        <div class="pagination-container"
+                            style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <div>
+                                <span class="entry-info">
+                                    {{ getDisplayedRange() }}
+                                </span>
+                            </div>
+                            <div style="display: flex;justify-content: flex-end;">
+                                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                                <div class="page-info">
+                                    <span class="page-numbers">
+                                        <button class="btn page-number" *ngFor="let page of getPageNumbers()"
+                                            [disabled]="p === page" (click)="p = page"
+                                            [ngClass]="{'selected': p === page}">{{ page }}</button>
+                                    </span>
+                                </div>
+                                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal delete-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Attention , cette action est irréversible !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="delete()"><i
+                        class="fas fa-trash"></i>Supprimer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                        class="fas fa-times"></i>Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier un dpaat d'audit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <form [formGroup]="form">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Matin <label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="matin" id="matin" name="matin" formControlName="matin"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Client<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="client" type="text" class="form-control"
+                                        placeholder="Entrer le non du client" id="client" name="client"
+                                        formControlName="client">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Régime<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="regime" type="text" class="form-control"
+                                        placeholder="Entrer le Régime" id="regime" name="regime"
+                                        formControlName="regime">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Midi <label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="midi" id="midi" name="midi" formControlName="midi"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>ALcool<label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="alcool" id="alcool" name="alcool" formControlName="alcool"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Soir<label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="soir" id="soir" name="soir" formControlName="soir"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Spécificité dièt. matin <label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="specificite_diet_matin"
+                                        formControlName="specificite_diet_matin" class="form-control"
+                                        id="specificite_diet_matin" name="specificite_diet_matin" rows="4"></textarea>
+
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Texture<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="texture" formControlName="texture" class="form-control"
+                                        id="texture" name="texture" rows="4"></textarea>
+
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Spécificité midi<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="specificites_midi" formControlName="specificites_midi"
+                                        class="form-control" id="specificites_midi" name="specificites_midi"
+                                        rows="4"></textarea>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Dessert<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="dessert" type="text" class="form-control"
+                                        placeholder="Entrer le dessert" id="dessert" name="dessert"
+                                        formControlName="dessert">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Menu velours matin<label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="menu_velours_matin" id="menu_velours_matin"
+                                        name="menu_velours_matin" formControlName="menu_velours_matin"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Soupe midi<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="soupe_midi" type="text" class="form-control"
+                                        placeholder="Entrer la soupe de midi" id="soupe_midi" name="soupe_midi"
+                                        formControlName="soupe_midi">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Soupe soir<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="soupe_soir" type="text" class="form-control"
+                                        placeholder="Entrer la soupe du soir" id="soupe_soir" name="soupe_soir"
+                                        formControlName="soupe_soir">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Taille portion<label style="color: red;">*</label></label>
+
+
+                                    <input [(ngModel)]="taille_portion" type="text" class="form-control"
+                                        placeholder="Entrer la  taille de portion" id="taille_portion"
+                                        name="taille_portion" formControlName="taille_portion">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Statut<label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="statut" id="statut" name="statut" formControlName="statut"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Spécificité Dessert<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="specificite_dessert" formControlName="specificite_dessert"
+                                        class="form-control" id="specificite_dessert" name="specificite_dessert"
+                                        rows="4"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Spécificité Resto matin<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="specifite_resto_matin"
+                                        formControlName="specifite_resto_matin" class="form-control"
+                                        id="specifite_resto_matin" name="specifite_resto_matin" rows="4"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Spécificité Gouter<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="specifite_gouter" formControlName="specifite_gouter"
+                                        class="form-control" id="specifite_gouter" name="specifite_gouter"
+                                        rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Gouter<label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="gouter" id="gouter" name="gouter" formControlName="gouter"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Localisation repas<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="localisation_repas" type="text" class="form-control"
+                                        placeholder=" localisation du repas" id="localisation_repas"
+                                        name="localisation_repas" formControlName="localisation_repas">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Menu velours soir<label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="menu_velours_soir" id="menu_velours_soir"
+                                        name="menu_velours_soir" formControlName="menu_velours_soir"
+                                        class="custom-select" data-style="py-0">
+                                        <option [ngValue]="true">
+                                            Oui</option>
+                                        <option [ngValue]="false">
+                                            Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Spécificité Diet soir<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="specificite_diet_soir"
+                                        formControlName="specificite_diet_soir" class="form-control"
+                                        id="specificite_diet_soir" name="specificite_diet_soir" rows="4"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Spécificité Resto soir<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="specificite_resto_soir"
+                                        formControlName="specificite_resto_soir" class="form-control"
+                                        id="specificite_resto_soir" name="specificite_resto_soir" rows="4"></textarea>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Autres info utiles<label style="color: red;">*</label></label>
+                                    <textarea [(ngModel)]="autres_infos_utiles" formControlName="autres_infos_utiles"
+                                        class="form-control" id="autres_infos_utiles" name="autres_infos_utiles"
+                                        rows="4"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Allérgie / Intolérance<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="allergie_intolerance" type="text" class="form-control"
+                                        placeholder=" Allérgie / Intolérance" id="allergie_intolerance"
+                                        name="allergie_intolerance" formControlName="allergie_intolerance">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Convictions alimentaires<label style="color: red;">*</label></label>
+                                    <input [(ngModel)]="convictions_alimentaires" type="text" class="form-control"
+                                        placeholder=" Conviction alimentaire" id="convictions_alimentaires"
+                                        name="convictions_alimentaires" formControlName="convictions_alimentaires">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Site <label style="color: red;">*</label></label>
+                                    <select [(ngModel)]="site" id="site" name="site" formControlName="site"
+                                        class="custom-select" data-style="py-0">
+                                        <option *ngFor="let site of site$ | async" [value]="site.id">
+                                            {{ site.site_nom }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nombre des mesurettes de Nutilis ou texture IDDSI<label
+                                            style="color: red;">*</label></label>
+                                    <input [(ngModel)]="nbr_mesurettes" type="text" class="form-control"
+                                        placeholder=" Nombre des mesurettes de Nutilis ou texture IDDSI"
+                                        id="nbr_mesurettes" name="nbr_mesurettes" formControlName="nbr_mesurettes">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>température des liquides / boissons<label
+                                            style="color: red;">*</label></label>
+                                    <input [(ngModel)]="temp_liquide_boisson" type="text" class="form-control"
+                                        placeholder=" température des liquides / boissons" id="temp_liquide_boisson"
+                                        name="temp_liquide_boisson" formControlName="temp_liquide_boisson">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" (click)="updatePlanAlimentaire()" class="btn btn-primary"><i
+                        class="fas fa-pencil-alt"></i>
+                    Modifier</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>
+                    Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Page end  : succes update Modal -->
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        La demande a été modifié avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>

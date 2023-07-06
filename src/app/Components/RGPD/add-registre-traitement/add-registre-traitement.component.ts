@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
@@ -14,8 +14,11 @@ declare var window: any;
 export class AddRegistreTraitementComponent implements OnInit {
   fournisseurs: any[] = [];
   traitements: any[] = [];
-  modalCompleted = false;
-
+  modalCompletedmesure = false;
+  modalCompleteddonnee = false;
+  modalCompletedpersonne = false;
+  modalCompletedenUE = false;
+  modalCompletedhorsUE = false;
 
     @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -37,7 +40,7 @@ export class AddRegistreTraitementComponent implements OnInit {
     sous_finalite2: '',
     sous_finalite3: '',
     sous_finalite4: '',
-    donneesensible:'',
+    donneesensible:false,
     type_donnee:'',
     categorie: '',
     description: '',
@@ -57,9 +60,6 @@ export class AddRegistreTraitementComponent implements OnInit {
     fournisseur_representant:''
   };
     submitted = false;
-    modalForm = new FormGroup({
-      mtypedemesuredesecurite: new FormControl('', Validators.required),
-    });
     
     form = new FormGroup({
       fournisseur: new FormControl(''),
@@ -74,7 +74,7 @@ export class AddRegistreTraitementComponent implements OnInit {
       sous_finalite2: new FormControl(''),
       sous_finalite3: new FormControl(''),
       sous_finalite4: new FormControl(''),
-      donneesensible: new FormControl(''),
+      donneesensible: new FormControl(false),
       type_donnee: new FormControl(''),
       categorie: new FormControl(''),
       description: new FormControl(''),
@@ -120,7 +120,14 @@ export class AddRegistreTraitementComponent implements OnInit {
     this.traitementservice.getAll().subscribe(
       (data: any[]) => {
         this.traitements = data;
-        console.log(this.traitements); // Print the sites to the console
+        console.log(this.traitements); 
+        this.modalCompletedmesure = this.hasValuesForField('mtypedemesuredesecurite');
+        this.modalCompleteddonnee = this.hasValuesForField('type_donnee');
+        this.modalCompletedpersonne = this.hasValuesForField('personneconcernees');
+        this.modalCompletedenUE = this.hasValuesForField('typedestinataire');
+        this.modalCompletedhorsUE = this.hasValuesForField('destinataire'); 
+
+
       },
       (error: any) => {
         console.log(error); // Handle error
@@ -142,7 +149,7 @@ export class AddRegistreTraitementComponent implements OnInit {
     formData.append('sous_finalite2', this.traitementf.sous_finalite2);
     formData.append('sous_finalite3', this.traitementf.sous_finalite3);
     formData.append('sous_finalite4', this.traitementf.sous_finalite4);
-    formData.append('donneesensible', this.traitementf.donneesensible);
+    formData.append('donneesensible', this.traitementf.donneesensible.toString());
     formData.append('type_donnee', this.traitementf.type_donnee);
     formData.append('categorie', this.traitementf.categorie);
     formData.append('description', this.traitementf.description);
@@ -181,57 +188,72 @@ export class AddRegistreTraitementComponent implements OnInit {
 }
 submitModalMesure() {
   if (!this.traitementf.mtypedemesuredesecurite) {
-    this.modalCompleted = false;
+    this.modalCompletedmesure = false;
     return;
   }
-  this.modalCompleted = true;
-  const newOption = { mtypedemesuredesecurite: this.traitementf.mtypedemesuredesecurite };
-  this.traitements.push(newOption);
-  this.traitementf.mtypedemesuredesecurite = ''; // clear the modal form input
+  const existingOption = this.traitements.find(traitement => traitement.mtypedemesuredesecurite === this.traitementf.mtypedemesuredesecurite);
+  if (!existingOption) {
+    const newOption = { mtypedemesuredesecurite: this.traitementf.mtypedemesuredesecurite };
+    this.traitements.push(newOption);
+  }
+  this.modalCompletedmesure = true;
+  this.traitementf.mtypedemesuredesecurite='';
 }
 submitModalDonneeSensible() {
   if (!this.traitementf.type_donnee) {
-    this.modalCompleted = false;
+    this.modalCompleteddonnee = false;
     return;
   }
-  this.modalCompleted = true;
-  const newOption = { type_donnee: this.traitementf.type_donnee };
-  this.traitements.push(newOption);
-  this.traitementf.type_donnee = ''; // clear the modal form input
+  const existingOption = this.traitements.find(traitement => traitement.type_donnee === this.traitementf.type_donnee);
+  if (!existingOption) {
+    const newOption = { type_donnee: this.traitementf.type_donnee };
+    this.traitements.push(newOption);
+  }
+  this.modalCompleteddonnee = true;
+  this.traitementf.type_donnee='';
+
 }
 submitModalPersonneconcernee() {
   if (!this.traitementf.personneconcernees) {
-    this.modalCompleted = false;
+    this.modalCompletedpersonne = false;
     return;
   }
-  this.modalCompleted = true;
-  const newOption = { personneconcernees: this.traitementf.personneconcernees };
-  this.traitements.push(newOption);
-  this.traitementf.personneconcernees = ''; // clear the modal form input
+  const existingOption = this.traitements.find(traitement => traitement.personneconcernees === this.traitementf.personneconcernees);
+  if (!existingOption) {
+    const newOption = { personneconcernees: this.traitementf.personneconcernees };
+    this.traitements.push(newOption);
+  }
+  this.modalCompletedpersonne = true;
+  this.traitementf.personneconcernees='';
+
 }
 submitModalDestinataire() {
   if (!this.traitementf.typedestinataire) {
-    this.modalCompleted = false;
+    this.modalCompletedenUE = false;
     return;
   }
-  this.modalCompleted = true;
-  const newOption = { typedestinataire: this.traitementf.typedestinataire };
-  this.traitements.push(newOption);
-  this.traitementf.typedestinataire = ''; // clear the modal form input
+  const existingOption = this.traitements.find(traitement => traitement.typedestinataire === this.traitementf.typedestinataire);
+  if (!existingOption) {
+    const newOption = { typedestinataire: this.traitementf.typedestinataire };
+    this.traitements.push(newOption);
+  }
+  this.modalCompletedenUE = true;
+  this.traitementf.typedestinataire='';
+
 }
 submitModalDestinataireenUE() {
   if (!this.traitementf.destinataire) {
-    this.modalCompleted = false;
+    this.modalCompletedhorsUE = false;
     return;
   }
-  this.modalCompleted = true;
-  const newOption = { destinataire: this.traitementf.destinataire };
-  this.traitements.push(newOption);
-  this.traitementf.destinataire = ''; // clear the modal form input
-}
+  const existingOption = this.traitements.find(traitement => traitement.destinataire === this.traitementf.destinataire);
+  if (!existingOption) {
+    const newOption = { destinataire: this.traitementf.destinataire };
+    this.traitements.push(newOption);
+  }
+  this.modalCompletedhorsUE = true;
+  this.traitementf.destinataire='';
 
-onCancel() {
-  this.mode = 'list';
 }
 
 get f() {
@@ -246,5 +268,8 @@ openModal() {
 }
 closeModal() {
   this.bsModalService.hide();
+}
+hasValuesForField(fieldName: string): boolean {
+  return this.traitements.some(traitement => !!traitement[fieldName]);
 }
 }
