@@ -21,8 +21,16 @@ export class ListTachesComponent {
   utilisateurs: any[] = [];
   selectedUtilisateur: Utilsateur | undefined;  
   updateModalVisible: boolean = true;
+  autoCloseDropdown: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any;
   @ViewChild('utilisateurModal', { static: true }) utilisateurModal:any;
+  fieldsVisible: { [key: string]: boolean } = {
+    nom_tache: true,
+    echeance: true,
+    assigne_a:true,
+    priorite:true,
+    etat:true,
+  };
   modalRef!: BsModalRef;
   p = 1; 
   itemsPerPage: number = 10;
@@ -86,6 +94,11 @@ export class ListTachesComponent {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    document.addEventListener('click', this.onDocumentClick.bind(this));
+
+  }
+  ngOnDestroy() {
+    document.removeEventListener('click', this.onDocumentClick.bind(this));
   }
   resetFilter() {
     this.filteredTaches = this.originalTaches;
@@ -244,6 +257,17 @@ getSelectedFileName(): string {
     return fileInput.files[0].name;
   }
   return 'Choose file';
+}
+onDropdownClick(event: MouseEvent) {
+  event.stopPropagation();
+}
+
+toggleDropdown() {
+  this.autoCloseDropdown = !this.autoCloseDropdown;
+}
+
+onDocumentClick(event: MouseEvent) {
+  this.autoCloseDropdown = true;
 }
 
 }

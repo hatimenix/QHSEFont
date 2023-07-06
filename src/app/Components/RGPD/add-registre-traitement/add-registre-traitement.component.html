@@ -1,8 +1,8 @@
-<div class="content-page">
-<div class="card">
-    <div class="card-header d-flex justify-content-between">
+<div class="content-page custom-background">
+  <div class="card">
+    <div class="card-headers d-flex justify-content-between">
        <div class="header-title">
-          <h4 class="card-title">RGPD:Registre de traitement</h4>
+          <h4>RGPD:Registre de traitement</h4>
        </div>
     </div>
     <div class="card-body">
@@ -308,8 +308,8 @@
                    </div>
                    </div>
                    <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
-                    <button type="submit" [disabled]="form.invalid" (click)="createTraitement()"  class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
-                    <button type="cancel" type="reset" routerLink="/list-registre-traitement" class="btn btn-danger mr-2 mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+                    <button type="submit" [disabled]="form.invalid" (click)="createTraitement()"  class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+                    <button type="cancel" type="reset" routerLink="/list-registre-traitement" class="btn btn-warning mr-2 mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
                 </div>
              </div>
         

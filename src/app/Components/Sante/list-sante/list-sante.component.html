@@ -1,17 +1,20 @@
-<div class="content-page">
+<div class="content-page custom-background">
   <div class="container-fluid">
+    <div class="card">
     <div class="row">
       <div class="col-lg-12">
-        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-          <div>
-            <h4 class="mb-3">Santé mentale - demande de supervision</h4>
+        <div class="card-header d-flex justify-content-between ">
+          <div class="header-title">
+            <h4 class="card-title">Santé mentale - demande de supervision</h4>
           </div>
-          <a (click)="navigateToSante()" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter
-            une demande</a>
+          <a (click)="navigateToSante()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%;">
+            <i class="las la-plus"></i> Ajouter une demande
+          </a>
         </div>
       </div>
 
     </div>
+    <div class="card-body">
     <div class="row justify-content-start">
       <div class="input-group mb-4 col-md-4">
         <div class="input-group-prepend">
@@ -75,13 +78,13 @@
                       <td>{{sante.demande_entretien}}</td>
                       <td>
                         <div class="d-flex justify-content-start align-items-center list-action">
-                          <a class="badge bg-primary mr-2" style="cursor: pointer;" data-toggle="modal"
+                          <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal"
                             data-target="#update"
                             (click)="getSanteData(sante.id , sante.site,sante.demande_de_conseils,sante.demande_de_supervision,sante.demande_de_reunion,sante.demande_de_coaching,sante.demande_de_groupe,sante.comentaires,sante.demande_entretien)"
                             data-placement="top" title="" data-original-title="Edit">
                             <i class="ri-pencil-line mr-0"></i>
                           </a>
-                          <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                          <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip"
                             (click)="openDeleteModal(sante.id)" data-placement="top" title=""
                             data-original-title="Delete">
                             <i class="ri-delete-bin-line mr-0"></i>
@@ -102,6 +105,8 @@
         </div>
       </div>
     </div>
+    </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -117,9 +122,9 @@
             Attention , cette action est irréversible !
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="delete()"><i
+            <button type="button" class="btn btn-primary" (click)="delete()"><i
                 class="fas fa-trash"></i>Supprimer</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i
                 class="fas fa-times"></i>Fermer</button>
           </div>
         </div>
@@ -212,7 +217,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="updateSante()"><i class="fas fa-pencil-alt"></i>
               Modifier</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>
               Fermer</button>
           </div>
         </div>

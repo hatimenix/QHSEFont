@@ -107,7 +107,7 @@ export class InfoAnalyserisqueComponent {
           date_evaluation: this.analyserisque.date_evaluation,
           opportunite: this.analyserisque.opportunite,
           origine: this.analyserisque.origine,
-          Proccesus_name: this.analyserisque.Proccesus_name,
+          processus_name: this.analyserisque.processus_name,
           Site_name: this.analyserisque.Site_name,
           contexte_int: this.analyserisque.contexte_int,
           contexte_ext: this.analyserisque.contexte_ext,

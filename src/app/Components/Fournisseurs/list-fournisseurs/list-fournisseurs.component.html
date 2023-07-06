@@ -1,16 +1,20 @@
-<div class="content-page">
-    <div class="container-fluid">
+<div class="content-page custom-background">
+  <div class="container-fluid">
+    <div class="card">
        <div class="row">
            <div class="col-lg-12">
-               <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-                <div>
-                  <h4 class="mb-3">Liste des fournisseurs</h4>
+            <div class="card-header d-flex justify-content-between ">
+              <div class="header-title">
+                <h4 class="card-title">Liste des fournisseurs</h4>
               </div>
-                <a routerLink="/add-fournisseurs" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Ajouter un fournisseur</a>
-               </div>
+              <a routerLink="/add-fournisseurs" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
+                <i class="las la-plus"></i> Ajouter un fournisseur
+              </a>               
+            </div>
            </div>
   
           </div>
+          <div class="card-body">
           <div class="row justify-content-start">
             <div class="input-group  col-md-4">
               <div class="input-group-prepend">
@@ -73,7 +77,7 @@
           </div>                    
 
           <div>
-            <div class="container">
+            <div class="containers">
               <button class="toggle-button" (click)="toggleWindow()">
                 <i class="fas fa-angle-double-left"></i>
               </button>
@@ -198,10 +202,10 @@
                       <td>{{fournisseur.telephonepersonnel}}</td>
                       <td>
                         <div class="d-flex justify-content-start align-items-center list-action">
-                          <a class="badge bg-primary mr-2" style="cursor: pointer;" (click)="getFournisseurData(fournisseur.id, fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation, fournisseur.numero_de_recepisse_de_declaration_prefectorale, fournisseur.pageweb, fournisseur.telephone, fournisseur.numerodetelecopie, fournisseur.adresse, fournisseur.codepostal, fournisseur.ville, fournisseur.pays, fournisseur.nometprenom, fournisseur.adressedecourier, fournisseur.fonction, fournisseur.numerodetelephone, fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
+                          <a class="badge bg-success mr-2" style="cursor: pointer;" (click)="getFournisseurData(fournisseur.id, fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation, fournisseur.numero_de_recepisse_de_declaration_prefectorale, fournisseur.pageweb, fournisseur.telephone, fournisseur.numerodetelecopie, fournisseur.adresse, fournisseur.codepostal, fournisseur.ville, fournisseur.pays, fournisseur.nometprenom, fournisseur.adressedecourier, fournisseur.fonction, fournisseur.numerodetelephone, fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
                             <i class="ri-pencil-line mr-0"></i>
                           </a>
-                          <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)" data-placement="top" title="" data-original-title="Delete">
+                          <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)" data-placement="top" title="" data-original-title="Delete">
                             <i class="ri-delete-bin-line mr-0"></i>
                           </a>
                         </div>
@@ -230,6 +234,8 @@
                 </div>
               </div>           
             </div>
+            </div>
+            </div>
             
 <!-- Modal -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -246,10 +252,10 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="deleteItem()">
+      <button type="button" class="btn btn-primary" (click)="deleteItem()">
         <i class="fas fa-trash"></i> Supprimer
       </button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>
 </div>
@@ -380,7 +386,7 @@ aria-hidden="true">
 
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="updateFournisseur()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
-          <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
         </div>
       </div>
     </div>

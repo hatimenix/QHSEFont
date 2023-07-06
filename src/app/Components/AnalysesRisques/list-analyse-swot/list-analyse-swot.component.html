@@ -1,20 +1,51 @@
-<div class="content-page">
+<div class="content-page custom-background">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
-        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+        <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-2">
           <div>
-            <h4 class="mb-2">Analyse SWOT</h4>
+            <h4 style="font-size: 18px; font-weight: bold; color: #089bd7">Analyse SWOT</h4>
           </div>
         </div>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="site" class="form-label">Site:</label>
+        <div class="input-group mb-3 custom-input-group">
+          <select class="form-select custom-select" id="site" [(ngModel)]="selectedSite" (change)="filterRisques()">
+            <option value="" selected>Tous les sites</option>
+            <option *ngFor="let site of sites" [value]="site.id">{{ site.site_nom }}</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-light btn-sm" (click)="resetSite()">Effacer 
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-6">
+        <label for="processus" class="form-label">Processus:</label>
+        <div class="input-group mb-3 custom-input-group">
+          <select class="form-select custom-select" id="processus" [(ngModel)]="selectedProcessus" (change)="filterRisques()">
+            <option value="" selected>Tous les processus</option>
+            <option *ngFor="let processus of processusList" [value]="processus.id">{{ processus.intitule }}</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-light btn-sm" (click)="resetProcessus()">Effacer 
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="row">
       <div class="col-lg-6">
         <div class="card border-primary">
-          <div class="card-header bg-primary">
-            <h4 class="card-title">Forces</h4>
+          <div class="card-headers bg-primary">
+            <h4 class="card-title" style="color: white;">Forces</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
@@ -27,7 +58,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
-                    <ng-container *ngIf="toNumber(risque.maitrise) >= 0 && toNumber(risque.maitrise) <= 5">
+                    <ng-container *ngIf="toNumber(risque.maitrise) >= 0 && toNumber(risque.maitrise) <= 0.4">
                       <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                       <td>
                         <ng-container *ngIf="risque.maitrise !== null">
@@ -45,8 +76,8 @@
 
       <div class="col-lg-6">
         <div class="card border-warning">
-          <div class="card-header bg-warning">
-            <h4 class="card-title">Faiblesses</h4>
+          <div class="card-headers bg-warning">
+            <h4 class="card-title" style="color: white;">Faiblesses</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
@@ -59,7 +90,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
-                  <ng-container *ngIf="toNumber(risque.maitrise) > 10 && toNumber(risque.maitrise) <= 15">
+                  <ng-container *ngIf="toNumber(risque.maitrise) > 0.7 && toNumber(risque.maitrise) <= 0.9">
                     <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                     <td>
                       <ng-container *ngIf="risque.maitrise !== null">
@@ -79,8 +110,8 @@
     <div class="row">
       <div  class="col-lg-6">
         <div class="card border-success">
-          <div class="card-header bg-success">
-            <h4 class="card-title">Opportunités</h4>
+          <div class="card-headers bg-success">
+            <h4 class="card-title" style="color: white;">Opportunités</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
@@ -93,7 +124,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
-                  <ng-container *ngIf="toNumber(risque.maitrise) >= 5 && toNumber(risque.maitrise) <= 10">
+                  <ng-container *ngIf="toNumber(risque.maitrise) > 0.4 && toNumber(risque.maitrise) <= 0.7">
                     <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                     <td>
                       <ng-container *ngIf="risque.maitrise !== null">
@@ -111,8 +142,8 @@
 
       <div  class="col-lg-6">
         <div class="card border-danger">
-          <div class="card-header bg-danger">
-            <h4 class="card-title">Menaces</h4>
+          <div class="card-headers bg-danger">
+            <h4 class="card-title" style="color: white;">Menaces</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
@@ -125,7 +156,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
-                  <ng-container *ngIf="toNumber(risque.maitrise) > 15">
+                  <ng-container *ngIf="toNumber(risque.maitrise) >= 1">
                     <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                     <td>
                       <ng-container *ngIf="risque.maitrise !== null">
