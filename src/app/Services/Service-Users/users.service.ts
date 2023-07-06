@@ -22,8 +22,8 @@ export class UsersService {
     return this.http.get<UserApp>(url);
   }
 
-  createUserApp(userApp: UserApp): Observable<UserApp> {
-    return this.http.post<UserApp>(this.API_UsersApp, userApp);
+  createUserApp(formData: FormData): Observable<UserApp> {
+    return this.http.post<UserApp>(this.API_UsersApp, formData);
   }
 
   updateUserApp(id: number, userApp: UserApp): Observable<UserApp> {

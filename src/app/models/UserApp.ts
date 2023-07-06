@@ -10,6 +10,8 @@ export class UserApp {
   groupes_roles: GroupeUser[];
   nom_groupe!: string;
   send_email: boolean; 
+  image?: string;
+
   // the added one 
   permissions: string[]; 
   constructor(
@@ -21,7 +23,8 @@ export class UserApp {
     actif: boolean,
     groupes_roles: GroupeUser[],
     send_email: boolean,
-    permissions: string[]
+    permissions: string[],
+    image?: string,
   ) {
     this.id = id;
     this.nom_user = nom_user;
@@ -31,6 +34,8 @@ export class UserApp {
     this.actif = actif;
     this.groupes_roles = groupes_roles;
     this.send_email = send_email;
+    this.image= image;
+
     this.permissions = permissions;  
   }
 }

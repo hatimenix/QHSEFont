@@ -107,6 +107,8 @@ import { InfoAxesComponent } from './Components/AxesStratégiques/info-axes/info
 import { ListAnalyseSWOTComponent } from './Components/AnalysesRisques/list-analyse-swot/list-analyse-swot.component';
 import { CartographieRisquesComponent } from './Components/AnalysesRisques/cartographie-risques/cartographie-risques.component';
 import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
+import { ForgotPassComponent } from './Components/ForgotPass/forgot-pass/forgot-pass.component';
+import { ResetPassComponent } from './Components/ResetPass/reset-pass/reset-pass.component';
 import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
 import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
 import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
@@ -251,6 +253,9 @@ const routes: Routes = [
   { path: 'add-risque', component: AddRisquesComponent, canActivate: [AuthGuardService] },
 
 
+  //reset password 
+  { path : 'forgot-password', component : ForgotPassComponent}, 
+  { path: 'reset-password/:uidb64/:token', component: ResetPassComponent, canActivate: [AuthGuardService]}
 
 
 ];
