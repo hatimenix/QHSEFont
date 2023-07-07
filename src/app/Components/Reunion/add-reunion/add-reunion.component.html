@@ -107,7 +107,7 @@
                                                 <label>
                                                     <input type="checkbox" [checked]="isPresentsSelected(present?.id)"
                                                         formControlName="presents"
-                                                        (change)="togglePresents(present?.id)" required>
+                                                        (change)="togglePresents(present?.id)">
                                                     {{ present?.nom }}
                                                 </label>
                                             </div>
@@ -142,7 +142,7 @@
                                                 <label>
                                                     <input type="checkbox" [checked]="isListeDiffSelected(listdf?.id)"
                                                         formControlName="liste_diffusion"
-                                                        (change)="toggleListeDiff(listdf?.id)" required>
+                                                        (change)="toggleListeDiff(listdf?.id)">
                                                     {{ listdf?.nom }}
                                                 </label>
                                             </div>
