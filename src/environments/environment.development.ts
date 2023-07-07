@@ -54,7 +54,7 @@ export const environment = {
     API_exercice_securite: "https://qhseapi.paiperleckelearning.com/exercicesecurite/",
     API_reunion: "https://qhseapi.paiperleckelearning.com/reunion/",
     API_AxesStrategique: "https://qhseapi.paiperleckelearning.com/AxesStrategiques/",
-    API_URL_AT:"https://qhseapi.paiperleckelearning.com/arret_travail/",
+    API_URL_AT: "https://qhseapi.paiperleckelearning.com/arret_travail/",
 
 
 

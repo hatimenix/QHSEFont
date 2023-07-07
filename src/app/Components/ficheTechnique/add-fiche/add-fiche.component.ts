@@ -64,12 +64,12 @@ onSubmit() {
     );
   }
 }
-   //modal functions 
-   openModal() {
+  //modal functions 
+  openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
   closeModal() {
     this.bsModalService.hide();
-}
+  }
   
 }
