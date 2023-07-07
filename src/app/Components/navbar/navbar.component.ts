@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
 import { GroupeUser } from 'src/app/models/GroupeUser';
@@ -14,30 +14,45 @@ import { UserApp } from 'src/app/models/UserApp';
 })
 export class NavbarComponent {
 
+
   @Input() showNavbar: boolean | undefined;
-  user: UserApp  |null = null
+  user: any  |null = null
   group : GroupeUser | null=null
   id!:any
+
+
+
 
   constructor(private authService: AuthService, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
+    const userImagePath = localStorage.getItem('userImagePath');
+    const baseURL = 'http://127.0.0.1:8001';
+  
+    if (userImagePath) {
+      this.user = { image: baseURL + userImagePath };
+    }
+  
     this.getUserDetails();
-    
   }
+  
   getUserDetails(): void {
     this.authService.getUserDetails().subscribe(
       (response: UserApp) => {
         this.user = response;
         console.log('User details:', this.user);
-        console.log('User image URL:', this.user?.image);
-
       },
       (error: any) => {
         console.error(error);
       }
     );
   }
+  
+  
+
+
+  
+  
 
 
   onLogout(): void {
@@ -46,4 +61,8 @@ export class NavbarComponent {
     this.user = null;
     this.router.navigate(['/']);
   }
+
+  
+  
+  
 }

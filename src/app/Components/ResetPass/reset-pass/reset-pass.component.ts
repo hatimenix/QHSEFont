@@ -21,7 +21,6 @@ export class ResetPassComponent {
 
   submitForm() {
     if (this.newPassword !== this.confirmPassword) {
-      // Show error message indicating password mismatch
       return;
     }
   
@@ -41,11 +40,9 @@ export class ResetPassComponent {
     this.http.post('/api/reset-password/', formData).subscribe(
       response => {
         console.log(response);
-        // Show success message or redirect to a success page
       },
       error => {
         console.error(error);
-        // Show error message or handle the error
       }
     );
   }
