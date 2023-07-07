@@ -54,6 +54,7 @@ export const environment = {
     API_exercice_securite: "http://127.0.0.1:8001/exercicesecurite/",
     API_reunion: "http://127.0.0.1:8001/reunion/",
     API_AxesStrategique: "http://127.0.0.1:8001/AxesStrategiques/",
+    API_URL_AT: "http://127.0.0.1:8001/arret_travail/",
 
 
 
