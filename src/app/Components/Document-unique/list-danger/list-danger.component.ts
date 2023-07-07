@@ -14,6 +14,9 @@ export class ListDangerComponent {
   deletModal : any;
   idToDelete: number = 0;
 
+  //search
+  searchQuery: string = '';
+
   constructor(private apiDangerService: ApiDangerService) { }
 
   ngOnInit() {
@@ -39,6 +42,10 @@ export class ListDangerComponent {
       this.fetchDanger();
       this.deletModal.hide();
     })
+  }
+
+  resetSearchQuery() {
+    this.searchQuery = '';
   }
 
   //pagination methods 
