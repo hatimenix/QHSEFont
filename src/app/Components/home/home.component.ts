@@ -37,6 +37,12 @@ export class HomeComponent {
   }
   ngOnInit(): void {
     this.getNcs();
+    const isFirstVisit = history.state.isFirstVisit;
+    if (!isFirstVisit) {
+      history.replaceState({ isFirstVisit: true }, '');
+      location.reload();
+    }
+    window.scrollTo(0, 0);
 
   }
 

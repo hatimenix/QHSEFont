@@ -1,12 +1,16 @@
-<h2>Reset Password</h2>
-<form (ngSubmit)="submitForm()" #resetPasswordForm="ngForm">
-  <div class="form-group">
-    <label for="newPassword">New Password</label>
-    <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required>
-  </div>
-  <div class="form-group">
-    <label for="confirmPassword">Confirm Password</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required>
-  </div>
-  <button type="submit">Submit</button>
+<!-- password-reset.component.html -->
+<div class="content-page custom-background">
+  <div class="container-fluid">
+     <div class="row">
+        <div class="col-sm-12">
+           <div class="card">
+<form (ngSubmit)="resetPassword()" [formGroup]="resetForm">
+  <label for="email">Email:</label>
+  <input type="email" id="email" formControlName="email" required>
+  <button type="submit">Reset Password</button>
 </form>
+</div>
+</div>
+</div>
+</div>
+</div>

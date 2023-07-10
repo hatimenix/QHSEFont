@@ -14,7 +14,7 @@ import { UserApp } from 'src/app/models/UserApp';
 })
 export class NavbarComponent {
 
-
+ 
   @Input() showNavbar: boolean | undefined;
   user: any  |null = null
   group : GroupeUser | null=null
@@ -26,21 +26,32 @@ export class NavbarComponent {
   constructor(private authService: AuthService, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
+    this.getUserDetails();
+   
+  
+    
+     
+    
+  }
+  
+  
+  getUserDetails(): void {
     const userImagePath = localStorage.getItem('userImagePath');
     const baseURL = 'http://127.0.0.1:8001';
   
-    if (userImagePath) {
-      this.user = { image: baseURL + userImagePath };
-    }
-  
-    this.getUserDetails();
-  }
-  
-  getUserDetails(): void {
     this.authService.getUserDetails().subscribe(
       (response: UserApp) => {
         this.user = response;
         console.log('User details:', this.user);
+  
+        if (userImagePath !== null) {
+          this.user.image = `${baseURL}${userImagePath}`;
+        } else {
+          this.user.image = ''; // Assign a default value when userImagePath is null
+        }
+  
+        // Save the image path to local storage
+        localStorage.setItem('userImagePath', userImagePath || '');
       },
       (error: any) => {
         console.error(error);
@@ -49,8 +60,6 @@ export class NavbarComponent {
   }
   
   
-
-
   
   
 

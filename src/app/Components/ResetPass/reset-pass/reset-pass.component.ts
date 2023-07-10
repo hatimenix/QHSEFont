@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,44 +8,45 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './reset-pass.component.html',
   styleUrls: ['./reset-pass.component.css']
 })
-export class ResetPassComponent {
+export class ResetPassComponent implements OnInit {
+  resetForm!: FormGroup;
+  userId!: string;
+  token!: string;
+  newPassword: string | null = null;
 
-  uidb64: string | null;
-  token: string | null;
-  newPassword!: string;
-  confirmPassword!: string;
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private route: ActivatedRoute
+  ) {}
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
-    this.uidb64 = this.route.snapshot.paramMap.get('uidb64');
-    this.token = this.route.snapshot.paramMap.get('token');
+  ngOnInit(): void {
+    this.resetForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.token = params['token'];
+    });
   }
 
-  submitForm() {
-    if (this.newPassword !== this.confirmPassword) {
-      return;
-    }
-  
-    const formData = new FormData();
-  
-    // Handle uidb64
-    if (this.uidb64 !== null) {
-      formData.append('uidb64', this.uidb64);
-    }
-  
-    // Handle token
-    if (this.token !== null) {
-      formData.append('token', this.token);
-    }
-  
-    formData.append('new_password', this.newPassword);
-    this.http.post('/api/reset-password/', formData).subscribe(
+  resetPassword() {
+    const resetPasswordUrl = `http://localhost:8001/api/reset-password/${this.userId}/${this.token}/`;
+
+    const requestBody = {
+      password: this.newPassword
+    };
+
+    this.http.post(resetPasswordUrl, requestBody).subscribe(
       response => {
-        console.log(response);
+        // Handle success response
+        console.log('Password reset successful');
       },
       error => {
-        console.error(error);
+        // Handle error response
+        console.error('Password reset failed:', error);
       }
     );
   }
-  
 }

@@ -8,6 +8,24 @@
                            <h4 >Modifier un Utilisateur</h4>
                        </div>
                    </div>
+                   <div class="card">
+                    
+                    <div class="card-body">
+                       <form>
+                          <div class="form-group">
+                             <div class="crm-profile-img-edit position-relative">
+                               <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
+                               <div class="crm-p-image bg-primary">
+                                 <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
+                                 <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
+                                 (change)="onFileSelected($event) " formControlName="image">
+                               </div>
+                             </div>
+                           </div>
+                           
+                       </form>
+                    </div>
+                 </div>
                    <div class="card-body">
                        <form action="page-list-returns.html" data-toggle="validator" [formGroup]="userForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  

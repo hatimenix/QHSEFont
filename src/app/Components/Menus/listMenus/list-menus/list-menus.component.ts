@@ -135,6 +135,13 @@ export class ListMenusComponent implements OnInit {
 
     }
   }
+  resetMenuFilters(): void {
+    // Reset the selected filters and reload the data
+    this.MoisSelectionne = ''; // Reset the selected type filter
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.getMenus(); // Reload the data
+  }
+
   //afficher juste le nom du fichier 
   getFileNameFromPath(filePath: string | File | undefined): string {
     if (!filePath) return 'Aucun fichier joint';
