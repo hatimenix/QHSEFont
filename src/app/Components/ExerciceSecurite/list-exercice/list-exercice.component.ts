@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { ExerciceSecuriteService } from 'src/app/Services/Service-exerciceSecurite/exercice-securite.service';
 import { ExerciceSecurite } from 'src/app/models/ExerciceSecurite';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 declare var window: any;
 
 @Component({

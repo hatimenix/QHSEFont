@@ -80,7 +80,7 @@ export class AddDangerComponent {
 
     this.apiDangerService.addDanger(danger).subscribe(
       () => {
-        console.log('Le danger a été ajouté avec succès.');
+        console.log('Evaluation a été ajouté avec succès.');
         this.openModal();
         this.router.navigate(['/danger']);
       },

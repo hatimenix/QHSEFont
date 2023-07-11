@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
+import { ApiArretTravailService } from 'src/app/Services/Service-document-unique/api-arret-travail.service';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 import { ApiEvaluationService } from 'src/app/Services/Service-document-unique/api-evaluation.service';
 import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
@@ -13,6 +15,7 @@ import { ApiRealisationService } from 'src/app/Services/Service-document-unique/
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Actions } from 'src/app/models/actions';
+import { ArretTravail } from 'src/app/models/arret-travail';
 import { Dangers } from 'src/app/models/dangers';
 import { Evaluations } from 'src/app/models/evaluations';
 import { Evenement } from 'src/app/models/evenement';
@@ -27,6 +30,10 @@ declare var window:any;
   styleUrls: ['./info-danger.component.css']
 })
 export class InfoDangerComponent {
+
+  //modal
+  @ViewChild('successModal', { static: true }) successModal:any;
+  modalRef!: BsModalRef;
 
   dangerForm!: FormGroup;
   actionForm!: FormGroup;
@@ -63,7 +70,9 @@ export class InfoDangerComponent {
     private apiEvaluationService: ApiEvaluationService,
     private apiEvenementService: ApiEvenementService,
     private apiRealisationService: ApiRealisationService,
-    private apiActionsService: ApiActionsService
+    private apiActionsService: ApiActionsService,
+    private apiArretTravailService:ApiArretTravailService,
+    private bsModalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -174,9 +183,30 @@ export class InfoDangerComponent {
 
   getEvenementsByDangerId(dangerId: number) {
     this.evenements$ = this.apiEvenementService.getAllEvenement().pipe(
-      map((evenements: Evenement[]) => evenements.filter(evenement => evenement.dangers.includes(dangerId)))
+      map((evenements: Evenement[]) =>
+        evenements.filter(evenement => evenement.dangers.includes(dangerId))
+      ),
+      switchMap(evenements =>
+        this.addArretTravailToEvenements(evenements)
+      )
     );
   }
+
+  private addArretTravailToEvenements(evenements: Evenement[]): Observable<Evenement[]> {
+    const arretTravailObservables: Observable<ArretTravail[]>[] = evenements.map(evenement =>
+      this.apiArretTravailService.getArretByEvenementId(evenement.id)
+    );
+  
+    return forkJoin(arretTravailObservables).pipe(
+      map(arrts => {
+        return evenements.map((evenement, index) => ({
+          ...evenement,
+          arret_travail: arrts[index].length > 0
+        }));
+      })
+    );
+  }
+  
 /*
   getActionsByDangerId(dangerId: number) {
     this.actions$ = this.apiActionsService.getAllActions().pipe(
@@ -239,6 +269,7 @@ export class InfoDangerComponent {
     this.apiEvaluationService.addEvaluation(evaluation).subscribe(
       () => {
         console.log('Evaluation a été ajouté avec succès.');
+        this.openModal();
         this.getEvaluationsByDangerId(this.dangerId);
         this.evaluationForm.reset();
       },
@@ -435,4 +466,11 @@ export class InfoDangerComponent {
       }
     }
   
+     //modal functions 
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+  }
 }

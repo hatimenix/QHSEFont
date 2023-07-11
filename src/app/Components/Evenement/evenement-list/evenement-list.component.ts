@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
@@ -22,6 +22,9 @@ export class EvenementListComponent {
   services$ !: Observable<any>;
   deletModal : any;
   idToDelete: number = 0;
+  myForm: any;
+  selectedSiteId: number | undefined;
+  sites: any[] = [];
 
   //search
   searchQuery: string = '';
@@ -62,12 +65,71 @@ export class EvenementListComponent {
 
     this.sites$ = this.apiSiteService.getAllSite();
     this.services$ = this.apiServiceService.getAllService();
+
+    this.myForm = new FormGroup({
+      site: new FormControl(''),
+    });
+
+    this.apiSiteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.sites = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
 
   fetchEvenement() {
     this.apiEvenementService.getAllEvenement().subscribe((data) => {
       this.evenements = data;
     })
+  }
+
+  filterDangersBySite(): void {
+    const selectedSite = parseInt(this.myForm.get('site')?.value);
+  
+    if (selectedSite) {
+      this.apiEvenementService.getAllEvenement().subscribe(
+        (data: Evenement[]) => {
+          const evenements = data;
+          const filteredDangers = evenements.filter(evenements => evenements.site === selectedSite);
+  
+          if (filteredDangers.length > 0) {
+            this.selectedSiteId = selectedSite;
+            this.evenements = filteredDangers;
+          } else {
+            console.log(`Aucun evenement trouvé pour le site sélectionné: ${selectedSite}`);
+            this.evenements = [];
+          }
+  
+          console.log("Evenement filtrés", this.evenements);
+          console.log("Site sélectionné", this.selectedSiteId);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+  
+      this.sites.forEach((site) => {
+        site.expanded = site.id === selectedSite;
+      });
+  
+    } else {
+      this.myForm.reset();
+      this.selectedSiteId = undefined;
+      console.log("ID du site", this.selectedSiteId);
+      this.fetchEvenement();
+      this.sites.forEach((site) => {
+        site.expanded = true;
+      });
+    }
+  }
+
+  resetSiteFilters(): void {
+    // Reset the selected filters and reload the data
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.fetchEvenement(); // Reload the data
   }
 
   openDeleteModal(id: number) {

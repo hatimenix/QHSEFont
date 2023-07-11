@@ -5,7 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Qualite } from 'src/app/models/qualite';
 import { QualiteService } from 'src/app/Services/Service-qualite/qualite.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 declare var window: any;
 

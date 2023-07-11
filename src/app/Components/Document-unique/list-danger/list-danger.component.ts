@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
+import { Dangers } from 'src/app/models/dangers';
 
 declare var window:any;
 
@@ -13,23 +17,91 @@ export class ListDangerComponent {
   dangers: any;
   deletModal : any;
   idToDelete: number = 0;
+  sites$ !: Observable<any>;
+  myForm: any;
+  selectedSiteId: number | undefined;
+  sites: any[] = [];
 
   //search
   searchQuery: string = '';
 
-  constructor(private apiDangerService: ApiDangerService) { }
+  constructor(private apiDangerService: ApiDangerService,
+    private apiSiteService: ApiSiteService) { }
 
   ngOnInit() {
     this.fetchDanger();
     this.deletModal = new window.bootstrap.Modal(
       document.getElementById('deleteDanger')
     );
+
+    this.myForm = new FormGroup({
+      site: new FormControl(''),
+    });
+
+    this.sites$ = this.apiSiteService.getAllSite();
+
+    this.apiSiteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.sites = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
+
   }
 
   fetchDanger() {
     this.apiDangerService.getAllDanger().subscribe((data) => {
       this.dangers = data;
     })
+  }
+
+  filterDangersBySite(): void {
+    const selectedSite = parseInt(this.myForm.get('site')?.value);
+  
+    if (selectedSite) {
+      this.apiDangerService.getAllDanger().subscribe(
+        (data: Dangers[]) => {
+          const dangers = data;
+          const filteredDangers = dangers.filter(danger => danger.site === selectedSite);
+  
+          if (filteredDangers.length > 0) {
+            this.selectedSiteId = selectedSite;
+            this.dangers = filteredDangers;
+          } else {
+            console.log(`Aucun danger trouvé pour le site sélectionné: ${selectedSite}`);
+            this.dangers = [];
+          }
+  
+          console.log("Dangers filtrés", this.dangers);
+          console.log("Site sélectionné", this.selectedSiteId);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+  
+      this.sites.forEach((site) => {
+        site.expanded = site.id === selectedSite;
+      });
+  
+    } else {
+      this.myForm.reset();
+      this.selectedSiteId = undefined;
+      console.log("ID du site", this.selectedSiteId);
+      this.fetchDanger();
+      this.sites.forEach((site) => {
+        site.expanded = true;
+      });
+    }
+  }
+  
+
+  resetSiteFilters(): void {
+    // Reset the selected filters and reload the data
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.fetchDanger(); // Reload the data
   }
 
   openDeleteModal(id: number) {
