@@ -258,30 +258,27 @@ export class InfoEvenementComponent {
   }
 
   updateArret():void{
-    const formData = this.arretForm.value;
-    console.log(formData);
-    const arret: ArretTravail = new ArretTravail(
-      formData.CMI_volet_recup,
-      formData.date_debut_arret,
-      formData.date_fin_arret,
-      formData.duree_arret,
-      formData.prolongation,
-      formData.duree_total_pro,
-      formData.rechute,
-      formData.duree_total_rechute,
-      formData.duree_total_arret
-    );
+    if(this.arretForm.valid) {
+      const formData = new FormData();
+      formData.append('CMI_volet_recup', this.arretForm.get('CMI_volet_recup')!.value);
+      formData.append('date_debut_arret', this.arretForm.get('date_debut_arret')!.value);
+      formData.append('date_fin_arret', this.arretForm.get('date_fin_arret')!.value);
+      formData.append('duree_arret', this.arretForm.get('duree_arret')!.value);
+      formData.append('prolongation', this.arretForm.get('prolongation')!.value);
+      formData.append('duree_total_pro', this.arretForm.get('duree_total_pro')!.value);
+      formData.append('rechute', this.arretForm.get('rechute')!.value);
+      formData.append('duree_total_rechute', this.arretForm.get('duree_total_rechute')!.value);
+      formData.append('duree_total_arret', this.arretForm.get('duree_total_arret')!.value);
+      formData.append('evenement', String(this.evenementId));
 
-    arret.evenement = this.evenementId;
-    console.log(arret);
-
-    this.apiArretTravailService.updateArret(this.idArret,arret).subscribe(
-      () => {
-        console.log('Arret a été modifié avec succès.');
-        this.getArretTravailByEvenementId(this.evenementId);
-      },
-      error => console.log(error)
-    );
+      this.apiArretTravailService.updateArretFormdata(this.idArret,formData).subscribe(
+        () => {
+          console.log('Arret a été modifié avec succès.');
+          this.getArretTravailByEvenementId(this.evenementId);
+        },
+        error => console.log(error)
+      );
+    }
   }
 
   onSubmit(): void{

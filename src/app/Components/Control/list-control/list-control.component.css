@@ -1,6 +1,7 @@
-th {
-    white-space: nowrap;
-    font-size: 12px; /* Ajustez la taille de police selon vos besoins */
-    padding: 5px; /* Ajustez l'espacement interne selon vos besoins */
+
+  .dropdown {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
   }
   

@@ -211,13 +211,41 @@
   background-color: green;
   color: #fff;
 }
+.delete-header{
+  background-color: #d43a3f;
+  color: #fff; 
+}
+.update-header{
+  background-color: #ff7716;
+  color: #fff;
+}
 .btn-success{
   background-color: green;
   color: #fff;
 }
+.btn-delete-modal{
+  background-color: #d43a3f;
+  color: #fff; 
+}
+.btn-update-modal{
+  background-color:#ff7716 ;
+  color: #fff;
+}
+.user-header {
+  background-color: #089bd7;
+  color: #fff;
+}
+.btn-user-details {
+  background-color: #089bd7;
+  border-color: 089bd7;
+  color: #fff;
+}
+
+/*icons*/
 .btn-delete{
   background-color: #d43a3f;
   border-color: #d43a3f;
+  color: #fff;
 }
 .btn-update{
   background-color: rgb(5, 147, 5);

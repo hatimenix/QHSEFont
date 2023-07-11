@@ -1,298 +1,356 @@
 <div class="content-page">
     <div class="container-fluid">
-       <div class="row">
-           <div class="col-lg-12">
-               <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
-                   <div>
-                       <h4 class="mb-3">Registre des événements</h4>
-                   </div>
-               </div>
-           </div>
-           <div class="col-lg-12">
-            <div class="table-responsive">
-                <table id="user-list-table" class="table table-striped  mt-4" role="grid"
-                   aria-describedby="user-list-page-info">
-                   <thead>
-                      <tr style="background-color: #17469d; color:white">
-                          <th>Site</th>
-                          <th>Service</th>
-                          <th>Intitulé d'événement</th>
-                          <th>Type d'événement</th>
-                          <th>Nom de la personne</th>
-                          <th>Date accident</th>
-                          <th>Lieu de l'accident</th>
-                          <th>Action</th>
-                      </tr>
-                   </thead>
-                   <tbody>
-                      <tr *ngFor="let e of evenements | paginate: {itemsPerPage : 5, currentPage : p}">
-                          <td>
-                              <div class="d-flex align-items-center">
-                                  <div>
-                                    {{e.Site_name}}
-                                  </div>
-                              </div>
-                          </td>
-                          <td>{{e.service_name}}</td>
-                          <td>{{e.intitule}}</td>
-                          <td>{{e.type_evenement}}</td>
-                          <td>{{e.nom_personne}}</td>
-                          <td>{{e.date_accident}}</td>
-                          <td>{{e.lieu_accident}}</td>
-                          <td>
-                              <div class="d-flex align-items-center list-action">
-                                  <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                  [routerLink]="['/info_evenement/', e.id]"><i class="ri-eye-line mr-0"></i></a>
-                                  <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update_evenement" (click)="openUpdateModal(e)"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a  class="badge bg-warning mr-2" data-toggle="modal" data-target="#delete_evenement" (click)="openDeleteModal(e.id)"><i class="ri-delete-bin-line mr-0"></i></a>
-                              </div>
-                          </td>
-                      </tr>
-                   </tbody>
-                </table>
-             </div>
-             <div class="d-flex align-items-end flex-column" >
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-             </div>
-           </div>
-       </div>
-        <div class="modal fade" id="deleteEvenement" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                  <div class="modal-body">
-                      <div class="popup text-left">
-                          <h4 class="mb-3">Confirmer la suppression</h4>
-                          <div class="content create-workform bg-body">
-                              <div class="pb-3">
-                                  <label class="mb-2">Est ce que vous voulez supprimer cette evenement définitivement !!</label>
-                              </div>
-                              <div class="col-lg-12 mt-4">
-                                  <div class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                      <div class="btn btn-primary mr-4" data-dismiss="modal" (click)="deleteEvenement()">Supprimer</div>
-                                      <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>     
-      <div class="modal fade bd-example-modal-xl" id="update_evenement" tabindex="-1" role="dialog"   aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-           <div class="modal-content">
-              <div class="modal-header" style="background-color: #089bd7;">
-                 <h5 class="modal-title" style="color:white">Modifier evenement</h5>
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true" style="color:black">&times;</span>
-                 </button>
-              </div>
-              <div class="modal-body">
-                 <form  [formGroup]="evenementForm" (ngSubmit)="UpdateEvenementFormData()" class="needs-validation" data-toggle="validator" novalidate>
-                    <span class="col-md-6">
-                        <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Description de l'événement</h5>
-                    </span>
-                    <div class="row">
-                       <div class="col-md-6" style="background-color: white; border:none">
-                           <div class="form-group">
-                                <label for="site" class="label-important">Site </label>
-                                <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
-                                   <option value="" selected disabled>Choisissez un site</option>
-                                   <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Veuillez sélectionner un état valide.
-                                </div>
-                           </div>
-                       </div>
-                       <div class="col-md-6" style="background-color: white; border:none">
-                           <div class="form-group">
-                                <label class="label-important">Service </label>
-                                <select id="service" name="service" formControlName="service" class="custom-select" data-style="py-0" required>
-                                   <option value="" selected disabled>Choisissez un service</option>
-                                   <option *ngFor="let s of services$ | async" [value]="s.id">{{ s.service_nom }}</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Veuillez sélectionner un état valide.
-                                </div>
-                           </div>
-                       </div> 
-                       <div class="col-md-6" style="background-color: white; border:none"> 
-                           <div class="form-group">
-                                <label for="type_contract" class="label-important">Type contract </label>
-                                <input type="text" class="form-control" id="type_contract" name="type_contract" formControlName="type_contract" placeholder="Entrer un type de contrat" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                           </div>
-                       </div> 
-                       <div class="col-md-6" style="background-color: white; border:none">
-                           <div class="form-group">
-                                <label class="label-important">Nom de la personne </label>
-                                <input type="text" class="form-control" id="nom_personne" name="nom_personne" formControlName="nom_personne" placeholder="Entrer le nom de la personne" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                           </div>
-                       </div>
-                       <div class="col-md-6" style="background-color: white; border:none">
-                           <div class="form-group">
-                                <label class="label-important">Type d'événement </label>
-                                <input type="text" class="form-control" id="type_evenement" name="type_evenement" formControlName="type_evenement" placeholder="Entrer un Type d'événement" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                           </div>
-                       </div>
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Intitulé d'événement </label>
-                                <input type="text" class="form-control" id="intitule" name="intitule" formControlName="intitule" placeholder="Entrer l'intitulé d'événement" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Registre des événements</h4>
                         </div>
-                        <div class="col-md-12" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Résumé de l'événement </label>
-                                <input type="text" class="form-control" id="resume" name="resume" formControlName="resume" placeholder="Entrer un résumé de l'événement" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>
-                        </div>                              
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Témoin(s) </label>
-                                <input type="text" class="form-control" id="temoins" name="temoins" formControlName="temoins" placeholder="Entrer témoin(s)" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Première(s) personne(s) informée(s) </label>
-                                <input type="text" class="form-control" id="premiere_pers_info" name="premiere_pers_info" formControlName="premiere_pers_info" placeholder="Entrer première(s) personne(s) informée(s)" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="col-md-12" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Action(s) immédiate(s) </label>
-                                <input type="text" class="form-control" id="action_immediate" name="action_immediate" formControlName="action_immediate" placeholder="Entrer action(s) immédiate(s)" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>
-                        </div>                                
+                        
                     </div>
-                    <span class="col-md-6">
-                        <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Date et lieu de l'accident</h5>
-                    </span>
-                    <div class="row">
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Date accident </label>
-                                <input type="date" class="form-control" id="date_accident" name="date_accident" formControlName="date_accident" placeholder="Entrer action(s) immédiate(s)" required>                                     
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
+
+                    <div class="card-body">
+
+                        <div class="row justify-content-start">
+                            <div class="input-group col-md-4">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search" style="font-size: 1rem;"></i>
+                                </span>
+                              </div>
+                              <input style="height: 45px;" type="text" class="form-control form-control-sm"
+                                        placeholder="Chercher" [(ngModel)]="searchQuery">
+                                <div class="input-group-append">
+                                    <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                 </div>
-                            </div>                            
+                            </div>
+                            </div>
+                
+                            <div class="row mt-2 justify-content-end">
+                              <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                                  aria-haspopup="true" aria-expanded="false">
+                                  Afficher {{ itemsPerPage }} résultats par page
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                                  <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                                    [ngClass]="{'selected': option === itemsPerPage}">
+                                    <span>{{ option }}</span>
+                                    <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>   
+                        <div class="table-responsive">
+                            <table id="user-list-table" class="table table-striped  mt-4" role="grid"
+                                aria-describedby="user-list-page-info">
+                                <thead>
+                                    <tr style="background-color: #17469d; color:white">
+                                        <th>Site</th>
+                                        <th>Service</th>
+                                        <th>Intitulé d'événement</th>
+                                        <th>Type d'événement</th>
+                                        <th>Nom de la personne</th>
+                                        <th>Date accident</th>
+                                        <th>Lieu de l'accident</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let e of evenements | filter: searchQuery">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    {{e.Site_name}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{e.service_name}}</td>
+                                        <td>{{e.intitule}}</td>
+                                        <td>{{e.type_evenement}}</td>
+                                        <td>{{e.nom_personne}}</td>
+                                        <td>{{e.date_accident}}</td>
+                                        <td>{{e.lieu_accident}}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center list-action">
+                                                <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
+                                                [routerLink]="['/info_evenement/', e.id]"><i class="ri-eye-line mr-0"></i></a>
+                                                <a class="badge bg-success mr-2" data-toggle="modal" data-target="#update_evenement" (click)="openUpdateModal(e)"><i class="ri-pencil-line mr-0"></i></a>
+                                                <a  class="badge bg-warning mr-2" data-toggle="modal" data-target="#delete_evenement" (click)="openDeleteModal(e.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Période de travail </label>
-                                <input type="text" class="form-control" id="periode_travail" name="periode_travail" formControlName="periode_travail" placeholder="Entrer la période de travail" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
+
+                        <div class="pagination-container"
+                            style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <div>
+                                <span class="entry-info">
+                                    {{ getDisplayedRange() }}
+                                </span>
+                            </div>
+                            <div style="display: flex;justify-content: flex-end;">
+                                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                                <div class="page-info">
+                                    <span class="page-numbers">
+                                        <button class="btn page-number" *ngFor="let page of getPageNumbers()"
+                                            [disabled]="p === page" (click)="p = page"
+                                            [ngClass]="{'selected': p === page}">{{ page }}</button>
+                                    </span>
                                 </div>
-                            </div>                            
+                                <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                            </div>
                         </div>
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Lieu de l'accident </label>
-                                <input type="text" class="form-control" id="lieu_accident" name="lieu_accident" formControlName="lieu_accident" placeholder="Entrer le lieu de l'accident" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
+
+                        <div class="modal fade" id="deleteEvenement" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="popup text-left">
+                                            <h4 class="mb-3">Confirmer la suppression</h4>
+                                            <div class="content create-workform bg-body">
+                                                <div class="pb-3">
+                                                    <label class="mb-2">Est ce que vous voulez supprimer cette evenement définitivement !!</label>
+                                                </div>
+                                                <div class="col-lg-12 mt-4">
+                                                    <div class="d-flex flex-wrap align-items-ceter justify-content-center">
+                                                        <div class="btn btn-primary mr-4" data-dismiss="modal" (click)="deleteEvenement()">Supprimer</div>
+                                                        <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>                            
-                        </div>
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Est ce que l'évènement implique le chien thérapeutique ? </label>
-                                <select id="utiliser_chien" name="utiliser_chien" formControlName="utiliser_chien" class="custom-select" data-style="py-0" required>
-                                    <option value="" selected disabled>Choisissez ...</option>
-                                    <option value="true">OUI</option>
-                                    <option value="false">NON</option>
-                                 </select>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="col-md-12" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Tache effectuée par la victime au moment de l'accident </label>
-                                <input type="text" class="form-control" id="tache_effectue" name="tache_effectue" formControlName="tache_effectue" placeholder="Entrer la tache(s) ..." required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>                            
-                        </div>                              
+                            </div>
+                        </div>     
+
+                        <div class="modal fade bd-example-modal-xl" id="update_evenement" tabindex="-1" role="dialog"   aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                               <div class="modal-content">
+                                  <div class="modal-header" style="background-color: #089bd7;">
+                                     <h5 class="modal-title" style="color:white">Modifier evenement</h5>
+                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true" style="color:black">&times;</span>
+                                     </button>
+                                  </div>
+                                  <div class="modal-body">
+                                     <form  [formGroup]="evenementForm" (ngSubmit)="UpdateEvenementFormData()" class="needs-validation" data-toggle="validator" novalidate>
+                                        <span class="col-md-6">
+                                            <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Description de l'événement</h5>
+                                        </span>
+                                        <div class="row">
+                                           <div class="col-md-6" style="background-color: white; border:none">
+                                               <div class="form-group">
+                                                    <label for="site" class="label-important">Site </label>
+                                                    <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                                       <option value="" selected disabled>Choisissez un site</option>
+                                                       <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez sélectionner un état valide.
+                                                    </div>
+                                               </div>
+                                           </div>
+                                           <div class="col-md-6" style="background-color: white; border:none">
+                                               <div class="form-group">
+                                                    <label class="label-important">Service </label>
+                                                    <select id="service" name="service" formControlName="service" class="custom-select" data-style="py-0" required>
+                                                       <option value="" selected disabled>Choisissez un service</option>
+                                                       <option *ngFor="let s of services$ | async" [value]="s.id">{{ s.service_nom }}</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez sélectionner un état valide.
+                                                    </div>
+                                               </div>
+                                           </div> 
+                                           <div class="col-md-6" style="background-color: white; border:none"> 
+                                               <div class="form-group">
+                                                    <label for="type_contract" class="label-important">Type contract </label>
+                                                    <input type="text" class="form-control" id="type_contract" name="type_contract" formControlName="type_contract" placeholder="Entrer un type de contrat" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                               </div>
+                                           </div> 
+                                           <div class="col-md-6" style="background-color: white; border:none">
+                                               <div class="form-group">
+                                                    <label class="label-important">Nom de la personne </label>
+                                                    <input type="text" class="form-control" id="nom_personne" name="nom_personne" formControlName="nom_personne" placeholder="Entrer le nom de la personne" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                               </div>
+                                           </div>
+                                           <div class="col-md-6" style="background-color: white; border:none">
+                                               <div class="form-group">
+                                                    <label class="label-important">Type d'événement </label>
+                                                    <input type="text" class="form-control" id="type_evenement" name="type_evenement" formControlName="type_evenement" placeholder="Entrer un Type d'événement" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                               </div>
+                                           </div>
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Intitulé d'événement </label>
+                                                    <input type="text" class="form-control" id="intitule" name="intitule" formControlName="intitule" placeholder="Entrer l'intitulé d'événement" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Résumé de l'événement </label>
+                                                    <input type="text" class="form-control" id="resume" name="resume" formControlName="resume" placeholder="Entrer un résumé de l'événement" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>
+                                            </div>                              
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Témoin(s) </label>
+                                                    <input type="text" class="form-control" id="temoins" name="temoins" formControlName="temoins" placeholder="Entrer témoin(s)" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Première(s) personne(s) informée(s) </label>
+                                                    <input type="text" class="form-control" id="premiere_pers_info" name="premiere_pers_info" formControlName="premiere_pers_info" placeholder="Entrer première(s) personne(s) informée(s)" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-12" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Action(s) immédiate(s) </label>
+                                                    <input type="text" class="form-control" id="action_immediate" name="action_immediate" formControlName="action_immediate" placeholder="Entrer action(s) immédiate(s)" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>
+                                            </div>                                
+                                        </div>
+                                        <span class="col-md-6">
+                                            <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Date et lieu de l'accident</h5>
+                                        </span>
+                                        <div class="row">
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Date accident </label>
+                                                    <input type="date" class="form-control" id="date_accident" name="date_accident" formControlName="date_accident" placeholder="Entrer action(s) immédiate(s)" required>                                     
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Période de travail </label>
+                                                    <input type="text" class="form-control" id="periode_travail" name="periode_travail" formControlName="periode_travail" placeholder="Entrer la période de travail" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Lieu de l'accident </label>
+                                                    <input type="text" class="form-control" id="lieu_accident" name="lieu_accident" formControlName="lieu_accident" placeholder="Entrer le lieu de l'accident" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Est ce que l'évènement implique le chien thérapeutique ? </label>
+                                                    <select id="utiliser_chien" name="utiliser_chien" formControlName="utiliser_chien" class="custom-select" data-style="py-0" required>
+                                                        <option value="" selected disabled>Choisissez ...</option>
+                                                        <option value="true">OUI</option>
+                                                        <option value="false">NON</option>
+                                                     </select>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-12" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Tache effectuée par la victime au moment de l'accident </label>
+                                                    <input type="text" class="form-control" id="tache_effectue" name="tache_effectue" formControlName="tache_effectue" placeholder="Entrer la tache(s) ..." required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>                              
+                                        </div>
+                                        <span class="col-md-6">
+                                            <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Siège et nature des lésions</h5>
+                                        </span>
+                                        <div class="row">
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label>Siège des lésions (1/2) </label>
+                                                    <input type="text" class="form-control" id="siege_de_lesions_1" name="siege_de_lesions_1" formControlName="siege_de_lesions_1" placeholder="Entrer siège des lésions (1/2)">                                                        
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-6" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label>Siège des lésions (2/2) </label>
+                                                    <input type="text" class="form-control" id="siege_de_lesions_2" name="siege_de_lesions_2" formControlName="siege_de_lesions_2" placeholder="Entrer siège des lésions (2/2)">                                                        
+                                                </div>                            
+                                            </div>
+                                            <div class="col-md-12" style="background-color: white; border:none">
+                                                <div class="form-group">
+                                                    <label class="label-important">Nature des lésions </label>
+                                                    <input type="text" class="form-control" id="nature_lesions" name="nature_lesions" formControlName="nature_lesions" placeholder="Entrer la nature des lésions" required>
+                                                    <div class="help-block with-errors"></div>
+                                                    <div class="invalid-feedback">
+                                                        Ce champs est obligatoire.
+                                                    </div>
+                                                </div>                            
+                                            </div>
+                                        </div>                          
+                                        <div class="modal-footer">                                               
+                                                <button type="submit" class="btn mr-2" style="background-color: #eac74b; color:white;">Modifier</button>                                                                                                                                                                                            
+                                        </div>                                                       
+                                     </form>
+                                  </div>                                      
+                               </div>
+                            </div>
+                         </div>
+
                     </div>
-                    <span class="col-md-6">
-                        <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Siège et nature des lésions</h5>
-                    </span>
-                    <div class="row">
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label>Siège des lésions (1/2) </label>
-                                <input type="text" class="form-control" id="siege_de_lesions_1" name="siege_de_lesions_1" formControlName="siege_de_lesions_1" placeholder="Entrer siège des lésions (1/2)">                                                        
-                            </div>                            
-                        </div>
-                        <div class="col-md-6" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label>Siège des lésions (2/2) </label>
-                                <input type="text" class="form-control" id="siege_de_lesions_2" name="siege_de_lesions_2" formControlName="siege_de_lesions_2" placeholder="Entrer siège des lésions (2/2)">                                                        
-                            </div>                            
-                        </div>
-                        <div class="col-md-12" style="background-color: white; border:none">
-                            <div class="form-group">
-                                <label class="label-important">Nature des lésions </label>
-                                <input type="text" class="form-control" id="nature_lesions" name="nature_lesions" formControlName="nature_lesions" placeholder="Entrer la nature des lésions" required>
-                                <div class="help-block with-errors"></div>
-                                <div class="invalid-feedback">
-                                    Ce champs est obligatoire.
-                                </div>
-                            </div>                            
-                        </div>
-                    </div>                          
-                    <div class="modal-footer">                                               
-                            <button type="submit" class="btn mr-2" style="background-color: #eac74b; color:white;">Modifier</button>                                                                                                                                                                                            
-                    </div>                                                       
-                 </form>
-              </div>                                      
-           </div>
+                </div>
+            </div>
         </div>
-     </div>
-       <!-- Page end  -->
-   </div>
-   
+    </div>
+</div>
+
 
