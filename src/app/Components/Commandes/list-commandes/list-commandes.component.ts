@@ -14,6 +14,8 @@ import { Commande } from 'src/app/models/Commande';
 export class ListCommandesComponent {
   myForm: any;
   commandes!: Commande[];
+  searchQuery: string = '';
+
   //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
@@ -82,6 +84,12 @@ export class ListCommandesComponent {
       this.getCommandes();
     }
   }
+  resetTypeFilters(): void {
+    // Reset the selected filters and reload the data
+    this.typeCommandeSelectionne = ''; // Reset the selected type filter
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.getCommandes(); // Reload the data
+  }
   //filtrage par spécifité texture 
   filterCommandeByTexture(): void {
     if (this.typeTextureSelectionne) {
@@ -92,6 +100,12 @@ export class ListCommandesComponent {
       this.getCommandes();
     }
   }
+  resetTextureFilters(): void {
+    // Reset the selected filters and reload the data
+    this.typeTextureSelectionne = ''; // Reset the selected type filter
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.getCommandes(); // Reload the data
+  }
   //filtrage par spécifité régime 
   filterCommandeByRegime(): void {
     if (this.typeRegimeSelectionne) {
@@ -101,6 +115,12 @@ export class ListCommandesComponent {
     } else {
       this.getCommandes();
     }
+  }
+  resetRegimeFilters(): void {
+    // Reset the selected filters and reload the data
+    this.typeRegimeSelectionne = ''; // Reset the selected type filter
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.getCommandes(); // Reload the data
   }
 
   //pagination methods 
@@ -134,5 +154,11 @@ getDisplayedRange(): string {
   const startIndex = (this.p - 1) * this.itemsPerPage + 1;
   const endIndex = Math.min(this.p * this.itemsPerPage, this.commandes.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.commandes.length} entrées`;
+}
+
+ //search 
+ resetSearchQuery() {
+  this.searchQuery = '';
+
 }
 }

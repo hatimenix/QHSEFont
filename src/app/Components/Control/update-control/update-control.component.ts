@@ -18,6 +18,7 @@ export class UpdateControlComponent {
   id!: number;
   site$ !: Observable<any>;
   controlsPrecedents: any[] = [];
+  fileToUpload: File | null = null;
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -94,7 +95,10 @@ export class UpdateControlComponent {
     formData.append('date_dernier_control', this.ControlForm.get('date_dernier_control')?.value);
     formData.append('date_control_suivant', this.ControlForm.get('date_control_suivant')?.value);
     formData.append('action_ouverte', this.ControlForm.get('action_ouverte')?.value);
-    formData.append('rapport', this.ControlForm.get('rapport')?.value)
+    
+    if (this.fileToUpload) {
+      formData.append('rapport', this.fileToUpload);
+    }
 
     this.controlService.updateControlFormdata(formData).subscribe(
       (data: any) => {

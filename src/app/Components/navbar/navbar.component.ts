@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
 import { GroupeUser } from 'src/app/models/GroupeUser';
@@ -14,30 +14,54 @@ import { UserApp } from 'src/app/models/UserApp';
 })
 export class NavbarComponent {
 
+ 
   @Input() showNavbar: boolean | undefined;
-  user: UserApp  |null = null
+  user: any  |null = null
   group : GroupeUser | null=null
   id!:any
+
+
+
 
   constructor(private authService: AuthService, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.getUserDetails();
+   
+  
+    
+     
     
   }
+  
+  
   getUserDetails(): void {
+    const userImagePath = localStorage.getItem('userImagePath');
+    const baseURL = 'http://127.0.0.1:8001';
+  
     this.authService.getUserDetails().subscribe(
       (response: UserApp) => {
         this.user = response;
         console.log('User details:', this.user);
-        console.log('User image URL:', this.user?.image);
-
+  
+        if (userImagePath !== null) {
+          this.user.image = `${baseURL}${userImagePath}`;
+        } else {
+          this.user.image = ''; // Assign a default value when userImagePath is null
+        }
+  
+        // Save the image path to local storage
+        localStorage.setItem('userImagePath', userImagePath || '');
       },
       (error: any) => {
         console.error(error);
       }
     );
   }
+  
+  
+  
+  
 
 
   onLogout(): void {
@@ -46,4 +70,8 @@ export class NavbarComponent {
     this.user = null;
     this.router.navigate(['/']);
   }
+
+  
+  
+  
 }

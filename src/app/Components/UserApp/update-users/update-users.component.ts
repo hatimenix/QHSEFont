@@ -113,5 +113,9 @@ export class UpdateUsersComponent {
     closeModal() {
       this.bsModalService.hide();
   }
-    
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.userForm.get('image')?.setValue(file);
+  }
 }

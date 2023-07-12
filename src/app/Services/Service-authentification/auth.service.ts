@@ -92,5 +92,16 @@ export class AuthService {
       }
     });
   }
+  getUserImage(userId: number): Observable<Blob> {
+    const accessToken = this.getAccessToken();
+    const url = `${this.API_UsersApp}/${userId}/image`;
+    
+    return this.http.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      },
+      responseType: 'blob' // Specify the response type as Blob
+    });
+  }
   
 }

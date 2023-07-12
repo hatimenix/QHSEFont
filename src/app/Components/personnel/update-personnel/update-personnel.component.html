@@ -3,28 +3,28 @@
    <div class="container-fluid">
       <div class="row">
          <div class="col-xl-3 col-lg-4">
-            <div class="card">
-               <div class="card-headers d-flex justify-content-between">
-                  <div class="header-title">
-                     <h4>Choisir l'image</h4>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <form>
-                     <div class="form-group">
-                        <div class="crm-profile-img-edit position-relative">
-                          <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
-                          <div class="crm-p-image bg-primary">
-                            <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
-                            <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
-                            (change)="onFileSelected($event) " formControlName="image">
-                          </div>
-                        </div>
-                      </div>
-                      
-                  </form>
-               </div>
+          <div class="card">
+            <div class="card-headers d-flex justify-content-between">
+              <div class="header-title">
+                <h4>Choisir l'image</h4>
+              </div>
             </div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <div class="crm-profile-img-edit position-relative">
+                    <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
+                    <div class="crm-p-image bg-primary">
+                      <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
+                      <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
+                      (change)="onFileSelected($event)" formControlName="image">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          
       </div>
 <div class="col-xl-9 col-lg-8">
    <div class="card">
@@ -81,9 +81,10 @@
    <input type="email" id="othermail" class="form-control" formControlName="othermail" required>
  </div>
 </div>
-
-<button type="submit" class="btn btn-primary">Modifier</button>
-                <button type="reset" class="btn btn-danger" routerLink="/listP">Annuler</button>
+<div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">
+<button type="submit" class="btn btn-primary"> <i class="fas fa-pencil-alt"></i>Modifier</button>
+<button type="reset" class="btn btn-danger" routerLink="/listP"><i class="fas fa-times"></i>Annuler</button>
+</div>
 </form>
 
          </div>
@@ -94,7 +95,7 @@
 </div>
 </div>
 <ng-template #successModal>
-   <div class="modal-header">
+   <div class="modal-header update-header">
      <h4 class="modal-title">Succès</h4>
      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
        <span aria-hidden="true">&times;</span>
@@ -104,6 +105,6 @@
      Le personnel a été modifiée avec succès.
    </div>
    <div class="modal-footer">
-     <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+     <button type="button" class="btn btn-update-modal" (click)="closeModal()">Fermer</button>
    </div>
  </ng-template>

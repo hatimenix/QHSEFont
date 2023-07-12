@@ -65,9 +65,11 @@
                         </div>
                     </div> 
                                           
-                </div>                            
-                <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Modifier</button>
-                <button type="reset" class="btn btn-warning" routerLink="/listcontrol">Annuler</button>
+                </div> 
+                <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                           
+                <button type="submit" class="btn btn-primary mr-2" (click)="openModal()"> <i class="fas fa-pencil-alt"></i>Modifier</button>
+                <button type="reset" class="btn btn-warning" routerLink="/listcontrol"> <i class="fas fa-times"></i>Annuler</button>
+              </div>
               </form>
             </div>
           </div>
@@ -77,7 +79,7 @@
   </div>
   <!-- add modal -->
   <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header update-header">
       <h4 class="modal-title">Succès</h4>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
@@ -87,7 +89,7 @@
       Le Controle a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+      <button type="button" class="btn btn-update-modal" (click)="closeModal()">Fermer</button>
     </div>
   </ng-template>
   
