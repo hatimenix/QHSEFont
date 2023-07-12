@@ -37,7 +37,7 @@ export class NavbarComponent {
   
   getUserDetails(): void {
     const userImagePath = localStorage.getItem('userImagePath');
-    const baseURL = 'http://127.0.0.1:8001';
+    const baseURL = 'https://qhseapi.paiperleckelearning.com/';
   
     this.authService.getUserDetails().subscribe(
       (response: UserApp) => {
