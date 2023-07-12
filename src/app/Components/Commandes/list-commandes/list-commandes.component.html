@@ -3,13 +3,12 @@
        <div class="row">
           <div class="col-sm-12">
              <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                   <div class="header-title">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                  <div class="header-title">
                       <h4 class="card-title">Commande repas sur roues </h4>
                    </div>
                    <div class="col-sm-6 col-md-6">
-                    <div class="user-list-files d-flex">
-                       
+                    <div class="user-list-files d-flex align-items-center">                       
                        <a routerLink="/addC" class="bg1" href="javascript:void();" style=" margin-right: -5%;"><i class="fas fa-plus"></i>
                           Nouvel élément 
                        </a>
@@ -18,8 +17,8 @@
                 </div>
                 <div class="card-body">
                     
-                  <div class="row justify-content-between">
-                     <div class="row justify-content-between">
+                  <div class="row">
+                     
                         <div class="col-md-4">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -34,15 +33,15 @@
                           </div>
                         </div>
                        
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
                                 <i class="fas fa-filter"></i>
                               </span>
                             </div>
-                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_regime" formControlName="specificite_regime" (change)="filterCommandeByRegime()" [(ngModel)]="typeRegimeSelectionne">
-                              <option value="" selected>Tous</option>
+                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_regime"  (change)="filterCommandeByRegime()" [(ngModel)]="typeRegimeSelectionne">
+                              <option value="" >Tous</option>
                               <option value="Constipation">Constipation</option>
                               <option value="Diarrhée">Diarrhée</option>
                               <option value="Sans résiclus">Sans résiclus</option>
@@ -67,15 +66,16 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
                                 <i class="fas fa-filter"></i>
                               </span>
                             </div>
-                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture" formControlName="specificite_texture" (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
-                              <option value="" selected>Tous</option>
+                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture"  (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
+                              
+                              <option value="" >Tous</option>
                               <option value="Viande coupée">Viande coupée</option>
                               <option value="Tout coupée">Tout coupée</option>
                               <option value="Velours viande">Velours viande</option>
@@ -91,14 +91,9 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3">
-                           <div class="d-flex justify-content-end">
-                             
-                           </div>
-                         </div>
-                      </div>
-                      <div class="row  justify-content-between">
-                        <div class="d-flex justify-content-end mt-5">
+                      
+                      <div class="col-md-2">
+                      <div class="d-flex justify-content-end mt-5">
                         <div class="dropdown">
                            <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              Afficher {{ itemsPerPage }} résultats par page
