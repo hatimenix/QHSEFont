@@ -254,9 +254,7 @@ const routes: Routes = [
 
 
   //reset password 
-  { path : 'forgot-password', component : ForgotPassComponent}, 
-  { path: 'reset-password/:uidb64/:token', component: ResetPassComponent, canActivate: [AuthGuardService]}
-
+  { path: 'password-reset', component:  ResetPassComponent }
 
 ];
 

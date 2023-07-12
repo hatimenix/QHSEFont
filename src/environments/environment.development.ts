@@ -1,7 +1,7 @@
 export const environment = {
 
-    API_URL_TA: 'https://qhseapi.paiperleckelearning.com/tache/',
-    API_URL_RE: 'https://qhseapi.paiperleckelearning.com/realisation/',
+    API_URL_TA: 'http://127.0.0.1:8001/tache/',
+    API_URL_RE: 'http://127.0.0.1:8001/realisation/',
     API_URL_ME: 'http://127.0.0.1:8001/mesure_efficacite/',
     API_URL_AC: 'http://127.0.0.1:8001/action/',
     API_URL_DANGER: 'http://127.0.0.1:8001/danger/',

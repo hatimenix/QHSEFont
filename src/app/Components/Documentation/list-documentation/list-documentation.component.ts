@@ -160,6 +160,10 @@ filterDocumentsBySite(): void {
     this.loaddocument();
   }
 }
+resetSiteFilters(): void {
+  this.myForm.get('site')?.setValue(''); // Reset the site filter to empty value
+  this.filterDocumentsBySite(); // Apply the filter based on the reset site value
+}
 
 //filtrage par secteur 
 
@@ -201,6 +205,10 @@ filterDocumentsBySecteur(): void {
     console.log("id de ce secteur", this.selectedSecteurId);
     this.loaddocument();
   }
+}
+resetSecteurFilters(): void {
+  this.myForm.get('secteur')?.setValue(''); // Reset the site filter to empty value
+  this.filterDocumentsBySecteur(); // Apply the filter based on the reset site value
 }
 //filtrage par processus
 filterDocumentsByProcessus():void{
@@ -253,7 +261,12 @@ filterDocumentByType(): void {
     this.loaddocument();
   }
 }
-  
+resetTypeFilters(): void {
+  // Reset the selected filters and reload the data
+  this.typeDocSelectionne = ''; // Reset the selected type filter
+  this.myForm.reset(); // Reset the form and selected site filter
+  this.loaddocument(); // Reload the data
+}
   //delete Modal 
   confirmDelete(): void {
     this.documentService.deleteDocument(this.DocIdToDelete)

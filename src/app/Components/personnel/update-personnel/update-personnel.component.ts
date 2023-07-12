@@ -76,21 +76,29 @@ export class UpdatePersonnelComponent implements OnInit {
     formData.append('othermail', this.PersonnelForm.get('othermail')?.value);
 
     const file = this.PersonnelForm.get('image')?.value;
-    if (file instanceof File) {
-      formData.append('image', file, file.name);
-    }
-
-    this.personnelService.updatePersonnelFormdata(formData).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.openModal();
-        this.router.navigate(['/listP']);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+  if (file instanceof File) {
+    formData.append('image', file, file.name);
   }
+
+  this.personnelService.updatePersonnelFormdata(formData).subscribe(
+    (data: any) => {
+      console.log(data);
+      // Retrieve the updated image data from the response if available
+      const updatedImage = data.image;
+      // Update the form value with the new image value
+      this.PersonnelForm.patchValue({
+        image: updatedImage
+      });
+      this.openModal();
+      this.router.navigate(['/listP']);
+    },
+    (error: any) => {
+      console.log(error);
+    }
+  );
+  }
+
+
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }

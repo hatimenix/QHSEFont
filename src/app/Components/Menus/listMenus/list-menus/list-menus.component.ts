@@ -129,12 +129,41 @@ export class ListMenusComponent implements OnInit {
     if (this.MoisSelectionne) {
       this.menuService.getAllMenus().subscribe((menus) => {
         this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
+        this.expandListIfExist();
       });
     } else {
       this.getMenus();
-
+      this.collapseListIfExist();
     }
   }
+  
+  expandListIfExist(): void {
+    // Check if there is an expanded item in the list
+    const expandedSite = this.site.find((s) => s.expanded);
+  
+    // If an expanded item exists, open the expanded state
+    if (expandedSite) {
+      expandedSite.expanded = true;
+    }
+  }
+  
+  collapseListIfExist(): void {
+    // Check if there is an expanded item in the list
+    const expandedSite = this.site.find((s) => s.expanded);
+  
+    // If an expanded item exists, close the expanded state
+    if (expandedSite) {
+      expandedSite.expanded = false;
+    }
+  }
+  
+  resetMenuFilters(): void {
+   
+    this.MoisSelectionne = ''; 
+    this.myForm.reset(); 
+    this.getMenus(); 
+  }
+
   //afficher juste le nom du fichier 
   getFileNameFromPath(filePath: string | File | undefined): string {
     if (!filePath) return 'Aucun fichier joint';

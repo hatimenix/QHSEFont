@@ -18,15 +18,15 @@
     background-color: #F1F3F8;
     color : #17469d;
     white-space: nowrap;
-    font-size: 12px; /* Ajustez la taille de police selon vos besoins */
+    font-size: 14px; /* Ajustez la taille de police selon vos besoins */
     padding: 5px; /* Aligne le texte au centre */  
   }
   #user-list-table {
     width: 100%;
   }
   .btn-danger{
-    background-color: #e56b6f;
-    border-color: #e56b6f;
+    background-color: #d43a3f;
+    border-color: #d43a3f;
     color: #fff; 
   }
   td{
@@ -37,7 +37,7 @@
     background-color: #F1F3F8;
   }
   .card-title{
-    font-size: 16px;
+    font-size: 20px;
     color: #089bd7;
   
   }
@@ -205,3 +205,55 @@
       border-radius: 50%;
       display: inline-block;
     }
+
+/*modal*/
+.success-header {
+  background-color: green;
+  color: #fff;
+}
+.delete-header{
+  background-color: #d43a3f;
+  color: #fff; 
+}
+.update-header{
+  background-color: #ff7716;
+  color: #fff;
+}
+.btn-success{
+  background-color: green;
+  color: #fff;
+}
+.btn-delete-modal{
+  background-color: #d43a3f;
+  color: #fff; 
+}
+.btn-update-modal{
+  background-color:#ff7716 ;
+  color: #fff;
+}
+.user-header {
+  background-color: #089bd7;
+  color: #fff;
+}
+.btn-user-details {
+  background-color: #089bd7;
+  border-color: 089bd7;
+  color: #fff;
+}
+
+/*icons*/
+.btn-delete{
+  background-color: #d43a3f;
+  border-color: #d43a3f;
+  color: #fff;
+}
+.btn-update{
+  background-color: rgb(5, 147, 5);
+  border-color: rgb(5, 147, 5);
+  color: #fff;
+}
+.btn-view{
+  background-color: #089bd7;
+  border-color: 089bd7;
+  color: #fff;
+}

@@ -7,51 +7,47 @@
                    <div class="header-title">
                       <h4 class="card-title">Liste des Controles </h4>
                    </div>
-                   <div class="col-sm-6 col-md-6 d-flex justify-content-end">
-                    <div class="input-group col-md-6">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="fas fa-search" style="font-size: 1rem;"></i>
-                        </span>
-                      </div>
-                      <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
-                      <div class="input-group-append">
-                        <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
-                          <i class="fas fa-times"></i>
-                        </button>
-                      </div>
-                      
-                    </div>
-                    
+                 <div class="col-sm-6 col-md-6">
+                  <div class="user-list-files d-flex align-items-center">
+                   <a routerLink="/addcontrol" class="bg1" href="javascript:void(); "style=" margin-right: -5%;"><i class="fas fa-plus"></i>
+                     Nouvel élément
+                   </a>
                   </div>
-             
+                </div>
                 </div>
                 <div class="card-body">
-                   <div class="table-responsive">
                       <div class="row justify-content-between">
-                      
-                          <div class="dropdown">
-                           <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
-                             aria-haspopup="true" aria-expanded="false">
-                             Afficher {{ itemsPerPage }} résultats par page
-                           </button>
-                           <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
-                             <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
-                               [ngClass]="{'selected': option === itemsPerPage}">
-                               <span>{{ option }}</span>
-                               <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
-                             </a>
-                           </div>
-                         </div>
-                         <div class="col-sm-6 col-md-6">
-                          <div class="user-list-files d-flex">
-                             
-                             <a routerLink="/addcontrol" class="bg1" href="javascript:void();">
-                                Nouvel élément
-                             </a>
+                        <div class="col-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="fas fa-search" style="font-size: 1rem;"></i>
+                              </span>
+                            </div>
+                            <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+                            <div class="input-group-append">
+                              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
+                            </div>
                           </div>
-                       </div>
+                        </div>
+                      
+                        
+                         
                       </div>
+                      <div class="dropdown" style=" margin-bottom: -2%;">
+                        <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                          Afficher {{ itemsPerPage }} résultats par page
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                          <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                            [ngClass]="{'selected': option === itemsPerPage}">
+                            <span>{{ option }}</span>
+                            <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
                       <table id="user-list-table" class="table table-striped mt-4" role="grid" aria-describedby="user-list-page-info" style="border: 1px solid #ccc;">
                          <thead>
                             <tr >
@@ -84,11 +80,11 @@
                               <td></td>
                               <td>
                                 <div class="flex align-items-center list-user-action">
-                                  <a class="badge bg-primary mr-2" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm btn-update mr-2"  data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Edit" [routerLink]="['/updatecontrol', control.id]"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="badge btn-danger mr-2" data-toggle="tooltip" data-placement="top" title=""
+                                  <a class="btn btn-sm btn-delete mr-2" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Delete" (click)="controldToDelete = control.id; modalRef = modalService.show(deleteModal);"><i
-                                      class="ri-delete-bin-line mr-0"></i></a>
+                                      class="ri-delete-bin-line mr-0" style="color: #fff;"></i></a>
                                 </div>
                               </td>
                             </tr>
@@ -96,6 +92,7 @@
                           
                       </table>
                    </div>
+                   <br>
                    <div class="pagination-container" style="display: flex; justify-content: space-between;">
                      <div>
                        <span class="entry-info">
@@ -120,7 +117,7 @@
           </div>
  <!-- Confirmation modal for command deletion -->
  <ng-template #deleteModal>
-   <div class="modal-header">
+   <div class="modal-header delete-header">
      <h4 class="modal-title">Confirmation de la suppression</h4>
      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
        <span aria-hidden="true">&times;</span>
@@ -130,7 +127,7 @@
      Êtes-vous sûr de vouloir supprimer ce control ?
    </div>
    <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
    </div>
  </ng-template>
