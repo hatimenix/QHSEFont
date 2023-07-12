@@ -74,22 +74,7 @@ export class ListCommandesComponent {
     this.modalRef.hide();
     }
 
-  //filtrage par type de commande 
-  filterCommandeByType(): void {
-    if (this.typeCommandeSelectionne) {
-      this.commandeService.getCommandes().subscribe((commandes) => {
-        this.commandes = commandes.filter((c) => c.type_commande === this.typeCommandeSelectionne);
-      });
-    } else {
-      this.getCommandes();
-    }
-  }
-  resetTypeFilters(): void {
-    // Reset the selected filters and reload the data
-    this.typeCommandeSelectionne = ''; // Reset the selected type filter
-    this.myForm.reset(); // Reset the form and selected site filter
-    this.getCommandes(); // Reload the data
-  }
+
   //filtrage par spécifité texture 
   filterCommandeByTexture(): void {
     if (this.typeTextureSelectionne) {
@@ -100,11 +85,12 @@ export class ListCommandesComponent {
       this.getCommandes();
     }
   }
+  
   resetTextureFilters(): void {
-    // Reset the selected filters and reload the data
-    this.typeTextureSelectionne = ''; // Reset the selected type filter
-    this.myForm.reset(); // Reset the form and selected site filter
-    this.getCommandes(); // Reload the data
+  
+    this.typeTextureSelectionne = ''; 
+    this.myForm.reset(); 
+    this.getCommandes();
   }
   //filtrage par spécifité régime 
   filterCommandeByRegime(): void {
@@ -117,10 +103,10 @@ export class ListCommandesComponent {
     }
   }
   resetRegimeFilters(): void {
-    // Reset the selected filters and reload the data
-    this.typeRegimeSelectionne = ''; // Reset the selected type filter
-    this.myForm.reset(); // Reset the form and selected site filter
-    this.getCommandes(); // Reload the data
+  
+    this.typeRegimeSelectionne = '';
+    this.myForm.reset();
+    this.getCommandes();
   }
 
   //pagination methods 
