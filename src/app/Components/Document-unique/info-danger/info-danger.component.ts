@@ -33,6 +33,10 @@ export class InfoDangerComponent {
 
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('successModalE', { static: true }) successModalE:any;
+  @ViewChild('successModalA', { static: true }) successModalA:any;
+  @ViewChild('successModalUE', { static: true }) successModalUE:any;
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
 
   dangerForm!: FormGroup;
@@ -72,8 +76,8 @@ export class InfoDangerComponent {
     private apiRealisationService: ApiRealisationService,
     private apiActionsService: ApiActionsService,
     private apiArretTravailService:ApiArretTravailService,
-    private bsModalService: BsModalService
-  ) { }
+    private bsModalService: BsModalService,
+    public modalService: BsModalService) { }
 
   ngOnInit(): void {
 
@@ -313,6 +317,7 @@ export class InfoDangerComponent {
           const newActionId = response.id; // ou tout autre nom de propriété qui contient l'identifiant de l'action ajoutée
           console.log('Nouvel ID d\'action : ', newActionId);
           console.log('piece jointe : ', response.piece_jointe);
+          this.openModalA();
           this.getActionsByDangerId(this.dangerId);
           this.actionForm.reset();
         },
@@ -363,14 +368,20 @@ export class InfoDangerComponent {
 
   openDeleteModal(id: number) {
     this.idToDelete = id;
-    this.deletModal.show();
   }
 
-  deleteAction() {
-    this.apiActionsService.delAction(this.idToDelete).subscribe(() => {
-      this.getActionsByDangerId(this.dangerId);
-    })
-  }
+  //delete modal 
+  deleteAction(): void {
+    this.apiActionsService.delAction(this.idToDelete)
+      .subscribe(() => {
+        this.getActionsByDangerId(this.dangerId);
+        this.modalRef.hide();
+      });
+    }
+  
+    declineDelete(): void {
+    this.modalRef.hide();
+    }
 
   AddEvenementFormData(): void {
     if (this.evenementForm.valid) {
@@ -398,6 +409,7 @@ export class InfoDangerComponent {
       this.apiEvenementService.addevenementFormData(formData).subscribe(
         () => {
           console.log('Levenement a été ajouté avec succès.');
+          this.openModalE();
           this.getEvenementsByDangerId(this.dangerId);
           this.evenementForm.reset();
         },
@@ -458,6 +470,7 @@ export class InfoDangerComponent {
 
       this.apiEvenementService.updateEvenementFormdata(this.idEvenement,formData).subscribe(
           () => {
+            this.openModalUE();
             console.log('Evenement a été modifiée avec succès.');
             this.getEvenementsByDangerId(this.dangerId);
           },
@@ -473,4 +486,17 @@ export class InfoDangerComponent {
   closeModal() {
     this.bsModalService.hide();
   }
+
+  openModalE() {
+    this.modalRef = this.bsModalService.show(this.successModalE);
+  }
+  
+  openModalA() {
+    this.modalRef = this.bsModalService.show(this.successModalA);
+  }
+
+  openModalUE() {
+    this.modalRef = this.bsModalService.show(this.successModalUE);
+  }
+  
 }

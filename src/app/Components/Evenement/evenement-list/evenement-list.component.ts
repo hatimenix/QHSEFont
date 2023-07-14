@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
@@ -29,11 +30,18 @@ export class EvenementListComponent {
   //search
   searchQuery: string = '';
 
+  //delete modal
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('successModalUE', { static: true }) successModalUE:any;
+  modalRef!: BsModalRef;
+
   constructor(
     private formBuilder: FormBuilder,
     private apiSiteService: ApiSiteService,
     private apiServiceService: ApiServiceService,
-    private apiEvenementService : ApiEvenementService) { }
+    private apiEvenementService : ApiEvenementService,
+    public modalService: BsModalService,
+    private bsModalService: BsModalService) { }
 
   ngOnInit() {
     this.fetchEvenement();
@@ -58,10 +66,6 @@ export class EvenementListComponent {
       site: ['', Validators.required],
       service: ['', Validators.required]
     });
-
-    this.deletModal = new window.bootstrap.Modal(
-      document.getElementById('deleteEvenement')
-    );
 
     this.sites$ = this.apiSiteService.getAllSite();
     this.services$ = this.apiServiceService.getAllService();
@@ -134,15 +138,20 @@ export class EvenementListComponent {
 
   openDeleteModal(id: number) {
     this.idToDelete = id;
-    this.deletModal.show();
   }
 
-  deleteEvenement() {
-    this.apiEvenementService.delEvenement(this.idToDelete).subscribe(() => {
-      this.fetchEvenement();
-      this.deletModal.hide();
-    })
-  }
+  //delete modal 
+  deleteEvenement(): void {
+    this.apiEvenementService.delEvenement(this.idToDelete)
+      .subscribe(() => {
+        this.fetchEvenement();
+        this.modalRef.hide();
+      });
+    }
+  
+    declineDelete(): void {
+    this.modalRef.hide();
+    }
 
   openUpdateModal(evenement: Evenement): void {
     this.evenements = evenement;
@@ -196,6 +205,7 @@ export class EvenementListComponent {
 
       this.apiEvenementService.updateEvenementFormdata(this.idEvenement,formData).subscribe(
           () => {
+            this.openModalUE();
             console.log('Evenement a été modifiée avec succès.');
             this.fetchEvenement();
           },
@@ -240,5 +250,13 @@ export class EvenementListComponent {
       const endIndex = Math.min(this.p * this.itemsPerPage, this.evenements.length);
       return `Affichage de ${startIndex} à ${endIndex} de ${this.evenements.length} entrées`;
     }
+
+    //modal functions 
+  openModalUE() {
+    this.modalRef = this.bsModalService.show(this.successModalUE);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+  }
 
 }

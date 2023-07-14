@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, map } from 'rxjs';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiAnalyseEvenementService } from 'src/app/Services/Service-document-unique/api-analyse-evenement.service';
@@ -22,6 +23,15 @@ declare var window:any;
   styleUrls: ['./info-evenement.component.css']
 })
 export class InfoEvenementComponent {
+
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('deleteModalAR', { static: true }) deleteModalAR!: any;
+  @ViewChild('deleteModalAN', { static: true }) deleteModalAN!: any;
+  @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('successModalAC', { static: true }) successModalAC:any;
+  @ViewChild('successModalUAR', { static: true }) successModalUAR:any;
+  @ViewChild('successModalUAN', { static: true }) successModalUAN:any;
+  modalRef!: BsModalRef;
 
   evenementForm!: FormGroup;
   actionForm!: FormGroup;
@@ -61,7 +71,8 @@ export class InfoEvenementComponent {
     private apiServiceService: ApiServiceService,
     private apiProcessusService: ApiProcessusService,
     private apiArretTravailService : ApiArretTravailService,
-  ){}
+    public modalService: BsModalService,
+    private bsModalService: BsModalService){}
 
   ngOnInit(): void {
 
@@ -210,33 +221,9 @@ export class InfoEvenementComponent {
     );
   }
 
-  openDeleteModal(id: number) {
-    this.idToDelete = id;
-    this.deletModal.show();
-  }
-
-  openDeleteModalArret(id: number){
-    this.idToDeleteArret = id;
-    this.deletModalArret.show();
-  }
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.analyseForm.get('arbe_cause')?.setValue(file);
-  }
-
-  deleteAnalyse(){
-    this.apiAnalyseEvenementService.delAnalyse(this.idToDelete).subscribe(() => {
-      this.getAnalyseByEvenementId(this.evenementId);
-      this.deletModal.hide();
-    })
-  }
-
-  deleteArret(){
-    this.apiArretTravailService.delArret(this.idToDeleteArret).subscribe(() => {
-      this.getArretTravailByEvenementId(this.evenementId);
-      this.deletModalArret.hide();
-    })
   }
 
   openUpdateModalArret(arret : ArretTravail): void {
@@ -273,6 +260,7 @@ export class InfoEvenementComponent {
 
       this.apiArretTravailService.updateArretFormdata(this.idArret,formData).subscribe(
         () => {
+          this.openModalUAR();
           console.log('Arret a été modifié avec succès.');
           this.getArretTravailByEvenementId(this.evenementId);
         },
@@ -294,6 +282,7 @@ export class InfoEvenementComponent {
 
       this.apiAnalyseEvenementService.addAnalyseFormData(formData).subscribe(
         () => {
+          this.openModal();
           console.log('Analyse a été ajouté avec succès.');
           this.getAnalyseByEvenementId(this.evenementId);
           this.analyseForm.reset();
@@ -316,6 +305,7 @@ export class InfoEvenementComponent {
 
       this.apiAnalyseEvenementService.updateAnalyseFormdata(this.idAnalyse,formData).subscribe(
           () => {
+            this.openModalUAN();
             console.log('Analyse a été modifiée avec succès.');
             this.getAnalyseByEvenementId(this.evenementId);
           },
@@ -376,6 +366,7 @@ export class InfoEvenementComponent {
 
       this.apiActionsService.addActionFormData(formData).subscribe(
         (response) => {
+          this.openModalAC();
           console.log('Action a été ajouté avec succès.');
           const newActionId = response.id;      
           this.actionForm.reset();
@@ -388,13 +379,62 @@ export class InfoEvenementComponent {
 
   openDeleteModalAction(id: number) {
     this.idToDeleteAction = id;
-    this.deleteModalAction.show();
   }
 
-  deleteAction() {
-    this.apiActionsService.delAction(this.idToDeleteAction).subscribe(() => {
-    this.getActionsByEvenementId(this.evenementId);
-    this.deleteModalAction.hide();
+  openDeleteModal(id: number) {
+    this.idToDelete = id;
+  }
+
+  openDeleteModalArret(id: number){
+    this.idToDeleteArret = id;
+  }
+
+  //delete modal 
+  deleteAction(): void {
+    this.apiActionsService.delAction(this.idToDeleteAction)
+      .subscribe(() => {
+        this.getActionsByEvenementId(this.evenementId);
+        this.modalRef.hide();
+      });
+    }
+
+  deleteArret(): void {
+    this.apiArretTravailService.delArret(this.idToDeleteArret)
+      .subscribe(() => {
+        this.getArretTravailByEvenementId(this.evenementId);
+        this.modalRef.hide();
     });
+  }  
+
+  deleteAnalyse(): void {
+    this.apiAnalyseEvenementService.delAnalyse(this.idToDelete)
+      .subscribe(() => {
+        this.getAnalyseByEvenementId(this.evenementId);
+        this.modalRef.hide();
+    });
+  }  
+
+  declineDelete(): void {
+    this.modalRef.hide();
+  }
+
+  //modal functions 
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+  }
+
+  openModalAC() {
+    this.modalRef = this.bsModalService.show(this.successModalAC);
+  }
+
+  openModalUAR() {
+    this.modalRef = this.bsModalService.show(this.successModalUAR);
+  }
+
+  openModalUAN() {
+    this.modalRef = this.bsModalService.show(this.successModalUAN);
   }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
@@ -22,17 +23,19 @@ export class ListDangerComponent {
   selectedSiteId: number | undefined;
   sites: any[] = [];
 
+  //delete modal
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  modalRef!: BsModalRef;
+
   //search
   searchQuery: string = '';
 
   constructor(private apiDangerService: ApiDangerService,
-    private apiSiteService: ApiSiteService) { }
+    private apiSiteService: ApiSiteService,
+    public modalService: BsModalService) { }
 
   ngOnInit() {
     this.fetchDanger();
-    this.deletModal = new window.bootstrap.Modal(
-      document.getElementById('deleteDanger')
-    );
 
     this.myForm = new FormGroup({
       site: new FormControl(''),
@@ -106,14 +109,6 @@ export class ListDangerComponent {
 
   openDeleteModal(id: number) {
     this.idToDelete = id;
-    this.deletModal.show();
-  }
-
-  deleteDanger() {
-    this.apiDangerService.delDanger(this.idToDelete).subscribe(() => {
-      this.fetchDanger();
-      this.deletModal.hide();
-    })
   }
 
   resetSearchQuery() {
@@ -121,36 +116,49 @@ export class ListDangerComponent {
   }
 
   //pagination methods 
-itemsPerPageOptions: number[] = [5, 10, 15];
-itemsPerPage: number = this.itemsPerPageOptions[0];
-p: number = 1;
-get totalPages(): number {
-  return Math.ceil(this.dangers.length / this.itemsPerPage);
-}
-
-get displayedFiches(): any[] {
-  const startIndex = (this.p - 1) * this.itemsPerPage;
-  const endIndex = startIndex + this.itemsPerPage;
-  return this.dangers.slice(startIndex, endIndex);
-}
-
-
-onItemsPerPageChange(option: number) {
-  this.p = 1; 
-  this.itemsPerPage = option; 
-}
-getPageNumbers(): number[] {
-  const pageNumbers = [];
-  for (let i = 1; i <= this.totalPages; i++) {
-    pageNumbers.push(i);
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.dangers.length / this.itemsPerPage);
   }
-  return pageNumbers;
-}
 
-getDisplayedRange(): string {
-  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
-  const endIndex = Math.min(this.p * this.itemsPerPage, this.dangers.length);
-  return `Affichage de ${startIndex} à ${endIndex} de ${this.dangers.length} entrées`;
-}
+  get displayedFiches(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.dangers.slice(startIndex, endIndex);
+  }
+
+
+  onItemsPerPageChange(option: number) {
+    this.p = 1; 
+    this.itemsPerPage = option; 
+  }
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+
+  getDisplayedRange(): string {
+    const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(this.p * this.itemsPerPage, this.dangers.length);
+    return `Affichage de ${startIndex} à ${endIndex} de ${this.dangers.length} entrées`;
+  }
+
+  //delete modal 
+  deleteDanger(): void {
+    this.apiDangerService.delDanger(this.idToDelete)
+      .subscribe(() => {
+        this.fetchDanger();
+        this.modalRef.hide();
+    });
+  }
+  
+  declineDelete(): void {
+    this.modalRef.hide();
+  }
 
 }
