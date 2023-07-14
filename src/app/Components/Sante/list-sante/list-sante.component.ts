@@ -22,8 +22,18 @@ export class ListSanteComponent {
 
   
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPage: number = 10;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.santes.length / this.itemsPerPage);
+  }
+
+  get displayedSantes(): Sante[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.santes.slice(startIndex, endIndex);
+  }
   id : any 
   site : any 
   site_name : any
@@ -67,6 +77,8 @@ export class ListSanteComponent {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
   }
   getSantes() {
     this.santeservice.getAll().subscribe(
@@ -164,4 +176,21 @@ closeModalsite(){
 resetSearchQuery() {
   this.searchQuery = '';
 }
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.santes.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.santes.length} entrées`;
+}
+
 }

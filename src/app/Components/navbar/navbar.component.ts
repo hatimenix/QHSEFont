@@ -26,18 +26,12 @@ export class NavbarComponent {
   constructor(private authService: AuthService, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.getUserDetails();
-   
-  
-    
-     
-    
+    this.getUserDetails(); 
   }
-  
   
   getUserDetails(): void {
     const userImagePath = localStorage.getItem('userImagePath');
-    const baseURL = 'http://127.0.0.1:8001';
+    const baseURL = 'https://qhseapi.paiperleckelearning.com/';
   
     this.authService.getUserDetails().subscribe(
       (response: UserApp) => {
@@ -49,7 +43,7 @@ export class NavbarComponent {
         } else {
           this.user.image = ''; // Assign a default value when userImagePath is null
         }
-  
+
         // Save the image path to local storage
         localStorage.setItem('userImagePath', userImagePath || '');
       },
@@ -59,10 +53,6 @@ export class NavbarComponent {
     );
   }
   
-  
-  
-  
-
 
   onLogout(): void {
     this.authService.logout();
@@ -70,8 +60,5 @@ export class NavbarComponent {
     this.user = null;
     this.router.navigate(['/']);
   }
-
-  
-  
   
 }

@@ -6,26 +6,25 @@
         <div class="card-header d-flex justify-content-between ">
           <div class="header-title">
             <h4 class="card-title">Suivi des équipements de mesure</h4>
-          </div>
-            <a routerLink="/addSecteur" class="btn btn-primary btn-sm add-list" style="color: white; margin-right: -52%;">
-              <i class="las la-plus"></i> Ajouter une secteur
-            </a>          
-            <a (click)="navigateToEquipement()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
-              <i class="las la-plus"></i> Ajouter une équipement
-            </a>
+          </div>     
+            <div class="col-sm-6 col-md-6 text-right" style="margin-right: -2.5%;">
+              <div class="user-list-files d-flex align-items-center overflow-hidden">
+                  <a routerLink="/add-equipements" class="bg1">
+                      <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
+                  </a>     
         </div>
       </div>
 
     </div>
     <div class="card-body">
     <div class="row justify-content-start">
-      <div class="input-group mb-4 col-md-4">
+      <div class="input-group mb-1 col-md-4">
         <div class="input-group-prepend">
           <span class="input-group-text">
             <i class="fas fa-search" style="font-size: 1rem;"></i>
           </span>
         </div>
-        <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+        <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
         <div class="input-group-append">
           <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
             <i class="fas fa-times"></i>
@@ -33,6 +32,21 @@
         </div>
       </div>
       </div>
+      <div class="row mr-2 mt-2 justify-content-end">
+        <div class="dropdown">
+          <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Afficher {{ itemsPerPage }} résultats par page
+          </button>
+          <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+            <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+              [ngClass]="{'selected': option === itemsPerPage}">
+              <span>{{ option }}</span>
+              <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+            </a>
+          </div>
+        </div>
+      </div>   
 
     <div>
       <div class="col-lg-12">
@@ -78,7 +92,7 @@
                           
                         <ng-container *ngIf="secteur.expanded">
 
-                    <ng-container *ngFor="let equipement of equipements| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
+                    <ng-container *ngFor="let equipement of displayedEquipements| filter: searchQuery let i = index ">
                       <tr *ngIf="(equipements)?.length === 0">
                         <td colspan="11">Aucun équipement trouvé </td>
                       </tr>
@@ -92,21 +106,23 @@
                         <td>{{equipement.date_modification}}</td>
                         <td>{{equipement.verification}}</td>
                         <td>{{equipement.prochaine_verification}}</td>
-                        <td>{{equipement.commentaires}}</td>
+                        <td>
+                          <div class="scrollable-content">{{equipement.commentaires}}</div>
+                        </td>                        
                         <td>{{equipement.Equipement_declasse ? 'Oui' : 'Non'}}</td>
                         <td>{{equipement.N_serie}}</td>
                         <td><button class="btn fa fa-download mr-3"   (click)="download(equipement.Certificat)"> {{ equipement.Certificat ? equipement.Certificat.split('/').pop() : 'Aucun fichier joint' }}</button></td>
                         <td>
                           <div class="d-flex justify-content-start align-items-center list-action">
-                            <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
+                            <a  class="btn btn-sm btn-update mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
                               (click)="getEquipementData(equipement.id , equipement.site, equipement.secteur,equipement.type_equipement,equipement.codification,equipement.date_mise_en_service,equipement.date_modification,equipement.verification,equipement.prochaine_verification,equipement.commentaires,equipement.Equipement_declasse,equipement.N_serie)"
                               data-placement="top" title="" data-original-title="Edit">
-                              <i class="ri-pencil-line mr-0"></i>
+                              <i class="ri-pencil-line mr-0" style="color: white;"></i>
                             </a>
-                            <a class="badge btn-danger mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                            <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="tooltip"
                               (click)="openDeleteModal(equipement.id)" data-placement="top" title=""
                               data-original-title="Delete">
-                              <i class="ri-delete-bin-line mr-0"></i>
+                              <i class="ri-delete-bin-line mr-0" style="color: white;"></i>
                             </a>
                           </div>
                         </td>
@@ -120,9 +136,22 @@
 
           </table>
         </div>
-        <div class="pagination-container" style="display: flex;justify-content: flex-end;">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>      
+        <div class="pagination-container" style="display: flex; justify-content: space-between;">
+          <div>
+            <span class="entry-info">
+              {{ getDisplayedRange() }}
+            </span>
+          </div>
+          <div style="display: flex;justify-content: flex-end;">
+            <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+            <div class="page-info">
+              <span class="page-numbers">
+                <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+              </span>
+            </div>
+            <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+          </div>
+        </div>    
       </div>
     </div>
     <!-- Modal -->
@@ -130,7 +159,7 @@
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header delete-header">
             <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -140,8 +169,8 @@
             Attention , cette action est irréversible !
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+            <button type="button" class="btn btn-delete-modal" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
           </div>
         </div>
       </div>
@@ -188,7 +217,7 @@
                   <div class="col">
                     <label for="N_serie" class="form-label">N série (si thermomètre Genius) : </label>
                     <input name="N_serie" value="{{N_serie}}" [(ngModel)]="N_serie" formControlName="N_serie"
-                      style="width: 100%;" type="text" class="rounded-pill form-control" id="N_serie">
+                      style="width: 100%;" type="text" class=" form-control" id="N_serie">
                   </div>
                   <div class="col">
                     <label>Vérification interne/externe</label>
@@ -218,15 +247,15 @@
                   <div class="col">
                     <label for="codification" class="form-label">codification : </label>
                     <input name="codification" value="{{codification}}" [(ngModel)]="codification"
-                      formControlName="codification" style="width: 100%;" type="text" class="rounded-pill form-control"
+                      formControlName="codification" style="width: 100%;" type="text" class=" form-control"
                       id="codification">
                   </div>
                 </div>
                 <div class="col">
                   <label for="commentaires" class="form-label">commentaires : </label>
-                  <input name="commentaires" value="{{commentaires}}" [(ngModel)]="commentaires"
-                    formControlName="commentaires" style="width: 100%;" type="text" class="rounded-pill form-control"
-                    id="commentaires">
+                  <textarea name="commentaires" value="{{commentaires}}" [(ngModel)]="commentaires"
+                    formControlName="commentaires" style="width: 100%;" type="text" class=" form-control" 
+                    id="commentaires" rows="3"></textarea>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
@@ -297,7 +326,7 @@
 </div>
 <!-- Page end  -->
 <ng-template #successModal>
-  <div class="modal-header">
+  <div class="modal-header update-header">
     <h4 class="modal-title">Succès</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
@@ -307,7 +336,7 @@
     L'équipement a été modifié avec succès.
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
 </ng-template>
 <!-- Site Modal -->

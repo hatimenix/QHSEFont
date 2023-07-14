@@ -74,7 +74,12 @@ constructor(
      //pagination 
      this.itemsPerPageOptions = [5, 10, 15];
      this.itemsPerPage = this.itemsPerPageOptions[0]; 
-    
+     const isFirstVisit = history.state.isFirstVisit;
+    if (!isFirstVisit) {
+      history.replaceState({ isFirstVisit: true }, '');
+      location.reload();
+    }
+    window.scrollTo(0, 0);
   }
 
 

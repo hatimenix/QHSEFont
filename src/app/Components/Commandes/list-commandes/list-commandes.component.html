@@ -67,6 +67,7 @@
                           </div>
                         </div>
                         <div class="col-md-3">
+                          
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
@@ -76,7 +77,7 @@
                             <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture"  (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
                               
                               <option value="" >Tous</option>
-                              <option value="Viande coupée">Viande coupée</option>
+                              <option value="Viande coupée" selected>Viande coupée</option>
                               <option value="Tout coupée">Tout coupée</option>
                               <option value="Velours viande">Velours viande</option>
                               <option value="Velours complet">Velours complet</option>
@@ -92,9 +93,8 @@
                           </div>
                         </div>
                       
-                      <div class="col-md-2">
-                      <div class="d-flex justify-content-end mt-5">
-                        <div class="dropdown">
+                        <div class=" mt-3 d-flex justify-content-between">
+                          <div class="dropdown">
                            <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              Afficher {{ itemsPerPage }} résultats par page
                            </button>
@@ -106,7 +106,6 @@
                            </div>
                          </div>
                       </div>
-                     </div>
                       <div class="table-responsive">
 
                       <table id="user-list-table" class="table table-striped  mt-4" role="grid"

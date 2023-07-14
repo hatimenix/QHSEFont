@@ -17,7 +17,7 @@ export class UpdateUsersComponent {
   userForm!: FormGroup;
   groupes!: GroupeUser[];
   userId: number;
-  @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
 
   constructor(
@@ -37,8 +37,9 @@ export class UpdateUsersComponent {
       nom_complet: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      
-      groupes_roles: this.formBuilder.array([])
+      actif: [''],
+      groupes_roles: this.formBuilder.array([]),
+      image: [''] // Add the image FormControl
     });
 
     this.loadGroupes();
@@ -83,17 +84,39 @@ export class UpdateUsersComponent {
 
     const selectedGroupes = this.userForm.value.groupes_roles || [];
     const selectedIds = this.getSelectedCheckboxId();
-    
+
     const groupeUsers = this.groupes
       .filter(group => selectedGroupes.includes(group.id.toString()))
       .map(group => ({ id: group.id }));
 
+    const formData = new FormData();
+    formData.append('id', this.userForm.get('id')?.value);
+    formData.append('nom_user', this.userForm.get('nom_user')?.value);
+    formData.append('nom_complet', this.userForm.get('nom_complet')?.value);
+    formData.append('password', this.userForm.get('password')?.value);
+    formData.append('email', this.userForm.get('email')?.value);
+    formData.append('actif', this.userForm.get('actif')?.value);
+    const file = this.userForm.get('image')?.value;
+    if (file instanceof File) {
+      formData.append('image', file, file.name);
+    }    
+    
+    
+    const selectedGroupesRoles = this.getSelectedCheckboxId();
+    selectedGroupesRoles.forEach((groupId: string) => {
+      formData.append('groupes_roles', groupId);
+    });
+    
+    // Retrieve the original password value
+    const password = this.userForm.value.password;
+
     const updatedUser: UserApp = {
       ...this.userForm.value,
+      password: password, // Set the original password value
       groupes_roles: selectedIds
     };
 
-    this.userAppService.updateUserApp(this.userId, updatedUser).subscribe(
+    this.userAppService.updateUserApp(this.userId, updatedUser, formData).subscribe(
       user => {
         console.log('User updated successfully:', user);
         this.openModal();
@@ -106,16 +129,30 @@ export class UpdateUsersComponent {
     );
   }
 
-    //modal functions 
-    openModal() {
-      this.modalRef = this.bsModalService.show(this.successModal);
-    }
-    closeModal() {
-      this.bsModalService.hide();
+  // Modal functions 
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  
+  closeModal() {
+    this.modalRef.hide();
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    this.userForm.get('image')?.setValue(file);
+    this.userForm.patchValue({ image: file });
   }
+
+  //get the image 
+  getImageUrl(): string {
+    const imageControl = this.userForm.get('image');
+    if (imageControl && imageControl.value) {
+      const file = imageControl.value;
+      if (file instanceof File) {
+        return URL.createObjectURL(file);
+      }
+    }
+    return '';
+  }
+  
 }

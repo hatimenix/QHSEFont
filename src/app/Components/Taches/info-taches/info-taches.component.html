@@ -5,7 +5,7 @@
            <div class="card">
               <div class="card-headers d-flex justify-content-between" style="background-color:#17469d; color:white;">
                  <div class="header-title">
-                    <h4 class="card-title">Suivi des tâches</h4>
+                    <h4 >Suivi des tâches</h4>
                  </div>
               </div>
               <div class="card-body">
@@ -50,9 +50,9 @@
                             <tr *ngFor="let actions of actions$ | async">
                               <td>
                                 <div class="d-flex align-items-center list-action">
-                                  <a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_action" (click)="openUpdateModal(actions)"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="badge bg-warning mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAction"
-                                  (click)="openDeleteModal(actions.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                  <a class="btn btn-sm btn-update mr-2"  style="cursor: pointer;" data-toggle="modal" data-target="#update_action" (click)="openUpdateModal(actions)"><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                                  <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAction"
+                                  (click)="openDeleteModal(actions.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                                 </div>
                               </td>
                               <td><a [routerLink]="['/infoAction/', actions.id]">{{ actions.intitule }}</a></td>
@@ -96,28 +96,27 @@
                             </tr>
                           </tbody>
                         </table>
-                        <div class="modal fade" id="deleteAction" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                  <div class="modal-body">
-                                      <div class="popup text-left">
-                                          <h4 class="mb-3">Confirmer la suppression</h4>
-                                          <div class="content create-workform bg-body">
-                                              <div class="pb-3">
-                                                  <label class="mb-2">Est ce que vous voulez supprimer cette action définitivement !!</label>
-                                              </div>
-                                              <div class="col-lg-12 mt-4">
-                                                  <div class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                                      <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteAction()">Supprimer</div>
-                                                      <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                         <!-- Modal -->
+                         <div class="modal fade" id="deleteAction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                         <div class="modal-dialog" role="document">
+                           <div class="modal-content">
+                             <div class="modal-header delete-header">
+                               <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                               </button>
+                             </div>
+                             <div class="modal-body">
+                               Attention , cette action est irréversible !
+                             </div>
+                             <div class="modal-footer">
+                               <button type="button" class="btn btn-delete-modal" data-dismiss="modal" (click)="deleteAction()"><i class="fas fa-trash"></i>Supprimer</button>
+                               <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
                       </td>
                     </tr>
                   </tbody>
@@ -367,8 +366,8 @@
                   
                   <div class="d-flex align-items-end flex-column" >
                    <div class="mt-auto p-2">
-                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="actionForm.invalid"><i class="fas fa-plus"></i>Ajouter</button>
-                     <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                     <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid"><i class="fas fa-plus"></i>Ajouter</button>
+                     <button type="button" class="btn btn-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
                   </div>
                   </div>
                </form>
@@ -385,7 +384,7 @@
 <div class="modal-content">
 <div class="modal-header" style="background-color: #089bd7;">
 <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier action amélioration</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="actionForm.reset()">
 <span aria-hidden="true" style="color:black">×</span>
 </button>
 </div>
@@ -524,8 +523,8 @@
 
 <div class="d-flex align-items-end flex-column">
 <div class="mt-auto p-2">
-<button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
-<button type="button" class="btn bg-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+<button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+<button type="button" class="btn btn-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
 </div>
 </div>
 </form>
@@ -535,7 +534,7 @@
 </div> 
 <!-- Page end  -->
 <ng-template #successModal>
-<div class="modal-header">
+<div class="modal-header update-header">
 <h4 class="modal-title">Succès</h4>
 <button type="button" class="close" aria-label="Close" (click)="closeModal()">
 <span aria-hidden="true">&times;</span>
@@ -545,12 +544,12 @@
 L'action a été modifié avec succès.
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+<button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
 </div>
 </ng-template>
 <!-- Page end  -->
 <ng-template #addModal>
-<div class="modal-header">
+<div class="modal-header success-header">
 <h4 class="modal-title">Succès</h4>
 <button type="button" class="close" aria-label="Close" (click)="closeModal()">
 <span aria-hidden="true">&times;</span>
@@ -560,6 +559,6 @@ L'action a été modifié avec succès.
 L'action a été ajoutée avec succès.
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+<button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
 </div>
 </ng-template>

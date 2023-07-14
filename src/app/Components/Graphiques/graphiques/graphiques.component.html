@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div style="margin-left: 1%;" class="row">
       <div style="margin-top: -1%;" class="col-md-6">
-        <h4 class="chart-title" style="font-size: 18px; font-weight: bold; color: #089bd7">Synthèse type d'actions</h4>
+        <h4 class="chart-title" style="font-size: 21px; font-weight: bold; color: #089bd7">Synthèse type d'actions</h4>
         <div class="form-group">
           <div class="d-flex align-items-center">
             <div class="mr-3">
@@ -47,7 +47,7 @@
       
       
       <div style="margin-top: 1%;" class="col-md-6">
-        <h4 class="chart-title" style="font-size: 18px; font-weight: bold; color: #089bd7">Délais traitement des non-conformités</h4>
+        <h4 class="chart-title" style="font-size: 21px; font-weight: bold; color: #089bd7">Délais traitement des non-conformités</h4>
         <br>
         <apx-chart *ngIf="datencSeries.length && datencLabels.length; else noDataDatenc" #datencChart [chart]="datenc" [series]="datencSeries" [labels]="datencLabels" [responsive]="responsive"></apx-chart>
         <ng-template #noDataDatenc>
@@ -64,7 +64,7 @@
     <br>
     <div style="margin-left: 1%;" class="row">
       <div style="margin-top: -1.5%;" class="col-md-6">
-        <h4 class="chart-title" style="font-size: 18px; font-weight: bold; color: #089bd7">Suivi type non-conformités</h4>
+        <h4 class="chart-title" style="font-size: 21px; font-weight: bold; color: #089bd7">Suivi type non-conformités</h4>
         <div class="form-group">
           <label for="ncAnneeDropdown">Année:</label>
           <div class="dropdown d-inline-block ml-1">
@@ -90,7 +90,7 @@
         <p>Sur un total de {{ getTotalNc() }} non-conformité(s)</p>
       </div>
       <div style="margin-top: 0.5%;"  class="col-md-6">
-        <h4 class="chart-title" style="font-size: 18px; font-weight: bold; color: #089bd7">Taux de réponse aux remarques d'audit</h4>
+        <h4 class="chart-title" style="font-size: 21px; font-weight: bold; color: #089bd7">Taux de réponse aux remarques d'audit</h4>
         <br>
         <apx-chart *ngIf="thirdChartSeries.length && thirdChartLabels.length; else noDataAudit" #auditChart [chart]="Audit" [series]="thirdChartSeries" [labels]="thirdChartLabels" [responsive]="responsive"></apx-chart>
         <ng-template #noDataAudit>
