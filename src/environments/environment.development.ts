@@ -6,7 +6,6 @@ export const environment = {
     API_URL_AC: 'https://qhseapi.paiperleckelearning.com/action/',
     API_URL_DANGER: 'https://qhseapi.paiperleckelearning.com/danger/',
     API_URL_EVENEMENT: 'https://qhseapi.paiperleckelearning.com/evenement/',
-    API_URL_AT: 'https://qhseapi.paiperleckelearning.com/arret_travail/',
     API_URL_FAMILLE: 'https://qhseapi.paiperleckelearning.com/famille/',
     API_URL_SERVICE: 'https://qhseapi.paiperleckelearning.com/service/',
     API_URL_SITE: 'https://qhseapi.paiperleckelearning.com/site/',
@@ -55,6 +54,7 @@ export const environment = {
     API_exercice_securite: "https://qhseapi.paiperleckelearning.com/exercicesecurite/",
     API_reunion: "https://qhseapi.paiperleckelearning.com/reunion/",
     API_AxesStrategique: "https://qhseapi.paiperleckelearning.com/AxesStrategiques/",
+    API_URL_AT: "https://qhseapi.paiperleckelearning.com/arret_travail/",
 
 
 

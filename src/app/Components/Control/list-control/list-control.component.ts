@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ControlService } from 'src/app/Services/Service-control/control.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Control } from 'src/app/models/Control';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-control',

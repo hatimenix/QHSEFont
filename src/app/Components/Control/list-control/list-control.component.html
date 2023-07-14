@@ -30,9 +30,6 @@
                             </div>
                           </div>
                         </div>
-                      
-                        
-                         
                       </div>
                       <div class=" mt-3 d-flex justify-content-between">
 
@@ -62,13 +59,11 @@
                                <th>Une action a-t-elle été ouverte ?</th>
                                <th>Rapport</th>
                                <th>Contrôle(s) précédent(s)</th>
-
                                <th>Action</th>
                             </tr>
                          </thead>
                          <tbody>
                             <tr *ngFor="let control of displayedControls | filter: searchQuery">
-                             
                               <td>{{control.site_name}}</td>
                               <td>{{control.nature_control}}</td>
                               <td>{{control.origine_reglementaire}}</td>
@@ -78,7 +73,6 @@
                               <td>
                                 <a href="{{ control.rapport }}" download>
                                    {{ getFileNameFromPath(control.rapport) }}</a>
-                                
                              </td>
                               <td></td>
                               <td>
@@ -92,7 +86,6 @@
                               </td>
                             </tr>
                           </tbody>
-                          
                       </table>
                    </div>
                    <br>
@@ -117,7 +110,7 @@
           </div>
        </div>
     </div>
-          </div>
+</div>
  <!-- Confirmation modal for command deletion -->
  <ng-template #deleteModal>
    <div class="modal-header delete-header">
