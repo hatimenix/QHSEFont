@@ -1,12 +1,12 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
             <div style="display: flex; flex-direction: column;">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between">
+                   <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter une source</h4>
+                           <h4>Ajouter une source</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -20,26 +20,26 @@
                             </div>
                         </div>
                     </form>
-       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
-        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createSource()" type="submit" class="btn btn-primary mr-2 mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
-        <button style="margin-bottom: 1%;" type="reset" routerLink="/tache-list" class="btn btn-danger mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">
+        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createSource()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+        <button style="margin-bottom: 1%;" type="reset" routerLink="/source-list" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
       </div>
       
        </div>
        </div>
 <!-- Page end  -->
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header success-header ">
       <h4 class="modal-title">Succès</h4>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      Le type de partie a été ajoutée avec succès.
+      La source a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+      <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </ng-template>
 

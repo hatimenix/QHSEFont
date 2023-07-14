@@ -2,17 +2,16 @@ import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Secteur } from 'src/app/models/Secteur';
-import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
+import { TypePartie } from 'src/app/models/typepartie';
+import { TypepartieService } from 'src/app/Services/Service-TypePartie/typepartie.service';
 declare var window: any;
 
-
 @Component({
-  selector: 'app-lis-secteur',
-  templateUrl: './lis-secteur.component.html',
-  styleUrls: ['./lis-secteur.component.css']
+  selector: 'app-list-typeparties',
+  templateUrl: './list-typeparties.component.html',
+  styleUrls: ['./list-typeparties.component.css']
 })
-export class LisSecteurComponent {
+export class ListTypepartiesComponent {
   updateModalVisible: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
@@ -20,37 +19,37 @@ export class LisSecteurComponent {
   itemsPerPage: number = this.itemsPerPageOptions[0];
   p: number = 1;
   get totalPages(): number {
-    return Math.ceil(this.secteurs.length / this.itemsPerPage);
+    return Math.ceil(this.typeparties.length / this.itemsPerPage);
   }
 
-  get displayedSecteurs(): Secteur[] {
+  get displayedTypeParties():TypePartie[] {
     const startIndex = (this.p - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.secteurs.slice(startIndex, endIndex);
+    return this.typeparties.slice(startIndex, endIndex);
   }
-  selectedSecteurs: Secteur[] = [];
+  selectedTypeParties:TypePartie[] = [];
   deleteModal: any;
-  selectedSecteurToDelete: number = 0;
+  selectedTypePartieToDelete: number = 0;
   id : any 
-  secteur_nom : any 
+  nom : any 
   searchQuery: string = '';
-  secteurs : Secteur[] = []
+  typeparties :TypePartie[] = []
   form = new FormGroup({
-    secteur_nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
-  constructor(private   secteurservice : SecteurService, private router : Router, private bsModalService: BsModalService,){
+  constructor(private   typepartieservice :TypepartieService, private router : Router, private bsModalService: BsModalService,){
 
   }
   ngOnInit(): void {
-    this.getSecteurs();
+    this.getTypeParties();
     this.itemsPerPageOptions = [5, 10, 15];
     this.itemsPerPage = this.itemsPerPageOptions[0]; 
 
   }
-  getSecteurs() {
-    this.secteurservice.getAll().subscribe(
+  getTypeParties() {
+    this.typepartieservice.getAll().subscribe(
       res => {
-        this.secteurs = res;
+        this.typeparties = res;
       },
       error => {
         console.log(error);
@@ -61,14 +60,14 @@ export class LisSecteurComponent {
     );
   }
   openDeleteModal(id: number) {
-    this.selectedSecteurToDelete = id;
+    this.selectedTypePartieToDelete = id;
     this.deleteModal.show();
   }
-  updateSecteur() : void {
+  updateTypePartie() : void {
     const formData =  new FormData()
-    formData.append("secteur_nom", this.secteur_nom);
+    formData.append("nom", this.nom);
 
-  this.secteurservice.update(this.id, formData)
+  this.typepartieservice.update(this.id, formData)
 
   .subscribe({
       next: (res) => {
@@ -81,18 +80,18 @@ export class LisSecteurComponent {
       }
   });
 } 
-getSecteurData( id : number,
-  secteur_nom : any,
+getTypePartieData( id : number,
+  nom : any,
 ){
   this.id = id,
-  this.secteur_nom=secteur_nom
+  this.nom=nom
 }
   
 delete(ids: number[]) {
   ids.forEach(id => {
-    this.secteurservice.delete(id).subscribe({
+    this.typepartieservice.delete(id).subscribe({
       next: (data) => {
-        this.secteurs = this.secteurs.filter(secteur => secteur.id !== id);
+        this.typeparties = this.typeparties.filter(typepartie => typepartie.id !== id);
         location.reload()
         this.deleteModal.hide();
         },
@@ -103,21 +102,21 @@ delete(ids: number[]) {
   });
 }
 deleteItem() {
-  if (this.selectedSecteurs.length > 0) {
-    const idsToDelete = this.selectedSecteurs.map(s => s.id);
+  if (this.selectedTypeParties.length > 0) {
+    const idsToDelete = this.selectedTypeParties.map(t => t.id);
     this.delete(idsToDelete);
-  } else if (this.selectedSecteurToDelete) {
-    const idToDelete = this.selectedSecteurToDelete;
+  } else if (this.selectedTypePartieToDelete) {
+    const idToDelete = this.selectedTypePartieToDelete;
     this.delete([idToDelete]);
   }
 }
 
-  toggleSelection(secteur: Secteur) {
-    const index = this.selectedSecteurs.indexOf(secteur);
+  toggleSelection(typepartie:TypePartie) {
+    const index = this.selectedTypeParties.indexOf(typepartie);
     if (index > -1) {
-      this.selectedSecteurs.splice(index, 1); 
+      this.selectedTypeParties.splice(index, 1); 
     } else {
-      this.selectedSecteurs.push(secteur);
+      this.selectedTypeParties.push(typepartie);
     }
   }
   openModal() {
@@ -143,11 +142,8 @@ deleteItem() {
   }
   getDisplayedRange(): string {
     const startIndex = (this.p - 1) * this.itemsPerPage + 1;
-    const endIndex = Math.min(this.p * this.itemsPerPage, this.secteurs.length);
-    return `Affichage de ${startIndex} à ${endIndex} de ${this.secteurs.length} entrées`;
+    const endIndex = Math.min(this.p * this.itemsPerPage, this.typeparties.length);
+    return `Affichage de ${startIndex} à ${endIndex} de ${this.typeparties.length} entrées`;
   }
- 
-
-
 
 }

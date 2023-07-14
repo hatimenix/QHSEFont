@@ -28,6 +28,21 @@
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
+              <div class="row mr-2 mt-2 justify-content-end">
+              <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdownFaible" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Afficher {{ faiblePagination.itemsPerPage }} résultats par page
+                </button>
+                <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdownFaible">
+                  <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of faiblePagination.itemsPerPageOptions" (click)="onFaibleItemsPerPageChange(option)"
+                    [ngClass]="{'selected': option === faiblePagination.itemsPerPage}">
+                    <span>{{ option }}</span>
+                    <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === faiblePagination.itemsPerPage"></i>
+                  </a>
+                </div>
+              </div>
+              </div>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -37,10 +52,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <ng-container *ngFor="let analyseRisque of risques; let i = index">
+                  <ng-container *ngFor="let analyseRisque of DisplayedFaibleRisques; let i = index">
                     <ng-container *ngIf="toNumber(getCotationIPR(analyseRisque)) < 5">
                       <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
-                        <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                        <td>
+                          <a  class="btn btn-sm btn-update mr-1"  style="cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                          <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAnalyse"
+                                  (click)="openDeleteModal(analyseRisque.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                         </td>
                         <td><a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a></td>
                         <td class="ipr-column">{{ getCotationIPR(analyseRisque) }}</td>
@@ -49,6 +67,18 @@
                   </ng-container>
                 </tbody>
               </table>
+              <div class="pagination-container" style="display: flex; justify-content: center;">
+                <div style="display: flex;justify-content: flex-end;">
+                  <button class="btn" [disabled]="faiblePagination.p === 1" (click)="faiblePagination.p = faiblePagination.p - 1">Précedent</button>
+                  <div class="page-info">
+                    <span class="page-numbers">
+                      <button class="btn page-number" *ngFor="let page of getPageNumbersForFaible()" [disabled]="faiblePagination.p === page" (click)="faiblePagination.p = page" [ngClass]="{'selected': faiblePagination.p === page}">{{ page }}</button>
+                    </span>
+                  </div>
+                  <button class="btn" [disabled]="faiblePagination.p === totalFaiblePages" (click)="faiblePagination.p = faiblePagination.p + 1">Suivant</button>
+
+                </div>
+              </div>  
             </div>
           </div>
         </div>
@@ -60,6 +90,21 @@
             <h4 class="card-title" style="color: white;">Risque modéré</h4>
           </div>
           <div class="card-body">
+            <div class="row mr-2 mt-2 justify-content-end">
+              <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdownModerate" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Afficher {{ moderatePagination.itemsPerPage }} résultats par page
+                </button>
+                <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdownModerate">
+                  <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of moderatePagination.itemsPerPageOptions" (click)="onModerateItemsPerPageChange(option)"
+                    [ngClass]="{'selected': option === moderatePagination.itemsPerPage}">
+                    <span>{{ option }}</span>
+                    <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === moderatePagination.itemsPerPage"></i>
+                  </a>
+                </div>
+              </div>
+              </div>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -69,10 +114,13 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let analyseRisque of risques; let i = index">
+                <ng-container *ngFor="let analyseRisque of displayedModerateRisques; let i = index">
                   <ng-container *ngIf="toNumber(getCotationIPR(analyseRisque)) >= 5 && toNumber(getCotationIPR(analyseRisque)) <= 10">
                     <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
-                      <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                      <td>
+                        <a  class="btn btn-sm btn-update mr-1"  style="cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                        <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAnalyse"
+                                  (click)="openDeleteModal(analyseRisque.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                       </td>
                       <td><a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a></td>
                       <td class="ipr-column">{{ getCotationIPR(analyseRisque) }}</td>
@@ -81,6 +129,18 @@
                 </ng-container>
               </tbody>
             </table>
+            <div class="pagination-container" style="display: flex; justify-content: center;">
+              <div style="display: flex;justify-content: flex-end;">
+                <button class="btn" [disabled]="moderatePagination.p === 1" (click)="moderatePagination.p = moderatePagination.p - 1">Précedent</button>
+                <div class="page-info">
+                  <span class="page-numbers">
+                    <button class="btn page-number" *ngFor="let page of getPageNumbersForModerate()" [disabled]="moderatePagination.p === page" (click)="moderatePagination.p = page" [ngClass]="{'selected': moderatePagination.p === page}">{{ page }}</button>
+                  </span>
+                </div>
+                <button class="btn" [disabled]="moderatePagination.p === totalModeratePages" (click)="moderatePagination.p = moderatePagination.p + 1">Suivant</button>
+
+              </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -91,6 +151,21 @@
             <h4 class="card-title" style="color: white;">Risque élevé</h4>
           </div>
           <div class="card-body">
+            <div class="row mr-2 mt-2 justify-content-end">
+              <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdownHigh" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Afficher {{ highPagination.itemsPerPage }} résultats par page
+                </button>
+                <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdownHigh">
+                  <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of highPagination.itemsPerPageOptions" (click)="onHighItemsPerPageChange(option)"
+                    [ngClass]="{'selected': option === highPagination.itemsPerPage}">
+                    <span>{{ option }}</span>
+                    <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === highPagination.itemsPerPage"></i>
+                  </a>
+                </div>
+              </div>
+              </div>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -100,10 +175,13 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let analyseRisque of risques; let i = index">
+                <ng-container *ngFor="let analyseRisque of displayedHighRisques; let i = index">
                   <ng-container *ngIf="toNumber(getCotationIPR(analyseRisque)) > 10">
                     <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
-                      <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                      <td>
+                        <a  class="btn btn-sm btn-update mr-1"  style="cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                        <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAnalyse"
+                                  (click)="openDeleteModal(analyseRisque.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                       </td>
                       <td><a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a></td>
                       <td class="ipr-column">{{ getCotationIPR(analyseRisque) }}</td>
@@ -112,6 +190,18 @@
                 </ng-container>
               </tbody>
             </table>
+            <div class="pagination-container" style="display: flex; justify-content: center;">
+              <div style="display: flex;justify-content: flex-end;">
+                <button class="btn" [disabled]="highPagination.p === 1" (click)="highPagination.p = highPagination.p - 1">Précedent</button>
+                <div class="page-info">
+                  <span class="page-numbers">
+                    <button class="btn page-number" *ngFor="let page of getPageNumbersForHigh()" [disabled]="highPagination.p === page" (click)="highPagination.p = page" [ngClass]="{'selected': highPagination.p === page}">{{ page }}</button>
+                  </span>
+                </div>
+                <button class="btn" [disabled]="highPagination.p === totalHighPages" (click)="highPagination.p = highPagination.p + 1">Suivant</button>
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -123,6 +213,21 @@
           <h4 class="card-title" style="color: white;">Risques à évaluer</h4>
         </div>
         <div class="card-body">
+          <div class="row mr-2 mt-2 justify-content-end">
+            <div class="dropdown">
+              <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdownEvaluate" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Afficher {{ evaluatePagination.itemsPerPage }} résultats par page
+              </button>
+              <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdownEvaluate">
+                <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of evaluatePagination.itemsPerPageOptions" (click)="onEvaluateItemsPerPageChange(option)"
+                  [ngClass]="{'selected': option === evaluatePagination.itemsPerPage}">
+                  <span>{{ option }}</span>
+                  <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === evaluatePagination.itemsPerPage"></i>
+                </a>
+              </div>
+            </div>
+            </div>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -133,10 +238,13 @@
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngFor="let analyseRisque of risques; let i = index">
+              <ng-container *ngFor="let analyseRisque of displayedEvaluateRisques; let i = index">
                 <ng-container *ngIf="getCotationIPR(analyseRisque) === '' || getCotationIPR(analyseRisque) === null">
                   <tr [ngClass]="i % 2 === 0 ? 'table-primary' : 'table-default'">
-                    <td><a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0"></i></a>
+                    <td>
+                      <a  class="btn btn-sm btn-update mr-1"  style="cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyseRisque)"><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                      <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAnalyse"
+                                  (click)="openDeleteModal(analyseRisque.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                     </td>
                     <td>
                       <a routerLink="/analyserisque/{{ analyseRisque.id }}">{{ analyseRisque.description }}</a>
@@ -148,6 +256,18 @@
               </ng-container>
             </tbody>
           </table>
+          <div class="pagination-container" style="display: flex; justify-content: center;">
+            <div style="display: flex;justify-content: flex-end;">
+              <button class="btn" [disabled]="evaluatePagination.p === 1" (click)="evaluatePagination.p = evaluatePagination.p - 1">Précedent</button>
+              <div class="page-info">
+                <span class="page-numbers">
+                  <button class="btn page-number" *ngFor="let page of getPageNumbersForEvaluate()" [disabled]="evaluatePagination.p === page" (click)="evaluatePagination.p = page" [ngClass]="{'selected': evaluatePagination.p === page}">{{ page }}</button>
+                </span>
+              </div>
+              <button class="btn" [disabled]="evaluatePagination.p === totalEvaluatePages" (click)="evaluatePagination.p = evaluatePagination.p + 1">Suivant</button>
+
+            </div>
+          </div>
         </div>
       </div>
       </div>
@@ -329,8 +449,8 @@
   
   <div class="d-flex align-items-end flex-column">
   <div class="mt-auto p-2">
-  <button type="submit" class="btn mr-2"  style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
-  <button type="button" class="btn bg-warning" (click)="analyseForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+  <button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+  <button type="button" class="btn btn-warning" (click)="analyseForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
   </div>
   </div>
   </form>
@@ -340,7 +460,7 @@
   </div> 
    <!-- Page end  -->
 <ng-template #successModal>
-  <div class="modal-header">
+  <div class="modal-header update-header">
   <h4 class="modal-title">Succès</h4>
   <button type="button" class="close" aria-label="Close" (click)="closeModal()">
   <span aria-hidden="true">&times;</span>
@@ -350,6 +470,27 @@
   Le risque a été modifié avec succès.
   </div>
   <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
   </ng-template>
+  <!-- Modal -->
+  <div class="modal fade" id="deleteAnalyse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header  delete-header">
+        <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Attention , cette action est irréversible !
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-delete-modal" (click)="deleteAnalyse()"><i class="fas fa-trash"></i>Supprimer</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

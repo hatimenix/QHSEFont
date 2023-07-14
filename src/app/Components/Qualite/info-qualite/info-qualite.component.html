@@ -6,7 +6,7 @@
              <div class="card">
                 <div class="card-headers d-flex justify-content-between" style="background-color:#17469d; color:white;">
                    <div class="header-title">
-                      <h4 class="card-title">Suivi des objectifs de qualité</h4>
+                      <h4 >Suivi des objectifs de qualité</h4>
                    </div>
                 </div>
                 <div class="card-body">
@@ -23,36 +23,36 @@
                          <div class="tab-content" id="pills-tabContent-1">
                             <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
                                 <div class="card-body">
-                                    <div id="table" class="table-editable">
-                                       <table class="table table-bordered table-responsive-md table-striped text-center" style="border: 2cm;" id="table_info">
-                                          <tbody>
-                                             <tr>
-                                                <td style="width:30%">Titre</td>
-                                                <td style="width:70%">{{ qualite.titre }}</td>
+                                  <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                             <tr class="table-default">
+                                                <td class="col-sm-1" >Titre</td>
+                                                <td class="col-sm-1">{{ qualite.titre }}</td>
                                              </tr>
-                                             <tr>
-                                                <td style="width:30%; background-color:#8de2ff">Site</td>
-                                                <td style="width:70%; background-color:#8de2ff">{{ qualite.site_name }}</td>
+                                             <tr class="table-primary">
+                                                <td class="col-sm-1">Site</td>
+                                                <td class="col-sm-1">{{ qualite.site_name }}</td>
                                              </tr>
-                                             <tr>
-                                                <td style="width:30%">Date analyse et revue</td>
-                                                <td style="width:70%">{{ qualite.date_analyse }}</td>
+                                             <tr class="table-default">
+                                                <td class="col-sm-1" >Date analyse et revue</td>
+                                                <td class="col-sm-1">{{ qualite.date_analyse }}</td>
                                              </tr>
-                                             <tr>
-                                                <td style="width:30%; background-color:#8de2ff">Réflexion sur l'année précédente (Axes d'amélioration)</td>
-                                                <td style="width:70%; background-color:#8de2ff">{{ qualite.reflexion }}</td>
+                                             <tr class="table-primary">
+                                                <td class="col-sm-1">Réflexion sur l'année précédente (Axes d'amélioration)</td>
+                                                <td class="col-sm-1">{{ qualite.reflexion }}</td>
                                              </tr>
-                                             <tr>
-                                                <td style="width:30%">OBJECTIFS(globaux,escarre,chutes,sonettes...)</td>
-                                                <td style="width:70%">{{ qualite.objectifs }}</td>
+                                             <tr class="table-default">
+                                                <td class="col-sm-1">OBJECTIFS(globaux,escarre,chutes,sonettes...)</td>
+                                                <td class="col-sm-1">{{ qualite.objectifs }}</td>
                                              </tr>
-                                             <tr>
-                                                <td style="width:30%; background-color:#8de2ff">Commentaires dub responsable</td>
-                                                <td style="width:70%; background-color:#8de2ff">{{ qualite.commentaires_responsable }}</td>
+                                             <tr class="table-primary">
+                                                <td class="col-sm-1">Commentaires dub responsable</td>
+                                                <td class="col-sm-1">{{ qualite.commentaires_responsable }}</td>
                                              </tr>
-                                             <tr>
-                                                <td style="width:30%">Objectifs pour l'annèe</td>
-                                                <td style="width:70%">{{ qualite.objectifs_annees }}</td>
+                                             <tr class="table-default">
+                                                <td class="col-sm-1">Objectifs pour l'annèe</td>
+                                                <td class="col-sm-1">{{ qualite.objectifs_annees }}</td>
                                              </tr>
                                           </tbody>
                                        </table>
@@ -67,7 +67,7 @@
                             
                             <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
                               <div id="table" class="table-editable table-responsive">
-                                 <table class="table table-bordered table-striped text-center">
+                                 <table class="table table-bordered table-striped text-center ">
                                    <tbody>
                                      <tr>
                                        <td style="width:20%">Source</td>
@@ -98,9 +98,9 @@
                                              <tr *ngFor="let actions of actions$ | async">
                                                <td>
                                                  <div class="d-flex align-items-center list-action">
-                                                   <a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_action" (click)="openUpdateModal(actions)"><i class="ri-pencil-line mr-0"></i></a>
-                                                   <a class="badge bg-warning mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAction"
-                                                   (click)="openDeleteModal(actions.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                                   <a class="btn btn-sm btn-update mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update_action" (click)="openUpdateModal(actions)"><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                                                   <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAction"
+                                                   (click)="openDeleteModal(actions.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                                                  </div>
                                                </td>
                                                <td><a [routerLink]="['/infoAction/', actions.id]">{{ actions.intitule }}</a></td>
@@ -144,28 +144,27 @@
                                              </tr>
                                            </tbody>
                                          </table>
-                                         <div class="modal fade" id="deleteAction" tabindex="-1" role="dialog" aria-hidden="true">
-                                           <div class="modal-dialog modal-dialog-centered" role="document">
-                                               <div class="modal-content">
-                                                   <div class="modal-body">
-                                                       <div class="popup text-left">
-                                                           <h4 class="mb-3">Confirmer la suppression</h4>
-                                                           <div class="content create-workform bg-body">
-                                                               <div class="pb-3">
-                                                                   <label class="mb-2">Est ce que vous voulez supprimer cette action définitivement !!</label>
-                                                               </div>
-                                                               <div class="col-lg-12 mt-4">
-                                                                   <div class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                                                       <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteAction()">Supprimer</div>
-                                                                       <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="deleteAction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                          aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header delete-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                Attention , cette action est irréversible !
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-delete-modal" data-dismiss="modal" (click)="deleteAction()"><i class="fas fa-trash"></i>Supprimer</button>
+                                                <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                        </td>
                                      </tr>
                                    </tbody>
@@ -322,8 +321,8 @@
                                                 
                                                  <div class="d-flex align-items-end flex-column" >
                                                   <div class="mt-auto p-2">
-                                                    <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="actionForm.invalid"><i class="fas fa-plus"></i>Ajouter</button>
-                                                    <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                                                    <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid"><i class="fas fa-plus"></i>Ajouter</button>
+                                                    <button type="button" class="btn btn-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
                                                  </div>
                                                  </div>
                                               </form>
@@ -349,7 +348,7 @@
        <div class="modal-content">
          <div class="modal-header" style="background-color: #089bd7;">
             <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier action amélioration</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="actionForm.reset()">
             <span aria-hidden="true" style="color:black">×</span>
             </button>
          </div>
@@ -487,8 +486,8 @@
               </div>
                <div class="d-flex align-items-end flex-column">
                   <div class="mt-auto p-2">
-                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
-                     <button type="button" class="btn bg-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                     <button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+                     <button type="button" class="btn btn-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
                   </div>
                </div>
              </form>
@@ -498,7 +497,7 @@
 </div> 
 <!-- Page end  -->
 <ng-template #successModal>
-  <div class="modal-header">
+  <div class="modal-header update-header">
    <h4 class="modal-title">Succès</h4>
    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
      <span aria-hidden="true">&times;</span>
@@ -508,12 +507,12 @@
    L'action a été modifié avec succès.
   </div>
   <div class="modal-footer">
-   <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+   <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
   </ng-template>
   <!-- Page end  -->
   <ng-template #addModal>
-    <div class="modal-header">
+    <div class="modal-header success-header">
       <h4 class="modal-title">Succès</h4>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
@@ -523,6 +522,6 @@
       L'action a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+      <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </ng-template>

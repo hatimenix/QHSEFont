@@ -32,8 +32,18 @@ export class ListTachesComponent {
     etat:true,
   };
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPage: number = 10;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.filteredTaches.length / this.itemsPerPage);
+  }
+
+  get displayedTaches(): Taches[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredTaches.slice(startIndex, endIndex);
+  }
   id : any 
   nom_tache : any 
   date_debut : any
@@ -95,6 +105,8 @@ export class ListTachesComponent {
       document.getElementById('delete')
     );
     document.addEventListener('click', this.onDocumentClick.bind(this));
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
 
   }
   ngOnDestroy() {
@@ -230,10 +242,16 @@ resetSearchQuery() {
 }
 filterEnCours() {
   this.filteredTaches = this.originalTaches.filter(tache => tache.etat === 'En cours');
+  this.sources.forEach((source) => {
+    source.expanded = true;
+  });
 }
 
 filterTermine() {
   this.filteredTaches = this.originalTaches.filter(tache => tache.etat === 'Terminé');
+  this.sources.forEach((source) => {
+    source.expanded = true;
+  });
 }
 
 exportToExcel() {
@@ -268,6 +286,22 @@ toggleDropdown() {
 
 onDocumentClick(event: MouseEvent) {
   this.autoCloseDropdown = true;
+}
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredTaches.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredTaches.length} entrées`;
 }
 
 }
