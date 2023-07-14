@@ -7,9 +7,11 @@
               <div class="header-title">
                 <h4 class="card-title">Liste des fournisseurs</h4>
               </div>
-              <a routerLink="/add-fournisseurs" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
-                <i class="las la-plus"></i> Ajouter un fournisseur
-              </a>               
+              <div class="col-sm-6 col-md-6 text-right" style="margin-right: -2.5%;">
+                <div class="user-list-files d-flex align-items-center overflow-hidden">
+                    <a routerLink="/add-fournisseurs" class="bg1">
+                        <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
+                    </a>               
             </div>
            </div>
   
@@ -22,7 +24,7 @@
                   <i class="fas fa-search" style="font-size: 1rem;"></i>
                 </span>
               </div>
-              <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+              <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
               <div class="input-group-append">
                 <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
                   <i class="fas fa-times"></i>
@@ -31,7 +33,7 @@
             </div>
           
             <div class="dropdown">
-              <button class="btn btn-sm dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown"
+              <button style="margin-top: -2%;" class="btn btn-lg btn-outline-primary waves-effect dropdown-toggle " type="button" id="filterDropdown" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" data-offset="0,5">
                 <i class="fas fa-filter"></i>Filtrer par
               </button>
@@ -76,7 +78,7 @@
             </div>
           </div>                    
 
-          <div>
+          <!-- <div>
             <div class="containers">
               <button class="toggle-button" (click)="toggleWindow()">
                 <i class="fas fa-angle-double-left"></i>
@@ -95,24 +97,9 @@
                   <i class="fas fa-times"></i>
                 </button>
               </div>
-            </div>
+            </div> -->
 
-            <div class="row mt-2 justify-content-end">
-              <div class="dropdown">
-                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  Afficher {{ itemsPerPage }} résultats par page
-                </button>
-                <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
-                  <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
-                    [ngClass]="{'selected': option === itemsPerPage}">
-                    <span>{{ option }}</span>
-                    <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
-                  </a>
-                </div>
-              </div>
-            </div>   
-
+            <div class=" mt-3 d-flex  justify-content-between">
             <div class="settings-dropdown" (click)="onDropdownClick($event)">
               <div class="dropdown">
                 <button class="settings-icon" id="settingsDropdown" (click)="toggleDropdown()">
@@ -139,6 +126,20 @@
                 </div>
               </div>
             </div>  
+            <div class="dropdown" style="margin-bottom: -3%;">
+              <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Afficher {{ itemsPerPage }} résultats par page
+              </button>
+              <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                  [ngClass]="{'selected': option === itemsPerPage}">
+                  <span>{{ option }}</span>
+                  <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                </a>
+              </div>
+            </div>
+          </div>   
 
             
             <div class="col-lg-12">
@@ -147,7 +148,7 @@
                   <thead>
                     <tr>
                       <th scope="col">
-                        <a href="javascript:void(0);" (click)="sortByReverseAlphabet()">Nom du fournisseur</a>
+                        <a href="javascript:void(0);" (click)="sortByReverseAlphabet()" class="mr-1">Nom du fournisseur</a>
                         <i class="fa fa-sort" *ngIf="!isReverseSorting"></i>
                         <i class="fa fa-sort-amount-down-alt" *ngIf="isReverseSorting"></i>
                       </th> 
@@ -202,11 +203,11 @@
                       <td>{{fournisseur.telephonepersonnel}}</td>
                       <td>
                         <div class="d-flex justify-content-start align-items-center list-action">
-                          <a class="badge bg-success mr-2" style="cursor: pointer;" (click)="getFournisseurData(fournisseur.id, fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation, fournisseur.numero_de_recepisse_de_declaration_prefectorale, fournisseur.pageweb, fournisseur.telephone, fournisseur.numerodetelecopie, fournisseur.adresse, fournisseur.codepostal, fournisseur.ville, fournisseur.pays, fournisseur.nometprenom, fournisseur.adressedecourier, fournisseur.fonction, fournisseur.numerodetelephone, fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
-                            <i class="ri-pencil-line mr-0"></i>
+                          <a class="btn btn-sm btn-update mr-2" style="cursor: pointer;" (click)="getFournisseurData(fournisseur.id, fournisseur.nom, fournisseur.numerodesiret, fournisseur.type_de_prestation, fournisseur.numero_de_recepisse_de_declaration_prefectorale, fournisseur.pageweb, fournisseur.telephone, fournisseur.numerodetelecopie, fournisseur.adresse, fournisseur.codepostal, fournisseur.ville, fournisseur.pays, fournisseur.nometprenom, fournisseur.adressedecourier, fournisseur.fonction, fournisseur.numerodetelephone, fournisseur.telephonepersonnel)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
+                            <i class="ri-pencil-line mr-0" style="color: white;"></i>
                           </a>
-                          <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)" data-placement="top" title="" data-original-title="Delete">
-                            <i class="ri-delete-bin-line mr-0"></i>
+                          <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(fournisseur.id)" data-placement="top" title="" data-original-title="Delete">
+                            <i class="ri-delete-bin-line mr-0" style="color: white;"></i>
                           </a>
                         </div>
                       </td>
@@ -242,7 +243,7 @@
 aria-hidden="true">
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-header">
+    <div class="modal-header delete-header">
       <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -252,10 +253,10 @@ aria-hidden="true">
       Attention , cette action est irréversible !
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="deleteItem()">
+      <button type="button" class="btn btn-delete-modal" (click)="deleteItem()">
         <i class="fas fa-trash"></i> Supprimer
       </button>
-      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+      <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </div>
 </div>
@@ -395,7 +396,7 @@ aria-hidden="true">
 </div> 
 <!-- Page end  -->
 <ng-template #successModal>
-  <div class="modal-header">
+  <div class="modal-header update-header">
     <h4 class="modal-title">Succès</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
@@ -405,6 +406,6 @@ aria-hidden="true">
     Le fournisseur a été modifié avec succès.
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
 </ng-template>

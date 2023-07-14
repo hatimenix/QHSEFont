@@ -49,6 +49,22 @@
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
+              <div class="row mr-2 mt-2 justify-content-end">
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdownForces" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Afficher {{ forcesPagination.itemsPerPage }} résultats par page
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdownForces">
+                    <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of forcesPagination.itemsPerPageOptions" (click)="onForcesItemsPerPageChange(option)"
+                      [ngClass]="{'selected': option === forcesPagination.itemsPerPage}">
+                      <span>{{ option }}</span>
+                      <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === forcesPagination.itemsPerPage"></i>
+                    </a>
+                  </div>
+                </div>
+                
+              </div>   
               <table class="table">
                 <thead>
                   <tr>
@@ -57,7 +73,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
+                  <tr *ngFor="let risque of displayedForcesRisques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
                     <ng-container *ngIf="toNumber(risque.maitrise) >= 0 && toNumber(risque.maitrise) <= 0.4">
                       <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                       <td>
@@ -69,6 +85,22 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                <div>
+                  <span class="entry-info">
+                    {{ getDisplayedRangeForForces() }}
+                  </span>
+                </div>
+                <div style="display: flex;justify-content: flex-end;">
+                  <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                  <div class="page-info">
+                    <span class="page-numbers">
+                      <button class="btn page-number" *ngFor="let page of getPageNumbersForForces()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                    </span>
+                  </div>
+                  <button class="btn" [disabled]="p === totalForcesPages" (click)="p = p + 1">Suivant</button>
+                </div>
+              </div>  
             </div>
           </div>
         </div>
@@ -81,6 +113,22 @@
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
+              <div class="row mr-2 mt-2 justify-content-end">
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdownFaiblesses" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Afficher {{ faiblessesPagination.itemsPerPage }} résultats par page
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdownFaiblesses">
+                    <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of faiblessesPagination.itemsPerPageOptions" (click)="onFaiblessesItemsPerPageChange(option)"
+                      [ngClass]="{'selected': option === faiblessesPagination.itemsPerPage}">
+                      <span>{{ option }}</span>
+                      <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === faiblessesPagination.itemsPerPage"></i>
+                    </a>
+                  </div>
+                </div>
+                
+              </div>   
             <table class="table">
               <thead>
                 <tr>
@@ -89,7 +137,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
+                <tr *ngFor="let risque of displayedFaiblessesRisques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
                   <ng-container *ngIf="toNumber(risque.maitrise) > 0.7 && toNumber(risque.maitrise) <= 0.9">
                     <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                     <td>
@@ -101,6 +149,22 @@
                 </tr>
               </tbody>
             </table>
+            <div class="pagination-container" style="display: flex; justify-content: space-between;">
+              <div>
+                <span class="entry-info">
+                  {{ getDisplayedRangeForFaiblesses() }}
+                </span>
+              </div>
+              <div style="display: flex;justify-content: flex-end;">
+                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                <div class="page-info">
+                  <span class="page-numbers">
+                    <button class="btn page-number" *ngFor="let page of getPageNumbersForFaiblesses()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                  </span>
+                </div>
+                <button class="btn" [disabled]="p === totalFaiblessesPages" (click)="p = p + 1">Suivant</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,6 +179,21 @@
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
+              <div class="row mr-2 mt-2 justify-content-end">
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdownOpportunites" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Afficher {{ opportunitesPagination.itemsPerPage }} résultats par page
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdownOpportunites">
+                    <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of opportunitesPagination.itemsPerPageOptions" (click)="onOpportunitesItemsPerPageChange(option)"
+                      [ngClass]="{'selected': option === opportunitesPagination.itemsPerPage}">
+                      <span>{{ option }}</span>
+                      <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === opportunitesPagination.itemsPerPage"></i>
+                    </a>
+                  </div>
+                </div>                
+              </div>   
             <table class="table">
               <thead>
                 <tr>
@@ -123,7 +202,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
+                <tr *ngFor="let risque of displayedOpportunitesRisques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
                   <ng-container *ngIf="toNumber(risque.maitrise) > 0.4 && toNumber(risque.maitrise) <= 0.7">
                     <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                     <td>
@@ -135,6 +214,22 @@
                 </tr>
               </tbody>
             </table>
+            <div class="pagination-container" style="display: flex; justify-content: space-between;">
+              <div>
+                <span class="entry-info">
+                  {{ getDisplayedRangeForOpportunites() }}
+                </span>
+              </div>
+              <div style="display: flex;justify-content: flex-end;">
+                <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                <div class="page-info">
+                  <span class="page-numbers">
+                    <button class="btn page-number" *ngFor="let page of getPageNumbersForOpportunites()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                  </span>
+                </div>
+                <button class="btn" [disabled]="p === totalOpportunitesPages" (click)="p = p + 1">Suivant</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -147,6 +242,21 @@
           </div>
           <div class="card-body">
             <div class="table-responsive rounded mb-3">
+              <div class="row mr-2 mt-2 justify-content-end">
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Afficher {{ menacesPagination.itemsPerPage }} résultats par page
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                    <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of menacesPagination.itemsPerPageOptions" (click)="onMenacesItemsPerPageChange(option)"
+                      [ngClass]="{'selected': option === menacesPagination.itemsPerPage}">
+                      <span>{{ option }}</span>
+                      <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === menacesPagination.itemsPerPage"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>   
             <table class="table">
               <thead>
                 <tr>
@@ -155,7 +265,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let risque of risques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
+                <tr *ngFor="let risque of displayedMenacesRisques; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1}">
                   <ng-container *ngIf="toNumber(risque.maitrise) >= 1">
                     <td><a routerLink="/analyserisque/{{ risque.id }}">{{risque.description}}</a></td>
                     <td>
@@ -167,6 +277,23 @@
                 </tr>
               </tbody>
             </table>
+            <div class="pagination-container" style="display: flex; justify-content: space-between;">
+              <div>
+                <span class="entry-info">
+                  {{ getDisplayedRangeForMenaces() }}
+                </span>
+              </div>
+              <div style="display: flex;justify-content: flex-end;">
+                <button class="btn" [disabled]="menacesPagination.p === 1" (click)="menacesPagination.p = menacesPagination.p - 1">Précedent</button>
+                <div class="page-info">
+                  <span class="page-numbers">
+                    <button class="btn page-number" *ngFor="let page of getPageNumbersForMenaces()" [disabled]="menacesPagination.p === page" (click)="menacesPagination.p = page" [ngClass]="{'selected': menacesPagination.p === page}">{{ page }}</button>
+                  </span>
+                </div>
+                <button class="btn" [disabled]="menacesPagination.p === totalMenacesPages" (click)="menacesPagination.p = menacesPagination.p + 1">Suivant</button>
+              </div>
+              
+            </div>
           </div>
         </div>
       </div>

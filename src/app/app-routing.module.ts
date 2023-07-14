@@ -33,7 +33,6 @@ import { AddSiteComponent } from './Components/Sites/add-site/add-site.component
 import { UpdateSiteComponent } from './Components/Sites/update-site/update-site.component';
 import { LisSecteurComponent } from './Components/Secteurs/lis-secteur/lis-secteur.component';
 import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secteur.component';
-import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
 import { InfoActionComponent } from './Components/Actions/info-action/info-action.component';
 import { InfoNcComponent } from './Components/Non-comfirmite/info-nc/info-nc.component';
 
@@ -107,6 +106,8 @@ import { InfoAxesComponent } from './Components/AxesStratégiques/info-axes/info
 import { ListAnalyseSWOTComponent } from './Components/AnalysesRisques/list-analyse-swot/list-analyse-swot.component';
 import { CartographieRisquesComponent } from './Components/AnalysesRisques/cartographie-risques/cartographie-risques.component';
 import { AddRisquesComponent } from './Components/AnalysesRisques/add-risques/add-risques.component';
+import { ListSourceComponent } from './Components/Source/list-source/list-source.component';
+import { ListTypepartiesComponent } from './Components/TypeParties/list-typeparties/list-typeparties.component';
 
 
 
@@ -146,7 +147,6 @@ const routes: Routes = [
   { path: 'updateSite/:id', component: UpdateSiteComponent, canActivate: [AuthGuardService] },
   { path: 'listSecteur', component: LisSecteurComponent, canActivate: [AuthGuardService] },
   { path: 'addSecteur', component: AddSecteurComponent, canActivate: [AuthGuardService] },
-  { path: 'updateSecteur/:id', component: UpdateSecteurComponent, canActivate: [AuthGuardService] },
   { path: 'nc/:id', component: InfoNcComponent, canActivate: [AuthGuardService] },
   //documentation
   { path: 'listdocument', component: ListDocumentationComponent, canActivate: [AuthGuardService] },
@@ -235,6 +235,10 @@ const routes: Routes = [
   { path: 'analyseSWOT', component: ListAnalyseSWOTComponent, canActivate: [AuthGuardService] },
   { path: 'cartographieRisque', component: CartographieRisquesComponent, canActivate: [AuthGuardService] },
   { path: 'add-risque', component: AddRisquesComponent, canActivate: [AuthGuardService] },
+  { path: 'source-list', component: ListSourceComponent, canActivate: [AuthGuardService] },
+  { path: 'typepartie-list', component: ListTypepartiesComponent, canActivate: [AuthGuardService] },
+
+
 
 
 

@@ -181,8 +181,15 @@
 .ipr-column {
   padding-left: 20px;
 }
+.modal-header{
+  background-color: #089bd7;
+  color: white;
+}  
+.scrollable-content {
+  max-height: 100px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
 
-
-  
   
   

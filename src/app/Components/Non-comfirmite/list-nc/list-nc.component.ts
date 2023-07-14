@@ -315,8 +315,8 @@ getNcData( id : number,
   gravite:any,
   action_immediate:any,
   nc_cloture:any,
-  processus:any,
   site:any,
+  processus:any,
   responsable_traitement:any,
 
   ){
@@ -340,8 +340,8 @@ getNcData( id : number,
     this.gravite=gravite,
     this.action_immediate=action_immediate,
     this.nc_cloture=nc_cloture,
-    this.processus=processus,
     this.site=site,
+    this.processus=processus,
     this.responsable_traitement=responsable_traitement
 
 

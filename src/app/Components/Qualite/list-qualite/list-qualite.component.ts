@@ -241,4 +241,5 @@ export class ListQualiteComponent implements OnInit {
     return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredQualites.length} entrées`;
   }
   
+  
 }
