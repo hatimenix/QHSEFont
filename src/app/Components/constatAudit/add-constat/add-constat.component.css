@@ -1,4 +1,4 @@
-.btn-primary {
+/* .btn-primary {
     background-color: #089bd7;
     border-color: #089bd7;
 }
@@ -29,3 +29,9 @@ button+button {
      border-color: #aaa;
  }
 
+
+
+.checkbox-list {
+    max-height: 70px;
+    overflow-y: auto;
+} */

@@ -3,9 +3,9 @@
        <div class="row">
            <div class="col-sm-12">
                <div class="card">
-                   <div class="card-header d-flex justify-content-between" style="background-color: #17469d;">
+                   <div class="card-headers d-flex justify-content-between" style="background-color: #17469d;">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter Danger</h4>
+                           <h4 >Ajouter Danger</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -100,3 +100,18 @@
        <!-- Page end  -->
    </div>
 </div>
+<!-- Modal -->
+<ng-template #successModal>
+    <div class="modal-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Le danger a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+  </ng-template>

@@ -36,6 +36,7 @@ export class AddUsersComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
+      image: ['', Validators.required],
       nom_user: ['', Validators.required],
       nom_complet: ['', Validators.required],
       password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}')]],
@@ -75,6 +76,7 @@ export class AddUsersComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
+  
     const selectedGroupes = this.userForm.value.groupes_roles || [];
     const selectedIds = this.getSelectedCheckboxId();
     const newUser: UserApp = {
@@ -83,17 +85,25 @@ export class AddUsersComponent implements OnInit {
       permissions: [] // Initialize an empty array for storing permissions
     };
   
+    const formData = new FormData();
+    formData.append('nom_user', this.userForm.get('nom_user')?.value);
+    formData.append('nom_complet', this.userForm.get('nom_complet')?.value);
+    formData.append('password', this.userForm.get('password')?.value);
+    formData.append('email', this.userForm.get('email')?.value);
+    formData.append('actif', this.userForm.get('actif')?.value);
+    formData.append('send_email', this.userForm.get('send_email')?.value);
+    formData.append('image', this.userForm.get('image')?.value);
+  
     // Retrieve the permissions for each selected group
     for (const groupId of selectedIds) {
       const parsedGroupId = parseInt(groupId, 10); // Convert the groupId to a number
       this.groupeUserService.getGroupPermissions(parsedGroupId).subscribe(
         permissions => {
-          newUser.permissions = newUser.permissions.concat(permissions);// Add the retrieved permissions to the user object
-           
+          newUser.permissions = newUser.permissions.concat(permissions); // Add the retrieved permissions to the user object
   
           if (parsedGroupId === parseInt(selectedIds[selectedIds.length - 1], 10)) {
             // If it's the last group, create the user
-            this.userAppService.createUserApp(newUser).subscribe(
+            this.userAppService.createUserApp(formData).subscribe(
               user => {
                 console.log('User created successfully:', user);
                 console.log("Permissions", permissions)
@@ -113,6 +123,7 @@ export class AddUsersComponent implements OnInit {
       );
     }
   }
+  
   // Inside your component class
 // 
 
@@ -122,6 +133,10 @@ export class AddUsersComponent implements OnInit {
   }
   closeModal() {
     this.bsModalService.hide();
+}
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  this.userForm.get('image')?.setValue(file);
 }
   
 

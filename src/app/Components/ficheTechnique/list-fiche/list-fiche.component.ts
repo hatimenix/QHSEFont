@@ -73,6 +73,14 @@ export class ListFicheComponent implements OnInit {
       this.getFiches();
     }
   }
+  resetTypeFilters(): void {
+    // Reset the selected filters and reload the data
+    this.typePlatSelectionne = ''; // Reset the selected type filter
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.getFiches(); // Reload the data
+  }
+
+
   //delete modal 
 confirmDelete(): void {
   this.ficheService.deleteFiche(this.ficheIdToDelete)
@@ -134,6 +142,7 @@ getDisplayedRange(): string {
   const endIndex = Math.min(this.p * this.itemsPerPage, this.fiches.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.fiches.length} entrées`;
 }
+
 
 
 }

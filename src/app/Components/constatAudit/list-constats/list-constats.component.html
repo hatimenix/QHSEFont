@@ -3,30 +3,32 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
+
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Liste des Constats d'audit </h4>
+                            <h4 class="card-title">Liste des Constats d'audit</h4>
                         </div>
-                        <div class="col-sm-6 col-md-6">
-                            <div class="user-list-files d-flex align-items-center">
-                                <a routerLink="/addConstatAudit" class="custom-button" href="javascript:void();">
-                                    Ajouter un Constat d'audit
+                        <div class="col-sm-6 col-md-6 text-right" style="margin-right: -2.5%;">
+                            <div class="user-list-files d-flex align-items-center overflow-hidden">
+                                <a routerLink="/addConstatAudit" class="bg1">
+                                    <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
                                 </a>
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body">
 
-                        <div class="row justify-content-between">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="input-group col-md-6">
+                        <div class="row ">
+                            <div class="col-4">
+                                <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-search" style="font-size: 1rem;"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" placeholder="Chercher"
-                                        [(ngModel)]="searchQuery">
+                                    <input style="height: 45px;" type="text" class="form-control form-control-sm"
+                                        placeholder="Chercher" [(ngModel)]="searchQuery">
                                     <div class="input-group-append">
                                         <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
                                             <i class="fas fa-times"></i>
@@ -35,10 +37,8 @@
                                 </div>
                             </div>
 
-                        </div>
 
-                        <div class="mt-3 d-flex align-items-center">
-                            <div class="mr-2 position-relative">
+                            <div class="col-3">
                                 <form [formGroup]="myForm">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -67,7 +67,7 @@
                             </div>
 
 
-                            <div class="input-group" style="max-width: 200px;">
+                            <div class="input-group" style="max-width: 240px;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-filter"></i>
@@ -88,66 +88,80 @@
                                 </div>
                             </div>
 
-
-                            <button style="height: 47px; margin-left: 20px;" (click)="exportToExcel()"
-                                class="btn btn-success">
-                                <i class="fas fa-file-excel mr-1"></i> Export Excel
-                            </button>
                         </div>
 
 
 
-                        <div class="d-flex justify-content-end">
-                            <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Afficher {{ itemsPerPage }} résultats par page
+                        <div class="row justify-content-between ">
+                            <div class="col-4">
+                                <button style="height: 47px;" (click)="exportToExcel()" class="mt-3 btn btn-success">
+                                    <i class="fas fa-file-excel mr-1"></i> Export Excel
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="itemsPerPageDropdown">
-                                    <a class="dropdown-item" style="cursor: pointer;"
-                                        *ngFor="let option of itemsPerPageOptions"
-                                        (click)="onItemsPerPageChange(option)"
-                                        [ngClass]="{'selected': option === itemsPerPage}">
-                                        <span>{{ option }}</span>
-                                        <i style="margin-left: 1%;" class="fas fa-check"
-                                            *ngIf="option === itemsPerPage"></i>
-                                    </a>
+                            </div>
+
+
+
+
+
+                            <div class="d-flex justify-content-end mt-5">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Afficher {{ itemsPerPage }} résultats par page
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                        aria-labelledby="itemsPerPageDropdown">
+                                        <a class="dropdown-item" style="cursor: pointer;"
+                                            *ngFor="let option of itemsPerPageOptions"
+                                            (click)="onItemsPerPageChange(option)"
+                                            [ngClass]="{'selected': option === itemsPerPage}">
+                                            <span>{{ option }}</span>
+                                            <i style="margin-left: 1%;" class="fas fa-check"
+                                                *ngIf="option === itemsPerPage"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
 
 
-                            <table class="table rounded   mt-4" aria-describedby="user-list-page-info">
+                            <table class="table rounded   mt-2" aria-describedby="user-list-page-info">
                                 <thead>
                                     <tr>
-                                        <th>Processus</th>
-                                        <th>Intitulé du constat</th>
-                                        <th>Type de constat</th>
-                                        <th>Audit associé</th>
-                                        <th>Site</th>
-                                        <th>Responsable du traitement</th>
-
-                                        <th>Date de réponse</th>
-                                        <th>Localisation</th>
-                                        <th>Type d'audit </th>
-                                        <th>Rapport d'audit</th>
-
-                                        <th>Action</th>
+                                        <th class="text-center" style="width: 10%">Processus</th>
+                                        <th class="text-center" style="width: 20%">Intitulé du constat</th>
+                                        <th class="text-center" style="width: 10%">Type de constat</th>
+                                        <th class="text-center" style="width: 10%">Audit associé</th>
+                                        <th class="text-center" style="width: 10%">Site</th>
+                                        <th class="text-center" style="width: 15%">Responsable du traitement</th>
+                                        <th class="text-center" style="width: 10%">Date de réponse</th>
+                                        <th class="text-center" style="width: 10%">Localisation</th>
+                                        <th class="text-center" style="width: 10%">Type d'audit</th>
+                                        <th class="text-center" style="width: 10%">Rapport d'audit</th>
+                                        <th class="text-center" style="width: 5%">Action</th>
                                     </tr>
                                 </thead>
 
 
                                 <ng-container *ngFor="let process of processuss">
                                     <tbody class="ligth-body">
-                                        <td data-column="name">
-                                            <a href="javascript:void(0);" class="toggle-icon"
-                                                (click)="process.expanded = !process.expanded">
-                                                <i class="fa fa-chevron-right" *ngIf="!process.expanded"></i>
-                                                <i class="fa fa-chevron-down" *ngIf="process.expanded"></i>
-                                            </a>
-                                            <a href="javascript:void(0);">{{ process.intitule }}</a>
+                                        <td style="word-wrap: break-word;" data-column="name">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto pr-2">
+                                                    <a href="javascript:void(0);" class="toggle-icon"
+                                                        (click)="process.expanded = !process.expanded">
+                                                        <i class="fa fa-chevron-right" *ngIf="!process.expanded"></i>
+                                                        <i class="fa fa-chevron-down" *ngIf="process.expanded"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="javascript:void(0);" class="text-nowrap">{{
+                                                        process.intitule }}</a>
+                                                </div>
+                                            </div>
                                         </td>
+
                                         <ng-container *ngIf="process.expanded ">
 
 
@@ -160,52 +174,57 @@
                                                 <tr *ngIf="const.processus == process.id"
                                                     [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                                                     <td></td>
-                                                    <td> <a routerLink="/infoconstat/{{const.id}}">
-                                                            {{const.intitule_constat}}</a></td>
-                                                    <td>{{const.type_constat}}</td>
-                                                    <td>{{const.audit_associe}}</td>
-                                                    <td>{{const.site_}}</td>
-
-
-                                                    <td>
+                                                    <td style="word-wrap: break-word;"><a
+                                                            routerLink="/infoconstat/{{const.id}}">{{const.intitule_constat}}</a>
+                                                    </td>
+                                                    <td style="word-wrap: break-word;">{{const.type_constat}}</td>
+                                                    <td style="word-wrap: break-word;">{{const.audit_associe}}</td>
+                                                    <td style="word-wrap: break-word;">{{const.site_}}</td>
+                                                    <td style="word-wrap: break-word;">
                                                         <ng-container *ngFor="let utilisateur of utilisateurs">
                                                             <ng-container
                                                                 *ngIf="const.responsable_traitement.includes(utilisateur.id)">
                                                                 <a href="javascript:void(0);"
-                                                                    (click)="openUtilisateurModal(utilisateur)">
-                                                                    {{ utilisateur?.nom }}
-                                                                </a>
-                                                                <br>
+                                                                    (click)="openUtilisateurModal(utilisateur)">{{
+                                                                    utilisateur?.nom }}</a><br>
                                                             </ng-container>
                                                         </ng-container>
                                                     </td>
-                                                    <td>{{const.date_reponse}}</td>
-                                                    <td>{{const.localisation}}</td>
-                                                    <td>{{const.type_audit}}</td>
-                                                    <td>
+                                                    <td style="word-wrap: break-word;">{{const.date_reponse}}</td>
+                                                    <td style="word-wrap: break-word;">{{const.localisation}}</td>
+                                                    <td style="word-wrap: break-word;">{{const.type_audit}}</td>
+                                                    <td style="white-space: nowrap;;">
                                                         <a class="btn fa fa-download mr-3"
-                                                            href="{{ const.rapport_audit}}" download>
-                                                            {{ const.rapport_audit ?const.rapport_audit.split('/').pop()
-                                                            : 'Aucun
-                                                            fichier joint' }}
+                                                            href="{{ const.rapport_audit }}" download>
+                                                            {{ const.rapport_audit ?
+                                                            const.rapport_audit.split('/').pop() : 'Aucun fichier joint'
+                                                            }}
                                                         </a>
-
-
                                                     </td>
                                                     <td>
-                                                        <div class="flex align-items-center list-user-action">
-                                                            <a class="badge btn-sm bg-primary" data-toggle="modal"
+                                                        <div class="d-flex align-items-center list-action">
+                                                            <!-- <a class="badge btn-sm bg-primary" data-toggle="modal"
                                                                 data-target="#update" data-placement="top" title="Edit"
                                                                 (click)="getCAData(const.id, const.intitule_constat, const.type_constat, const.audit_associe, const.site, const.responsable_traitement, const.processus, const.date_reponse, const.localisation, const.type_audit , const.description_constat)">
                                                                 <i class="ri-pencil-line mr-0"></i>
                                                             </a>
-                                                            <span class="spacer"></span> <!-- Add a spacer element -->
+                                                            <span class="spacer"></span>
                                                             <a class="badge btn-sm bg-danger" style="cursor: pointer;"
                                                                 data-toggle="tooltip"
                                                                 (click)="openDeleteModal(const.id)" data-placement="top"
                                                                 title="Delete">
                                                                 <i class="ri-delete-bin-line mr-0"></i>
-                                                            </a>
+                                                            </a> -->
+
+                                                            <a class="badge bg-success mr-2" data-toggle="modal"
+                                                                data-target="#update" data-placement="top" title="Edit"
+                                                                (click)="getCAData(const.id, const.intitule_constat, const.type_constat, const.audit_associe, const.site, const.responsable_traitement, const.processus, const.date_reponse, const.localisation, const.type_audit , const.description_constat)"
+                                                                queryParamsHandling="merge"><i
+                                                                    class="ri-pencil-line mr-0"></i></a>
+                                                            <a class="badge btn-danger mr-2" data-toggle="tooltip"
+                                                                (click)="openDeleteModal(const.id)" data-placement="top"
+                                                                title="Delete"><i
+                                                                    class="ri-delete-bin-line mr-0"></i></a>
                                                         </div>
 
                                                     </td>
@@ -598,16 +617,18 @@
                             <div class="col">
                                 <label for="responsable_traitement" class="form-label">Responsable du traitement :
                                 </label>
-                                <div *ngFor="let responsable_traitement of (utilisateurs)">
-                                    <label>
-                                        <input type="checkbox"
-                                            [checked]="isResponsableSelected(responsable_traitement.id)"
-                                            formControlName="responsable_traitement"
-                                            (change)="toggleResponsable(responsable_traitement.id)" required>
-                                        {{ responsable_traitement?.nom }}
-                                    </label>
+                                <div class="checkbox-list">
+                                    <div class="checkbox-item"
+                                        *ngFor="let responsable_traitement of utilisateurs.slice(0, 5); let i = index">
+                                        <label>
+                                            <input type="checkbox"
+                                                [checked]="isResponsableSelected(responsable_traitement.id)"
+                                                formControlName="responsable_traitement"
+                                                (change)="toggleResponsable(responsable_traitement.id)" required>
+                                            {{ responsable_traitement?.nom }}
+                                        </label>
+                                    </div>
                                 </div>
-
 
                             </div>
                         </div>

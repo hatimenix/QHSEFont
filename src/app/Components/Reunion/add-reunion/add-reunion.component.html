@@ -1,0 +1,224 @@
+<div class="content-page">
+    <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Ajouter Réunion</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="page-list-returns.html" data-toggle="validator" [formGroup]="reunionForm"
+                            (ngSubmit)="onSubmit()">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Titre <label style="color: red;">*</label></label>
+                                        <input type="text" class="form-control" placeholder="Entrer titre" id="titre"
+                                            name="titre" formControlName="titre">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Type de réunion</label>
+                                        <select type="text" formControlName="type_reunion" class="form-control"
+                                            id="type_reunion" class="selectpicker form-control" data-style="py-0"
+                                            data-live-search="true">
+                                            <option value="" disabled>Choisir un type </option>
+
+                                            <option value="Revue de direction">Revue de direction</option>
+                                            <option value="Revue de processus">Revue de processus</option>
+                                            <option value="Réunion d'échange Jour fixe">Réunion d'échange Jour fixe
+                                            </option>
+                                            <option value="Suivi de projet">Suivi de projet</option>
+                                            <option value="Réunion référent">Réunion référent</option>
+                                            <option value="Réunion qualité, sécurité">Réunion qualité, sécurité</option>
+                                            <option value="Comité de formation">Comité de formation</option>
+                                            <option value="Réunion soins/ménage">Réunion soins/ménage</option>
+                                            <option value="Réunion soins/restauration">Réunion soins/restauration
+                                            </option>
+                                            <option value="Réunion soins/CPG">Réunion soins/CPG</option>
+                                            <option value="Réunion pluridisciplinaire">Réunion pluridisciplinaire
+                                            </option>
+                                            <option value="Réunion d'équipe">Réunion d'équipe</option>
+                                            <option value="Audit">Audit</option>
+                                            <option value="COPIL Humanitude">COPIL Humanitude</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <label>Date prévisionnelle de réunion</label>
+
+                                        <input type="date" class="form-control" id="date_previsionnelle_reunion"
+                                            name="date_previsionnelle_reunion"
+                                            formControlName="date_previsionnelle_reunion">
+
+
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <label>Date réalisation de réunion</label>
+
+                                        <input type="date" class="form-control" id="date_realisation_reunion"
+                                            name="date_realisation_reunion" formControlName="date_realisation_reunion">
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Présents</label>
+                                        <div>
+                                            <input type="text" class="mb-3 form-control" [formControl]="searchControl"
+                                                placeholder="Search" />
+                                        </div>
+
+                                        <div class="checkbox-list"
+                                            *ngIf="searchControl.value && (utilisateurs$ | async) as utilisateurs">
+                                            <div class="checkbox-item"
+                                                *ngFor="let present of filteredUtilisateurs; let i = index">
+                                                <label>
+                                                    <input type="checkbox" [checked]="isPresentsSelected(present?.id)"
+                                                        formControlName="presents"
+                                                        (change)="togglePresents(present?.id)">
+                                                    {{ present?.nom }}
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-item" *ngIf="filteredUtilisateurs.length === 0">
+                                                No results found.
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Liste de diffusion du compte rendu <label
+                                                style="color: red;">*</label></label>
+
+
+
+                                        <div>
+                                            <input type="text" class="mb-3 form-control" [formControl]="searchControl2"
+                                                placeholder="Search" />
+                                        </div>
+
+                                        <div class="checkbox-list"
+                                            *ngIf="searchControl2.value && (utilisateurs$ | async) as utilisateurs">
+                                            <div class="checkbox-item"
+                                                *ngFor="let listdf of filteredUtilisateurs; let i = index">
+                                                <label>
+                                                    <input type="checkbox" [checked]="isListeDiffSelected(listdf?.id)"
+                                                        formControlName="liste_diffusion"
+                                                        (change)="toggleListeDiff(listdf?.id)">
+                                                    {{ listdf?.nom }}
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-item" *ngIf="filteredUtilisateurs.length === 0">
+                                                No results found.
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Personnes extérieurs</label>
+
+                                        <textarea formControlName="personnes_exterieurs" class="form-control"
+                                            id="personnes_exterieurs" name="personnes_exterieurs" rows="2"></textarea>
+                                        <div class="help-block with-errors"></div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ordre de jour</label>
+
+                                        <textarea formControlName="ordre_jour" class="form-control" id="ordre_jour"
+                                            name="ordre_jour" rows="2"></textarea>
+                                        <div class="help-block with-errors"></div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                            <div class="d-flex flex-wrap justify-content-center">
+
+                                <button [disabled]="reunionForm.invalid" type="submit" class="btn btn-primary mr-2"
+                                    (click)="openModal()">Ajouter</button>
+                                <button type="reset" class="btn btn-danger" routerLink="/reunion-list">Annuler</button>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page end  -->
+    </div>
+</div>
+<ng-template #successModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        La réunion a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    </div>
+</ng-template>

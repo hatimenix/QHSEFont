@@ -48,9 +48,12 @@
                                            
                                     </div> 
                                 </div> 
-                           </div>                            
-                           <button type="submit" class="btn btn-primary mr-2" >Modifier</button>
-                           <button type="reset" class="btn btn-danger" routerLink="/listgroupeusers">Annuler</button>
+                           </div>     
+                           <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">
+                       
+                           <button type="submit" class="btn btn-primary mr-2" ><i class="fas fa-pencil-alt"></i>Modifier</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listgroupeusers"><i class="fas fa-times"></i>Annuler</button>
+                           </div>
                        </form>
                    </div>
                </div>
@@ -61,7 +64,7 @@
      </div>-->
      
      <ng-template #successModal>
-        <div class="modal-header">
+        <div class="modal-header update-header">
           <h4 class="modal-title">Succès</h4>
           <button type="button" class="close" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
@@ -71,6 +74,6 @@
           Le groupe a été modifié avec succès.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+          <button type="button" class="btn btn-update-modal" (click)="closeModal()">Fermer</button>
         </div>
       </ng-template>
