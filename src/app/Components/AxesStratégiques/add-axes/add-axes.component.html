@@ -30,7 +30,7 @@
                              </div>
                              </div>                        
                     </form>
-       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
+       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">
         <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createAxe()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
         <button style="margin-bottom: 1%;" type="reset" routerLink="/axe-list" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
       </div>
@@ -39,7 +39,7 @@
        </div>
 <!-- Page end  -->
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header success-header">
       <h4 class="modal-title">Succès</h4>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
@@ -49,7 +49,7 @@
       L'axe stratégique a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+      <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </ng-template>
 

@@ -173,7 +173,7 @@
                             </div>
                           </div>  
                           <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#exampleModalCenter"><i class="las la-plus mr-1"></i>
-                            nouvelle Entrée
+                            Nouvelle Entrée
                             </button>
                  </div>
                 </div>
@@ -214,7 +214,7 @@
                   </div>
                 </div>               
                 <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#personneC"><i class="las la-plus mr-1"></i>
-                  nouvelle personne concerné
+                  Nouvelle personne concerné
                   </button>
                   </div>
                   </div>
@@ -242,7 +242,7 @@
                         </div>
                       </div>                      
                       <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinataireenUE"><i class="las la-plus mr-1"></i>
-                        nouveau destinataire
+                        Nouveau destinataire
                         </button>
                         <hr>
                         <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
@@ -267,7 +267,7 @@
                                 <p>Il n'y a aucun élément à représenter dans cet affichage</p>
                               </div>
                             </div>                            
-                            <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#Mesure"><i class="las la-plus mr-1"></i>nouvelle mesure de sécurité</button>
+                            <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#Mesure"><i class="las la-plus mr-1"></i>Nouvelle mesure de sécurité</button>
                           </div>
                         </div>                        
                               <div class="col-md-12" style="background-color: #badeed; opacity: 1;outline: auto">
@@ -293,7 +293,7 @@
                                     </div>
                                   </div> 
                                   <button type="button" class="btn btn-primary add-list" data-toggle="modal" data-target="#DestinatairehorsUE"><i class="las la-plus mr-1"></i>
-                                    nouveau destinataire
+                                    Nouveau destinataire
                                     </button>
                                     <br>
                                     <label class="text-blue">Si applicable</label>
@@ -307,7 +307,7 @@
                    </div>
                    </div>
                    </div>
-                   <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
+                   <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">
                     <button type="submit" [disabled]="form.invalid" (click)="createTraitement()"  class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
                     <button type="cancel" type="reset" routerLink="/list-registre-traitement" class="btn btn-warning mr-2 mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
                 </div>
@@ -317,7 +317,7 @@
        </div>
        <!-- Page end  -->
 <ng-template #successModal>
-  <div class="modal-header">
+  <div class="modal-header success-header">
     <h4 class="modal-title">Succès</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
@@ -327,7 +327,7 @@
     Le traitement a été ajoutée avec succès.
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
 </ng-template>
 

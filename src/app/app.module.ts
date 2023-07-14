@@ -24,7 +24,6 @@ import { AddSiteComponent } from './Components/Sites/add-site/add-site.component
 import { UpdateSiteComponent } from './Components/Sites/update-site/update-site.component';
 import { LisSecteurComponent } from './Components/Secteurs/lis-secteur/lis-secteur.component';
 import { AddSecteurComponent } from './Components/Secteurs/add-secteur/add-secteur.component';
-import { UpdateSecteurComponent } from './Components/Secteurs/update-secteur/update-secteur.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { InfoEvenementComponent } from './Components/Evenement/info-evenement/info-evenement.component';
@@ -114,6 +113,8 @@ import { AddAnalyseRisqueComponent } from './Components/AnalysesRisques/add-anal
 import { UpdateAnalyseRisqueComponent } from './Components/AnalysesRisques/update-analyse-risque/update-analyse-risque.component';
 import { AddPlanAlimentaireComponent } from './Components/PlanAlimentaire/add-plan-alimentaire/add-plan-alimentaire.component';
 import { ListePlanAlimentaireComponent } from './Components/PlanAlimentaire/liste-plan-alimentaire/liste-plan-alimentaire.component';
+import { ListSourceComponent } from './Components/Source/list-source/list-source.component';
+import { ListTypepartiesComponent } from './Components/TypeParties/list-typeparties/list-typeparties.component';
 import { ForgotPassComponent } from './Components/ForgotPass/forgot-pass/forgot-pass.component';
 import { ResetPassComponent } from './Components/ResetPass/reset-pass/reset-pass.component';
 import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice/add-exercice.component';
@@ -148,7 +149,6 @@ import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reu
     UpdateSiteComponent,
     LisSecteurComponent,
     ListFournisseursComponent,
-    UpdateSecteurComponent,
     AddFournisseursComponent,
 
     AddCommandeComponent,
@@ -229,6 +229,9 @@ import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reu
     UpdateAnalyseRisqueComponent,
     AddPlanAlimentaireComponent,
     ListePlanAlimentaireComponent,
+    ListSourceComponent,
+    ListTypepartiesComponent,
+    AddSecteurComponent,
     ForgotPassComponent,
     ResetPassComponent, 
     AddExerciceComponent,

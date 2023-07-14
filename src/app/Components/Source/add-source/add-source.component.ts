@@ -46,7 +46,7 @@ export class AddSourceComponent {
 
       next: (res) => {
         console.log(res);
-        this.router.navigate(["/tache-list"])
+        this.router.navigate(["/source-list"])
         this.openModal();
         console.log(formData);
         this.submitted = true;
