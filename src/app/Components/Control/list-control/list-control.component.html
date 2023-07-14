@@ -34,7 +34,9 @@
                         
                          
                       </div>
-                      <div class="dropdown" style=" margin-bottom: -2%;">
+                      <div class=" mt-3 d-flex justify-content-between">
+
+                      <div class="dropdown">
                         <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
                           Afficher {{ itemsPerPage }} résultats par page
@@ -46,6 +48,7 @@
                             <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
                           </a>
                         </div>
+                      </div>
                       </div>
                       <div class="table-responsive">
                       <table id="user-list-table" class="table table-striped mt-4" role="grid" aria-describedby="user-list-page-info" style="border: 1px solid #ccc;">
@@ -124,7 +127,7 @@
      </button>
    </div>
    <div class="modal-body">
-     Êtes-vous sûr de vouloir supprimer ce control ?
+     Êtes-vous sûr de vouloir supprimer ce contrôle ?
    </div>
    <div class="modal-footer">
      <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>

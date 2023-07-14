@@ -26,7 +26,7 @@
                     </div>
                     <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
                     <div class="input-group-append">
-                      <button class="btn btn-primary btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
+                      <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
                     </div>
                   </div>
                 </div>
@@ -36,7 +36,8 @@
                           <i class="fas fa-filter"></i>
                       </span>
                   </div>
-                  <select id="mois_concerne" name="mois_concerne" formControlName="mois_concerne" class="selectpicker form-control" data-style="py-0" (change)="filterMenuByMonth()" [(ngModel)]="MoisSelectionne">
+                  <select id="mois_concerne" name="mois_concerne" formControlName="mois_concerne" class="selectpicker form-control" data-style="py-0" (change)="filterMenuByMonth(myForm.get('mois_concerne').value)">
+                  
                     <option value="">Tous</option>
                     <option value="Janvier">Janvier</option>
                     <option value="Février">Février</option>
@@ -94,24 +95,24 @@
                </tr>
              </thead>
               <!-- expanded-->
-            <ng-container *ngFor="let site of site">
+            <ng-container *ngFor="let siteItem of site">
                <!-- expanded-->
                <tbody class="ligth-body">
                 <!-- expanded-->
                  <td data-column="name">
-                  <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
-                    <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
-                     <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
+                  <a href="javascript:void(0);" class="toggle-icon" (click)="siteItem.expanded = !siteItem.expanded">
+                    <i class="fa fa-chevron-right" *ngIf="!siteItem.expanded"></i>
+                     <i class="fa fa-chevron-down" *ngIf="siteItem.expanded"></i>
                    </a>
-                   <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
+                   <a href="javascript:void(0);" (click)="openSiteModal(siteItem)">{{ siteItem.site_nom }}</a>
                  </td>
                  <!--expanded-->
-                 <ng-container *ngIf="site.expanded">
+                 <ng-container *ngIf="siteItem.expanded">
                    <ng-container *ngFor ="let menu of displayedMenus | filter: searchQuery">
                      <tr *ngIf="(menus)?.length === 0">
                        <td colspan="11">Aucune demande trouvée</td>
                      </tr>
-                     <tr *ngIf="menu.site == site.id">
+                     <tr *ngIf="menu.site == siteItem.id">
                        <td></td>
                        
                        <td>{{ menu.mois_concerne }}</td>
