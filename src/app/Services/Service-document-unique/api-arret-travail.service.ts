@@ -31,4 +31,12 @@ export class ApiArretTravailService {
     return this.http.put(url, formData);
   }
 
+  getArretByEvenementId(EvenementId: number): Observable<ArretTravail[]> {
+    return this.http.get<ArretTravail[]>(`${this.API_URL_AT}?evenement=${EvenementId}`).pipe(
+      map((arrteTravail: ArretTravail[]) => {
+        return arrteTravail.filter(a => a.evenement === EvenementId);
+      })
+    );
+  }
+
 }

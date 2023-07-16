@@ -8,7 +8,7 @@ import { RapportAuditService } from 'src/app/Services/Service-rapport-audit/rapp
 import { Personnel } from 'src/app/models/Personnel';
 import { Pj } from 'src/app/models/pj';
 import { RapportAudit } from 'src/app/models/rapportAudit';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-rapport-audit',

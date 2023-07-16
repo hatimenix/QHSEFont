@@ -6,7 +6,7 @@ import { CertificatService } from 'src/app/Services/Service-Certificat/certifica
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { CertificatCalibration } from 'src/app/models/CertificatCalibration';
 import { Personnel } from 'src/app/models/Personnel';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-certificat',

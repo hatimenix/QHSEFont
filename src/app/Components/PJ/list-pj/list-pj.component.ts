@@ -7,7 +7,7 @@ import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.s
 import { PjService } from 'src/app/Services/Service-pj/pj.service';
 import { Personnel } from 'src/app/models/Personnel';
 import { Pj } from 'src/app/models/pj';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-pj',

@@ -4,7 +4,7 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { AnalyseRisques } from 'src/app/models/analyse-risques';
 import { Processus } from 'src/app/models/pocesus';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-analyse-swot',

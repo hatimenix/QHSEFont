@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { MenusService } from 'src/app/Services/Service-Menus/menus.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Menus } from 'src/app/models/Menus';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-menus',

@@ -7,7 +7,7 @@ import { ReunionService } from 'src/app/Services/Service-reunion/reunion.service
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 import { Reunion } from 'src/app/models/Reunion';
 
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 import { Utilsateur } from 'src/app/models/utilsateur';
 declare var window: any;
 

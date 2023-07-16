@@ -5,7 +5,7 @@ import { Equipement } from 'src/app/models/equipement';
 import { ServicesEquipementservice } from 'src/app/Services/Service-equipements/services-equipements.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 import { Secteur } from 'src/app/models/Secteur';
 
 declare var window: any;
