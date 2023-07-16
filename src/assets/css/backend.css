@@ -9031,7 +9031,7 @@ body.sidebar-main .iq-top-navbar {
   display: inline-block;
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  color: #676E8A;
+  color: #fff;
   text-align: center;
   vertical-align: middle;
   user-select: none;
@@ -9046,7 +9046,7 @@ body.sidebar-main .iq-top-navbar {
     .btn {
       transition: none; } }
   .btn:hover {
-    color: #676E8A;
+    color: #fff;
     text-decoration: none; }
   .btn:focus, .btn.focus {
     outline: none;

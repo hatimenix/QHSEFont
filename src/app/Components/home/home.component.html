@@ -90,12 +90,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                       
                         <th scope="col">
                           <a>Intitulé de l'action</a>
                         </th>
@@ -108,7 +103,7 @@
                     </thead>
                     <tbody class="ligth-body">
                       <tr *ngFor="let action of actions; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
-                        <th scope="row" style="color: grey;">{{action.id}}</th>
+                     
                         <td><a routerLink="/action/{{ action.id }}">{{action.intitule}}</a></td>
                         <td>{{action.origine_action}}</td>
                         <td>{{ action.type_action}}</td>
@@ -130,12 +125,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         <th scope="col">
                           <a>Intitulé de la non-conformité</a>
                         </th>
@@ -146,7 +136,6 @@
                     </thead>
                     <tbody class="ligth-body">
                       <tr *ngFor="let nc of ncs; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
-                        <th scope="row" style="color: grey;">{{nc.id}}</th>
                         <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                         <td>{{nc.nature}}</td>
                         <td>{{ nc.date_nc | date }}</td>
@@ -172,12 +161,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         <th scope="col">
                           <a>Intitulé du constat</a>
                         </th>
@@ -202,12 +186,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         <th scope="col">
                           <a>Nom de la tâche</a>
                         </th>
@@ -234,12 +213,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         
                         <th scope="col">Objet</th>
                         <th scope="col">Favoris </th>
@@ -263,12 +237,7 @@
               <table class="data-tables table mb-0 tbl-server-info">
                 <thead>
                   <tr class="light ligth-data">
-                    <th>
-                      <div class="checkbox d-inline-block">
-                        <input type="checkbox" class="checkbox-input" id="checkbox2">
-                        <label for="checkbox2" class="mb-0"></label>
-                      </div>
-                    </th>
+                    
                     <th scope="col">
                       <a>Intitulé du constat</a>
                     </th>
@@ -279,8 +248,6 @@
                 </thead>
                 <tbody class="ligth-body">
                   <tr *ngFor="let action of actions  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
-                    <th scope="row" style="color: grey;">{{action.id}}</th>
-                    <td><a routerLink="/action/{{ action.id }}">{{action.intitule}}</a></td>
                     <td>{{action.origine_action}}</td>
                     <td>{{ action.type_action}}</td>
                     
@@ -298,7 +265,7 @@
           
           <h4 class="card-title mb-0 " style="font-weight: bold;font-size: 23px;color: #089bd7;  margin-top: 8%">Vous êtes sur le portail QHSE !</h4>
           
-          <div  style="margin-top: 6%;">
+          <div style="margin-top: 6%;">
             <div class="card" style="width: 500px; height: 300px;">
               <div class="card-headerH " style="background-color: #a9ce24; color: white;">
                 
@@ -307,7 +274,7 @@
               </div>
               
               <div class="col-lg-5">
-                <img src="https://paiperleck.qualishare.com/qhse_risk/SiteAssets/SitePages/Accueil/QLS_puzzle.png" alt="Image" class="img-fluid">
+                <img src="assets/images/QHSE.png" alt="Image" class="img-fluid">
               </div>
           </div>
          

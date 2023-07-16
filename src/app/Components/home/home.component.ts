@@ -16,12 +16,19 @@ export class HomeComponent {
     { link: '/nc-add', color: 'card-icon', imageSrc: 'assets/images/liste-de-controle.png', title: 'Ouvrir une NC' },
     { link: '/listdocument', color: 'card-icon', imageSrc: 'assets/images/doc.png', title: 'Documentation' },
     { link: '/cartographie', color: 'card-icon',imageSrc: 'assets/images/reseau.png', title: 'Cartographie' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/parametre.png', title: 'Equipements' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/diner.png', title: 'Commande repas' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/restauration.png', title: 'Menus restaurants' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/des-documents.png', title: 'Fiches Techniques' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/health-and-care.png', title: 'Santé mentale' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/regime.png', title: 'Plan Alimentaire' },
+    { link: '/equipement-list', color: 'card-icon', imageSrc: 'assets/images/parametre.png', title: 'Equipements' },
+    { link: '/listC', color: 'card-icon', imageSrc: 'assets/images/diner.png', title: 'Commande repas' },
+    { link: '/listMenu', color: 'card-icon', imageSrc: 'assets/images/restauration.png', title: 'Menus restaurants' },
+    { link: '/listF', color: 'card-icon', imageSrc: 'assets/images/des-documents.png', title: 'Fiches Techniques' },
+    { link: '/sante-list', color: 'card-icon', imageSrc: 'assets/images/health-and-care.png', title: 'Santé mentale' },
+    { link: '/plan-alimentaire-list', color: 'card-icon', imageSrc: 'assets/images/regime.png', title: 'Plan Alimentaire' },
+
+
+    { link: '/analyseSWOT', color: 'card-icon', imageSrc: 'assets/images/analyse.png', title: 'Analyse SWOT' },
+    { link: '/danger', color: 'card-icon', imageSrc: 'assets/images/document-unique.png', title: 'Document Unique' },
+    { link: '/listReunion', color: 'card-icon', imageSrc: 'assets/images/reunion.png', title: 'Suivie des Réunions' },
+    { link: '/listsites', color: 'card-icon', imageSrc: 'assets/images/site.png', title: 'Sites' },
+    { link: '/evenement-list', color: 'card-icon', imageSrc: 'assets/images/event.png', title: 'Registre des événements' },
   ];
   currentSlide = 0;
 

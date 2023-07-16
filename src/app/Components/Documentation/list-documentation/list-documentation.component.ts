@@ -35,7 +35,7 @@ export class ListDocumentationComponent implements OnInit {
   processus  : any[] = [];
 
 //filtrage par type de document
-  typeDocSelectionne!: string;
+selectedType = new FormControl('');
 
    //modal
    @ViewChild('deleteModal', { static: true }) deleteModal!: any;
@@ -80,6 +80,10 @@ constructor(
       location.reload();
     }
     window.scrollTo(0, 0);
+    this.selectedType.valueChanges.subscribe(() => {
+      this.filterDocumentByType();
+    });
+
   }
 
 
@@ -257,18 +261,22 @@ filterDocumentsByProcessus():void{
   }
 }
 //filtrage par type de document 
-filterDocumentByType(): void {
-  if (this.typeDocSelectionne) {
-    this.documentService.getDocuments().subscribe((document) => {
-      this.document = document.filter((f) => f.type_docs === this.typeDocSelectionne);
-    });
+filterDocumentByType() {
+  const selectedType = this.selectedType.value;
+  if (!selectedType) {
+    this.filteredDocuments = this.document; // Show all menus when no month is selected
   } else {
-    this.loaddocument();
+    this.filteredDocuments = this.document.filter((document) => document.type_docs === selectedType);
   }
+}
+
+get displayedDocuments(): any[] {
+  const startIndex = (this.p - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.filteredDocuments.slice(startIndex, endIndex);
 }
 resetTypeFilters(): void {
   // Reset the selected filters and reload the data
-  this.typeDocSelectionne = ''; // Reset the selected type filter
   this.myForm.reset(); // Reset the form and selected site filter
   this.loaddocument(); // Reload the data
 }
@@ -309,11 +317,7 @@ get totalPages(): number {
   return Math.ceil(this.document.length / this.itemsPerPage);
 }
 
-get displayedDocuments(): any[] {
-  const startIndex = (this.p - 1) * this.itemsPerPage;
-  const endIndex = startIndex + this.itemsPerPage;
-  return this.document.slice(startIndex, endIndex);
-}
+
 
 
 onItemsPerPageChange(option: number) {

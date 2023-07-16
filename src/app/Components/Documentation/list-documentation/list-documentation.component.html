@@ -80,8 +80,8 @@
                             <i class="fas fa-filter"></i>
                         </span>
                     </div>
-                    <select id="type_docs" name="type_docs" formControlName="type_docs"  class="selectpicker form-control" data-style="py-0" (change)="filterDocumentByType()" [(ngModel)]="typeDocSelectionne" required>
-                      <option value="">Tous</option>
+                    <select id="type_docs" name="type_docs" formControlName="type_docs"  class="selectpicker form-control" data-style="py-0" [formControl]="selectedType" >
+                      <option value="">Type de document</option>
                       <option value="Template">Template</option>
                       <option value="Formulaire">Formulaire</option>
                       <option value="Procédure">Procédure</option>
@@ -147,7 +147,7 @@
                            <a href="javascript:void(0);">{{ processus.intitule }}</a>
                          </td>
                      <ng-container *ngIf="processus.expanded">
-                        <ng-container *ngFor ="let docs of document | filter: searchQuery">
+                        <ng-container *ngFor ="let docs of displayedDocuments | filter: searchQuery">
                               <tr *ngIf="(docs)?.length === 0">
                                 <td colspan="11">Aucune demande trouvée</td>
                               </tr>  

@@ -13,52 +13,45 @@ import { UserApp } from 'src/app/models/UserApp';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
- 
   @Input() showNavbar: boolean | undefined;
-  user: any  |null = null
-  group : GroupeUser | null=null
-  id!:any
+  user: UserApp | null = null;
+  group: GroupeUser | null = null;
+  id!: any;
 
-
-
-
-  constructor(private authService: AuthService, private router: Router, private sanitizer: DomSanitizer) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
-    this.getUserDetails(); 
+    this.getUserDetails();
   }
-  
+
   getUserDetails(): void {
-    const userImagePath = localStorage.getItem('userImagePath');
-    const baseURL = 'https://qhseapi.paiperleckelearning.com/';
-  
     this.authService.getUserDetails().subscribe(
       (response: UserApp) => {
         this.user = response;
         console.log('User details:', this.user);
-  
-        if (userImagePath !== null) {
-          this.user.image = `${baseURL}${userImagePath}`;
-        } else {
-          this.user.image = ''; // Assign a default value when userImagePath is null
-        }
-
-        // Save the image path to local storage
-        localStorage.setItem('userImagePath', userImagePath || '');
+        this.loadUserImage();
       },
       (error: any) => {
         console.error(error);
       }
     );
   }
-  
+
+  loadUserImage(): void {
+    if (this.user && this.user.image) {
+      const baseURL = 'http://127.0.0.1:8001';
+      const imagePath = `${baseURL}${this.user.image}`;
+      this.user.image = this.sanitizer.bypassSecurityTrustUrl(imagePath);
+    }
+  }
 
   onLogout(): void {
     this.authService.logout();
-    localStorage.removeItem('user');
     this.user = null;
     this.router.navigate(['/']);
   }
-  
 }

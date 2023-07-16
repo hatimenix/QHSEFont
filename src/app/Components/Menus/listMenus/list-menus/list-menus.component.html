@@ -36,8 +36,9 @@
                           <i class="fas fa-filter"></i>
                       </span>
                   </div>
-                  <select id="mois_concerne" name="mois_concerne" formControlName="mois_concerne" class="selectpicker form-control" data-style="py-0" (change)="filterMenuByMonth(myForm.get('mois_concerne').value)">
-                  
+                  <select id="mois_concerne" name="mois_concerne" [formControl]="selectedMonth" class="selectpicker form-control" data-style="py-0">
+                    <option value="">Filtrer par mois</option>
+
                     <option value="">Tous</option>
                     <option value="Janvier">Janvier</option>
                     <option value="Février">Février</option>
