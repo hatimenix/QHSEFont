@@ -23,21 +23,40 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit(): void {
+<<<<<<< HEAD
     this.getUserDetails();
   }
 
+=======
+    this.getUserDetails(); 
+  }
+  
+>>>>>>> 8a0344f7bad46e6d279762a180b4c1f5f207a2f5
   getUserDetails(): void {
     this.authService.getUserDetails().subscribe(
       (response: UserApp) => {
         this.user = response;
         console.log('User details:', this.user);
+<<<<<<< HEAD
         this.loadUserImage();
+=======
+  
+        if (userImagePath !== null) {
+          this.user.image = `${baseURL}${userImagePath}`;
+        } else {
+          this.user.image = ''; // Assign a default value when userImagePath is null
+        }
+
+        // Save the image path to local storage
+        localStorage.setItem('userImagePath', userImagePath || '');
+>>>>>>> 8a0344f7bad46e6d279762a180b4c1f5f207a2f5
       },
       (error: any) => {
         console.error(error);
       }
     );
   }
+<<<<<<< HEAD
 
   loadUserImage(): void {
     if (this.user && this.user.image) {
@@ -46,10 +65,17 @@ export class NavbarComponent {
       this.user.image = this.sanitizer.bypassSecurityTrustUrl(imagePath);
     }
   }
+=======
+  
+>>>>>>> 8a0344f7bad46e6d279762a180b4c1f5f207a2f5
 
   onLogout(): void {
     this.authService.logout();
     this.user = null;
     this.router.navigate(['/']);
   }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 8a0344f7bad46e6d279762a180b4c1f5f207a2f5
 }

@@ -15,6 +15,7 @@ export class ListCommandesComponent {
   myForm: any;
   commandes!: Commande[];
   searchQuery: string = '';
+  
 
   //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
@@ -43,7 +44,9 @@ export class ListCommandesComponent {
     this.myForm = new FormGroup({
       type_commande: new FormControl(),
       specificite_regime: new FormControl(),
-      specificite_texture: new FormControl()
+      specificite_texture: new FormControl(), 
+      
+
      
     });
      //pagination 

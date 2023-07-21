@@ -57,7 +57,7 @@
     </div>
 </div>
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header update-header">
       <h4 class="modal-title">Succès</h4>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
@@ -67,6 +67,6 @@
       La fiche technique a été modifiée avec succès.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+      <button type="button" class="btn btn-update-modal" (click)="closeModal()">Fermer</button>
     </div>
   </ng-template>

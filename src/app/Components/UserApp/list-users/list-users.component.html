@@ -16,6 +16,7 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  
                   <div class="row justify-content-between">
                     <div class="col-4">
                       <div class="input-group">
@@ -30,8 +31,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-4">
-                      <div class="d-flex justify-content-end mt-5">
+                      <div class=" mt-3 d-flex justify-content-end">
                         <div class="dropdown">
                             <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,7 +49,6 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
                     </div>
                   </div>
                   
@@ -99,6 +98,7 @@
                       </table>
                       
                    </div>
+                   <br>
                    <div class="pagination-container" style="display: flex; justify-content: space-between;">
                      <div>
                        <span class="entry-info">
@@ -133,7 +133,7 @@
      Êtes-vous sûr de vouloir supprimer cet utilisateur ?
    </div>
    <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
      <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
    </div>
  </ng-template>

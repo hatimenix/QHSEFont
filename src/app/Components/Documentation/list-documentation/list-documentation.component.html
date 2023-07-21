@@ -9,7 +9,7 @@
                   </div>
                   <div class="col-sm-6 col-md-6">
                     <div class="user-list-files d-flex align-items-center">
-                     <a routerLink="/add-document" class="bg1" href="javascript:void();"><i class="fas fa-plus"></i>
+                     <a routerLink="/add-document" class="bg1" href="javascript:void();" style=" margin-right: -5%;"><i class="fas fa-plus"></i>
                        Nouvel élément
                      </a>
                     </div>
@@ -18,7 +18,7 @@
                <div class="card-body">
                     <div class="row space-evenly">
                       
-                      <div class="col-4">
+                      <div class="col-3">
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
@@ -27,18 +27,19 @@
                             </div>
                             <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
                             <div class="input-group-append">
-                              <button class="btn btn-primary btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
+                              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
                             </div>
                           </div>
                         </div>
-                      
+                        <div class="col-md-3">
+
                       <div class="input-group" style="max-width: 240px;">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fas fa-filter"></i>
                             </span>
                         </div>
-                        <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySite()">
+                        <select id="site" name="site" formControlName="site"  class="selectpicker form-control" data-style="py-0" required (change)="filterDocumentsBySite()">
                           <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
                           <option value="">Tous</option>
                         </select>
@@ -50,7 +51,8 @@
                             </button>
                         </div>
                     </div>
-
+</div>
+                    <div class="col-md-3">
 
                     <div class="input-group" style="max-width: 240px;">
                       <div class="input-group-prepend">
@@ -58,28 +60,27 @@
                               <i class="fas fa-filter"></i>
                           </span>
                       </div>
-                      <select id="secteur" name="secteur" formControlName="secteur" class="custom-select" data-style="py-0" required (change)="filterDocumentsBySecteur()">
+                      <select id="secteur" name="secteur" formControlName="secteur"  class="selectpicker form-control" data-style="py-0" required (change)="filterDocumentsBySecteur()">
                         <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
                         <option value="">Tous</option>
                       </select>
                       <div class="input-group-append">
-                          <!-- Reset Site Filter Button -->
                           <button class="btn btn-secondary " (click)="resetSecteurFilters()">
                               <i class="fas fa-undo"></i>
-                              <!-- Replace "fa-undo" with the desired reset icon class -->
                           </button>
                       </div>
                   </div>
 
-
-                      
+</div>
+                  <div class="col-md-3">
+  
                   <div class="input-group" style="max-width: 240px;">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
                             <i class="fas fa-filter"></i>
                         </span>
                     </div>
-                    <select id="type_docs" name="type_docs" formControlName="type_docs" class="custom-select" data-style="py-0" (change)="filterDocumentByType()" [(ngModel)]="typeDocSelectionne" required>
+                    <select id="type_docs" name="type_docs" formControlName="type_docs"  class="selectpicker form-control" data-style="py-0" (change)="filterDocumentByType()" [(ngModel)]="typeDocSelectionne" required>
                       <option value="">Tous</option>
                       <option value="Template">Template</option>
                       <option value="Formulaire">Formulaire</option>
@@ -96,19 +97,23 @@
                         </button>
                     </div>
                 </div>
-
-                        <div class="dropdown">
-                          <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Afficher {{ itemsPerPage }} résultats par page
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
-                            <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
-                              <span>{{ option }}</span>
-                              <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
-                            </a>
-                          </div>
-                        </div>
+</div>
                       
+                      
+                    </div>
+                    <div class=" mt-3 d-flex justify-content-end">
+
+                    <div class="dropdown">
+                      <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Afficher {{ itemsPerPage }} résultats par page
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                        <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
+                          <span>{{ option }}</span>
+                          <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                        </a>
+                      </div>
+                    </div>
                     </div>
                     <div class="table-responsive">
 
@@ -124,8 +129,8 @@
                            <th>Date prévisionnelle de revue</th>
                            <th>Nouvelle version en cours</th>
                            <th>Type de document  </th>
-                           <th>Historique de version  </th>
-                           <th>Ajouter a mes favoris</th>
+                           <!-- <th>Historique de version  </th>
+                           <th>Ajouter a mes favoris</th> -->
                           
                           
                           
@@ -160,8 +165,8 @@
                           <td>{{docs.nv_version}}</td>
                           <td>{{docs.type_docs}}</td>
                           
-                          <td>Ajouter a l'historique</td>
-                          <td>Ajouter a mes favoris</td>
+                          <!-- <td>Ajouter a l'historique</td>
+                          <td>Ajouter a mes favoris</td> -->
 
                           <td>
                             <div class="flex align-items-center list-user-action">
@@ -182,6 +187,7 @@
                       
                   </table>
                   </div>
+                  <br>
                   <div class="pagination-container" style="display: flex; justify-content: space-between;">
                      <div>
                        <span class="entry-info">
@@ -207,7 +213,7 @@
  </div>
  <!-- Confirmation modal for command deletion -->
 <ng-template #deleteModal>
-   <div class="modal-header">
+   <div class="modal-header  delete-header">
      <h4 class="modal-title">Confirmation de la suppression</h4>
      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
        <span aria-hidden="true">&times;</span>
@@ -217,7 +223,7 @@
      Êtes-vous sûr de vouloir supprimer ce document ?
    </div>
    <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
    </div>
  </ng-template>

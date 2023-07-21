@@ -5,7 +5,7 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Sante } from 'src/app/models/sante';
 import { SanteService } from 'src/app/Services/Service-sante/sante.service';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 declare var window: any;
 @Component({

@@ -14,8 +14,8 @@
                        <form>
                           <div class="form-group">
                              <div class="crm-profile-img-edit position-relative">
-                               <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
-                               <div class="crm-p-image bg-primary">
+                              <img [src]="getImageUrl()" alt="Selected Image" *ngIf="userForm.get('image')?.value">
+                              <div class="crm-p-image bg-primary">
                                  <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
                                  <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
                                  (change)="onFileSelected($event) " formControlName="image">
@@ -32,35 +32,35 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Nom de l'utilisateur <label style="color: red;">*</label></label>
-                                       <input type="text" class="form-control" placeholder="Entrer le nom de l'utilisateur" required id="nom_user" name="nom_user" formControlName="nom_user">
+                                       <input type="text" class="form-control" placeholder="Entrer le nom de l'utilisateur"  id="nom_user" name="nom_user" formControlName="nom_user">
                                        <div class="help-block with-errors"></div>
                                    </div>
                                </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nom Complet <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="nom_complet" name="nom_complet" formControlName="nom_complet">
+                                    <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="nom_complet" name="nom_complet" formControlName="nom_complet">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Mot de passe <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="password" name="password" formControlName="password">
+                                    <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="password" name="password" formControlName="password">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Adresse Email <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="email" name="email" formControlName="email">
+                                    <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="email" name="email" formControlName="email">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Actif  <label style="color: red;">*</label></label>
-                                    <input type="checkbox"  required id="actif" name="actif" formControlName="actif">
+                                    <input type="checkbox" id="actif" name="actif" formControlName="actif">
                                 </div>
                             </div>
                             <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
@@ -73,13 +73,7 @@
                                 </div>
                               </div>  
                            </div>  
-                           <div class="col-md-6" >
-                            <div class="form-group">
-                              <label>
-                                <input type="checkbox" formControlName="send_email"> Envoyer un e-mail
-                              </label>
-                            </div>
-                          </div>      
+                              
                            <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                   
                            <button type="submit" class="btn btn-primary mr-2" ><i class="fas fa-pencil-alt"></i>Modifier</button>
                            <button type="reset" class="btn btn-danger" routerLink="/listuserapp"><i class="fas fa-times"></i>Annuler</button>
