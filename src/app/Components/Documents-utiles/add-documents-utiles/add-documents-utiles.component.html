@@ -29,8 +29,10 @@
                          <div class="col-md-12">                      
                           <div class="form-group">
                               <label>Modifié par </label>
-                              <input [(ngModel)]="documentutilef.modified_by" type="text" formControlName="modified_by" class="form-control" data-errors="Please Enter Name." id="modified_by" >
-                           </div>
+                              <select id="responsable_traitement" [(ngModel)]="documentutilef.modified_by" name="modified_by" formControlName="modified_by"  class="custom-select">
+                                <option *ngFor="let modified_by of utilisateurs" [value]="modified_by.id">{{ modified_by.nom }}</option>
+                               </select>                            
+                              </div>
                        </div>
                        <div class="col-md-12">
                         <div class="form-group">

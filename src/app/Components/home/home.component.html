@@ -14,7 +14,7 @@
           <div class=" text-center mb-0">
             <h2 class="card-title text-left" style="font-size: 23px; font-weight: bold; margin-top: -1%;">Portail QHSE</h2>
           </div>
-          <div id="carouselExample" class="carousel slide" data-ride="carousel">
+          <div id="carouselExample" class="carousel slide">
             <ol class="carousel-indicators">
               <li data-target="#carouselExample" [class.active]="i === currentSlide" *ngFor="let icon of icons.slice(currentSlide * 16, (currentSlide + 1) * 16); let i = index"></li>
             </ol>
@@ -63,19 +63,19 @@
             <ul class="nav nav-tabs" id="myTab-1" role="tablist" >
            
             <li class="nav-item">
-              <a class="nav-link" id="nc-tab" data-toggle="tab" href="#ncs" role="tab" aria-controls="ncs" aria-selected="true" >Mes non-conformités</a>
+              <a class="nav-link" id="nc-tab" data-toggle="tab" href="#ncs" role="tab" aria-controls="ncs" aria-selected="true" >Les non-conformités</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="actions-tab" data-toggle="tab" href="#actions" role="tab" aria-controls="actions" aria-selected="true">Mes actions</a>
+              <a class="nav-link" id="actions-tab" data-toggle="tab" href="#actions" role="tab" aria-controls="actions" aria-selected="true">Les actions</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="constat-tab" data-toggle="tab" href="#constats" role="tab" aria-controls="constats" aria-selected="true">Mes constats d'audit</a>
+              <a class="nav-link" id="constat-tab" data-toggle="tab" href="#constats" role="tab" aria-controls="constats" aria-selected="true">Les constats d'audit</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="tache-tab" data-toggle="tab" href="#taches" role="tab" aria-controls="taches" aria-selected="true">Mes tâches</a>
+              <a class="nav-link" id="tache-tab" data-toggle="tab" href="#taches" role="tab" aria-controls="taches" aria-selected="true">Les tâches</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="favoris-tab" data-toggle="tab" href="#favoris" role="tab" aria-controls="favoris" aria-selected="true">Mes favoris</a>
+              <a class="nav-link" id="favoris-tab" data-toggle="tab" href="#favoris" role="tab" aria-controls="favoris" aria-selected="true">Les favoris</a>
             </li>
            </ul>
           
@@ -90,12 +90,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                       
                         <th scope="col">
                           <a>Intitulé de l'action</a>
                         </th>
@@ -108,7 +103,7 @@
                     </thead>
                     <tbody class="ligth-body">
                       <tr *ngFor="let action of actions; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
-                        <th scope="row" style="color: grey;">{{action.id}}</th>
+                     
                         <td><a routerLink="/action/{{ action.id }}">{{action.intitule}}</a></td>
                         <td>{{action.origine_action}}</td>
                         <td>{{ action.type_action}}</td>
@@ -130,23 +125,17 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         <th scope="col">
                           <a>Intitulé de la non-conformité</a>
                         </th>
                         <th scope="col">Nature</th>
-                        <th scope="col">Date_nc</th>
+                        <th scope="col">Date NC</th>
                         <th scope="col">Avancement</th>
                       </tr>
                     </thead>
                     <tbody class="ligth-body">
                       <tr *ngFor="let nc of ncs; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
-                        <th scope="row" style="color: grey;">{{nc.id}}</th>
                         <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                         <td>{{nc.nature}}</td>
                         <td>{{ nc.date_nc | date }}</td>
@@ -172,12 +161,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         <th scope="col">
                           <a>Intitulé du constat</a>
                         </th>
@@ -202,25 +186,61 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         <th scope="col">
                           <a>Nom de la tâche</a>
                         </th>
                         <th scope="col">Echéance</th>
                         <th scope="col">Priorité </th>
                         <th scope="col">Etat</th>
-                        <th scope="col">Processus </th>
-                        <th scope="col">
-                          Lien élément déclencheur</th>
                       </tr>
                     </thead>
                     <tbody class="ligth-body">
+                      <tr *ngFor="let tache of taches; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                      
+                        <td ><a routerLink="/tache/{{ tache.id }}">{{tache.nom_tache}}</a></td>
+                        <td>{{ tache.echeance }}</td>
+                      <td>{{ tache.priorite }}
+                        <ng-container *ngIf="tache.priorite === 'Basse'">
+                          <i class="flag-icon fas fa-flag text-success"> (3)</i>
+                        </ng-container>
+                        <ng-container *ngIf="tache.priorite === 'Normal'">
+                          <i class="flag-icon fas fa-flag text-warning"> (2)</i>
+                        </ng-container>
+                        <ng-container *ngIf="tache.priorite === 'Haute'">
+                          <i class="flag-icon fas fa-flag text-danger"> (1)</i>
+                        </ng-container>
+                      </td>                            
+                      <td>
+                        <span *ngIf="tache.etat === 'Non commencé'">
+                          <i class="fas fa-circle-notch text-warning"></i>
+                          {{ tache.etat }}
+                        </span>
+                        <span *ngIf="tache.etat === 'Terminé'">
+                          <i class="fas fa-check-circle text-success"></i>
+                          {{ tache.etat }}
+                        </span>
+                        <div>
+                          <style>
+                            .rotating-icon {
+                              animation: rotate 1.5s infinite linear;
+                            }                               
+                            @keyframes rotate {
+                              0% {
+                                transform: rotate(0deg);
+                              }
+                              100% {
+                                transform: rotate(360deg);
+                              }
+                            }
+                          </style>                               
+                          <span *ngIf="tache.etat === 'En cours'">
+                            <i class="fas fa-spinner text-primary rotating-icon"></i>
+                            {{ tache.etat }}
+                          </span>
+                        </div>
+                      </td>    
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -234,12 +254,7 @@
                   <table class="data-tables table mb-0 tbl-server-info">
                     <thead>
                       <tr class="light ligth-data">
-                        <th>
-                          <div class="checkbox d-inline-block">
-                            <input type="checkbox" class="checkbox-input" id="checkbox2">
-                            <label for="checkbox2" class="mb-0"></label>
-                          </div>
-                        </th>
+                        
                         
                         <th scope="col">Objet</th>
                         <th scope="col">Favoris </th>
@@ -263,12 +278,7 @@
               <table class="data-tables table mb-0 tbl-server-info">
                 <thead>
                   <tr class="light ligth-data">
-                    <th>
-                      <div class="checkbox d-inline-block">
-                        <input type="checkbox" class="checkbox-input" id="checkbox2">
-                        <label for="checkbox2" class="mb-0"></label>
-                      </div>
-                    </th>
+                    
                     <th scope="col">
                       <a>Intitulé du constat</a>
                     </th>
@@ -279,8 +289,6 @@
                 </thead>
                 <tbody class="ligth-body">
                   <tr *ngFor="let action of actions  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
-                    <th scope="row" style="color: grey;">{{action.id}}</th>
-                    <td><a routerLink="/action/{{ action.id }}">{{action.intitule}}</a></td>
                     <td>{{action.origine_action}}</td>
                     <td>{{ action.type_action}}</td>
                     
@@ -298,7 +306,7 @@
           
           <h4 class="card-title mb-0 " style="font-weight: bold;font-size: 23px;color: #089bd7;  margin-top: 8%">Vous êtes sur le portail QHSE !</h4>
           
-          <div  style="margin-top: 6%;">
+          <div style="margin-top: 6%;">
             <div class="card" style="width: 500px; height: 300px;">
               <div class="card-headerH " style="background-color: #a9ce24; color: white;">
                 
@@ -307,7 +315,7 @@
               </div>
               
               <div class="col-lg-5">
-                <img src="https://paiperleck.qualishare.com/qhse_risk/SiteAssets/SitePages/Accueil/QLS_puzzle.png" alt="Image" class="img-fluid">
+                <img src="assets/images/QHSE.png" alt="Image" class="img-fluid">
               </div>
           </div>
          
