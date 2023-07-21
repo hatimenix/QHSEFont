@@ -4,6 +4,12 @@ import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-
 import { ChartComponent } from 'ng-apexcharts';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 import { ConstatAuditService } from 'src/app/Services/Service-constatAudit/constat-audit.service';
+interface ChartDataElement {
+  site__site_nom: string;
+  type_action: string;
+  year: number;
+  count: number;
+}
 
 @Component({
   selector: 'app-graphiques',
@@ -13,7 +19,7 @@ import { ConstatAuditService } from 'src/app/Services/Service-constatAudit/const
 export class GraphiquesComponent implements AfterViewInit {
   filteredData: any[] = [];
   data: any[] = [];
-  filteredChartData: any[] = [];
+  filteredChartData: ChartDataElement[] = []; // Update the type to use the interface
   selectedSite: string = 'All';
   sites: string[] = [];
   selectedActionYear: string = 'All';
@@ -102,22 +108,66 @@ export class GraphiquesComponent implements AfterViewInit {
         this.updateChartData();
     });
   }
-   updateChartData(): void {
-    this.filteredChartData = this.data.filter(item => 
-      (this.selectedSite === 'All' || item.site__site_nom === this.selectedSite) &&
-      (this.selectedActionYear === 'All' || item.year === this.selectedActionYear)
-    );
-    this.pieSeries = this.filteredChartData.map(item => item.count);
-    this.pieLabels = this.filteredChartData.map(item => item.type_action);
-
+  updateChartData(): void {
+    const groupedChartData: { [key: string]: ChartDataElement } = {};
+  
+    for (const item of this.data) {
+      const key = `${item.type_action}_${item.year}`;
+      if (!groupedChartData[key]) {
+        groupedChartData[key] = {
+          site__site_nom: item.site__site_nom, 
+          type_action: item.type_action,
+          year: item.year,
+          count: 0,
+        };
+      }
+      groupedChartData[key].count += item.count;
+    }
+  
+    this.filteredChartData = Object.values(groupedChartData);
+  
+    if (this.selectedSite !== 'All') {
+      this.filteredChartData = this.filteredChartData.filter(
+        (item) => item.site__site_nom === this.selectedSite
+      );
+    }
+  
+    this.pieSeries = this.filteredChartData.map((item) => item.count);
+    this.pieLabels = this.filteredChartData.map((item) => item.type_action);
+  
     this.refreshCharts();
   }
   
 
   
   onSiteChange(): void {
-  this.updateChartData();
+    this.filteredChartData = this.data.filter(
+      (item) => this.selectedSite === 'All' || item.site__site_nom === this.selectedSite
+    );
+  
+    const groupedChartData: { [key: string]: ChartDataElement } = {};
+  
+    for (const item of this.filteredChartData) {
+      const key = `${item.type_action}_${item.year}`;
+      if (!groupedChartData[key]) {
+        groupedChartData[key] = {
+          site__site_nom: item.site__site_nom,
+          type_action: item.type_action,
+          year: item.year,
+          count: 0,
+        };
+      }
+      groupedChartData[key].count += item.count;
+    }
+  
+    this.filteredChartData = Object.values(groupedChartData);
+  
+    this.pieSeries = this.filteredChartData.map((item) => item.count);
+    this.pieLabels = this.filteredChartData.map((item) => item.type_action);
+  
+    this.refreshCharts();
   }
+  
   
   onActionYearChange(): void {
   this.updateChartData();

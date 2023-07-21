@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
+import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 import { Actions } from 'src/app/models/actions';
 import { Nc } from 'src/app/models/nc';
+import { Taches } from 'src/app/models/taches';
 
 @Component({
   selector: 'app-home',
@@ -16,27 +18,37 @@ export class HomeComponent {
     { link: '/nc-add', color: 'card-icon', imageSrc: 'assets/images/liste-de-controle.png', title: 'Ouvrir une NC' },
     { link: '/listdocument', color: 'card-icon', imageSrc: 'assets/images/doc.png', title: 'Documentation' },
     { link: '/cartographie', color: 'card-icon',imageSrc: 'assets/images/reseau.png', title: 'Cartographie' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/parametre.png', title: 'Equipements' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/diner.png', title: 'Commande repas' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/restauration.png', title: 'Menus restaurants' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/des-documents.png', title: 'Fiches Techniques' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/health-and-care.png', title: 'Santé mentale' },
-    { link: '#', color: 'card-icon', imageSrc: 'assets/images/regime.png', title: 'Plan Alimentaire' },
+    { link: '/equipement-list', color: 'card-icon', imageSrc: 'assets/images/parametre.png', title: 'Equipements' },
+    { link: '/listC', color: 'card-icon', imageSrc: 'assets/images/diner.png', title: 'Commande repas' },
+    { link: '/listMenu', color: 'card-icon', imageSrc: 'assets/images/restauration.png', title: 'Menus restaurants' },
+    { link: '/listF', color: 'card-icon', imageSrc: 'assets/images/des-documents.png', title: 'Fiches Techniques' },
+    { link: '/sante-list', color: 'card-icon', imageSrc: 'assets/images/health-and-care.png', title: 'Santé mentale' },
+    { link: '/plan-alimentaire-list', color: 'card-icon', imageSrc: 'assets/images/regime.png', title: 'Plan Alimentaire' },
+
+
+    { link: '/analyseSWOT', color: 'card-icon', imageSrc: 'assets/images/analyse.png', title: 'Analyse SWOT' },
+    { link: '/danger', color: 'card-icon', imageSrc: 'assets/images/document-unique.png', title: 'Document Unique' },
+    { link: '/listReunion', color: 'card-icon', imageSrc: 'assets/images/reunion.png', title: 'Suivie des Réunions' },
+    { link: '/listsites', color: 'card-icon', imageSrc: 'assets/images/site.png', title: 'Sites' },
+    { link: '/evenement-list', color: 'card-icon', imageSrc: 'assets/images/event.png', title: 'Registre des événements' },
   ];
   currentSlide = 0;
 
   ncs: Nc[] = [];
   actions : Actions[]=[];
+  taches: Taches[] = [];
 
   deleteModal: any;
   idTodelete: number = 0;
 
 
-  constructor(private ncservice: ServicesNonConfirmitéService,private actionService : ApiActionsService) {
+  constructor(private ncservice: ServicesNonConfirmitéService,private actionService : ApiActionsService,private tacheservice: ApiTachesService) {
 
   }
   ngOnInit(): void {
     this.getNcs();
+    this.getActions();
+    this.getTaches();
     const isFirstVisit = history.state.isFirstVisit;
     if (!isFirstVisit) {
       history.replaceState({ isFirstVisit: true }, '');
@@ -63,6 +75,16 @@ getActions(){
       this.actions = res;
     },
     (    error: any) => {
+      console.log(error);
+    }
+  );
+}
+getTaches() {
+  this.tacheservice.getAllTaches().subscribe(
+    res => {
+      this.taches = res;
+    },
+    error => {
       console.log(error);
     }
   );

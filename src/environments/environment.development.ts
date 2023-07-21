@@ -57,16 +57,4 @@ export const environment = {
     API_URL_AT: "https://qhseapi.paiperleckelearning.com/arret_travail/",
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 };

@@ -92,8 +92,10 @@
                         <div class="form-group">
                           <div class="col-md-13">
                           <label>Responsable Traitement <label style="color: red;">*</label></label>
-                          <input  [(ngModel)]="traitementf.responsable_traitement" formControlName="responsable_traitement" type="text" class="form-control" placeholder="Entrer un responsable" required>
-                          <div class="help-block with-errors"></div>
+                          <select id="responsable_traitement" [(ngModel)]="traitementf.responsable_traitement" name="responsable_traitement" formControlName="responsable_traitement"  class="custom-select">
+                            <option *ngFor="let responsable_traitement of utilisateurs" [value]="responsable_traitement.id">{{ responsable_traitement.nom }}</option>
+                           </select>                          
+                           <div class="help-block with-errors"></div>
                         </div>
                         </div>
 
@@ -487,14 +489,14 @@
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Précisions </label>
+                        <label>Précisions(UE) </label>
                         <input [(ngModel)]="traitementf.precision" formControlName="precision" type="text" name="dureeConservation" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Données concernées </label>
+                        <label>Données concernées(UE) </label>
                         <input [(ngModel)]="traitementf.donneeconcernees" formControlName="donneeconcernees" type="text" name="dureeConservation" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
@@ -623,7 +625,7 @@
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Données concernées </label>
+                        <label>Données concernées(hors UE) </label>
                         <input [(ngModel)]="traitementf.lesdonneesconcernee" formControlName="lesdonneesconcernee" id="lesdonneesconcernee" type="text" name="dureeConservation" class="form-control" >
                         <div class="help-block with-errors"></div>
                       </div>
