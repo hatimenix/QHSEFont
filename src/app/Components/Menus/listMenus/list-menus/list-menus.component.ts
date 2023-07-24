@@ -127,14 +127,37 @@ export class ListMenusComponent implements OnInit {
   //filtrage par mois
   filterMenuByMonth(): void {
     if (this.MoisSelectionne) {
-      this.menuService.getAllMenus().subscribe((menus) => {
-        this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
-      });
+      this.menuService.getAllMenus().subscribe(
+        (menus: Menus[]) => {
+          const filteredMenus = menus.filter((menu: Menus) => {
+            return menu.mois_concerne === this.MoisSelectionne;
+          });
+
+          if (filteredMenus.length > 0) {
+            this.menus = filteredMenus;
+          } else {
+            console.log(`No menu found for month: ${this.MoisSelectionne}`);
+            this.menus = [];
+          }
+
+          console.log("Filtered menus:", this.menus);
+
+          filteredMenus.forEach(ct => {
+            const p = this.site.find((s: Site) => s.id === ct.site);
+            if (p) {
+              p.expanded = true;
+            }
+          });
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
     } else {
       this.getMenus();
-
     }
   }
+
   //afficher juste le nom du fichier 
   getFileNameFromPath(filePath: string | File | undefined): string {
     if (!filePath) return 'Aucun fichier joint';
