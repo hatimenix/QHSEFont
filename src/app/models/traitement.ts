@@ -6,7 +6,7 @@ export class Traitement {
     description_generale?: string;
     datedecreation?: Date;
     datedemiseajour?: Date;
-    responsable_traitement?: string;
+    responsable_traitement?: number;
     finaliteprincipale?: string;
     sous_finalite1?: string;
     sous_finalite2?: string;
@@ -33,6 +33,7 @@ export class Traitement {
     fournisseur_representant?: string;
     fournisseur_dpoName!: string | null;
     fournisseur_representantName!: string | null
+    responsable_name!: string | null
 
   }
   

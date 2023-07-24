@@ -95,7 +95,7 @@
                      <th scope="col">Typologie</th>
                      </ng-container>
                      <th scope="col">Actions</th>
-                     <th scope="col">Supprimer les colonnes</th>
+                     <th scope="col">Supprimer les lignes</th>
 
 
                 </tr>
@@ -103,9 +103,9 @@
             <tbody class="ligth-body">
              <tr *ngFor="let documentutile of displayedDocuments | filter : searchQuery  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
               <td>{{ documentutile.nom}}</td>
-                <td *ngIf="fieldsVisible['document']"><button class="btn fa fa-download mr-3"   (click)="download(documentutile.document)"> {{ documentutile.document ? documentutile.document.split('/').pop() : 'Aucun fichier joint' }}</button></td>
+                <td *ngIf="fieldsVisible['document']"><a class="btn fa fa-download mr-3"   [href]="documentutile.document"> {{ documentutile.document ? documentutile.document.split('/').pop() : 'Aucun fichier joint' }}</a></td>
                  <td *ngIf="fieldsVisible['modified_date']">{{ documentutile.modified_date  | date:'yyyy-MM-dd'  }}</td>
-                 <td *ngIf="fieldsVisible['modified_by']">{{ documentutile.modified_by }}</td>
+                 <td *ngIf="fieldsVisible['modified_by']">{{ documentutile.modified_name }}</td>
                  <td *ngIf="fieldsVisible['typologie']">{{ documentutile.typologie }}</td>
 
                  <td>
@@ -198,8 +198,10 @@ aria-hidden="true">
                <div class="col">                      
                 <div class="form-group">
                     <label>Modifié par </label>
-                    <input [(ngModel)]="modified_by" type="text" value="{{modified_by}}" formControlName="modified_by" class="form-control" data-errors="Please Enter Name." id="modified_by" >
-                 </div>
+                    <select [(ngModel)]="modified_by" id="modified_by" name="modified_by" style="width: 100%;" formControlName="modified_by" class="form-control" class="custom-select" >
+                      <option *ngFor="let modified_by of utilisateurs" [value]="modified_by.id">{{ modified_by.nom }}</option>
+                    </select>                  
+                  </div>
              </div>
             <br>
            <div class="col mb-2">

@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
 import { Traitement } from 'src/app/models/traitement';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 
 declare var window: any;
 
@@ -16,6 +17,7 @@ declare var window: any;
 export class ListRegistreTraitementComponent implements OnInit{
   fournisseurs: any[] = [];
   traitements: any[] = [];
+  utilisateurs: any[] = [];
   updateModalVisible: boolean = true
   showTypeRegistre = false;
   showRespRegistre = false;
@@ -111,7 +113,7 @@ export class ListRegistreTraitementComponent implements OnInit{
 
 
     });
-    constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){ }
+    constructor(private  traitementservice :ServiceRegistreTraitementService,private router: Router,private   fournisseurservice : FournisseurService, private apiUtilisateurService: ApiUtilisateurService, private bsModalService: BsModalService){ }
 
   ngOnInit(): void{
    this.refreshtraitementlist();
@@ -133,6 +135,15 @@ export class ListRegistreTraitementComponent implements OnInit{
         console.log(error); // Handle error
       }
     );
+    this.apiUtilisateurService.getAllUtilsateur().subscribe(
+      (data: any[]) => {
+        this.utilisateurs = data;
+        console.log(this.utilisateurs); // Print the utilisateurs to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
     this.traitementservice.getAll().subscribe(
       (data: any[]) => {
         this.traitements = data;

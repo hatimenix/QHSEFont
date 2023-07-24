@@ -192,5 +192,8 @@ getDisplayedRange(): string {
   const endIndex = Math.min(this.p * this.itemsPerPage, this.santes.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.santes.length} entrées`;
 }
-
+getRecordCount(site: any): number {
+  const sitePlans = this.santes.filter(sante => sante.site === site.id);
+  return sitePlans.length;
+}
 }

@@ -198,9 +198,9 @@
                   </tr>
                   <tr class="table-default">
                     <td>Pièce jointe:</td>
-                    <td><button class="btn  fa fa-download mr-3"   (click)="download(tache.piece_jointe)">  {{ tache.piece_jointe ? tache.piece_jointe.split('/').pop() : 'Aucun fichier joint' }}
+                    <td><a class="btn  fa fa-download mr-3"   [href]="tache.piece_jointe">  {{ tache.piece_jointe ? tache.piece_jointe.split('/').pop() : 'Aucun fichier joint' }}
 
-                    </button></td>                  
+                    </a></td>                  
                 </tr>
                   </table>
                   </div>

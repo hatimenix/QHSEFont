@@ -1,121 +1,127 @@
+
 <div class="content-page custom-background">
-    <div class="container-fluid add-form-list">
-       <div class="row">
-           <div class="col-sm-12">
-               <div class="card">
-                   <div class="card-headers d-flex justify-content-between">
-                       <div class="header-title">
-                           <h4>Ajouter un Utilisateur</h4>
-                       </div>
-                   </div>
-                   <div class="card">
-                    
-                    <div class="card-body">
-                       <form>
-                          <div class="form-group">
-                             <div class="crm-profile-img-edit position-relative">
-                               <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
-                               <div class="crm-p-image bg-primary">
-                                 <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
-                                 <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
-                                 (change)="onFileSelected($event) " formControlName="image">
-                               </div>
+  <div class="container-fluid add-form-list">
+     <div class="row">
+         <div class="col-sm-12">
+             <div class="card">
+                 <div class="card-headers d-flex justify-content-between">
+                     <div class="header-title">
+                         <h4>Ajouter un Utilisateur</h4>
+                     </div>
+                 </div>
+                 <div class="card">
+                  
+                  <div class="card-body">
+                     <form data-toggle="validator">
+                        <div class="form-group">
+                           <div class="crm-profile-img-edit position-relative">
+                             <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
+                             <div class="crm-p-image bg-primary">
+                               <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
+                               <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
+                               (change)="onFileSelected($event) " formControlName="image">
                              </div>
                            </div>
-                           
-                       </form>
-                    </div>
-                 </div>
-                   <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                           <div class="row">                                  
-                               <div class="col-md-6">
-                                   <div class="form-group">
-                                       <label>Nom de l'utilisateur <label style="color: red;">*</label></label>
-                                       <input type="text" class="form-control" placeholder="Entrer le nom de l'utilisateur" required id="nom_user" name="nom_user" formControlName="nom_user">
-                                       <div class="help-block with-errors"></div>
-                                   </div>
-                               </div> 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Nom Complet <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="nom_complet" name="nom_complet" formControlName="nom_complet">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div> 
-                            <div class="col-md-6">
+                         </div>
+                         
+                     </form>
+                  </div>
+               </div>
+                 <div class="card-body">
+                     <form action="page-list-returns.html" data-toggle="validator" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                         <div class="row">                                  
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <label>Nom de l'utilisateur <label style="color: red;">*</label></label>
+                                     <input type="text" class="form-control" placeholder="Entrer le nom de l'utilisateur" required id="nom_user" name="nom_user" formControlName="nom_user">
+                                     <div class="help-block with-errors"></div>
+                                    </div>
+                             </div> 
+                          <div class="col-md-6">
                               <div class="form-group">
-                                <label>Mot de passe <label style="color: red;">*</label></label>
-                                <div class="input-group">
-                                  <input type="text" class="form-control" placeholder="Entrer le mot de passe" required id="password" name="password" formControlName="password" #passwordInput>
-                                </div>
-                                <div *ngIf="userForm.get('password')?.errors && (userForm.get('password')?.dirty || userForm.get('password')?.touched)">
-                                  <p *ngIf="userForm.get('password')?.hasError('pattern')"><label style="color: red;">Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial*</label></p>
-                                  <p *ngIf="userForm.get('password')?.valid">Mot de passe valide.</p>
-                                </div>
+                                  <label>Nom Complet <label style="color: red;">*</label></label>
+                                  <input type="text" class="form-control" placeholder="Entrer le nom complet" required id="nom_complet" name="nom_complet" formControlName="nom_complet">
+                                  <div class="help-block with-errors"></div>
+                              </div>
+                          </div> 
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Mot de passe <label style="color: red;">*</label></label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Entrer le mot de passe" required id="password" name="password" formControlName="password" #passwordInput>
+                              </div>
+                              <div class="help-block with-errors"></div>
+
+                              <div *ngIf="userForm.get('password')?.errors && (userForm.get('password')?.dirty || userForm.get('password')?.touched)">
+                                <p *ngIf="userForm.get('password')?.hasError('pattern')"><label style="color: red;">Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial*</label></p>
+                                <p *ngIf="userForm.get('password')?.valid">Mot de passe valide.</p>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Adresse Email <label style="color: red;">*</label></label>
+                              <input type="text" class="form-control" placeholder="Entrer l'adresse email" required id="email" name="email" formControlName="email">
+                              <div class="help-block with-errors"></div>
+                              <div >
+                                <p *ngIf="userForm.get('email')?.errors?.['required']"><label style="color: red;">*L'adresse email est requise.</label></p>
+                                <p *ngIf="userForm.get('email')?.errors?.['email']"><label style="color: red;">*L'adresse email doit être valide.</label></p>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
                               <div class="form-group">
-                                <label>Adresse Email <label style="color: red;">*</label></label>
-                                <input type="text" class="form-control" placeholder="Entrer l'adresse email" required id="email" name="email" formControlName="email">
-                                <div class="help-block with-errors"></div>
-                                <div >
-                                  <p *ngIf="userForm.get('email')?.errors?.['required']"><label style="color: red;">*L'adresse email est requise.</label></p>
-                                  <p *ngIf="userForm.get('email')?.errors?.['email']"><label style="color: red;">*L'adresse email doit être valide.</label></p>
+                                  <label>Actif  <label style="color: red;">*</label></label>
+                                  <input type="checkbox"   id="actif" name="actif" formControlName="actif">
+                                                                         <div class="help-block with-errors"></div>
+
+                              </div>
+                          </div>
+                          <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
+                              <div class="form-group">
+                                <label for="groupes_roles">Groupes/Rôles:<label style="color: red;">*</label></label>
+                                <div *ngFor="let groupe of groupes">
+                                  <input type="checkbox" [value]="groupe.id" formControlName="groupes_roles">
+                                  {{ groupe.nom }}
+                                  <div class="help-block with-errors"></div>
 
                                 </div>
                               </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Actif  <label style="color: red;">*</label></label>
-                                    <input type="checkbox"   id="actif" name="actif" formControlName="actif">
-                                    
-                                </div>
+                            
+                            
+                            <div class="col-md-6" >
+                            <div class="form-group">
+                              <label>
+                                <input type="checkbox" formControlName="send_email"> Envoyer un e-mail
+                              </label>
                             </div>
-                            <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
-                                <div class="form-group">
-                                  <label for="groupes_roles">Groupes/Rôles:<label style="color: red;">*</label></label>
-                                  <div *ngFor="let groupe of groupes">
-                                    <input type="checkbox" [value]="groupe.id" formControlName="groupes_roles">
-                                    {{ groupe.nom }}
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              
-                              <div class="col-md-6" >
-                              <div class="form-group">
-                                <label>
-                                  <input type="checkbox" formControlName="send_email"> Envoyer un e-mail
-                                </label>
-                              </div>
-                            </div>
-                           </div>       
-                           <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                    
-                           <button type="submit" class="btn btn-primary mr-2" ><i class="fas fa-plus"></i>Ajouter</button>
-                           <button type="reset" class="btn btn-danger" routerLink="/listuserapp">  <i class="fas fa-times"></i>Annuler</button>
-                          </div> 
-                       </form>
-                   </div>
-               </div>
-           </div>
-       </div>
-       <!-- Page end  -->
-   </div>
+                          </div>
+                         </div>       
+                         <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                    
+                         <button type="submit" class="btn btn-primary mr-2" ><i class="fas fa-plus"></i>Ajouter</button>
+                         <button type="reset" class="btn btn-danger" routerLink="/listuserapp">  <i class="fas fa-times"></i>Annuler</button>
+                        </div> 
+                     </form>
+                 </div>
+             </div>
+         </div>
      </div>
- <ng-template #successModal>
-        <div class="modal-header success-header ">
-          <h4 class="modal-title">Succès</h4>
-          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          L'utilisateur a été ajouté avec succès.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" (click)="closeModal()">Fermer</button>
-        </div>
-      </ng-template>
+     <!-- Page end  -->
+ </div>
+   </div>
+<ng-template #successModal>
+      <div class="modal-header success-header ">
+        <h4 class="modal-title">Succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        L'utilisateur a été ajouté avec succès.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="closeModal()">Fermer</button>
+      </div>
+    </ng-template>

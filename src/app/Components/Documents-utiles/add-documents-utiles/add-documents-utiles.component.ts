@@ -3,16 +3,18 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceDocumentUtilesService } from 'src/app/Services/Services-document-utile/services-document-utile.service';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 @Component({
   selector: 'app-add-documents-utiles',
   templateUrl: './add-documents-utiles.component.html',
   styleUrls: ['./add-documents-utiles.component.css']
 })
 export class AddDocumentsUtilesComponent implements OnInit{
+  utilisateurs: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   droppedFile: File | null = null;
-  constructor(private   documentutileservice : ServiceDocumentUtilesService , private router : Router, private bsModalService: BsModalService){}
+  constructor(private   documentutileservice : ServiceDocumentUtilesService , private router : Router, private apiUtilisateurService: ApiUtilisateurService, private bsModalService: BsModalService){}
   mode = 'list';
   documentutilef = {
     id: 1,
@@ -33,6 +35,27 @@ form = new FormGroup({
 
 });
 ngOnInit(): void {
+  const isFirstVisit = history.state.isFirstVisit;
+
+    if (!isFirstVisit) {
+      // définir l'indicateur de visite dans l'historique de navigation
+      history.replaceState({ isFirstVisit: true }, '');
+
+      // rafraîchir la page
+      location.reload();
+    }
+
+    // aller en haut de la page
+    window.scrollTo(0, 0);
+  this.apiUtilisateurService.getAllUtilsateur().subscribe(
+    (data: any[]) => {
+      this.utilisateurs = data;
+      console.log(this.utilisateurs); // Print the sites to the console
+    },
+    (error: any) => {
+      console.log(error); // Handle error
+    }
+  ); 
 }
 createDocumentutile() {
     

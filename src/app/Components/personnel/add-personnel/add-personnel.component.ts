@@ -26,9 +26,9 @@ export class AddPersonnelComponent  {
       nom: ['', Validators.required],
       courrier: ['', [Validators.required, Validators.email]],
       numero_tel: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
-      presente_vous: ['', Validators.required],
-      fonction: ['', Validators.required],
-      adresse_sip: ['', Validators.required],
+      presente_vous: [''],
+      fonction: [''],
+      adresse_sip: [''],
       othermail: ['', Validators.email]
     });
   }
@@ -61,11 +61,16 @@ export class AddPersonnelComponent  {
       );
     }
   }
+  
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
   closeModal() {
     this.bsModalService.hide();
+}
+isImageSelectedAndValid(): boolean {
+  const imageControl = this.PersonnelForm.get('image');
+  return !!imageControl && imageControl.valid && imageControl.touched;
 }
 
 

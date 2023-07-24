@@ -6,6 +6,10 @@ export const environment = {
     API_URL_AC: 'http://127.0.0.1:8001/action/',
     API_URL_DANGER: 'http://127.0.0.1:8001/danger/',
     API_URL_EVENEMENT: 'http://127.0.0.1:8001/evenement/',
+<<<<<<< HEAD
+=======
+    API_URL_AT: 'http://127.0.0.1:8001/arret_travail/',
+>>>>>>> 1e1de75c604906ecfc61c9848a70a67891a584ea
     API_URL_FAMILLE: 'http://127.0.0.1:8001/famille/',
     API_URL_SERVICE: 'http://127.0.0.1:8001/service/',
     API_URL_SITE: 'http://127.0.0.1:8001/site/',
@@ -54,6 +58,7 @@ export const environment = {
     API_exercice_securite: "http://127.0.0.1:8001/exercicesecurite/",
     API_reunion: "http://127.0.0.1:8001/reunion/",
     API_AxesStrategique: "http://127.0.0.1:8001/AxesStrategiques/",
+<<<<<<< HEAD
     API_URL_AT: "http://127.0.0.1:8001/arret_travail/",
 
 
@@ -67,6 +72,8 @@ export const environment = {
 
 
 
+=======
+>>>>>>> 1e1de75c604906ecfc61c9848a70a67891a584ea
 
 
 };

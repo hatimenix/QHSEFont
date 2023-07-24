@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/Services/Service-Users/users.service';
@@ -39,7 +39,7 @@ export class UpdateUsersComponent {
       email: ['', [Validators.required, Validators.email]],
       actif: [''],
       groupes_roles: this.formBuilder.array([]),
-      image: [''] // Add the image FormControl
+      image: [null] // Initialize image FormControl with null
     });
 
     this.loadGroupes();
@@ -59,8 +59,20 @@ export class UpdateUsersComponent {
 
   loadUserData() {
     this.userAppService.getUserById(this.userId).subscribe(
-      user => {
-        this.userForm.patchValue(user);
+      (user: UserApp) => {
+        this.userForm.patchValue({
+          nom_user: user.nom_user,
+          nom_complet: user.nom_complet,
+          password: user.password,
+          email: user.email,
+          actif: user.actif,
+        });
+
+        const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
+        for (const group of this.groupes) {
+          const isSelected = user.groupes_roles.some((userGroup: GroupeUser) => userGroup.id === group.id);
+          groupesRolesFormArray.push(this.formBuilder.control(isSelected));
+        }
       },
       error => {
         console.log('An error occurred while fetching user data:', error);
@@ -69,66 +81,71 @@ export class UpdateUsersComponent {
   }
 
   getSelectedCheckboxId(): string[] {
-    const checkboxes = document.querySelectorAll('#idGroupe input[type="checkbox"]:checked');
+    const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
     const selectedIds: string[] = [];
-    checkboxes.forEach((checkbox) => {
-      selectedIds.push((checkbox as HTMLInputElement).value);
+    groupesRolesFormArray.controls.forEach((control: AbstractControl, index: number) => {
+      if (control instanceof FormControl && control.value) {
+        selectedIds.push(this.groupes[index].id.toString()); 
+      }
     });
     return selectedIds;
   }
+  
+  
 
   onSubmit() {
     if (this.userForm.invalid) {
       return;
     }
 
-    const selectedGroupes = this.userForm.value.groupes_roles || [];
-    const selectedIds = this.getSelectedCheckboxId();
-
-    const groupeUsers = this.groupes
-      .filter(group => selectedGroupes.includes(group.id.toString()))
-      .map(group => ({ id: group.id }));
-
+    const selectedGroupes = this.getSelectedCheckboxId();
+    
     const formData = new FormData();
-    formData.append('id', this.userForm.get('id')?.value);
+
+    formData.append('id', this.userId.toString()); // Ensure the 'id' is set in the formData
     formData.append('nom_user', this.userForm.get('nom_user')?.value);
     formData.append('nom_complet', this.userForm.get('nom_complet')?.value);
     formData.append('password', this.userForm.get('password')?.value);
     formData.append('email', this.userForm.get('email')?.value);
     formData.append('actif', this.userForm.get('actif')?.value);
+
     const file = this.userForm.get('image')?.value;
     if (file instanceof File) {
       formData.append('image', file, file.name);
-    }    
-    
-    
+    }
+
+    //the group selected 
     const selectedGroupesRoles = this.getSelectedCheckboxId();
     selectedGroupesRoles.forEach((groupId: string) => {
       formData.append('groupes_roles', groupId);
     });
     
+
     // Retrieve the original password value
     const password = this.userForm.value.password;
 
     const updatedUser: UserApp = {
       ...this.userForm.value,
-      password: password, // Set the original password value
-      groupes_roles: selectedIds
+      password: password
     };
+    console.log("data", formData);
 
-    this.userAppService.updateUserApp(this.userId, updatedUser, formData).subscribe(
-      user => {
+    this.userAppService.updateUserFormdata(formData).subscribe(
+      (user: UserApp) => {
         console.log('User updated successfully:', user);
         this.openModal();
         this.router.navigate(['/listuserapp']);
         this.userForm.reset();
       },
-      error => {
+      (error: any) => {
         console.log('An error occurred while updating user:', error);
       }
     );
   }
-
+  getGroupControl(index: number) {
+    const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
+    return groupesRolesFormArray.controls[index] as FormControl;
+  }
   // Modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
@@ -138,21 +155,12 @@ export class UpdateUsersComponent {
     this.modalRef.hide();
   }
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.userForm.patchValue({ image: file });
-  }
-
-  //get the image 
-  getImageUrl(): string {
-    const imageControl = this.userForm.get('image');
-    if (imageControl && imageControl.value) {
-      const file = imageControl.value;
-      if (file instanceof File) {
-        return URL.createObjectURL(file);
-      }
+  onFileSelected(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    const file: File | null = (fileInput.files && fileInput.files[0]) || null;
+    if (file) {
+      this.userForm.get('image')?.setValue(file);
     }
-    return '';
   }
   
 }

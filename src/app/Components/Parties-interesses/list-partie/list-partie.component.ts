@@ -243,4 +243,8 @@ getDisplayedRange(): string {
   const endIndex = Math.min(this.p * this.itemsPerPage, this.parties.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.parties.length} entrées`;
 }
+getRecordCount(typepartie: any): number {
+  const typepartiePlans = this.parties.filter(partie => partie.typepartie === typepartie.id);
+  return typepartiePlans.length;
+}
 }
