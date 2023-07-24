@@ -111,4 +111,15 @@ onFileSelected(event: Event) {
   const file: File = (fileInput.files as FileList)[0];
   this.PersonnelForm.get('image')?.setValue(file);
 }
+getImageSrc(): string {
+  const imageControl = this.PersonnelForm.get('image');
+  if (imageControl?.value instanceof File) {
+    const imageUrl = URL.createObjectURL(imageControl.value);
+    console.log('Selected Image URL:', imageUrl); // Log the URL of the selected image
+    return imageUrl;
+  } else {
+    return '../assets/images/user/11.png'; // Default image path if no image is selected
+  }
+}
+
 }

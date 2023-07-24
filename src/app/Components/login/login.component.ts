@@ -49,9 +49,7 @@ export class LoginComponent {
         } else if (error instanceof HttpErrorResponse && error.status === 400) {
           if (this.loginAttempts < 2) {
             this.errorMessage = error.error?.message || 'Invalid email or password.';
-          } else {
-            this.errorMessage = 'Attention, après 3 mauvaises saisies de mot de passe, votre compte sera bloqué. Pour le débloquer, merci de contacter votre administrateur.';
-          }
+          } 
           this.loginAttempts++;
         } else {
           this.errorMessage = "Une erreur s'est produite lors de la connexion";

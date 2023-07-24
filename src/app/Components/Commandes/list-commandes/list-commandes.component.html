@@ -19,7 +19,7 @@
                     
                   <div class="row">
                      
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
@@ -32,7 +32,8 @@
                             </div>
                           </div>
                         </div>
-                       
+
+                        
                         <div class="col-md-3">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -70,12 +71,15 @@
                           
                           <div class="input-group">
                             <div class="input-group-prepend">
+                              
                               <span class="input-group-text">
                                 <i class="fas fa-filter"></i>
                               </span>
                             </div>
+                            
                             <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture"  (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
-                              
+                              <option value="">Filtrer par Texture</option>
+
                               <option value="" >Tous</option>
                               <option value="Viande coupée" selected>Viande coupée</option>
                               <option value="Tout coupée">Tout coupée</option>
@@ -112,7 +116,7 @@
                          aria-describedby="user-list-page-info">
                          <thead>
                             <tr>
-                               <th>Date du repas </th>
+                        <th>Date du repas </th>
                         <th>Type de commande</th>
                         <th>Nombre/Quantité</th>
                         <th>Specificité Régime</th>
@@ -123,7 +127,7 @@
                             </tr>
                          </thead>
                          <tbody>
-                            <tr  *ngFor="let commande of displayedCommandes   ">
+                            <tr  *ngFor="let commande of displayedCommandes | filter: searchQuery  ">
                               <td>{{ commande.date_commande }}</td>
                               <td>{{ commande.type_commande}}</td>
                               <td>{{ commande.quantite }}</td>

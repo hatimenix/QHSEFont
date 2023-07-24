@@ -21,22 +21,19 @@ export class ListDocumentationComponent implements OnInit {
   searchQuery: string = '';
   document: Documentation[] = [];
   myForm: any;
-  filteredDocuments: Documentation[] = [];
   site$!: Observable<any>;
   secteur$!: Observable<any>;
   processus$!: Observable<any>;
   //variables pour le filtrage 
-  sites!: Site[];
+  sites!: any[];
   selectedSiteId: number | undefined;
-  site!: Site[];
   selectedSecteurId: number | undefined;
   secteur!: Secteur[];
   selectedProcessusId: number | undefined;
   processus  : any[] = [];
+  typeDocumentSelectionne !:string
 
-//filtrage par type de document
-  typeDocSelectionne!: string;
-
+  documents: any;
    //modal
    @ViewChild('deleteModal', { static: true }) deleteModal!: any;
    modalRef!: BsModalRef;
@@ -74,12 +71,7 @@ constructor(
      //pagination 
      this.itemsPerPageOptions = [5, 10, 15];
      this.itemsPerPage = this.itemsPerPageOptions[0]; 
-     const isFirstVisit = history.state.isFirstVisit;
-    if (!isFirstVisit) {
-      history.replaceState({ isFirstVisit: true }, '');
-      location.reload();
-    }
-    window.scrollTo(0, 0);
+     
   }
 
 
@@ -124,154 +116,11 @@ constructor(
 
  
 
- // Fonction de filtrage 
- //filtrage par site
-filterDocumentsBySite(): void {
-  const selectedSite = parseInt(this.myForm.get('site')?.value);
-
-  if (selectedSite) {
-
-    this.documentService.getDocuments().subscribe(
-      (data: Documentation[]) => {
-        const document = data;
-        const filteredDocuments = document.filter(d => {
-          const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
-          return siteIds.includes(selectedSite);
-        });
-
-        if (filteredDocuments.length > 0) {
-          this.selectedSiteId = selectedSite;
-          this.document = filteredDocuments;
-        } else {
-          console.log(`Aucun document trouvé pour le site sélectionné: ${selectedSite}`);
-          this.document = [];
-        }
-
-        console.log("documents filtrés", this.document);
-        console.log("site sélectionné", this.selectedSiteId);
-        console.log("liste des documents", this.document);
-        console.log("document length", this.document.length);
-
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-
-  } else {
-    this.myForm.reset();
-    this.selectedSiteId = undefined;
-    console.log("id de ce site", this.selectedSiteId);
-    this.loaddocument();
-  }
-}
-resetSiteFilters(): void {
-  this.myForm.get('site')?.setValue(''); // Reset the site filter to empty value
-  this.filterDocumentsBySite(); // Apply the filter based on the reset site value
-}
+ 
 
 //filtrage par secteur 
 
-filterDocumentsBySecteur(): void {
-  const selectedSecteur = parseInt(this.myForm.get('secteur')?.value);
 
-  if (selectedSecteur) {
-
-    this.documentService.getDocuments().subscribe(
-      (data: Documentation[]) => {
-        const document = data;
-        const filteredDocuments = document.filter(d => {
-          const secteurIds = Array.isArray(d.secteur) ? d.secteur.map((s: Secteur) => s.id) : [d.secteur];
-          return secteurIds.includes(selectedSecteur);
-        });
-
-        if (filteredDocuments.length > 0) {
-          this.selectedSecteurId = selectedSecteur;
-          this.document = filteredDocuments;
-        } else {
-          console.log(`Aucun document trouvé pour le secteur sélectionné: ${selectedSecteur}`);
-          this.document = [];
-        }
-
-        console.log("documents filtrés", this.document);
-        console.log("secteur sélectionné", this.selectedSecteurId);
-        console.log("liste des documents", this.document);
-        console.log("document length", this.document.length);
-
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-
-  } else {
-    this.myForm.reset();
-    this.selectedSecteurId = undefined;
-    console.log("id de ce secteur", this.selectedSecteurId);
-    this.loaddocument();
-  }
-}
-resetSecteurFilters(): void {
-  this.myForm.get('secteur')?.setValue(''); // Reset the site filter to empty value
-  this.filterDocumentsBySecteur(); // Apply the filter based on the reset site value
-}
-//filtrage par processus
-filterDocumentsByProcessus():void{
-  
-  const selectedProcessus = parseInt(this.myForm.get('processus')?.value);
-
-  if (selectedProcessus) {
-
-    this.documentService.getDocuments().subscribe(
-      (data: Documentation[]) => {
-        const document = data;
-        const filteredDocuments = document.filter(d => {
-          const processusIds = Array.isArray(d.processus) ? d.processus.map((p: Processus) => p.id) : [d.processus];
-          return processusIds.includes(selectedProcessus);
-        });
-
-        if (filteredDocuments.length > 0) {
-          this.selectedProcessusId = selectedProcessus;
-          this.document = filteredDocuments;
-        } else {
-          console.log(`Aucun document trouvé pour le processus sélectionné: ${selectedProcessus}`);
-          this.document = [];
-        }
-
-        console.log("documents filtrés", this.document);
-        console.log("processus sélectionné", this.selectedProcessusId);
-        console.log("liste des documents", this.document);
-        console.log("document length", this.document.length);
-
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-
-  } else {
-    this.myForm.reset();
-    this.selectedProcessusId = undefined;
-    console.log("id de ce processus", this.selectedProcessusId);
-    this.loaddocument();
-  }
-}
-//filtrage par type de document 
-filterDocumentByType(): void {
-  if (this.typeDocSelectionne) {
-    this.documentService.getDocuments().subscribe((document) => {
-      this.document = document.filter((f) => f.type_docs === this.typeDocSelectionne);
-    });
-  } else {
-    this.loaddocument();
-  }
-}
-resetTypeFilters(): void {
-  // Reset the selected filters and reload the data
-  this.typeDocSelectionne = ''; // Reset the selected type filter
-  this.myForm.reset(); // Reset the form and selected site filter
-  this.loaddocument(); // Reload the data
-}
   //delete Modal 
   confirmDelete(): void {
     this.documentService.deleteDocument(this.DocIdToDelete)
@@ -333,4 +182,57 @@ getDisplayedRange(): string {
   const endIndex = Math.min(this.p * this.itemsPerPage, this.document.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.document.length} entrées`;
 }
+filterDocumentByType(): void {
+  if (this.typeDocumentSelectionne) {
+    this.documentService.getDocuments().subscribe((document) => {
+      this.document = document.filter((c) => c.type_docs === this.typeDocumentSelectionne);
+    });
+  } else {
+    this.loaddocument();
+  }
+}
+
+
+filterDocumentsBySite(selectedSite: number): void {
+  if (!isNaN(selectedSite)) {
+    this.documentService.getDocuments().subscribe(
+      (data: Documentation[]) => {
+        const document = data;
+        const filteredDocuments = document.filter(d => {
+          const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
+          return siteIds.includes(selectedSite);
+        });
+
+        if (filteredDocuments.length > 0) {
+          this.selectedSiteId = selectedSite;
+          this.document = filteredDocuments;
+        } else {
+          console.log(`Aucun document trouvé pour le site sélectionné: ${selectedSite}`);
+          this.document = [];
+        }
+
+        console.log("documents filtrés", this.document);
+        console.log("site sélectionné", this.selectedSiteId);
+        console.log("liste des documents", this.document);
+        console.log("document length", this.document.length);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  } else {
+    this.myForm.reset();
+    this.selectedSiteId = undefined;
+    console.log("id de ce site", this.selectedSiteId);
+    this.loaddocument();
+  }
+}
+
+onSiteSelectionChange(): void {
+  const selectedSite = this.myForm.get('site')?.value;
+  this.filterDocumentsBySite(selectedSite);
+}
+
+
+
 }

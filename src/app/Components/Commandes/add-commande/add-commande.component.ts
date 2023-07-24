@@ -18,7 +18,6 @@ export class AddCommandeComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private commandeService: CommandeSerService, 
     private router: Router,
-    //modal
     private bsModalService: BsModalService) {
     this.createForm();
   }

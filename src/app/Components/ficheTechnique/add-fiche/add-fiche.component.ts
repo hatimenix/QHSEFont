@@ -54,8 +54,8 @@ onSubmit() {
 
     this.ficheService.addFicheFormData(formData).subscribe(
       (response) => {
-        console.log('fiche ajoutée', response);
         this.openModal();
+        console.log('fiche ajoutée', response);
         this.router.navigate(['/listF']);
       },
       (error) => {
@@ -67,6 +67,8 @@ onSubmit() {
   //modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
+    console.log("modal");
+    
   }
   closeModal() {
     this.bsModalService.hide();
