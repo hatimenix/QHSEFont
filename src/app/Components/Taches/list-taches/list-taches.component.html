@@ -121,7 +121,8 @@
                         <i class="fa fa-chevron-right" *ngIf="!source.expanded"></i>
                         <i class="fa fa-chevron-down" *ngIf="source.expanded"></i>
                       </a>
-                      <a href="javascript:void(0);">Source : {{ source.nom }}</a>
+                      <a href="javascript:void(0);">Source : {{ source.nom }} : ( {{
+                        getRecordCount(source) }} )</a>
                     </td>
                     <ng-container *ngIf="source.expanded ">
                             
@@ -275,16 +276,6 @@
                   <input [(ngModel)]="echeance" value="{{echeance}}" formControlName="echeance" type="date" class="form-control" id="echeance" name="echeance" />
                 </div>
               </div>
-              <div class="row">
-                <div class="col">
-                  <label>Description</label>
-                  <textarea [(ngModel)]="description" value="{{description}}" formControlName="description" class="form-control" id="description" name="description" rows="2"></textarea>
-                </div>
-                <div class="col">
-                  <label>Commentaires</label>
-                  <textarea [(ngModel)]="commentaire" value="{{commentaire}}" type="text" formControlName="commentaire" class="form-control" data-errors="Please Enter Name." id="commentaire" rows="2"></textarea>
-                </div>
-                </div>
                 <div class="row">
                   <div class="col">
                     <label>Priorité</label>
@@ -321,6 +312,16 @@
                   </select>
                 </div>
                 </div>
+                <div class="row">
+                  <div class="col">
+                    <label>Description</label>
+                    <textarea [(ngModel)]="description" value="{{description}}" formControlName="description" class="form-control" id="description" name="description" rows="2"></textarea>
+                  </div>
+                  <div class="col">
+                    <label>Commentaires</label>
+                    <textarea [(ngModel)]="commentaire" value="{{commentaire}}" type="text" formControlName="commentaire" class="form-control" data-errors="Please Enter Name." id="commentaire" rows="2"></textarea>
+                  </div>
+                  </div>
                 <br>
                 <div class="col mb-2">
                 <div class="col">

@@ -303,5 +303,8 @@ getDisplayedRange(): string {
   const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredTaches.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredTaches.length} entrées`;
 }
-
+getRecordCount(source: any): number {
+  const sourcePlans = this.taches.filter(tache => tache.source === source.id);
+  return sourcePlans.length;
+}
 }

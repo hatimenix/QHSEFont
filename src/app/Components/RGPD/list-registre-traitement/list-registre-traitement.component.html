@@ -38,14 +38,14 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="filterDropdown">
               <a class="dropdown-item" (click)="filterByField('typeregistre')" style="cursor: pointer;">Registre</a>
-              <a class="dropdown-item" (click)="filterByField('responsable_traitement')" style="cursor: pointer;">Responsable du traitement</a>
+              <a class="dropdown-item" (click)="filterByField('responsable_name')" style="cursor: pointer;">Responsable du traitement</a>
               <a class="dropdown-item" (click)="filterByField('nomtraitement')" style="cursor: pointer;">Nom du traitement</a>
 
             </div>
             <div class="dropdown dropright">
               <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
                 <div class="arrow"></div>
-                <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                <button type="button" class="close" aria-label="Close" (click)="closePopover()"  (click)="handleReset()">
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="popover-body" style="width: 500px; max-width: 100%;">
@@ -152,14 +152,14 @@
                                 <th>Personne Concernee</th>
                                 <th>Precisions</th>
                                 <th style="min-width: 100px">Action</th>
-                                <th scope="col">Supprimer les colonnes</th>
+                                <th scope="col">Supprimer les lignes</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let traitement of displayedTraitements | filter : searchQuery let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
                               <td *ngIf="showTypeRegistre"><a routerLink="/traitement/{{ traitement.id }}">{{traitement.typeregistre}}</a></td>
-                              <td *ngIf="showRespRegistre">{{traitement.responsable_traitement}}</td>
+                              <td *ngIf="showRespRegistre">{{traitement.responsable_name}}</td>
                               <td>{{traitement.id}}</td>
                               <td>{{traitement.nomtraitement}}</td>
                                 <td>{{ traitement.datedecreation | date:'yyyy-MM-dd' }}</td>
@@ -287,8 +287,10 @@ aria-hidden="true">
                  <div class="col-md-3">                      
                     <div class="form-group">
                         <label>Responsable Traitement</label>
-                        <input [(ngModel)]="responsable_traitement" type="text" value="{{responsable_traitement}}" formControlName="responsable_traitement" class="form-control"  data-errors="Please Enter Name." id="responsable_traitement" >
-                     </div>
+                        <select [(ngModel)]="responsable_traitement" id="responsable_traitement" name="responsable_traitement" style="width: 100%;" formControlName="responsable_traitement" class="form-control" class="custom-select" >
+                          <option *ngFor="let responsable_traitement of utilisateurs" [value]="responsable_traitement.id">{{ responsable_traitement.nom }}</option>
+                        </select>                      
+                      </div>
                  </div>
                  <div class="col-md-3">                      
                     <div class="form-group">
@@ -415,7 +417,7 @@ aria-hidden="true">
                  <div class="row">
                   <div class="col-md-3">                      
                     <div class="form-group">
-                        <label>Données concernées </label>
+                        <label>Données concernées(UE) </label>
                         <input [(ngModel)]="donneeconcernees" value="{{donneeconcernees}}" type="text" formControlName="donneeconcernees" class="form-control"  data-errors="Please Enter Name." id="donneeconcernees" >
                      </div>
                  </div>
@@ -472,13 +474,13 @@ aria-hidden="true">
                      </div>
                      <div class="col-md-3">                      
                       <div class="form-group">
-                          <label>Données concernées </label>
+                          <label>Données concernées(hors) </label>
                           <input [(ngModel)]="lesdonneesconcernee" value="{{lesdonneesconcernee}}" type="text" formControlName="lesdonneesconcernee" class="form-control"  data-errors="Please Enter Name." id="lesdonneesconcernee" >
                        </div>
                        </div>
                        <div class="col-md-3">                      
                         <div class="form-group">
-                            <label>Précisions </label>
+                            <label>Précisions(UE) </label>
                             <input [(ngModel)]="precision" value="{{precision}}" type="text" formControlName="precision" class="form-control"  data-errors="Please Enter Name." id="precision" >
                          </div>
                      </div>

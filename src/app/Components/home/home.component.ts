@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
+import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 import { Actions } from 'src/app/models/actions';
 import { Nc } from 'src/app/models/nc';
+import { Taches } from 'src/app/models/taches';
 
 @Component({
   selector: 'app-home',
@@ -34,16 +36,19 @@ export class HomeComponent {
 
   ncs: Nc[] = [];
   actions : Actions[]=[];
+  taches: Taches[] = [];
 
   deleteModal: any;
   idTodelete: number = 0;
 
 
-  constructor(private ncservice: ServicesNonConfirmitéService,private actionService : ApiActionsService) {
+  constructor(private ncservice: ServicesNonConfirmitéService,private actionService : ApiActionsService,private tacheservice: ApiTachesService) {
 
   }
   ngOnInit(): void {
     this.getNcs();
+    this.getActions();
+    this.getTaches();
     const isFirstVisit = history.state.isFirstVisit;
     if (!isFirstVisit) {
       history.replaceState({ isFirstVisit: true }, '');
@@ -70,6 +75,16 @@ getActions(){
       this.actions = res;
     },
     (    error: any) => {
+      console.log(error);
+    }
+  );
+}
+getTaches() {
+  this.tacheservice.getAllTaches().subscribe(
+    res => {
+      this.taches = res;
+    },
+    error => {
       console.log(error);
     }
   );

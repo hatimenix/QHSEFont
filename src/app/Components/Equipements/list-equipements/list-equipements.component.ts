@@ -256,6 +256,18 @@ getDisplayedRange(): string {
   return `Affichage de ${startIndex} à ${endIndex} de ${this.equipements.length} entrées`;
 }
 
+getRecordCount(site: any): number {
+  const sitePlans = this.equipements.filter(equipement => equipement.site === site.id);
+  return sitePlans.length;
+}
+getRecordSecteurCount(site: any,secteur: any): number {
+  const secteurPlans = this.equipements.filter(
+    (equipement) => equipement.site === site.id && equipement.secteur === secteur.id
+  );
+    return secteurPlans.length;
+}
+
+
 
 
 }

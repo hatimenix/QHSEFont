@@ -5,8 +5,6 @@ import { AuthService } from 'src/app/Services/Service-authentification/auth.serv
 import { GroupeUser } from 'src/app/models/GroupeUser';
 import { UserApp } from 'src/app/models/UserApp';
 
-
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

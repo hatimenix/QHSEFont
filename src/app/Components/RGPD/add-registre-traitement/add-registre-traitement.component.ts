@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 declare var window: any;
 
 @Component({
@@ -14,6 +15,7 @@ declare var window: any;
 export class AddRegistreTraitementComponent implements OnInit {
   fournisseurs: any[] = [];
   traitements: any[] = [];
+  utilisateurs: any[] = [];
   modalCompletedmesure = false;
   modalCompleteddonnee = false;
   modalCompletedpersonne = false;
@@ -22,7 +24,7 @@ export class AddRegistreTraitementComponent implements OnInit {
 
     @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
-  constructor(private   traitementservice : ServiceRegistreTraitementService , private router : Router, private   fournisseurservice : FournisseurService,private bsModalService: BsModalService){}
+  constructor(private   traitementservice : ServiceRegistreTraitementService , private router : Router, private   fournisseurservice : FournisseurService,private apiUtilisateurService: ApiUtilisateurService,private bsModalService: BsModalService){}
 
   mode = 'list';
   
@@ -117,6 +119,15 @@ export class AddRegistreTraitementComponent implements OnInit {
         console.log(error); // Handle error
       }
     );
+    this.apiUtilisateurService.getAllUtilsateur().subscribe(
+      (data: any[]) => {
+        this.utilisateurs = data;
+        console.log(this.utilisateurs); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
     this.traitementservice.getAll().subscribe(
       (data: any[]) => {
         this.traitements = data;
