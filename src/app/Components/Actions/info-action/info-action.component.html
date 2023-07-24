@@ -1,4 +1,4 @@
-<div class="content-page">
+<div class="content-page custom-background">
    <div class="container-fluid">
       <div class="row">
          <div class="col-sm-12">
@@ -296,7 +296,7 @@
                                              </button>
                                           </div>
                                             <div class="modal-body">
-                                             <form [formGroup]="realisationForm" (ngSubmit)="updateRealisation()"  class="needs-validation" novalidate>                                            
+                                             <form [formGroup]="realisationForm" class="needs-validation" novalidate>                                            
                                                 <div class="form-group">
                                                    <label for="action_realise">Action réaliser </label>
                                                    <textarea class="form-control" id="action_realise" formControlName="action_realise"></textarea>
@@ -314,7 +314,7 @@
                                                   </select>
                                                 </div>               
                                                 <div class="d-flex align-items-end flex-column" >
-                                                   <button type="submit" class="btn" style="background-color:#ffd140;" [disabled]="actionForm.invalid">Modifier</button>
+                                                   <button type="submit" class="btn" style="background-color:#ffd140;" data-dismiss="modal" (click)="updateRealisation()" [disabled]="realisationForm.invalid">Modifier</button>
                                                 </div>
                                              </form>
                                             </div>
@@ -331,7 +331,7 @@
                                              </button>
                                           </div>
                                           <div class="modal-body">
-                                             <form [formGroup]="tacheForm" (ngSubmit)="addTache()"  class="needs-validation" enctype="multipart/form-data" novalidate>                                            
+                                             <form [formGroup]="tacheForm" class="needs-validation" enctype="multipart/form-data" novalidate>                                            
                                                 <div class="form-group">
                                                    <label>Source <span style="color: red;">*</span></label>
                                                    <select [(ngModel)]="source" id="source" name="source" formControlName="source" class="form-control" class="custom-select" required>
@@ -389,7 +389,7 @@
                                                    <input type="file" class="form-control" style="padding-bottom: 8%;" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
                                                 </div>                                                                             
                                                 <div class="d-flex align-items-end flex-column" >
-                                                   <button type="submit" class="btn" style="background-color:#ffd140;" [disabled]="tacheForm.invalid">Ajouter</button>
+                                                   <button type="submit" class="btn" style="background-color:#ffd140;" data-dismiss="modal" (click)="addTache()" [disabled]="tacheForm.invalid">Ajouter</button>
                                                 </div>
                                              </form>
                                           </div>
@@ -460,7 +460,7 @@
                                           </button>
                                        </div>
                                          <div class="modal-body">
-                                          <form [formGroup]="mesureForm" (ngSubmit)="updateMesure()"  class="needs-validation" novalidate>                                            
+                                          <form [formGroup]="mesureForm" class="needs-validation" novalidate>                                            
                                              <div class="form-group">
                                                 <label for="delai_mesure_eff">Date cloture :</label>
                                                 <input type="date" class="form-control" formControlName="date_cloture" required/>
@@ -485,7 +485,7 @@
                                                 <input type="number" class="form-control" formControlName="cout" min="0" required/>
                                               </div>
                                              <div class="d-flex align-items-end flex-column" >
-                                                <button type="submit" class="btn" style="background-color:#ffd140;" [disabled]="mesureForm.invalid">Modifier</button>
+                                                <button type="submit" class="btn" style="background-color:#ffd140;" data-dismiss="modal" (click)="updateMesure()" [disabled]="mesureForm.invalid">Modifier</button>
                                              </div>                                   
                                            </form>
                                          </div>
@@ -543,3 +543,94 @@
       </div>
    </div>
 </div>
+
+<ng-template #successModal>
+   <div class="modal-header success-header">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Réalisation a été ajoutée avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-success" (click)="closeModal()">Fermer</button>
+   </div>
+ </ng-template>
+
+ <ng-template #successModalM>
+   <div class="modal-header success-header">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Mesure d'éfficacité a été ajoutée avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-success" (click)="closeModal()">Fermer</button>
+   </div>
+ </ng-template>
+
+ <ng-template #successModalT>
+   <div class="modal-header success-header">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     La tache a été ajoutée avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-success" (click)="closeModal()">Fermer</button>
+   </div>
+ </ng-template>
+
+ <ng-template #successModalUR>
+   <div class="modal-header update-header">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Réalisation a été modifié avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-update-modal" (click)="closeModal()">Fermer</button>
+   </div>
+ </ng-template>
+
+ <ng-template #successModalUM>
+   <div class="modal-header update-header">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Mesure d'éfficacité a été modifié avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-update-modal" (click)="closeModal()">Fermer</button>
+   </div>
+ </ng-template>
+
+ <ng-template #deleteModal>
+   <div class="modal-header delete-header">
+     <h4 class="modal-title">Confirmation de la suppression</h4>
+     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Êtes-vous sûr de vouloir supprimer cette action ?
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn btn-delete-modal" (click)="deleteRealisation()">Supprimer</button>
+   </div>
+ </ng-template>
