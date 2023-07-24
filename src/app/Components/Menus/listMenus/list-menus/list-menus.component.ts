@@ -24,8 +24,6 @@ export class ListMenusComponent implements OnInit {
 
   filteredMenus: Menus[] = [];
   MoisSelectionne: string = '';
-  selectedMonth = new FormControl('');
-
   //delete modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
@@ -62,10 +60,7 @@ export class ListMenusComponent implements OnInit {
     //pagination 
     this.itemsPerPageOptions = [5, 10, 15];
     this.itemsPerPage = this.itemsPerPageOptions[0];
-    
-    this.selectedMonth.valueChanges.subscribe(() => {
-      this.filterMenusByMonth();
-    });
+
   }
 
   getMenus(): void {
@@ -146,34 +141,34 @@ export class ListMenusComponent implements OnInit {
 
   //   }
   // }
-//  filterMenuByMonth(MoisSelectionne: string): void {
-//   this.menuService.getAllMenus().subscribe(
-//     (data: Menus[]) => {
-//       const filteredMenus = data.filter((menus: Menus) => {
-//         return menus.mois_concerne === MoisSelectionne;
-//       });
+ filterMenuByMonth(MoisSelectionne: string): void {
+  this.menuService.getAllMenus().subscribe(
+    (data: Menus[]) => {
+      const filteredMenus = data.filter((menus: Menus) => {
+        return menus.mois_concerne === MoisSelectionne;
+      });
 
-//       if (filteredMenus.length > 0) {
-//         this.menus = filteredMenus;
-//       } else {
-//         console.log(`No menu found for this month: ${MoisSelectionne}`);
-//         this.menus = [];
-//       }
+      if (filteredMenus.length > 0) {
+        this.menus = filteredMenus;
+      } else {
+        console.log(`No menu found for this month: ${MoisSelectionne}`);
+        this.menus = [];
+      }
 
-//       console.log("Filtered menus:", this.menus);
+      console.log("Filtered menus:", this.menus);
 
-//       filteredMenus.forEach(m => {
-//         const s = this.site.find((s: Site) => s.id === m.site);
-//         if (s) {
-//           s.expanded = true;
-//         }
-//       });
-//     },
-//     (error: any) => {
-//       console.log(error);
-//     }
-//   );
-// }
+      filteredMenus.forEach(m => {
+        const s = this.site.find((s: Site) => s.id === m.site);
+        if (s) {
+          s.expanded = true;
+        }
+      });
+    },
+    (error: any) => {
+      console.log(error);
+    }
+  );
+}
 
   resetMenuFilters(): void {
    
@@ -182,22 +177,6 @@ export class ListMenusComponent implements OnInit {
     this.getMenus(); 
   }
 
-
-  filterMenusByMonth() {
-    const selectedMonth = this.selectedMonth.value;
-    if (!selectedMonth) {
-      this.filteredMenus = this.menus; // Show all menus when no month is selected
-    } else {
-      this.filteredMenus = this.menus.filter((menu) => menu.mois_concerne === selectedMonth);
-    }
-  }
-
-  get displayedMenus(): any[] {
-    const startIndex = (this.p - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.filteredMenus.slice(startIndex, endIndex);
-  }
-  
   //afficher juste le nom du fichier 
   getFileNameFromPath(filePath: string | File | undefined): string {
     if (!filePath) return 'Aucun fichier joint';
@@ -229,11 +208,11 @@ export class ListMenusComponent implements OnInit {
     return Math.ceil(this.menus.length / this.itemsPerPage);
   }
 
-  // get displayedMenus(): any[] {
-  //   const startIndex = (this.p - 1) * this.itemsPerPage;
-  //   const endIndex = startIndex + this.itemsPerPage;
-  //   return this.menus.slice(startIndex, endIndex);
-  // }
+  get displayedMenus(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.menus.slice(startIndex, endIndex);
+  }
 
 
   onItemsPerPageChange(option: number) {

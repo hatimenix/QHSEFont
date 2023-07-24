@@ -8,6 +8,7 @@ export class UserApp {
   email: string;
   actif: boolean;
   groupes_roles: GroupeUser[];
+  
   nom_groupe!: string;
   send_email: boolean; 
   image?: any;

@@ -1,229 +1,181 @@
+
 <div class="content-page custom-background">
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-sm-12">
-            <div class="card">
-               <div class="card-header d-flex justify-content-between align-items-center">
-                  <div class="header-title">
-                     <h4 class="card-title">Liste des documents </h4>
-                  </div>
-                  <div class="col-sm-6 col-md-6">
-                    <div class="user-list-files d-flex align-items-center">
-                     <a routerLink="/add-document" class="bg1" href="javascript:void();" style=" margin-right: -5%;"><i class="fas fa-plus"></i>
-                       Nouvel élément
-                     </a>
-                    </div>
-                  </div>
-               </div>
-               <div class="card-body">
-                    <div class="row space-evenly">
-                      
-                      <div class="col-3">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="fas fa-search" style="font-size: 1rem;"></i>
-                              </span>
-                            </div>
-                            <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
-                            <div class="input-group-append">
-                              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-
-                      <div class="input-group" style="max-width: 240px;">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fas fa-filter"></i>
-                            </span>
-                        </div>
-                        <select id="site" name="site" formControlName="site"  class="selectpicker form-control" data-style="py-0" required (change)="filterDocumentsBySite()">
-                          <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                          <option value="">Tous</option>
-                        </select>
-                        <div class="input-group-append">
-                            <!-- Reset Site Filter Button -->
-                            <button class="btn btn-secondary " (click)="resetSiteFilters()">
-                                <i class="fas fa-undo"></i>
-                                <!-- Replace "fa-undo" with the desired reset icon class -->
-                            </button>
-                        </div>
-                    </div>
-</div>
-                    <div class="col-md-3">
-
-                    <div class="input-group" style="max-width: 240px;">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">
-                              <i class="fas fa-filter"></i>
-                          </span>
-                      </div>
-                      <select id="secteur" name="secteur" formControlName="secteur"  class="selectpicker form-control" data-style="py-0" required (change)="filterDocumentsBySecteur()">
-                        <option *ngFor="let secteur of secteur$ | async" [value]="secteur.id">{{ secteur.secteur_nom }}</option>
-                        <option value="">Tous</option>
-                      </select>
-                      <div class="input-group-append">
-                          <button class="btn btn-secondary " (click)="resetSecteurFilters()">
-                              <i class="fas fa-undo"></i>
-                          </button>
-                      </div>
-                  </div>
-
-</div>
-                  <div class="col-md-3">
-  
-                  <div class="input-group" style="max-width: 240px;">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fas fa-filter"></i>
-                        </span>
-                    </div>
-                    <select id="type_docs" name="type_docs" formControlName="type_docs"  class="selectpicker form-control" data-style="py-0" [formControl]="selectedType" >
-                      <option value="">Type de document</option>
-                      <option value="Template">Template</option>
-                      <option value="Formulaire">Formulaire</option>
-                      <option value="Procédure">Procédure</option>
-                      <option value="Référentiel">Référentiel</option>
-                      <option value="Instruction">Instruction</option>
-                      <option value="Descriptif de processus">Descriptif de processus</option>
-                    </select>
-                    <div class="input-group-append">
-                        <!-- Reset Site Filter Button -->
-                        <button class="btn btn-secondary " (click)="resetTypeFilters()">
-                            <i class="fas fa-undo"></i>
-                            <!-- Replace "fa-undo" with the desired reset icon class -->
-                        </button>
-                    </div>
-                </div>
-</div>
-                      
-                      
-                    </div>
-                    <div class=" mt-3 d-flex justify-content-end">
-
-                    <div class="dropdown">
-                      <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Afficher {{ itemsPerPage }} résultats par page
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
-                        <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
-                          <span>{{ option }}</span>
-                          <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
-                        </a>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="table-responsive">
-
-                     <table id="user-list-table" class="table table-striped  mt-4" role="grid"
-                     aria-describedby="user-list-page-info">
-                     <thead>
-                        <tr >
-                           <th></th>
-                           <th>Nom</th>
-                           <th>Codification</th>
-                           <th>Version</th>
-                           <th>Date approbation</th>
-                           <th>Date prévisionnelle de revue</th>
-                           <th>Nouvelle version en cours</th>
-                           <th>Type de document  </th>
-                           <!-- <th>Historique de version  </th>
-                           <th>Ajouter a mes favoris</th> -->
-                          
-                          
-                          
-                           <th>Action</th>
-                        </tr>
-                     </thead>
-                  <ng-container *ngFor="let processus of processus">
-                     <tbody>
-                        <td data-column="name">
-                           <a href="javascript:void(0);" class="toggle-icon" (click)="processus.expanded = !processus.expanded">
-                             <i class="fa fa-chevron-right" *ngIf="!processus.expanded"></i>
-                             <i class="fa fa-chevron-down" *ngIf="processus.expanded"></i>
-                           </a>
-                           <a href="javascript:void(0);">{{ processus.intitule }}</a>
-                         </td>
-                     <ng-container *ngIf="processus.expanded">
-                        <ng-container *ngFor ="let docs of displayedDocuments | filter: searchQuery">
-                              <tr *ngIf="(docs)?.length === 0">
-                                <td colspan="11">Aucune demande trouvée</td>
-                              </tr>  
-                              <tr *ngIf="docs.processus == processus.id">
-                                 <td></td>                    
-                         
-                           <td>
-                              <a href="{{ docs.url_document }}" download>{{  getFileNameFromPath(docs.nom) }}</a>
-                              
-                            </td>
-                          <td>{{docs.codification}}</td>
-                          <td>{{docs.version}}</td>
-                          <td>{{docs.date_approbation}}</td>
-                          <td>{{docs.date_previsionnelle}}</td>
-                          <td>{{docs.nv_version}}</td>
-                          <td>{{docs.type_docs}}</td>
-                          
-                          <!-- <td>Ajouter a l'historique</td>
-                          <td>Ajouter a mes favoris</td> -->
-
-                          <td>
-                            <div class="flex align-items-center list-user-action">
-                              <a class="btn btn-sm btn-view mr-2" data-toggle="tooltip" data-placement="top" title=""
-                                data-original-title="Edit" [routerLink]="['/detailDocs', docs.id]"><i class="ri-eye-line mr-0"></i></a>
-                              <a class="btn btn-sm btn-update mr-2" data-toggle="tooltip" data-placement="top" title=""
-                                data-original-title="Edit" [routerLink]="['/updateDocument', docs.id]"><i class="ri-pencil-line mr-0"></i></a>
-                              <a class="btn btn-sm btn-delete mr-2" data-toggle="tooltip" data-placement="top" title=""
-                                data-original-title="Delete" (click)="DocIdToDelete = docs.id; modalRef = modalService.show(deleteModal);"><i
-                                  class="ri-delete-bin-line mr-0 " style="color: #ffffff;"  ></i></a>
-                            </div>
-                          </td>
-                        </tr>
-                     </ng-container>
-                     </ng-container>
-                     </ng-container>
+  <div class="container-fluid">
+     <div class="row">
+        <div class="col-sm-12">
+           <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                 <div class="header-title">
+                    <h4 class="card-title">Liste des documents </h4>
+                 </div>
+                 <div class="col-sm-6 col-md-6">
+                   <div class="user-list-files d-flex align-items-center">
+                    <a routerLink="/add-document" class="bg1" href="javascript:void();" style=" margin-right: -5%;"><i class="fas fa-plus"></i>
+                      Nouvel élément
+                    </a>
+                   </div>
+                 </div>
+              </div>
+              <div class="card-body">
+                   <div class="row space-evenly">
                      
-                      
-                  </table>
-                  </div>
-                  <br>
-                  <div class="pagination-container" style="display: flex; justify-content: space-between;">
-                     <div>
-                       <span class="entry-info">
-                         {{ getDisplayedRange() }}
-                       </span>
-                     </div>
-                     <div style="display: flex;justify-content: flex-end;">
-                       <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
-                       <div class="page-info">
-                         <span class="page-numbers">
-                           <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
-                         </span>
+                     <div class="col-3">
+                         <div class="input-group">
+                           <div class="input-group-prepend">
+                             <span class="input-group-text">
+                               <i class="fas fa-search" style="font-size: 1rem;"></i>
+                             </span>
+                           </div>
+                           <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+                           <div class="input-group-append">
+                             <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
+                           </div>
+                         </div>
                        </div>
-                       <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
-                     </div>
-                   </div>   
-           
+                       
+                 <label>Filtrer par Type</label>
+                 <div class="col-md-3">
+ 
+                 <div class="input-group" style="max-width: 240px;">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">
+                           <i class="fas fa-filter"></i>
+                       </span>
+                   </div>
+                    <select name="type" class="selectpicker form-control" data-style="py-0" id="type_docs"  (change)="filterDocumentByType()" [(ngModel)]="typeDocumentSelectionne">
+
+                    <option value="">Tous</option>
+                     <option value="Template">Template</option>
+                     <option value="Formulaire">Formulaire</option>
+                     <option value="Procédure">Procédure</option>
+                     <option value="Référentiel">Référentiel</option>
+                     <option value="Instruction">Instruction</option>
+                     <option value="Descriptif de processus">Descriptif de processus</option>
+                   </select>
+                   <div class="input-group-append">
+                       <!-- Reset Site Filter Button -->
+                       <button class="btn btn-secondary ">
+                           <i class="fas fa-undo"></i>
+                           <!-- Replace "fa-undo" with the desired reset icon class -->
+                       </button>
+                   </div>
                </div>
-            </div>
-         </div>
-      </div>
-   </div>
- </div>
- <!-- Confirmation modal for command deletion -->
+</div>
+                     
+                     
+                   </div>
+                   <div class=" mt-3 d-flex justify-content-end">
+
+                   <div class="dropdown">
+                     <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Afficher {{ itemsPerPage }} résultats par page
+                     </button>
+                     <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                       <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
+                         <span>{{ option }}</span>
+                         <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                       </a>
+                     </div>
+                   </div>
+                   </div>
+                   <div class="table-responsive">
+
+                    <table id="user-list-table" class="table table-striped  mt-4" role="grid"
+                    aria-describedby="user-list-page-info">
+                    <thead>
+                       <tr >
+                          <th></th>
+                          <th>Nom</th>
+                          <th>Codification</th>
+                          <th>Version</th>
+                          <th>Date approbation</th>
+                          <th>Date prévisionnelle de revue</th>
+                          <th>Nouvelle version en cours</th>
+                          <th>Type de document  </th>
+                          <th>Site</th>
+                          <th>Secteur</th>
+
+                          <th>Processus</th>
+
+                          <!-- <th>Historique de version  </th>
+                          <th>Ajouter a mes favoris</th> -->
+                         
+                         
+                         
+                          <th>Action</th>
+                       </tr>
+                    </thead>
+                    
+                    <tbody>
+                      <tr  *ngFor="let docs of displayedDocuments | filter: searchQuery  ">
+                        <td></td>
+                        <td>
+                          <a href="{{ docs.url_document }}" download>{{  getFileNameFromPath(docs.nom) }}</a>
+                          
+                        </td>
+                      <td>{{docs.codification}}</td>
+                      <td>{{docs.version}}</td>
+                      <td>{{docs.date_approbation}}</td>
+                      <td>{{docs.date_previsionnelle}}</td>
+                      <td>{{docs.nv_version}}</td>
+                      <td>{{docs.type_docs}}</td>
+                      <td>{{docs.site_name}}</td>
+                      <td>{{docs.secteur_name}}</td>
+                      <td>{{docs.processus_name}}</td>
+                    
+                       
+                      <td>
+                        <div class="flex align-items-center list-user-action">
+                          <a class="btn btn-sm btn-view mr-2" data-toggle="tooltip" data-placement="top" title=""
+                            data-original-title="Edit" [routerLink]="['/detailDocs', docs.id]"><i class="ri-eye-line mr-0"></i></a>
+                          <a class="btn btn-sm btn-update mr-2" data-toggle="tooltip" data-placement="top" title=""
+                            data-original-title="Edit" [routerLink]="['/updateDocument', docs.id]"><i class="ri-pencil-line mr-0"></i></a>
+                          <a class="btn btn-sm btn-delete mr-2" data-toggle="tooltip" data-placement="top" title=""
+                            data-original-title="Delete" (click)="DocIdToDelete = docs.id; modalRef = modalService.show(deleteModal);"><i
+                              class="ri-delete-bin-line mr-0 " style="color: #ffffff;"  ></i></a>
+                        </div>
+                      </td>
+                      </tr>
+                    </tbody>
+                 </table>
+                 </div>
+                 <br>
+                 <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                    <div>
+                      <span class="entry-info">
+                        {{ getDisplayedRange() }}
+                      </span>
+                    </div>
+                    <div style="display: flex;justify-content: flex-end;">
+                      <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                      <div class="page-info">
+                        <span class="page-numbers">
+                          <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                        </span>
+                      </div>
+                      <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                    </div>
+                  </div>   
+          
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<!-- Confirmation modal for command deletion -->
 <ng-template #deleteModal>
-   <div class="modal-header  delete-header">
-     <h4 class="modal-title">Confirmation de la suppression</h4>
-     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-       <span aria-hidden="true">&times;</span>
-     </button>
-   </div>
-   <div class="modal-body">
-     Êtes-vous sûr de vouloir supprimer ce document ?
-   </div>
-   <div class="modal-footer">
-     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
-   </div>
- </ng-template>
+  <div class="modal-header  delete-header">
+    <h4 class="modal-title">Confirmation de la suppression</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Êtes-vous sûr de vouloir supprimer ce document ?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+    <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
+  </div>
+</ng-template>

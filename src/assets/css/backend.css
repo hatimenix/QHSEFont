@@ -9031,7 +9031,7 @@ body.sidebar-main .iq-top-navbar {
   display: inline-block;
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  color: #fff;
+  color: #676E8A;
   text-align: center;
   vertical-align: middle;
   user-select: none;
@@ -9046,7 +9046,7 @@ body.sidebar-main .iq-top-navbar {
     .btn {
       transition: none; } }
   .btn:hover {
-    color: #fff;
+    color: #676E8A;
     text-decoration: none; }
   .btn:focus, .btn.focus {
     outline: none;
@@ -14799,7 +14799,7 @@ label {
 
 .form-control {
   height: 45px;
-  line-height: 26px;
+  line-height: 45px;
   background: #ffffff;
   border: 1px solid #DCDFE8;
   font-size: 14px;

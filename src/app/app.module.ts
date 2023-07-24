@@ -122,6 +122,9 @@ import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exerci
 import { ListReunionComponent } from './Components/Reunion/list-reunion/list-reunion.component';
 import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunion.component';
 import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reunion.component';
+import { ListServicesComponent } from './Components/Services/list-services/list-services.component';
+import { AddServicesComponent } from './Components/Services/add-services/add-services.component';
+
 
 @NgModule({
   declarations: [
@@ -238,7 +241,10 @@ import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reu
     ListExerciceComponent,
     ListReunionComponent,
     AddReunionComponent,
-    InfoReunionComponent
+    InfoReunionComponent,
+    ListServicesComponent,
+    AddServicesComponent,
+
 
   ],
   imports: [
