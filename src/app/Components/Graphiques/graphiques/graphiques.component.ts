@@ -170,8 +170,34 @@ export class GraphiquesComponent implements AfterViewInit {
   
   
   onActionYearChange(): void {
-  this.updateChartData();
+    this.filteredChartData = this.data.filter(
+      (item) =>
+        (this.selectedSite === 'All' || item.site__site_nom === this.selectedSite) &&
+        (this.selectedActionYear === 'All' || item.year === this.selectedActionYear)
+    );
+    const groupedChartData: { [key: string]: ChartDataElement } = {};
+  
+    for (const item of this.filteredChartData) {
+      const key = `${item.type_action}_${item.year}`;
+      if (!groupedChartData[key]) {
+        groupedChartData[key] = {
+          site__site_nom: item.site__site_nom,
+          type_action: item.type_action,
+          year: item.year,
+          count: 0,
+        };
+      }
+      groupedChartData[key].count += item.count;
+    }
+  
+    this.filteredChartData = Object.values(groupedChartData);
+  
+    this.pieSeries = this.filteredChartData.map((item) => item.count);
+    this.pieLabels = this.filteredChartData.map((item) => item.type_action);
+  
+    this.refreshCharts();
   }
+  
   
   onNCYearChange(): void {
     if (this.selectedNCYear === 'All') {

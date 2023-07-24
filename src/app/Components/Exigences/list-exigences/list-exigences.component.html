@@ -69,7 +69,8 @@
                         <i class="fa fa-chevron-right" *ngIf="!partieinteresses.expanded"></i>
                         <i class="fa fa-chevron-down" *ngIf="partieinteresses.expanded"></i>
                       </a>
-                      <a href="javascript:void(0);">{{ partieinteresses.partieinteresse }}</a>
+                      <a href="javascript:void(0);">{{ partieinteresses.partieinteresse }} : ( {{
+                        getRecordCount(partieinteresses) }} )</a>
                     </td>
                     <ng-container *ngIf="partieinteresses.expanded ">
                       <ng-container *ngFor="let exigence of displayedEsigences| filter: searchQuery let i = index ">
