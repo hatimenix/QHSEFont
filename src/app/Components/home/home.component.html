@@ -101,7 +101,7 @@
                         <th scope="col">Etat</th>
                       </tr>
                     </thead>
-                    <tbody class="ligth-body">
+                    <tbody>
                       <tr *ngFor="let action of actions; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                      
                         <td><a routerLink="/action/{{ action.id }}">{{action.intitule}}</a></td>
@@ -134,7 +134,7 @@
                         <th scope="col">Avancement</th>
                       </tr>
                     </thead>
-                    <tbody class="ligth-body">
+                    <tbody>
                       <tr *ngFor="let nc of ncs; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                         <td><a routerLink="/nc/{{ nc.id }}">{{nc.intitule}}</a></td>
                         <td>{{nc.nature}}</td>
@@ -195,7 +195,7 @@
                         <th scope="col">Etat</th>
                       </tr>
                     </thead>
-                    <tbody class="ligth-body">
+                    <tbody>
                       <tr *ngFor="let tache of taches; let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                      
                         <td ><a routerLink="/tache/{{ tache.id }}">{{tache.nom_tache}}</a></td>

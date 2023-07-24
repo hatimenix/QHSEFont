@@ -103,7 +103,7 @@
             <tbody class="ligth-body">
              <tr *ngFor="let documentutile of displayedDocuments | filter : searchQuery  let i = index" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }  ">
               <td>{{ documentutile.nom}}</td>
-                <td *ngIf="fieldsVisible['document']"><button class="btn fa fa-download mr-3"   (click)="download(documentutile.document)"> {{ documentutile.document ? documentutile.document.split('/').pop() : 'Aucun fichier joint' }}</button></td>
+                <td *ngIf="fieldsVisible['document']"><a class="btn fa fa-download mr-3"   [href]="documentutile.document"> {{ documentutile.document ? documentutile.document.split('/').pop() : 'Aucun fichier joint' }}</a></td>
                  <td *ngIf="fieldsVisible['modified_date']">{{ documentutile.modified_date  | date:'yyyy-MM-dd'  }}</td>
                  <td *ngIf="fieldsVisible['modified_by']">{{ documentutile.modified_name }}</td>
                  <td *ngIf="fieldsVisible['typologie']">{{ documentutile.typologie }}</td>

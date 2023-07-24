@@ -76,7 +76,8 @@
                       <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
                       <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
                     </a>
-                    <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }}</a>
+                    <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }} : ( {{
+                      getRecordCount(site) }} )</a>
                   </td>
                   <ng-container *ngIf="site.expanded ">
                     <ng-container *ngFor="let secteur of secteurs">
@@ -86,7 +87,8 @@
                         <i class="fa fa-chevron-right" *ngIf="!secteur.expanded"></i>
                         <i class="fa fa-chevron-down" *ngIf="secteur.expanded"></i>
                       </a>
-                      <a href="javascript:void(0);" (click)="openSecteurModal(secteur)">{{ secteur.secteur_nom }}</a>
+                      <a href="javascript:void(0);" (click)="openSecteurModal(secteur)">{{ secteur.secteur_nom }} : ( {{
+                        getRecordSecteurCount(site,secteur) }} )</a>
                     </td>
                   </div>
                           
@@ -111,7 +113,7 @@
                         </td>                        
                         <td>{{equipement.Equipement_declasse ? 'Oui' : 'Non'}}</td>
                         <td>{{equipement.N_serie}}</td>
-                        <td><button class="btn fa fa-download mr-3"   (click)="download(equipement.Certificat)"> {{ equipement.Certificat ? equipement.Certificat.split('/').pop() : 'Aucun fichier joint' }}</button></td>
+                        <td><a class="btn fa fa-download mr-3"   [href]="equipement.Certificat"> {{ equipement.Certificat ? equipement.Certificat.split('/').pop() : 'Aucun fichier joint' }}</a></td>
                         <td>
                           <div class="d-flex justify-content-start align-items-center list-action">
                             <a  class="btn btn-sm btn-update mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"

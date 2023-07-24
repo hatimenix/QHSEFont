@@ -177,5 +177,9 @@ getDisplayedRange(): string {
   return `Affichage de ${startIndex} à ${endIndex} de ${this.exigences.length} entrées`;
 }
 
+getRecordCount(partieinteresses: any): number {
+  const partieinteressesPlans = this.exigences.filter(exigence => exigence.partieinteresses.includes(partieinteresses.id));
+  return partieinteressesPlans.length;
+}
 
 }
