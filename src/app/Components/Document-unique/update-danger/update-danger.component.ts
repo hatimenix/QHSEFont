@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiDangerService } from 'src/app/Services/Service-document-unique/api-danger.service';
 import { ApiFamilleService } from 'src/app/Services/Service-document-unique/api-famille.service';
@@ -14,6 +15,9 @@ import { Dangers } from 'src/app/models/dangers';
   styleUrls: ['./update-danger.component.css']
 })
 export class UpdateDangerComponent {
+
+  @ViewChild('successModalUD', { static: true }) successModalUD!: any;
+  modalRef!: BsModalRef;
 
   dangerForm!: FormGroup;
   danger!: Dangers;
@@ -29,8 +33,9 @@ export class UpdateDangerComponent {
     private apiDangerService: ApiDangerService,
     private apiSiteService: ApiSiteService,
     private apiServiceService: ApiServiceService,
-    private apiFamilleService: ApiFamilleService
-  ) { }
+    private apiFamilleService: ApiFamilleService,
+    public modalService: BsModalService,
+    private bsModalService: BsModalService,) { }
 
   ngOnInit(): void {
 
@@ -94,11 +99,20 @@ export class UpdateDangerComponent {
 
     this.apiDangerService.updateDanger(this.danger.id, danger).subscribe(
       () => {
+        this.openModal();
         console.log('Le danger a été modifié avec succès.');
         this.router.navigate(['/danger']);
       },
       error => console.log(error)
     );
+  }
+
+   //modal functions 
+   openModal() {
+    this.modalRef = this.bsModalService.show(this.successModalUD);
+  }
+  closeModal() {
+    this.bsModalService.hide();
   }
 
 }

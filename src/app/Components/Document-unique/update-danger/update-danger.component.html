@@ -1,4 +1,4 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
        <div class="row">
            <div class="col-sm-12">
@@ -100,5 +100,20 @@
        <!-- Page end  -->
    </div>
 </div>
+
+<ng-template #successModalUD>
+    <div class="modal-header update-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Le danger a été modifié avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-update-modal" (click)="closeModal()">Fermer</button>
+    </div>
+  </ng-template>
 
 
