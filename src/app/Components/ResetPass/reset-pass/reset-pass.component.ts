@@ -9,43 +9,32 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./reset-pass.component.css']
 })
 export class ResetPassComponent implements OnInit {
-  resetForm!: FormGroup;
-  userId!: string;
-  token!: string;
-  newPassword: string | null = null;
+  
+  passwordResetForm!: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
-  ngOnInit(): void {
-    this.resetForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
-    });
-
-    this.route.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.token = params['token'];
+  ngOnInit() {
+    this.passwordResetForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  resetPassword() {
-    const resetPasswordUrl = `http://localhost:8001/api/reset-password/${this.userId}/${this.token}/`;
+  onSubmit() {
+    if (this.passwordResetForm.valid) {
+      const email = this.passwordResetForm.get('email')?.value;
+      this.sendPasswordResetEmail(email);
+    }
+  }
 
-    const requestBody = {
-      password: this.newPassword
-    };
-
-    this.http.post(resetPasswordUrl, requestBody).subscribe(
-      response => {
-        // Handle success response
-        console.log('Password reset successful');
+  sendPasswordResetEmail(email: string) {
+    // Send the email to the backend for processing
+    this.http.post<any>('http://localhost:8001/api/send-password-reset-email/', { email }).subscribe(
+      (response) => {
+        alert(response.message); // Show success message to the user
       },
-      error => {
-        // Handle error response
-        console.error('Password reset failed:', error);
+      (error) => {
+        alert(error.error); // Show error message to the user
       }
     );
   }
