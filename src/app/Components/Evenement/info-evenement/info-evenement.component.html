@@ -521,7 +521,7 @@
                                     </div>
                                     <div class="modal-body">
                                           <div class="card-body">
-                                           <form [formGroup]="actionForm" (ngSubmit)="addActionFormData()" class="needs-validation" enctype="multipart/form-data" novalidate>
+                                           <form [formGroup]="actionForm" class="needs-validation" enctype="multipart/form-data" novalidate>
                                               <div class="form-group">
                                                 <label for="intitule">Intitulé :</label>
                                                 <input type="text" class="form-control" formControlName="intitule" />
@@ -592,6 +592,10 @@
                                                  <option value="2" >2</option>
                                                  <option value="3" >3</option>
                                                 </select>
+                                                <div class="help-block with-errors">1 : faible /
+                                                   2 : moyen /
+                                                   3 : élevé
+                                                </div>
                                               </div>
                                               <div class="form-group">
                                                  <h5>Prise en charge de la mesure d'efficacité</h5>
@@ -613,7 +617,7 @@
                                                  <input type="file" class="form-control" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelectedAction($event)">
                                               </div>
                                               <div class="d-flex align-items-end flex-column" >
-                                                 <button type="submit" class="btn" style="background-color: #ffd140; color:white;" [disabled]="actionForm.invalid">Ajouter</button>
+                                                 <button type="submit" class="btn" style="background-color: #ffd140; color:white;" data-dismiss="modal" (click)="addActionFormData()" [disabled]="actionForm.invalid">Ajouter</button>
                                               </div>
                                            </form>
                                           </div>
@@ -621,7 +625,7 @@
                                     </div>
                                  </div>
                               </div>
-                        </div>                               
+                        </div>
                      </div>
                   </div>
                </div>
