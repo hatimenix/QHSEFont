@@ -54,6 +54,7 @@
                     <thead>
                       <tr>
                         <th scope="col" style="text-align: center;">Nom</th>
+                        <th scope="col" style="text-align: center;">Chef Service</th>
                         <th scope="col">Actions</th>
                         <th scope="col" style="text-align: center;">Supprimer les colonnes</th>
                       </tr>
@@ -62,6 +63,8 @@
                       <tr *ngFor="let service of displayedServices | filter: searchQuery let i = index"
                         [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                         <td>{{service.service_nom}}</td>
+                        <td>{{service.chef_service_name}}</td>
+
                         <td>
                           <div class="d-flex justify-content-start align-items-center list-action">
                             <a  class="btn btn-sm btn-update mr-2"  style="cursor: pointer;" (click)="getServiceData(service.id, service.service_nom)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
@@ -143,6 +146,14 @@
                           <input [(ngModel)]="service_nom" type="text" value="{{service_nom}}" formControlName="service_nom" class="form-control" data-errors="Please Enter Name." id="service_nom" >
                        </div>
                    </div>
+                   <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Chef Service <label style="color: red;">*</label></label>
+                      <select id="chef_service" name="chef_service" formControlName="chef_service" class="custom-select" data-style="py-0" multiple>
+                        <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
+                      </select>
+                    </div>
+                  </div>
                    </div>
               
           </form>

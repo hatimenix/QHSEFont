@@ -1,49 +1,57 @@
 <div class="content-page custom-background">
-    <div class="container-fluid add-form-list">
-       <div class="row">
-           <div class="col-sm-12">
-            <div style="display: flex; flex-direction: column;">
-               <div class="card">
-                   <div class="card-headers d-flex justify-content-between">
-                       <div class="header-title">
-                           <h4>Ajouter un service</h4>
-                       </div>
-                   </div>
-                   <div class="card-body">
-                       <form [formGroup]="form" data-toggle="validator">
-                        <div class="row">
-                        <div class="col-md-12">                      
-                             <div class="form-group">
-                                <label>Nom</label>
-                                <input [(ngModel)]="servicef.service_nom" type="text" formControlName="service_nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="service_nom" >
-                            </div>
-                            </div>
-                        </div>
-                    </form>
-       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">
-        <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createService()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
-        <button style="margin-bottom: 1%;" type="reset" routerLink="/listServices" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+  <div class="container-fluid add-form-list">
+    <div class="row">
+      <div class="col-sm-12">
+        <div style="display: flex; flex-direction: column;">
+          <div class="card">
+            <div class="card-headers d-flex justify-content-between">
+              <div class="header-title">
+                <h4>Ajouter un service</h4>
+              </div>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="form" data-toggle="validator">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Nom</label>
+                      <input [(ngModel)]="servicef.service_nom" type="text" formControlName="service_nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="service_nom">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Chef Service <label style="color: red;">*</label></label>
+                      <select id="chef_service" name="chef_service" formControlName="chef_service" class="custom-select" data-style="py-0" multiple>
+                        <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">
+                <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createService()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+                <button style="margin-bottom: 1%;" type="reset" routerLink="/listServices" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+              </div>
+            </div>
+          </div>
+          <!-- Page end  -->
+          <ng-template #successModal>
+            <div class="modal-header success-header ">
+              <h4 class="modal-title">Succès</h4>
+              <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Le service a été ajouté avec succès.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
+            </div>
+          </ng-template>
+        </div>
       </div>
-      
-       </div>
-       </div>
-<!-- Page end  -->
-<ng-template #successModal>
-    <div class="modal-header success-header ">
-      <h4 class="modal-title">Succès</h4>
-      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
-    <div class="modal-body">
-      Le service a été ajoutée avec succès.
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
-    </div>
-  </ng-template>
-
-
-
-
-
+  </div>
+</div>
