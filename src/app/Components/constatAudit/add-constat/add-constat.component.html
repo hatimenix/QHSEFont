@@ -1,11 +1,11 @@
-<div class="content-page">
+<div class="content-page custom-background">
     <div class="container-fluid add-form-list">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
+                    <div class="card-headers d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Ajouter Constat d'audit</h4>
+                            <h4>Ajouter Constat d'audit</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -180,12 +180,14 @@
                             </div>
 
 
-                            <div class="d-flex flex-wrap justify-content-center">
+                            <div style="margin-bottom: 2rem; margin-bottom: +5px;"
+                                class="d-flex flex-wrap justify-content-end">
 
-                                <button [disabled]="constatAuditForm.invalid" type="submit" class="btn btn-primary mr-2"
-                                    (click)="openModal()">Ajouter</button>
-                                <button type="reset" class="btn btn-danger"
-                                    routerLink="/constatsaudit-list">Annuler</button>
+                                <button [disabled]="constatAuditForm.invalid" type="submit"
+                                    class="btn btn-primary mr-2 " (click)="openModal()"><i
+                                        class="fas fa-plus"></i>Enregistrer</button>
+                                <button type="reset" class="btn btn-warning" routerLink="/constatsaudit-list"><i
+                                        class="fas fa-times"></i>Annuler</button>
 
                             </div>
 
@@ -198,7 +200,7 @@
     </div>
 </div>
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header success-header">
         <h4 class="modal-title">Succès</h4>
         <button type="button" class="close" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
@@ -208,6 +210,6 @@
         Le constat d'audit a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
     </div>
 </ng-template>

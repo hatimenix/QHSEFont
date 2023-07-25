@@ -10,6 +10,7 @@ import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité
 import { Utilsateur } from 'src/app/models/utilsateur';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { Processus } from 'src/app/models/pocesus';
 import { Site } from 'src/app/models/Site';
 
 
@@ -236,9 +237,21 @@ export class ListConstatsComponent implements OnInit {
     formData.append('intitule_constat', this.intitule_constat);
     formData.append('type_constat', this.type_constat);
     formData.append('audit_associe', this.audit_associe);
-    formData.append('site', this.site);
+
+
+    if (this.site !== null && this.site !== undefined) {
+
+      formData.append('site', this.site);
+    }
+
     formData.append('processus', this.processus);
-    formData.append('date_reponse', this.date_reponse)
+
+    if (this.date_reponse !== null && this.date_reponse !== undefined) {
+
+      formData.append('date_reponse', this.date_reponse)
+    }
+
+
     formData.append('localisation', this.localisation);
     formData.append('type_audit', this.type_audit);
     formData.append('description_constat', this.description_constat);
@@ -383,6 +396,7 @@ export class ListConstatsComponent implements OnInit {
   selectedType: string = '';
 
   filterConstatByType(type: string): void {
+
     this.constatAuditService.getConstatAudits().subscribe(
       (data: ConstatAudit[]) => {
         const filteredConstats = data.filter((constat: ConstatAudit) => {
@@ -397,11 +411,20 @@ export class ListConstatsComponent implements OnInit {
         }
 
         console.log("Filtered constats:", this.constatAudit);
+
+        filteredConstats.forEach(ct => {
+          const p = this.processus.find((s: Processus) => s.id === ct.processus);
+          if (p) {
+            p.expanded = true;
+          }
+        });
+
       },
       (error: any) => {
         console.log(error);
       }
     );
+
   }
 
 

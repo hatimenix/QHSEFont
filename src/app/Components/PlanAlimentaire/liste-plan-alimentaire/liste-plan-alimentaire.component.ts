@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { PlanalimentaireService } from 'src/app/Services/Service-PlanAlimentaire/planalimentaire.service';
@@ -34,7 +34,7 @@ export class ListePlanAlimentaireComponent {
   regime: any
   midi: any
   alcool: any
-  texture: any
+  texture: string[] = [];
   specificite_diet_matin: any
   soir: any
   soupe_soir: any
@@ -76,7 +76,7 @@ export class ListePlanAlimentaireComponent {
 
   }
 
-  form = new FormGroup({
+  form: any = new FormGroup({
 
 
     matin: new FormControl(''),
@@ -171,7 +171,7 @@ export class ListePlanAlimentaireComponent {
     formData.append('regime', this.regime);
     formData.append('midi', String(this.midi));
     formData.append('alcool', String(this.alcool));
-    formData.append('texture', this.texture);
+    formData.append('texture', this.texture.join(","));
     formData.append('specificite_diet_matin', this.specificite_diet_matin);
     formData.append('soir', String(this.soir));
     formData.append('soupe_soir', this.soupe_soir);
@@ -318,71 +318,6 @@ export class ListePlanAlimentaireComponent {
 
 
 
-  getPAData(
-    id: number,
-    matin: boolean,
-    client: string,
-    regime: string,
-    midi: boolean,
-    alcool: boolean,
-    texture: string,
-    specificite_diet_matin: string,
-    soir: boolean,
-    soupe_soir: string,
-    dessert: string,
-    menu_velours_matin: boolean,
-    soupe_midi: string,
-    specificites_midi: string,
-    taille_portion: boolean,
-    statut: string,
-    specificite_dessert: string,
-    gouter: boolean,
-    specifite_gouter: string,
-    localisation_repas: string,
-    specifite_resto_matin: string,
-    menu_velours_soir: boolean,
-    specificite_diet_soir: string,
-    specificite_resto_soir: string,
-    convictions_alimentaires: string,
-    allergie_intolerance: string,
-    autres_infos_utiles: string,
-    texture_liquides_boissons: string,
-    nbr_mesurettes: string,
-    temp_liquide_boisson: string,
-    site: number
-  ) {
-    this.id = id;
-    this.matin = matin;
-    this.client = client;
-    this.regime = regime;
-    this.midi = midi;
-    this.alcool = alcool;
-    this.texture = texture;
-    this.specificite_diet_matin = specificite_diet_matin;
-    this.soir = soir;
-    this.soupe_soir = soupe_soir;
-    this.dessert = dessert;
-    this.menu_velours_matin = menu_velours_matin;
-    this.soupe_midi = soupe_midi;
-    this.specificites_midi = specificites_midi;
-    this.taille_portion = taille_portion;
-    this.statut = statut;
-    this.specificite_dessert = specificite_dessert;
-    this.gouter = gouter;
-    this.specifite_gouter = specifite_gouter;
-    this.localisation_repas = localisation_repas;
-    this.specifite_resto_matin = specifite_resto_matin;
-    this.menu_velours_soir = menu_velours_soir;
-    this.specificite_diet_soir = specificite_diet_soir;
-    this.specificite_resto_soir = specificite_resto_soir;
-    this.convictions_alimentaires = convictions_alimentaires;
-    this.allergie_intolerance = allergie_intolerance;
-    this.autres_infos_utiles = autres_infos_utiles;
-    this.texture_liquides_boissons = texture_liquides_boissons;
-    this.nbr_mesurettes = nbr_mesurettes;
-    this.temp_liquide_boisson = temp_liquide_boisson;
-    this.site = site;
-  }
 
   selectedSiteId: number | undefined;
 
@@ -430,7 +365,7 @@ export class ListePlanAlimentaireComponent {
     }
   }
 
-  selectedType: string = '';
+  selectedType: any = '';
 
 
   resetSiteFilters(): void {
@@ -526,6 +461,126 @@ export class ListePlanAlimentaireComponent {
     this.selectedFilterDess = 'all';
     this.filteredPlanAlimentaire = this.planalimentaire;
   }
+  getMaxHeight(): string {
+    const rowHeight = 90; // Specify the height of a single row in pixels
+    const maxRowsToShow = 5; // Specify the maximum number of rows to display without scrolling
 
+    const maxHeight = (rowHeight * maxRowsToShow) + 'px';
+    return maxHeight;
+  }
+  checkboxOptions: { label: string, value: string, checked: boolean }[] = [
+    { label: 'Risque de fausse route', value: 'Risque de fausse route', checked: false },
+    { label: 'Vinue coupée / IDDSI 6 (Petits morceaux tendres, taille d\'une bouchée)', value: 'Vinue coupée / IDDSI 6 (Petits morceaux tendres, taille d\'une bouchée)', checked: false },
+    { label: 'Tout coupé / IDDSI 6 (Petits morceaux tendres, taille d\'une bouchée)', value: 'Tout coupé / IDDSI 6 (Petits morceaux tendres, taille d\'une bouchée)', checked: false },
+    { label: 'Viande hachée fine / IDDSI 5 (finement haché, lubrifié)', value: 'Viande hachée fine / IDDSI 5 (finement haché, lubrifié)', checked: false },
+    { label: 'Tout haché fin / IDDSI 5 (finement haché, lubrifié)', value: 'Tout haché fin / IDDSI 5 (finement haché, lubrifié)', checked: false },
+    { label: 'Viande/poisson velours / IDDSI 4 (mixé lisse)', value: 'Viande/poisson velours / IDDSI 4 (mixé lisse)', checked: false },
+    { label: 'Tout velours / IDDSI 4 (mixé lisse)', value: 'Tout velours / IDDSI 4 (mixé lisse)', checked: false },
+    { label: 'Liquide / IDDSI 3', value: 'Liquide / IDDSI 3', checked: false },
+    { label: 'Finger food', value: 'Finger food', checked: false }
+  ];
+
+
+
+  toggleCheckbox(checkboxValue: string): void {
+    const checkbox = this.checkboxOptions.find(option => option.value === checkboxValue);
+
+    if (checkbox) {
+      checkbox.checked = !checkbox.checked;
+      this.updateTexture();
+    }
+  }
+
+  updateTexture(): void {
+    this.texture = this.checkboxOptions
+      .filter(option => option.checked)
+      .map(option => option.value);
+  }
+
+  isCheckboxChecked(checkboxValue: string): boolean {
+    const checkbox = this.checkboxOptions.find(option => option.value === checkboxValue);
+    return checkbox ? checkbox.checked : false;
+  }
+
+
+
+
+  getPAData(
+    id: number,
+    matin: boolean,
+    client: string,
+    regime: string,
+    midi: boolean,
+    alcool: boolean,
+    texture: string[] | undefined,
+    specificite_diet_matin: string,
+    soir: boolean,
+    soupe_soir: string,
+    dessert: string,
+    menu_velours_matin: boolean,
+    soupe_midi: string,
+    specificites_midi: string,
+    taille_portion: boolean,
+    statut: string,
+    specificite_dessert: string,
+    gouter: boolean,
+    specifite_gouter: string,
+    localisation_repas: string,
+    specifite_resto_matin: string,
+    menu_velours_soir: boolean,
+    specificite_diet_soir: string,
+    specificite_resto_soir: string,
+    convictions_alimentaires: string,
+    allergie_intolerance: string,
+    autres_infos_utiles: string,
+    texture_liquides_boissons: string,
+    nbr_mesurettes: string,
+    temp_liquide_boisson: string,
+    site: number
+  ) {
+    this.id = id;
+    this.matin = matin;
+    this.client = client;
+    this.regime = regime;
+    this.midi = midi;
+    this.alcool = alcool;
+    // Initialize texture as an empty array
+    this.texture = texture || [];
+
+    // Add the selected values to the texture array
+
+    this.specificite_diet_matin = specificite_diet_matin;
+    this.soir = soir;
+    this.soupe_soir = soupe_soir;
+    this.dessert = dessert;
+    this.menu_velours_matin = menu_velours_matin;
+    this.soupe_midi = soupe_midi;
+    this.specificites_midi = specificites_midi;
+    this.taille_portion = taille_portion;
+    this.statut = statut;
+    this.specificite_dessert = specificite_dessert;
+    this.gouter = gouter;
+    this.specifite_gouter = specifite_gouter;
+    this.localisation_repas = localisation_repas;
+    this.specifite_resto_matin = specifite_resto_matin;
+    this.menu_velours_soir = menu_velours_soir;
+    this.specificite_diet_soir = specificite_diet_soir;
+    this.specificite_resto_soir = specificite_resto_soir;
+    this.convictions_alimentaires = convictions_alimentaires;
+    this.allergie_intolerance = allergie_intolerance;
+    this.autres_infos_utiles = autres_infos_utiles;
+    this.texture_liquides_boissons = texture_liquides_boissons;
+    this.nbr_mesurettes = nbr_mesurettes;
+    this.temp_liquide_boisson = temp_liquide_boisson;
+    this.site = site;
+
+
+    // Update the checkboxOptions based on the selected texture values
+    this.checkboxOptions.forEach((checkbox) => {
+      checkbox.checked = this.texture.includes(checkbox.value);
+    });
+  }
 
 }
+
+

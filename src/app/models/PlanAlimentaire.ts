@@ -6,7 +6,7 @@ export class PlanAlimentaire {
     regime !: string;
     midi !: boolean;
     alcool !: boolean;
-    texture !: string;
+    texture: string[] = [];
     specificite_diet_matin !: string;
     soir !: boolean;
     soupe_soir !: string;

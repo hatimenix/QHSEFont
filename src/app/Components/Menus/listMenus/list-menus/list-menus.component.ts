@@ -132,7 +132,7 @@ export class ListMenusComponent implements OnInit {
   // filterMenuByMonth(): void {
   //   if (this.MoisSelectionne) {
   //     console.log("mois séléctionné", this.MoisSelectionne);
-      
+
   //     this.menuService.getAllMenus().subscribe((menus) => {
   //       this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
   //     });
@@ -141,40 +141,40 @@ export class ListMenusComponent implements OnInit {
 
   //   }
   // }
- filterMenuByMonth(MoisSelectionne: string): void {
-  this.menuService.getAllMenus().subscribe(
-    (data: Menus[]) => {
-      const filteredMenus = data.filter((menus: Menus) => {
-        return menus.mois_concerne === MoisSelectionne;
-      });
+  filterMenuByMonth(MoisSelectionne: string): void {
+    this.menuService.getAllMenus().subscribe(
+      (data: Menus[]) => {
+        const filteredMenus = data.filter((menus: Menus) => {
+          return menus.mois_concerne === MoisSelectionne;
+        });
 
-      if (filteredMenus.length > 0) {
-        this.menus = filteredMenus;
-      } else {
-        console.log(`No menu found for this month: ${MoisSelectionne}`);
-        this.menus = [];
-      }
-
-      console.log("Filtered menus:", this.menus);
-
-      filteredMenus.forEach(m => {
-        const s = this.site.find((s: Site) => s.id === m.site);
-        if (s) {
-          s.expanded = true;
+        if (filteredMenus.length > 0) {
+          this.menus = filteredMenus;
+        } else {
+          console.log(`No menu found for this month: ${MoisSelectionne}`);
+          this.menus = [];
         }
-      });
-    },
-    (error: any) => {
-      console.log(error);
-    }
-  );
-}
+
+        console.log("Filtered menus:", this.menus);
+
+        filteredMenus.forEach(m => {
+          const s = this.site.find((s: Site) => s.id === m.site);
+          if (s) {
+            s.expanded = true;
+          }
+        });
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
 
   resetMenuFilters(): void {
-   
-    this.MoisSelectionne = ''; 
-    this.myForm.reset(); 
-    this.getMenus(); 
+
+    this.MoisSelectionne = '';
+    this.myForm.reset();
+    this.getMenus();
   }
 
   //afficher juste le nom du fichier 
