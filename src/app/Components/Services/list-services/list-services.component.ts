@@ -2,7 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Observable } from 'rxjs';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
+import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { Service } from 'src/app/models/service';
 declare var window: any;
 
@@ -16,6 +18,7 @@ export class ListServicesComponent {
   updateModalVisible: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any; 
   modalRef!: BsModalRef;
+  personnel$ !: Observable<any>;
   itemsPerPageOptions: number[] = [5, 10, 15];
   itemsPerPage: number = this.itemsPerPageOptions[0];
   p: number = 1;
@@ -33,18 +36,24 @@ export class ListServicesComponent {
   selectedServiceToDelete: number = 0;
   id : any 
   service_nom : any 
+  chef_service :any
   searchQuery: string = '';
   services : Service[] = []
   form = new FormGroup({
-    service_nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  service_nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  chef_service: new FormControl('')
+
   });
-  constructor(private   servicesService : ApiServiceService, private router : Router, private bsModalService: BsModalService,){
+  constructor(private servicesService : ApiServiceService, private router : Router, private bsModalService: BsModalService,
+    private personnelService: PersonnelService,
+    ){
 
   }
   ngOnInit(): void {
     this.getServices();
     this.itemsPerPageOptions = [5, 10, 15];
     this.itemsPerPage = this.itemsPerPageOptions[0]; 
+    this.personnel$ = this.personnelService.getPersonnels();
 
   }
   getServices() {
@@ -64,25 +73,38 @@ export class ListServicesComponent {
     this.selectedServiceToDelete = id;
     this.deleteModal.show();
   }
-  updateService() : void {
-    const formData =  new FormData()
+ 
+ 
+  updateService(): void {
+    const formData = new FormData();
     formData.append("service_nom", this.service_nom);
+  
+    // Check if chef_service is not null and not undefined before appending it to FormData
+    if (this.form.value.chef_service !== null && this.form.value.chef_service !== undefined) {
+      // Ensure chef_service is an array, if not convert it to an array with a single value
+      const chefServiceIds: number[] = Array.isArray(this.form.value.chef_service)
+        ? this.form.value.chef_service.map((id: any) => Number(id))
+        : [Number(this.form.value.chef_service)];
 
-  this.servicesService.update(this.id, formData)
-
-  .subscribe({
+      chefServiceIds.forEach((chefServiceId) => {
+        formData.append('chef_service', String(chefServiceId));
+      });
+    }
+  
+    this.servicesService.update(this.id, formData).subscribe({
       next: (res) => {
-          console.log(res);
-          this.openModal();
-          this.updateModalVisible = false;
+        console.log(res);
+        this.openModal();
+        this.updateModalVisible = false;
       },
       error: (e) => {
-          console.error(e);
+        console.error(e);
       }
-  });
-} 
+    });
+  }
 getServiceData( id : number,
   service_nom : any,
+
 ){
   this.id = id,
   this.service_nom=service_nom
