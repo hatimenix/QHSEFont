@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Secteur } from 'src/app/models/Secteur';
 import { Processus } from 'src/app/models/pocesus';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 import { environment } from 'src/environments/environment.development';
 import {Documentation} from 'src/app/models/Documentation'
 import { Personnel } from 'src/app/models/Personnel';

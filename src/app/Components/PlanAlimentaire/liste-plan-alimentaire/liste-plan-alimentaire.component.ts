@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { PlanalimentaireService } from 'src/app/Services/Service-PlanAlimentaire/planalimentaire.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { PlanAlimentaire } from 'src/app/models/PlanAlimentaire';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 declare var window: any;
 @Component({
   selector: 'app-liste-plan-alimentaire',

@@ -14,6 +14,9 @@ import { Commande } from 'src/app/models/Commande';
 export class ListCommandesComponent {
   myForm: any;
   commandes!: Commande[];
+  searchQuery: string = '';
+  
+
   //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
@@ -41,7 +44,9 @@ export class ListCommandesComponent {
     this.myForm = new FormGroup({
       type_commande: new FormControl(),
       specificite_regime: new FormControl(),
-      specificite_texture: new FormControl()
+      specificite_texture: new FormControl(), 
+      
+
      
     });
      //pagination 
@@ -72,16 +77,7 @@ export class ListCommandesComponent {
     this.modalRef.hide();
     }
 
-  //filtrage par type de commande 
-  filterCommandeByType(): void {
-    if (this.typeCommandeSelectionne) {
-      this.commandeService.getCommandes().subscribe((commandes) => {
-        this.commandes = commandes.filter((c) => c.type_commande === this.typeCommandeSelectionne);
-      });
-    } else {
-      this.getCommandes();
-    }
-  }
+
   //filtrage par spécifité texture 
   filterCommandeByTexture(): void {
     if (this.typeTextureSelectionne) {
@@ -92,6 +88,13 @@ export class ListCommandesComponent {
       this.getCommandes();
     }
   }
+  
+  resetTextureFilters(): void {
+  
+    this.typeTextureSelectionne = ''; 
+    this.myForm.reset(); 
+    this.getCommandes();
+  }
   //filtrage par spécifité régime 
   filterCommandeByRegime(): void {
     if (this.typeRegimeSelectionne) {
@@ -101,6 +104,12 @@ export class ListCommandesComponent {
     } else {
       this.getCommandes();
     }
+  }
+  resetRegimeFilters(): void {
+  
+    this.typeRegimeSelectionne = '';
+    this.myForm.reset();
+    this.getCommandes();
   }
 
   //pagination methods 
@@ -134,5 +143,11 @@ getDisplayedRange(): string {
   const startIndex = (this.p - 1) * this.itemsPerPage + 1;
   const endIndex = Math.min(this.p * this.itemsPerPage, this.commandes.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.commandes.length} entrées`;
+}
+
+ //search 
+ resetSearchQuery() {
+  this.searchQuery = '';
+
 }
 }

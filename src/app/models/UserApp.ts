@@ -10,7 +10,7 @@ export class UserApp {
   groupes_roles: GroupeUser[];
   nom_groupe!: string;
   send_email: boolean; 
-  image?: string;
+  image?: any;
 
   // the added one 
   permissions: string[]; 
@@ -24,7 +24,7 @@ export class UserApp {
     groupes_roles: GroupeUser[],
     send_email: boolean,
     permissions: string[],
-    image?: string,
+    image?: any,
   ) {
     this.id = id;
     this.nom_user = nom_user;

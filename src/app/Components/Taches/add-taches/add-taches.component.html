@@ -6,7 +6,7 @@
                <div class="card">
                    <div class="card-headers d-flex justify-content-between">
                        <div class="header-title">
-                           <h4 class="card-title">Ajouter une tâche</h4>
+                           <h4>Ajouter une tâche</h4>
                        </div>
                    </div>
                    <div class="card-body">
@@ -23,7 +23,7 @@
                             <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Assigné à <span style="color: red;">*</span></label>
-                                    <select id="realisation_associee" [(ngModel)]="tachef.assigne_a" name="assigne_a" formControlName="assigne_a"  class="custom-select">
+                                    <select id="realisation_associee" [(ngModel)]="tachef.assigne_a" name="assigne_a" formControlName="assigne_a"  class="custom-select" required>
                                         <option *ngFor="let assigne_a of utilisateurs" [value]="assigne_a.id">{{ assigne_a.nom }}</option>
                                        </select>
                                 </div>
@@ -31,21 +31,21 @@
                         <div class="col-md-4">                      
                              <div class="form-group">
                                 <label>Nom de la tâche <span style="color: red;">*</span></label>
-                                <input [(ngModel)]="tachef.nom_tache" type="text" formControlName="nom_tache" class="form-control" data-errors="Please Enter Name." id="nom_tache" >
+                                <input [(ngModel)]="tachef.nom_tache" type="text" formControlName="nom_tache" class="form-control" data-errors="Please Enter Name." id="nom_tache" required>
                                 <div class="help-block with-errors"></div>
                             </div>
                             </div>
                             <div class="col-md-4">                      
                                 <div class="form-group">
                                    <label>Date de début <span style="color: red;">*</span></label>
-                                   <input [(ngModel)]="tachef.date_debut" formControlName="date_debut" type="date" class="form-control" id="date_debut" name="date_debut" />
+                                   <input [(ngModel)]="tachef.date_debut" formControlName="date_debut" type="date" class="form-control" id="date_debut" name="date_debut" required />
                                    <div class="help-block with-errors"></div>
                                </div>
                                </div>
                                <div class="col-md-4">                      
                                 <div class="form-group">
                                    <label>Échéance <span style="color: red;">*</span></label>
-                                   <input [(ngModel)]="tachef.echeance" formControlName="echeance" type="date" class="form-control" id="echeance" name="echeance" />
+                                   <input [(ngModel)]="tachef.echeance" formControlName="echeance" type="date" class="form-control" id="echeance" name="echeance" required/>
                                    <div class="help-block with-errors"></div>
                                </div>
                                </div>
@@ -108,7 +108,7 @@
                             </div>
                             </div>
                                     </form>
-       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-center">
+       <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">
         <button style="margin-bottom: 1%;" [disabled]="form.invalid" (click)="createTache()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
         <button style="margin-bottom: 1%;" type="reset" routerLink="/tache-list" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
       </div>
@@ -117,7 +117,7 @@
        </div>
 <!-- Page end  -->
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header success-header">
       <h4 class="modal-title">Succès</h4>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
@@ -127,7 +127,7 @@
       La tâche a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+      <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
     </div>
   </ng-template>
 

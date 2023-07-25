@@ -16,34 +16,35 @@
                          <label>Site <label style="color: red;">*</label></label>
                          <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
                              <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                             <option value="">Choisir un site</option>
                             </select>
                      </div> 
                      </div> 
                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="nature_control">Nature de contrôle <label style="color: red;">*</label> </label>
-                          <input type="text" class="form-control" placeholder="Enter une codification" formControlName="nature_control" data-errors="Entrez un nom de document" required>
+                          <input type="text" class="form-control" placeholder="Entrez une nature de contrôle" formControlName="nature_control" data-errors="Entrez un nom de document" required>
                           <div class="help-block with-errors"></div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="origine_reglementaire">Origine réglementaire <label style="color: red;">*</label> </label>
-                          <input type="text" class="form-control" placeholder="Enter une codification" formControlName="origine_reglementaire" data-errors="Entrez un nom de document" required>
+                          <input type="text" class="form-control" placeholder="Entrez un origine réglementaire" formControlName="origine_reglementaire" data-errors="Entrez un nom de document" required>
                           <div class="help-block with-errors"></div>
                         </div>
                       </div>
                       <div class="col-md-6">                      
                         <div class="form-group">
                             <label for="date_dernier_control">Date du dernier contrôle <label style="color: red;">*</label></label>
-                            <input type="date" class="form-control" placeholder="Enter Name" data-errors="Please Enter Date."   type="date" id="date_dernier_control" formControlName="date_dernier_control"required>
+                            <input type="date" class="form-control" placeholder="Entrez une date" data-errors="Please Enter Date."   type="date" id="date_dernier_control" formControlName="date_dernier_control"required>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>    
                     <div class="col-md-6">                      
                         <div class="form-group">
                             <label for="date_control_suivant">Date du contôle suivant <label style="color: red;">*</label></label>
-                            <input type="date" class="form-control" placeholder="Enter Name" data-errors="Please Enter Date."   type="date" id="date_control_suivant" formControlName="date_control_suivant"required>
+                            <input type="date" class="form-control" placeholder="Entrez une date" data-errors="Please Enter Date."   type="date" id="date_control_suivant" formControlName="date_control_suivant"required>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
@@ -65,9 +66,12 @@
                         </div>
                     </div> 
                                           
-                </div>                            
-                <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
-                <button type="reset" class="btn btn-warning" routerLink="/listcontrol">Annuler</button>
+                </div>  
+                <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">
+                          
+                <button type="submit" class="btn btn-primary mr-2" (click)="openModal()"><i class="fas fa-plus"></i>Ajouter</button>
+                <button type="reset" class="btn btn-warning" routerLink="/listcontrol"><i class="fas fa-times"></i>Annuler</button>
+                </div>
               </form>
             </div>
           </div>
@@ -77,7 +81,7 @@
   </div>
   <!-- add modal -->
   <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header success-header ">
       <h4 class="modal-title">Succès</h4>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
@@ -87,7 +91,7 @@
       Le Controle a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+      <button type="button" class="btn btn-success" (click)="closeModal()">Fermer</button>
     </div>
   </ng-template>
   

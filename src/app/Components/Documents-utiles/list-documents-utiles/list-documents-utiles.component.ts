@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DocumentsUtiles } from 'src/app/models/documents-utiles';
 import { ServiceDocumentUtilesService } from 'src/app/Services/Services-document-utile/services-document-utile.service';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 
 declare var window: any;
 
@@ -13,6 +14,7 @@ declare var window: any;
   styleUrls: ['./list-documents-utiles.component.css']
 })
 export class ListDocumentsUtilesComponent  {
+  utilisateurs: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   updateModalVisible: boolean = true;
@@ -58,11 +60,20 @@ export class ListDocumentsUtilesComponent  {
     document: new FormControl('')
 
   });
-  constructor(private   documentutileservice : ServiceDocumentUtilesService, private router : Router,private bsModalService: BsModalService){
+  constructor(private   documentutileservice : ServiceDocumentUtilesService, private router : Router, private apiUtilisateurService: ApiUtilisateurService, private bsModalService: BsModalService){
 
   }
   ngOnInit(): void {
     this.getDocumentsutiles();
+    this.apiUtilisateurService.getAllUtilsateur().subscribe(
+      (data: any[]) => {
+        this.utilisateurs = data;
+        console.log(this.utilisateurs); // Print the utilisateurs to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );

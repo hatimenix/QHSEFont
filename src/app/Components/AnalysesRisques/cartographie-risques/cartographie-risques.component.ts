@@ -16,6 +16,104 @@ declare var window:any;
   styleUrls: ['./cartographie-risques.component.css']
 })
 export class CartographieRisquesComponent {
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  faiblePagination!: {
+    itemsPerPageOptions: number[];
+    itemsPerPage: number;
+    p: number;
+  };
+  moderatePagination!: {
+    itemsPerPageOptions: number[];
+    itemsPerPage: number;
+    p: number;
+  };
+  highPagination!: {
+    itemsPerPageOptions: number[];
+    itemsPerPage: number;
+    p: number;
+  };
+  evaluatePagination!: {
+    itemsPerPageOptions: number[];
+    itemsPerPage: number;
+    p: number;
+  };
+  
+  get totalFaiblePages(): number {
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      const cotationValue = this.toNumber(cotationIPR);
+      return cotationValue < 5;
+    });
+    return Math.ceil(filteredRisques.length / this.faiblePagination.itemsPerPage);
+  }
+  get DisplayedFaibleRisques(): AnalyseRisques[] {
+    const startIndex = (this.faiblePagination.p - 1) * this.faiblePagination.itemsPerPage;
+    const endIndex = startIndex + this.faiblePagination.itemsPerPage;
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      const cotationValue = this.toNumber(cotationIPR);
+      return cotationValue < 5;
+    });
+    return filteredRisques.slice(startIndex, endIndex);
+  }
+  get totalModeratePages(): number {
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      const cotationValue = this.toNumber(cotationIPR);
+      return cotationValue >= 5 && cotationValue <= 10;
+    });
+    return Math.ceil(filteredRisques.length / this.moderatePagination.itemsPerPage);
+  }
+  
+  get displayedModerateRisques(): AnalyseRisques[] {
+    const startIndex = (this.moderatePagination.p - 1) * this.moderatePagination.itemsPerPage;
+    const endIndex = startIndex + this.moderatePagination.itemsPerPage;
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      const cotationValue = this.toNumber(cotationIPR);
+      return cotationValue >= 5 && cotationValue <= 10;
+    });
+    return filteredRisques.slice(startIndex, endIndex);
+  }
+  get totalHighPages(): number {
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      const cotationValue = this.toNumber(cotationIPR);
+      return cotationValue > 10;
+    });
+    return Math.ceil(filteredRisques.length / this.highPagination.itemsPerPage);
+  }
+  
+  get displayedHighRisques(): AnalyseRisques[] {
+    const startIndex = (this.highPagination.p - 1) * this.highPagination.itemsPerPage;
+    const endIndex = startIndex + this.highPagination.itemsPerPage;
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      const cotationValue = this.toNumber(cotationIPR);
+      return cotationValue > 10;
+    });
+    return filteredRisques.slice(startIndex, endIndex);
+  }
+  get totalEvaluatePages(): number {
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      return cotationIPR === '' || cotationIPR === null;
+    });
+    return Math.ceil(filteredRisques.length / this.evaluatePagination.itemsPerPage);
+  }
+  
+  get displayedEvaluateRisques(): AnalyseRisques[] {
+    const startIndex = (this.evaluatePagination.p - 1) * this.evaluatePagination.itemsPerPage;
+    const endIndex = startIndex + this.evaluatePagination.itemsPerPage;
+    const filteredRisques = this.risques.filter(analyseRisque => {
+      const cotationIPR = this.getCotationIPR(analyseRisque);
+      return cotationIPR === '' || cotationIPR === null;
+    });
+    return filteredRisques.slice(startIndex, endIndex);
+  }
+  
   updateModalVisible: boolean = true;
   risques: AnalyseRisques[] = [];
   cotations: Cotation[] = [];
@@ -30,6 +128,8 @@ export class CartographieRisquesComponent {
   idAnalyse !: number;
   analyse !: AnalyseRisques;
   indice : any;
+  deletModal : any;
+  idToDelete: number = 0;
 
   constructor(
     private risqueservice: AnalyseRisquesService,
@@ -67,6 +167,29 @@ export class CartographieRisquesComponent {
     });
     this.sites$ = this.apiSiteService.getAllSite();
     this.processus$ = this.apiProcessusService.getAllProcessus();
+    this.faiblePagination = {
+      itemsPerPageOptions: this.itemsPerPageOptions,
+      itemsPerPage: this.itemsPerPageOptions[0],
+      p: 1
+    };
+    this.moderatePagination = {
+      itemsPerPageOptions: this.itemsPerPageOptions,
+      itemsPerPage: this.itemsPerPageOptions[0],
+      p: 1
+    };
+    this.highPagination = {
+      itemsPerPageOptions: this.itemsPerPageOptions,
+      itemsPerPage: this.itemsPerPageOptions[0],
+      p: 1
+    };
+    this.evaluatePagination = {
+      itemsPerPageOptions: this.itemsPerPageOptions,
+      itemsPerPage: this.itemsPerPageOptions[0],
+      p: 1
+    };
+    this.deletModal = new window.bootstrap.Modal(
+      document.getElementById('deleteAnalyse')
+    );
   }
   updateAnalyse(): void {
     const formData = new FormData();
@@ -100,6 +223,24 @@ export class CartographieRisquesComponent {
         },
         error => console.log(error)
       );
+  }
+  openDeleteModal(id: number) {
+    this.idToDelete = id;
+    this.deletModal.show();
+
+  }
+  deleteAnalyse() {
+    this.risqueservice.delAnalyseRisque(this.idToDelete).subscribe({
+      next: (data) => {
+        this.risques = this.risques.filter(_ => _.id != this.idToDelete)
+        location.reload()
+        this.deletModal.hide();
+      },
+      error:(err) => {
+        console.log(err);
+      }
+      
+    });
   }
   openUpdateModal(analyse: AnalyseRisques): void {
     this.analyse = analyse;
@@ -181,5 +322,53 @@ export class CartographieRisquesComponent {
   closeModal() {
     this.bsModalService.hide();
     location.reload();
+  }
+  onFaibleItemsPerPageChange(option: number) {
+    this.faiblePagination.p = 1;
+    this.faiblePagination.itemsPerPage = option;
+  }
+  
+  getPageNumbersForFaible(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalFaiblePages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  onModerateItemsPerPageChange(option: number) {
+    this.moderatePagination.p = 1;
+    this.moderatePagination.itemsPerPage = option;
+  }
+  
+  getPageNumbersForModerate(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalModeratePages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  onHighItemsPerPageChange(option: number) {
+    this.highPagination.p = 1;
+    this.highPagination.itemsPerPage = option;
+  }
+  
+  getPageNumbersForHigh(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalHighPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  onEvaluateItemsPerPageChange(option: number) {
+    this.evaluatePagination.p = 1;
+    this.evaluatePagination.itemsPerPage = option;
+  }
+  
+  getPageNumbersForEvaluate(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalEvaluatePages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
   }
 }

@@ -31,6 +31,7 @@
                                     <label>Responsable Site <label style="color: red;">*</label> </label>
                                     <select id="responsable_site" name="responsable_site" formControlName="responsable_site"  class="custom-select" data-style="py-0" required >
                                         <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
+                                        <option value="">Choisir un responsable</option>
                                        </select>   
                                 </div> 
                                 </div> 
@@ -38,6 +39,7 @@
                                     <div class="form-group">
                                         <label>Groupe Restaurant <label style="color: red;">*</label></label>
                                         <select class="selectpicker form-control" data-style="py-0" id="groupe_retso" name="groupe_retso" formControlName="groupe_retso" >
+                                            <option value="">Choisir un groupe</option>
                                             <option>Wiltz resto</option>
                                             <option>Schengen resto</option>
                                             <option>Beaufort resto</option>
@@ -45,9 +47,12 @@
                                         </select>
                                     </div> 
                                 </div>  
-                           </div>                            
-                           <button type="submit" class="btn btn-primary mr-2" (click)="openModal()">Ajouter</button>
-                           <button type="reset" class="btn btn-danger" routerLink="/listsites">Annuler</button>
+                           </div>   
+                           
+                           <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                         
+                           <button type="submit" class="btn btn-primary mr-2" (click)="openModal()"> <i class="fas fa-plus"></i>Ajouter</button>
+                           <button type="reset" class="btn btn-danger" routerLink="/listsites"><i class="fas fa-times"></i>Annuler</button>
+                        </div>
                        </form>
                    </div>
                </div>
@@ -57,7 +62,7 @@
    </div>
      </div>
      <ng-template #successModal>
-        <div class="modal-header">
+        <div class="modal-header success-header ">
           <h4 class="modal-title">Succès</h4>
           <button type="button" class="close" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
@@ -67,6 +72,6 @@
           Le site a été ajoutée avec succès.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+          <button type="button" class="btn btn-success" (click)="closeModal()">Fermer</button>
         </div>
       </ng-template>

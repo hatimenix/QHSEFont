@@ -3,88 +3,111 @@
        <div class="row">
           <div class="col-sm-12">
              <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                   <div class="header-title">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                  <div class="header-title">
                       <h4 class="card-title">Commande repas sur roues </h4>
                    </div>
                    <div class="col-sm-6 col-md-6">
-                    <div class="user-list-files d-flex">
-                       
-                       <a routerLink="/addC" class="bg1" href="javascript:void();">
+                    <div class="user-list-files d-flex align-items-center">                       
+                       <a routerLink="/addC" class="bg1" href="javascript:void();" style=" margin-right: -5%;"><i class="fas fa-plus"></i>
                           Nouvel élément 
                        </a>
                     </div>
                  </div>
                 </div>
                 <div class="card-body">
-                   <div class="table-responsive">
                     
-                      <div>
-                         
-                            <div id="user_list_datatable_info" class="dataTables_filter">
-                               <form class="mr-3 position-relative d-flex align-items-center" [formGroup]="myForm">
-                              <div class="row">
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                      <label>Filtrer par Type de commande</label>
-                                      <select id="type_commande" name="type_commande" formControlName="type_commande" class="custom-select" data-style="py-0" (change)="filterCommandeByType()" [(ngModel)]="typeCommandeSelectionne" required>
-                                        <option value="">Tous</option>
-                                        <option value="Client">Client</option>
-                                        <option value="Collaborateur">Collaborateur</option>
-                                        
-                                      </select>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-3"> 
-                                    <div class="form-group">
-                                     <label for="specificite_regime">Filtrer par Spécificité Régime</label>
-                                        <select name="type" class="custom-select form-control" data-style="py-0" id="specificite_regime" formControlName="specificite_regime" (change)="filterCommandeByRegime()" [(ngModel)]="typeRegimeSelectionne">
-                                         <option value="">Tous</option>
-                                         <option value="Constipation">Constipation</option>
-                                         <option value="Diarrhée">Diarrhée</option>
-                                         <option value="Sans résiclus">Sans résiclus</option>
-                                         <option value="Sans gluten">Sans gluten</option>
-                                         <option value="Sans lactose">Sans lactose</option>
-                                         <option value="Sans fructose">Sans fructose</option>
-                                         <option value="Sans alcool">Sans alcool</option>
-                                         <option value="Epargne digestive">Epargne digestive</option>
-                                         <option value="IRC">IRC</option>
-                                         <option value="Hyposodé">Hyposodé</option>
-                                         <option value="Enrichi">Enrichi</option>
-                                         <option value="Diabétique">Diabétique</option>
-                                         <option value="Hypocalorique">Hypocalorique</option>
-                                         <option value="Sans aliments à risque">Sans aliments à risque</option>
-                                         <option value="Alimentation plaisir">Alimentation plaisir</option>
-                                         <option value="Aucun">Aucun</option>
-                                        </select>
-                                    </div>
-                                </div>
-                              <div class="col-md-3">
-                                 <div class="form-group">
-                                  <label for="specificite_texture">Spécificité Texture </label>
-                                     <select name="type" class="custom-select form-control" data-style="py-0" id="specificite_texture" formControlName="specificite_texture" (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
-                                       <option value="">Tous</option>
-                                       <option value="Viande coupée">Viande coupée</option>
-                                      <option value="Tout coupée">Tout coupée</option>
-                                      <option value="Velours viande">Velours viande</option>
-                                      <option value="Velours complet">Velours complet</option>
-                                      <option value="Viande hachée au hachoir">Viande hachée au hachoir</option>
-                                      <option value="Finger food">Finger food</option>
-                                      <option value="Aucun">Aucun</option>
-                                     </select>
-                                 </div>
-                             </div>
-                           
-                           
-                           
-                
-                           </div>
-                               </form>
+                  <div class="row">
+                     
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="fas fa-search" style="font-size: 1rem;"></i>
+                              </span>
                             </div>
-                         </div>
-                         
-                      </div>
+                            <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+                            <div class="input-group-append">
+                              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                       
+                        <div class="col-md-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="fas fa-filter"></i>
+                              </span>
+                            </div>
+                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_regime"  (change)="filterCommandeByRegime()" [(ngModel)]="typeRegimeSelectionne">
+                              <option value="" >Tous</option>
+                              <option value="Constipation">Constipation</option>
+                              <option value="Diarrhée">Diarrhée</option>
+                              <option value="Sans résiclus">Sans résiclus</option>
+                              <option value="Sans gluten">Sans gluten</option>
+                              <option value="Sans lactose">Sans lactose</option>
+                              <option value="Sans fructose">Sans fructose</option>
+                              <option value="Sans alcool">Sans alcool</option>
+                              <option value="Epargne digestive">Epargne digestive</option>
+                              <option value="IRC">IRC</option>
+                              <option value="Hyposodé">Hyposodé</option>
+                              <option value="Enrichi">Enrichi</option>
+                              <option value="Diabétique">Diabétique</option>
+                              <option value="Hypocalorique">Hypocalorique</option>
+                              <option value="Sans aliments à risque">Sans aliments à risque</option>
+                              <option value="Alimentation plaisir">Alimentation plaisir</option>
+                              <option value="Aucun">Aucun</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="btn btn-secondary" (click)="resetRegimeFilters()">
+                                <i class="fas fa-undo"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="fas fa-filter"></i>
+                              </span>
+                            </div>
+                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture"  (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
+                              
+                              <option value="" >Tous</option>
+                              <option value="Viande coupée" selected>Viande coupée</option>
+                              <option value="Tout coupée">Tout coupée</option>
+                              <option value="Velours viande">Velours viande</option>
+                              <option value="Velours complet">Velours complet</option>
+                              <option value="Viande hachée au hachoir">Viande hachée au hachoir</option>
+                              <option value="Finger food">Finger food</option>
+                              <option value="Aucun">Aucun</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="btn btn-secondary" (click)="resetTextureFilters()">
+                                <i class="fas fa-undo"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       
+                        <div class=" mt-3 d-flex justify-content-between">
+                          <div class="dropdown">
+                           <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Afficher {{ itemsPerPage }} résultats par page
+                           </button>
+                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="itemsPerPageDropdown">
+                             <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
+                               <span>{{ option }}</span>
+                               <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                             </a>
+                           </div>
+                         </div>
+                      </div>
+                      <div class="table-responsive">
+
                       <table id="user-list-table" class="table table-striped  mt-4" role="grid"
                          aria-describedby="user-list-page-info">
                          <thead>
@@ -110,10 +133,10 @@
                               <td>
                                 <div class="d-flex align-items-center list-action">
                                    
-                                   <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                   <a class="btn btn-sm btn-update mr-2"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
                                    [routerLink]="['/updateC', commande.id_commande]" queryParamsHandling="merge" ><i class="ri-pencil-line mr-0" ></i></a>
-                                   <a class="badge btn-danger mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                       ><i class="ri-delete-bin-line mr-0" (click)="commandIdToDelete = commande.id_commande; modalRef = modalService.show(deleteModal);"></i></a>
+                                   <a class="btn btn-sm btn-delete mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
+                                       ><i class="ri-delete-bin-line mr-0" (click)="commandIdToDelete = commande.id_commande; modalRef = modalService.show(deleteModal);" style="color: #fff"></i></a>
                                </div>
                               </td>
                             </tr>
@@ -147,7 +170,7 @@
           </div>
 <!-- Confirmation modal for command deletion -->
 <ng-template #deleteModal>
-   <div class="modal-header">
+   <div class="modal-header delete-header">
      <h4 class="modal-title">Confirmation de la suppression</h4>
      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
        <span aria-hidden="true">&times;</span>
@@ -157,7 +180,7 @@
      Êtes-vous sûr de vouloir supprimer cette commande ?
    </div>
    <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
    </div>
  </ng-template>

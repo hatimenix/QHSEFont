@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ApiEvenementService } from 'src/app/Services/Service-document-unique/api-evenement.service';
 import { ApiServiceService } from 'src/app/Services/Service-document-unique/api-service.service';
@@ -20,16 +21,27 @@ export class EvenementListComponent {
   idEvenement !: number;
   sites$ !: Observable<any>;
   services$ !: Observable<any>;
-  p = 1;
-  itemsPerPage: number = 5;
   deletModal : any;
   idToDelete: number = 0;
+  myForm: any;
+  selectedSiteId: number | undefined;
+  sites: any[] = [];
+
+  //search
+  searchQuery: string = '';
+
+  //delete modal
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('successModalUE', { static: true }) successModalUE:any;
+  modalRef!: BsModalRef;
 
   constructor(
     private formBuilder: FormBuilder,
     private apiSiteService: ApiSiteService,
     private apiServiceService: ApiServiceService,
-    private apiEvenementService : ApiEvenementService) { }
+    private apiEvenementService : ApiEvenementService,
+    public modalService: BsModalService,
+    private bsModalService: BsModalService) { }
 
   ngOnInit() {
     this.fetchEvenement();
@@ -55,12 +67,21 @@ export class EvenementListComponent {
       service: ['', Validators.required]
     });
 
-    this.deletModal = new window.bootstrap.Modal(
-      document.getElementById('deleteEvenement')
-    );
-
     this.sites$ = this.apiSiteService.getAllSite();
     this.services$ = this.apiServiceService.getAllService();
+
+    this.myForm = new FormGroup({
+      site: new FormControl(''),
+    });
+
+    this.apiSiteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.sites = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
 
   fetchEvenement() {
@@ -69,17 +90,68 @@ export class EvenementListComponent {
     })
   }
 
-  openDeleteModal(id: number) {
-    this.idToDelete = id;
-    this.deletModal.show();
+  filterDangersBySite(): void {
+    const selectedSite = parseInt(this.myForm.get('site')?.value);
+  
+    if (selectedSite) {
+      this.apiEvenementService.getAllEvenement().subscribe(
+        (data: Evenement[]) => {
+          const evenements = data;
+          const filteredDangers = evenements.filter(evenements => evenements.site === selectedSite);
+  
+          if (filteredDangers.length > 0) {
+            this.selectedSiteId = selectedSite;
+            this.evenements = filteredDangers;
+          } else {
+            console.log(`Aucun evenement trouvé pour le site sélectionné: ${selectedSite}`);
+            this.evenements = [];
+          }
+  
+          console.log("Evenement filtrés", this.evenements);
+          console.log("Site sélectionné", this.selectedSiteId);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+  
+      this.sites.forEach((site) => {
+        site.expanded = site.id === selectedSite;
+      });
+  
+    } else {
+      this.myForm.reset();
+      this.selectedSiteId = undefined;
+      console.log("ID du site", this.selectedSiteId);
+      this.fetchEvenement();
+      this.sites.forEach((site) => {
+        site.expanded = true;
+      });
+    }
   }
 
-  deleteEvenement() {
-    this.apiEvenementService.delEvenement(this.idToDelete).subscribe(() => {
-      this.fetchEvenement();
-      this.deletModal.hide();
-    })
+  resetSiteFilters(): void {
+    // Reset the selected filters and reload the data
+    this.myForm.reset(); // Reset the form and selected site filter
+    this.fetchEvenement(); // Reload the data
   }
+
+  openDeleteModal(id: number) {
+    this.idToDelete = id;
+  }
+
+  //delete modal 
+  deleteEvenement(): void {
+    this.apiEvenementService.delEvenement(this.idToDelete)
+      .subscribe(() => {
+        this.fetchEvenement();
+        this.modalRef.hide();
+      });
+    }
+  
+    declineDelete(): void {
+    this.modalRef.hide();
+    }
 
   openUpdateModal(evenement: Evenement): void {
     this.evenements = evenement;
@@ -133,6 +205,7 @@ export class EvenementListComponent {
 
       this.apiEvenementService.updateEvenementFormdata(this.idEvenement,formData).subscribe(
           () => {
+            this.openModalUE();
             console.log('Evenement a été modifiée avec succès.');
             this.fetchEvenement();
           },
@@ -140,5 +213,50 @@ export class EvenementListComponent {
         );
       }
     }
+
+    resetSearchQuery() {
+      this.searchQuery = '';
+    }
+
+    //pagination methods 
+    itemsPerPageOptions: number[] = [5, 10, 15];
+    itemsPerPage: number = this.itemsPerPageOptions[0];
+    p: number = 1;
+    get totalPages(): number {
+      return Math.ceil(this.evenements.length / this.itemsPerPage);
+    }
+
+    get displayedFiches(): any[] {
+      const startIndex = (this.p - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.evenements.slice(startIndex, endIndex);
+    }
+
+
+    onItemsPerPageChange(option: number) {
+      this.p = 1; 
+      this.itemsPerPage = option; 
+    }
+    getPageNumbers(): number[] {
+      const pageNumbers = [];
+      for (let i = 1; i <= this.totalPages; i++) {
+        pageNumbers.push(i);
+      }
+      return pageNumbers;
+    }
+
+    getDisplayedRange(): string {
+      const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+      const endIndex = Math.min(this.p * this.itemsPerPage, this.evenements.length);
+      return `Affichage de ${startIndex} à ${endIndex} de ${this.evenements.length} entrées`;
+    }
+
+    //modal functions 
+  openModalUE() {
+    this.modalRef = this.bsModalService.show(this.successModalUE);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+  }
 
 }

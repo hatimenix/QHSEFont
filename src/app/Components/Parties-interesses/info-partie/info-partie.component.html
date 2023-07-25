@@ -6,7 +6,7 @@
            <div class="card">
               <div class="card-headers d-flex justify-content-between" style="background-color:#17469d; color:white;">
                  <div class="header-title">
-                    <h4 class="card-title">Parties intéressées</h4>
+                    <h4 >Parties intéressées</h4>
                  </div>
               </div>
               <div class="card-body">
@@ -69,9 +69,9 @@
                             <tr *ngFor="let exigences of exigences$ | async">
                               <td>
                                 <div class="d-flex align-items-center list-action">
-                                  <a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_exigence" (click)="openUpdateExigenceModal(exigences)" ><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="badge bg-warning mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteExigence"
-                                  (click)="openDeleteModalExigence(exigences.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                  <a class="btn btn-sm btn-update mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update_exigence" (click)="openUpdateExigenceModal(exigences)" ><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                                  <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteExigence"
+                                  (click)="openDeleteModalExigence(exigences.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                                 </div>
                               </td>
                               <td><a>{{ exigences.type_exigence }}</a></td>
@@ -86,28 +86,27 @@
                             </tr>
                           </tbody>
                         </table>
-                        <div class="modal fade" id="deleteExigence" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                  <div class="modal-body">
-                                      <div class="popup text-left">
-                                          <h4 class="mb-3">Confirmer la suppression</h4>
-                                          <div class="content create-workform bg-body">
-                                              <div class="pb-3">
-                                                  <label class="mb-2">Est ce que vous voulez supprimer cette exigence définitivement !!</label>
-                                              </div>
-                                              <div class="col-lg-12 mt-4">
-                                                  <div class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                                    <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteExigence()">Supprimer</div>
-                                                    <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
+                        <!-- Modal -->
+                          <div class="modal fade" id="deleteExigence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header delete-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
                               </div>
+                              <div class="modal-body">
+                                Attention , cette action est irréversible !
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-delete-modal" data-dismiss="modal" (click)="deleteExigence()"><i class="fas fa-trash"></i>Supprimer</button>
+                                <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+                              </div>
+                            </div>
                           </div>
-                      </div>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -175,9 +174,9 @@
                             <tr *ngFor="let analyserisques of analyserisques$ | async">
                               <td>
                                 <div class="d-flex align-items-center list-action">
-                                  <a class="badge bg-primary mr-2" style="background-color: #ffd140; color:white;cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyserisques)"><i class="ri-pencil-line mr-0"></i></a>
-                                  <a class="badge bg-warning mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAnalyse"
-                                  (click)="openDeleteModal(analyserisques.id)"><i class="ri-delete-bin-line mr-0"></i></a>
+                                  <a class="btn btn-sm btn-update mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update_analyse" (click)="openUpdateModal(analyserisques)"><i class="ri-pencil-line mr-0" style="color: white;"></i></a>
+                                  <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#deleteAnalyse"
+                                  (click)="openDeleteModal(analyserisques.id)"><i class="ri-delete-bin-line mr-0" style="color: white;"></i></a>
                                 </div>
                               </td>
                               <td><a routerLink="/analyserisque/{{ analyserisques.id }}">{{analyserisques.description}}</a></td>
@@ -204,28 +203,27 @@
                             </tr>
                           </tbody>
                         </table>
-                        <div class="modal fade" id="deleteAnalyse" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                  <div class="modal-body">
-                                      <div class="popup text-left">
-                                          <h4 class="mb-3">Confirmer la suppression</h4>
-                                          <div class="content create-workform bg-body">
-                                              <div class="pb-3">
-                                                  <label class="mb-2">Est ce que vous voulez supprimer cette analyse de risque définitivement !!</label>
-                                              </div>
-                                              <div class="col-lg-12 mt-4">
-                                                  <div class="d-flex flex-wrap align-items-ceter justify-content-center">
-                                                      <div class="btn bg-warning mr-4" data-dismiss="modal" (click)="deleteAnalyse()">Supprimer</div>
-                                                      <div class="btn btn-outline-primary" data-dismiss="modal">Annuler</div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                         <!-- Modal -->
+                         <div class="modal fade" id="deleteAnalyse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                         <div class="modal-dialog" role="document">
+                           <div class="modal-content">
+                             <div class="modal-header delete-header">
+                               <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                               </button>
+                             </div>
+                             <div class="modal-body">
+                               Attention , cette action est irréversible !
+                             </div>
+                             <div class="modal-footer">
+                               <button type="button" class="btn btn-delete-modal" data-dismiss="modal" (click)="deleteAnalyse()"><i class="fas fa-trash"></i>Supprimer</button>
+                               <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
                       </td>
 
                     </tr>
@@ -390,8 +388,14 @@
                       <div class="col-4">
                         <div class="form-group">
                           <label for="maitrise">Maitrise :</label>
-                          <input class="form-control" formControlName="maitrise">
-                        </div>
+                          <select formControlName="maitrise" class="selectpicker form-control" data-style="py-0">
+                            <option value="">Choisir une option</option>
+                            <option>1</option>
+                            <option>0.9</option>
+                            <option>0.7</option>
+                            <option>0.4</option>
+                        </select>                          
+                      </div>
                         </div>
                         <div class="col-4">
                           <div class="form-group">
@@ -418,8 +422,8 @@
                   
                   <div class="d-flex align-items-end flex-column" >
                    <div class="mt-auto p-2">
-                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="analyseForm.invalid"  ><i class="fas fa-plus"></i>Ajouter</button>
-                     <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                     <button type="submit" class="btn btn-primary" [disabled]="analyseForm.invalid"  ><i class="fas fa-plus"></i>Ajouter</button>
+                     <button type="button" class="btn btn-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
                   </div>
                   </div>
                </form>
@@ -430,11 +434,11 @@
   </div>
   <!-- update    -->
 <div class="modal fade bd-analyse-modal-lg" [class.show]="updateModalVisible"  id="updateAnalyse" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg">                          
-  <div class="modal-content">
+  <div class="modal-dialog modal-lg" >                          
+  <div class="modal-content" >
   <div class="modal-header" style="background-color: #089bd7;">
   <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier analyse risque</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="analyseForm.reset()">
   <span aria-hidden="true" style="color:black">×</span>
   </button>
   </div>
@@ -569,8 +573,14 @@
   <div class="col">
     <div class="form-group">
       <label for="maitrise">Maitrise :</label>
-      <input class="form-control" formControlName="maitrise">
-    </div>
+      <select formControlName="maitrise" class="form-control" class="custom-select" data-style="py-0">
+        <option value="">Choisir une option</option>
+        <option>1</option>
+        <option>0.9</option>
+        <option>0.7</option>
+        <option>0.4</option>
+    </select>      
+  </div>
   </div>
   </div>
   <div class="row">
@@ -601,8 +611,8 @@
   
   <div class="d-flex align-items-end flex-column">
   <div class="mt-auto p-2">
-  <button type="submit" class="btn mr-2"  style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
-  <button type="button" class="btn bg-warning" (click)="analyseForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+  <button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+  <button type="button" class="btn btn-warning" (click)="analyseForm.reset()"  data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
   </div>
   </div>
   </form>
@@ -672,8 +682,8 @@
                   
                   <div class="d-flex align-items-end flex-column" >
                    <div class="mt-auto p-2">
-                     <button type="submit" class="btn mr-2" style="background-color: #ffd140; color:white;" [disabled]="exigenceForm.invalid"  ><i class="fas fa-plus"></i>Ajouter</button>
-                     <button type="button" class="btn bg-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+                     <button type="submit" class="btn btn-primary" [disabled]="exigenceForm.invalid"  ><i class="fas fa-plus"></i>Ajouter</button>
+                     <button type="button" class="btn btn-warning" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
                   </div>
                   </div>
                </form>
@@ -688,7 +698,7 @@
   <div class="modal-content">
   <div class="modal-header" style="background-color: #089bd7;">
   <h5 class="modal-title" id="exampleModalCenteredScrollableTitle" style="color:white">Modifier exigence</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="exigenceForm.reset()">
   <span aria-hidden="true" style="color:black">×</span>
   </button>
   </div>
@@ -741,8 +751,8 @@
   </div>
   <div class="d-flex align-items-end flex-column">
   <div class="mt-auto p-2">
-  <button type="submit" class="btn mr-2"  style="background-color: #ffd140; color:white;"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
-  <button type="button" class="btn bg-warning" (click)="exigenceForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+  <button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+  <button type="button" class="btn btn-warning" (click)="exigenceForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
   </div>
   </div>
   </form>
@@ -752,7 +762,7 @@
   </div> 
   <!-- Page end  -->
 <ng-template #successModal>
-  <div class="modal-header">
+  <div class="modal-header update-header">
   <h4 class="modal-title">Succès</h4>
   <button type="button" class="close" aria-label="Close" (click)="closeModal()">
   <span aria-hidden="true">&times;</span>
@@ -762,12 +772,12 @@
   L'analyse risque a été modifié avec succès.
   </div>
   <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
   </ng-template>
   <!-- Page end  -->
   <ng-template #addModalAnalyse>
-  <div class="modal-header">
+  <div class="modal-header success-header ">
   <h4 class="modal-title">Succès</h4>
   <button type="button" class="close" aria-label="Close" (click)="closeModal()">
   <span aria-hidden="true">&times;</span>
@@ -777,12 +787,12 @@
   L'analyse risque a été ajoutée avec succès.
   </div>
   <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+  <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
   </ng-template>
    <!-- Page end  -->
 <ng-template #successModalexigence>
-  <div class="modal-header">
+  <div class="modal-header update-header">
   <h4 class="modal-title">Succès</h4>
   <button type="button" class="close" aria-label="Close" (click)="closeModal()">
   <span aria-hidden="true">&times;</span>
@@ -792,12 +802,12 @@
   L'exigence a été modifié avec succès.
   </div>
   <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+  <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
   </ng-template>
   <!-- Page end  -->
   <ng-template #addModalExigence>
-  <div class="modal-header">
+  <div class="modal-header success-header">
   <h4 class="modal-title">Succès</h4>
   <button type="button" class="close" aria-label="Close" (click)="closeModal()">
   <span aria-hidden="true">&times;</span>
@@ -807,7 +817,7 @@
   L'exigence a été ajoutée avec succès.
   </div>
   <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+  <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
   </ng-template>
 

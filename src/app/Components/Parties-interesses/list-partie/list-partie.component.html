@@ -7,12 +7,11 @@
           <div class="header-title">
             <h4 class="card-title">Partie intéressées</h4>
           </div>
-            <a (click)="navigateToTypePartie()" class="btn btn-primary btn-sm add-list" style="color: white; margin-right: -56.5%;">
-              <i class="las la-plus"></i> Ajouter un type de partie
-            </a>          
-            <a (click)="navigateToPartie()" class="btn btn-warning btn-sm add-list" style="color: white; margin-right: -1%">
-              <i class="las la-plus"></i> Ajouter une partie intéressée
-            </a>
+          <div class="col-sm-6 col-md-6 text-right" style="margin-right: -2.5%;">
+            <div class="user-list-files d-flex align-items-center overflow-hidden">
+                <a routerLink="/add-parties" class="bg1">
+                    <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
+                </a>
           
         </div>
       </div>
@@ -26,7 +25,7 @@
             <i class="fas fa-search" style="font-size: 1rem;"></i>
           </span>
         </div>
-        <input type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" (input)="filterOptions()">
+        <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" (input)="filterOptions()">
         <div class="input-group-append">
           <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
             <i class="fas fa-times"></i>
@@ -34,8 +33,8 @@
         </div>
       </div>
     </div>
-    
-    <ul class="list-inline">
+      <div class="row justify-content-between" >
+    <ul class="list-inline"  >
       <li class="list-inline-item" *ngFor="let option of filteredOptions.slice(0, 3)">
         <button class="btn" (click)="selectOption(option)">{{ option }}</button>
       </li>
@@ -48,8 +47,20 @@
         </div>
       </li>
     </ul>
-    
-    
+    <div class="dropdown">
+      <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Afficher {{ itemsPerPage }} résultats par page
+      </button>
+      <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+        <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+          [ngClass]="{'selected': option === itemsPerPage}">
+          <span>{{ option }}</span>
+          <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+        </a>
+      </div>
+    </div>
+    </div>
 
     <div>
       <div class="col-lg-12">
@@ -74,12 +85,13 @@
                       <i class="fa fa-chevron-right" *ngIf="!typepartie.expanded"></i>
                       <i class="fa fa-chevron-down" *ngIf="typepartie.expanded"></i>
                     </a>
-                    <a href="javascript:void(0);" (click)="openTypePartieModal(typepartie)">{{ typepartie.nom }}</a>
+                    <a href="javascript:void(0);" (click)="openTypePartieModal(typepartie)">{{ typepartie.nom }} : ( {{
+                      getRecordCount(typepartie) }} )</a>
                   </td>
                   <ng-container *ngIf="typepartie.expanded ">
                           
 
-                    <ng-container *ngFor="let partie of parties| filter: searchQuery | paginate: { itemsPerPage: 10, currentPage: p }  let i = index ">
+                    <ng-container *ngFor="let partie of displayedParties| filter: searchQuery  let i = index ">
                       <tr *ngIf="(parties)?.length === 0">
                         <td colspan="11">Aucune partie trouvé </td>
                       </tr>
@@ -99,21 +111,25 @@
                           </ng-container>
                         </td>                      
                         <td>{{partie.nature}}</td>
-                      <td>{{partie.enjeux}}</td>
-                      <td>{{partie.besoin}}</td>
-                      <td>{{(partie.processus_name)}} </td>
+                        <td>
+                          <div class="scrollable-content">{{partie.enjeux}}</div>
+                        </td>                      
+                        <td>
+                          <div class="scrollable-content">{{partie.besoin}}</div>
+                        </td>                       
+                        <td>{{(partie.processus_name)}} </td>
                       
                         <td>
                           <div class="d-flex justify-content-start align-items-center list-action">
-                            <a class="badge bg-success mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
+                            <a class="btn btn-sm btn-update mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
                             (click)="getPartieData(partie.id , partie.typepartie,partie.partieinteresse,partie.importance,partie.nature,partie.enjeux,partie.besoin,partie.impactfinal,partie.impactentreprise,partie.cotation,partie.impact,partie.processus)"
                               data-placement="top" title="" data-original-title="Edit">
-                              <i class="ri-pencil-line mr-0"></i>
+                              <i class="ri-pencil-line mr-0" style="color: white;"></i>
                             </a>
-                            <a class="badge btn-warning mr-2" style="cursor: pointer;" data-toggle="tooltip"
+                            <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="tooltip"
                               (click)="openDeleteModal(partie.id)" data-placement="top" title=""
                               data-original-title="Delete">
-                              <i class="ri-delete-bin-line mr-0"></i>
+                              <i class="ri-delete-bin-line mr-0" style="color: white;"></i>
                             </a>
                           </div>
                         </td>
@@ -126,9 +142,22 @@
 
           </table>
         </div>
-        <div class="pagination-container" style="display: flex;justify-content: flex-end;">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>      
+        <div class="pagination-container" style="display: flex; justify-content: space-between;">
+          <div>
+            <span class="entry-info">
+              {{ getDisplayedRange() }}
+            </span>
+          </div>
+          <div style="display: flex;justify-content: flex-end;">
+            <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+            <div class="page-info">
+              <span class="page-numbers">
+                <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+              </span>
+            </div>
+            <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+          </div>
+        </div>       
       </div>
     </div>
     </div>
@@ -138,7 +167,7 @@
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header delete-header">
             <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -148,8 +177,8 @@
             Attention , cette action est irréversible !
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+            <button type="button" class="btn btn-delete-modal" (click)="delete()"><i class="fas fa-trash"></i>Supprimer</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
           </div>
         </div>
       </div>
@@ -282,7 +311,7 @@
 </div>
 <!-- Page end  -->
 <ng-template #successModal>
-  <div class="modal-header">
+  <div class="modal-header update-header">
     <h4 class="modal-title">Succès</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
@@ -292,7 +321,7 @@
     La partie intéressée a été modifié avec succès.
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+    <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
   </div>
 </ng-template>
 <!-- TypePartie Modal -->

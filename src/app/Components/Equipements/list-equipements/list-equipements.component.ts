@@ -5,7 +5,7 @@ import { Equipement } from 'src/app/models/equipement';
 import { ServicesEquipementservice } from 'src/app/Services/Service-equipements/services-equipements.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 import { Secteur } from 'src/app/models/Secteur';
 
 declare var window: any;
@@ -22,12 +22,19 @@ export class ListEquipementsComponent implements OnInit {
   @ViewChild('successModal', { static: true }) successModal:any;
   @ViewChild('siteModal', { static: true }) siteModal:any;
   @ViewChild('secteurModal', { static: true }) secteurModal:any;
-
-
-  
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPage: number = 10;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.equipements.length / this.itemsPerPage);
+  }
+
+  get displayedEquipements(): Equipement[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.equipements.slice(startIndex, endIndex);
+  }
   id : any 
   site : any 
   secteur : any 
@@ -93,6 +100,8 @@ export class ListEquipementsComponent implements OnInit {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
   }
   getEquipements() {
     this.equipementservice.getAll().subscribe(
@@ -113,10 +122,16 @@ export class ListEquipementsComponent implements OnInit {
     formData.append("secteur", this.secteur);
     formData.append("type_equipement", this.type_equipement);
     formData.append("codification", this.codification);
-    formData.append("date_mise_en_service", this.date_mise_en_service);
+    if (this.date_mise_en_service !== null && this.date_mise_en_service !== undefined) {
+      formData.append("date_mise_en_service", this.date_mise_en_service);
+  }            
+  if (this.date_modification !== null && this.date_modification !== undefined) {
     formData.append("date_modification", this.date_modification);
+}    
     formData.append("verification", this.verification);
-    formData.append("prochaine_verification", this.prochaine_verification);
+    if (this.prochaine_verification !== null && this.prochaine_verification !== undefined) {
+      formData.append("prochaine_verification", this.prochaine_verification);
+  }      
     formData.append("commentaires", this.commentaires);
     formData.append("N_serie", this.N_serie);
     if (this.Certificat !== null && this.Certificat !== undefined) {
@@ -224,6 +239,36 @@ getSelectedCertificatFileName(): string {
 resetSearchQuery() {
   this.searchQuery = '';
 }
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.equipements.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.equipements.length} entrées`;
+}
+
+getRecordCount(site: any): number {
+  const sitePlans = this.equipements.filter(equipement => equipement.site === site.id);
+  return sitePlans.length;
+}
+getRecordSecteurCount(site: any,secteur: any): number {
+  const secteurPlans = this.equipements.filter(
+    (equipement) => equipement.site === site.id && equipement.secteur === secteur.id
+  );
+    return secteurPlans.length;
+}
+
+
+
 
 }
 

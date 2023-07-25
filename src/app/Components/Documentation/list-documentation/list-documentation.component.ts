@@ -10,7 +10,7 @@ import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service
 import { Documentation } from 'src/app/models/Documentation';
 import { Secteur } from 'src/app/models/Secteur';
 import { Processus } from 'src/app/models/processus';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-documentation',
@@ -74,7 +74,12 @@ constructor(
      //pagination 
      this.itemsPerPageOptions = [5, 10, 15];
      this.itemsPerPage = this.itemsPerPageOptions[0]; 
-    
+     const isFirstVisit = history.state.isFirstVisit;
+    if (!isFirstVisit) {
+      history.replaceState({ isFirstVisit: true }, '');
+      location.reload();
+    }
+    window.scrollTo(0, 0);
   }
 
 
@@ -160,6 +165,10 @@ filterDocumentsBySite(): void {
     this.loaddocument();
   }
 }
+resetSiteFilters(): void {
+  this.myForm.get('site')?.setValue(''); // Reset the site filter to empty value
+  this.filterDocumentsBySite(); // Apply the filter based on the reset site value
+}
 
 //filtrage par secteur 
 
@@ -201,6 +210,10 @@ filterDocumentsBySecteur(): void {
     console.log("id de ce secteur", this.selectedSecteurId);
     this.loaddocument();
   }
+}
+resetSecteurFilters(): void {
+  this.myForm.get('secteur')?.setValue(''); // Reset the site filter to empty value
+  this.filterDocumentsBySecteur(); // Apply the filter based on the reset site value
 }
 //filtrage par processus
 filterDocumentsByProcessus():void{
@@ -253,7 +266,12 @@ filterDocumentByType(): void {
     this.loaddocument();
   }
 }
-  
+resetTypeFilters(): void {
+  // Reset the selected filters and reload the data
+  this.typeDocSelectionne = ''; // Reset the selected type filter
+  this.myForm.reset(); // Reset the form and selected site filter
+  this.loaddocument(); // Reload the data
+}
   //delete Modal 
   confirmDelete(): void {
     this.documentService.deleteDocument(this.DocIdToDelete)

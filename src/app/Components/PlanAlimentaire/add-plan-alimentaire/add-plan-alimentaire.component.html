@@ -855,7 +855,7 @@
     </div>
 </div>
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header success-header">
         <h4 class="modal-title">Succès</h4>
         <button type="button" class="close" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
@@ -865,6 +865,6 @@
         Le constat d'audit a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
     </div>
 </ng-template>

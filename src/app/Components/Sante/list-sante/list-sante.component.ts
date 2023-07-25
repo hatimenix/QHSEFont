@@ -5,7 +5,7 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Sante } from 'src/app/models/sante';
 import { SanteService } from 'src/app/Services/Service-sante/sante.service';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 declare var window: any;
 @Component({
@@ -22,8 +22,18 @@ export class ListSanteComponent {
 
   
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPage: number = 10;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.santes.length / this.itemsPerPage);
+  }
+
+  get displayedSantes(): Sante[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.santes.slice(startIndex, endIndex);
+  }
   id : any 
   site : any 
   site_name : any
@@ -67,6 +77,8 @@ export class ListSanteComponent {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0]; 
   }
   getSantes() {
     this.santeservice.getAll().subscribe(
@@ -163,5 +175,25 @@ closeModalsite(){
 }
 resetSearchQuery() {
   this.searchQuery = '';
+}
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.santes.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.santes.length} entrées`;
+}
+getRecordCount(site: any): number {
+  const sitePlans = this.santes.filter(sante => sante.site === site.id);
+  return sitePlans.length;
 }
 }

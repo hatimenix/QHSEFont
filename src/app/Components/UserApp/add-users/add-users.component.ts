@@ -93,6 +93,13 @@ export class AddUsersComponent implements OnInit {
     formData.append('actif', this.userForm.get('actif')?.value);
     formData.append('send_email', this.userForm.get('send_email')?.value);
     formData.append('image', this.userForm.get('image')?.value);
+
+    //the group selected 
+    const selectedGroupesRoles = this.getSelectedCheckboxId();
+    selectedGroupesRoles.forEach((groupId: string) => {
+      formData.append('groupes_roles', groupId);
+    });
+    
   
     // Retrieve the permissions for each selected group
     for (const groupId of selectedIds) {

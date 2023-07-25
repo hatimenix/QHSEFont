@@ -1,0 +1,176 @@
+<div class="content-page custom-background">
+    <div class="container-fluid">
+      <div class="card">
+         <div class="row">
+             <div class="col-lg-12">
+              <div class="card-header d-flex justify-content-between ">
+                <div class="header-title">
+                  <h4 class="card-title">Liste des sources</h4>
+                </div>
+              <div class="col-sm-6 col-md-6 text-right" style="margin-right: -2.5%;">
+                <div class="user-list-files d-flex align-items-center overflow-hidden">
+                    <a routerLink="/add-sources" class="bg1">
+                        <i class="fas fa-plus" style="margin-right: 10px;"></i> Nouvel élément
+                    </a>              
+              </div>
+             </div>
+            </div>
+            <div class="card-body">
+            <div class="row justify-content-start">
+              <div class="input-group col-md-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-search" style="font-size: 1rem;"></i>
+                  </span>
+                </div>
+                <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+                <div class="input-group-append">
+                  <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              </div>
+  
+              <div class="row mr-2 mt-2 justify-content-end">
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Afficher {{ itemsPerPage }} résultats par page
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
+                    <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)"
+                      [ngClass]="{'selected': option === itemsPerPage}">
+                      <span>{{ option }}</span>
+                      <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>   
+              
+              <div class="col-lg-12">
+                <div class="table-responsive rounded mb-3">
+                  <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="text-align: center;">Nom</th>
+                        <th scope="col">Actions</th>
+                        <th scope="col" style="text-align: center;">Supprimer les lignes</th>
+                      </tr>
+                    </thead>
+                    <tbody class="ligth-body">
+                      <tr *ngFor="let source of displayedSources | filter: searchQuery let i = index"
+                        [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                        <td>{{source.nom}}</td>
+                        <td>
+                          <div class="d-flex justify-content-start align-items-center list-action">
+                            <a  class="btn btn-sm btn-update mr-2"  style="cursor: pointer;" (click)="getSourceData(source.id, source.nom)" data-toggle="modal" data-target="#update" data-placement="top" title="" data-original-title="Edit">
+                              <i class="ri-pencil-line mr-0" style="color: white;"></i>
+                            </a>
+                            <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="tooltip" (click)="openDeleteModal(source.id)" data-placement="top" title="" data-original-title="Delete">
+                              <i class="ri-delete-bin-line mr-0" style="color: white;"></i>
+                            </a>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="checkbox" [checked]="selectedSources.includes(source)" (change)="toggleSelection(source)">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pagination-container" style="display: flex; justify-content: space-between;">
+                  <div>
+                    <span class="entry-info">
+                      {{ getDisplayedRange() }}
+                    </span>
+                  </div>
+                  <div style="display: flex;justify-content: flex-end;">
+                    <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+                    <div class="page-info">
+                      <span class="page-numbers">
+                        <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
+                      </span>
+                    </div>
+                    <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
+                  </div>
+                </div>           
+              </div>
+              </div>
+              </div>
+              <!-- Modal -->
+  <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header delete-header">
+        <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Attention , cette action est irréversible !
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-delete-modal" (click)="deleteItem()">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times"></i>Fermer</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" [class.show]="updateModalVisible" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modifier un source</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  
+  
+          <div class="modal-body">
+            <form [formGroup]="form" data-toggle="validator">
+              <div class="row">
+                  <div class="col-md-12">                      
+                      <div class="form-group">
+                          <label>Nom : </label>
+                          <input [(ngModel)]="nom" type="text" value="{{nom}}" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" >
+                       </div>
+                   </div>
+                   </div>
+              
+          </form>
+                                </div>
+                                </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateSource()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div> 
+  <!-- Page end  -->
+  <ng-template #successModal>
+    <div class="modal-header update-header">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      La source a été modifié avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
+    </div>
+  </ng-template>
+              

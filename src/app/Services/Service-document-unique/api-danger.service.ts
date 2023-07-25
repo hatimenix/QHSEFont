@@ -14,7 +14,7 @@ export class ApiDangerService {
   constructor(private http:HttpClient) { }
 
   getAllDanger(){
-    return this.http.get<Dangers>(this.API_URL_DANGER);
+    return this.http.get<Dangers[]>(this.API_URL_DANGER);
   }
 
   delDanger(id:number){

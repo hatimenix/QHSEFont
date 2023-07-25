@@ -23,8 +23,18 @@ export class ListPartieComponent implements OnInit {
   @ViewChild('successModal', { static: true }) successModal:any;
   @ViewChild('typepartieModal', { static: true }) typepartieModal:any;
   modalRef!: BsModalRef;
-  p = 1; 
-  itemsPerPage: number = 10;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.parties.length / this.itemsPerPage);
+  }
+
+  get displayedParties(): any[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.parties.slice(startIndex, endIndex);
+  }
   id : any 
   typepartie : any 
   typepartie_name : any 
@@ -90,6 +100,8 @@ export class ListPartieComponent implements OnInit {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
+    this.itemsPerPageOptions = [5, 10, 15];
+    this.itemsPerPage = this.itemsPerPageOptions[0];
   }
   getParties() {
     this.partieservice.getAll().subscribe(
@@ -213,6 +225,26 @@ selectOption(option: string) {
 
 resetSearchQuery() {
   this.searchQuery = '';
-  this.filteredOptionsVisible = false;
+  this.filterOptions();
+}
+onItemsPerPageChange(option: number) {
+  this.p = 1; 
+  this.itemsPerPage = option; 
+}
+getPageNumbers(): number[] {
+  const pageNumbers = [];
+  for (let i = 1; i <= this.totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  return pageNumbers;
+}
+getDisplayedRange(): string {
+  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+  const endIndex = Math.min(this.p * this.itemsPerPage, this.parties.length);
+  return `Affichage de ${startIndex} à ${endIndex} de ${this.parties.length} entrées`;
+}
+getRecordCount(typepartie: any): number {
+  const typepartiePlans = this.parties.filter(partie => partie.typepartie === typepartie.id);
+  return typepartiePlans.length;
 }
 }

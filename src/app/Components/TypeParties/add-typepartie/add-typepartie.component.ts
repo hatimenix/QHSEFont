@@ -47,7 +47,7 @@ export class AddTypepartieComponent {
 
       next: (res) => {
         console.log(res);
-        this.router.navigate(["/partie-list"])
+        this.router.navigate(["/typepartie-list"])
         this.openModal();
         console.log(formData);
         this.submitted = true;

@@ -26,4 +26,17 @@ export class ApiArretTravailService {
     return this.http.put<ArretTravail>(url, arret);
   }
 
+  updateArretFormdata(idArret: number, formData: FormData): Observable<any> {
+    const url = `${this.API_URL_AT}${idArret}/`;
+    return this.http.put(url, formData);
+  }
+
+  getArretByEvenementId(EvenementId: number): Observable<ArretTravail[]> {
+    return this.http.get<ArretTravail[]>(`${this.API_URL_AT}?evenement=${EvenementId}`).pipe(
+      map((arrteTravail: ArretTravail[]) => {
+        return arrteTravail.filter(a => a.evenement === EvenementId);
+      })
+    );
+  }
+
 }

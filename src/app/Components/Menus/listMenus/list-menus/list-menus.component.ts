@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { MenusService } from 'src/app/Services/Service-Menus/menus.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Menus } from 'src/app/models/Menus';
-import { Site } from 'src/app/models/site';
+import { Site } from 'src/app/models/Site';
 
 @Component({
   selector: 'app-list-menus',
@@ -23,7 +23,7 @@ export class ListMenusComponent implements OnInit {
   myForm: any;
 
   filteredMenus: Menus[] = [];
-  MoisSelectionne!: string;
+  MoisSelectionne: string = '';
   //delete modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
@@ -37,6 +37,12 @@ export class ListMenusComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const isFirstVisit = history.state.isFirstVisit;
+    if (!isFirstVisit) {
+      history.replaceState({ isFirstVisit: true }, '');
+      location.reload();
+    }
+    window.scrollTo(0, 0);
     this.myForm = new FormGroup({
       site: new FormControl(),
       mois_concerne: new FormControl()
@@ -68,8 +74,6 @@ export class ListMenusComponent implements OnInit {
       this.menus = this.menus.filter((m) => m.id !== id);
     });
   }
-
-
 
   //delete modal 
   confirmDelete(): void {
@@ -125,37 +129,52 @@ export class ListMenusComponent implements OnInit {
     }
   }
   //filtrage par mois
-  filterMenuByMonth(): void {
-    if (this.MoisSelectionne) {
-      this.menuService.getAllMenus().subscribe(
-        (menus: Menus[]) => {
-          const filteredMenus = menus.filter((menu: Menus) => {
-            return menu.mois_concerne === this.MoisSelectionne;
-          });
+  // filterMenuByMonth(): void {
+  //   if (this.MoisSelectionne) {
+  //     console.log("mois séléctionné", this.MoisSelectionne);
 
-          if (filteredMenus.length > 0) {
-            this.menus = filteredMenus;
-          } else {
-            console.log(`No menu found for month: ${this.MoisSelectionne}`);
-            this.menus = [];
-          }
+  //     this.menuService.getAllMenus().subscribe((menus) => {
+  //       this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
+  //     });
+  //   } else {
+  //     this.getMenus();
 
-          console.log("Filtered menus:", this.menus);
+  //   }
+  // }
+  filterMenuByMonth(MoisSelectionne: string): void {
+    this.menuService.getAllMenus().subscribe(
+      (data: Menus[]) => {
+        const filteredMenus = data.filter((menus: Menus) => {
+          return menus.mois_concerne === MoisSelectionne;
+        });
 
-          filteredMenus.forEach(ct => {
-            const p = this.site.find((s: Site) => s.id === ct.site);
-            if (p) {
-              p.expanded = true;
-            }
-          });
-        },
-        (error: any) => {
-          console.log(error);
+        if (filteredMenus.length > 0) {
+          this.menus = filteredMenus;
+        } else {
+          console.log(`No menu found for this month: ${MoisSelectionne}`);
+          this.menus = [];
         }
-      );
-    } else {
-      this.getMenus();
-    }
+
+        console.log("Filtered menus:", this.menus);
+
+        filteredMenus.forEach(m => {
+          const s = this.site.find((s: Site) => s.id === m.site);
+          if (s) {
+            s.expanded = true;
+          }
+        });
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  resetMenuFilters(): void {
+
+    this.MoisSelectionne = '';
+    this.myForm.reset();
+    this.getMenus();
   }
 
   //afficher juste le nom du fichier 
@@ -180,13 +199,6 @@ export class ListMenusComponent implements OnInit {
   resetSearchQuery() {
     this.searchQuery = '';
   }
-
-
-
-
-
-
-
 
   //pagination methods 
   itemsPerPageOptions: number[] = [5, 10, 15];
