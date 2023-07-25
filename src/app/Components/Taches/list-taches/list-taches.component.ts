@@ -17,6 +17,9 @@ declare var window: any;
   styleUrls: ['./list-taches.component.css']
 })
 export class ListTachesComponent {
+  chartOptions: any;
+  showChart = true; // Initially set to true to show the chart
+
   sources: any[] = [];
   utilisateurs: any[] = [];
   selectedUtilisateur: Utilsateur | undefined;  
@@ -101,12 +104,15 @@ export class ListTachesComponent {
     );  
     this.originalTaches = this.taches.slice(); // create a copy of the original list
     this.getTaches();
+    this.fetchTachesData();
+
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('delete')
     );
     document.addEventListener('click', this.onDocumentClick.bind(this));
     this.itemsPerPageOptions = [5, 10, 15];
     this.itemsPerPage = this.itemsPerPageOptions[0]; 
+    
 
   }
   ngOnDestroy() {
@@ -306,5 +312,45 @@ getDisplayedRange(): string {
 getRecordCount(source: any): number {
   const sourcePlans = this.taches.filter(tache => tache.source === source.id);
   return sourcePlans.length;
+}
+fetchTachesData() {
+  this.tacheservice.getAllTaches().subscribe(
+    (data) => {
+      this.taches = data;
+      this.chartOptions = {
+        series: [
+          {
+            data: this.taches.map(tache => ({
+              x: tache.nom_tache,
+              y: [
+                new Date(tache.date_debut).getTime(),
+                new Date(tache.echeance).getTime()
+              ],
+              fillColor: '#00E396',
+            }))
+          }
+        ],
+        chart: {
+          type: 'rangeBar'
+        },
+        xaxis: {
+          type: 'datetime'
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            barHeight: '20%',
+
+          }
+        }
+      };
+    },
+    (error) => {
+      console.error('Error fetching Taches data:', error);
+    }
+  );
+}
+toggleChartVisibility() {
+  this.showChart = !this.showChart;
 }
 }
