@@ -12,4 +12,14 @@
 .scroll-sidebar:hover::-webkit-scrollbar-thumb {
     background-color: #888;
   }
+  .custom-sidebar-menu {
+    width: 250px;
+  }
+  
+  .custom-sidebar-menu .nav-link {
+    cursor: pointer; 
+  }
+  .custom-sidebar-menu .nav-link:hover {
+    background-color: #f0f0f0; 
+  }
   
