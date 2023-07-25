@@ -113,26 +113,61 @@
                                              
                                                <div class="form-group">
                                                   <label class="label-important">Probabilité </label>
-                                                  <input type="number" class="form-control" formControlName="probabilite" min="0" required>
-                                                  <div class="invalid-feedback">
-                                                     Ce champs est obligatoire.
-                                                  </div>
+                                                  <select class="form-control" formControlName="probabilite" required>
+                                                    <option value="0.1">0.1</option>
+                                                    <option value="0.2">0.2</option>
+                                                    <option value="0.5">0.5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="3">3</option>
+                                                    <option value="6">6</option>
+                                                    <option value="10">10</option>
+                                                 </select>
+                                                 <div class="help-block with-errors">0.1 : Virtuelement imposible /
+                                                    0.2 : Pratiquement imposible /
+                                                    0.5 : Envisageable mais trés improbable /
+                                                    1 : Possible à long terme /
+                                                    3 : Inhabituel mais possible /
+                                                    6 : Tout à fait possible /
+                                                    10 : Peut etre attendu, presque certain 
+                                                 </div>
                                                </div>
                                              
                                                <div class="form-group">
                                                   <label class="label-important">Sévérité </label>
-                                                  <input type="number" class="form-control" formControlName="severite" min="0" required>
-                                                  <div class="invalid-feedback">
-                                                     Ce champs est obligatoire.
-                                                  </div>
+                                                  <select class="form-control" formControlName="severite" required>
+                                                    <option value="1">1</option>
+                                                    <option value="3">3</option>
+                                                    <option value="7">7</option>
+                                                    <option value="15">15</option>
+                                                    <option value="40">40</option>
+                                                    <option value="100">100</option>
+                                                 </select>
+                                                 <div class="help-block with-errors">1 : Dammages mineurs ( lésions superficielles ) ou inconfor /
+                                                    3 : Dammages avec séquelles ( conséquence irréversible ) /
+                                                    7 : Dammages avec conséquences réversible ( enfonce, coupure) /
+                                                    15 : Très grave, 1 mort /
+                                                    40 : Calamiteux, plusieurs morts /
+                                                    100 : Catastrophique, nombreux morts 
+                                                 </div>
                                                </div>
                                              
                                                <div class="form-group">
                                                   <label class="label-important">Fréquences d'exposition </label>
-                                                  <input type="number" class="form-control" formControlName="frequences_exposition" min="0" required>
-                                                  <div class="invalid-feedback">
-                                                     Ce champs est obligatoire.
-                                                  </div>
+                                                  <select class="form-control" formControlName="frequences_exposition" required>
+                                                    <option value="0.5">0.5</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="6">6</option>
+                                                    <option value="10">10</option>
+                                                 </select>
+                                                 <div class="help-block with-errors">0.5 : Très rare /
+                                                    1 : Plusieurs fois par an /
+                                                    2 : Mensuelle /
+                                                    3 : Hebdomadaire ou occasionnelle /
+                                                    6 : Quotidienne pendant les heurs de travail /
+                                                    10 : Permanente
+                                                 </div>
                                                </div>
                                              
                                                <div class="form-group">
@@ -223,7 +258,7 @@
                                              </button>
                                           </div>
                                           <div class="modal-body">
-                                             <form  [formGroup]="evenementForm" (ngSubmit)="UpdateEvenementFormData()" class="needs-validation" data-toggle="validator" novalidate>
+                                             <form  [formGroup]="evenementForm" class="needs-validation" data-toggle="validator" novalidate>
                                                 <span class="col-md-6">
                                                     <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Description de l'événement</h5>
                                                 </span>
@@ -420,7 +455,7 @@
                                                     </div>
                                                 </div>                          
                                                 <div class="modal-footer">                                               
-                                                        <button type="submit" class="btn mr-2" style="background-color: #eac74b; color:white;" [disabled]="evenementForm.invalid">Modifier</button>                                                                                                                                                                                            
+                                                        <button type="submit" class="btn mr-2" style="background-color: #eac74b; color:white;" data-dismiss="modal" (click)="UpdateEvenementFormData()" [disabled]="evenementForm.invalid">Modifier</button>                                                                                                                                                                                            
                                                 </div>                                                       
                                              </form>
                                           </div>                                      
@@ -437,7 +472,7 @@
                                           </button>
                                        </div>
                                        <div class="modal-body">
-                                          <form  [formGroup]="evenementForm" (ngSubmit)="AddEvenementFormData()" class="needs-validation" data-toggle="validator" novalidate>
+                                          <form  [formGroup]="evenementForm" class="needs-validation" data-toggle="validator" novalidate>
                                              <span class="col-md-6">
                                                  <h5 style="background-color: #ffd140; color:white; border-radius:10px; padding:10px">Description de l'événement</h5>
                                              </span>
@@ -634,7 +669,7 @@
                                                  </div>
                                              </div>                          
                                              <div class="modal-footer">                                               
-                                                    <button type="submit" class="btn mr-2" style="background-color: #eac74b; color:white;" [disabled]="evenementForm.invalid">Ajouter</button>                                                                                                                                                                                            
+                                                    <button type="submit" class="btn mr-2" style="background-color: #eac74b; color:white;" data-dismiss="modal" (click)="AddEvenementFormData()" [disabled]="evenementForm.invalid">Ajouter</button>                                                                                                                                                                                            
                                              </div>                                                       
                                           </form>
                                        </div>                                      
@@ -710,7 +745,7 @@
                                       </div>
                                       <div class="modal-body">
                                             <div class="card-body">
-                                             <form [formGroup]="actionForm" (ngSubmit)="addActionFormData()" class="needs-validation" enctype="multipart/form-data" novalidate>
+                                             <form [formGroup]="actionForm" class="needs-validation" enctype="multipart/form-data" novalidate>
                                                 <div class="form-group">
                                                   <label for="intitule">Intitulé :</label>
                                                   <input type="text" class="form-control" formControlName="intitule" />
@@ -781,6 +816,10 @@
                                                    <option value="2" >2</option>
                                                    <option value="3" >3</option>
                                                   </select>
+                                                  <div class="help-block with-errors">1 : faible /
+                                                    2 : moyen /
+                                                    3 : élevé
+                                                 </div>
                                                 </div>
                                                 <div class="form-group">
                                                    <h5>Prise en charge de la mesure d'efficacité</h5>
@@ -802,7 +841,7 @@
                                                    <input type="file" class="form-control" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
                                                 </div>
                                                 <div class="d-flex align-items-end flex-column" >
-                                                   <button type="submit" class="btn" style="background-color: #ffd140; color:white;" [disabled]="actionForm.invalid">Ajouter</button>
+                                                   <button type="submit" class="btn" style="background-color: #ffd140; color:white;" data-dismiss="modal" (click)="addActionFormData()" [disabled]="actionForm.invalid">Ajouter</button>
                                                 </div>
                                              </form>
                                             </div>
