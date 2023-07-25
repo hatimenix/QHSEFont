@@ -9,14 +9,16 @@
                      </div>
                   </div>
                   <div class="card-body">
-                     <form>
-                        <div class="form-group">
+                     <form  data-toggle="validator">
+                        <div class="form-group" data-toggle="validator">
                            <div class="crm-profile-img-edit position-relative">
                              <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png" alt="profile-pic" id="profile-pic">
                              <div class="crm-p-image bg-primary">
                                <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
                                <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
-                               (change)="onFileSelected($event) " formControlName="image">
+                               (change)="onFileSelected($event) " formControlName="image" required>
+                                                      <div class="help-block with-errors"></div>
+
                              </div>
                            </div>
                          </div>
@@ -44,10 +46,9 @@
                <div class="row">
                 
                  <div class="form-group col-md-6">
-                    <label for="compte">Compte :</label>
+                    <label for="compte">Compte <label style="color: red;">*</label></label>
                     <input type="text" class="form-control" id="compte" name="compte" placeholder="Compte" formControlName="compte" required minlength="3">
 <div *ngIf="PersonnelForm.controls['compte'].invalid && (PersonnelForm.controls['compte'].dirty || PersonnelForm.controls['compte'].touched)">
-    <div *ngIf="PersonnelForm.controls['compte'].errors?.['required']"  style="color: rgb(142, 27, 86);">Compte est requis.</div>
     <div class="help-block with-errors"></div>
     <div *ngIf="PersonnelForm.controls['compte'].errors?.['minlength']"  style="color: rgb(142, 27, 86);;">Le compte doit contenir au moins 3 caractères.</div>
 </div>
@@ -55,55 +56,65 @@
                   </div>
                   
                   <div class="form-group col-md-6">
-                     <label for="nom">Nom :</label>
+                     <label for="nom">Nom <label style="color: red;">*</label></label>
 
-                     <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" formControlName="nom">
+                     <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" formControlName="nom" required>
                     <div *ngIf="PersonnelForm.controls['nom'].invalid && (PersonnelForm.controls['nom'].dirty || PersonnelForm.controls['nom'].touched)">
-                    <div *ngIf="PersonnelForm.controls['nom'].errors?.['required']"  style="color: rgb(142, 27, 86);">Nom est requis.</div>
+                    <div class="help-block with-errors"></div>
 
                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                     <label for="courrier">Courrier:</label>
-                     <input type="email" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier">
+                     <label for="courrier">Courrier<label style="color: red;">*</label></label>
+                     <input type="email" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier" required>
                      <div *ngIf="PersonnelForm.controls['courrier'].invalid && (PersonnelForm.controls['courrier'].dirty || PersonnelForm.controls['courrier'].touched)">
-                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['required']" style="color: rgb(142, 27, 86);">Courrier est requis.</div>
-                       <div *ngIf="PersonnelForm.controls['courrier'].errors?.['email']" style="color: rgb(142, 27, 86);">Courrier doit être une adresse email valide.</div>
+                       
+                       <div class="help-block with-errors"></div>
+
                      </div>
                    </div>
                    
                  
                    <div class="form-group col-md-6">
-                     <label for="numero_tel">Numéro :</label>
-                     <input type="tel" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number" formControlName="numero_tel">
+                     <label for="numero_tel">Numéro <label style="color: red;">*</label></label>
+                     <input type="tel" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number" formControlName="numero_tel" required>
                      <div *ngIf="PersonnelForm.controls['numero_tel'].invalid && (PersonnelForm.controls['numero_tel'].dirty || PersonnelForm.controls['numero_tel'].touched)">
-                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['required']" style="color: rgb(142, 27, 86);">Numéro est requis.</div>
                        <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['pattern']" style="color: rgb(142, 27, 86);">Numéro doit être un numéro de téléphone valide.</div>
+                       <div class="help-block with-errors"></div>
+
                      </div>
                    </div>
                    
                    
 
                    <div class="form-group col-md-6">
-                     <label for="presente_vous">Présentez vous:</label>
-                     <textarea class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous" formControlName="presente_vous"></textarea>
+                     <label for="presente_vous">Présentez vous <label style="color: red;">*</label></label>
+                     <textarea class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous" formControlName="presente_vous" required></textarea>
+                     <div class="help-block with-errors"></div>
+
                   </div>
                   
                   <div class="form-group col-md-6">
-                     <label for="fonction">Fonction:</label>
-                     <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction">
+                     <label for="fonction">Fonction <label style="color: red;">*</label></label>
+                     <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction" required>
+                     <div class="help-block with-errors"></div>
+
                   </div>
                   <div class="form-group col-md-6">
-                     <label for="adresse_sip">Adresse Sip:</label>
-                     <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip">
+                     <label for="adresse_sip">Adresse Sip<label style="color: red;">*</label></label>
+                     <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip" required>
+                     <div class="help-block with-errors"></div>
+
                   </div>
                   <div class="form-group col-md-6">
-                     <label for="othermail">Other mail:</label>
-                     <input type="email" class="form-control" id="othermail" name="othermail" placeholder="Other mail" formControlName="othermail">
+                     <label for="othermail">Autre courrier électronique <label style="color: red;">*</label></label>
+                     <input type="email" class="form-control" id="othermail" name="othermail" placeholder="Other mail" formControlName="othermail"required>
 
                      <div *ngIf="PersonnelForm.controls['othermail'].invalid && (PersonnelForm.controls['othermail'].dirty || PersonnelForm.controls['othermail'].touched)">
                         
                         <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" style="color: rgb(142, 27, 86);">Courrier doit être une adresse email valide.</div>
+                        <div class="help-block with-errors"></div>
+
                       </div>
 
                   </div>

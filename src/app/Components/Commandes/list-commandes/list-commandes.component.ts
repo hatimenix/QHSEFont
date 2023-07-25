@@ -31,15 +31,7 @@ export class ListCommandesComponent {
   public modalService: BsModalService) { }
 
   ngOnInit() {
-    const isFirstVisit = history.state.isFirstVisit;
-    if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
-      history.replaceState({ isFirstVisit: true }, '');
-      // rafraîchir la page
-      location.reload();
-    }
-    // aller en haut de la page
-    window.scrollTo(0, 0);
+   
     this.getCommandes();
     this.myForm = new FormGroup({
       type_commande: new FormControl(),

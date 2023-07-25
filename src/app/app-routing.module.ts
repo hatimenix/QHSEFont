@@ -115,6 +115,9 @@ import { AddExerciceComponent } from './Components/ExerciceSecurite/add-exercice
 import { ListExerciceComponent } from './Components/ExerciceSecurite/list-exercice/list-exercice.component';
 import { ListReunionComponent } from './Components/Reunion/list-reunion/list-reunion.component';
 import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reunion.component';
+import { ListServicesComponent } from './Components/Services/list-services/list-services.component';
+import { AddServicesComponent } from './Components/Services/add-services/add-services.component';
+import { ProfileComponent } from './Components/UserApp/profile/profile.component';
 
 
 
@@ -200,6 +203,7 @@ const routes: Routes = [
   { path: 'listuserapp', component: ListUsersComponent, canActivate: [AuthGuardService] },
   { path: 'adduserapp', component: AddUsersComponent, canActivate: [AuthGuardService] },
   { path: 'updateuserapp/:id', component: UpdateUsersComponent, canActivate: [AuthGuardService] },
+  { path :'profile/:id', component:ProfileComponent, canActivate:[AuthGuardService]}, 
 
   { path: 'listgroupeusers', component: ListGroupesComponent, canActivate: [AuthGuardService] },
   { path: 'addgroupeusers', component: AdGroupesComponent, canActivate: [AuthGuardService] },
@@ -253,12 +257,14 @@ const routes: Routes = [
   { path: 'add-risque', component: AddRisquesComponent, canActivate: [AuthGuardService] },
   { path: 'source-list', component: ListSourceComponent, canActivate: [AuthGuardService] },
   { path: 'typepartie-list', component: ListTypepartiesComponent, canActivate: [AuthGuardService] },
+  { path: 'listServices', component: ListServicesComponent, canActivate: [AuthGuardService]}, 
+  { path: 'add-service', component : AddServicesComponent, canActivate:[AuthGuardService]}
 
 
 
 
   //reset password 
-  { path: 'password-reset', component:  ResetPassComponent }
+
 
 ];
 

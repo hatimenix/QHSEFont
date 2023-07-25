@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, map, of } from 'rxjs';
 import { SourceService } from 'src/app/Services/Service-Source/source.service';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
@@ -23,6 +24,14 @@ declare var window:any;
   styleUrls: ['./info-action.component.css']
 })
 export class InfoActionComponent {
+
+  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('successModal', { static: true }) successModal:any;
+  @ViewChild('successModalM', { static: true }) successModalM:any;
+  @ViewChild('successModalT', { static: true }) successModalT:any;
+  @ViewChild('successModalUM', { static: true }) successModalUM:any;
+  @ViewChild('successModalUR', { static: true }) successModalUR:any;
+  modalRef!: BsModalRef;
 
   utilisateurs: any[] = [];
   sources: any[] = [];
@@ -62,8 +71,10 @@ export class InfoActionComponent {
     private apiMesuresService: ApiMesuresService,
     private apiTachesService: ApiTachesService,
     private apiActionsService: ApiActionsService,
-    private sourceservice :SourceService, private apiUtilisateurService: ApiUtilisateurService,
-  ) { }
+    private sourceservice :SourceService, 
+    private apiUtilisateurService: ApiUtilisateurService,
+    public modalService: BsModalService,
+    private bsModalService: BsModalService) { }
 
   ngOnInit(): void {
     this.apiUtilisateurService.getAllUtilsateur().subscribe(
@@ -253,6 +264,7 @@ export class InfoActionComponent {
 
     this.apiMesuresService.addMesure(mesure).subscribe(
       () => {
+        this.openModalM();
         console.log('Mesure a été ajouté avec succès.');
         this.getMesureByAction(this.actionId);
         this.mesureForm.reset();
@@ -275,15 +287,9 @@ export class InfoActionComponent {
 
   openDeleteModalRealisation(id: number) {
     this.idToDelete = id;
-    this.deletModal.show();
   }
 
-  deleteRealisation(){
-    this.apiRealisationService.delRealisation(this.idToDelete).subscribe(() => {
-      this.getRealisationAndTachesByAction(this.actionId);
-      this.deletModal.hide();
-    })
-  }
+  
 
   updateMesure(): void {
     const rawFormData = this.mesureForm.getRawValue();
@@ -299,6 +305,7 @@ export class InfoActionComponent {
   
     this.apiMesuresService.updateMesure(this.mesure.id, mesure).subscribe(
       () => {
+        this.openModalUM();
         console.log('Mesure a été modifiée avec succès.');
         this.getMesureByAction(this.actionId);
         this.mesureForm.reset();
@@ -344,6 +351,7 @@ export class InfoActionComponent {
 
     this.apiRealisationService.updateRealisation(this.idRealisation, realisation).subscribe(
       (response) => {
+        this.openModalUR();
         console.log('Realisation a été modifier avec succès.');
         this.getRealisationAndTachesByAction(this.actionId);
         this.realisationForm.reset();
@@ -366,6 +374,7 @@ export class InfoActionComponent {
       (response) => {
         console.log('Realisation a été ajouté avec succès.');
         this.realisationId = response.id;
+        this.openModal();
         this.getRealisationAndTachesByAction(this.actionId);
         this.realisationForm.reset();
       },
@@ -396,6 +405,7 @@ export class InfoActionComponent {
   
       this.apiTachesService.addTacheFormData(formData).subscribe(
         () => {
+          this.openModalT();
           console.log('La tache a été ajouté avec succès.');
           this.getTacheByRealaisation(this.realisationId);
           this.tacheForm.reset();
@@ -412,5 +422,41 @@ export class InfoActionComponent {
   }
 
 
+  //delete modal 
+  deleteRealisation(): void {
+    this.apiRealisationService.delRealisation(this.idToDelete)
+      .subscribe(() => {
+        this.getRealisationAndTachesByAction(this.actionId);
+        this.modalRef.hide();
+      });
+    }
+
+  declineDelete(): void {
+    this.modalRef.hide();
+  }
+
+  //modal functions 
+  openModal() {
+    this.modalRef = this.bsModalService.show(this.successModal);
+  }
+  closeModal() {
+    this.bsModalService.hide();
+  }
+
+  openModalM() {
+    this.modalRef = this.bsModalService.show(this.successModalM);
+  }
+
+  openModalT() {
+    this.modalRef = this.bsModalService.show(this.successModalT);
+  }
+
+  openModalUR() {
+    this.modalRef = this.bsModalService.show(this.successModalUR);
+  }
+
+  openModalUM() {
+    this.modalRef = this.bsModalService.show(this.successModalUM);
+  }
 
 }

@@ -39,18 +39,7 @@ export class ListControlComponent {
     this.getControl();
     this.site$ = this.siteService.getAllSite();
 
-    const isFirstVisit = history.state.isFirstVisit;
-
-    if (!isFirstVisit) {
-      // définir l'indicateur de visite dans l'historique de navigation
-      history.replaceState({ isFirstVisit: true }, '');
-
-      // rafraîchir la page
-      location.reload();
-    }
-
-    // aller en haut de la page
-    window.scrollTo(0, 0);
+   
   }
 
   getControl(): void {

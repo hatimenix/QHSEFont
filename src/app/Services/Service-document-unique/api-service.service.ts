@@ -14,12 +14,26 @@ export class ApiServiceService {
 
   constructor(private http:HttpClient) { }
 
-  getAllService(){
-    return this.http.get<Service>(this.API_URL_SERVICE);
+  
+  getAllService(): Observable<Service[]> {
+    return this.http.get<Service[]>(this.API_URL_SERVICE);
   }
 
   getService(id: number): Observable<Service> {
     const url = `${this.API_URL_SERVICE}${id}/`;
     return this.http.get<Service>(url);
+  }
+  create(data: any): Observable<any> {
+    return this.http.post(this.API_URL_SERVICE, data);
+  }
+
+  update(id : number , data: any): Observable<any> {
+    return this.http.put(`${this.API_URL_SERVICE}${id}/`,data);
+  }
+
+  delete(id: any): Observable<any> {
+    return this.http.delete(`${this.API_URL_SERVICE}${id}/`);
+
+
   }
 }
