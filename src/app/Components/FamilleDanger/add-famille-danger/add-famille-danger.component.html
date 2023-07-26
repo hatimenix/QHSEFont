@@ -1,0 +1,48 @@
+<div class="content-page custom-background">
+    <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div style="display: flex; flex-direction: column;">
+                    <div class="card">
+                        <div class="card-headers d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4>Ajouter une famille de danger</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="familleForm" data-toggle="validator">
+                                    <div class="row">
+                                    <div class="col-md-12">                      
+                                        <div class="form-group">
+                                            <label>Nom de famille :</label>
+                                            <input type="text" formControlName="famille_nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="nom" required>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">
+                                        <button style="margin-bottom: 1%;" [disabled]="familleForm.invalid" (click)="onSubmit()" type="submit" class="btn btn-primary mb-2 mb-sm-0"><i class="fas fa-plus"></i>Enregistrer</button>
+                                        <button style="margin-bottom: 1%;" type="reset" routerLink="/familleDanger" class="btn btn-warning mb-2 mb-sm-0"><i class="fas fa-times"></i>Annuler</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+<!-- Page end  -->
+<ng-template #successModal>
+    <div class="modal-header success-header ">
+      <h4 class="modal-title">Succès</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      La famille a été ajoutée avec succès.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
+    </div>
+  </ng-template>
+
+
+
+
+
