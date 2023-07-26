@@ -226,7 +226,7 @@ export class EvenementListComponent {
       return Math.ceil(this.evenements.length / this.itemsPerPage);
     }
 
-    get displayedFiches(): any[] {
+    get displayedEvenements(): any[] {
       const startIndex = (this.p - 1) * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
       return this.evenements.slice(startIndex, endIndex);

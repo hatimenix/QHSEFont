@@ -8,7 +8,6 @@
                         <div class="header-title">
                             <h4 class="card-title">Registre des événements</h4>
                         </div>
-                        
                     </div>
 
                     <div class="card-body">
@@ -92,7 +91,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let e of evenements | filter: searchQuery">
+                                    <tr *ngFor="let e of displayedEvenements | filter: searchQuery">
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div>

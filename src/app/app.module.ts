@@ -124,6 +124,8 @@ import { AddReunionComponent } from './Components/Reunion/add-reunion/add-reunio
 import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reunion.component';
 import { ListServicesComponent } from './Components/Services/list-services/list-services.component';
 import { AddServicesComponent } from './Components/Services/add-services/add-services.component';
+import { ListFamilleDangerComponent } from './Components/FamilleDanger/list-famille-danger/list-famille-danger.component';
+import { AddFamilleDangerComponent } from './Components/FamilleDanger/add-famille-danger/add-famille-danger.component';
 
 
 @NgModule({
@@ -244,6 +246,8 @@ import { AddServicesComponent } from './Components/Services/add-services/add-ser
     InfoReunionComponent,
     ListServicesComponent,
     AddServicesComponent,
+    ListFamilleDangerComponent,
+    AddFamilleDangerComponent,
 
 
   ],

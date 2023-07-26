@@ -25,7 +25,8 @@ declare var window:any;
 })
 export class InfoActionComponent {
 
-  @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('deleteModalME', { static: true }) deleteModalME!: any;
+  @ViewChild('deleteModalR', { static: true }) deleteModalR!: any;
   @ViewChild('successModal', { static: true }) successModal:any;
   @ViewChild('successModalM', { static: true }) successModalM:any;
   @ViewChild('successModalT', { static: true }) successModalT:any;
@@ -188,14 +189,6 @@ export class InfoActionComponent {
     this.getMesureByAction(this.actionId);
     this.getTacheByRealaisation(this.realisationId);
 
-    this.deletModal = new window.bootstrap.Modal(
-      document.getElementById('deleteMesure')
-    );
-
-    this.deletModalRealisation = new window.bootstrap.Modal(
-      document.getElementById('deleteRealisation')
-    );
-
   }
 
   /*getRealisationByAction(actionId: number) {
@@ -275,21 +268,14 @@ export class InfoActionComponent {
 
   openDeleteModal(id: number) {
     this.idToDelete = id;
-    this.deletModal.show();
   }
 
-  deleteMesure(){
+  deleteMesure() : void{
     this.apiMesuresService.delMesure(this.idToDelete).subscribe(() => {
       this.getMesureByAction(this.actionId);
-      this.deletModal.hide();
+      this.modalRef.hide();
     })
   }
-
-  openDeleteModalRealisation(id: number) {
-    this.idToDelete = id;
-  }
-
-  
 
   updateMesure(): void {
     const rawFormData = this.mesureForm.getRawValue();
@@ -423,6 +409,10 @@ export class InfoActionComponent {
 
 
   //delete modal 
+  openDeleteModalRealisation(id: number) {
+    this.idToDelete = id;
+  }
+  
   deleteRealisation(): void {
     this.apiRealisationService.delRealisation(this.idToDelete)
       .subscribe(() => {
