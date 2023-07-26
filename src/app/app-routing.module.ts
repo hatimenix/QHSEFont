@@ -118,6 +118,8 @@ import { InfoReunionComponent } from './Components/Reunion/info-reunion/info-reu
 import { ListServicesComponent } from './Components/Services/list-services/list-services.component';
 import { AddServicesComponent } from './Components/Services/add-services/add-services.component';
 import { ProfileComponent } from './Components/UserApp/profile/profile.component';
+import { ListFamilleDangerComponent } from './Components/FamilleDanger/list-famille-danger/list-famille-danger.component';
+import { AddFamilleDangerComponent } from './Components/FamilleDanger/add-famille-danger/add-famille-danger.component';
 
 
 
@@ -158,6 +160,8 @@ const routes: Routes = [
   { path: 'listSecteur', component: LisSecteurComponent, canActivate: [AuthGuardService] },
   { path: 'addSecteur', component: AddSecteurComponent, canActivate: [AuthGuardService] },
   { path: 'nc/:id', component: InfoNcComponent, canActivate: [AuthGuardService] },
+  { path: 'familleDanger', component: ListFamilleDangerComponent, canActivate: [AuthGuardService] },
+  { path: 'addFamilleDanger', component: AddFamilleDangerComponent, canActivate: [AuthGuardService] },
   //documentation
   { path: 'listdocument', component: ListDocumentationComponent, canActivate: [AuthGuardService] },
   { path: 'add-document', component: AddtDocumentationComponent, canActivate: [AuthGuardService] },
