@@ -7,6 +7,18 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
 import { PlanAlimentaire } from 'src/app/models/PlanAlimentaire';
 import { Site } from 'src/app/models/Site';
 declare var window: any;
+
+// Add a type for the options
+type OptionType = 'texture' | 'regime' | 'convictions_alimentaires' | 'soupe_midi' | 'soupe_soir' | 'taille_portion';
+
+// Create an interface for the options
+interface Option {
+  label: string;
+  value: string;
+  checked: boolean;
+  type: OptionType;
+}
+
 @Component({
   selector: 'app-liste-plan-alimentaire',
   templateUrl: './liste-plan-alimentaire.component.html',
@@ -28,13 +40,14 @@ export class ListePlanAlimentaireComponent {
 
   deleteModal: any;
   id: any
+  updateModalVisible: boolean = true;
 
   matin: any
   client: any
   regime: any
   midi: any
   alcool: any
-  texture: string[] = [];
+  texture: any
   specificite_diet_matin: any
   soir: any
   soupe_soir: any
@@ -158,7 +171,6 @@ export class ListePlanAlimentaireComponent {
     this.bsModalService.hide();
     location.reload();
   }
-  updateModalVisible: boolean = true
 
 
   updatePlanAlimentaire(): void {
@@ -171,7 +183,7 @@ export class ListePlanAlimentaireComponent {
     formData.append('regime', this.regime);
     formData.append('midi', String(this.midi));
     formData.append('alcool', String(this.alcool));
-    formData.append('texture', this.texture.join(","));
+    formData.append('texture', this.texture);
     formData.append('specificite_diet_matin', this.specificite_diet_matin);
     formData.append('soir', String(this.soir));
     formData.append('soupe_soir', this.soupe_soir);
@@ -468,6 +480,39 @@ export class ListePlanAlimentaireComponent {
     const maxHeight = (rowHeight * maxRowsToShow) + 'px';
     return maxHeight;
   }
+
+
+
+  soupeMidiOptions: Option[] = [
+    { label: 'Soupe ENrichie', value: 'Soupe ENrichie', checked: false, type: 'soupe_midi' },
+    { label: 'Sans soupe', value: 'Sans soupe', checked: false, type: 'soupe_midi' },
+    { label: 'Soupe enrichie X2', value: 'Soupe enrichie X2', checked: false, type: 'soupe_midi' },
+    { label: 'Soupe mixée lisse', value: 'Soupe mixée lisse', checked: false, type: 'soupe_midi' },
+    { label: 'Soupe épaisse', value: 'Soupe épaisse', checked: false, type: 'soupe_midi' },
+  ];
+
+  soupeSoirOptions: Option[] = [
+    { label: 'Soupe enrichie', value: 'Soupe enrichie', checked: false, type: 'soupe_soir' },
+    { label: 'Sans soupe', value: 'Sans soupe', checked: false, type: 'soupe_soir' },
+    { label: 'Soupe enrichie X2', value: 'Soupe enrichie X2', checked: false, type: 'soupe_soir' },
+    { label: 'Soupe mixée lisse', value: 'Soupe mixée lisse', checked: false, type: 'soupe_soir' },
+    { label: 'Soupe épaisse', value: 'Soupe épaisse', checked: false, type: 'soupe_soir' },
+  ];
+
+  convictionsAlimentairesOptions: Option[] = [
+    { label: 'Sans viande', value: 'Sans viande', checked: false, type: 'convictions_alimentaires' },
+    { label: 'Sans poisson', value: 'Sans poisson', checked: false, type: 'convictions_alimentaires' },
+    { label: 'Sans porc', value: 'Sans porc', checked: false, type: 'convictions_alimentaires' },
+    { label: 'Végétarien', value: 'Végétarien', checked: false, type: 'convictions_alimentaires' },
+  ];
+
+  taillePortionOptions: Option[] = [
+    { label: '1/2', value: '1/2', checked: false, type: 'taille_portion' },
+    { label: 'XL', value: 'XL', checked: false, type: 'taille_portion' },
+    { label: '+ de légumes', value: '+ de légumes', checked: false, type: 'taille_portion' },
+    { label: '- de féculents', value: '- de féculents', checked: false, type: 'taille_portion' },
+  ];
+
   checkboxOptions: { label: string, value: string, checked: boolean }[] = [
     { label: 'Risque de fausse route', value: 'Risque de fausse route', checked: false },
     { label: 'Vinue coupée / IDDSI 6 (Petits morceaux tendres, taille d\'une bouchée)', value: 'Vinue coupée / IDDSI 6 (Petits morceaux tendres, taille d\'une bouchée)', checked: false },
@@ -481,25 +526,76 @@ export class ListePlanAlimentaireComponent {
   ];
 
 
+  regimeOptions: { label: string, value: string, checked: boolean }[] = [
+    { label: 'Riche en fibres (35g/j)', value: 'Riche en fibres (35g/j)', checked: false },
+    { label: 'Pauvre en fibres stricte (10-14g/j)', value: 'Pauvre en fibres stricte (10-14g/j)', checked: false },
+    { label: 'Sans gluten', value: 'Sans gluten', checked: false },
+    { label: 'Sans lactose', value: 'Sans lactose', checked: false },
+    { label: 'Sans fructose', value: 'Sans fructose', checked: false },
+    { label: 'Pauvre en fibres (15-20g/j)', value: 'Pauvre en fibres (15-20g/j)', checked: false },
+    { label: 'IRC', value: 'IRC', checked: false },
+    { label: 'Hyposodé', value: 'Hyposodé', checked: false },
+    { label: 'Enrichi', value: 'Enrichi', checked: false },
+    { label: 'Diabétique', value: 'Diabétique', checked: false },
+    { label: 'Alimentation plaisir', value: 'Alimentation plaisir', checked: false },
+    { label: 'Dialyse', value: 'Dialyse', checked: false },
+    { label: 'Personnalisé', value: 'Personnalisé', checked: false },
+  ];
 
-  toggleCheckbox(checkboxValue: string): void {
-    const checkbox = this.checkboxOptions.find(option => option.value === checkboxValue);
 
-    if (checkbox) {
-      checkbox.checked = !checkbox.checked;
-      this.updateTexture();
+
+  // Merge all the options into one array
+  options: Option[] = [
+    ...this.checkboxOptions.map(option => ({ ...option, type: 'texture' as OptionType })),
+    ...this.regimeOptions.map(option => ({ ...option, type: 'regime' as OptionType })),
+    ...this.soupeMidiOptions.map(option => ({ ...option, type: 'soupe_midi' as OptionType })),
+    ...this.soupeSoirOptions.map(option => ({ ...option, type: 'soupe_soir' as OptionType })),
+    ...this.convictionsAlimentairesOptions.map(option => ({ ...option, type: 'convictions_alimentaires' as OptionType })),
+    ...this.taillePortionOptions.map(option => ({ ...option, type: 'taille_portion' as OptionType })),
+  ];
+
+  // Update the toggleCheckbox and isCheckboxChecked functions
+  toggleCheckbox(checkboxValue: string, optionType: OptionType): void {
+    const option = this.options.find(opt => opt.value === checkboxValue && opt.type === optionType);
+
+    if (option) {
+      option.checked = !option.checked;
+      this.UpdateCheckboxes(optionType);
     }
   }
 
-  updateTexture(): void {
-    this.texture = this.checkboxOptions
-      .filter(option => option.checked)
-      .map(option => option.value);
+  isCheckboxChecked(checkboxValue: string, optionType: OptionType): boolean {
+    const option = this.options.find(opt => opt.value === checkboxValue && opt.type === optionType);
+    return option ? option.checked : false;
   }
 
-  isCheckboxChecked(checkboxValue: string): boolean {
-    const checkbox = this.checkboxOptions.find(option => option.value === checkboxValue);
-    return checkbox ? checkbox.checked : false;
+  // Update the updateTextureAndRegime function
+  UpdateCheckboxes(optionType: OptionType): void {
+    if (optionType === 'texture') {
+      this.texture = this.options
+        .filter(opt => opt.type === 'texture' && opt.checked)
+        .map(opt => opt.value);
+    } else if (optionType === 'regime') {
+      this.regime = this.options
+        .filter(opt => opt.type === 'regime' && opt.checked)
+        .map(opt => opt.value);
+    } else if (optionType === 'soupe_midi') {
+      this.soupe_midi = this.options
+        .filter(opt => opt.type === 'soupe_midi' && opt.checked)
+        .map(opt => opt.value);
+    } else if (optionType === 'soupe_soir') {
+      this.soupe_soir = this.options
+        .filter(opt => opt.type === 'soupe_soir' && opt.checked)
+        .map(opt => opt.value);
+    } else if (optionType === 'convictions_alimentaires') {
+      this.convictions_alimentaires = this.options
+        .filter(opt => opt.type === 'convictions_alimentaires' && opt.checked)
+        .map(opt => opt.value);
+    } else if (optionType === 'taille_portion') {
+      this.taille_portion = this.options
+        .filter(opt => opt.type === 'taille_portion' && opt.checked)
+        .map(opt => opt.value);
+    }
   }
 
 
@@ -509,18 +605,18 @@ export class ListePlanAlimentaireComponent {
     id: number,
     matin: boolean,
     client: string,
-    regime: string,
+    regime: string[] | undefined,
     midi: boolean,
     alcool: boolean,
     texture: string[] | undefined,
     specificite_diet_matin: string,
     soir: boolean,
-    soupe_soir: string,
+    soupe_soir: string[] | undefined,
     dessert: string,
     menu_velours_matin: boolean,
-    soupe_midi: string,
+    soupe_midi: string[] | undefined,
     specificites_midi: string,
-    taille_portion: boolean,
+    taille_portion: string[] | undefined,
     statut: string,
     specificite_dessert: string,
     gouter: boolean,
@@ -530,7 +626,7 @@ export class ListePlanAlimentaireComponent {
     menu_velours_soir: boolean,
     specificite_diet_soir: string,
     specificite_resto_soir: string,
-    convictions_alimentaires: string,
+    convictions_alimentaires: string[] | undefined,
     allergie_intolerance: string,
     autres_infos_utiles: string,
     texture_liquides_boissons: string,
@@ -575,11 +671,32 @@ export class ListePlanAlimentaireComponent {
     this.site = site;
 
 
-    // Update the checkboxOptions based on the selected texture values
-    this.checkboxOptions.forEach((checkbox) => {
-      checkbox.checked = this.texture.includes(checkbox.value);
+    // Update the checkboxOptions based on the selected texture and regime values
+    this.options.forEach((option) => {
+      if (option.type === 'texture') {
+        option.checked = this.texture.includes(option.value);
+      } else if (option.type === 'regime') {
+        option.checked = this.regime.includes(option.value);
+      } else if (option.type === 'soupe_midi') {
+        option.checked = this.soupe_midi.includes(option.value);
+      } else if (option.type === 'soupe_soir') {
+        option.checked = this.soupe_soir.includes(option.value);
+      } else if (option.type === 'convictions_alimentaires') {
+        option.checked = this.convictions_alimentaires.includes(option.value);
+      } else if (option.type === 'taille_portion') {
+        option.checked = this.taille_portion.includes(option.value);
+      }
     });
+
   }
+
+  getOptions(type: OptionType): Option[] {
+    return this.options.filter(option => option.type === type);
+  }
+  getTrimmedValues(data: string): string[] {
+    return data.split(',').map(item => item.trim());
+  }
+
 
 }
 
