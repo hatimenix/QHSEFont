@@ -128,19 +128,7 @@ export class ListMenusComponent implements OnInit {
       this.getMenus();
     }
   }
-  //filtrage par mois
-  // filterMenuByMonth(): void {
-  //   if (this.MoisSelectionne) {
-  //     console.log("mois séléctionné", this.MoisSelectionne);
-      
-  //     this.menuService.getAllMenus().subscribe((menus) => {
-  //       this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
-  //     });
-  //   } else {
-  //     this.getMenus();
 
-  //   }
-  // }
  filterMenuByMonth(MoisSelectionne: string): void {
   this.menuService.getAllMenus().subscribe(
     (data: Menus[]) => {

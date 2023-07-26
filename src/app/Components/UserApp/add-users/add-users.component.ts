@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/Services/Service-Users/users.service';
@@ -36,9 +36,19 @@ export class AddUsersComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      image: ['', Validators.required],
-      nom_user: ['', Validators.required],
-      nom_complet: ['', Validators.required],
+      image: ['', [Validators.required, this.validateImageFileType]],
+      nom_user: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
+      nom_complet: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
       password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}')]],
       email: ['', [Validators.required, Validators.email]],
       actif: [false],
@@ -119,7 +129,14 @@ export class AddUsersComponent implements OnInit {
                 this.userForm.reset();
               },
               error => {
-                console.log('An error occurred while creating user:', error);
+                if (error.status === 400 && error.error?.email) {
+                  // If the error status is 400 (Bad Request) and the error contains email field
+                  // it means the email already exists. Show the error message.
+                  this.emailExistsError = true;
+                } else {
+                  // If it's some other error, log it for debugging purposes.
+                  console.log('An error occurred while creating user:', error);
+                }
               }
             );
           }
@@ -146,9 +163,22 @@ onFileSelected(event: any) {
   this.userForm.get('image')?.setValue(file);
 }
   
-
-
+    // Custom image validator function
+    validateImageFileType(control: AbstractControl): { [key: string]: boolean } | null {
+      if (control.value instanceof File) {
+        const file = control.value as File;
+        const allowedFormats = ['jpg', 'jpeg', 'png'];
+        const fileName = file.name.toLowerCase();
+        const fileExtension = fileName.split('.').pop();
   
+        if (!fileExtension || !allowedFormats.includes(fileExtension)) {
+          return { invalidImageFormat: true };
+        }
+      }
+      return null;
+    }
+    
+
   
   
 }

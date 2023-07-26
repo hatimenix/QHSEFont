@@ -33,7 +33,13 @@ export class ListDocumentationComponent implements OnInit {
   processus  : any[] = [];
   typeDocumentSelectionne !:string
 
-  documents: any;
+  //filtrage
+  showPopover: boolean = false;
+
+   filterField: string = '';
+  fieldSearchQuery: string = '';
+  filteredDocuments: Documentation[] = [];
+  selectedDocument: Documentation[] = [];
    //modal
    @ViewChild('deleteModal', { static: true }) deleteModal!: any;
    modalRef!: BsModalRef;
@@ -77,11 +83,12 @@ constructor(
 
   loaddocument() {
     this.documentService.getDocuments().subscribe(
-      (data: Documentation[]) => {
-        this.document = data;
-        console.log(data)
+      res => {
+        this.document = res;
+        this.filteredDocuments = res; 
+
       },
-      (error: any) => {
+      error => {
         console.log(error);
       }
     );
@@ -113,12 +120,6 @@ constructor(
       }
     );
   }
-
- 
-
- 
-
-//filtrage par secteur 
 
 
   //delete Modal 
@@ -158,10 +159,10 @@ get totalPages(): number {
   return Math.ceil(this.document.length / this.itemsPerPage);
 }
 
-get displayedDocuments(): any[] {
+get displayedDocuments(): Documentation[] {
   const startIndex = (this.p - 1) * this.itemsPerPage;
   const endIndex = startIndex + this.itemsPerPage;
-  return this.document.slice(startIndex, endIndex);
+  return this.filteredDocuments.slice(startIndex, endIndex);
 }
 
 
@@ -182,56 +183,56 @@ getDisplayedRange(): string {
   const endIndex = Math.min(this.p * this.itemsPerPage, this.document.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.document.length} entrées`;
 }
-filterDocumentByType(): void {
-  if (this.typeDocumentSelectionne) {
-    this.documentService.getDocuments().subscribe((document) => {
-      this.document = document.filter((c) => c.type_docs === this.typeDocumentSelectionne);
-    });
-  } else {
-    this.loaddocument();
+
+
+
+
+//fonction filtrage 
+filterByField(fieldName: string): void {
+  this.filterField = fieldName;
+  this.togglePopover();
+  this.searchQuery = '';
+}
+applyFieldFilter(): void {
+  const searchValue = this.fieldSearchQuery?.toLowerCase();
+
+  this.filteredDocuments = this.document.filter((doc) => {
+    const fieldValue = doc[this.filterField]?.toLowerCase();
+
+    if (fieldValue && searchValue) {
+      return fieldValue.includes(searchValue);
+    }
+
+    return true;
+  });
+}
+
+resetTable(): void {
+  if (this.fieldSearchQuery && this.filteredDocuments.length === 0) {
+    this.fieldSearchQuery = ''; 
+    this.filterField = '';
+    this.filteredDocuments = this.document;
   }
 }
-
-
-filterDocumentsBySite(selectedSite: number): void {
-  if (!isNaN(selectedSite)) {
-    this.documentService.getDocuments().subscribe(
-      (data: Documentation[]) => {
-        const document = data;
-        const filteredDocuments = document.filter(d => {
-          const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
-          return siteIds.includes(selectedSite);
-        });
-
-        if (filteredDocuments.length > 0) {
-          this.selectedSiteId = selectedSite;
-          this.document = filteredDocuments;
-        } else {
-          console.log(`Aucun document trouvé pour le site sélectionné: ${selectedSite}`);
-          this.document = [];
-        }
-
-        console.log("documents filtrés", this.document);
-        console.log("site sélectionné", this.selectedSiteId);
-        console.log("liste des documents", this.document);
-        console.log("document length", this.document.length);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  } else {
-    this.myForm.reset();
-    this.selectedSiteId = undefined;
-    console.log("id de ce site", this.selectedSiteId);
-    this.loaddocument();
+ 
+togglePopover() {
+  this.showPopover = !this.showPopover;
+}
+closePopover(): void {
+  this.showPopover = false;
+}
+handleReset(): void {
+  
+  this.resetTable();
+  this.closePopover();
+  const isFirstVisit = history.state.isFirstVisit;
+  if (!isFirstVisit) {
+    history.replaceState({ isFirstVisit: true }, '');
+    location.reload();
   }
+  window.scrollTo(0, 0);
 }
 
-onSiteSelectionChange(): void {
-  const selectedSite = this.myForm.get('site')?.value;
-  this.filterDocumentsBySite(selectedSite);
-}
 
 
 

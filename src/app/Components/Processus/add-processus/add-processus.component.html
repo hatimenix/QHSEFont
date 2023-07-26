@@ -16,16 +16,44 @@
                                    <div class="form-group">
                                        <label>Intitulé <label style="color: red;">*</label></label>
                                        <input type="text" class="form-control" placeholder="Entrer intitulé" required id="intitule" name="intitule" formControlName="intitule">
-                                       <div class="help-block with-errors"></div>
-                                   </div>
+                                       <div
+                                       class="help-block with-errors"
+                                       *ngIf="processusForm.get('intitule')?.errors && (processusForm.get('intitule')?.dirty || processusForm.get('intitule')?.touched)"
+                                     >
+                                       <p *ngIf="processusForm.get('intitule')?.hasError('required')" class="text-danger">
+                                         Veuillez entrer l'intitule de processus.
+                                       </p>
+                                       <p *ngIf="processusForm.get('intitule')?.hasError('minlength')" class="text-danger">
+                                         Le intitule de processus doit contenir au moins 3 caractères.
+                                       </p>
+                                       <p *ngIf="processusForm.get('intitule')?.hasError('maxlength')" class="text-danger">
+                                         Le intitule de processus ne peut pas dépasser 25 caractères.
+                                       </p>
+                                       
+                                     </div>                                    </div>
                                </div> 
                                
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Sigle <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer typologie" required id="sigle" name="sigle" formControlName="sigle">
-                                    <div class="help-block with-errors"></div>
-                                </div>
+                                    <input type="text" class="form-control" placeholder="Entrer sigle" required id="sigle" name="sigle" formControlName="sigle">
+                                    <div
+                                       class="help-block with-errors"
+                                       *ngIf="processusForm.get('sigle')?.errors && (processusForm.get('sigle')?.dirty || processusForm.get('sigle')?.touched)"
+                                     >
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('required')" class="text-danger">
+                                         Veuillez entrer le sigle de processus.
+                                       </p>
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('minlength')" class="text-danger">
+                                         Le sigle de processus doit contenir au moins 3 caractères.
+                                       </p>
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('maxlength')" class="text-danger">
+                                         Le sigle de processus ne peut pas dépasser 25 caractères.
+                                       </p>
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('pattern')" class="text-danger">
+                                         Le sigle de processus ne peut contenir que des lettres et espaces.
+                                       </p>
+                                     </div>                                 </div>
                             </div> 
                                <div class="col-md-6">
                                    <div class="form-group">

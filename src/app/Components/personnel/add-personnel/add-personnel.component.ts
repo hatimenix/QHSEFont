@@ -22,8 +22,16 @@ export class AddPersonnelComponent  {
       image: ['', Validators.required],
 
 
-      compte: ['', Validators.required],
-      nom: ['', Validators.required],
+      compte: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+      ]],
+      nom:  ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+      ]],
       courrier: ['', [Validators.required, Validators.email]],
       numero_tel: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
       presente_vous: [''],

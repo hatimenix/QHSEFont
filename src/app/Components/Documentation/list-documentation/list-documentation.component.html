@@ -33,34 +33,51 @@
                          </div>
                        </div>
                        
-                 <label>Filtrer par Type</label>
-                 <div class="col-md-3">
- 
-                 <div class="input-group" style="max-width: 240px;">
-                   <div class="input-group-prepend">
-                       <span class="input-group-text">
-                           <i class="fas fa-filter"></i>
-                       </span>
-                   </div>
-                    <select name="type" class="selectpicker form-control" data-style="py-0" id="type_docs"  (change)="filterDocumentByType()" [(ngModel)]="typeDocumentSelectionne">
-
-                    <option value="">Tous</option>
-                     <option value="Template">Template</option>
-                     <option value="Formulaire">Formulaire</option>
-                     <option value="Procédure">Procédure</option>
-                     <option value="Référentiel">Référentiel</option>
-                     <option value="Instruction">Instruction</option>
-                     <option value="Descriptif de processus">Descriptif de processus</option>
-                   </select>
-                   <div class="input-group-append">
-                       <!-- Reset Site Filter Button -->
-                       <button class="btn btn-secondary ">
-                           <i class="fas fa-undo"></i>
-                           <!-- Replace "fa-undo" with the desired reset icon class -->
-                       </button>
-                   </div>
-               </div>
-</div>
+                       <div class="dropdown">
+                        <button style="margin-top: -2%;" class="btn btn-lg btn-outline-primary waves-effect dropdown-toggle " type="button" id="filterDropdown" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+                          <i class="fas fa-filter"></i>Filtrer par
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                          <a class="dropdown-item" (click)="filterByField('nom')" style="cursor: pointer;">Nom du document </a>
+                          <a class="dropdown-item" (click)="filterByField('type_docs')" style="cursor: pointer;">Type de document</a>
+                          <a class="dropdown-item" (click)="filterByField('processus_name')" style="cursor: pointer;"> Processus</a>
+                          <a class="dropdown-item" (click)="filterByField('site_name')" style="cursor: pointer;"> Site</a>
+                          <a class="dropdown-item" (click)="filterByField('secteur_name')" style="cursor: pointer;"> Secteur</a>
+                        </div>
+                        <div class="dropdown dropright">
+                          <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+                            <div class="arrow"></div>
+                            <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="popover-body" style="width: 500px; max-width: 100%;">
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                  </span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                              </div>
+                            
+                              <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                  <div class="alert alert-info" role="alert" *ngIf="filterField && document.length === 0">
+                                    Aucun résultat.
+                                  </div>
+                                </div>
+                              </div>
+                            
+                              <div class="row justify-content-end">
+                                <div class="col-md-4">
+                                  <button class="btn" (click)="handleReset()">Fermer</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                       </div>
+                      </div>
                      
                      
                    </div>

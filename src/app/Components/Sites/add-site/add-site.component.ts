@@ -36,8 +36,16 @@ export class AddSiteComponent {
     window.scrollTo(0, 0);
 
     this.siteForm = this.fb.group({
-      site_nom: ['', Validators.required],
-      sigle: ['',Validators.required],
+      site_nom: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+      ]],
+      sigle: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+      ]],
       responsable_site: [''],
       groupe_retso:['',Validators.required],
     });

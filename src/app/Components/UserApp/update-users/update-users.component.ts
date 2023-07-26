@@ -44,22 +44,29 @@ export class UpdateUsersComponent {
 
     this.loadGroupes();
     this.loadUserData();
+   
   }
 
   loadGroupes() {
     this.groupeUserService.getGroupes().subscribe(
       groupes => {
         this.groupes = groupes;
+        console.log("Groupes:", this.groupes);
       },
       error => {
         console.log('An error occurred while fetching groupes:', error);
       }
     );
   }
+  
 
   loadUserData() {
     this.userAppService.getUserById(this.userId).subscribe(
       (user: UserApp) => {
+        console.log("User Data:", user);
+        const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
+
+        
         this.userForm.patchValue({
           nom_user: user.nom_user,
           nom_complet: user.nom_complet,
@@ -67,30 +74,37 @@ export class UpdateUsersComponent {
           email: user.email,
           actif: user.actif,
         });
-
-        const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
-        for (const group of this.groupes) {
-          const isSelected = user.groupes_roles.some((userGroup: GroupeUser) => userGroup.id === group.id);
-          groupesRolesFormArray.push(this.formBuilder.control(isSelected));
+  
+  
+        // Ensure the FormArray has the same length as the 'groupes' array
+        while (groupesRolesFormArray.length !== this.groupes.length) {
+          groupesRolesFormArray.push(this.formBuilder.control(false));
         }
+  
+        // Reset the FormArray controls before setting the selected groups
+        for (let i = 0; i < groupesRolesFormArray.length; i++) {
+          groupesRolesFormArray.controls[i].setValue(false);
+        }
+  
+        // Set the selected groups
+        for (const group of user.groupes_roles) {
+          const groupIndex = this.groupes.findIndex((g) => g.id === group.id);
+          if (groupIndex !== -1) {
+            groupesRolesFormArray.controls[groupIndex].setValue(true);
+          }
+        }
+  
+        // Add console log to show selected groups
+      const selectedGroups = this.groupes.filter((group, index) => groupesRolesFormArray.controls[index].value);
+      console.log("Groupes:", this.groupes);
+      console.log("User Groups:", user.groupes_roles);
+      console.log("Selected Groups:", selectedGroups);
       },
       error => {
         console.log('An error occurred while fetching user data:', error);
       }
     );
   }
-
-  getSelectedCheckboxId(): string[] {
-    const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
-    const selectedIds: string[] = [];
-    groupesRolesFormArray.controls.forEach((control: AbstractControl, index: number) => {
-      if (control instanceof FormControl && control.value) {
-        selectedIds.push(this.groupes[index].id.toString()); 
-      }
-    });
-    return selectedIds;
-  }
-  
   
 
   onSubmit() {
@@ -98,7 +112,6 @@ export class UpdateUsersComponent {
       return;
     }
 
-    const selectedGroupes = this.getSelectedCheckboxId();
     
     const formData = new FormData();
 
@@ -115,19 +128,13 @@ export class UpdateUsersComponent {
     }
 
     //the group selected 
-    const selectedGroupesRoles = this.getSelectedCheckboxId();
-    selectedGroupesRoles.forEach((groupId: string) => {
-      formData.append('groupes_roles', groupId);
-    });
-    
+    const selectedGroups = this.userForm.value.groupes_roles
+    .map((isChecked: boolean, index: number) => (isChecked ? this.groupes[index].id : null))
+    .filter((groupId: number | null) => groupId !== null);
 
-    // Retrieve the original password value
-    const password = this.userForm.value.password;
+  formData.append('selectedGroups', JSON.stringify(selectedGroups));
 
-    const updatedUser: UserApp = {
-      ...this.userForm.value,
-      password: password
-    };
+
     console.log("data", formData);
 
     this.userAppService.updateUserFormdata(formData).subscribe(
@@ -142,10 +149,7 @@ export class UpdateUsersComponent {
       }
     );
   }
-  getGroupControl(index: number) {
-    const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
-    return groupesRolesFormArray.controls[index] as FormControl;
-  }
+
   // Modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
@@ -162,5 +166,10 @@ export class UpdateUsersComponent {
       this.userForm.get('image')?.setValue(file);
     }
   }
+    // Function to get the FormControls within the groupes_roles FormArray
+    getGroupControl(index: number): FormControl {
+      const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
+      return groupesRolesFormArray.at(index) as FormControl;
+    }
   
 }

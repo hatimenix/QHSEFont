@@ -66,8 +66,16 @@ export class AddProcessusComponent implements OnInit{
 
   createForm(){
     this.processusForm = this.fb.group({
-      intitule: ['', Validators.required],
-      sigle: ['',Validators.required],
+      intitule: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]],
+      sigle: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]],
       typologie: ['',Validators.required],
       finalite:['',Validators.required],
       pilote:['',Validators.required],

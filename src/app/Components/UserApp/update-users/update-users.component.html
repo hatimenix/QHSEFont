@@ -46,13 +46,7 @@
                                   <div class="help-block with-errors"></div>
                               </div>
                           </div> 
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <label>Mot de passe <label style="color: red;">*</label></label>
-                                  <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="password" name="password" formControlName="password">
-                                  <div class="help-block with-errors"></div>
-                              </div>
-                          </div> 
+                         
                           <div class="col-md-6">
                               <div class="form-group">
                                   <label>Adresse Email <label style="color: red;">*</label></label>
@@ -66,15 +60,19 @@
                                   <input type="checkbox" id="actif" name="actif" formControlName="actif">
                               </div>
                           </div>
-                          <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
-                            <div class="form-group">
-                              <label for="groupes_roles">Groupes/Rôles:<label style="color: red;">*</label></label>
-                              <div *ngFor="let groupe of groupes; let i = index">
-                                <input type="checkbox" [value]="groupe.id" [formControl]="getGroupControl(i)">
-                                {{ groupe.nom }}
-                              </div>
-                            </div>
-                          </div>
+<!-- Assuming 'groupes_roles' is the FormArrayName -->
+<div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
+  <div class="form-group">
+    <label for="groupes_roles">Groupes/Rôles:<label style="color: red;">*</label></label>
+    <div *ngFor="let groupe of groupes; let i = index">
+      <input type="checkbox" [formControl]="getGroupControl(i)">
+      {{ groupe.nom }}
+    </div>
+    
+  </div>
+</div>
+
+
                          </div>  
                             
                          <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                   

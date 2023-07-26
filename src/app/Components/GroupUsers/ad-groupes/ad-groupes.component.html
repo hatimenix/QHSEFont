@@ -16,14 +16,44 @@
                                    <div class="form-group">
                                        <label>Nom du groupe <label style="color: red;">*</label></label>
                                        <input type="text" class="form-control" placeholder="Entrer le nom du groupe" required id="nom" name="nom" formControlName="nom">
-                                       <div class="help-block with-errors"></div>
-                                   </div>
+                                       <div
+                                       class="help-block with-errors"
+                                       *ngIf="groupForm.get('nom')?.errors && (groupForm.get('nom')?.dirty || groupForm.get('nom')?.touched)"
+                                     >
+                                       <p *ngIf="groupForm.get('nom')?.hasError('required')" class="text-danger">
+                                         Veuillez entrer le nom de groupe.
+                                       </p>
+                                       <p *ngIf="groupForm.get('nom')?.hasError('minlength')" class="text-danger">
+                                         Le nom de groupe doit contenir au moins 3 caractères.
+                                       </p>
+                                       <p *ngIf="groupForm.get('nom')?.hasError('maxlength')" class="text-danger">
+                                         Le nom de groupe ne peut pas dépasser 25 caractères.
+                                       </p>
+                                       <p *ngIf="groupForm.get('nom')?.hasError('pattern')" class="text-danger">
+                                         Le nom de groupe ne peut contenir que des lettres et espaces.
+                                       </p>
+                                     </div>    
+                                 </div>
                                </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Description <label style="color: red;">*</label></label>
                                     <input type="text" class="form-control" placeholder="Entrer une description" required id="description" name="description" formControlName="description">
-                                    <div class="help-block with-errors"></div>
+                                    <div
+                                    class="help-block with-errors"
+                                    *ngIf="groupForm.get('description')?.errors && (groupForm.get('description')?.dirty || groupForm.get('description')?.touched)"
+                                  >
+                                    <p *ngIf="groupForm.get('description')?.hasError('required')" class="text-danger">
+                                      Veuillez entrer la description.
+                                    </p>
+                                    <p *ngIf="groupForm.get('description')?.hasError('minlength')" class="text-danger">
+                                      La description doit contenir au moins 5 caractères.
+                                    </p>
+                                    <p *ngIf="groupForm.get('description')?.hasError('maxlength')" class="text-danger">
+                                      La description ne peut pas dépasser 50 caractères.
+                                    </p>
+                                    
+                                  </div>
                                 </div>
                             </div> 
                                 
