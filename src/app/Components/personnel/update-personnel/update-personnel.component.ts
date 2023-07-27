@@ -89,8 +89,9 @@ export class UpdatePersonnelComponent implements OnInit {
       this.PersonnelForm.patchValue({
         image: updatedImage
       });
-      this.openModal();
       this.router.navigate(['/listP']);
+      this.openModal();
+     
     },
     (error: any) => {
       console.log(error);
@@ -109,18 +110,10 @@ export class UpdatePersonnelComponent implements OnInit {
 onFileSelected(event: Event) {
   const fileInput = event.target as HTMLInputElement;
   const file: File = (fileInput.files as FileList)[0];
-  this.PersonnelForm.get('image')?.setValue(file);
+  this.PersonnelForm.get('image')?.setValue(''); // Set to empty string to avoid DOMException error
 }
-getImageSrc(): string {
-  const imageControl = this.PersonnelForm.get('image');
-  if (imageControl?.value instanceof File) {
-    const imageUrl = URL.createObjectURL(imageControl.value);
-    console.log('Selected Image URL:', imageUrl); // Log the URL of the selected image
-    return imageUrl;
-  } else {
-    return '../assets/images/user/11.png'; // Default image path if no image is selected
-  }
-}
+
+
 
 
 }

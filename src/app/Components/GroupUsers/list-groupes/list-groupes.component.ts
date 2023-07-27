@@ -11,12 +11,14 @@ import { GroupeUser } from 'src/app/models/GroupeUser';
 export class ListGroupesComponent{
   groupes: GroupeUser[] = [];
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
-  @ViewChild('userModal') userModal!: TemplateRef<any>; // reference to the user modal template
+  @ViewChild('groupModal') groupModal!: TemplateRef<any>; // reference to the user modal template
   modalRef!: BsModalRef;
   //search
   searchQuery: string = '';
   groupeIdToDelete: number = 0;
   selectedPermission: string = ''; 
+  selectedGroup: GroupeUser | null = null; // Add this variable to store the selected personnel
+
 
   constructor(private groupeUserService: GroupeUserService,
     public modalService: BsModalService,
@@ -82,6 +84,13 @@ export class ListGroupesComponent{
   }
   
   
-
+  openModal(template: TemplateRef<any>, groupe: GroupeUser): void {
+    this.selectedGroup = groupe; // Set the selected personnel data
+    this.modalRef = this.modalService.show(template);
+  }
+  
+  closeModal() {
+    this.modalRef?.hide();
+  }
 
 }

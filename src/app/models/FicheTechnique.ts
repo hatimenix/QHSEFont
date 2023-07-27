@@ -3,6 +3,8 @@ export class FicheTechnique {
     fichier?: File ;
     nom_fiche!: string;
     type_plat!: string;
+    [key: string]: any; 
+
   
   }
   

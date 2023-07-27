@@ -17,6 +17,8 @@ export class Documentation {
     site_name!:string;
     personnel_name!:string;
     secteur_name!:string;
+    [key: string]: any; 
+
    
    
 }

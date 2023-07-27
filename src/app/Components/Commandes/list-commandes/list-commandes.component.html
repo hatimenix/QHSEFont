@@ -19,7 +19,7 @@
                     
                   <div class="row">
                      
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
@@ -33,71 +33,56 @@
                           </div>
                         </div>
 
-                        
-                        <div class="col-md-3">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="fas fa-filter"></i>
-                              </span>
-                            </div>
-                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_regime"  (change)="filterCommandeByRegime()" [(ngModel)]="typeRegimeSelectionne">
-                              <option value="" >Tous</option>
-                              <option value="Constipation">Constipation</option>
-                              <option value="Diarrhée">Diarrhée</option>
-                              <option value="Sans résiclus">Sans résiclus</option>
-                              <option value="Sans gluten">Sans gluten</option>
-                              <option value="Sans lactose">Sans lactose</option>
-                              <option value="Sans fructose">Sans fructose</option>
-                              <option value="Sans alcool">Sans alcool</option>
-                              <option value="Epargne digestive">Epargne digestive</option>
-                              <option value="IRC">IRC</option>
-                              <option value="Hyposodé">Hyposodé</option>
-                              <option value="Enrichi">Enrichi</option>
-                              <option value="Diabétique">Diabétique</option>
-                              <option value="Hypocalorique">Hypocalorique</option>
-                              <option value="Sans aliments à risque">Sans aliments à risque</option>
-                              <option value="Alimentation plaisir">Alimentation plaisir</option>
-                              <option value="Aucun">Aucun</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-secondary" (click)="resetRegimeFilters()">
-                                <i class="fas fa-undo"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              
-                              <span class="input-group-text">
-                                <i class="fas fa-filter"></i>
-                              </span>
-                            </div>
-                            
-                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture"  (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
-                              <option value="">Filtrer par Texture</option>
+                        <div class="col-md-4">
+                          <div class="dropdown">
+                            <button style="margin-top: -2%;" class="btn btn-lg btn-outline-primary waves-effect dropdown-toggle " type="button" id="filterDropdown" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+                              <i class="fas fa-filter"></i>Filtrer par
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                              <a class="dropdown-item" (click)="filterByField('type_commande')" style="cursor: pointer;">Type de commande </a>
+                              <a class="dropdown-item" (click)="filterByField('specificite_regime')" style="cursor: pointer;">Spécificité Régime</a>
+            
+                                                           <a class="dropdown-item" (click)="filterByField('specificite_regime')" style="cursor: pointer;">Spécificité Régime</a>
 
-                              <option value="" >Tous</option>
-                              <option value="Viande coupée" selected>Viande coupée</option>
-                              <option value="Tout coupée">Tout coupée</option>
-                              <option value="Velours viande">Velours viande</option>
-                              <option value="Velours complet">Velours complet</option>
-                              <option value="Viande hachée au hachoir">Viande hachée au hachoir</option>
-                              <option value="Finger food">Finger food</option>
-                              <option value="Aucun">Aucun</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-secondary" (click)="resetTextureFilters()">
-                                <i class="fas fa-undo"></i>
-                              </button>
                             </div>
+                            <div class="dropdown dropright">
+                              <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+                                <div class="arrow"></div>
+                                <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="popover-body" style="width: 500px; max-width: 100%;">
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                      </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                                  </div>
+                                
+                                  <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                      <div class="alert alert-info" role="alert" *ngIf="filterField && filteredCommandes.length === 0">
+                                        Aucun résultat.
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                  <div class="row justify-content-end">
+                                    <div class="col-md-4">
+                                      <button class="btn" (click)="handleReset()">Fermer</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                           </div>
                           </div>
-                        </div>
-                      
-                        <div class=" mt-3 d-flex justify-content-between">
+                   
+                      </div>
+                      <div class="col-md-4">
+                        <div class=" mt-3 d-flex justify-content-end" style=" margin-right: -5%;">
                           <div class="dropdown">
                            <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              Afficher {{ itemsPerPage }} résultats par page
@@ -109,6 +94,7 @@
                              </a>
                            </div>
                          </div>
+                      </div>
                       </div>
                       <div class="table-responsive">
 

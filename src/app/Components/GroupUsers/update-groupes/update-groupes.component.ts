@@ -31,8 +31,17 @@ export class UpdateGroupesComponent {
     private route: ActivatedRoute
   ) {
     this.groupForm = this.formBuilder.group({
-      nom: ['', Validators.required],
-      description: ['', Validators.required],
+      nom: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
+      description: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+      ]],
       proprietaire_groupe: [[]],
       autorisation: ['']
     });

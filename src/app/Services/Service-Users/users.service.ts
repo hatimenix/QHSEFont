@@ -37,7 +37,7 @@ export class UsersService {
     const url = `${this.API_UsersApp}${id}`;
     return this.http.delete<void>(url);
   }
-  
+
   
   
   
