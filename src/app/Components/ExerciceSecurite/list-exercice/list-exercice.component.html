@@ -18,7 +18,7 @@
 
                     <div class="card-body">
 
-                        <div class="row justify-content-between">
+                        <div class="row ">
                             <div class="col-4">
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
@@ -35,6 +35,29 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="input-group" style="max-width: 240px;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-filter"></i>
+                                    </span>
+                                </div>
+                                <select (change)="filterExecByYear(selectedYear)" id="yearFilter" name="yearFilter"
+                                    class="custom-select" [(ngModel)]="selectedYear">
+                                    <option value="">All Dates</option>
+                                    <option *ngFor="let exec of displayedES" [value]="exec.date">{{
+                                        exec.date | date:'yyyy' }}</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <!-- Reset Site Filter Button -->
+                                    <button class="btn btn-secondary " (click)="resetFilters()">
+                                        <i class="fas fa-undo"></i>
+                                        <!-- Replace "fa-undo" with the desired reset icon class -->
+                                    </button>
+                                </div>
+                            </div>
+
 
 
                         </div>
@@ -249,7 +272,7 @@
         <div class="modal-content">
             <div>
                 <div class="modal-header ">
-                    <h5 class="modal-title" id="exampleModalLabel">Modifier une Réunion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier un exercice de sécurité</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
