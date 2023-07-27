@@ -32,7 +32,10 @@
                                        <p *ngIf="groupForm.get('nom')?.hasError('pattern')" class="text-danger">
                                          Le nom de groupe ne peut contenir que des lettres et espaces.
                                        </p>
-                                     </div>    
+                                     </div>
+                                     <div *ngIf="errorMessage" class="error-message" class="text-danger">
+                                      {{ errorMessage }}
+                                    </div>
                                  </div>
                                </div> 
                             <div class="col-md-6">

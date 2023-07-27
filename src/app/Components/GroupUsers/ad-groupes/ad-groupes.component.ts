@@ -19,7 +19,7 @@ export class AdGroupesComponent {
   users: UserApp[];
   userapp$ !: Observable<any>;
   group$!: Observable<any>;
-  
+  errorMessage: string | undefined;
 
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
@@ -86,7 +86,26 @@ export class AdGroupesComponent {
         this.openModal();
         this.router.navigate(['/listgroupeusers']); 
         console.log('Groupe utilisateur créé :', createdGroup);
-      });
+      },
+      (error: any) => {
+        console.log("Une erreur s'est produite lors de l'ajout de site", error);
+         // Check for 500 Internal Server Error
+      if (error.status === 500 && error.error) {
+        this.errorMessage = "Ce nom de site existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
+
+        if (error.status === 400 && error.error && error.error.site_nom) {
+          // Display the custom error message from the backend
+          this.errorMessage = "Ce nom de site existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
+      }
+      );
     }
   }
 

@@ -9,13 +9,13 @@
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="siteForm" (ngSubmit)="onSubmit()">
+                       <form  data-toggle="validator" [formGroup]="siteForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Nom du Site <label style="color: red;">*</label></label>
                                        <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom">
-                                       <div
+                                      <div
                                        class="help-block with-errors"
                                        *ngIf="siteForm.get('site_nom')?.errors && (siteForm.get('site_nom')?.dirty || siteForm.get('site_nom')?.touched)"
                                      >
@@ -35,7 +35,7 @@
                                      <div *ngIf="errorMessage" class="error-message" class="text-danger">
                                       {{ errorMessage }}
                                     </div>
-                                     </div>
+                                    </div>
                                </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
