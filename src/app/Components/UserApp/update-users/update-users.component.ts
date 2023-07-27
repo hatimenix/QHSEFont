@@ -19,6 +19,9 @@ export class UpdateUsersComponent {
   userId: number;
   @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
+  emailExistsError: boolean = false;
+  private modalCloseTime: number = 2000; // 
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,9 +36,18 @@ export class UpdateUsersComponent {
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      nom_user: ['', Validators.required],
-      nom_complet: ['', Validators.required],
-      password: ['', Validators.required],
+      nom_user: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
+      nom_complet: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
       email: ['', [Validators.required, Validators.email]],
       actif: [''],
       groupes_roles: this.formBuilder.array([]),
@@ -144,8 +156,13 @@ export class UpdateUsersComponent {
         this.router.navigate(['/listuserapp']);
         this.userForm.reset();
       },
-      (error: any) => {
-        console.log('An error occurred while updating user:', error);
+      error => {
+        if (error.status === 400 && error.error?.email) {
+        
+          this.emailExistsError = true;
+        } else {
+          console.log('An error occurred while creating user:', error);
+        }
       }
     );
   }
@@ -153,6 +170,11 @@ export class UpdateUsersComponent {
   // Modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
+
+    // Set a timer to close the modal after the specified time
+    setTimeout(() => {
+      this.closeModal();
+    }, this.modalCloseTime);
   }
   
   closeModal() {

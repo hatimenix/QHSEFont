@@ -77,7 +77,10 @@
                     <td><a routerLink="/detailProcessus/{{ pro.id }}">{{pro.intitule}}</a></td>
                     <td>{{pro.typologie}}</td>
                     <td>{{pro.sigle}}</td>
-                    <td>{{pro.finalite}}</td>
+                  
+                    <td>
+                      <div class="scrollable-content">{{pro.finalite}}</div>
+                    </td>
                     <td><span class="badge" (click)="openUserModal(pro)">{{pro.pilote_name }}</span></td>
                     <td>{{pro.acteurs}}</td>
                     <td>{{pro.donnee_entree}}</td>

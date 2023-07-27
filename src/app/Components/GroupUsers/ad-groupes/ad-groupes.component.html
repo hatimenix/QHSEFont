@@ -10,7 +10,7 @@
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+                       <form  data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
                                <div class="col-md-6">
                                    <div class="form-group">
@@ -66,6 +66,8 @@
                                     <select id="proprietaire_groupe" name="proprietaire_groupe" formControlName="proprietaire_groupe"  class="custom-select" data-style="py-0" required multiple>
                                         <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
                                        </select>   
+                                       <div class="help-block with-errors"></div>
+
                                 </div> 
                             </div> 
                                 
@@ -79,7 +81,8 @@
                                             <option>Collaboration sans suppression</option>
                                             
                                           </select>
-                                           
+                                          <div class="help-block with-errors"></div>
+
                                     </div> 
                                 </div> 
                            </div>        

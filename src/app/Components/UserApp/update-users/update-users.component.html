@@ -36,23 +36,54 @@
                                  <div class="form-group">
                                      <label>Nom de l'utilisateur <label style="color: red;">*</label></label>
                                      <input type="text" class="form-control" placeholder="Entrer le nom de l'utilisateur"  id="nom_user" name="nom_user" formControlName="nom_user">
-                                     <div class="help-block with-errors"></div>
-                                 </div>
+                                     <div
+                                     class="help-block with-errors"
+                                     *ngIf="userForm.get('nom_user')?.errors && (userForm.get('nom_user')?.dirty || userForm.get('nom_user')?.touched)"
+                                   >
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('required')" class="text-danger">
+                                       Veuillez entrer le nom de l'utilisateur.
+                                     </p>
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('minlength')" class="text-danger">
+                                       Le nom de l'utilisateur doit contenir au moins 3 caractères.
+                                     </p>
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('maxlength')" class="text-danger">
+                                       Le nom de l'utilisateur ne peut pas dépasser 25 caractères.
+                                     </p>
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('pattern')" class="text-danger">
+                                       Le nom de l'utilisateur ne peut contenir que des lettres et espaces.
+                                     </p>
+                                   </div>                                 </div>
                              </div> 
                           <div class="col-md-6">
                               <div class="form-group">
                                   <label>Nom Complet <label style="color: red;">*</label></label>
                                   <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="nom_complet" name="nom_complet" formControlName="nom_complet">
-                                  <div class="help-block with-errors"></div>
-                              </div>
+                                  <div
+                                  class="help-block with-errors"
+                                  *ngIf="userForm.get('nom_complet')?.errors && (userForm.get('nom_complet')?.dirty || userForm.get('nom_complet')?.touched)"
+                                >
+                                  <p *ngIf="userForm.get('nom_complet')?.hasError('required')" class="text-danger">
+                                    Veuillez entrer le nom complet.
+                                  </p>
+                                  <p *ngIf="userForm.get('nom_complet')?.hasError('minlength')" class="text-danger">
+                                    Le nom de l'utilisateur doit contenir au moins 3 caractères.
+                                  </p>
+                                  <p *ngIf="userForm.get('nom_complet')?.hasError('maxlength')" class="text-danger">
+                                    Le nom de l'utilisateur ne peut pas dépasser 25 caractères.
+                                  </p>
+                                  <p *ngIf="userForm.get('nom_complet')?.hasError('pattern')" class="text-danger">
+                                    Le nom de l'utilisateur ne peut contenir que des lettres et espaces.
+                                  </p>
+                                </div>                              </div>
                           </div> 
                          
                           <div class="col-md-6">
                               <div class="form-group">
                                   <label>Adresse Email <label style="color: red;">*</label></label>
                                   <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="email" name="email" formControlName="email">
-                                  <div class="help-block with-errors"></div>
-                              </div>
+                                  <div *ngIf="emailExistsError" class="text-danger">
+                                    Adresse email existe déjà
+                                  </div>                              </div>
                           </div> 
                           <div class="col-md-6">
                               <div class="form-group">

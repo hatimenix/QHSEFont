@@ -17,7 +17,7 @@ import { UserApp } from 'src/app/models/UserApp';
 export class AddUsersComponent implements OnInit {
   userForm!: FormGroup;
   groupes!: GroupeUser[];
-  
+  private modalCloseTime: number = 2000;
    //modal
    @ViewChild('successModal', { static: true }) successModal:any;
    modalRef!: BsModalRef;
@@ -130,11 +130,9 @@ export class AddUsersComponent implements OnInit {
               },
               error => {
                 if (error.status === 400 && error.error?.email) {
-                  // If the error status is 400 (Bad Request) and the error contains email field
-                  // it means the email already exists. Show the error message.
+                
                   this.emailExistsError = true;
                 } else {
-                  // If it's some other error, log it for debugging purposes.
                   console.log('An error occurred while creating user:', error);
                 }
               }
@@ -152,8 +150,14 @@ export class AddUsersComponent implements OnInit {
 // 
 
   //modal functions 
+  
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
+
+    // Set a timer to close the modal after the specified time
+    setTimeout(() => {
+      this.closeModal();
+    }, this.modalCloseTime);
   }
   closeModal() {
     this.bsModalService.hide();

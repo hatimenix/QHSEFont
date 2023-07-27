@@ -18,6 +18,8 @@ export class UpdateGroupesComponent {
   users: UserApp[];
   userapp$!: Observable<any>;
   groupId!: number;
+    //set time for modal
+  private modalCloseTime: number = 2000; // 
 
   //modal
   @ViewChild('successModal', { static: true }) successModal: any;
@@ -114,6 +116,11 @@ export class UpdateGroupesComponent {
   //modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
+
+    // Set a timer to close the modal after the specified time
+    setTimeout(() => {
+      this.closeModal();
+    }, this.modalCloseTime);
   }
 
   closeModal() {
