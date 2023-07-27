@@ -55,7 +55,7 @@ constructor(
   ngOnInit(): void {
     this.processusService.getProcessus().subscribe(
       (data: any[]) => {
-        this.processus = data;
+        this.processus = data.map(item => ({ ...item, expanded: true }));
         console.log(this.processus); // Print the sites to the console
       },
       (error: any) => {

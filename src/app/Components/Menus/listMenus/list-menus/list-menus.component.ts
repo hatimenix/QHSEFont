@@ -49,7 +49,7 @@ export class ListMenusComponent implements OnInit {
     });
     this.siteService.getAllSite().subscribe(
       (data: any[]) => {
-        this.site = data;
+        this.site = data.map(item => ({ ...item, expanded: true }));
         console.log(this.site); // Print the sites to the console
       },
       (error: any) => {

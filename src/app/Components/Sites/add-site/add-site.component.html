@@ -31,7 +31,11 @@
                                        <p *ngIf="siteForm.get('site_nom')?.hasError('pattern')" class="text-danger">
                                          Le nom de site ne peut contenir que des lettres et espaces.
                                        </p>
-                                     </div>                                    </div>
+                                     </div>
+                                     <div *ngIf="errorMessage" class="error-message" class="text-danger">
+                                      {{ errorMessage }}
+                                    </div>
+                                     </div>
                                </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -68,7 +72,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Groupe Restaurant <label style="color: red;">*</label></label>
-                                        <select class="selectpicker form-control" data-style="py-0" id="groupe_retso" name="groupe_retso" formControlName="groupe_retso" >
+                                        <select class="selectpicker form-control" data-style="py-0" id="groupe_retso" name="groupe_retso" formControlName="groupe_retso" required>
                                             <option value="">Choisir un groupe</option>
                                             <option>Wiltz resto</option>
                                             <option>Schengen resto</option>
