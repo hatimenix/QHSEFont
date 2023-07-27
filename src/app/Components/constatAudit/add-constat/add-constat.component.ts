@@ -112,7 +112,7 @@ export class AddConstatComponent implements OnInit {
       processus: [''],
       date_reponse: [''],
       localisation: [''],
-      type_audit: ['', Validators.required],
+      type_audit: [''],
       rapport_audit: [''],
       description_constat: [''],
 

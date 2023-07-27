@@ -4,13 +4,13 @@
             <img src="../assets/images/logo.png" class="img-fluid rounded-normal light-logo" alt="logo" />
             <h5 class="logo-title light-logo ml-3" style="color:#ffd140">Portail QHSE</h5>
         </a>
-        <div class="iq-menu-bt-sidebar ml-3">
+        <div class="iq-menu-bt-sidebar ml-3" style="cursor: pointer;">
             <i class="las la-bars wrapper-menu ml-1"></i>
         </div>
     </div>
     <div class="scroll-sidebar">
         <nav class="iq-sidebar-menu">
-            <ul id="iq-sidebar-toggle" class="iq-menu">
+            <ul id="iq-sidebar-toggle" class="iq-menu custom-sidebar-menu"> 
                 <li class="active">
                     <a  routerLink="/home" class="svg-icon" >
                         <svg class="svg-icon" id="p-dash1" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
@@ -138,6 +138,11 @@
                         <li class="">
                             <a routerLink="/listServices" >
                                 <i class="las la-minus"></i><span>Liste des services </span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a routerLink="/familleDanger" >
+                                <i class="las la-minus"></i><span>Liste des familles</span>
                             </a>
                         </li>
                     </ul>

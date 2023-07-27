@@ -209,7 +209,9 @@ export class ListExerciceComponent {
     formData.append('scenario', this.scenario);
     formData.append('animateurs', this.animateurs);
     formData.append('observateurs', this.observateurs);
-    formData.append('duree', this.duree);
+    if (this.duree !== null && this.duree !== undefined) {
+      formData.append('duree', this.duree);
+    }
     formData.append('monde_signal_alarme', this.monde_signal_alarme);
     formData.append('monde_evacuation', this.monde_evacuation);
     formData.append('ascenseur_inutilise', this.ascenseur_inutilise);

@@ -136,33 +136,33 @@ export class ListMenusComponent implements OnInit {
         return menus.mois_concerne === MoisSelectionne;
       });
 
-      if (filteredMenus.length > 0) {
-        this.menus = filteredMenus;
-      } else {
-        console.log(`No menu found for this month: ${MoisSelectionne}`);
-        this.menus = [];
-      }
-
-      console.log("Filtered menus:", this.menus);
-
-      filteredMenus.forEach(m => {
-        const s = this.site.find((s: Site) => s.id === m.site);
-        if (s) {
-          s.expanded = true;
+        if (filteredMenus.length > 0) {
+          this.menus = filteredMenus;
+        } else {
+          console.log(`No menu found for this month: ${MoisSelectionne}`);
+          this.menus = [];
         }
-      });
-    },
-    (error: any) => {
-      console.log(error);
-    }
-  );
-}
+
+        console.log("Filtered menus:", this.menus);
+
+        filteredMenus.forEach(m => {
+          const s = this.site.find((s: Site) => s.id === m.site);
+          if (s) {
+            s.expanded = true;
+          }
+        });
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
 
   resetMenuFilters(): void {
-   
-    this.MoisSelectionne = ''; 
-    this.myForm.reset(); 
-    this.getMenus(); 
+
+    this.MoisSelectionne = '';
+    this.myForm.reset();
+    this.getMenus();
   }
 
   //afficher juste le nom du fichier 

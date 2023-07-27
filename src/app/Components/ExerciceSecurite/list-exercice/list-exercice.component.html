@@ -19,15 +19,15 @@
                     <div class="card-body">
 
                         <div class="row justify-content-between">
-                            <div class="col-sm-6 col-md-8">
-                                <div class="input-group col-md-6">
+                            <div class="col-4">
+                                <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-search" style="font-size: 1rem;"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" placeholder="Chercher"
-                                        [(ngModel)]="searchQuery">
+                                    <input style="height: 45px;" type="text" class="form-control form-control-sm"
+                                        placeholder="Chercher" [(ngModel)]="searchQuery">
                                     <div class="input-group-append">
                                         <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer
                                             <i class="fas fa-times"></i>
@@ -35,6 +35,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                         </div>
 
@@ -69,10 +70,10 @@
                                 <thead>
                                     <tr>
                                         <th>Site</th>
-                                        <th>Intitulé exercice*</th>
+                                        <th>Intitulé exercice</th>
                                         <th>Année</th>
 
-                                        <th>Date de l'exercice*</th>
+                                        <th>Date de l'exercice</th>
                                         <th>Taux conformité exercices</th>
                                         <th>Indicateur</th>
                                         <th>Thème</th>
@@ -131,27 +132,12 @@
 
 
                                                     <td>
-                                                        <div class="d-flex align-items-center list-action">
-                                                            <!-- <a class="badge btn-sm bg-primary" data-toggle="modal"
-                                                                data-target="#update" data-placement="top" title="Edit"
-                                                                (click)="getESData(exes.id,exes.intitule, exes.theme, exes.site, exes.date_exercice, exes.scenario, exes.animateur, exes.observateurs,
- exes.duree_exercice, exes.signal_alarme, exes.evacuation, exes.ascenseur_inutilise, exes.evacuation_immediate,
-  exes.evacuation_bon_ordre, exes.point_rassemblement, exes.consigne_respectee, exes.connaissance_lutte_incendie,
-   exes.degagement_lutte_incendie, exes.materiel_operationnel, exes.materiel_verifie, exes.degagement_issues_secours
-   , exes.accueil_secours, exes.accueil_guide_secours, exes.interdiction_entree, exes.blocage_portails, exes.appreciation_situation,
-    exes.commentaire_appreciation, exes.centralisation_renseignements, 
-    exes.commentaire, exes.mesure_a_prendre)">
-                                                                <i class="ri-pencil-line mr-0"></i>
-                                                            </a>
-                                                            <span class="spacer"></span> 
-                                                            <a class="badge btn-sm bg-danger" style="cursor: pointer;"
-                                                                data-toggle="tooltip" (click)="openDeleteModal(exes.id)"
-                                                                data-placement="top" title="Delete">
-                                                                <i class="ri-delete-bin-line mr-0"></i>
-                                                            </a> -->
+                                                        <div
+                                                            class="d-flex justify-content-start align-items-center list-action">
 
 
-                                                            <a class="badge bg-success mr-2" data-toggle="modal"
+
+                                                            <a class="btn btn-sm btn-update mr-2" data-toggle="modal"
                                                                 data-target="#update" data-placement="top" title="Edit"
                                                                 (click)="getESData(
     exes.id,
@@ -185,10 +171,10 @@
     exes.commentaire,
     exes.mesure
 );
-" queryParamsHandling="merge"><i class="ri-pencil-line mr-0"></i></a>
-                                                            <a class="badge btn-danger mr-2" data-toggle="tooltip"
+" queryParamsHandling="merge"><i style="color: white;" class="fas fa-pencil-alt mr-0"></i></a>
+                                                            <a class="btn btn-sm btn-delete mr-2" data-toggle="tooltip"
                                                                 (click)="openDeleteModal(exes.id)" data-placement="top"
-                                                                title="Delete"><i
+                                                                title="Delete"><i style="color: white;"
                                                                     class="ri-delete-bin-line mr-0"></i></a>
 
                                                         </div>
@@ -236,7 +222,7 @@
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header delete-header ">
                 <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -246,9 +232,9 @@
                 Attention , cette action est irréversible !
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" (click)="delete()"><i
+                <button type="button" class="btn btn-delete-modal" (click)="delete()"><i
                         class="fas fa-trash"></i>Supprimer</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                <button type="button" class="btn btn-light" data-dismiss="modal"><i
                         class="fas fa-times"></i>Fermer</button>
             </div>
         </div>
@@ -262,7 +248,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div>
-                <div class="modal-header">
+                <div class="modal-header ">
                     <h5 class="modal-title" id="exampleModalLabel">Modifier une Réunion</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -653,10 +639,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="updateExerciceSecurite()"><i
+                <button type="button" class="btn btn-primary " (click)="updateExerciceSecurite()"><i
                         class="fas fa-pencil-alt"></i>
                     Modifier</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>
+                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i>
                     Fermer</button>
             </div>
 
@@ -665,17 +651,19 @@
     </div>
 </div>
 
+<!-- Page end  : succes update Modal -->
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header update-header">
         <h4 class="modal-title">Succès</h4>
         <button type="button" class="close" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        L'exercice de securité a été modifié avec succès.
+        L'exercice de sécurité a été modifié avec succès.
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        <button type="button" class="btn btn-update-modal" (click)="closeModal()"><i
+                class="fas fa-times"></i>Fermer</button>
     </div>
 </ng-template>
