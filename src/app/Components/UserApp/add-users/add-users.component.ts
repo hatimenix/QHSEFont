@@ -43,7 +43,7 @@ export class AddUsersComponent implements OnInit {
         Validators.maxLength(25),
         Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
       ]],
-      nom_complet: ['', [
+      nom: ['', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(25),
@@ -97,7 +97,7 @@ export class AddUsersComponent implements OnInit {
   
     const formData = new FormData();
     formData.append('nom_user', this.userForm.get('nom_user')?.value);
-    formData.append('nom_complet', this.userForm.get('nom_complet')?.value);
+    formData.append('nom', this.userForm.get('nom')?.value);
     formData.append('password', this.userForm.get('password')?.value);
     formData.append('email', this.userForm.get('email')?.value);
     formData.append('actif', this.userForm.get('actif')?.value);
@@ -116,14 +116,12 @@ export class AddUsersComponent implements OnInit {
       const parsedGroupId = parseInt(groupId, 10); // Convert the groupId to a number
       this.groupeUserService.getGroupPermissions(parsedGroupId).subscribe(
         permissions => {
-          newUser.permissions = newUser.permissions.concat(permissions); // Add the retrieved permissions to the user object
   
           if (parsedGroupId === parseInt(selectedIds[selectedIds.length - 1], 10)) {
             // If it's the last group, create the user
             this.userAppService.createUserApp(formData).subscribe(
               user => {
                 console.log('User created successfully:', user);
-                console.log("Permissions", permissions)
                 this.openModal();
                 this.router.navigate(['/listuserapp']);
                 this.userForm.reset();

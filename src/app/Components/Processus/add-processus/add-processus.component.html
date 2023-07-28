@@ -27,10 +27,13 @@
                                          Le intitule de processus doit contenir au moins 3 caractères.
                                        </p>
                                        <p *ngIf="processusForm.get('intitule')?.hasError('maxlength')" class="text-danger">
-                                         Le intitule de processus ne peut pas dépasser 25 caractères.
+                                         Le intitule de processus ne peut pas dépasser 40 caractères.
                                        </p>
                                        
-                                     </div>                                    </div>
+                                     </div> 
+                                     <div *ngIf="errorMessage" class="error-message" class="text-danger">
+                                      {{ errorMessage }}
+                                    </div>                                   </div>
                                </div> 
                                
                             <div class="col-md-6">
@@ -48,7 +51,7 @@
                                          Le sigle de processus doit contenir au moins 3 caractères.
                                        </p>
                                        <p *ngIf="processusForm.get('sigle')?.hasError('maxlength')" class="text-danger">
-                                         Le sigle de processus ne peut pas dépasser 25 caractères.
+                                         Le sigle de processus ne peut pas dépasser 40 caractères.
                                        </p>
                                        <p *ngIf="processusForm.get('sigle')?.hasError('pattern')" class="text-danger">
                                          Le sigle de processus ne peut contenir que des lettres et espaces.

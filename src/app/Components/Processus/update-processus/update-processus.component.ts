@@ -51,18 +51,50 @@ export class UpdateProcessusComponent {
 
     this.processusForm = this.fb.group({
       id:[''],
-      intitule: ['', Validators.required],
-      sigle: ['',Validators.required],
+      intitule: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40),
+      ]],
+      sigle: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40),
+      ]],
       typologie: ['',Validators.required],
-      finalite:['',Validators.required],
-      pilote:['', Validators.required],
-      acteurs: ['',Validators.required],
-      donnee_entree:['',Validators.required],
-      activites: ['', Validators.required], 
-      donnee_sortie:['',Validators.required],
-      ressources_tech_org:['',Validators.required],
-      objectifs_ind:['',Validators.required],
-      outils_surveil:['',Validators.required],
+      finalite:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      pilote:['',Validators.required],
+      acteurs: ['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      donnee_entree:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      activites: ['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      donnee_sortie:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      ressources_tech_org:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      objectifs_ind:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      outils_surveil:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
       
     });
 

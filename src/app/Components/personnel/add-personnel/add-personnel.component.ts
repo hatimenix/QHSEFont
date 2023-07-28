@@ -25,18 +25,27 @@ export class AddPersonnelComponent  {
       compte: ['', [
         Validators.required,
         Validators.minLength(5),
-        Validators.maxLength(50),
+        Validators.maxLength(40),
       ]],
       nom:  ['', [
         Validators.required,
         Validators.minLength(5),
-        Validators.maxLength(50),
+        Validators.maxLength(40),
       ]],
       courrier: ['', [Validators.required, Validators.email]],
       numero_tel: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
-      presente_vous: [''],
-      fonction: [''],
-      adresse_sip: [''],
+      presente_vous:  ['', [
+        Validators.required,
+        Validators.maxLength(40),
+      ]],
+      fonction:  ['', [
+        Validators.required,
+        Validators.maxLength(40),
+      ]],
+      adresse_sip:  ['', [
+        Validators.required,
+        Validators.maxLength(40),
+      ]],
       othermail: ['', Validators.email]
     });
   }

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
@@ -16,7 +16,15 @@ export class AddServicesComponent {
   personnel$!: Observable<any>;
   modalRef!: BsModalRef;
 
-  constructor(private router: Router, private servicesService: ApiServiceService, private personnelService: PersonnelService, private bsModalService: BsModalService) { }
+
+
+  constructor(private router: Router, 
+    private servicesService: ApiServiceService, 
+    private personnelService: PersonnelService, 
+    private bsModalService: BsModalService) {
+       
+      
+    }
 
   mode = 'list';
   servicef = {
@@ -26,7 +34,11 @@ export class AddServicesComponent {
   };
   submitted = false;
   form = new FormGroup({
-    service_nom: new FormControl(''),
+    service_nom: new FormControl('',  [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(40)
+    ]),
     chef_service: new FormControl(),
   });
 
@@ -53,9 +65,7 @@ export class AddServicesComponent {
       formData.append('service_nom', String(this.form.value.service_nom));
     }
 
-    // Check if chef_service is not null and not undefined before appending it to FormData
     if (this.form.value.chef_service !== null && this.form.value.chef_service !== undefined) {
-      // Convert the chef_service value to an array and append it to the form data
       const chefServiceIds: number[] = this.form.value.chef_service;
       chefServiceIds.forEach((chefServiceId) => {
         formData.append('chef_service', String(chefServiceId));

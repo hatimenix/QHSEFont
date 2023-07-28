@@ -14,7 +14,7 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Nom du Site <label style="color: red;">*</label></label>
-                                       <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom">
+                                       <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom" maxlength="40">
                                       <div
                                        class="help-block with-errors"
                                        *ngIf="siteForm.get('site_nom')?.errors && (siteForm.get('site_nom')?.dirty || siteForm.get('site_nom')?.touched)"
@@ -26,7 +26,7 @@
                                          Le nom de site doit contenir au moins 3 caractères.
                                        </p>
                                        <p *ngIf="siteForm.get('site_nom')?.hasError('maxlength')" class="text-danger">
-                                         Le nom de site ne peut pas dépasser 25 caractères.
+                                         Le nom de site ne peut pas dépasser 40 caractères.
                                        </p>
                                        <p *ngIf="siteForm.get('site_nom')?.hasError('pattern')" class="text-danger">
                                          Le nom de site ne peut contenir que des lettres et espaces.

@@ -82,13 +82,28 @@
                       <div class="scrollable-content">{{pro.finalite}}</div>
                     </td>
                     <td><span class="badge" (click)="openUserModal(pro)">{{pro.pilote_name }}</span></td>
-                    <td>{{pro.acteurs}}</td>
-                    <td>{{pro.donnee_entree}}</td>
-                    <td>{{pro.activites}}</td>
-                    <td>{{pro.donnee_sortie}}</td>
-                    <td>{{pro.ressources_tech_org}}</td>
-                    <td>{{pro.objectifs_ind}}</td>
-                    <td>{{pro.outils_surveil}}</td>
+                    <td>
+                      <div class="scrollable-content">{{pro.acteurs}}</div>
+                    </td>
+                    <td>
+                      <div class="scrollable-content">{{pro.donnee_entree}}</div>
+                    </td>
+                    <td>
+                      <div class="scrollable-content">{{pro.activites}}</div>
+                    </td>
+                    <td>
+                      <div class="scrollable-content">{{pro.donnee_sortie}}</div>
+                    </td>
+                    <td>
+                      <div class="scrollable-content">{{pro.ressources_tech_org}}</div>
+                    </td>
+                    <td>
+                      <div class="scrollable-content">{{pro.objectifs_ind}}</div>
+                    </td>
+                    <td>
+                      <div class="scrollable-content">{{pro.outils_surveil}}</div>
+                    </td>
+                 
                     
                     <td>
                       <div class="flex align-items-center list-user-action">
@@ -141,7 +156,7 @@
             Êtes-vous sûr de vouloir supprimer ce processus ?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Annuler</button>
+            <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
             <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
           </div>
         </ng-template>

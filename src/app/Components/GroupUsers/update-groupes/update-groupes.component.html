@@ -10,7 +10,7 @@
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+                       <form  data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -20,14 +20,12 @@
                                     class="help-block with-errors"
                                     *ngIf="groupForm.get('nom')?.errors && (groupForm.get('nom')?.dirty || groupForm.get('nom')?.touched)"
                                   >
-                                    <p *ngIf="groupForm.get('nom')?.hasError('required')" class="text-danger">
-                                      Veuillez entrer le nom de groupe.
-                                    </p>
+                                    
                                     <p *ngIf="groupForm.get('nom')?.hasError('minlength')" class="text-danger">
                                       Le nom de groupe doit contenir au moins 3 caractères.
                                     </p>
                                     <p *ngIf="groupForm.get('nom')?.hasError('maxlength')" class="text-danger">
-                                      Le nom de groupe ne peut pas dépasser 25 caractères.
+                                      Le nom de groupe ne peut pas dépasser 40 caractères.
                                     </p>
                                     <p *ngIf="groupForm.get('nom')?.hasError('pattern')" class="text-danger">
                                       Le nom de groupe ne peut contenir que des lettres et espaces.

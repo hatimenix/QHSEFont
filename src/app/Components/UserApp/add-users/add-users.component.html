@@ -82,24 +82,24 @@
                                 class="form-control"
                                 placeholder="Entrer le nom complet"
                                 required
-                                id="nom_complet"
-                                name="nom_complet"
-                                formControlName="nom_complet"
+                                id="nom"
+                                name="nom"
+                                formControlName="nom"
                               >
                               <div
                                 class="help-block with-errors"
-                                *ngIf="userForm.get('nom_complet')?.errors && (userForm.get('nom_complet')?.dirty || userForm.get('nom_complet')?.touched)"
+                                *ngIf="userForm.get('nom')?.errors && (userForm.get('nom')?.dirty || userForm.get('nom')?.touched)"
                               >
-                                <p *ngIf="userForm.get('nom_complet')?.hasError('required')" class="text-danger">
+                                <p *ngIf="userForm.get('nom')?.hasError('required')" class="text-danger">
                                   Veuillez entrer le nom complet.
                                 </p>
-                                <p *ngIf="userForm.get('nom_complet')?.hasError('minlength')" class="text-danger">
+                                <p *ngIf="userForm.get('nom')?.hasError('minlength')" class="text-danger">
                                   Le nom de l'utilisateur doit contenir au moins 3 caractères.
                                 </p>
-                                <p *ngIf="userForm.get('nom_complet')?.hasError('maxlength')" class="text-danger">
+                                <p *ngIf="userForm.get('nom')?.hasError('maxlength')" class="text-danger">
                                   Le nom de l'utilisateur ne peut pas dépasser 25 caractères.
                                 </p>
-                                <p *ngIf="userForm.get('nom_complet')?.hasError('pattern')" class="text-danger">
+                                <p *ngIf="userForm.get('nom')?.hasError('pattern')" class="text-danger">
                                   Le nom de l'utilisateur ne peut contenir que des lettres et espaces.
                                 </p>
                               </div>

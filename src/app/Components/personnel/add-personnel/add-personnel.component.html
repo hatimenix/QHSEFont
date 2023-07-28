@@ -60,7 +60,7 @@
      Le compte de personnel doit contenir au moins 3 caractères.
    </p>
    <p *ngIf="PersonnelForm.get('compte')?.hasError('maxlength')" class="text-danger">
-     Le compte de personnel ne peut pas dépasser 25 caractères.
+     Le compte de personnel ne peut pas dépasser 40 caractères.
    </p>
  
  </div>   
@@ -84,7 +84,7 @@
                        Le nom de personnel doit contenir au moins 3 caractères.
                      </p>
                      <p *ngIf="PersonnelForm.get('nom')?.hasError('maxlength')" class="text-danger">
-                       Le nom de personnel ne peut pas dépasser 25 caractères.
+                       Le nom de personnel ne peut pas dépasser 40 caractères.
                      </p>
                      
                    </div>   
@@ -95,7 +95,7 @@
                      <input type="email" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier" required>
                      <div *ngIf="PersonnelForm.controls['courrier'].invalid && (PersonnelForm.controls['courrier'].dirty || PersonnelForm.controls['courrier'].touched)">
                        
-                        <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" style="color: rgb(142, 27, 86);">Courrier doit être une adresse email valide.</div>
+                        <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" class="text-danger">Courrier doit être une adresse email valide.</div>
                         <div class="help-block with-errors"></div>
                      </div>
                    </div>
@@ -105,7 +105,7 @@
                      <label for="numero_tel">Numéro <label style="color: red;">*</label></label>
                      <input type="tel" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number" formControlName="numero_tel" required>
                      <div *ngIf="PersonnelForm.controls['numero_tel'].invalid && (PersonnelForm.controls['numero_tel'].dirty || PersonnelForm.controls['numero_tel'].touched)">
-                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['pattern']" style="color: rgb(142, 27, 86);">Numéro doit être un numéro de téléphone valide. Exemple: (0624724809)</div>
+                       <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['pattern']" class="text-danger">Numéro doit être un numéro de téléphone valide. Exemple: (0624724809)</div>
                        <div class="help-block with-errors"></div>
 
                      </div>
@@ -116,21 +116,60 @@
                    <div class="form-group col-md-6">
                      <label for="presente_vous">Présentez vous <label style="color: red;">*</label></label>
                      <textarea class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous" formControlName="presente_vous" required></textarea>
-                     <div class="help-block with-errors"></div>
-
+                     <div *ngIf="PersonnelForm.controls['nom'].invalid && (PersonnelForm.controls['nom'].dirty || PersonnelForm.controls['nom'].touched)">
+                      <div
+                      class="help-block with-errors"
+                      *ngIf="PersonnelForm.get('presente_vous')?.errors && (PersonnelForm.get('presente_vous')?.dirty || PersonnelForm.get('presente_vous')?.touched)"
+                    >
+                      <p *ngIf="PersonnelForm.get('presente_vous')?.hasError('required')" class="text-danger">
+                        Veuillez entrer une présentation de personnel.
+                      </p>
+                    
+                      <p *ngIf="PersonnelForm.get('presente_vous')?.hasError('maxlength')" class="text-danger">
+                        Ce champs ne peut pas dépasser 40 caractères.
+                      </p>
+                      
+                    </div>   
+                    </div>
                   </div>
                   
                   <div class="form-group col-md-6">
                      <label for="fonction">Fonction <label style="color: red;">*</label></label>
                      <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction" required>
-                     <div class="help-block with-errors"></div>
-
+                     <div *ngIf="PersonnelForm.controls['fonction'].invalid && (PersonnelForm.controls['fonction'].dirty || PersonnelForm.controls['fonction'].touched)">
+                      <div
+                      class="help-block with-errors"
+                      *ngIf="PersonnelForm.get('fonction')?.errors && (PersonnelForm.get('fonction')?.dirty || PersonnelForm.get('fonction')?.touched)"
+                    >
+                      <p *ngIf="PersonnelForm.get('fonction')?.hasError('required')" class="text-danger">
+                        Veuillez entrer la fonction de personnel.
+                      </p>
+                      
+                      <p *ngIf="PersonnelForm.get('fonction')?.hasError('maxlength')" class="text-danger">
+                        La fonction de personnel ne peut pas dépasser 40 caractères.
+                      </p>
+                      
+                    </div>   
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
                      <label for="adresse_sip">Adresse Sip<label style="color: red;">*</label></label>
                      <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip" required>
-                     <div class="help-block with-errors"></div>
-
+                     <div *ngIf="PersonnelForm.controls['nom'].invalid && (PersonnelForm.controls['nom'].dirty || PersonnelForm.controls['nom'].touched)">
+                      <div
+                      class="help-block with-errors"
+                      *ngIf="PersonnelForm.get('adresse_sip')?.errors && (PersonnelForm.get('adresse_sip')?.dirty || PersonnelForm.get('adresse_sip')?.touched)"
+                    >
+                      <p *ngIf="PersonnelForm.get('adresse_sip')?.hasError('required')" class="text-danger">
+                        Veuillez entrer l'adresse de personnel.
+                      </p>
+                      
+                      <p *ngIf="PersonnelForm.get('adresse_sip')?.hasError('maxlength')" class="text-danger">
+                        L'adressede personnel ne peut pas dépasser 40 caractères.
+                      </p>
+                      
+                    </div>   
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
                      <label for="othermail">Autre courrier électronique <label style="color: red;">*</label></label>
@@ -138,7 +177,6 @@
 
                      <div *ngIf="PersonnelForm.controls['othermail'].invalid && (PersonnelForm.controls['othermail'].dirty || PersonnelForm.controls['othermail'].touched)">
                         
-                        <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" style="color: rgb(142, 27, 86);">Courrier doit être une adresse email valide.</div>
                         <div class="help-block with-errors"></div>
 
                       </div>

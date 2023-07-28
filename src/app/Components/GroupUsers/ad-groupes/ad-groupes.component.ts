@@ -113,7 +113,7 @@ export class AdGroupesComponent {
   }
 
   getSelectedUserNames(selectedUsers: UserApp[]): string {
-    return selectedUsers.map(user => user.nom_complet).join(', ');
+    return selectedUsers.map(user => user.nom).join(', ');
   }
 
   // Méthode pour gérer la sélection d'utilisateurs multiples

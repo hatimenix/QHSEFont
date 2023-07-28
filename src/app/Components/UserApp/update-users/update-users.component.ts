@@ -42,7 +42,7 @@ export class UpdateUsersComponent {
         Validators.maxLength(40),
         Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
       ]],
-      nom_complet: ['', [
+      nom: ['', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(40),
@@ -81,24 +81,21 @@ export class UpdateUsersComponent {
         
         this.userForm.patchValue({
           nom_user: user.nom_user,
-          nom_complet: user.nom_complet,
+          nom: user.nom,
           password: user.password,
           email: user.email,
           actif: user.actif,
         });
   
   
-        // Ensure the FormArray has the same length as the 'groupes' array
         while (groupesRolesFormArray.length !== this.groupes.length) {
           groupesRolesFormArray.push(this.formBuilder.control(false));
         }
   
-        // Reset the FormArray controls before setting the selected groups
         for (let i = 0; i < groupesRolesFormArray.length; i++) {
           groupesRolesFormArray.controls[i].setValue(false);
         }
   
-        // Set the selected groups
         for (const group of user.groupes_roles) {
           const groupIndex = this.groupes.findIndex((g) => g.id === group.id);
           if (groupIndex !== -1) {
@@ -106,7 +103,6 @@ export class UpdateUsersComponent {
           }
         }
   
-        // Add console log to show selected groups
       const selectedGroups = this.groupes.filter((group, index) => groupesRolesFormArray.controls[index].value);
       console.log("Groupes:", this.groupes);
       console.log("User Groups:", user.groupes_roles);
@@ -129,7 +125,7 @@ export class UpdateUsersComponent {
 
     formData.append('id', this.userId.toString()); // Ensure the 'id' is set in the formData
     formData.append('nom_user', this.userForm.get('nom_user')?.value);
-    formData.append('nom_complet', this.userForm.get('nom_complet')?.value);
+    formData.append('nom', this.userForm.get('nom')?.value);
     formData.append('password', this.userForm.get('password')?.value);
     formData.append('email', this.userForm.get('email')?.value);
     formData.append('actif', this.userForm.get('actif')?.value);

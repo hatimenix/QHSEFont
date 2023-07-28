@@ -75,22 +75,16 @@ export class UpdatePersonnelComponent implements OnInit {
     formData.append('adresse_sip', this.PersonnelForm.get('adresse_sip')?.value);
     formData.append('othermail', this.PersonnelForm.get('othermail')?.value);
 
-    const file = this.PersonnelForm.get('image')?.value;
-  if (file instanceof File) {
-    formData.append('image', file, file.name);
-  }
+    formData.append('image', this.PersonnelForm.get('image')?.value);
+
 
   this.personnelService.updatePersonnelFormdata(formData).subscribe(
     (data: any) => {
       console.log(data);
-      // Retrieve the updated image data from the response if available
-      const updatedImage = data.image;
-      // Update the form value with the new image value
-      this.PersonnelForm.patchValue({
-        image: updatedImage
-      });
-      this.router.navigate(['/listP']);
+     
       this.openModal();
+
+      this.router.navigate(['/listP']);
      
     },
     (error: any) => {
@@ -107,12 +101,10 @@ export class UpdatePersonnelComponent implements OnInit {
     this.bsModalService.hide();
 }
 
-onFileSelected(event: Event) {
-  const fileInput = event.target as HTMLInputElement;
-  const file: File = (fileInput.files as FileList)[0];
-  this.PersonnelForm.get('image')?.setValue(''); // Set to empty string to avoid DOMException error
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  this.PersonnelForm.get('image')?.setValue(file);
 }
-
 
 
 
