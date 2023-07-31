@@ -161,7 +161,7 @@
                               <td *ngIf="showTypeRegistre"><a routerLink="/traitement/{{ traitement.id }}">{{traitement.typeregistre}}</a></td>
                               <td *ngIf="showRespRegistre">{{traitement.responsable_name}}</td>
                               <td>{{traitement.id}}</td>
-                              <td>{{traitement.nomtraitement}}</td>
+                              <td><a routerLink="/traitement/{{ traitement.id }}">{{traitement.nomtraitement}}</a></td>
                                 <td>{{ traitement.datedecreation | date:'yyyy-MM-dd' }}</td>
                                 <td>{{traitement.datedemiseajour | date:'yyyy-MM-dd'}}</td>
                                 <td>{{traitement.donneesensible ? 'Oui' : 'Non'}}</td>

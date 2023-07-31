@@ -1,5 +1,5 @@
 import { Component, ViewChild, } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable,  } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-risques.component.css']
 })
 export class AddRisquesComponent {
+  risques: any[] = [];
   @ViewChild('addModalAnalyse', { static: true }) addModalAnalyse:any;
   modalRef!: BsModalRef;
   analyseForm!: FormGroup;
@@ -45,26 +46,34 @@ export class AddRisquesComponent {
 
     // aller en haut de la page
     window.scrollTo(0, 0);
+    this.analyseservice.getAllAnalyseRisques().subscribe(
+      (data: any[]) => {
+        this.risques = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
     this.analyseForm = this.formBuilder.group({ 
       site : ['', Validators.required],
-      description : ['', Validators.required],
-      typologie : ['', Validators.required],
-      axe : ['', Validators.required],
-      famille : ['', Validators.required],
+      description : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255),this.checkDuplicatedescription.bind(this)]],
+      typologie : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      axe : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      famille : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       indice : ['', Validators.required],
-      niveau_risque : ['', Validators.required],
+      niveau_risque : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       date_evaluation : ['', Validators.required],
-      opportunite : ['', Validators.required],
-      origine : ['', Validators.required],
+      opportunite : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      origine : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       processus : ['', Validators.required],
-      contexte_int : ['', Validators.required],
-      contexte_ext : ['', Validators.required],
-      consequences : ['', Validators.required],
+      contexte_int : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      contexte_ext : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      consequences : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       impact : ['', Validators.required],
       probabilite : ['', Validators.required],
       maitrise : ['', Validators.required],
-      mesure : ['', Validators.required],
-      type_action : ['', Validators.required],
+      mesure : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      type_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
 
     });
     this.sites$ = this.apiSiteService.getAllSite();
@@ -99,6 +108,7 @@ export class AddRisquesComponent {
           this.router.navigate(["/cartographieRisque"])
           this.analyseForm.reset();
           this.openModaladdAnalyse();
+          this.closeSuccessModalAfterDelay();
         },
         error => console.log(error)
       );
@@ -109,5 +119,18 @@ export class AddRisquesComponent {
   }
   closeModal() {
     this.bsModalService.hide();
+  }
+  get f() {
+    return this.analyseForm.controls;
+  }
+  checkDuplicatedescription(control: AbstractControl): { [key: string]: boolean } | null {
+    const descriptionValue = control.value;
+    const isDuplicate = this.risques.some(item => item.description === descriptionValue);
+    return isDuplicate ? { 'duplicate': true } : null;
+  }
+  closeSuccessModalAfterDelay(): void {
+    setTimeout(() => {
+      this.modalRef.hide();
+    }, 2300); 
   }
 }

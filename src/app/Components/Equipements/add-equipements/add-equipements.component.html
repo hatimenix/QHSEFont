@@ -55,10 +55,12 @@
                                 <div class="form-group">
                                     <label>Codification <span style="color: red;">*</span></label>
                                     <input [(ngModel)]="equipementf.codification" type="text" formControlName="codification" class="form-control"  data-errors="Please Enter Name." id="codification" required>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].touched && f['codification'].invalid">
-                                     <div *ngIf="f['codification'].errors && f['codification'].errors['required']">La codification est requis.</div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].invalid">
                                      <div *ngIf="f['codification'].errors && f['codification'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['duplicate']">Cette codification existe déjà !</div>
                                  </div>
+                                 <div class="help-block with-errors"></div>
                              </div>
                             </div>
                             <div class="col-md-6">
@@ -107,8 +109,9 @@
                                 <div class="form-group">
                                     <label>Commentaires </label>
                                     <textarea [(ngModel)]="equipementf.commentaires" type="text" formControlName="commentaires" class="form-control"  data-errors="Please Enter Name." id="commentaires" rows="3" ></textarea>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaires'].touched && f['commentaires'].invalid">
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaires'].invalid">
                                         <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
                                     </div>
                                     <div class="help-block with-errors"></div>
                                 </div>
@@ -117,9 +120,6 @@
                                 <div class="form-group">
                                     <label>N série (si thermomètre Genius) </label>
                                     <input [(ngModel)]="equipementf.N_serie" type="number" formControlName="N_serie" class="form-control" placeholder="Entrer un nombre " data-errors="Please Enter Name." id="N_serie" >
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['N_serie'].touched && f['N_serie'].invalid">
-                                        <div *ngIf="f['N_serie'].errors && f['N_serie'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                    </div>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div> 

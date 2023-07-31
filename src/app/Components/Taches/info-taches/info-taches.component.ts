@@ -53,21 +53,21 @@ export class InfoTachesComponent {
   ) {}
   ngOnInit() {
     this.actionForm = this.formBuilder.group({ 
-      intitule : ['', Validators.required],
+      intitule : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       type_action : ['', Validators.required],
-      origine_action : ['', Validators.required],
-      reference : ['', Validators.required],
+      origine_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      reference : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       domaine : ['', Validators.required],
       site : ['', Validators.required],
       processus : ['', Validators.required],
-      analyse_cause : ['', Validators.required],
-      plan_action : ['', Validators.required],
+      analyse_cause : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      plan_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       delai_mise_en_oeuvre : ['', Validators.required],
-      assigne_a : ['', Validators.required],
+      assigne_a : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       priorite : ['', Validators.required],
       delai_mesure_eff : ['', Validators.required],
-      type_critere_eff : ['', Validators.required],
-      detail_critere_eff : ['', Validators.required],
+      type_critere_eff : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      detail_critere_eff : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       piece_jointe : ['']
     });
     
@@ -165,6 +165,7 @@ export class InfoTachesComponent {
           this.actionForm.reset();
           this.openModaladd();
           this.addModalVisible = false;
+          this.closeSuccessModalAfterDelay();
         },
         error => console.log(error)
       );
@@ -200,6 +201,7 @@ export class InfoTachesComponent {
             this.getActionsByTacheId(this.tacheId);
             this.openModal();
             this.updateModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -267,7 +269,14 @@ export class InfoTachesComponent {
     }
     return 'Choose file';
   }
-  
+  get f() {
+    return this.actionForm.controls;
+  }
     
-
+  closeSuccessModalAfterDelay(): void {
+    setTimeout(() => {
+      this.modalRef.hide();
+      location.reload();
+    }, 2300); 
+  }
 }

@@ -16,16 +16,22 @@
                                 <div class="form-group">
                                     <label>Axe de la politique <span style="color: red;">*</span></label>
                                     <input [(ngModel)]="axef.axe" type="text" formControlName="axe" class="form-control" data-errors="Please Enter Name." id="axe" required>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['axe'].touched && f['axe'].invalid">
-                                        <div *ngIf="f['axe'].errors && f['axe'].errors['required']">La axe de la politique est requis.</div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['axe'].invalid">
                                         <div *ngIf="f['axe'].errors && f['axe'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['axe'].errors && f['axe'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['axe'].errors && f['axe'].errors['duplicate']">Cet axe existe déjà !</div>
                                     </div>
+                                    <div class="help-block with-errors"></div>
                                  </div>
                              </div>
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Sigle </label>
                                     <input [(ngModel)]="axef.sigle" type="text" formControlName="sigle" class="form-control" data-errors="Please Enter Name." id="sigle" >
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['sigle'].invalid">
+                                      <div *ngIf="f['sigle'].errors && f['sigle'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
+                                      <div *ngIf="f['sigle'].errors && f['sigle'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                  </div>
                                  </div>
                              </div>
                              </div>                        

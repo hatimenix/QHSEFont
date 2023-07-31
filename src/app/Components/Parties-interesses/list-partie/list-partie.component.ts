@@ -141,6 +141,7 @@ export class ListPartieComponent implements OnInit {
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -246,5 +247,11 @@ getDisplayedRange(): string {
 getRecordCount(typepartie: any): number {
   const typepartiePlans = this.parties.filter(partie => partie.typepartie === typepartie.id);
   return typepartiePlans.length;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+    location.reload();
+  }, 2300); 
 }
 }

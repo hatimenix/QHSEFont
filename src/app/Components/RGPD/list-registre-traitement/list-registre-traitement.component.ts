@@ -236,6 +236,7 @@ export class ListRegistreTraitementComponent implements OnInit{
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -407,5 +408,10 @@ getTraitementData(
       const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredTraitements.length);
       return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredTraitements.length} entrées`;
     }
-
+    closeSuccessModalAfterDelay(): void {
+      setTimeout(() => {
+        this.modalRef.hide();
+        location.reload();
+      }, 2300); 
+    }
 }

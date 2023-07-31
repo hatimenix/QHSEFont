@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PartieService } from 'src/app/Services/Service-partie/partie.service';
 import { TypepartieService } from 'src/app/Services/Service-TypePartie/typepartie.service';
@@ -12,6 +12,7 @@ import { ProcessusService } from 'src/app/Services/Service-processus/processus.s
   styleUrls: ['./add-partie.component.css']
 })
 export class AddPartieComponent {
+  parties: any[] = [];
   typeparties: any[] = [];
   processuss: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
@@ -38,11 +39,11 @@ export class AddPartieComponent {
   submitted = false;
   form = new FormGroup({
     typepartie: new FormControl(''),
-    partieinteresse: new FormControl('', [Validators.minLength(3)]),
+    partieinteresse: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicatepartieinteresse.bind(this)]),
     importance: new FormControl('', [Validators.minLength(3)]),
     nature: new FormControl('', [Validators.minLength(3)]),
-    enjeux: new FormControl('', [Validators.minLength(3)]),
-    besoin: new FormControl('', [Validators.minLength(3)]),
+    enjeux: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    besoin: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     impactfinal: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     impactentreprise: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     cotation: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
@@ -82,6 +83,14 @@ export class AddPartieComponent {
         console.log(error); // Handle error
       }
     );  
+    this.partieservice.getAll().subscribe(
+      (data: any[]) => {
+        this.parties = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
   toggleProcessus(processusId: number): void {
     const index = this.partief.processus.indexOf(processusId);
@@ -114,6 +123,7 @@ export class AddPartieComponent {
         console.log(res);
         this.router.navigate(["/partie-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -136,6 +146,15 @@ openModal() {
 closeModal() {
   this.bsModalService.hide();
 }
-
+checkDuplicatepartieinteresse(control: AbstractControl): { [key: string]: boolean } | null {
+  const partieinteresseValue = control.value;
+  const isDuplicate = this.parties.some(item => item.partieinteresse === partieinteresseValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
+}
 
 }

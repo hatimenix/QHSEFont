@@ -191,8 +191,8 @@
   color: white;
 }  
 .scrollable-content {
-  max-height: 100px;
-  overflow-y: auto;
+  max-height: 150px;
+  overflow-x: auto;
   white-space: pre-wrap;
 }
 
