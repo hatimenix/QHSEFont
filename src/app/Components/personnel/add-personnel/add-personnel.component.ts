@@ -21,9 +21,6 @@ export class AddPersonnelComponent  {
 
   constructor(private formBuilder: FormBuilder, private personnelService: PersonnelService, private router: Router,private bsModalService: BsModalService) {
     this.PersonnelForm = this.formBuilder.group({
-      
-
-
       image: [''],
       compte: ['', [
         Validators.required,
@@ -39,7 +36,7 @@ export class AddPersonnelComponent  {
       numero_tel: ['', [ Validators.pattern('^\\d{10}$')]],
       presente_vous:  ['', [
        
-        Validators.maxLength(40),
+        Validators.maxLength(50),
       ]],
       fonction:  ['', [
         Validators.maxLength(40),
