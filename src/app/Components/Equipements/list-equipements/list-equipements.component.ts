@@ -145,6 +145,7 @@ export class ListEquipementsComponent implements OnInit {
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -266,7 +267,12 @@ getRecordSecteurCount(site: any,secteur: any): number {
   );
     return secteurPlans.length;
 }
-
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+    location.reload();
+  }, 2300); 
+}
 
 
 

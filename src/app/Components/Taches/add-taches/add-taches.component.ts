@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { SourceService } from 'src/app/Services/Service-Source/source.service';
@@ -11,6 +11,7 @@ import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité
   styleUrls: ['./add-taches.component.css']
 })
 export class AddTachesComponent {
+  taches: any[] = [];
   utilisateurs: any[] = [];
   sources: any[] = [];
   droppedFile: File | null = null;
@@ -37,15 +38,15 @@ export class AddTachesComponent {
   };
   submitted = false;
   form = new FormGroup({
-    nom_tache: new FormControl(''),
+    nom_tache: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicatenom_tache.bind(this)]),
     date_debut: new FormControl(''),
     echeance: new FormControl(''),
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     priorite: new FormControl(''),
     assigne_a: new FormControl(''),
     date_realisation: new FormControl(''),
     etat: new FormControl(''),
-    commentaire: new FormControl(''),
+    commentaire: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     piece_jointe: new FormControl(''),
     source: new FormControl(''),
 
@@ -80,6 +81,14 @@ export class AddTachesComponent {
       (error: any) => {
         console.log(error); // Handle error
       }
+    );
+    this.tacheservice.getAllTaches().subscribe(
+      (data: any[]) => {
+        this.taches = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
     );  
   
     
@@ -104,6 +113,7 @@ export class AddTachesComponent {
         console.log(res);
         this.router.navigate(["/tache-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -154,5 +164,15 @@ onDrop(event: any) {
     dropZone.innerHTML = file.name;
   }
   
+}
+checkDuplicatenom_tache(control: AbstractControl): { [key: string]: boolean } | null {
+  const nom_tacheValue = control.value;
+  const isDuplicate = this.taches.some(item => item.nom_tache === nom_tacheValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
 }
 }

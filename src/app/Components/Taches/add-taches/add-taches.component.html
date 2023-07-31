@@ -32,6 +32,11 @@
                              <div class="form-group">
                                 <label>Nom de la tâche <span style="color: red;">*</span></label>
                                 <input [(ngModel)]="tachef.nom_tache" type="text" formControlName="nom_tache" class="form-control" data-errors="Please Enter Name." id="nom_tache" required>
+                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nom_tache'].invalid">
+                                    <div *ngIf="f['nom_tache'].errors && f['nom_tache'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['nom_tache'].errors && f['nom_tache'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                    <div *ngIf="f['nom_tache'].errors && f['nom_tache'].errors['duplicate']">Ce nom existe déjà !</div>
+                                </div>
                                 <div class="help-block with-errors"></div>
                             </div>
                             </div>
@@ -53,6 +58,10 @@
                                 <div class="form-group">
                                    <label>Description</label>
                                    <textarea [(ngModel)]="tachef.description" formControlName="description" class="form-control" id="description" name="description" rows="3"></textarea>
+                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
+                                    <div *ngIf="f['description'].errors && f['description'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['description'].errors && f['description'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                </div>
                                    <div class="help-block with-errors"></div>
                                </div>
                                </div>
@@ -60,6 +69,10 @@
                                 <div class="form-group">
                                    <label>Commentaires</label>
                                    <textarea [(ngModel)]="tachef.commentaire" type="text" formControlName="commentaire" class="form-control" data-errors="Please Enter Name." id="commentaire" rows="3"></textarea>
+                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaire'].invalid">
+                                    <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                </div>
                                    <div class="help-block with-errors"></div>
                                </div>
                                </div>

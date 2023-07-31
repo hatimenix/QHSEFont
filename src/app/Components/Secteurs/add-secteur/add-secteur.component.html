@@ -15,7 +15,13 @@
                         <div class="col-md-12">                      
                              <div class="form-group">
                                 <label>Nom</label>
-                                <input [(ngModel)]="secteurf.secteur_nom" type="text" formControlName="secteur_nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="nom" >
+                                <input [(ngModel)]="secteurf.secteur_nom" type="text" formControlName="secteur_nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="nom" required>
+                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['secteur_nom'].invalid">
+                                  <div *ngIf="f['secteur_nom'].errors && f['secteur_nom'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                  <div *ngIf="f['secteur_nom'].errors && f['secteur_nom'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                  <div *ngIf="f['secteur_nom'].errors && f['secteur_nom'].errors['duplicate']">Ce nom existe déjà !</div>
+                              </div>
+                              <div class="help-block with-errors"></div>
                             </div>
                             </div>
                         </div>

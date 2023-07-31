@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ExigencesService } from 'src/app/Services/Service-exigences/exigences.service';
 import { PartieService } from 'src/app/Services/Service-partie/partie.service';
@@ -10,6 +10,7 @@ import { PartieService } from 'src/app/Services/Service-partie/partie.service';
   styleUrls: ['./add-exigences.component.css']
 })
 export class AddExigencesComponent {
+  exigences: any[] = [];
   partieinteressess: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -30,11 +31,11 @@ export class AddExigencesComponent {
   };
   submitted = false;
   form = new FormGroup({
-    type_exigence: new FormControl(''),
-    intitule: new FormControl(''),
-    evaluation_maitrise: new FormControl(''),
-    description: new FormControl(''),
-    commentaire: new FormControl(''),
+    type_exigence: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    intitule: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateintitule.bind(this)]),
+    evaluation_maitrise: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    description: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    commentaire: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     action: new FormControl(false),
     partieinteresses: new FormControl(''),
 
@@ -61,6 +62,14 @@ export class AddExigencesComponent {
         console.log(error); // Handle error
       }
     );  
+    this.exigenceservice.getAllExigences().subscribe(
+      (data: any[]) => {
+        this.exigences = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
   createExigence() {
     const formData =  new FormData()
@@ -78,6 +87,7 @@ export class AddExigencesComponent {
         console.log(res);
         this.router.navigate(["/exigence-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -100,6 +110,15 @@ openModal() {
 closeModal() {
   this.bsModalService.hide();
 }
-
+checkDuplicateintitule(control: AbstractControl): { [key: string]: boolean } | null {
+  const intituleValue = control.value;
+  const isDuplicate = this.exigences.some(item => item.intitule === intituleValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
+}
 
 }

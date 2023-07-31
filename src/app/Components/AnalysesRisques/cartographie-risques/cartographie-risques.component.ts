@@ -220,6 +220,7 @@ export class CartographieRisquesComponent {
           
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
         },
         error => console.log(error)
       );
@@ -370,5 +371,11 @@ export class CartographieRisquesComponent {
       pageNumbers.push(i);
     }
     return pageNumbers;
+  }
+  closeSuccessModalAfterDelay(): void {
+    setTimeout(() => {
+      this.modalRef.hide();
+      location.reload();
+    }, 2300); 
   }
 }

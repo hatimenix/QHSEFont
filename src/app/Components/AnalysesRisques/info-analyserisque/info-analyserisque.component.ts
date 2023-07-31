@@ -67,21 +67,21 @@ export class InfoAnalyserisqueComponent {
   ) {}
   ngOnInit() {
     this.actionForm = this.formBuilder.group({ 
-      intitule : ['', Validators.required],
+      intitule : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       type_action : ['', Validators.required],
-      origine_action : ['', Validators.required],
-      reference : ['', Validators.required],
+      origine_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      reference : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       domaine : ['', Validators.required],
       site : ['', Validators.required],
       processus : ['', Validators.required],
-      analyse_cause : ['', Validators.required],
-      plan_action : ['', Validators.required],
+      analyse_cause : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      plan_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       delai_mise_en_oeuvre : ['', Validators.required],
-      assigne_a : ['', Validators.required],
+      assigne_a : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       priorite : ['', Validators.required],
       delai_mesure_eff : ['', Validators.required],
-      type_critere_eff : ['', Validators.required],
-      detail_critere_eff : ['', Validators.required],
+      type_critere_eff : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      detail_critere_eff : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       piece_jointe : ['']
     });
     this.cotationForm = this.formBuilder.group({ 
@@ -205,6 +205,7 @@ export class InfoAnalyserisqueComponent {
             this.actionForm.reset();
             this.openModaladdAction();
             this.addModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -240,6 +241,7 @@ export class InfoAnalyserisqueComponent {
             this.getActionByAnalyseRisqueId(this.analyserisqueId);
             this.openModal();
             this.updateModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -290,6 +292,7 @@ export class InfoAnalyserisqueComponent {
             this.cotationForm.reset();
             this.openModaladdCotation();
             this.addModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -312,6 +315,7 @@ export class InfoAnalyserisqueComponent {
             
             this.openModalupdate();
             this.updateModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -384,7 +388,15 @@ export class InfoAnalyserisqueComponent {
       }
       return 'Choose file';
     }
-    
+    get f() {
+      return { ...this.actionForm.controls, ...this.cotationForm.controls };
+    }
+    closeSuccessModalAfterDelay(): void {
+      setTimeout(() => {
+        this.modalRef.hide();
+        location.reload();
+      }, 2300); 
+    }
 
 
 }

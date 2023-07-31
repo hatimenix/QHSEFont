@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { QualiteService } from 'src/app/Services/Service-qualite/qualite.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
@@ -10,6 +10,7 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
   styleUrls: ['./add-qualite.component.css']
 })
 export class AddQualiteComponent implements OnInit{
+  qualites: any[] = [];
   sites: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -29,12 +30,12 @@ export class AddQualiteComponent implements OnInit{
   submitted = false;
   form = new FormGroup({
     site: new FormControl(''),
-    titre: new FormControl(''),
+    titre: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicatetitre.bind(this)]),
     date_analyse: new FormControl(''),
-    reflexion: new FormControl(''),
-    objectifs: new FormControl(''),
-    commentaires_responsable: new FormControl(''),
-    objectifs_annees: new FormControl(''),
+    reflexion: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    objectifs: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    commentaires_responsable: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    objectifs_annees: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
   });
   ngOnInit(): void {
     const isFirstVisit = history.state.isFirstVisit;
@@ -58,6 +59,14 @@ export class AddQualiteComponent implements OnInit{
         console.log(error); // Handle error
       }
     );  
+    this.qualiteservice.getAll().subscribe(
+      (data: any[]) => {
+        this.qualites = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
 
 createQualite() {
@@ -77,6 +86,7 @@ createQualite() {
       console.log(res);
       this.router.navigate(["/qualite-list"])
       this.openModal();
+      this.closeSuccessModalAfterDelay();
       console.log(formData);
       this.submitted = true;
     },
@@ -99,5 +109,14 @@ openModal() {
 closeModal() {
   this.bsModalService.hide();
 }
-
+checkDuplicatetitre(control: AbstractControl): { [key: string]: boolean } | null {
+  const titreValue = control.value;
+  const isDuplicate = this.qualites.some(item => item.titre === titreValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
+}
 }

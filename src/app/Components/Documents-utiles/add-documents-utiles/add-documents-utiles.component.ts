@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceDocumentUtilesService } from 'src/app/Services/Services-document-utile/services-document-utile.service';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
@@ -10,6 +10,7 @@ import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité
   styleUrls: ['./add-documents-utiles.component.css']
 })
 export class AddDocumentsUtilesComponent implements OnInit{
+  documents: any[] = [];
   utilisateurs: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -27,8 +28,8 @@ export class AddDocumentsUtilesComponent implements OnInit{
 submitted = false;
 form = new FormGroup({
   document: new FormControl(''),
-  nom: new FormControl(''),
-  typologie: new FormControl(''),
+  nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateNom.bind(this)]),
+  typologie: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
   modified_by: new FormControl(''),
 
 
@@ -56,6 +57,14 @@ ngOnInit(): void {
       console.log(error); // Handle error
     }
   ); 
+  this.documentutileservice.getAll().subscribe(
+    (data: any[]) => {
+      this.documents = data;
+    },
+    (error: any) => {
+      console.log(error); // Handle error
+    }
+  );
 }
 createDocumentutile() {
     
@@ -71,6 +80,7 @@ createDocumentutile() {
       console.log(res);
       this.router.navigate(["/documents-utiles-list"])
       this.openModal();
+      this.closeSuccessModalAfterDelay();
       console.log(formData);
       this.submitted = true;
     },
@@ -123,5 +133,15 @@ openModal() {
 }
 closeModal() {
   this.bsModalService.hide();
+}
+checkDuplicateNom(control: AbstractControl): { [key: string]: boolean } | null {
+  const nomValue = control.value;
+  const isDuplicate = this.documents.some(item => item.nom === nomValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
 }
 }
