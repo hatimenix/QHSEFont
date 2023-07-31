@@ -2,7 +2,7 @@ export class Personnel {
     id! : number;
     compte!: string;
     nom!: string;
-    courrier!: string;
+    email!: string;
     numero_tel!: string;
     presente_vous!: string;
     image?: File;
@@ -14,7 +14,7 @@ export class Personnel {
        id: number=0,
        compte: string="",
        nom: string ="",
-       courrier: string="",
+       email: string="",
        numero_tel: string="",
        presente_vous: string="",
        fonction: string="",
@@ -25,7 +25,7 @@ export class Personnel {
       this.id= id; 
       this.compte = compte;
       this.nom = nom;
-      this.courrier= courrier; 
+      this.email= email; 
       this.compte = compte;
       this.numero_tel = numero_tel;
       this.presente_vous= presente_vous; 

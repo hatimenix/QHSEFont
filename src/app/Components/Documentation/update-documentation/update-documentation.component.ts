@@ -109,7 +109,12 @@ export class UpdateDocumentationComponent {
     } else {
       console.log("ID de document introuvable dans l'URL");
       this.DocForm = this.formBuilder.group({
-        nom: ['', Validators.required],
+        nom: ['', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(40),
+          Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+        ]],
         codification: ['', Validators.required],
         version: ['', Validators.required],
         date_approbation: ['', Validators.required],

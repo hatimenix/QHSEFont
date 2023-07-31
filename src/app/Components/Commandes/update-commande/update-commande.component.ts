@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommandeSerService } from 'src/app/Services/Service-commandes/commande-ser.service';
 import { Commande } from 'src/app/models/Commande';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Observable } from 'rxjs';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 
 @Component({
   selector: 'app-update-commande',
@@ -15,6 +17,8 @@ export class UpdateCommandeComponent implements OnInit{
   commande!: Commande;
   commandeId!: number;
   formBuilder: any;
+  site$ !: Observable<any>;
+
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
@@ -25,13 +29,16 @@ export class UpdateCommandeComponent implements OnInit{
     private commandeService: CommandeSerService,
     private router: Router,
     private route: ActivatedRoute,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private siteService : ApiSiteService
   ) {
     this.createForm();
     
   }
 
   ngOnInit(): void {
+    this.site$ = this.siteService.getAllSite();
+
     const isFirstVisit = history.state.isFirstVisit;
 
     if (!isFirstVisit) {
@@ -54,12 +61,13 @@ export class UpdateCommandeComponent implements OnInit{
           console.log('Commande:', commande);
           this.commande = commande;
           this.myForm.setValue({
+            
             type_commande: this.commande.type_commande ,
             quantite: this.commande.quantite ,
             specificite_regime: this.commande.specificite_regime ,
             specificite_texture: this.commande.specificite_texture,
             date_commande: this.commande.date_commande,
-            etat_commande: this.commande.etat_commande 
+            site:this.commande.site,
           });
         },
         error => console.log(error)
@@ -73,12 +81,12 @@ export class UpdateCommandeComponent implements OnInit{
 
   createForm() {
     this.myForm = this.fb.group({
+      site:['', Validators.required],
       date_commande: ['', Validators.required],
       type_commande: ['', Validators.required],
       quantite: ['', Validators.required],
       specificite_regime: ['', Validators.required],
       specificite_texture: ['', Validators.required],
-      etat_commande: ['', Validators.required],
     });
   }
 
@@ -91,7 +99,9 @@ export class UpdateCommandeComponent implements OnInit{
         quantite: this.myForm.value.quantite,
         specificite_regime: this.myForm.value.specificite_regime,
         specificite_texture: this.myForm.value.specificite_texture,
-        etat_commande: this.myForm.value.etat_commande
+        etat_commande: this.myForm.value.etat_commande,
+        site:  this.myForm.value.site,
+        site_name: ''
       };
       this.commandeService.updateCommande(updatedCommande).subscribe(
         (commande: Commande) => {

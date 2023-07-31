@@ -26,18 +26,18 @@ export class UsersService {
     return this.http.post<UserApp>(this.API_UsersApp, formData);
   }
 
-  updateUserFormdata(formData: FormData): Observable<any> {
-    const id = formData.get('id');
-    const url = `${this.API_UsersApp}${id}/`;
+  updateUserFormdata(userId: number, formData: FormData): Observable<any> {
+    const url = `${this.API_UsersApp}${userId}/`;
     return this.http.put(url, formData);
   }
+  
 
 
   deleteUserApp(id: number): Observable<void> {
     const url = `${this.API_UsersApp}${id}`;
     return this.http.delete<void>(url);
   }
-  
+
   
   
   

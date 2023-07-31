@@ -15,8 +15,23 @@
                                 <div class="form-group">
                                   <label for="nom">Nom du document <label style="color: red;">*</label> </label>
                                   <input type="text" class="form-control" placeholder="Enter nom" formControlName="nom" data-errors="Entrez un nom de document" required>
-                                  <div class="help-block with-errors"></div>
-                                </div>
+                                  <div
+                                  class="help-block with-errors"
+                                  *ngIf="DocForm.get('nom')?.errors && (DocForm.get('nom')?.dirty || DocForm.get('nom')?.touched)"
+                                >
+                                  <p *ngIf="DocForm.get('nom')?.hasError('required')" class="text-danger">
+                                    Veuillez entrer le nom du document.
+                                  </p>
+                                  <p *ngIf="DocForm.get('nom')?.hasError('minlength')" class="text-danger">
+                                    Le nom du document doit contenir au moins 3 caractères.
+                                  </p>
+                                  <p *ngIf="DocForm.get('nom')?.hasError('maxlength')" class="text-danger">
+                                    Le nom du document ne peut pas dépasser 40 caractères.
+                                  </p>
+                                  <p *ngIf="DocForm.get('nom')?.hasError('pattern')" class="text-danger">
+                                    Le nom du document ne peut contenir que des lettres et espaces.
+                                  </p>
+                                </div>                                </div>
                               </div>
                               
                                         

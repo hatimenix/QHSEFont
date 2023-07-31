@@ -49,7 +49,7 @@ export class ListMenusComponent implements OnInit {
     });
     this.siteService.getAllSite().subscribe(
       (data: any[]) => {
-        this.site = data;
+        this.site = data.map(item => ({ ...item, expanded: true }));
         console.log(this.site); // Print the sites to the console
       },
       (error: any) => {
@@ -128,19 +128,7 @@ export class ListMenusComponent implements OnInit {
       this.getMenus();
     }
   }
-  //filtrage par mois
-  // filterMenuByMonth(): void {
-  //   if (this.MoisSelectionne) {
-  //     console.log("mois séléctionné", this.MoisSelectionne);
-      
-  //     this.menuService.getAllMenus().subscribe((menus) => {
-  //       this.menus = menus.filter((m) => m.mois_concerne === this.MoisSelectionne);
-  //     });
-  //   } else {
-  //     this.getMenus();
 
-  //   }
-  // }
  filterMenuByMonth(MoisSelectionne: string): void {
   this.menuService.getAllMenus().subscribe(
     (data: Menus[]) => {
@@ -148,33 +136,33 @@ export class ListMenusComponent implements OnInit {
         return menus.mois_concerne === MoisSelectionne;
       });
 
-      if (filteredMenus.length > 0) {
-        this.menus = filteredMenus;
-      } else {
-        console.log(`No menu found for this month: ${MoisSelectionne}`);
-        this.menus = [];
-      }
-
-      console.log("Filtered menus:", this.menus);
-
-      filteredMenus.forEach(m => {
-        const s = this.site.find((s: Site) => s.id === m.site);
-        if (s) {
-          s.expanded = true;
+        if (filteredMenus.length > 0) {
+          this.menus = filteredMenus;
+        } else {
+          console.log(`No menu found for this month: ${MoisSelectionne}`);
+          this.menus = [];
         }
-      });
-    },
-    (error: any) => {
-      console.log(error);
-    }
-  );
-}
+
+        console.log("Filtered menus:", this.menus);
+
+        filteredMenus.forEach(m => {
+          const s = this.site.find((s: Site) => s.id === m.site);
+          if (s) {
+            s.expanded = true;
+          }
+        });
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
 
   resetMenuFilters(): void {
-   
-    this.MoisSelectionne = ''; 
-    this.myForm.reset(); 
-    this.getMenus(); 
+
+    this.MoisSelectionne = '';
+    this.myForm.reset();
+    this.getMenus();
   }
 
   //afficher juste le nom du fichier 

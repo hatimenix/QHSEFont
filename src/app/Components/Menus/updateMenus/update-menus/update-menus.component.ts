@@ -32,13 +32,7 @@ export class UpdateMenusComponent implements OnInit{
     this.MenuForm = new FormGroup({
       site: new FormControl(),
       mois_concerne: new FormControl(),
-      menus_generaux: new FormControl(),
-      menus_dessert: new FormControl(),
-      menu_s1: new FormControl(),
-      menu_s2: new FormControl(),
-      menu_s3: new FormControl(),
-      menu_s4: new FormControl(),
-      menu_s5: new FormControl(),
+     
     });
   }
   
@@ -66,13 +60,7 @@ export class UpdateMenusComponent implements OnInit{
           this.MenuForm = this.formBuilder.group({
             site: [this.menu.site, Validators.required],
             mois_concerne: [this.menu.mois_concerne, Validators.required],
-            menus_generaux: [this.menu.menus_generaux, Validators.required],
-            menus_dessert: [this.menu.menus_dessert],
-            menu_s1: [this.menu.menu_s1],
-            menu_s2: [this.menu.menu_s2],
-            menu_s3: [this.menu.menu_s3],
-            menu_s4: [this.menu.menu_s4],
-            menu_s5: [this.menu.menu_s5]
+         
           });
         },
         (error: any) => {
@@ -97,29 +85,43 @@ export class UpdateMenusComponent implements OnInit{
   }
   
   onSubmit() {
-    console.log(this.MenuForm.value);
     const formData = new FormData();
     formData.append('id', this.id.toString());
     formData.append('site', this.MenuForm.get('site')?.value);
     formData.append('mois_concerne', this.MenuForm.get('mois_concerne')?.value);
-
-    const fields = [
     
-      'menus_generaux',
-      'menus_dessert',
-      'menu_s1',
-      'menu_s2',
-      'menu_s3',
-      'menu_s4',
-      'menu_s5'
-    ];
-    
-    for (const field of fields) {
-      if (this.fileToUpload) {
-        formData.append(field, this.fileToUpload);
-      }
+    if (this.MenuForm.get('menus_generaux')?.value) {
+      formData.append('menus_generaux', this.MenuForm.get('menus_generaux')?.value);
     }
-  
+    
+    if (this.MenuForm.get('menus_dessert')?.value) {
+      formData.append('menus_dessert', this.MenuForm.get('menus_dessert')?.value);
+    }
+    
+    if (this.MenuForm.get('menu_s1')?.value) {
+      formData.append('menu_s1', this.MenuForm.get('menu_s1')?.value);
+    }
+    
+    if (this.MenuForm.get('menu_s2')?.value) {
+      formData.append('menu_s2', this.MenuForm.get('menu_s2')?.value);
+    }
+    
+    if (this.MenuForm.get('menu_s3')?.value) {
+      formData.append('menu_s3', this.MenuForm.get('menu_s3')?.value);
+    }
+    
+    if (this.MenuForm.get('menu_s4')?.value) {
+      formData.append('menu_s4', this.MenuForm.get('menu_s4')?.value);
+    }
+    
+    if (this.MenuForm.get('menu_s5')?.value) {
+      formData.append('menu_s5', this.MenuForm.get('menu_s5')?.value);
+    }
+    
+    if (this.fileToUpload) {
+      formData.append('fichier', this.fileToUpload);
+    }
+    
     this.menuService.updateMenuFormdata(formData).subscribe(
       (data: any) => {
         console.log(data);
@@ -131,6 +133,8 @@ export class UpdateMenusComponent implements OnInit{
       }
     );
   }
+  
+  
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
   }
@@ -139,17 +143,11 @@ export class UpdateMenusComponent implements OnInit{
 }
   
   
-onFileSelected(event: any) {
-  const fileInput = event.target as HTMLInputElement;
-  const file: File | null = fileInput.files?.[0] || null;
-  this.fileToUpload = file;
-
-  if (file) {
-    this.selectedFileName = file.name;
-  } else {
-    this.selectedFileName = null;
-  }
+onFileSelected(event: any, field: string) {
+  const file: File = event.target.files[0];
+  this.MenuForm.get(field)?.setValue(file);
 }
+
 
   
 }

@@ -16,13 +16,33 @@
                     <div class="form-group">
                       <label>Nom</label>
                       <input [(ngModel)]="servicef.service_nom" type="text" formControlName="service_nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="service_nom">
+                      <div
+                      class="help-block with-errors"
+                      *ngIf="form.get('service_nom')?.errors && (form.get('service_nom')?.dirty || form.get('service_nom')?.touched)"
+                    >
+                      <p *ngIf="form.get('service_nom')?.hasError('required')" class="text-danger">
+                        Veuillez entrer le nom de service.
+                      </p>
+                      <p *ngIf="form.get('service_nom')?.hasError('minlength')" class="text-danger">
+                        Le nom de service doit contenir au moins 3 caractères.
+                      </p>
+                      <p *ngIf="form.get('service_nom')?.hasError('maxlength')" class="text-danger">
+                        Le nom de service ne peut pas dépasser 40 caractères.
+                      </p>
+                      <p *ngIf="form.get('service_nom')?.hasError('pattern')" class="text-danger">
+                        Le nom de service ne peut contenir que des lettres et espaces.
+                      </p>
+                    </div>
+                    <div *ngIf="errorMessage" class="error-message" class="text-danger">
+                      {{ errorMessage }}
+                    </div> 
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Chef Service <label style="color: red;">*</label></label>
-                      <select id="chef_service" name="chef_service" formControlName="chef_service" class="custom-select" data-style="py-0" multiple>
+                      <select id="chef_service" name="chef_service" formControlName="chef_service" class="custom-select" data-style="py-0" required multiple>
                         <option *ngFor="let personnel of personnel$ | async" [value]="personnel.id">{{ personnel.nom }}</option>
                       </select>
                     </div>

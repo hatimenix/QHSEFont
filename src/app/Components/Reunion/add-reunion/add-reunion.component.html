@@ -1,11 +1,11 @@
-<div class="content-page">
-    <div class="container-fluid add-form-list">
+<div class="content-page custom-background">
+    <div class="container-fluid  add-form-list">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                            <h4 class="card-title">Ajouter Réunion</h4>
+                    <div class="card-headers d-flex justify-content-between">
+                        <div class="header-title ">
+                            <h4>Ajouter Réunion</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -192,11 +192,12 @@
 
 
 
-                            <div class="d-flex flex-wrap justify-content-center">
-
+                            <div style="margin-bottom: 2rem; margin-bottom: +5px;"
+                                class="d-flex flex-wrap justify-content-end">
                                 <button [disabled]="reunionForm.invalid" type="submit" class="btn btn-primary mr-2"
-                                    (click)="openModal()">Ajouter</button>
-                                <button type="reset" class="btn btn-danger" routerLink="/reunion-list">Annuler</button>
+                                    (click)="openModal()"><i class="fas fa-plus"></i>Enregitrer</button>
+                                <button type="reset" class="btn btn-warning" routerLink="/listReunion"><i
+                                        class="fas fa-times"></i>Annuler</button>
 
                             </div>
 
@@ -209,7 +210,7 @@
     </div>
 </div>
 <ng-template #successModal>
-    <div class="modal-header">
+    <div class="modal-header success-header">
         <h4 class="modal-title">Succès</h4>
         <button type="button" class="close" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
@@ -219,6 +220,6 @@
         La réunion a été ajoutée avec succès.
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModal()">Fermer</button>
+        <button type="button" class="btn btn-success" (click)="closeModal()"><i class="fas fa-times"></i>Fermer</button>
     </div>
 </ng-template>

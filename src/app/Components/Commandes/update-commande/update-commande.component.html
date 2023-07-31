@@ -73,6 +73,14 @@
                                        </select>
                                    </div>
                                </div>
+                               <div class="col-md-6"> 
+                                <div class="form-group">
+                                 <label>Site <label style="color: red;">*</label></label>
+                                 <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                     <option *ngFor="let site of site$ | async" [value]="site.id">{{ site.site_nom }}</option>
+                                    </select>
+                             </div> 
+                             </div> 
                            </div>   
                            <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                         
                            <button type="submit" class="btn btn-primary mr-2"><i class="fas fa-pencil-alt"></i>Modifier</button>

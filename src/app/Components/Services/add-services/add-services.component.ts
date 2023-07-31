@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
@@ -15,8 +15,18 @@ export class AddServicesComponent {
   @ViewChild('successModal', { static: true }) successModal: any;
   personnel$!: Observable<any>;
   modalRef!: BsModalRef;
+  errorMessage: string | undefined;
 
-  constructor(private router: Router, private servicesService: ApiServiceService, private personnelService: PersonnelService, private bsModalService: BsModalService) { }
+
+
+
+  constructor(private router: Router, 
+    private servicesService: ApiServiceService, 
+    private personnelService: PersonnelService, 
+    private bsModalService: BsModalService) {
+       
+      
+    }
 
   mode = 'list';
   servicef = {
@@ -26,7 +36,11 @@ export class AddServicesComponent {
   };
   submitted = false;
   form = new FormGroup({
-    service_nom: new FormControl(''),
+    service_nom: new FormControl('',  [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(40)
+    ]),
     chef_service: new FormControl(),
   });
 
@@ -53,9 +67,7 @@ export class AddServicesComponent {
       formData.append('service_nom', String(this.form.value.service_nom));
     }
 
-    // Check if chef_service is not null and not undefined before appending it to FormData
     if (this.form.value.chef_service !== null && this.form.value.chef_service !== undefined) {
-      // Convert the chef_service value to an array and append it to the form data
       const chefServiceIds: number[] = this.form.value.chef_service;
       chefServiceIds.forEach((chefServiceId) => {
         formData.append('chef_service', String(chefServiceId));
@@ -69,9 +81,23 @@ export class AddServicesComponent {
         this.openModal();
         this.submitted = true;
       },
-      (error) => {
-        console.error(error);
-        this.submitted = false;
+      (error: any) => {
+        console.log("Une erreur s'est produite lors de l'ajout de service", error);
+         // Check for 500 Internal Server Error
+      if (error.status === 500 && error.error) {
+        this.errorMessage = "Ce nom de service existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
+
+        if (error.status === 400 && error.error && error.error.service_nom) {
+          // Display the custom error message from the backend
+          this.errorMessage = "Ce nom de service existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
       }
     );
   }

@@ -17,6 +17,8 @@ export class ListUsersComponent {
   @ViewChild('userModal') userModal!: TemplateRef<any>; // reference to the user modal template
   modalRef!: BsModalRef;
   userIdToDelete: number = 0;
+  selectedUser: UserApp | null = null; // Add this variable to store the selected personnel
+
    //search
   searchQuery: string = '';
   constructor(private userAppService: UsersService,
@@ -91,5 +93,13 @@ getDisplayedRange(): string {
   return `Affichage de ${startIndex} à ${endIndex} de ${this.users.length} entrées`;
 }
 
+openModal(template: TemplateRef<any>, user: UserApp): void {
+  this.selectedUser = user; // Set the selected personnel data
+  this.modalRef = this.modalService.show(template);
+}
+
+closeModal() {
+  this.modalRef?.hide();
+}
 
 }

@@ -119,7 +119,7 @@ export class AddReunionComponent implements OnInit {
       date_realisation_reunion: [''],
       presents: [''],
       personnes_exterieurs: [''],
-      liste_diffusion: ['', Validators.required],
+      liste_diffusion: [''],
       ordre_jour: [''],
 
 

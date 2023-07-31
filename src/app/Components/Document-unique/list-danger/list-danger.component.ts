@@ -123,7 +123,7 @@ export class ListDangerComponent {
     return Math.ceil(this.dangers.length / this.itemsPerPage);
   }
 
-  get displayedFiches(): any[] {
+  get displayedDangers(): any[] {
     const startIndex = (this.p - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.dangers.slice(startIndex, endIndex);

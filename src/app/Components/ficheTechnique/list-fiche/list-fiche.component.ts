@@ -11,64 +11,151 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./list-fiche.component.css']
 })
 export class ListFicheComponent implements OnInit {
-  fiches!: FicheTechnique[];
-  //filtrage
-  typePlatSelectionne!: string;
-   //search
-  searchQuery: string = '';
+  showPopover: boolean = false;
+  isAscending: boolean = true;
+  isReverseSorting: boolean = false;
   myForm: any;
-  
-  //delete modal
+  filterField: string = '';
+  searchQuery: string = '';
+  fieldSearchQuery: string = '';
+
+
+
+
+
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
   modalRef!: BsModalRef;
-  ficheIdToDelete: number = 0;
+  ficheIdToDelete: number = 0;  
+  textSize: number = 16;
+  itemsPerPageOptions: number[] = [5, 10, 15];
+  itemsPerPage: number = this.itemsPerPageOptions[0];
+  p: number = 1;
+  get totalPages(): number {
+    return Math.ceil(this.filteredFiches.length / this.itemsPerPage);
+  }
+
+  get displayedFiches(): FicheTechnique[] {
+    const startIndex = (this.p - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredFiches.slice(startIndex, endIndex);
+  }
+  id_fiche : any 
+  nom : any 
+  fichier: any ;
+  nom_fiche: any;
+  type_plat: any; 
+
+  filteredFiches: FicheTechnique[] = [];
+  fiches : FicheTechnique[] = []
+  selectedFiche: FicheTechnique[] = [];
+
 
   constructor(private ficheService: FicheserService, 
     public modalService: BsModalService) { }
-
-  ngOnInit(): void {
-    this.myForm = new FormGroup({
-      type_plat: new FormControl()
-    });
-    this.getFiches();
-
-    
-    //pagination 
-    this.itemsPerPageOptions = [5, 10, 15];
-    this.itemsPerPage = this.itemsPerPageOptions[0]; 
-  }
-
-  getFiches(): void {
-    this.ficheService.getAllFiches().subscribe((fiches) => {
-      this.fiches = fiches;
+  
+    ngOnInit(): void {
+      this.myForm = new FormGroup({
+        type_plat: new FormControl()
+      });
+      this.getFiches();
+  
       
+      //pagination 
+      this.itemsPerPageOptions = [5, 10, 15];
+      this.itemsPerPage = this.itemsPerPageOptions[0]; 
+    }
+ 
+    getFiches() {
+    this.ficheService.getAllFiches().subscribe(
+      res => {
+        this.fiches = res;
+        this.filteredFiches = res; 
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+   
+  }
+ 
+//fonction filtrage 
+  filterByField(fieldName: string): void {
+    this.filterField = fieldName;
+    this.togglePopover();
+    this.searchQuery = '';
+  }
+  applyFieldFilter(): void {
+    const searchValue = this.fieldSearchQuery?.toLowerCase();
+  
+    this.filteredFiches = this.fiches.filter((fiche) => {
+      const fieldValue = fiche[this.filterField]?.toLowerCase();
+  
+      if (fieldValue && searchValue) {
+        return fieldValue.includes(searchValue);
+      }
+  
+      return true;
     });
   }
+  
+  resetTable(): void {
+    if (this.fieldSearchQuery && this.filteredFiches.length === 0) {
+      this.fieldSearchQuery = ''; 
+      this.filterField = '';
+      this.filteredFiches = this.fiches;
+    }
+  }
+   
+  togglePopover() {
+    this.showPopover = !this.showPopover;
+  }
+  closePopover(): void {
+    this.showPopover = false;
+  }
+  handleReset(): void {
+    
+    this.resetTable();
+    this.closePopover();
+    const isFirstVisit = history.state.isFirstVisit;
+    if (!isFirstVisit) {
+      history.replaceState({ isFirstVisit: true }, '');
+      location.reload();
+    }
+    window.scrollTo(0, 0);
+    
+    
+  }  
+  //pagination
+  onItemsPerPageChange(option: number) {
+    this.p = 1; 
+    this.itemsPerPage = option; 
+  }
+  getPageNumbers(): number[] {
+    const pageNumbers = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  }
+  resetSearchQuery() {
+    this.searchQuery = '';
+  }
+  getDisplayedRange(): string {
+    const startIndex = (this.p - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredFiches.length);
+    return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredFiches.length} entrées`;
+  }
+
+
+
+
 
   deleteFiche(id: number): void {
     this.ficheService.deleteFiche(id).subscribe(() => {
       this.fiches = this.fiches.filter((f) => f.id_fiche !== id);
     });
   }
-
- 
-//fonction de filtrage par type de plat
-  filterFiches(): void {
-    if (this.typePlatSelectionne) {
-      this.ficheService.getAllFiches().subscribe((fiches) => {
-        this.fiches = fiches.filter((f) => f.type_plat === this.typePlatSelectionne);
-      });
-    } else {
-      this.getFiches();
-    }
-  }
-  resetTypeFilters(): void {
-    // Reset the selected filters and reload the data
-    this.typePlatSelectionne = ''; // Reset the selected type filter
-    this.myForm.reset(); // Reset the form and selected site filter
-    this.getFiches(); // Reload the data
-  }
-
 
   //delete modal 
 confirmDelete(): void {
@@ -83,10 +170,7 @@ confirmDelete(): void {
   this.modalRef.hide();
   }
   //search 
-  resetSearchQuery() {
-    this.searchQuery = '';
- 
-  }
+
 
   //afficher juste le nom du fichier 
 getFileNameFromPath(filePath: string | File | undefined): string {
@@ -100,38 +184,6 @@ getFileNameFromPath(filePath: string | File | undefined): string {
   return filePath.name || 'Aucun fichier joint';
 }
 //pagination methods 
-itemsPerPageOptions: number[] = [5, 10, 15];
-itemsPerPage: number = this.itemsPerPageOptions[0];
-p: number = 1;
-get totalPages(): number {
-  return Math.ceil(this.fiches.length / this.itemsPerPage);
-}
-
-get displayedFiches(): any[] {
-  const startIndex = (this.p - 1) * this.itemsPerPage;
-  const endIndex = startIndex + this.itemsPerPage;
-  return this.fiches.slice(startIndex, endIndex);
-}
-
-
-onItemsPerPageChange(option: number) {
-  this.p = 1; 
-  this.itemsPerPage = option; 
-}
-getPageNumbers(): number[] {
-  const pageNumbers = [];
-  for (let i = 1; i <= this.totalPages; i++) {
-    pageNumbers.push(i);
-  }
-  return pageNumbers;
-}
-
-getDisplayedRange(): string {
-  const startIndex = (this.p - 1) * this.itemsPerPage + 1;
-  const endIndex = Math.min(this.p * this.itemsPerPage, this.fiches.length);
-  return `Affichage de ${startIndex} à ${endIndex} de ${this.fiches.length} entrées`;
-}
-
 
 
 }

@@ -209,7 +209,9 @@ export class ListExerciceComponent {
     formData.append('scenario', this.scenario);
     formData.append('animateurs', this.animateurs);
     formData.append('observateurs', this.observateurs);
-    formData.append('duree', this.duree);
+    if (this.duree !== null && this.duree !== undefined) {
+      formData.append('duree', this.duree);
+    }
     formData.append('monde_signal_alarme', this.monde_signal_alarme);
     formData.append('monde_evacuation', this.monde_evacuation);
     formData.append('ascenseur_inutilise', this.ascenseur_inutilise);
@@ -394,6 +396,86 @@ export class ListExerciceComponent {
   getRecordCount(site: any): number {
     const sitePlans = this.exerSec.filter(exsec => exsec.site === site.id);
     return sitePlans.length;
+  }
+  selectedYear: string = '';
+
+  selectedSiteId: number | undefined;
+
+  filterExecBySite(): void {
+    const selectedSite = parseInt(this.myForm.get('site')?.value);
+    console.log(this.myForm.get('site')?.value)
+
+    if (selectedSite) {
+
+      this.execSecServ.getExerciceSecurites().subscribe(
+        (data: ExerciceSecurite[]) => {
+          const ca = data;
+          const filteredMenus = ca.filter(d => {
+            const siteIds = Array.isArray(d.site) ? d.site.map((s: Site) => s.id) : [d.site];
+            return siteIds.includes(selectedSite);
+          });
+
+          if (filteredMenus.length > 0) {
+            this.selectedSiteId = selectedSite;
+            this.exerSec = filteredMenus;
+          } else {
+            console.log(`Aucun menu trouvé pour le site sélectionné: ${selectedSite}`);
+            this.exerSec = [];
+          }
+
+
+
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+
+    } else {
+      this.myForm.reset();
+      this.selectedSiteId = undefined;
+      console.log("id de ce site", this.selectedSiteId);
+      this.loadData();
+    }
+  }
+
+  filterExecByYear(type: string): void {
+
+
+
+    this.execSecServ.getExerciceSecurites().subscribe(
+      (data: ExerciceSecurite[]) => {
+        const filteredExec = data.filter((exec: ExerciceSecurite) => {
+          return exec.date === type;
+        });
+
+        if (filteredExec.length > 0) {
+          this.exerSec = filteredExec;
+        } else {
+          console.log(`No constat found for type: ${type}`);
+          this.exerSec = [];
+        }
+
+        console.log("Filtered Exec:", this.exerSec);
+
+        filteredExec.forEach(ct => {
+          const p = this.site.find((s: Site) => s.id === ct.site);
+          if (p) {
+            p.expanded = true;
+          }
+        });
+
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  resetFilters(): void {
+    this.myForm.get('site')?.setValue(''); // Reset the site filter to empty value
+    this.filterExecBySite(); // Apply the filter based on the reset site value
   }
 
 

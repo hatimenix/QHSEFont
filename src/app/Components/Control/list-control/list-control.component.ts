@@ -16,14 +16,18 @@ export class ListControlComponent {
   control!: Control[];
   //filtrage
   selectedSiteId: number | undefined;
-  site!: Site[];
+  site!: any[];
   site$!: Observable<any>;
   myForm: any;
    //search
    searchQuery: string = '';
+   selectedSite: Site | undefined;
+
 
   //delete modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('siteModal', { static: true }) siteModal: any;
+
   modalRef!: BsModalRef;
   controldToDelete: number = 0;
   filename: string = '';
@@ -38,7 +42,15 @@ export class ListControlComponent {
     });
     this.getControl();
     this.site$ = this.siteService.getAllSite();
-
+    this.siteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.site = data.map(item => ({ ...item, expanded: true }));
+        console.log(this.site); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
    
   }
 
@@ -161,6 +173,13 @@ resetSearchQuery() {
     return `Affichage de ${startIndex} à ${endIndex} de ${this.control.length} entrées`;
   }
   
-  
+  //site modal 
+  openSiteModal(site: Site) {
+    this.selectedSite = site;
+    this.modalRef = this.modalService.show(this.siteModal);
+  }
+  closeModalsite() {
+    this.modalService.hide();
+  }
 
 }

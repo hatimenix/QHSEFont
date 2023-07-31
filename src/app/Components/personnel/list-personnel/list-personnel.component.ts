@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ParamMap } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PersonnelService } from 'src/app/Services/Service-personnel/personnel.service';
 import { Personnel } from 'src/app/models/Personnel';
@@ -10,13 +11,19 @@ import { Personnel } from 'src/app/models/Personnel';
   styleUrls: ['./list-personnel.component.css']
 })
 export class ListPersonnelComponent implements OnInit{
+  id!: number;
+  currentId: any;
   personnels: Personnel[] = [];
   //delete modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('personnelModal', {static: true}) personnelModal!:any;
   modalRef!: BsModalRef;
   PersonnelIdToDelete: number = 0;
   //search
   searchQuery: string = '';
+  route: any;
+  selectedPersonnel: Personnel | null = null; // Add this variable to store the selected personnel
+
 
 constructor(private personnelService: PersonnelService,  public modalService: BsModalService) { }
 
@@ -25,6 +32,17 @@ this.loadPersonnels();
 //pagination 
 this.itemsPerPageOptions = [5, 10, 15];
 this.itemsPerPage = this.itemsPerPageOptions[0];
+
+this.route.paramMap.subscribe((params: ParamMap) => { 
+  const id = params.get('id');
+  if (id) {
+    this.id = +id;
+    this.personnelService.getPersonnelById(this.id).subscribe(personnel => {
+      this.currentId = personnel;
+      
+    });
+  }
+});
 
 }
 
@@ -88,5 +106,15 @@ getDisplayedRange(): string {
   const startIndex = (this.p - 1) * this.itemsPerPage + 1;
   const endIndex = Math.min(this.p * this.itemsPerPage, this.personnels.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.personnels.length} entrées`;
+}
+
+//modal
+openModal(template: TemplateRef<any>, personnel: Personnel): void {
+  this.selectedPersonnel = personnel; // Set the selected personnel data
+  this.modalRef = this.modalService.show(template);
+}
+
+closeModal() {
+  this.modalRef?.hide();
 }
 }
