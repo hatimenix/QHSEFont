@@ -170,6 +170,7 @@ if (this.date_realisation !== null && this.date_realisation !== undefined) {
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -352,5 +353,11 @@ fetchTachesData() {
 }
 toggleChartVisibility() {
   this.showChart = !this.showChart;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+    location.reload();
+  }, 2300); 
 }
 }

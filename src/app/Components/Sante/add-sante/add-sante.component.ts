@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl,Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SanteService } from 'src/app/Services/Service-sante/sante.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
@@ -32,13 +32,13 @@ export class AddSanteComponent {
   submitted = false;
   form = new FormGroup({
     site: new FormControl(''),
-    demande_de_conseils: new FormControl(''),
-    demande_de_supervision: new FormControl(''),
-    demande_de_reunion: new FormControl(''),
-    demande_de_coaching: new FormControl(''),
-    demande_de_groupe: new FormControl(''),
-    comentaires: new FormControl(''),
-    demande_entretien: new FormControl(''),
+    demande_de_conseils: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_supervision: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_reunion: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_coaching: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_groupe: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    comentaires: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    demande_entretien: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
 
 
   });
@@ -81,6 +81,7 @@ export class AddSanteComponent {
         console.log(res);
         this.router.navigate(["/sante-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -103,5 +104,9 @@ openModal() {
 closeModal() {
   this.bsModalService.hide();
 }
-
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
+}
 }

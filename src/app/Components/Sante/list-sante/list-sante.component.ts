@@ -111,6 +111,7 @@ export class ListSanteComponent {
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -195,5 +196,11 @@ getDisplayedRange(): string {
 getRecordCount(site: any): number {
   const sitePlans = this.santes.filter(sante => sante.site === site.id);
   return sitePlans.length;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+    location.reload();
+  }, 2300); 
 }
 }

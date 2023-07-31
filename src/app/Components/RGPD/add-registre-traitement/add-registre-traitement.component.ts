@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl,Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServiceRegistreTraitementService } from 'src/app/Services/Service-registre-traitement/service-registre-traitement.service';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
@@ -65,33 +65,33 @@ export class AddRegistreTraitementComponent implements OnInit {
     
     form = new FormGroup({
       fournisseur: new FormControl(''),
-      typeregistre: new FormControl(''),
-      nomtraitement: new FormControl(''),
-      description_generale: new FormControl(''),
+      typeregistre: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+      nomtraitement: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateNomTraitement.bind(this)]),
+      description_generale: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
       datedecreation: new FormControl(''),
       datedemiseajour: new FormControl(''),
       responsable_traitement: new FormControl(''),
-      finaliteprincipale: new FormControl(''),
-      sous_finalite1: new FormControl(''),
-      sous_finalite2: new FormControl(''),
-      sous_finalite3: new FormControl(''),
-      sous_finalite4: new FormControl(''),
+      finaliteprincipale: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+      sous_finalite1: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+      sous_finalite2: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+      sous_finalite3: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+      sous_finalite4: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
       donneesensible: new FormControl(false),
       type_donnee: new FormControl(''),
       categorie: new FormControl(''),
-      description: new FormControl(''),
-      dureedeconcesrvation: new FormControl(''),
+      description: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+      dureedeconcesrvation: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
       personneconcernees: new FormControl(''),
-      precisions: new FormControl(''),
+      precisions: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
       typedestinataire: new FormControl(''),
-      precision: new FormControl(''),
-      donneeconcernees: new FormControl(''),
+      precision: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+      donneeconcernees: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
       mtypedemesuredesecurite: new FormControl(''),      
-      destinataire: new FormControl(''),
+      destinataire: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
       pays: new FormControl(''),
       typedegarantie: new FormControl(''),
-      lienversladocumentation: new FormControl(''),
-      lesdonneesconcernee: new FormControl(''),
+      lienversladocumentation: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+      lesdonneesconcernee: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
       fournisseur_dpo: new FormControl(''),
       fournisseur_representant: new FormControl('')
 
@@ -186,6 +186,7 @@ export class AddRegistreTraitementComponent implements OnInit {
         console.log(res);
         this.router.navigate(["/list-registre-traitement"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -282,5 +283,15 @@ closeModal() {
 }
 hasValuesForField(fieldName: string): boolean {
   return this.traitements.some(traitement => !!traitement[fieldName]);
+}
+checkDuplicateNomTraitement(control: AbstractControl): { [key: string]: boolean } | null {
+  const nomtraitementValue = control.value;
+  const isDuplicate = this.traitements.some(item => item.nomtraitement === nomtraitementValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
 }
 }

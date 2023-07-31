@@ -118,6 +118,7 @@ export class ListDocumentsUtilesComponent  {
                 console.log(res);
                 this.openModal();
                 this.updateModalVisible = false;
+                this.closeSuccessModalAfterDelay();
             },
             error: (e) => {
                 console.error(e);
@@ -242,5 +243,11 @@ deleteItem() {
     const startIndex = (this.p - 1) * this.itemsPerPage + 1;
     const endIndex = Math.min(this.p * this.itemsPerPage, this.documentsutiles.length);
     return `Affichage de ${startIndex} à ${endIndex} de ${this.documentsutiles.length} entrées`;
+  }
+  closeSuccessModalAfterDelay(): void {
+    setTimeout(() => {
+      this.modalRef.hide();
+      location.reload();
+    }, 2300); 
   }
 }

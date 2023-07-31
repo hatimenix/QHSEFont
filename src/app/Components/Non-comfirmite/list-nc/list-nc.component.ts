@@ -243,6 +243,7 @@ updateNc() : void {
               console.log(res);
               this.openModal();
               this.updateModalVisible = false;
+              this.closeSuccessModalAfterDelay();
           },
           error: (e) => {
               console.error(e);
@@ -536,5 +537,11 @@ getDisplayedRange(): string {
   const startIndex = (this.p - 1) * this.itemsPerPage + 1;
   const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredNcs.length);
   return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredNcs.length} entrées`;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+    location.reload();
+  }, 2300); 
 }
 }

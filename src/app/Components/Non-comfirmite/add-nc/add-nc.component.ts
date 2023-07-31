@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
@@ -14,6 +14,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./add-nc.component.css']
 })
 export class AddNcComponent implements OnInit {
+  ncs: any[] = [];
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
@@ -54,20 +55,20 @@ export class AddNcComponent implements OnInit {
 
   submitted = false;
   form = new FormGroup({
-    intitule: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    intitule: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateintitule.bind(this)]),
     nature: new FormControl('', [Validators.required, Validators.minLength(3)]),
     domaine: new FormControl('', [Validators.minLength(3)]),
-    detail_cause: new FormControl('', [ Validators.minLength(3)]),
+    detail_cause: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     date_nc: new FormControl('',[Validators.required]),
     date_prise_en_compte: new FormControl(''),
-    description_detailee: new FormControl('',[Validators.minLength(3)]),
+    description_detailee: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     annee: new FormControl('',[Validators.minLength(4)]),
     mois: new FormControl('',[Validators.minLength(3)]),
     delai_prevu: new FormControl(''),
     type_cause: new FormControl('',[Validators.required]),
     cout: new FormControl(''),
     progress: new FormControl(''),
-    info_complementaires: new FormControl('',[Validators.minLength(3)]),
+    info_complementaires: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     frequence: new FormControl(false,[Validators.required]),
     gravite: new FormControl(false),
     action_immediate: new FormControl(false),
@@ -120,6 +121,14 @@ export class AddNcComponent implements OnInit {
         console.log(error); // Handle error
       }
     ); 
+    this.ncservice.getAll().subscribe(
+      (data: any[]) => {
+        this.ncs = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
   createNC() {
     
@@ -154,6 +163,7 @@ export class AddNcComponent implements OnInit {
         console.log(res);
         this.router.navigate(["/nc-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -208,6 +218,16 @@ onDrop(event: any) {
     dropZone.innerHTML = file.name;
   }
   
+}
+checkDuplicateintitule(control: AbstractControl): { [key: string]: boolean } | null {
+  const intituleValue = control.value;
+  const isDuplicate = this.ncs.some(item => item.intitule === intituleValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
 }
 }
 

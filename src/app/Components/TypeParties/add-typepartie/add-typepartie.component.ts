@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TypepartieService } from 'src/app/Services/Service-TypePartie/typepartie.service';
 
@@ -10,6 +10,7 @@ import { TypepartieService } from 'src/app/Services/Service-TypePartie/typeparti
   styleUrls: ['./add-typepartie.component.css']
 })
 export class AddTypepartieComponent {
+  types: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor( private router : Router,private typepartieservice :TypepartieService, private bsModalService: BsModalService){
@@ -23,7 +24,7 @@ export class AddTypepartieComponent {
   };
   submitted = false;
   form = new FormGroup({
-    nom: new FormControl(''),
+    nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateNom.bind(this)]),
 
   });
   ngOnInit(): void {
@@ -39,6 +40,14 @@ export class AddTypepartieComponent {
 
     // aller en haut de la page
     window.scrollTo(0, 0);
+    this.typepartieservice.getAll().subscribe(
+      (data: any[]) => {
+        this.types = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
   createTypePartie() {
     const formData =  new FormData()
@@ -49,6 +58,7 @@ export class AddTypepartieComponent {
         console.log(res);
         this.router.navigate(["/typepartie-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -72,8 +82,16 @@ closeModal() {
   this.bsModalService.hide();
 }
 
-
-
+checkDuplicateNom(control: AbstractControl): { [key: string]: boolean } | null {
+  const nomValue = control.value;
+  const isDuplicate = this.types.some(item => item.nom === nomValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
+}
 
 
 }

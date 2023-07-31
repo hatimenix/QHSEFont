@@ -24,9 +24,10 @@
                              <div class="form-group">
                                 <label>Demande de conseils </label>
                                 <input [(ngModel)]="santef.demande_de_conseils" type="text" formControlName="demande_de_conseils" class="form-control" data-errors="Please Enter Name." id="demande_de_conseils" >
-                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_conseils'].touched && f['demande_de_conseils'].invalid">
-                                    <div *ngIf="f['demande_de_conseils'].errors && f['demande_de_conseils'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                </div>
+                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_conseils'].invalid">
+                                  <div *ngIf="f['demande_de_conseils'].errors && f['demande_de_conseils'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                  <div *ngIf="f['demande_de_conseils'].errors && f['demande_de_conseils'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                              </div>
                                 <div class="help-block with-errors"></div>
                             </div>
                             </div>
@@ -34,9 +35,10 @@
                                 <div class="form-group">
                                       <label>Demande de supervision pratique</label>
                                     <input [(ngModel)]="santef.demande_de_supervision" type="text" formControlName="demande_de_supervision" class="form-control" data-errors="Please Enter Name." id="demande_de_supervision" >
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_supervision'].touched && f['demande_de_supervision'].invalid">
-                                        <div *ngIf="f['demande_de_supervision'].errors && f['demande_de_supervision'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                       </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_supervision'].invalid">
+                                      <div *ngIf="f['demande_de_supervision'].errors && f['demande_de_supervision'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                      <div *ngIf="f['demande_de_supervision'].errors && f['demande_de_supervision'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                  </div>
                                        <div class="help-block with-errors"></div>
                                 </div>
                                 </div>
@@ -44,9 +46,10 @@
                                 <div class="form-group">
                                       <label>Demande de réunion multidisciplinaire-étude de cas</label>
                                      <input [(ngModel)]="santef.demande_de_reunion" type="text" formControlName="demande_de_reunion" class="form-control" data-errors="Please Enter Name." id="demande_de_reunion" >
-                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_reunion'].touched && f['demande_de_reunion'].invalid">
-                                         <div *ngIf="f['demande_de_reunion'].errors && f['demande_de_reunion'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                     </div>
+                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_supervision'].invalid">
+                                      <div *ngIf="f['demande_de_supervision'].errors && f['demande_de_supervision'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                      <div *ngIf="f['demande_de_supervision'].errors && f['demande_de_supervision'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                  </div>
                                      </div>
                                      </div>
                                     <div class="help-block with-errors"></div>
@@ -54,9 +57,10 @@
                                      <div class="form-group">
                                     <label>Demande de coaching en groupe</label>
                                         <input [(ngModel)]="santef.demande_de_coaching" type="text" formControlName="demande_de_coaching" class="form-control"  data-errors="Please Enter Name." id="demande_de_coaching" >
-                                          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_coaching'].touched && f['demande_de_coaching'].invalid">
-                                             <div *ngIf="f['demande_de_coaching'].errors && f['demande_de_coaching'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                       </div>
+                                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_coaching'].invalid">
+                                          <div *ngIf="f['demande_de_coaching'].errors && f['demande_de_coaching'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                          <div *ngIf="f['demande_de_coaching'].errors && f['demande_de_coaching'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                      </div>
                                          <div class="help-block with-errors"></div>
                                          </div>
                                          </div>
@@ -64,9 +68,10 @@
                                        <div class="form-group">
                                      <label>Demande de groupes de travail autour de la communication & de la santé mentale</label>
                                     <input [(ngModel)]="santef.demande_de_groupe" type="text" formControlName="demande_de_groupe" class="form-control" data-errors="Please Enter Name." id="demande_de_groupe" >
-                                  <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_groupe'].touched && f['demande_de_groupe'].invalid">
-                                  <div *ngIf="f['demande_de_groupe'].errors && f['demande_de_groupe'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                     </div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_de_groupe'].invalid">
+                                      <div *ngIf="f['demande_de_groupe'].errors && f['demande_de_groupe'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                      <div *ngIf="f['demande_de_groupe'].errors && f['demande_de_groupe'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                  </div>
                                  <div class="help-block with-errors"></div>
                                  </div>
                                  </div>
@@ -74,9 +79,10 @@
                               <div class="form-group">
                               <label>Demande d'entretien individuel collaborateur</label>
                                <input [(ngModel)]="santef.demande_entretien" type="text" formControlName="demande_entretien" class="form-control"  data-errors="Please Enter Name." id="demande_entretien" >
-                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_entretien'].touched && f['demande_entretien'].invalid">
-                               <div *ngIf="f['demande_entretien'].errors && f['demande_entretien'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                              </div>
+                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['demande_entretien'].invalid">
+                                <div *ngIf="f['demande_entretien'].errors && f['demande_entretien'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                <div *ngIf="f['demande_entretien'].errors && f['demande_entretien'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                            </div>
                                   <div class="help-block with-errors"></div>
                                   </div>
                                   </div>
@@ -84,9 +90,10 @@
                                     <div class="form-group">
                                         <label>Commentaires</label>
                                         <textarea [(ngModel)]="santef.comentaires" formControlName="comentaires" class="form-control" id="comentaires" name="comentaires" rows="4"></textarea>
-                                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['comentaires'].touched && f['comentaires'].invalid">
-                                            <div *ngIf="f['comentaires'].errors && f['comentaires'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        </div>
+                                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['comentaires'].invalid">
+                                          <div *ngIf="f['comentaires'].errors && f['comentaires'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                          <div *ngIf="f['comentaires'].errors && f['comentaires'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                      </div>
                                     </div>
                                 </div>
                                          </div>

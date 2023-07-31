@@ -117,6 +117,7 @@ export class ListQualiteComponent implements OnInit {
                 console.log(res);
                 this.openModal();
                 this.updateModalVisible = false;
+                this.closeSuccessModalAfterDelay();
             },
             error: (e) => {
                 console.error(e);
@@ -240,6 +241,11 @@ export class ListQualiteComponent implements OnInit {
     const endIndex = Math.min(this.p * this.itemsPerPage, this.filteredQualites.length);
     return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredQualites.length} entrées`;
   }
-  
+  closeSuccessModalAfterDelay(): void {
+    setTimeout(() => {
+      this.modalRef.hide();
+      location.reload();
+    }, 2300); 
+  }
   
 }
