@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    padding-top: 40px;
+    color: #2e323c;
+    background: #f5f6fa;
+    position: relative;
+    height: 100%;
+}
+.account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+.account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+}
+.account-settings .user-profile .user-avatar img {
+    width: 90px;
+    height: 90px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+.account-settings .user-profile h5.user-name {
+    margin: 0 0 0.5rem 0;
+}
+.account-settings .user-profile h6.user-email {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #9fa8b9;
+}
+.account-settings .about {
+    margin: 2rem 0 0 0;
+    text-align: center;
+}
+.account-settings .about h5 {
+    margin: 0 0 15px 0;
+    color: #007ae1;
+}
+.account-settings .about p {
+    font-size: 0.825rem;
+}
+.form-control {
+    border: 1px solid #cfd1d8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #ffffff;
+    color: #2e323c;
+}
+
+.card {
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+}
+.twelve h1 {
+    font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:left; margin:auto; white-space:nowrap; padding-bottom:13px;
+  }
+  .twelve h1:before {
+      background-color: #ffd140;
+      content: '';
+      display: block;
+      height: 3px;
+      width: 75px;
+      margin-bottom: 5px;
+  }
+  .twelve h1:after {
+      background-color: #ffd140;
+      content: '';
+      display: block;
+    position:absolute; right:0; bottom:0;
+      height: 3px;
+      width: 75px;
+      margin-bottom: 0.25em;
+  }
+  /* Add this CSS code to your stylesheet or component CSS file */
+
+.image-container {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  /* Adjust the margins and other styles as needed */
+  .image-container img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 8px; /* Add some spacing between the image and the pencil icon */
+  }
+  
+  .upload-button {
+    font-size: 14px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: #fff; /* Set the background color to match your layout */
+    padding: 4px; /* Adjust the padding as needed */
+    border-radius: 50%; /* To make the pencil icon circular */
+  }
+  .account-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+  }
+  
+  .user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Adjust the button style as needed */
+  .account-settings button {
+    margin-top: 15px; /* Add some spacing between the "Présentez-vous" section and the button */
+  }  
