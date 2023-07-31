@@ -81,7 +81,7 @@
                            </div>
                         </li>
                         <li>
-                            <button class="btn btn-primary">Modifier le profil</button>
+                           <button class="btn btn-primary" (click)="openModal($event)">Modifier le profil</button>
 
                         </li>
                      </ul>
@@ -92,6 +92,48 @@
 
             
          </div>
+         <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': isModalOpen}" (click)="closeModal()">
+            <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modifier le profile</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- Profile Edit Form -->
+                  <form (ngSubmit)="onSubmit()">
+                     <div class="form-group">
+                        <label for="image">Image de profil</label>
+                        <input type="file" class="form-control" id="image" name="image" (change)="onFileChange($event)">
+                      </div>
+                    <div class="form-group">
+                      <label for="nom">Nom Complet</label>
+                      <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="currentId.nom" required>
+                    </div>
+                    <div class="form-group">
+                     <label for="nom">Nom Utilisateur</label>
+                     <input type="text" class="form-control" id="nom_user" name="nom_user" [(ngModel)]="currentId.nom_user" required>
+                   </div>
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" name="courrier" [(ngModel)]="currentId.email" required>
+                    </div>
+                    <div class="form-group">
+                     <label for="compte">Compte</label>
+                     <input type="text" class="form-control" id="compte" name="compte" [(ngModel)]="currentId.compte" required>
+                   </div>
+                  
+                    
+                  
+                    <!-- Add other input fields for other user information -->
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
       </div>
       
@@ -103,30 +145,4 @@
 </html>
 
 <!-- Profile Edit Modal -->
-<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': isModalOpen}" (click)="closeModal()">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modifier le profil</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <!-- Profile Edit Form -->
-          <form (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <label for="nom">Nom</label>
-              <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="currentId.nom_user" required>
-            </div>
-            <div class="form-group">
-              <label for="courrier">Courrier</label>
-              <input type="email" class="form-control" id="courrier" name="courrier" [(ngModel)]="currentId.courrier" required>
-            </div>
-            <!-- Add other input fields for other user information -->
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Profile Edit Modal -->

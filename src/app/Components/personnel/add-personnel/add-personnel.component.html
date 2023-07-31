@@ -16,7 +16,7 @@
                              <div class="crm-p-image bg-primary">
                                <i class="las la-pen upload-button" onclick="document.getElementById('file-upload').click()"></i>
                                <input id="file-upload" class="file-upload" type="file" accept="image/*" onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])"
-                               (change)="onFileSelected($event) " formControlName="image" required>
+                               (change)="onFileSelected($event) " formControlName="image" >
                                                       <div class="help-block with-errors"></div>
 
                              </div>
@@ -91,19 +91,24 @@
                    </div>
                   </div>
                   <div class="form-group col-md-6">
-                     <label for="courrier">Courrier<label style="color: red;">*</label></label>
-                     <input type="email" class="form-control" id="courrier" name="courrier" placeholder="Courrier" formControlName="courrier" required>
-                     <div *ngIf="PersonnelForm.controls['courrier'].invalid && (PersonnelForm.controls['courrier'].dirty || PersonnelForm.controls['courrier'].touched)">
+                     <label for="email">Email<label style="color: red;">*</label></label>
+                     <input type="email" class="form-control" id="email" name="email" placeholder="Adresse Email" formControlName="email" required>
+                     <div *ngIf="PersonnelForm.controls['email'].invalid && (PersonnelForm.controls['email'].dirty || PersonnelForm.controls['email'].touched)">
                        
-                        <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" class="text-danger">Courrier doit être une adresse email valide.</div>
-                        <div class="help-block with-errors"></div>
-                     </div>
+                        <div *ngIf="PersonnelForm.controls['email'].errors?.['email']" class="text-danger">Courrier doit être une adresse email valide.</div>
+                        <p *ngIf="PersonnelForm.get('email')?.hasError('required')" class="text-danger">
+                          Veuillez entrer l'email de personnel.
+                        </p>        
+                      </div>
+                      <div *ngIf="emailExistsError" class="text-danger">
+                        Adresse email existe déjà
+                      </div>  
                    </div>
                    
                  
                    <div class="form-group col-md-6">
-                     <label for="numero_tel">Numéro <label style="color: red;">*</label></label>
-                     <input type="tel" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number" formControlName="numero_tel" required>
+                     <label for="numero_tel">Numéro</label>
+                     <input type="number" class="form-control" id="numero_tel" name="numero_tel" placeholder="Mobile Number" formControlName="numero_tel" >
                      <div *ngIf="PersonnelForm.controls['numero_tel'].invalid && (PersonnelForm.controls['numero_tel'].dirty || PersonnelForm.controls['numero_tel'].touched)">
                        <div *ngIf="PersonnelForm.controls['numero_tel'].errors?.['pattern']" class="text-danger">Numéro doit être un numéro de téléphone valide. Exemple: (0624724809)</div>
                        <div class="help-block with-errors"></div>
@@ -114,19 +119,17 @@
                    
 
                    <div class="form-group col-md-6">
-                     <label for="presente_vous">Présentez vous <label style="color: red;">*</label></label>
-                     <textarea class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous" formControlName="presente_vous" required></textarea>
-                     <div *ngIf="PersonnelForm.controls['nom'].invalid && (PersonnelForm.controls['nom'].dirty || PersonnelForm.controls['nom'].touched)">
+                     <label for="presente_vous">Présentez vous </label>
+                     <textarea class="form-control" id="presente_vous" name="presente_vous" placeholder="presentez vous" formControlName="presente_vous" ></textarea>
+                     <div *ngIf="PersonnelForm.controls['presente_vous'].invalid && (PersonnelForm.controls['presente_vous'].dirty || PersonnelForm.controls['presente_vous'].touched)">
                       <div
                       class="help-block with-errors"
                       *ngIf="PersonnelForm.get('presente_vous')?.errors && (PersonnelForm.get('presente_vous')?.dirty || PersonnelForm.get('presente_vous')?.touched)"
                     >
-                      <p *ngIf="PersonnelForm.get('presente_vous')?.hasError('required')" class="text-danger">
-                        Veuillez entrer une présentation de personnel.
-                      </p>
+                     
                     
                       <p *ngIf="PersonnelForm.get('presente_vous')?.hasError('maxlength')" class="text-danger">
-                        Ce champs ne peut pas dépasser 40 caractères.
+                        Ce champs ne peut pas dépasser 50 caractères.
                       </p>
                       
                     </div>   
@@ -134,17 +137,13 @@
                   </div>
                   
                   <div class="form-group col-md-6">
-                     <label for="fonction">Fonction <label style="color: red;">*</label></label>
-                     <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction" required>
+                     <label for="fonction">Fonction </label>
+                     <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" formControlName="fonction" >
                      <div *ngIf="PersonnelForm.controls['fonction'].invalid && (PersonnelForm.controls['fonction'].dirty || PersonnelForm.controls['fonction'].touched)">
                       <div
                       class="help-block with-errors"
                       *ngIf="PersonnelForm.get('fonction')?.errors && (PersonnelForm.get('fonction')?.dirty || PersonnelForm.get('fonction')?.touched)"
                     >
-                      <p *ngIf="PersonnelForm.get('fonction')?.hasError('required')" class="text-danger">
-                        Veuillez entrer la fonction de personnel.
-                      </p>
-                      
                       <p *ngIf="PersonnelForm.get('fonction')?.hasError('maxlength')" class="text-danger">
                         La fonction de personnel ne peut pas dépasser 40 caractères.
                       </p>
@@ -153,40 +152,34 @@
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                     <label for="adresse_sip">Adresse Sip<label style="color: red;">*</label></label>
-                     <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip" required>
-                     <div *ngIf="PersonnelForm.controls['nom'].invalid && (PersonnelForm.controls['nom'].dirty || PersonnelForm.controls['nom'].touched)">
+                     <label for="adresse_sip">Adresse Sip</label>
+                     <input type="text" class="form-control" id="adresse_sip" name="adresse_sip" placeholder="Adresse Sip" formControlName="adresse_sip" >
+                     <div *ngIf="PersonnelForm.controls['adresse_sip'].invalid && (PersonnelForm.controls['adresse_sip'].dirty || PersonnelForm.controls['adresse_sip'].touched)">
                       <div
                       class="help-block with-errors"
                       *ngIf="PersonnelForm.get('adresse_sip')?.errors && (PersonnelForm.get('adresse_sip')?.dirty || PersonnelForm.get('adresse_sip')?.touched)"
                     >
-                      <p *ngIf="PersonnelForm.get('adresse_sip')?.hasError('required')" class="text-danger">
-                        Veuillez entrer l'adresse de personnel.
-                      </p>
-                      
                       <p *ngIf="PersonnelForm.get('adresse_sip')?.hasError('maxlength')" class="text-danger">
                         L'adressede personnel ne peut pas dépasser 40 caractères.
                       </p>
-                      
                     </div>   
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                     <label for="othermail">Autre courrier électronique <label style="color: red;">*</label></label>
-                     <input type="email" class="form-control" id="othermail" name="othermail" placeholder="Other mail" formControlName="othermail"required>
+                     <label for="othermail">Autre courrier électronique</label>
+                     <input type="email" class="form-control" id="othermail" name="othermail" placeholder="Other mail" formControlName="othermail">
 
                      <div *ngIf="PersonnelForm.controls['othermail'].invalid && (PersonnelForm.controls['othermail'].dirty || PersonnelForm.controls['othermail'].touched)">
-                        
-                        <div class="help-block with-errors"></div>
-
-                      </div>
-
+                       
+                      <div *ngIf="PersonnelForm.controls['othermail'].errors?.['email']" class="text-danger">Veuillez entrer une adresse email valide.</div>
+                             
+                    </div>
+                      
                   </div>
                </div>
-               <hr>
            
                <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">
-               <button type="submit" class="btn btn-primary" (click)="openModal()" [disabled]="!PersonnelForm.valid"> <i class="fas fa-plus"  ></i>Ajouter</button>
+               <button type="submit" class="btn btn-primary" (click)="openModal()" > <i class="fas fa-plus"  ></i>Ajouter</button>
                <button type="reset" class="btn btn-danger" routerLink="/listP"> <i class="fas fa-times"></i>Annuler</button>
                </div>
             </form>

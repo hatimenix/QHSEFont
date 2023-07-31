@@ -17,7 +17,6 @@ export class UpdateSiteComponent implements OnInit{
   siteForm!: FormGroup;
   personnel$ !: Observable<any>;
   processus: any;
-  activatedRoute: ActivatedRoute ;
   id!: number;
   site: any;
      //set time for modal
@@ -34,6 +33,8 @@ export class UpdateSiteComponent implements OnInit{
     private route: ActivatedRoute,
     private bsModalService: BsModalService) {
       this.siteForm = this.fb.group({
+        id: [''], // Hidden field for capturing site ID
+
         site_nom: ['', [
           Validators.required,
           Validators.minLength(3),
@@ -47,8 +48,8 @@ export class UpdateSiteComponent implements OnInit{
         responsable_site: [''],
         groupe_retso:['',Validators.required],
       });
-    this.activatedRoute = route; // assign the activated route service
-     
+    this.id = Number(this.route.snapshot.params['id']);
+
  }
 
   ngOnInit(): void {

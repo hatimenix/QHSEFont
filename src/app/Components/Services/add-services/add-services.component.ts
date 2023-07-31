@@ -15,6 +15,8 @@ export class AddServicesComponent {
   @ViewChild('successModal', { static: true }) successModal: any;
   personnel$!: Observable<any>;
   modalRef!: BsModalRef;
+  errorMessage: string | undefined;
+
 
 
 
@@ -79,9 +81,23 @@ export class AddServicesComponent {
         this.openModal();
         this.submitted = true;
       },
-      (error) => {
-        console.error(error);
-        this.submitted = false;
+      (error: any) => {
+        console.log("Une erreur s'est produite lors de l'ajout de service", error);
+         // Check for 500 Internal Server Error
+      if (error.status === 500 && error.error) {
+        this.errorMessage = "Ce nom de service existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
+
+        if (error.status === 400 && error.error && error.error.service_nom) {
+          // Display the custom error message from the backend
+          this.errorMessage = "Ce nom de service existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
       }
     );
   }

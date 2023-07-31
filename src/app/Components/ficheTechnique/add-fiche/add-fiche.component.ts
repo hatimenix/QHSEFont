@@ -13,6 +13,7 @@ import { FicheserService } from 'src/app/Services/Service-fiche-restauration/fic
 })
 export class AddFicheComponent {
   ficheForm: FormGroup;
+  errorMessage: string | undefined;
 
 
 
@@ -24,7 +25,12 @@ export class AddFicheComponent {
     private bsModalService: BsModalService
     ) {
     this.ficheForm = this.formBuilder.group({
-      nom_fiche: ['', Validators.required],
+      nom_fiche: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
       type_plat: ['', Validators.required],
       fichier: ['', Validators.required]
     });
@@ -59,6 +65,12 @@ onSubmit() {
         this.router.navigate(['/listF']);
       },
       (error) => {
+        if (error.error && error.error.fichier) {
+          // Display the error message from the server
+          this.errorMessage = error.error.fichier[0];
+        } else {
+          this.errorMessage = "An error occurred while adding the file.";
+        }
         console.error(error);
       }
     );

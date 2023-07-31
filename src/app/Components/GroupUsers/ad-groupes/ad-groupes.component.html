@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <label>Propriétaire du groupe <label style="color: red;">*</label> </label>
                                     <select id="proprietaire_groupe" name="proprietaire_groupe" formControlName="proprietaire_groupe"  class="custom-select" data-style="py-0" required multiple>
-                                        <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
+                                        <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom }}</option>
                                        </select>   
                                        <div class="help-block with-errors"></div>
 

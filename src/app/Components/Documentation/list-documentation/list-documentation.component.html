@@ -30,6 +30,52 @@
                   </button>
                 </div>
               </div>
+              <div class="dropdown">
+                <button style="margin-top: -2%;" class="btn btn-lg btn-outline-primary waves-effect dropdown-toggle " type="button" id="filterDropdown" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+                  <i class="fas fa-filter"></i>Filtrer par
+                </button>
+                <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                  <a class="dropdown-item" (click)="filterByField('type_docs')" style="cursor: pointer;">Type de document </a>
+                  <a class="dropdown-item" (click)="filterByField('secteur')" style="cursor: pointer;">Secteur</a>
+                  <a class="dropdown-item" (click)="filterByField('site')" style="cursor: pointer;">Site </a>
+                  <a class="dropdown-item" (click)="filterByField('processus')" style="cursor: pointer;">Processus</a>
+  
+               
+                </div>
+                <div class="dropdown dropright">
+                  <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+                    <div class="arrow"></div>
+                    <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="popover-body" style="width: 500px; max-width: 100%;">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                      </div>
+                    
+                      <div class="row justify-content-center">
+                        <div class="col-md-12">
+                          <div class="alert alert-info" role="alert" *ngIf="filterField && filteredDocuments.length === 0">
+                            Aucun résultat.
+                          </div>
+                        </div>
+                      </div>
+                    
+                      <div class="row justify-content-end">
+                        <div class="col-md-4">
+                          <button class="btn" (click)="handleReset()">Fermer</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               </div>
+              </div>
             </div>
             
 

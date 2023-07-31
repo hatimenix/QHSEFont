@@ -14,8 +14,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                   <label>Nom du Site <label style="color: red;">*</label></label>
-                                  <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom" >
-                                  <div class="help-block with-errors" *ngIf="siteForm.get('site_nom')?.errors && (siteForm.get('site_nom')?.dirty || siteForm.get('site_nom')?.touched)" maxlength="40">
+                                  <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom" maxlength="40">
+                                  <div class="help-block with-errors" *ngIf="siteForm.get('site_nom')?.errors && (siteForm.get('site_nom')?.dirty || siteForm.get('site_nom')?.touched)" >
                                     <p *ngIf="siteForm.get('site_nom')?.hasError('required')" class="text-danger">
                                       Veuillez entrer le nom de site.
                                     </p>
@@ -38,7 +38,7 @@
                          <div class="col-md-6">
                              <div class="form-group">
                                  <label>Sigle <label style="color: red;">*</label></label>
-                                 <input type="text" class="form-control" placeholder="Entrer le sigle" required id="sigle" name="sigle" formControlName="sigle">
+                                 <input type="text" class="form-control" placeholder="Entrer le sigle" required id="sigle" name="sigle" formControlName="sigle" maxlength="40">
                                  <div
                                  class="help-block with-errors"
                                  *ngIf="siteForm.get('sigle')?.errors && (siteForm.get('sigle')?.dirty || siteForm.get('sigle')?.touched)"

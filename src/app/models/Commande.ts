@@ -7,7 +7,10 @@ export class Commande {
     quantite!: string;
     specificite_regime!: string; 
     specificite_texture!: string;
+    site !: number;
+    site_name!:string;
     [key: string]: any; 
+    
 
     
 }

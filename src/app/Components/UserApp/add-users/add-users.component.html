@@ -151,32 +151,23 @@
                         
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Actif</label>
+                              <label>
                               
-                              <input type="checkbox" id="actif" name="actif" formControlName="actif">
+                              <input type="checkbox" id="actif" name="actif" formControlName="actif">Actif</label>
                               <div class="help-block with-errors"></div>
                             </div>
                           </div>
                           
-                          <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
-                              <div class="form-group">
-                                <label for="groupes_roles">Groupes/Rôles:<label style="color: red;">*</label></label>
-                                <div *ngFor="let groupe of groupes">
-                                  <input type="checkbox" [value]="groupe.id" formControlName="groupes_roles" required>
-                                  {{ groupe.nom }}
-                                  <div class="help-block with-errors"></div>
-                                  <div
-                                  class="help-block with-errors"
-                                  *ngIf="userForm.get('groupes_roles')?.errors && (userForm.get('groupes_roles')?.dirty || userForm.get('groupes_roles')?.touched)"
-                                >
-                                  <p *ngIf="userForm.get('groupes_roles')?.hasError('required')">
-                                    Veuillez entrer le groupe.
-                                  </p>
-                                </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Groupes/Rôles <label style="color: red;">*</label> </label>
+                                <select id="groupes_roles" name="groupes_roles" formControlName="groupes_roles"  class="custom-select" data-style="py-0" required multiple>
+                                    <option *ngFor="let group of group$ | async" [value]="group.id">{{ group.nom }}</option>
+                                   </select>   
+                                   <div class="help-block with-errors"></div>
 
-                                </div>
-                              </div>
-                            </div>
+                            </div> 
+                        </div>
                             <div class="col-md-6" >
                             <div class="form-group">
                               <label>

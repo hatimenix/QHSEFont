@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,19 +18,37 @@ export class UpdatePersonnelComponent implements OnInit {
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
+  emailExistsError: boolean = false;
+
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private personnelService: PersonnelService, private bsModalService: BsModalService) { 
     this.PersonnelForm = this.formBuilder.group({
       id: [''],
-      compte: ['', Validators.required],
-      courrier: ['', Validators.required],
+
       image: [''],
-      nom: ['', Validators.required],
-      numero_tel: ['', Validators.required],
-      presente_vous: ['', Validators.required],
-      fonction: ['', Validators.required],
-      adresse_sip: ['', Validators.required],
-      othermail: ['', Validators.required]
+      compte: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(40),
+      ]],
+      nom:  ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(40),
+      ]],
+      email: ['', [Validators.required, Validators.email]],
+      numero_tel: ['', [ Validators.pattern('^\\d{10}$')]],
+      presente_vous:  ['', [
+       
+        Validators.maxLength(50),
+      ]],
+      fonction:  ['', [
+        Validators.maxLength(40),
+      ]],
+      adresse_sip:  ['', [
+        Validators.maxLength(40),
+      ]],
+      othermail: ['', Validators.email]
     });
   }
 
@@ -44,7 +63,7 @@ export class UpdatePersonnelComponent implements OnInit {
             id: this.personnel.id,
             compte: this.personnel.compte,
             nom: this.personnel.nom,
-            courrier: this.personnel.courrier,
+            email: this.personnel.email,
             numero_tel: this.personnel.numero_tel,
             presente_vous: this.personnel.presente_vous,
             image: this.personnel.image,
@@ -67,7 +86,7 @@ export class UpdatePersonnelComponent implements OnInit {
     const formData = new FormData();
     formData.append('id', this.PersonnelForm.get('id')?.value);
     formData.append('nom', this.PersonnelForm.get('nom')?.value);
-    formData.append('courrier', this.PersonnelForm.get('courrier')?.value);
+    formData.append('email', this.PersonnelForm.get('email')?.value);
     formData.append('compte', this.PersonnelForm.get('compte')?.value);
     formData.append('numero_tel', this.PersonnelForm.get('numero_tel')?.value);
     formData.append('presente_vous', this.PersonnelForm.get('presente_vous')?.value);
@@ -87,8 +106,12 @@ export class UpdatePersonnelComponent implements OnInit {
       this.router.navigate(['/listP']);
      
     },
-    (error: any) => {
-      console.log(error);
+    (error: HttpErrorResponse) => {
+      if (error.status === 400 && error.error?.email) {
+        this.emailExistsError = true;
+      } else {
+        console.error('An error occurred while creating user:', error);
+      }
     }
   );
   }
