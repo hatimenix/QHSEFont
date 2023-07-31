@@ -72,7 +72,7 @@
                       src="{{user.image}}" alt="profile"></td>
                     <td>{{user.nom_user}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{ user.nom_complet }}</td>
+                    <td>{{ user.nom }}</td>
                     <td>{{user.actif}}</td>
                     <td><span class="badge">{{user.nom_groupe}}</span></td>
 
@@ -156,7 +156,7 @@
        <div class="ml-3">
          
          <h4 class="mb-1">{{ selectedUser?.nom_user }}</h4>
-         <p class="mb-0">{{ selectedUser?.nom_complet }}</p>
+         <p class="mb-0">{{ selectedUser?.nom }}</p>
          <p class="mb-0">
            {{ selectedUser?.email }}
          </p>

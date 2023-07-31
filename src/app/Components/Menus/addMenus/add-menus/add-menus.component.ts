@@ -18,6 +18,8 @@ export class AddMenusComponent implements OnInit {
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
+  errorMessage: string | undefined;
+
 
 
   constructor(private formBuilder: FormBuilder, private menuService: MenusService,
@@ -79,6 +81,12 @@ export class AddMenusComponent implements OnInit {
           this.router.navigate(['/listMenu']);
         },
         (error) => {
+          if (error.error && error.error.fichier) {
+            // Display the error message from the server
+            this.errorMessage = error.error.fichier[0];
+          } else {
+            this.errorMessage = "An error occurred while adding the file.";
+          }
           console.error(error);
         }
       );

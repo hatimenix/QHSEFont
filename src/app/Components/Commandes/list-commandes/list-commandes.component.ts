@@ -2,8 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Observable } from 'rxjs';
 import { CommandeSerService } from 'src/app/Services/Service-commandes/commande-ser.service';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 import { Commande } from 'src/app/models/Commande';
+import { Site } from 'src/app/models/Site';
 
 
 @Component({
@@ -13,6 +16,10 @@ import { Commande } from 'src/app/models/Commande';
 })
 export class ListCommandesComponent {
   myForm: any;
+  site: any[] = [];
+  site$!: Observable<any>;
+  selectedSite: Site | undefined;
+
   commandes!: Commande[];
     id_commande: any;
     date_commande: any;
@@ -25,6 +32,8 @@ export class ListCommandesComponent {
 
   //modal
   @ViewChild('deleteModal', { static: true }) deleteModal!: any;
+  @ViewChild('siteModal', { static: true }) siteModal: any;
+
   modalRef!: BsModalRef;
   commandIdToDelete: number = 0;
 
@@ -42,7 +51,7 @@ export class ListCommandesComponent {
 
   
   constructor(private commandeService: CommandeSerService, private router: Router, 
-  public modalService: BsModalService) { }
+  public modalService: BsModalService, private siteService: ApiSiteService) { }
 
   ngOnInit() {
    
@@ -59,6 +68,15 @@ export class ListCommandesComponent {
      //pagination 
      this.itemsPerPageOptions = [5, 10, 15];
      this.itemsPerPage = this.itemsPerPageOptions[0]; 
+     this.siteService.getAllSite().subscribe(
+      (data: any[]) => {
+        this.site = data.map(item => ({ ...item, expanded: true }));
+        console.log(this.site); // Print the sites to the console
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
   
   getCommandes() {
@@ -182,5 +200,12 @@ handleReset(): void {
   
   
 }  
+openSiteModal(site: Site) {
+  this.selectedSite = site;
+  this.modalRef = this.modalService.show(this.siteModal);
+}
+closeModalsite() {
+  this.modalService.hide();
+}
 
 }

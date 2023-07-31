@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Observable } from 'rxjs';
 import { UsersService } from 'src/app/Services/Service-Users/users.service';
 import { GroupeUserService } from 'src/app/Services/Services-GroupesUser/groupe-user.service';
 import { GroupeUser } from 'src/app/models/GroupeUser';
@@ -19,6 +21,11 @@ export class UpdateUsersComponent {
   userId: number;
   @ViewChild('successModal', { static: true }) successModal: any;
   modalRef!: BsModalRef;
+  emailExistsError: boolean = false;
+  modalCloseTime: number = 2000; 
+  userapp$ !: Observable<any>;
+  group$!: Observable<any>;// 
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,131 +35,94 @@ export class UpdateUsersComponent {
     private route: ActivatedRoute,
     private bsModalService: BsModalService
   ) {
+    this.userForm = this.formBuilder.group({
+      nom_user: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
+      nom: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
+      password: ['', Validators.required],
+
+      email: ['', [Validators.required, Validators.email]],
+      actif: [''],
+      groupes_roles: [[]],
+      image: [null] // Initialize image FormControl with null
+    });
+    this.groupes=[];
     this.userId = Number(this.route.snapshot.params['id']);
+
   }
 
   ngOnInit() {
-    this.userForm = this.formBuilder.group({
-      nom_user: ['', Validators.required],
-      nom_complet: ['', Validators.required],
-      password: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      actif: [''],
-      groupes_roles: this.formBuilder.array([]),
-      image: [null] // Initialize image FormControl with null
-    });
-
-    this.loadGroupes();
     this.loadUserData();
+    this.userapp$ = this.userAppService.getUsers();
+    this.group$=this.groupeUserService.getGroupes();
    
   }
 
-  loadGroupes() {
-    this.groupeUserService.getGroupes().subscribe(
-      groupes => {
-        this.groupes = groupes;
-        console.log("Groupes:", this.groupes);
-      },
-      error => {
-        console.log('An error occurred while fetching groupes:', error);
+  onSubmit() {
+  
+
+      const formData = new FormData();
+      formData.append('nom_user', this.userForm.get('nom_user')?.value);
+      formData.append('nom', this.userForm.get('nom')?.value);
+      formData.append('email', this.userForm.get('email')?.value);
+      formData.append('actif', this.userForm.get('actif')?.value);
+      formData.append('password', this.userForm.get('password')?.value);
+
+      formData.append('groupes_roles', this.userForm.get('groupes_roles')?.value);
+      
+  
+      const imageControl = this.userForm.get('image');
+      if (imageControl?.value instanceof File) {
+        formData.append('image', imageControl.value);
       }
-    );
-  }
   
-
-  loadUserData() {
-    this.userAppService.getUserById(this.userId).subscribe(
-      (user: UserApp) => {
-        console.log("User Data:", user);
-        const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
-
-        
-        this.userForm.patchValue({
-          nom_user: user.nom_user,
-          nom_complet: user.nom_complet,
-          password: user.password,
-          email: user.email,
-          actif: user.actif,
-        });
-  
-  
-        // Ensure the FormArray has the same length as the 'groupes' array
-        while (groupesRolesFormArray.length !== this.groupes.length) {
-          groupesRolesFormArray.push(this.formBuilder.control(false));
-        }
-  
-        // Reset the FormArray controls before setting the selected groups
-        for (let i = 0; i < groupesRolesFormArray.length; i++) {
-          groupesRolesFormArray.controls[i].setValue(false);
-        }
-  
-        // Set the selected groups
-        for (const group of user.groupes_roles) {
-          const groupIndex = this.groupes.findIndex((g) => g.id === group.id);
-          if (groupIndex !== -1) {
-            groupesRolesFormArray.controls[groupIndex].setValue(true);
+      this.userAppService.updateUserFormdata(this.userId,formData).subscribe(
+        (user: UserApp) => {
+          console.log('User updated successfully:', user);
+          this.openModal();
+          this.router.navigate(['/listuserapp']);
+          this.userForm.reset(); // Reset the form after successful submission
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 400 && error.error?.email) {
+            this.emailExistsError = true;
+          } else {
+            console.error('An error occurred while updating user:', error);
           }
         }
-  
-        // Add console log to show selected groups
-      const selectedGroups = this.groupes.filter((group, index) => groupesRolesFormArray.controls[index].value);
-      console.log("Groupes:", this.groupes);
-      console.log("User Groups:", user.groupes_roles);
-      console.log("Selected Groups:", selectedGroups);
-      },
-      error => {
-        console.log('An error occurred while fetching user data:', error);
-      }
-    );
+      );
+   
   }
   
+  getSelectGroupsNames(selectedGroup: UserApp[]): string {
+    return selectedGroup.map(group => group.nom).join(', ');
+  }
 
-  onSubmit() {
-    if (this.userForm.invalid) {
-      return;
-    }
-
-    
-    const formData = new FormData();
-
-    formData.append('id', this.userId.toString()); // Ensure the 'id' is set in the formData
-    formData.append('nom_user', this.userForm.get('nom_user')?.value);
-    formData.append('nom_complet', this.userForm.get('nom_complet')?.value);
-    formData.append('password', this.userForm.get('password')?.value);
-    formData.append('email', this.userForm.get('email')?.value);
-    formData.append('actif', this.userForm.get('actif')?.value);
-
-    const file = this.userForm.get('image')?.value;
-    if (file instanceof File) {
-      formData.append('image', file, file.name);
-    }
-
-    //the group selected 
-    const selectedGroups = this.userForm.value.groupes_roles
-    .map((isChecked: boolean, index: number) => (isChecked ? this.groupes[index].id : null))
-    .filter((groupId: number | null) => groupId !== null);
-
-  formData.append('selectedGroups', JSON.stringify(selectedGroups));
-
-
-    console.log("data", formData);
-
-    this.userAppService.updateUserFormdata(formData).subscribe(
-      (user: UserApp) => {
-        console.log('User updated successfully:', user);
-        this.openModal();
-        this.router.navigate(['/listuserapp']);
-        this.userForm.reset();
-      },
-      (error: any) => {
-        console.log('An error occurred while updating user:', error);
-      }
-    );
+  // Méthode pour gérer la sélection d'utilisateurs multiples
+  onGroupSelect(event: any): void {
+    const selectedGroup: GroupeUser[] = event.value;
+    this.userForm.patchValue({
+      groupes_roles: selectedGroup
+    });
   }
 
   // Modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
+
+    // Set a timer to close the modal after the specified time
+    setTimeout(() => {
+      this.closeModal();
+    }, this.modalCloseTime);
   }
   
   closeModal() {
@@ -166,10 +136,33 @@ export class UpdateUsersComponent {
       this.userForm.get('image')?.setValue(file);
     }
   }
-    // Function to get the FormControls within the groupes_roles FormArray
-    getGroupControl(index: number): FormControl {
-      const groupesRolesFormArray = this.userForm.get('groupes_roles') as FormArray;
-      return groupesRolesFormArray.at(index) as FormControl;
+  loadUserData() {
+    if (this.userId) {
+      this.userAppService.getUserById(this.userId).subscribe(
+        (user: UserApp | null) => {
+          if (user) {
+            console.log("User Data:", user);
+            console.log("User Id:", this.userId);
+            this.userForm.patchValue({
+              nom_user: user.nom_user,
+              nom: user.nom,
+              email: user.email,
+              actif: user.actif,
+              groupes_roles: user.groupes_roles
+            });
+          } else {
+            console.log("User not found for ID:", this.userId);
+          }
+        },
+        error => {
+          console.log('An error occurred while fetching user data:', error);
+          // Handle the error case
+        }
+      );
+    } else {
+      console.log("Invalid user ID:", this.userId);
     }
+  }
+  
   
 }

@@ -15,8 +15,21 @@
                                    <div class="form-group">
                                        <label>Nom <label style="color: red;">*</label></label>
                                        <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="nom" name="nom" formControlName="nom">
-                                       <div class="help-block with-errors"></div>
-                                   </div>
+                                       <div
+                                       class="help-block with-errors"
+                                       *ngIf="cerificatForm.get('nom')?.errors && (cerificatForm.get('nom')?.dirty || cerificatForm.get('nom')?.touched)"
+                                     >
+                                       <p *ngIf="cerificatForm.get('nom')?.hasError('required')" class="text-danger">
+                                         Veuillez entrer le nom du certificat.
+                                       </p>
+                                       <p *ngIf="cerificatForm.get('nom')?.hasError('minlength')" class="text-danger">
+                                         Le nom du certificat doit contenir au moins 3 caractères.
+                                       </p>
+                                       <p *ngIf="cerificatForm.get('nom')?.hasError('maxlength')" class="text-danger">
+                                         Le nom du certificat ne peut pas dépasser 40 caractères.
+                                       </p>
+                                     
+                                     </div>                                      </div>
                                </div> 
                                <div class="col-md-6">
                                 <div class="form-group">

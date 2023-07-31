@@ -19,7 +19,10 @@ export class AdGroupesComponent {
   users: UserApp[];
   userapp$ !: Observable<any>;
   group$!: Observable<any>;
-  
+  errorMessage: string | undefined;
+  //set time for modal
+  private modalCloseTime: number = 2000; // 
+
 
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
@@ -35,7 +38,7 @@ export class AdGroupesComponent {
       nom: ['', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(25),
+        Validators.maxLength(40),
         Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
       ]],
       description: ['', [
@@ -86,12 +89,31 @@ export class AdGroupesComponent {
         this.openModal();
         this.router.navigate(['/listgroupeusers']); 
         console.log('Groupe utilisateur créé :', createdGroup);
-      });
+      },
+      (error: any) => {
+        console.log("Une erreur s'est produite lors de l'ajout de groupe", error);
+         // Check for 500 Internal Server Error
+      if (error.status === 500 && error.error) {
+        this.errorMessage = "Ce nom de group existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
+
+        if (error.status === 400 && error.error && error.error.nom) {
+          // Display the custom error message from the backend
+          this.errorMessage = "Ce nom de groupe existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
+      }
+      );
     }
   }
 
   getSelectedUserNames(selectedUsers: UserApp[]): string {
-    return selectedUsers.map(user => user.nom_complet).join(', ');
+    return selectedUsers.map(user => user.nom).join(', ');
   }
 
   // Méthode pour gérer la sélection d'utilisateurs multiples
@@ -105,6 +127,11 @@ export class AdGroupesComponent {
   //modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
+
+    // Set a timer to close the modal after the specified time
+    setTimeout(() => {
+      this.closeModal();
+    }, this.modalCloseTime);
   }
   closeModal() {
     this.bsModalService.hide();

@@ -35,7 +35,11 @@ export class AddRapportAuditComponent {
    private bsModalService: BsModalService) {
    this.rpForm = this.formBuilder.group({
      
-     nom: ['', Validators.required],
+     nom:  ['', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(40),
+    ]],
      url_document:['', Validators.required],
      date_modification: ['', Validators.required],
      modifie_par: ['', Validators.required]

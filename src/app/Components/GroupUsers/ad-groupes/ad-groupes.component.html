@@ -10,7 +10,7 @@
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+                       <form  data-toggle="validator" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
                                <div class="col-md-6">
                                    <div class="form-group">
@@ -32,7 +32,10 @@
                                        <p *ngIf="groupForm.get('nom')?.hasError('pattern')" class="text-danger">
                                          Le nom de groupe ne peut contenir que des lettres et espaces.
                                        </p>
-                                     </div>    
+                                     </div>
+                                     <div *ngIf="errorMessage" class="error-message" class="text-danger">
+                                      {{ errorMessage }}
+                                    </div>
                                  </div>
                                </div> 
                             <div class="col-md-6">
@@ -61,8 +64,10 @@
                                 <div class="form-group">
                                     <label>Propriétaire du groupe <label style="color: red;">*</label> </label>
                                     <select id="proprietaire_groupe" name="proprietaire_groupe" formControlName="proprietaire_groupe"  class="custom-select" data-style="py-0" required multiple>
-                                        <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom_complet }}</option>
+                                        <option *ngFor="let userapp of userapp$ | async" [value]="userapp.id">{{ userapp.nom }}</option>
                                        </select>   
+                                       <div class="help-block with-errors"></div>
+
                                 </div> 
                             </div> 
                                 
@@ -76,7 +81,8 @@
                                             <option>Collaboration sans suppression</option>
                                             
                                           </select>
-                                           
+                                          <div class="help-block with-errors"></div>
+
                                     </div> 
                                 </div> 
                            </div>        

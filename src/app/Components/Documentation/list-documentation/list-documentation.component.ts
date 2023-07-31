@@ -36,7 +36,7 @@ export class ListDocumentationComponent implements OnInit {
   //filtrage
   showPopover: boolean = false;
 
-   filterField: string = '';
+  filterField: string = '';
   fieldSearchQuery: string = '';
   filteredDocuments: Documentation[] = [];
   selectedDocument: Documentation[] = [];

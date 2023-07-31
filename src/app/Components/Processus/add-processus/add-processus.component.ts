@@ -24,6 +24,10 @@ export class AddProcessusComponent implements OnInit{
   sites$ !: Observable<any>;
   processus$ !: Observable<any>;
   indice : any;
+  errorMessage: string | undefined; // Add this variable to store the error message
+  isSiteAdded: boolean = false;
+
+
   //modal
   @ViewChild('successModal', { static: true }) successModal:any;
   @ViewChild('addModalAnalyse', { static: true }) addModalAnalyse:any;
@@ -69,28 +73,53 @@ export class AddProcessusComponent implements OnInit{
       intitule: ['', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(25),
+        Validators.maxLength(40),
       ]],
       sigle: ['', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(25),
+        Validators.maxLength(40),
       ]],
       typologie: ['',Validators.required],
-      finalite:['',Validators.required],
+      finalite:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
       pilote:['',Validators.required],
-      acteurs: ['',Validators.required],
-      donnee_entree:['',Validators.required],
-      activites: ['', Validators.required], 
-      donnee_sortie:['',Validators.required],
-      ressources_tech_org:['',Validators.required],
-      objectifs_ind:['',Validators.required],
-      outils_surveil:['',Validators.required],
+      acteurs: ['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      donnee_entree:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      activites: ['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      donnee_sortie:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      ressources_tech_org:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      objectifs_ind:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
+      outils_surveil:['', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]],
       
     });
   }
   onSubmit():void {
     const formData = this.processusForm.value;
+    
     const processus: Processus= new Processus (
       formData.intitule,
       formData.sigle,
@@ -111,18 +140,36 @@ export class AddProcessusComponent implements OnInit{
     this.processusService.addProcessus(processus).subscribe(
       () => {      
         console.log("Le processus a été ajouté avec succès");
+        this.isSiteAdded = true;
         console.log(processus);
         this.openModal();
         this.router.navigate(['/listProcessus']); 
       },
       (error: any) => {
-        console.log("Une erreur s'est produite lors de l'ajout de processus", error);        
+        console.log("Une erreur s'est produite lors de l'ajout de processus", error);
+         // Check for 500 Internal Server Error
+      if (error.status === 500 && error.error) {
+        this.errorMessage = "Cet intitulé de processus existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
+
+        if (error.status === 400 && error.error && error.error.site_nom) {
+          // Display the custom error message from the backend
+          this.errorMessage = "Cet intitulé de processus existe déjà";
+        } else {
+          // Handle other errors, if needed
+          console.log('An error occurred:', error);
+        }
       }
     );
   }
   //modal functions 
   openModal() {
-    this.modalRef = this.bsModalService.show(this.successModal);
+    if (this.isSiteAdded) {
+      this.modalRef = this.bsModalService.show(this.successModal);
+    }
   }
   closeModal() {
     this.bsModalService.hide();

@@ -71,7 +71,7 @@
                       src="{{personnel.image}}" alt="profile"></td>
                     <td>{{personnel.nom}}</td>
                     <td>{{personnel.numero_tel}}</td>
-                    <td>{{personnel.courrier}}</td>
+                    <td>{{personnel.email}}</td>
                     <td>{{personnel.presente_vous}}</td>
                     <td><span class="badge">{{personnel.fonction}}</span></td>
                     <td>{{personnel.adresse_sip}}</td>
@@ -151,15 +151,15 @@
      </div>
      <div class="ml-3">
        <h4 class="mb-1">{{ selectedPersonnel?.nom }}</h4>
-       <p class="mb-0">{{ selectedPersonnel?.courrier }}</p>
-       <p class="mb-0">
+       <p class="mb-0">Email : {{ selectedPersonnel?.email }}</p>
+       <p class="mb-0">Numéro :
          {{ selectedPersonnel?.numero_tel }}
        </p>
-       <p class="mb-0"> {{ selectedPersonnel?.fonction }}</p>
-       <p class="mb-0"> {{ selectedPersonnel?.adresse_sip }}</p>
+       <p class="mb-0"> Fonction : {{ selectedPersonnel?.fonction }}</p>
+       <p class="mb-0"> Aadresse sip :{{ selectedPersonnel?.adresse_sip }}</p>
 
-       <p class="mb-0"> {{ selectedPersonnel?.othermail }}</p>
-       <p class="mb-0">{{ selectedPersonnel?.presente_vous }}</p>
+       <p class="mb-0">OtherMail : {{ selectedPersonnel?.othermail }}</p>
+       <p class="mb-0">Présentez-vous : {{ selectedPersonnel?.presente_vous }}</p>
 
 
        <!-- Add more details here as needed -->

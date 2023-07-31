@@ -9,22 +9,54 @@
                        </div>
                    </div>
                    <div class="card-body">
-                       <form action="page-list-returns.html" data-toggle="validator" [formGroup]="siteForm" (ngSubmit)="onSubmit()">
+                       <form  data-toggle="validator" [formGroup]="siteForm" (ngSubmit)="onSubmit()">
                            <div class="row">                                  
-                               <div class="col-md-6">
-                                   <div class="form-group">
-                                       <label>Nom du Site</label>
-                                       <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom">
-                                       <div class="help-block with-errors"></div>
-                                   </div>
-                               </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Sigle</label>
-                                    <input type="text" class="form-control" placeholder="Entrer le sigle" required id="sigle" name="sigle" formControlName="sigle">
-                                    <div class="help-block with-errors"></div>
+                                  <label>Nom du Site <label style="color: red;">*</label></label>
+                                  <input type="text" class="form-control" placeholder="Entrer le nom du site" required id="site_nom" name="site_nom" formControlName="site_nom" maxlength="40">
+                                  <div class="help-block with-errors" *ngIf="siteForm.get('site_nom')?.errors && (siteForm.get('site_nom')?.dirty || siteForm.get('site_nom')?.touched)" >
+                                    <p *ngIf="siteForm.get('site_nom')?.hasError('required')" class="text-danger">
+                                      Veuillez entrer le nom de site.
+                                    </p>
+                                    <p *ngIf="siteForm.get('site_nom')?.hasError('minlength')" class="text-danger">
+                                      Le nom de site doit contenir au moins 3 caractères.
+                                    </p>
+                                    <p *ngIf="siteForm.get('site_nom')?.hasError('maxlength')" class="text-danger" >
+                                      Le nom de site ne peut pas dépasser 40 caractères.
+                                    </p>
+                                    <p *ngIf="siteForm.get('site_nom')?.hasError('pattern')" class="text-danger">
+                                      Le nom de site ne peut contenir que des lettres et espaces.
+                                    </p>
+                                  </div>
+                                  <div *ngIf="errorMessage" class="error-message text-danger">
+                                    {{ errorMessage }}
+                                  </div>
                                 </div>
-                            </div> 
+                              </div>
+                              
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Sigle <label style="color: red;">*</label></label>
+                                 <input type="text" class="form-control" placeholder="Entrer le sigle" required id="sigle" name="sigle" formControlName="sigle" maxlength="40">
+                                 <div
+                                 class="help-block with-errors"
+                                 *ngIf="siteForm.get('sigle')?.errors && (siteForm.get('sigle')?.dirty || siteForm.get('sigle')?.touched)"
+                               >
+                                 <p *ngIf="siteForm.get('sigle')?.hasError('required')" class="text-danger">
+                                   Veuillez entrer le sigle de site.
+                                 </p>
+                                 <p *ngIf="siteForm.get('sigle')?.hasError('minlength')" class="text-danger">
+                                   Le sigle de site doit contenir au moins 3 caractères.
+                                 </p>
+                                 <p *ngIf="siteForm.get('sigle')?.hasError('maxlength')" class="text-danger">
+                                   Le sigle de site ne peut pas dépasser 40 caractères.
+                                 </p>
+                                 <p *ngIf="siteForm.get('sigle')?.hasError('pattern')" class="text-danger">
+                                   Le sigle de site ne peut contenir que des lettres et espaces.
+                                 </p>
+                               </div>                                  </div>
+                         </div> 
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Groupe Restaurant</label>

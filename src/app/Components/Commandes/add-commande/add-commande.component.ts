@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { CommandeSerService } from 'src/app/Services/Service-commandes/commande-ser.service';
 import { Commande } from 'src/app/models/Commande';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Observable } from 'rxjs';
+import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
 @Component({
   selector: 'app-add-commande',
   templateUrl: './add-commande.component.html',
@@ -14,11 +16,13 @@ export class AddCommandeComponent implements OnInit{
   //modal traitement
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
+  site$ !: Observable<any>;
+
  
 
   constructor(private fb: FormBuilder, private commandeService: CommandeSerService, 
     private router: Router,
-    private bsModalService: BsModalService) {
+    private bsModalService: BsModalService, private siteService : ApiSiteService) {
     this.createForm();
   }
 
@@ -31,10 +35,15 @@ export class AddCommandeComponent implements OnInit{
     window.scrollTo(0, 0);
 
     this.createForm()
+
+    this.site$ = this.siteService.getAllSite();
+
   }
 
   createForm() {
     this.myForm = this.fb.group({
+      site:[''],
+
       date_commande: [''],
       type_commande: ['client'],
       quantite: [''],
@@ -54,6 +63,8 @@ export class AddCommandeComponent implements OnInit{
       specificite_texture: formData.specificite_texture,
       id_commande: 0,
       etat_commande: formData.etat_commande,
+      site: formData.site,
+      site_name: ''
     };
     this.commandeService.addCommande(newCommande).subscribe(
       (commande: Commande) => {

@@ -56,7 +56,6 @@
                         <th scope="col" style="text-align: center;">Nom</th>
                         <th scope="col" style="text-align: center;">Chef Service</th>
                         <th scope="col">Actions</th>
-                        <th scope="col" style="text-align: center;">Supprimer les colonnes</th>
                       </tr>
                     </thead>
                     <tbody class="ligth-body">
@@ -75,9 +74,7 @@
                             </a>
                           </div>
                         </td>
-                        <td>
-                          <input type="checkbox" [checked]="selectedServices.includes(service)" (change)="toggleSelection(service)">
-                        </td>
+                      
                       </tr>
                     </tbody>
                   </table>
