@@ -148,7 +148,6 @@
    </div>
  </ng-template>
  <ng-template #changePasswordModal>
-   <div class="modal-dialog modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
          <h4 class="modal-title">Changer le mot de passe</h4>
@@ -157,23 +156,47 @@
          </button>
        </div>
        <div class="modal-body">
-         <form (ngSubmit)="onSubmitChangePasswordForm()">
+         <form  (ngSubmit)="onSubmitChangePasswordForm()"  >
            <div class="form-group">
-             <label for="oldPassword">Ancien Password</label>
+             <label for="oldPassword">Ancien mot de passe</label>
              <input type="password" class="form-control" id="oldPassword" name="oldPassword" required [(ngModel)]="oldPassword">
+             <div *ngIf="errorMessageLast" class="error-message" class="text-danger">
+               {{ errorMessageLast }}
+             </div>
            </div>
            <div class="form-group">
-             <label for="newPassword">Nouveau Password</label>
+             <label for="newPassword">Nouveau mot de passe</label>
              <input type="password" class="form-control" id="newPassword" name="newPassword" required [(ngModel)]="newPassword">
+           
+             <div *ngIf="errorMessagePassword" class="error-message text-danger">
+               {{ errorMessagePassword }}
+             </div>
            </div>
            <div class="form-group">
-             <label for="confirmPassword">Confirmez le Password</label>
+             <label for="confirmPassword">Confirmez le mot de passe</label>
              <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required [(ngModel)]="confirmPassword">
+             <div *ngIf="errorMessageConfirm" class="error-message" class="text-danger">
+               {{ errorMessageConfirm }}
+             </div>
            </div>
            <button type="submit" class="btn btn-primary">Valider</button>
-           <button type="reset" class="btn btn-secondary" routerLink="/profile">Annuler</button>
+           <button type="reset" class="btn btn-secondary" (click)="passwordChangeModalRef.hide()">Annuler</button>
          </form>
        </div>
      </div>
+   
+ </ng-template>
+ <ng-template #updateModal>
+   <div class="modal-header success-header ">
+     <h4 class="modal-title">Succès</h4>
+     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     le mot de passe a été modifé avec succès.
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-success" (click)="closePasswordChangeModal()">Fermer</button>
    </div>
  </ng-template>

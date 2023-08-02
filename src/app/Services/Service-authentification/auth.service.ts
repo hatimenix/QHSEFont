@@ -15,7 +15,7 @@ export class AuthService {
   private API_UsersApp = environment.API_UsersApp;
   private API_Details_User = environment.API_Details_User;
   private API_Details_group= environment.API_Details_group;
-  private API_ChangePassword = environment.API_ChangePassword;
+  public API_ChangePassword = environment.API_ChangePassword;
 
   user: UserApp | null = null;
   private accessTokenKey = 'access_token';
@@ -94,32 +94,6 @@ export class AuthService {
       }
     });
   }
-  getUserImage(userId: number): Observable<Blob> {
-    const accessToken = this.getAccessToken();
-    const url = `${this.API_UsersApp}/${userId}/image`;
-    
-    return this.http.get(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      },
-      responseType: 'blob' // Specify the response type as Blob
-    });
-  }
-  
-// Add this method to change the user's password in AuthService
-changePassword(email: string, oldPassword: string, newPassword: string): Observable<any> {
-  const accessToken = this.getAccessToken();
 
-  const passwordData = {
-    email,
-    old_password: oldPassword,
-    new_password: newPassword
-  };
 
-  return this.http.post<any>(`${this.API_ChangePassword}`, passwordData, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  });
-}
 }

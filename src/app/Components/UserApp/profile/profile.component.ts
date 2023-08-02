@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs';
 import { UsersService } from 'src/app/Services/Service-Users/users.service';
 import { AuthService } from 'src/app/Services/Service-authentification/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Site } from 'src/app/models/Site';
+
 
 @Component({
   selector: 'app-profile',
@@ -13,36 +14,43 @@ import { AuthService } from 'src/app/Services/Service-authentification/auth.serv
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
+
+  
+  @ViewChild('successModal', { static: true }) successModal: any;
+  @ViewChild('updateModal', { static: true }) updateModal: any;
+
+  
+  @ViewChild('changePasswordModal', { static: true }) changePasswordModal: any;
   id!: number;
   isModalOpen: boolean = false;
   selectedImageFile: File | null = null;
   isModificationSuccess: boolean = false;
-
-  @ViewChild('successModal', { static: true }) successModal: any;
-
-
+  errorMessageLast: string = ''; // Property to hold the error message
+  errorMessageConfirm: string='';
   currentId:any
   modalRef!: BsModalRef;
   isEmailDisabled: boolean = true; 
+  passwordChangeModalRef!: BsModalRef;
   oldPassword: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
-  passwordChangeModalRef!: BsModalRef;
+  apiUrl: string;
+  errorMessagePassword: string= '';
+  
+
+  
  
 
   constructor(private userAppService: UsersService, 
     private route: ActivatedRoute, private router: Router,
      private bsModalService: BsModalService, private authService: AuthService,
-     private http: HttpClient) {}
-
-    changePassword(email: string, oldPassword: string, newPassword: string): Observable<any> {
-      const body = {
-        email: email,
-        oldPassword: oldPassword,
-        newPassword: newPassword
-      };
-      return this.http.post<any>('/api/change-password', body);
+     private http: HttpClient,  private formBuilder: FormBuilder // Add the formBuilder here
+     ) {
+      this.apiUrl = 'http://localhost:8001';
+    
+     
     }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
@@ -55,10 +63,9 @@ export class ProfileComponent {
     });
     this.loadUserData();
 
-   
+
   }
   loadUserData() {
-    // Load the user data from the AuthService
     this.authService.getUser().subscribe(
       (user) => {
         // Handle the user data as needed
@@ -133,9 +140,7 @@ export class ProfileComponent {
     this.router.navigate(['/profile']);
   }
   openModal() {
-    this.modalRef = this.bsModalService.show(this.successModal);
-
-  
+    this.modalRef = this.bsModalService.show(this.successModal);  
   }
   
   closeModal() {
@@ -150,33 +155,93 @@ export class ProfileComponent {
     window.scrollTo(0, 0);
   }
 
-
- // profile.component.ts
-openChangePasswordModal(template: TemplateRef<any>) {
-  this.passwordChangeModalRef = this.bsModalService.show(template, {
-    class: 'modal-dialog-centered',
-    backdrop: 'static',
-    keyboard: false
-  });
-}
+  //change password methods
 
   onSubmitChangePasswordForm() {
-    const oldPassword = this.oldPassword;
-    const newPassword = this.newPassword;
-    const confirmPassword = this.confirmPassword;
+    if (this.newPassword !== this.confirmPassword) {
+      this.errorMessageConfirm = "Nouveau mot de passe et confirmer mot de passe ne correspondent pas";
+      return;
+    }
+  
+    const payload = {
+      old_password: this.oldPassword,
+      new_password: this.newPassword,
+    };
+  
+    this.authService.getUser().subscribe(
+      (user) => {
+        const accessToken = this.authService.getAccessToken();
+        if (accessToken) {
+          const headers = {
+            Authorization: `Bearer ${accessToken}`,
+          };
+  
+          this.http.post(`${this.authService.API_ChangePassword}`, payload, { headers }).subscribe(
+            (response: any) => {
+              // Password change successful, handle the response message if needed
+              console.log(response.message);
+  
+              // Close the change password modal
+              this.passwordChangeModalRef.hide();
+  
+              // Reset the password fields
+              this.oldPassword = '';
+              this.newPassword = '';
+              this.confirmPassword = '';
+  
+              // Display a success message
+              this.errorMessageLast = '';
+              this.errorMessageConfirm = '';
+              this.errorMessagePassword = '';
+              this.showPasswordChangeSuccessModal(); // Show the success modal here
+  
+              // Delay the logout by a few seconds to display the success modal
+              setTimeout(() => {
+                this.authService.logout();
+              }, 3000); // Adjust the delay time as needed
+            },
+            (error) => {
+              // Handle password change error, e.g., incorrect old password or validation error
+              console.error(error.error.message);
+  
+              if (error.error.message.includes("This password is too short.")) {
+                this.errorMessagePassword = "Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial*";
+              } else {
+                this.errorMessageLast = 'Ancien mot de passe incorrect';
+              }
+            }
+          );
+        } else {
+          console.error('Invalid or expired access token');
+          // Handle the case where the token is missing or expired (e.g., show a message or redirect to login)
+        }
+      },
+      (error) => {
+        console.error('Error fetching user details', error);
+        // Handle error fetching user details (optional)
+      },
+    );
+  }
+  
+  openChangePasswordModal(template: TemplateRef<any>) {
+    this.passwordChangeModalRef = this.bsModalService.show(template);
+  }
+
+  showPasswordChangeSuccessModal() {
+    // Show the success modal
+    this.modalRef = this.bsModalService.show(this.updateModal);
+  
+    // Add a timer to hide the modal after 3 seconds (adjust the time as needed)
+    setTimeout(() => {
+      this.modalRef.hide();
+    }, 3000); // Adjust the delay time (in milliseconds) as needed
+  }
+
+  closePasswordChangeModal(){
+    this.modalRef.hide();
+  }
+  
+
 
   
-    this.authService
-      .changePassword(this.currentId.email, oldPassword, newPassword)
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.passwordChangeModalRef.hide();
-        },
-        (error) => {
-          console.error(error);
-          
-        }
-      );
-  }
 }
