@@ -234,7 +234,7 @@ export class ProfileComponent {
     // Add a timer to hide the modal after 3 seconds (adjust the time as needed)
     setTimeout(() => {
       this.modalRef.hide();
-    }, 3000); // Adjust the delay time (in milliseconds) as needed
+    }, 3000); // Adjust the delay time (in as needed
   }
 
   closePasswordChangeModal(){
