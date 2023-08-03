@@ -15,9 +15,9 @@ import { filter } from 'rxjs/operators';
     constructor(private router: Router) {}
   
     ngOnInit() {
-      this.router.events.subscribe(event => {
+      this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          if (event.url === '/') {
+          if (event.url === '/' || event.url === '/forget-password' || event.url.startsWith('/reset-password/')) {
             this.showSidebar = false;
             this.showNavbar = false;
           } else {
