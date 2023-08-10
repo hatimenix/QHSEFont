@@ -26,4 +26,8 @@ export class ApiEvaluationService {
     return this.http.post<Evaluations>(this.API_URL_EVA, evaluation);
   }
 
+  delEvaluation(id:number){
+    return this.http.delete<Evaluations>(this.API_URL_EVA+id+'/');
+  }
+
 }

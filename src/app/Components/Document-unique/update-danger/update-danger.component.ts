@@ -54,10 +54,10 @@ export class UpdateDangerComponent {
 
     
     this.dangerForm = this.formBuilder.group({
-      poste_de_travail: ['', Validators.required],
-      taches: ['', Validators.required],
-      description: ['', Validators.required],
-      consequences: ['', Validators.required],
+      poste_de_travail: ['', [Validators.required, Validators.maxLength(40)]],
+      taches: ['', Validators.maxLength(250)],
+      description: ['', [Validators.required, Validators.maxLength(100), Validators.pattern(/^[^0-9]*$/)]],
+      consequences: ['', Validators.maxLength(250)],
       site: ['', Validators.required],
       service: ['', Validators.required],
       famille: ['', Validators.required]
