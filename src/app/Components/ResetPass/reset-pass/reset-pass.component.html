@@ -1,13 +1,23 @@
-<h2>Password Reset</h2>
-<form [formGroup]="passwordResetForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" formControlName="email" required>
-    <div *ngIf="passwordResetForm.get('email')?.invalid && passwordResetForm.get('email')?.touched">
-      <div *ngIf="passwordResetForm.get('email')?.errors?.['required']">Email is required.</div>
-      <div *ngIf="passwordResetForm.get('email')?.errors?.['email']">Invalid email address.</div>
+<div class="content-page custom-background">
+  <div class="container-fluid add-form-list">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div *ngIf="!passwordResetSuccess">
+            <h1>Réinitialisation du mot de passe</h1>
+            <form [formGroup]="passwordResetForm">
+              <input type="password" formControlName="newPassword" placeholder="Nouveau mot de passe" required>
+              <input type="password" formControlName="confirmPassword" placeholder="Confirmer le mot de passe" required>
+              <button (click)="resetPassword()">Réinitialiser</button>
+            </form>
+          </div>
+
+          <div *ngIf="passwordResetSuccess">
+            <p>Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.</p>
+            <button (click)="redirectToLogin()">Se connecter</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <button type="submit" [disabled]="!passwordResetForm.valid">Reset Password</button>
-</form>
+</div>

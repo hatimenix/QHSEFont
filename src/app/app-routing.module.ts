@@ -167,33 +167,22 @@ const routes: Routes = [
   { path: 'add-document', component: AddtDocumentationComponent, canActivate: [AuthGuardService] },
   { path: 'updateDocument/:id', component: UpdateDocumentationComponent, canActivate: [AuthGuardService] },
   { path: 'detailDocs/:id', component: DetailsDocsComponent, canActivate: [AuthGuardService] },
-
   { path: 'equipement-list', component: ListEquipementsComponent, canActivate: [AuthGuardService] },
   { path: 'add-equipements', component: AddEquipementsComponent, canActivate: [AuthGuardService] },
   { path: 'add-RGPD', component: AddRegistreTraitementComponent, canActivate: [AuthGuardService] },
   { path: 'fournisseur-list', component: ListFournisseursComponent, canActivate: [AuthGuardService] },
   { path: 'add-fournisseurs', component: AddFournisseursComponent, canActivate: [AuthGuardService] },
   { path: 'traitement/:id', component: InfoRGPDComponent, canActivate: [AuthGuardService] },
-
   { path: 'constatsaudit-list', component: ListConstatsComponent, canActivate: [AuthGuardService] },
   { path: 'addConstatAudit', component: AddConstatComponent, canActivate: [AuthGuardService] },
   { path: 'infoconstat/:id', component: InfoConstatComponent, canActivate: [AuthGuardService] },
-
   { path: 'plan-alimentaire-list', component: ListePlanAlimentaireComponent, canActivate: [AuthGuardService] },
   { path: 'addPlanAlimentaire', component: AddPlanAlimentaireComponent, canActivate: [AuthGuardService] },
-
   { path: 'listReunion', component: ListReunionComponent, canActivate: [AuthGuardService] },
   { path: 'infoReunion/:id', component: InfoReunionComponent, canActivate: [AuthGuardService] },
-
   { path: 'addReunion', component: AddReunionComponent, canActivate: [AuthGuardService] },
-
   { path: 'addExerciceSecurite', component: AddExerciceComponent, canActivate: [AuthGuardService] },
   { path: 'listExerciceSecurite', component: ListExerciceComponent, canActivate: [AuthGuardService] },
-
-
-
-
-
   //Menus paths
   { path: 'detailpersonn/:id', component: DetailspersonnelComponent, canActivate: [AuthGuardService] },
   { path: 'addMenu', component: AddMenusComponent, canActivate: [AuthGuardService] },
@@ -201,14 +190,11 @@ const routes: Routes = [
   { path: 'updateMenu/:id', component: UpdateMenusComponent, canActivate: [AuthGuardService] },
   { path: 'documents-utiles-list', component: ListDocumentsUtilesComponent, canActivate: [AuthGuardService] },
   { path: 'add-Documentutile', component: AddDocumentsUtilesComponent, canActivate: [AuthGuardService] },
-
   //Users, groupes and rôles
-
   { path: 'listuserapp', component: ListUsersComponent, canActivate: [AuthGuardService] },
   { path: 'adduserapp', component: AddUsersComponent, canActivate: [AuthGuardService] },
   { path: 'updateuserapp/:id', component: UpdateUsersComponent, canActivate: [AuthGuardService] },
   { path :'profile/:id', component:ProfileComponent, canActivate:[AuthGuardService]}, 
-
   { path: 'listgroupeusers', component: ListGroupesComponent, canActivate: [AuthGuardService] },
   { path: 'addgroupeusers', component: AdGroupesComponent, canActivate: [AuthGuardService] },
   { path: 'updategroupeusers/:id', component: UpdateGroupesComponent, canActivate: [AuthGuardService] },
@@ -224,29 +210,19 @@ const routes: Routes = [
   { path: 'partie/:id', component: InfoPartieComponent, canActivate: [AuthGuardService] },
   { path: 'exigence/:id', component: InfoExigencesComponent, canActivate: [AuthGuardService] },
   { path: 'analyserisque/:id', component: InfoAnalyserisqueComponent, canActivate: [AuthGuardService] },
-
-  //suivie des contrôles réglementaires 
   { path: 'listcontrol', component: ListControlComponent, canActivate: [AuthGuardService] },
   { path: 'addcontrol', component: AddControlComponent, canActivate: [AuthGuardService] },
   { path: 'updatecontrol/:id', component: UpdateControlComponent, canActivate: [AuthGuardService] },
-
   { path: 'tache-list', component: ListTachesComponent, canActivate: [AuthGuardService] },
   { path: 'add-tache', component: AddTachesComponent, canActivate: [AuthGuardService] },
   { path: 'add-sources', component: AddSourceComponent, canActivate: [AuthGuardService] },
   { path: 'tache/:id', component: InfoTachesComponent, canActivate: [AuthGuardService] },
-
-
-
-
-
   { path: 'listrapport', component: ListRapportAuditComponent, canActivate: [AuthGuardService] },
   { path: 'addrapport', component: AddRapportAuditComponent, canActivate: [AuthGuardService] },
   { path: 'updateRp/:id', component: UpdateRapportAuditComponent, canActivate: [AuthGuardService] },
-
   { path: 'listcertificat', component: ListCertificatComponent, canActivate: [AuthGuardService] },
   { path: 'addcertificat', component: AddCertificatComponent, canActivate: [AuthGuardService] },
   { path: 'updatecertificat/:id', component: UpdateCertificatComponent, canActivate: [AuthGuardService] },
-
   { path: 'listpj', component: ListPjComponent, canActivate: [AuthGuardService] },
   { path: 'addPj', component: AddPjComponent, canActivate: [AuthGuardService] },
   { path: 'updatePj/:id', component: UpdatePjComponent, canActivate: [AuthGuardService] },
@@ -262,12 +238,10 @@ const routes: Routes = [
   { path: 'source-list', component: ListSourceComponent, canActivate: [AuthGuardService] },
   { path: 'typepartie-list', component: ListTypepartiesComponent, canActivate: [AuthGuardService] },
   { path: 'listServices', component: ListServicesComponent, canActivate: [AuthGuardService]}, 
-  { path: 'add-service', component : AddServicesComponent, canActivate:[AuthGuardService]}
-
-
-
-
+  { path: 'add-service', component : AddServicesComponent, canActivate:[AuthGuardService]},
   //reset password 
+  { path: 'reset-password/:token', component : ResetPassComponent},
+  { path: 'forget-password', component : ForgotPassComponent}
 
 
 ];
