@@ -75,6 +75,7 @@
                                                <table class="table table-bordered table-responsive-md table-striped text-center" style="border: 2cm;">
                                                <tbody>
                                                <tr style="background-color: #089bd7;">
+                                                   <th>Modifier</th>
                                                    <th>Date evaluation</th>
                                                    <th>Gravité</th>
                                                    <th>Probabilité</th>
@@ -86,12 +87,19 @@
                                                   <td colspan="7">Aucune évaluation enregistré pour ce danger.</td>
                                                 </tr>
                                                <tr *ngFor="let evaluation of evaluations$ | async">
-                                                   <td>{{ evaluation.date }}</td>
-                                                   <td>{{ evaluation.severite }}</td>
-                                                   <td>{{ evaluation.probabilite }}</td>
-                                                   <td>{{ evaluation.mesure_prevention }}</td>
-                                                   <td>{{ evaluation.ipr }}</td>
-                                                   <td>{{ evaluation.indice_risque }}</td>
+                                                  <td>
+                                                    <div class="d-flex align-items-center list-action">
+                                                      <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" (click)="openDeleteModalE(evaluation.id); modalRef = modalService.show(deleteModalE);">
+                                                        <i class="ri-delete-bin-line mr-0"></i>
+                                                      </a>
+                                                      </div>
+                                                  </td>
+                                                  <td>{{ evaluation.date }}</td>
+                                                  <td>{{ evaluation.severite }}</td>
+                                                  <td>{{ evaluation.probabilite }}</td>
+                                                  <td>{{ evaluation.mesure_prevention }}</td>
+                                                  <td>{{ evaluation.ipr }}</td>
+                                                  <td>{{ evaluation.indice_risque }}</td>
                                                </tr>
                                                </tbody>
                                                </table>
@@ -112,7 +120,7 @@
                                             <form [formGroup]="evaluationForm"  class="needs-validation" novalidate>
                                              
                                                <div class="form-group">
-                                                  <label class="label-important">Probabilité </label>
+                                                  <label class="label-important">Probabilité <label style="color: red;">*</label> </label>
                                                   <select class="form-control" formControlName="probabilite" required>
                                                     <option value="0.1">0.1</option>
                                                     <option value="0.2">0.2</option>
@@ -122,18 +130,22 @@
                                                     <option value="6">6</option>
                                                     <option value="10">10</option>
                                                  </select>
-                                                 <div class="help-block with-errors">0.1 : Virtuelement imposible /
+                                                 <p>
+                                                    0.1 : Virtuelement imposible /
                                                     0.2 : Pratiquement imposible /
                                                     0.5 : Envisageable mais trés improbable /
                                                     1 : Possible à long terme /
                                                     3 : Inhabituel mais possible /
                                                     6 : Tout à fait possible /
                                                     10 : Peut etre attendu, presque certain 
+                                                 </p>
+                                                 <div class="help-block with-errors" *ngIf="evaluationForm.get('probabilite')?.invalid && evaluationForm.get('probabilite')?.touched">
+                                                  <p class="text-danger" *ngIf="evaluationForm.get('probabilite')?.hasError('required')">Ce champ est obligatoire.</p>
                                                  </div>
                                                </div>
                                              
                                                <div class="form-group">
-                                                  <label class="label-important">Sévérité </label>
+                                                  <label class="label-important">Sévérité <label style="color: red;">*</label></label>
                                                   <select class="form-control" formControlName="severite" required>
                                                     <option value="1">1</option>
                                                     <option value="3">3</option>
@@ -142,17 +154,21 @@
                                                     <option value="40">40</option>
                                                     <option value="100">100</option>
                                                  </select>
-                                                 <div class="help-block with-errors">1 : Dammages mineurs ( lésions superficielles ) ou inconfor /
+                                                 <p>
+                                                    1 : Dammages mineurs ( lésions superficielles ) ou inconfor /
                                                     3 : Dammages avec séquelles ( conséquence irréversible ) /
                                                     7 : Dammages avec conséquences réversible ( enfonce, coupure) /
                                                     15 : Très grave, 1 mort /
                                                     40 : Calamiteux, plusieurs morts /
                                                     100 : Catastrophique, nombreux morts 
+                                                 </p>
+                                                 <div class="help-block with-errors" *ngIf="evaluationForm.get('severite')?.invalid && evaluationForm.get('severite')?.touched">
+                                                  <p class="text-danger" *ngIf="evaluationForm.get('severite')?.hasError('required')">Ce champ est obligatoire.</p>
                                                  </div>
                                                </div>
                                              
                                                <div class="form-group">
-                                                  <label class="label-important">Fréquences d'exposition </label>
+                                                  <label class="label-important">Fréquences d'exposition <label style="color: red;">*</label> </label>
                                                   <select class="form-control" formControlName="frequences_exposition" required>
                                                     <option value="0.5">0.5</option>
                                                     <option value="1">1</option>
@@ -161,38 +177,46 @@
                                                     <option value="6">6</option>
                                                     <option value="10">10</option>
                                                  </select>
-                                                 <div class="help-block with-errors">0.5 : Très rare /
+                                                 <p>
+                                                    0.5 : Très rare /
                                                     1 : Plusieurs fois par an /
                                                     2 : Mensuelle /
                                                     3 : Hebdomadaire ou occasionnelle /
                                                     6 : Quotidienne pendant les heurs de travail /
                                                     10 : Permanente
+                                                 </p>
+                                                 <div class="help-block with-errors" *ngIf="evaluationForm.get('frequences_exposition')?.invalid && evaluationForm.get('frequences_exposition')?.touched">
+                                                  <p class="text-danger" *ngIf="evaluationForm.get('frequences_exposition')?.hasError('required')">Ce champ est obligatoire.</p>
                                                  </div>
                                                </div>
                                              
                                                <div class="form-group">
-                                                 <label class="label-important">Mesure de prévention </label>
+                                                 <label class="label-important">Mesure de prévention en place </label>
                                                  <textarea class="form-control" formControlName="mesure_prevention"></textarea>
                                                </div>
 
                                                <div class="form-group">
-                                                  <label class="label-important">ipr </label>
+                                                  <label class="label-important">ipr <label style="color: red;">*</label></label>
                                                   <input type="number" class="form-control" formControlName="ipr" min="0" required>
-                                                  <div class="invalid-feedback">
-                                                     Ce champs est obligatoire.
-                                                  </div>
+                                                  <div class="help-block with-errors" *ngIf="evaluationForm.get('ipr')?.invalid && evaluationForm.get('ipr')?.touched">
+                                                    <p class="text-danger" *ngIf="evaluationForm.get('ipr')?.hasError('required')">Ce champ est obligatoire.</p>
+                                                   </div>
                                                </div>
 
                                                <div class="form-group">
-                                                     <label class="label-important">indice risque </label>
+                                                     <label class="label-important">indice risque <label style="color: red;">*</label></label>
                                                      <select class="form-control" formControlName="indice_risque" required>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
                                                      </select>
-                                                     <div class="help-block with-errors">1 : faible /
+                                                     <p>
+                                                        1 : faible /
                                                         2 : moyen /
                                                         3 : élevé
+                                                     </p>
+                                                     <div class="help-block with-errors" *ngIf="evaluationForm.get('indice_risque')?.invalid && evaluationForm.get('indice_risque')?.touched">
+                                                      <p class="text-danger" *ngIf="evaluationForm.get('indice_risque')?.hasError('required')">Ce champ est obligatoire.</p>
                                                      </div>
                                                </div>
 
@@ -206,16 +230,16 @@
                                    </div>
                                 </div>
                              </div>
-                             <div id="table" class="table-editable">
+                             <div id="table" class="table-editable table-responsive">
                                <span class="table-add float-left mb-3 mr-2">
                                    <h6>Historique des accidents relatifs à ce danger</h6>
                                </span>
-                               <table class="table table-bordered table-responsive-md table-striped text-center">
+                               <table class="table table-bordered table-striped text-center">
                                    <tbody>
                                       <tr>
                                            <td style="width:20%">Accidents associés <a class="badge mr-2" style="background-color: #eac74b; color:white;" data-toggle="modal" data-target="#add_evenement"><i class="ri-add-line"></i></a></td>
                                            <td style="width:80%">
-                                               <table class="table table-bordered table-responsive-md table-striped text-center" style="border: 2cm;">
+                                               <table class="table table-bordered table-striped text-center" style="border: 2cm;">
                                                <tbody>
                                                <tr style="background-color: #089bd7;">
                                                    <th>Modifier</th>
@@ -451,10 +475,10 @@
                                                             <div class="invalid-feedback">
                                                                 Ce champs est obligatoire.
                                                             </div>
-                                                        </div>                            
+                                                        </div>
                                                     </div>
-                                                </div>                          
-                                                <div class="modal-footer">                                               
+                                                </div>
+                                                <div class="modal-footer">
                                                         <button type="submit" class="btn mr-2" style="background-color: #eac74b; color:white;" data-dismiss="modal" (click)="UpdateEvenementFormData()" [disabled]="evenementForm.invalid">Modifier</button>                                                                                                                                                                                            
                                                 </div>                                                       
                                              </form>
@@ -747,30 +771,39 @@
                                             <div class="card-body">
                                              <form [formGroup]="actionForm" class="needs-validation" enctype="multipart/form-data" novalidate>
                                                 <div class="form-group">
-                                                  <label for="intitule">Intitulé :</label>
-                                                  <input type="text" class="form-control" formControlName="intitule" />
+                                                  <label for="intitule">Intitulé action <label style="color: red;">*</label></label>
+                                                  <input type="text" class="form-control" formControlName="intitule" required>
+                                                  <div class="help-block with-errors" *ngIf="actionForm.get('intitule')?.invalid && actionForm.get('intitule')?.touched">
+                                                    <p class="text-danger" *ngIf="actionForm.get('intitule')?.hasError('required')">Ce champ est obligatoire.</p>
+                                                   </div>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="type_action">Type d'action :</label>
+                                                  <label for="type_action">Type d'action <label style="color: red;">*</label></label>
                                                   <select id="type_action" name="type_action" formControlName="type_action" class="custom-select" data-style="py-0" required>
-                                                   <option value="Corrective"  selected>Corrective</option>
+                                                    <option value="" selected disabled>Choisissez un type</option>
+                                                   <option value="Corrective" >Corrective</option>
                                                    <option value="Préventive" >Préventive</option>
                                                    <option value="Stratégique" >Stratégique</option>
                                                   </select>
+                                                  <div class="help-block with-errors" *ngIf="actionForm.get('type_action')?.invalid && actionForm.get('type_action')?.touched">
+                                                    <p class="text-danger" *ngIf="actionForm.get('type_action')?.hasError('required')">Ce champ est obligatoire.</p>
+                                                  </div>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="origine_action">Origine d'action :</label>
-                                                  <select id="origine_action" name="origine_action" formControlName="origine_action" class="custom-select" data-style="py-0" required>
+                                                  <label for="origine_action">Origine de l'action </label>
+                                                  <select id="origine_action" name="origine_action" formControlName="origine_action" class="custom-select" data-style="py-0">
+                                                    <option value="" selected disabled>Choisissez une origine</option>
                                                    <option value="Document unique"  selected>Document unique</option>
                                                   </select>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="reference">Référence :</label>
+                                                  <label for="reference">Référence action</label>
                                                   <input type="text" class="form-control" formControlName="reference" />
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="domaine">Domaine :</label>
-                                                  <select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0" required>
+                                                  <label for="domaine">Domaine </label>
+                                                  <select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0">
+                                                    <option value="" selected disabled>Choisissez un domaine</option>
                                                    <option value="Qualité"  selected>Qualité</option>
                                                    <option value="Préventive" >Sécurité</option>
                                                    <option value="Environement" >Environement</option>
@@ -778,66 +811,77 @@
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="site">Site :</label>
-                                                  <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+                                                  <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0">
                                                    <option value="" selected disabled>Choisissez un site</option>
                                                    <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
                                                   </select>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="processus">Processus :</label>
-                                                  <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+                                                  <label for="processus">Processus concerné par l'action</label>
+                                                  <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0">
                                                    <option value="" selected disabled>Choisissez un processus</option>
                                                    <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
                                                   </select>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="analyse_cause">Analyse cause (AC) / risques (AP) :</label>
+                                                  <label for="analyse_cause">Analyse cause (AC) / risques (AP)</label>
                                                   <textarea class="form-control" formControlName="analyse_cause"></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="plan_action">Plan d'action :</label>
+                                                  <label for="plan_action">Plan d'actions</label>
                                                   <textarea class="form-control" formControlName="plan_action"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                    <h5>Prise en charge de l'action</h5>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="delai_mise_en_oeuvre">Délai de mise en oeuvre :</label>
-                                                  <input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" />
+                                                  <label for="delai_mise_en_oeuvre">Délai de mise en oeuvre <label style="color: red;">*</label></label>
+                                                  <input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" required>
+                                                  <div class="help-block with-errors" *ngIf="actionForm.get('delai_mise_en_oeuvre')?.invalid && actionForm.get('delai_mise_en_oeuvre')?.touched">
+                                                    <p class="text-danger" *ngIf="actionForm.get('delai_mise_en_oeuvre')?.hasError('required')">Ce champ est obligatoire.</p>
+                                                  </div>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="assigne_a">Assigné à :</label>
-                                                  <input type="text" class="form-control" formControlName="assigne_a" />
+                                                  <label for="assigne_a">Assigné à</label>
+                                                  <input type="text" class="form-control" formControlName="assigne_a">
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="priorite">Priorité :</label>
-                                                  <select id="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0" required>
-                                                   <option value="1"  selected>1</option>
+                                                  <label for="priorite">Priorité</label>
+                                                  <select id="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0">
+                                                    <option value="" selected disabled>Choisissez une priorité</option>
+                                                   <option value="1" >1</option>
                                                    <option value="2" >2</option>
                                                    <option value="3" >3</option>
                                                   </select>
-                                                  <div class="help-block with-errors">1 : faible /
+                                                  <p>1 : faible /
                                                     2 : moyen /
-                                                    3 : élevé
+                                                    3 : élevé</p>
+                                                  <div class="help-block with-errors">
                                                  </div>
                                                 </div>
                                                 <div class="form-group">
                                                    <h5>Prise en charge de la mesure d'efficacité</h5>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="delai_mesure_eff">Délai de mesure effective :</label>
-                                                  <input type="date" class="form-control" formControlName="delai_mesure_eff" />
+                                                  <label for="delai_mesure_eff">Délai mesure efficacité</label>
+                                                  <input type="date" class="form-control" formControlName="delai_mesure_eff">
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="type_critere_eff">Type de critère effectif :</label>
-                                                  <input type="text" class="form-control" formControlName="type_critere_eff" />
+                                                  <label for="type_critere_eff">Type de critère d'effecacité</label>
+                                                  <select id="type_critere_eff" name="type_critere_eff" formControlName="type_critere_eff" class="custom-select" data-style="py-0">
+                                                    <option value="" selected disabled>-</option>
+                                                    <option value="1" >Atteinte d'un objectif précis</option>
+                                                    <option value="2" >Non (ré)apparition de la non-conformité</option>
+                                                    <option value="3" >Amélioration de la situation client</option>
+                                                    <option value="4" >Amélioration de l'efficacité globale du processus</option>
+                                                   </select>
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="detail_critere_eff">Détails du critère effectif :</label>
+                                                  <label for="detail_critere_eff">Détail sur la critère d'efficacité</label>
                                                   <textarea class="form-control" formControlName="detail_critere_eff"></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                   <label for="piece_jointe">Pièce jointe </label>
+                                                   <label for="piece_jointe">Pièce(s) jointe(s)</label>
                                                    <input type="file" class="form-control" id="piece_jointe" name="piece_jointe" formControlName="piece_jointe" (change)="onFileSelected($event)">
                                                 </div>
                                                 <div class="d-flex align-items-end flex-column" >
@@ -933,5 +977,21 @@
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
       <button type="button" class="btn btn-delete-modal" (click)="deleteAction()">Supprimer</button>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteModalE>
+    <div class="modal-header delete-header">
+      <h4 class="modal-title">Confirmation de la suppression</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Êtes-vous sûr de vouloir supprimer cette evaluation ?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+      <button type="button" class="btn btn-delete-modal" (click)="deleteEvaluation()">Supprimer</button>
     </div>
   </ng-template>

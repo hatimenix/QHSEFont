@@ -56,6 +56,8 @@ export const environment = {
     API_reunion: "http://127.0.0.1:8001/reunion/",
     API_AxesStrategique: "http://127.0.0.1:8001/AxesStrategiques/",
     API_URL_AT: "http://127.0.0.1:8001/arret_travail/",
+    API_ChangePassword: 'http://127.0.0.1:8001/api/change_password/', // Add the URL of the change_password endpoint here
+
 
 
 

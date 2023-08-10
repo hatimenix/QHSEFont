@@ -118,25 +118,25 @@ export class InfoDangerComponent {
       frequences_exposition: ['', Validators.required, Validators.min(0)],
       ipr: ['', Validators.required, Validators.min(0)],
       indice_risque: ['', Validators.required],
-      mesure_prevention: ['', Validators.required]
+      mesure_prevention: ['', Validators.maxLength(255)]
     });
 
     this.actionForm = this.formBuilder.group({ 
       intitule : ['', Validators.required],
       type_action : ['', Validators.required],
-      origine_action : ['', Validators.required],
-      reference : ['', Validators.required],
-      domaine : ['', Validators.required],
-      site : ['', Validators.required],
-      processus : ['', Validators.required],
-      analyse_cause : ['', Validators.required],
-      plan_action : ['', Validators.required],
+      origine_action : [''],
+      reference : ['', Validators.maxLength(100)],
+      domaine : [''],
+      site : [''],
+      processus : [''],
+      analyse_cause : ['', Validators.maxLength(255)],
+      plan_action : ['', Validators.maxLength(255)],
       delai_mise_en_oeuvre : ['', Validators.required],
-      assigne_a : ['', Validators.required],
-      priorite : ['', Validators.required],
-      delai_mesure_eff : ['', Validators.required],
-      type_critere_eff : ['', Validators.required],
-      detail_critere_eff : ['', Validators.required],
+      assigne_a : [''],
+      priorite : [''],
+      delai_mesure_eff : [''],
+      type_critere_eff : [''],
+      detail_critere_eff : ['', Validators.maxLength(255)],
       piece_jointe : ['']
     });
 
@@ -366,11 +366,24 @@ export class InfoDangerComponent {
   }
   */
 
+  //delete modal Evaluation
+  openDeleteModalE(id: number) {
+    this.idToDelete = id;
+  }
+
+  deleteEvaluation(): void {
+    this.apiEvaluationService.delEvaluation(this.idToDelete)
+      .subscribe(() => {
+        this.getEvaluationsByDangerId(this.dangerId);
+        this.modalRef.hide();
+      });
+    }
+
+  //delete modal Action
   openDeleteModal(id: number) {
     this.idToDelete = id;
   }
 
-  //delete modal 
   deleteAction(): void {
     this.apiActionsService.delAction(this.idToDelete)
       .subscribe(() => {

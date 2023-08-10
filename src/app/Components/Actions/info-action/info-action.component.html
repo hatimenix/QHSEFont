@@ -137,14 +137,12 @@
                                              <ul>
                                                 <li *ngFor="let tache of tache$ | async" style="list-style-type: none;"><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="color:#ffd140;" data-toggle="modal" data-target="#infostachesModal" (click)="ouvrirModal(tache)">{{ tache.nom_tache }}</a></li>
                                              </ul>
-                                             <div class="modal" tabindex="-1" role="dialog"
-                                                id="infostachesModal">
+                                             <div class="modal" tabindex="-1" role="dialog" id="infostachesModal">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                                    <div class="modal-content">
                                                       <div class="modal-header" style="background-color: #089bd7;">
                                                          <h5 class="modal-title" style="color:white">Description de la tache</h5>
-                                                         <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true" style="color:black">&times;</span>
                                                          </button>
                                                       </div>
@@ -193,16 +191,18 @@
                                                                </tr>
                                                                <tr>
                                                                   <td style="width:50%">Pièce jointe</td>
-                                                                  <td style="width:50%"><a href="{{ tacheSelectionnee ? tacheSelectionnee.piece_jointe : '' }}" target="_blank">
-                                                                     {{ tacheSelectionnee ? tacheSelectionnee.piece_jointe.split('/').pop().split('.pdf')[0] : '' }}
-                                                                   </a></td>
+                                                                  <td style="width:50%">
+                                                                     <a href="{{ tacheSelectionnee ? tacheSelectionnee.piece_jointe : '' }}" target="_blank">
+                                                                        {{ tacheSelectionnee ? tacheSelectionnee.piece_jointe.split('/').pop().split('.pdf')[0] : '' }}
+                                                                     </a>
+                                                                  </td>
                                                                </tr>
                                                             </tbody>
                                                          </table>
                                                       </div>
                                                       <div class="modal-footer">
-                                                         <button type="button" class="btn bg-warning"
-                                                            data-dismiss="modal">Fermer</button>
+                                                         
+                                                         <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -602,6 +602,22 @@
    </div>
    <div class="modal-body">
      Êtes-vous sûr de vouloir supprimer cette mesure d'éfficacité ?
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+     <button type="button" class="btn btn-delete-modal" (click)="deleteMesure()">Supprimer</button>
+   </div>
+ </ng-template>
+
+ <ng-template #deleteModalT>
+   <div class="modal-header delete-header">
+     <h4 class="modal-title">Confirmation de la suppression</h4>
+     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+     Êtes-vous sûr de vouloir supprimer cette tache ?
    </div>
    <div class="modal-footer">
      <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>

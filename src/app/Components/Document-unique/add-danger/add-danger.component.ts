@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, MaxLengthValidator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
@@ -52,10 +52,10 @@ export class AddDangerComponent {
 
 
     this.dangerForm = this.formBuilder.group({
-      poste_de_travail: ['', Validators.required],
-      taches: ['', Validators.required],
-      description: ['', Validators.required],
-      consequences: ['', Validators.required],
+      poste_de_travail: ['', [Validators.required, Validators.maxLength(40)]],
+      taches: ['', Validators.maxLength(250)],
+      description: ['', [Validators.required, Validators.maxLength(100), Validators.pattern(/^[^0-9]*$/)]],
+      consequences: ['', Validators.maxLength(250)],
       site: ['', Validators.required],
       service: ['', Validators.required],
       famille: ['', Validators.required]
