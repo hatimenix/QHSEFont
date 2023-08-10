@@ -40,7 +40,7 @@ export class AddPartieComponent {
   form = new FormGroup({
     typepartie: new FormControl(''),
     partieinteresse: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicatepartieinteresse.bind(this)]),
-    importance: new FormControl('', [Validators.minLength(3)]),
+    importance: new FormControl(''),
     nature: new FormControl('', [Validators.minLength(3)]),
     enjeux: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     besoin: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),

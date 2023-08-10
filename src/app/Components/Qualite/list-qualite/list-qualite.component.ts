@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Qualite } from 'src/app/models/qualite';
 import { QualiteService } from 'src/app/Services/Service-qualite/qualite.service';
@@ -54,14 +54,12 @@ export class ListQualiteComponent implements OnInit {
 
   form = new FormGroup({
     site: new FormControl(''),
-    titre: new FormControl(''),
+    titre: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     date_analyse: new FormControl(''),
-    reflexion: new FormControl(''),
-    objectifs: new FormControl(''),
-    commentaires_responsable: new FormControl(''),
-    objectifs_annees: new FormControl(''),
-
-
+    reflexion: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    objectifs: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    commentaires_responsable: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    objectifs_annees: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
   });
   constructor(private qualiteservice : QualiteService, private router : Router,private apiSiteService :ApiSiteService,private bsModalService: BsModalService){
 
@@ -150,7 +148,9 @@ export class ListQualiteComponent implements OnInit {
     this.idTodelete = id;
     this.deleteModal.show();
   }
-  
+  get f() {
+    return this.form.controls;
+  }
   
   delete() {
     this.qualiteservice.delete(this.idTodelete).subscribe({

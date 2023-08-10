@@ -24,7 +24,7 @@
               <i class="fas fa-search" style="font-size: 1rem;"></i>
             </span>
           </div>
-          <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+          <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Rechercher" [(ngModel)]="searchQuery" (input)="searchAndExpand(searchQuery)" >
           <div class="input-group-append">
             <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
               <i class="fas fa-times"></i>
@@ -175,16 +175,28 @@
                   <label for="type_exigence" class="form-label">Type d'exigence : </label>
                   <input name="type_exigence" value="{{type_exigence}}" [(ngModel)]="type_exigence" formControlName="type_exigence"
                     style="width: 100%;" type="text" class=" form-control" id="type_exigence">
+                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_exigence'].invalid">
+                      <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                  </div>
                 </div>
               <div class="col">
                 <label for="intitule" class="form-label">Intitulé : </label>
                 <input name="intitule" value="{{intitule}}" [(ngModel)]="intitule" formControlName="intitule"
                   style="width: 100%;" type="text" class=" form-control" id="intitule">
+                  <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].invalid">
+                    <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                    <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                </div>
               </div>
               <div class="col">
                 <label for="evaluation_maitrise" class="form-label">Evaluation de la maitrise : </label>
                 <input name="evaluation_maitrise" value="{{evaluation_maitrise}}" [(ngModel)]="evaluation_maitrise" formControlName="evaluation_maitrise"
                   style="width: 100%;" type="text" class=" form-control" id="evaluation_maitrise">
+                  <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['evaluation_maitrise'].invalid">
+                    <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                    <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -192,11 +204,19 @@
                 <label for="description" class="form-label">Description : </label>
                 <textarea name="description" value="{{description}}" [(ngModel)]="description" formControlName="description"
                   style="width: 100%;" type="text" class=" form-control" id="description" rows="2"></textarea>
+                  <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
+                    <div *ngIf="f['description'].errors && f['description'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                    <div *ngIf="f['description'].errors && f['description'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+                </div>
               </div>
               <div class="col">
                 <label for="commentaire" class="form-label" >Commentaire : </label>
                 <textarea name="commentaire" value="{{commentaire}}" [(ngModel)]="commentaire" formControlName="commentaire"
                   style="width: 100%;" type="text" class=" form-control" id="commentaire" rows="2"></textarea>
+                  <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaire'].invalid">
+                    <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                    <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+                </div>
               </div>
               </div>
               <div class="row">
@@ -221,7 +241,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="updateExigence()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+          <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="updateExigence()"><i class="fas fa-pencil-alt"></i> Modifier</button>
           <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
         </div>
       </div>

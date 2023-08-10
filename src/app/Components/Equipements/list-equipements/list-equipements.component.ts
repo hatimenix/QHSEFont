@@ -60,12 +60,12 @@ export class ListEquipementsComponent implements OnInit {
     site: new FormControl(''),
     secteur: new FormControl(''),
     type_equipement: new FormControl('', [Validators.minLength(3)]),
-    codification: new FormControl('', [ Validators.minLength(3)]),
+    codification: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     date_mise_en_service: new FormControl('',[Validators.required]),
     date_modification: new FormControl(''),
     verification: new FormControl('',[Validators.minLength(3)]),
     prochaine_verification: new FormControl('',[Validators.minLength(4)]),
-    commentaires: new FormControl('',[Validators.minLength(3)]),
+    commentaires: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     N_serie: new FormControl(''),
     Certificat: new FormControl(''),
     Equipement_declasse: new FormControl(''),
@@ -156,6 +156,9 @@ updateFile(event: any) {
   const file = event.target.files[0];
   this.Certificat=file
 
+}
+get f() {
+  return this.form.controls;
 }
 download(Certificat: string): void {
   this.equipementservice.downloadFile(Certificat);
@@ -257,16 +260,21 @@ getDisplayedRange(): string {
   return `Affichage de ${startIndex} à ${endIndex} de ${this.equipements.length} entrées`;
 }
 
-getRecordCount(site: any): number {
-  const sitePlans = this.equipements.filter(equipement => equipement.site === site.id);
-  return sitePlans.length;
-}
-getRecordSecteurCount(site: any,secteur: any): number {
-  const secteurPlans = this.equipements.filter(
-    (equipement) => equipement.site === site.id && equipement.secteur === secteur.id
+getRecordCount(site: any, secteur?: any): number {
+  const matchingEquipements = this.equipements.filter(equipement =>
+    equipement.site === site.id &&
+    (!secteur || equipement.secteur === secteur.id) &&
+    (
+      (equipement.type_equipement && equipement.type_equipement.includes(this.searchQuery)) ||
+      (equipement.codification && equipement.codification.includes(this.searchQuery)) ||
+      (equipement.verification && equipement.verification.includes(this.searchQuery)) ||
+      (equipement.commentaires && equipement.commentaires.includes(this.searchQuery)) ||
+      (equipement.N_serie && equipement.N_serie.includes(this.searchQuery))
+    )
   );
-    return secteurPlans.length;
+  return matchingEquipements.length;
 }
+
 closeSuccessModalAfterDelay(): void {
   setTimeout(() => {
     this.modalRef.hide();
@@ -274,7 +282,36 @@ closeSuccessModalAfterDelay(): void {
   }, 2300); 
 }
 
+searchAndExpand(query: string) {
+  this.searchQuery = query;
+  this.sites.forEach(site => {
+    site.expanded = false; 
+  });
+  this.secteurs.forEach(secteur => {
+    secteur.expanded = false; 
+  });
 
+  const matchingEquipements = this.equipements.filter(equipement =>
+    (equipement.type_equipement && equipement.type_equipement.includes(query)) ||
+    (equipement.codification && equipement.codification.includes(query)) ||
+    (equipement.verification && equipement.verification.includes(query)) ||
+    (equipement.commentaires && equipement.commentaires.includes(query)) ||
+    (equipement.N_serie && equipement.N_serie.includes(query))
+  );
+
+  matchingEquipements.forEach(matchingEquipement => {
+    const matchingSite = this.sites.find(site => site.id === matchingEquipement.site);
+    if (matchingSite) {
+      matchingSite.expanded = true;
+
+      this.secteurs.forEach(secteur => {
+        if (secteur.id === matchingEquipement.secteur) {
+          secteur.expanded = true;
+        }
+      });
+    }
+  });
+}
 
 }
 

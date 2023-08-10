@@ -73,28 +73,29 @@ export class ListFournisseursComponent implements OnInit {
   selectedFournisseurToDelete: number = 0;
 
   form = new FormGroup({
-    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    numerodesiret: new FormControl(''),
-    type_de_prestation: new FormControl(''),
-    numero_de_recepisse_de_declaration_prefectorale: new FormControl(''),
-    pageweb: new FormControl(''),
-    telephone: new FormControl(''),
-    numerodetelecopie: new FormControl(''),
-    adresse: new FormControl(''),
-    codepostal: new FormControl(''),
-    ville: new FormControl(''),
-    pays: new FormControl(''),
-    nometprenom: new FormControl(''),
-    adressedecourier: new FormControl(''),
-    fonction: new FormControl(''),
-    numerodetelephone: new FormControl(''),
-    telephonepersonnel: new FormControl(''),
+    nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    numerodesiret: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
+    type_de_prestation: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    numero_de_recepisse_de_declaration_prefectorale: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
+    pageweb: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    telephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
+    numerodetelecopie: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
+    adresse: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    codepostal: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
+    ville: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    pays: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    nometprenom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    adressedecourier: new FormControl('', [Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]),
+    fonction: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    numerodetelephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
+    telephonepersonnel: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
 
   });
   constructor(private el: ElementRef,private   fournisseurservice : FournisseurService, private router : Router, private bsModalService: BsModalService,){
 
   }
   ngOnInit(): void {
+    this.loadSettingsFromLocalStorage();
     this.getFournisseurs();
     document.addEventListener('click', this.onDocumentClick.bind(this));
     this.itemsPerPageOptions = [5, 10, 15];
@@ -211,7 +212,10 @@ getFournisseurData( id : number,
 toggleWindow(): void {
   this.isOpen = !this.isOpen;
 }
-  
+get f() {
+  return this.form.controls;
+}
+
 delete(ids: number[]) {
   ids.forEach(id => {
     this.fournisseurservice.delete(id).subscribe({
@@ -368,6 +372,16 @@ deleteItem() {
       this.modalRef.hide();
       location.reload();
     }, 2300); 
+  }
+  saveSettingsToLocalStorage() {
+    localStorage.setItem('settings', JSON.stringify(this.fieldsVisible));
+  }
+
+  loadSettingsFromLocalStorage() {
+    const savedSettings = localStorage.getItem('settings');
+    if (savedSettings) {
+      this.fieldsVisible = JSON.parse(savedSettings);
+    }
   }
   
 }

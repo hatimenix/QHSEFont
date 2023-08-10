@@ -12,7 +12,7 @@ export class Actions {
   analyse_cause !: string;
   plan_action !: string;
   delai_mise_en_oeuvre !: Date;
-  assigne_a !: string;
+  assigne_a !: number;
   priorite !: number;
   delai_mesure_eff !: Date;
   type_critere_eff !: string;
@@ -27,6 +27,7 @@ export class Actions {
   analyserisque !: number[];
   tache !: number[];
   ca !: number[];
+  utilisateur_name!: string;
 
   rn !: number[];
   constructor(
@@ -40,7 +41,7 @@ export class Actions {
     analyse_cause: string,
     plan_action: string,
     delai_mise_en_oeuvre: Date,
-    assigne_a: string,
+    assigne_a: number,
     priorite: number,
     delai_mesure_eff: Date,
     type_critere_eff: string,

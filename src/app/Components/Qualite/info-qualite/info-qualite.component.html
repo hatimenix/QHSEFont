@@ -43,11 +43,11 @@
                                                 <td class="col-sm-1">{{ qualite.reflexion }}</td>
                                              </tr>
                                              <tr class="table-default">
-                                                <td class="col-sm-1">OBJECTIFS(globaux,escarre,chutes,sonettes...)</td>
+                                                <td class="col-sm-1">OBJECTIFS (globaux,escarre,chutes,sonettes...)</td>
                                                 <td class="col-sm-1">{{ qualite.objectifs }}</td>
                                              </tr>
                                              <tr class="table-primary">
-                                                <td class="col-sm-1">Commentaires dub responsable</td>
+                                                <td class="col-sm-1">Commentaires du responsable</td>
                                                 <td class="col-sm-1">{{ qualite.commentaires_responsable }}</td>
                                              </tr>
                                              <tr class="table-default">
@@ -194,8 +194,8 @@
                                               <label for="intitule">Intitulé :</label>
                                               <input type="text" class="form-control" formControlName="intitule" />
                                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].invalid">
-                                                <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                                <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                                <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                             </div>
                                             </div>
                                            </div>
@@ -214,8 +214,8 @@
                                               <label for="origine_action">Origine d'action :</label>
                                               <input type="text" class="form-control" formControlName="origine_action" />
                                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['origine_action'].invalid">
-                                                <div *ngIf="f['origine_action'].errors && f['origine_action'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['origine_action'].errors && f['origine_action'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                                <div *ngIf="f['origine_action'].errors && f['origine_action'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                                <div *ngIf="f['origine_action'].errors && f['origine_action'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                             </div>
                                             </div>
                                             </div>
@@ -224,8 +224,8 @@
                                               <label for="reference">Référence :</label>
                                               <input type="text" class="form-control" formControlName="reference" />
                                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['reference'].invalid">
-                                                <div *ngIf="f['reference'].errors && f['reference'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['reference'].errors && f['reference'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                                <div *ngIf="f['reference'].errors && f['reference'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                                <div *ngIf="f['reference'].errors && f['reference'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                             </div>
                                             </div>
                                             </div>
@@ -266,8 +266,8 @@
                                               <label for="analyse_cause">Analyse cause (AC) / risques (AP) :</label>
                                               <textarea class="form-control" formControlName="analyse_cause"></textarea>
                                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['analyse_cause'].invalid">
-                                                <div *ngIf="f['analyse_cause'].errors && f['analyse_cause'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['analyse_cause'].errors && f['analyse_cause'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                                <div *ngIf="f['analyse_cause'].errors && f['analyse_cause'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                                <div *ngIf="f['analyse_cause'].errors && f['analyse_cause'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                             </div>
                                             </div>
                                             </div>
@@ -276,8 +276,8 @@
                                               <label for="plan_action">Plan d'action :</label>
                                               <textarea class="form-control" formControlName="plan_action"></textarea>
                                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['plan_action'].invalid">
-                                                <div *ngIf="f['plan_action'].errors && f['plan_action'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['plan_action'].errors && f['plan_action'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                                <div *ngIf="f['plan_action'].errors && f['plan_action'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                                <div *ngIf="f['plan_action'].errors && f['plan_action'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                             </div>
                                             </div>
                                            </div>
@@ -295,11 +295,10 @@
                                             <div class="col-4">
                                             <div class="form-group">
                                               <label for="assigne_a">Assigné à :</label>
-                                              <input type="text" class="form-control" formControlName="assigne_a" />
-                                              <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['assigne_a'].invalid">
-                                                <div *ngIf="f['assigne_a'].errors && f['assigne_a'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['assigne_a'].errors && f['assigne_a'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                                            </div>
+                                              <select id="assigne_a" name="assigne_a" formControlName="assigne_a" class="custom-select" data-style="py-0" required>
+                                                <option value="" selected disabled>Choisissez un utilisateur</option>
+                                                <option *ngFor="let assigne_a of utilisateurs$ | async" [value]="assigne_a.id">{{ assigne_a.nom }}</option>
+                                               </select> 
                                             </div>
                                             </div>
                                             <div class="col-4">
@@ -328,8 +327,8 @@
                                               <label for="type_critere_eff">Type de critère effectif :</label>
                                               <input type="text" class="form-control" formControlName="type_critere_eff" />
                                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_critere_eff'].invalid">
-                                                <div *ngIf="f['type_critere_eff'].errors && f['type_critere_eff'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['type_critere_eff'].errors && f['type_critere_eff'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                                <div *ngIf="f['type_critere_eff'].errors && f['type_critere_eff'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                                <div *ngIf="f['type_critere_eff'].errors && f['type_critere_eff'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                             </div>
                                             </div>
                                             </div>
@@ -338,8 +337,8 @@
                                               <label for="detail_critere_eff">Détails du critère effectif :</label>
                                               <textarea class="form-control" formControlName="detail_critere_eff"></textarea>
                                               <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['detail_critere_eff'].invalid">
-                                                <div *ngIf="f['detail_critere_eff'].errors && f['detail_critere_eff'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                                <div *ngIf="f['detail_critere_eff'].errors && f['detail_critere_eff'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                                <div *ngIf="f['detail_critere_eff'].errors && f['detail_critere_eff'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                                <div *ngIf="f['detail_critere_eff'].errors && f['detail_critere_eff'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                             </div>
                                             </div>
                                             </div>
@@ -375,7 +374,7 @@
  </div>
     
  <!-- update    -->
- <div class="modal fade bd-action-modal-lg" [class.show]="updateModalVisible"  id="update_action" tabindex="-1" role="dialog" aria-hidden="true">
+ <div class="modal fade bd-action-modal-lg" [class.show]="updateModalVisible"  id="update_action" tabindex="-1" role="dialog" aria-hidden="true" (click)="resetFormOnOutsideClick($event)" (keydown)="onEscKeyPress($event)">
    <div class="modal-dialog modal-lg">                          
        <div class="modal-content">
          <div class="modal-header" style="background-color: #089bd7;">
@@ -384,146 +383,178 @@
             <span aria-hidden="true" style="color:black">×</span>
             </button>
          </div>
-           <div class="modal-body">
-            <form [formGroup]="actionForm" (ngSubmit)="updateAction()"  class="needs-validation" novalidate>  
-              <div class="row">   
-                <div class="col">                                       
-               <div class="form-group">
-                  <label for="intitule">Intitulé :</label>
-                  <input type="text" class="form-control" formControlName="intitule" />
-                </div>
-                </div>
-                  <div class="col">
-                <div class="form-group">
-                  <label for="type_action">Type d'action :</label>
-                  <select id="type_action" name="type_action" formControlName="type_action" class="custom-select" data-style="py-0" >
-                   <option value="Corrective"  selected>Corrective</option>
-                   <option value="Préventive" >Préventive</option>
-                   <option value="Stratégique" >Stratégique</option>
-                  </select>
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="origine_action">Origine d'action :</label>
-                  <input type="text" class="form-control" formControlName="origine_action" />
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="reference">Référence :</label>
-                  <input type="text" class="form-control" formControlName="reference" />
-                </div>
-              </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                <div class="form-group">
-                  <label for="domaine">Domaine :</label>
-                  <select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0" >
-                   <option value="Qualité"  selected>Qualité</option>
-                   <option value="Sécurité" >Sécurité</option>
-                   <option value="Environement" >Environement</option>
-                  </select>
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="site">Site :</label>
-                  <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" >
-                   <option value="" selected disabled>Choisissez un site</option>
-                   <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
-                  </select>
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="processus">Processus :</label>
-                  <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" >
-                   <option value="" selected disabled>Choisissez un processus</option>
-                   <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
-                  </select>
-                </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                <div class="form-group">
-                  <label for="analyse_cause">Analyse cause (AC) / risques (AP) :</label>
-                  <textarea class="form-control" formControlName="analyse_cause"></textarea>
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="plan_action">Plan d'action :</label>
-                  <textarea class="form-control" formControlName="plan_action"></textarea>
-                </div>
-              </div>
-              </div>
-                <div class="form-group">
-                   <h5>Prise en charge de l'action</h5>
-                </div>
-                <div class="row">
-                  <div class="col">
-                <div class="form-group">
-                  <label for="delai_mise_en_oeuvre">Délai de mise en oeuvre :</label>
-                  <input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" />
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="assigne_a">Assigné à :</label>
-                  <input type="text" class="form-control" formControlName="assigne_a" />
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="priorite">Priorité :</label>
-                  <select id="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0" >
-                   <option value="1"  selected>1</option>
-                   <option value="2" >2</option>
-                   <option value="3" >3</option>
-                  </select>
-                </div>
-                </div>
-                </div>
-                <div class="form-group">
-                   <h5>Prise en charge de la mesure d'efficacité</h5>
-                </div>
-                <div class="row">
-                  <div class="col">
-                <div class="form-group">
-                  <label for="delai_mesure_eff">Délai de mesure effective :</label>
-                  <input type="date" class="form-control" formControlName="delai_mesure_eff" />
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="type_critere_eff">Type de critère effectif :</label>
-                  <input type="text" class="form-control" formControlName="type_critere_eff" />
-                </div>
-                </div>
-                <div class="col">
-                <div class="form-group">
-                  <label for="detail_critere_eff">Détails du critère effectif :</label>
-                  <textarea class="form-control" formControlName="detail_critere_eff"></textarea>
-                </div>
-              </div>
-              </div>
-              <div class="col mb-2">
-                <div class="custom-file">
-                  <input (change)="updateFile($event)" [(ngModel)]="piece_jointe" formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
-                  <label class="custom-file-label" for="customFile">{{ getSelectedFileName() }}</label>
-                </div>
-              </div>
-               <div class="d-flex align-items-end flex-column">
-                  <div class="mt-auto p-2">
-                     <button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
-                     <button type="button" class="btn btn-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
-                  </div>
-               </div>
-             </form>
-           </div>
+         <div class="modal-body">
+          <form [formGroup]="actionForm" (ngSubmit)="updateAction()"  class="needs-validation" novalidate>  
+          <div class="row">   
+          <div class="col">                                       
+          <div class="form-group">
+          <label for="intitule">Intitulé :</label>
+          <input type="text" class="form-control" formControlName="intitule" />
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].invalid">
+            <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+          </div>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="type_action">Type d'action :</label>
+          <select id="type_action" name="type_action" formControlName="type_action" class="custom-select" data-style="py-0" >
+          <option value="Corrective"  selected>Corrective</option>
+          <option value="Préventive" >Préventive</option>
+          <option value="Stratégique" >Stratégique</option>
+          </select>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="origine_action">Origine d'action :</label>
+          <input type="text" class="form-control" formControlName="origine_action" />
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['origine_action'].invalid">
+            <div *ngIf="f['origine_action'].errors && f['origine_action'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['origine_action'].errors && f['origine_action'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+          </div>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="reference">Référence :</label>
+          <input type="text" class="form-control" formControlName="reference" />
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['reference'].invalid">
+            <div *ngIf="f['reference'].errors && f['reference'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['reference'].errors && f['reference'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="row">
+          <div class="col">
+          <div class="form-group">
+          <label for="domaine">Domaine :</label>
+          <select id="domaine" name="domaine" formControlName="domaine" class="custom-select" data-style="py-0" >
+          <option value="Qualité"  selected>Qualité</option>
+          <option value="Sécurité" >Sécurité</option>
+          <option value="Environement" >Environement</option>
+          </select>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="site">Site :</label>
+          <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" >
+          <option value="" selected disabled>Choisissez un site</option>
+          <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+          </select>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="processus">Processus :</label>
+          <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" >
+          <option value="" selected disabled>Choisissez un processus</option>
+          <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+          </select>
+          </div>
+          </div>
+          </div>
+          <div class="row">
+          <div class="col">
+          <div class="form-group">
+          <label for="analyse_cause">Analyse cause (AC) / risques (AP) :</label>
+          <textarea class="form-control" formControlName="analyse_cause"></textarea>
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['analyse_cause'].invalid">
+            <div *ngIf="f['analyse_cause'].errors && f['analyse_cause'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['analyse_cause'].errors && f['analyse_cause'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+          </div>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="plan_action">Plan d'action :</label>
+          <textarea class="form-control" formControlName="plan_action"></textarea>
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['plan_action'].invalid">
+            <div *ngIf="f['plan_action'].errors && f['plan_action'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['plan_action'].errors && f['plan_action'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="form-group">
+          <h5>Prise en charge de l'action</h5>
+          </div>
+          <div class="row">
+          <div class="col">
+          <div class="form-group">
+          <label for="delai_mise_en_oeuvre">Délai de mise en oeuvre :</label>
+          <input type="date" class="form-control" formControlName="delai_mise_en_oeuvre" />
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="assigne_a">Assigné à :</label>
+          <select id="assigne_a" name="assigne_a" formControlName="assigne_a" class="custom-select" data-style="py-0" >
+            <option value="" selected disabled>Choisissez un utilisateur</option>
+            <option *ngFor="let assigne_a of utilisateurs$ | async" [value]="assigne_a.id">{{ assigne_a.nom }}</option>
+            </select>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="priorite">Priorité :</label>
+          <select id="priorite" name="priorite" formControlName="priorite" class="custom-select" data-style="py-0" >
+          <option value="1"  selected>1</option>
+          <option value="2" >2</option>
+          <option value="3" >3</option>
+          </select>
+          </div>
+          </div>
+          </div>
+          <div class="form-group">
+          <h5>Prise en charge de la mesure d'efficacité</h5>
+          </div>
+          <div class="row">
+          <div class="col">
+          <div class="form-group">
+          <label for="delai_mesure_eff">Délai de mesure effective :</label>
+          <input type="date" class="form-control" formControlName="delai_mesure_eff" />
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="type_critere_eff">Type de critère effectif :</label>
+          <input type="text" class="form-control" formControlName="type_critere_eff" />
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_critere_eff'].invalid">
+            <div *ngIf="f['type_critere_eff'].errors && f['type_critere_eff'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['type_critere_eff'].errors && f['type_critere_eff'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+          </div>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+          <label for="detail_critere_eff">Détails du critère effectif :</label>
+          <textarea class="form-control" formControlName="detail_critere_eff"></textarea>
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['detail_critere_eff'].invalid">
+            <div *ngIf="f['detail_critere_eff'].errors && f['detail_critere_eff'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['detail_critere_eff'].errors && f['detail_critere_eff'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="col mb-2">
+            <div class="custom-file">
+              <input (change)="updateFile($event)"  formControlName="piece_jointe" type="file" class="custom-file-input" id="customFile">
+              <label class="custom-file-label" for="customFile">{{ getSelectedFileName() }}</label>
+            </div>
+          </div>
+          
+          <div class="d-flex align-items-end flex-column">
+          <div class="mt-auto p-2">
+          <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+          <button type="button" class="btn btn-warning" (click)="actionForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+          </div>
+          </div>
+          </form>
+          </div>
        </div>
    </div>
 </div> 

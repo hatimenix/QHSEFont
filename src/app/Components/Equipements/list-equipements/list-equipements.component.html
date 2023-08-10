@@ -24,7 +24,7 @@
             <i class="fas fa-search" style="font-size: 1rem;"></i>
           </span>
         </div>
-        <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+        <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Rechercher" [(ngModel)]="searchQuery" (input)="searchAndExpand(searchQuery)">
         <div class="input-group-append">
           <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
             <i class="fas fa-times"></i>
@@ -51,9 +51,9 @@
     <div>
       <div class="col-lg-12">
         <div class="table-responsive rounded mb-3">
-          <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
+          <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info tree">
             <thead>
-              <tr >
+              <tr>
                 <th scope="col">Site</th>
                 <th scope="col">Secteur</th>
                 <th scope="col">Type d'équipement</th>
@@ -70,74 +70,90 @@
               </tr>
             </thead>
             <ng-container *ngFor="let site of sites">
-                <tbody class="ligth-body">
+              <tbody class="ligth-body">
+                <tr>
                   <td data-column="name">
                     <a href="javascript:void(0);" class="toggle-icon" (click)="site.expanded = !site.expanded">
                       <i class="fa fa-chevron-right" *ngIf="!site.expanded"></i>
                       <i class="fa fa-chevron-down" *ngIf="site.expanded"></i>
                     </a>
-                    <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }} : ( {{
-                      getRecordCount(site) }} )</a>
+                    <a href="javascript:void(0);" (click)="openSiteModal(site)">{{ site.site_nom }} : ({{ getRecordCount(site) }})</a>
                   </td>
-                  <ng-container *ngIf="site.expanded ">
-                    <ng-container *ngFor="let secteur of secteurs">
-                    <div class="row">
-                    <td data-column="name">
-                      <a href="javascript:void(0);" class="toggle-icon" (click)="secteur.expanded = !secteur.expanded">
-                        <i class="fa fa-chevron-right" *ngIf="!secteur.expanded"></i>
-                        <i class="fa fa-chevron-down" *ngIf="secteur.expanded"></i>
-                      </a>
-                      <a href="javascript:void(0);" (click)="openSecteurModal(secteur)">{{ secteur.secteur_nom }} : ( {{
-                        getRecordSecteurCount(site,secteur) }} )</a>
-                    </td>
-                  </div>
-                          
-                        <ng-container *ngIf="secteur.expanded">
-
-                    <ng-container *ngFor="let equipement of displayedEquipements| filter: searchQuery let i = index ">
-                      <tr *ngIf="(equipements)?.length === 0">
-                        <td colspan="11">Aucun équipement trouvé </td>
-                      </tr>
-
-                        <tr  *ngIf="equipement.site == site.id && equipement.secteur == secteur.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
+                  <td data-column="name"></td>
+                </tr>
+                <ng-container *ngIf="site.expanded">
+                  <ng-container *ngFor="let secteur of secteurs">
+                    <tr>
+                      <td data-column="name"></td>
+                      <td data-column="name">
+                        <a href="javascript:void(0);" class="toggle-icon" (click)="secteur.expanded = !secteur.expanded">
+                          <i class="fa fa-chevron-right" *ngIf="!secteur.expanded"></i>
+                          <i class="fa fa-chevron-down" *ngIf="secteur.expanded"></i>
+                        </a>
+                        <a href="javascript:void(0);" (click)="openSecteurModal(secteur)">{{ secteur.secteur_nom }} : ({{ getRecordCount(site, secteur) }})</a>
+                      </td>
+                    </tr>
+                    <ng-container *ngIf="secteur.expanded">
+                      <ng-container *ngFor="let equipement of displayedEquipements | filter: searchQuery; let i = index ">
+                        <tr *ngIf="(equipements)?.length === 0">
+                          <td colspan="11">Aucun équipement trouvé </td>
+                        </tr>
+                        <tr *ngIf="equipement.site == site.id && equipement.secteur == secteur.id" [ngClass]="{'table-primary': i % 2 == 0, 'table-default': i % 2 == 1 }">
                           <td></td>
-                        <td></td>
-                        <td>{{ equipement.type_equipement }}</td>
-                        <td>{{equipement.codification}}</td>
-                        <td>{{equipement.date_mise_en_service}}</td>
-                        <td>{{equipement.date_modification}}</td>
-                        <td>{{equipement.verification}}</td>
-                        <td>{{equipement.prochaine_verification}}</td>
-                        <td>
-                          <div class="scrollable-content">{{equipement.commentaires}}</div>
-                        </td>                        
-                        <td>{{equipement.Equipement_declasse ? 'Oui' : 'Non'}}</td>
-                        <td>{{equipement.N_serie}}</td>
-                        <td><a class="btn fa fa-download mr-3"   [href]="equipement.Certificat"> {{ equipement.Certificat ? equipement.Certificat.split('/').pop() : 'Aucun fichier joint' }}</a></td>
-                        <td>
-                          <div class="d-flex justify-content-start align-items-center list-action">
-                            <a  class="btn btn-sm btn-update mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#update"
-                              (click)="getEquipementData(equipement.id , equipement.site, equipement.secteur,equipement.type_equipement,equipement.codification,equipement.date_mise_en_service,equipement.date_modification,equipement.verification,equipement.prochaine_verification,equipement.commentaires,equipement.Equipement_declasse,equipement.N_serie)"
-                              data-placement="top" title="" data-original-title="Edit">
-                              <i class="ri-pencil-line mr-0" style="color: white;"></i>
+                          <td></td>
+                          <td>{{ equipement.type_equipement }}</td>
+                          <td>{{ equipement.codification }}</td>
+                          <td>{{ equipement.date_mise_en_service }}</td>
+                          <td>{{ equipement.date_modification }}</td>
+                          <td>{{ equipement.verification }}</td>
+                          <td>{{ equipement.prochaine_verification }}</td>
+                          <td>
+                            <div class="scrollable-content">{{ equipement.commentaires }}</div>
+                          </td>
+                          <td>{{ equipement.Equipement_declasse ? 'Oui' : 'Non' }}</td>
+                          <td>{{ equipement.N_serie }}</td>
+                          <td>
+                            <a class="btn fa fa-download mr-3" [href]="equipement.Certificat">
+                              {{ equipement.Certificat ? equipement.Certificat.split('/').pop() : 'Aucun fichier joint' }}
                             </a>
-                            <a class="btn btn-sm btn-delete mr-2" style="cursor: pointer;" data-toggle="tooltip"
-                              (click)="openDeleteModal(equipement.id)" data-placement="top" title=""
-                              data-original-title="Delete">
-                              <i class="ri-delete-bin-line mr-0" style="color: white;"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-
+                          </td>
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center list-action">
+                              <a
+                                class="btn btn-sm btn-update mr-2"
+                                style="cursor: pointer;"
+                                data-toggle="modal"
+                                data-target="#update"
+                                (click)="getEquipementData(equipement.id , equipement.site, equipement.secteur,equipement.type_equipement,equipement.codification,equipement.date_mise_en_service,equipement.date_modification,equipement.verification,equipement.prochaine_verification,equipement.commentaires,equipement.Equipement_declasse,equipement.N_serie)"
+                                data-placement="top"
+                                title=""
+                                data-original-title="Edit"
+                              >
+                                <i class="ri-pencil-line mr-0" style="color: white;"></i>
+                              </a>
+                              <a
+                                class="btn btn-sm btn-delete mr-2"
+                                style="cursor: pointer;"
+                                data-toggle="tooltip"
+                                (click)="openDeleteModal(equipement.id)"
+                                data-placement="top"
+                                title=""
+                                data-original-title="Delete"
+                              >
+                                <i class="ri-delete-bin-line mr-0" style="color: white;"></i>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                      </ng-container>
                     </ng-container>
                   </ng-container>
-              </ng-container>
+                </ng-container>
+              </tbody>
             </ng-container>
-            </ng-container>
-
           </table>
         </div>
+        
         <div class="pagination-container" style="display: flex; justify-content: space-between;">
           <div>
             <span class="entry-info">
@@ -219,7 +235,7 @@
                   <div class="col">
                     <label for="N_serie" class="form-label">N série (si thermomètre Genius) : </label>
                     <input name="N_serie" value="{{N_serie}}" [(ngModel)]="N_serie" formControlName="N_serie"
-                      style="width: 100%;" type="text" class=" form-control" id="N_serie">
+                      style="width: 100%;" type="number" class=" form-control" id="N_serie">
                   </div>
                   <div class="col">
                     <label>Vérification interne/externe</label>
@@ -251,6 +267,10 @@
                     <input name="codification" value="{{codification}}" [(ngModel)]="codification"
                       formControlName="codification" style="width: 100%;" type="text" class=" form-control"
                       id="codification">
+                      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].invalid">
+                        <div *ngIf="f['codification'].errors && f['codification'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['codification'].errors && f['codification'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                    </div>
                   </div>
                 </div>
                 <div class="col">
@@ -258,6 +278,10 @@
                   <textarea name="commentaires" value="{{commentaires}}" [(ngModel)]="commentaires"
                     formControlName="commentaires" style="width: 100%;" type="text" class=" form-control" 
                     id="commentaires" rows="3"></textarea>
+                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaires'].invalid">
+                      <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+                  </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
@@ -316,7 +340,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="updateEquipement()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+            <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="updateEquipement()"><i class="fas fa-pencil-alt"></i> Modifier</button>
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
           </div>
         </div>

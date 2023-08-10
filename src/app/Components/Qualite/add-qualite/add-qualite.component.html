@@ -25,9 +25,9 @@
                                    <label>Titre : <span style="color: red;">*</span></label>
                                    <input [(ngModel)]="qualitef.titre" type="text" formControlName="titre" class="form-control" data-errors="Please Enter Name." id="titre" required>
                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['titre'].invalid">
-                                    <div *ngIf="f['titre'].errors && f['titre'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                    <div *ngIf="f['titre'].errors && f['titre'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                                    <div *ngIf="f['titre'].errors && f['titre'].errors['duplicate']">Ce titre existe déjà !</div>
+                                    <div *ngIf="f['titre'].errors && f['titre'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['titre'].errors && f['titre'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                                    <div *ngIf="f['titre'].errors && f['titre'].errors['duplicate']"><i class="fas fa-exclamation-circle"></i> Ce titre existe déjà !</div>
                                 </div>
                                    <div class="help-block with-errors"></div>
                                </div>
@@ -43,8 +43,8 @@
                                   <label>Réflexion sur l'année précédente (Axes d'amélioration):</label>
                                   <textarea [(ngModel)]="qualitef.reflexion" formControlName="reflexion" class="form-control" rows="4"></textarea>
                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['reflexion'].invalid">
-                                    <div *ngIf="f['reflexion'].errors && f['reflexion'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                    <div *ngIf="f['reflexion'].errors && f['reflexion'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                    <div *ngIf="f['reflexion'].errors && f['reflexion'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['reflexion'].errors && f['reflexion'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                 </div>
                                   <div class="help-block with-errors"></div>
                                 </div>
@@ -54,8 +54,8 @@
                                   <label>OBJECTIFS (globaux, escarre, chutes, sonettes...):</label>
                                   <textarea [(ngModel)]="qualitef.objectifs" contenteditable="true" formControlName="objectifs" class="form-control" rows="4"></textarea>
                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['objectifs'].invalid">
-                                    <div *ngIf="f['objectifs'].errors && f['objectifs'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                    <div *ngIf="f['objectifs'].errors && f['objectifs'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                    <div *ngIf="f['objectifs'].errors && f['objectifs'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['objectifs'].errors && f['objectifs'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                 </div>
                                   <div class="help-block with-errors"></div>
                                 </div>
@@ -66,8 +66,8 @@
                                   <label>Commentaires du responsable:</label>
                                   <textarea [(ngModel)]="qualitef.commentaires_responsable" formControlName="commentaires_responsable" class="form-control" rows="4"></textarea>
                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaires_responsable'].invalid">
-                                    <div *ngIf="f['commentaires_responsable'].errors && f['commentaires_responsable'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                    <div *ngIf="f['commentaires_responsable'].errors && f['commentaires_responsable'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                    <div *ngIf="f['commentaires_responsable'].errors && f['commentaires_responsable'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['commentaires_responsable'].errors && f['commentaires_responsable'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                 </div>
                                   <div class="help-block with-errors"></div>
                                 </div>
@@ -78,8 +78,8 @@
                                   <label>Objectifs pour l'année:</label>
                                   <textarea [(ngModel)]="qualitef.objectifs_annees" formControlName="objectifs_annees" class="form-control" rows="4"></textarea>
                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['objectifs_annees'].invalid">
-                                    <div *ngIf="f['objectifs_annees'].errors && f['objectifs_annees'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                    <div *ngIf="f['objectifs_annees'].errors && f['objectifs_annees'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                    <div *ngIf="f['objectifs_annees'].errors && f['objectifs_annees'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['objectifs_annees'].errors && f['objectifs_annees'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                 </div>
                                   <div class="help-block with-errors"></div>
                                 </div>

@@ -17,9 +17,9 @@
                                 <label>Nom</label>
                                 <input [(ngModel)]="sourcef.nom" type="text" formControlName="nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="nom" required>
                                 <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nom'].invalid">
-                                  <div *ngIf="f['nom'].errors && f['nom'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                  <div *ngIf="f['nom'].errors && f['nom'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                                  <div *ngIf="f['nom'].errors && f['nom'].errors['duplicate']">Ce nom existe déjà !</div>
+                                  <div *ngIf="f['nom'].errors && f['nom'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                  <div *ngIf="f['nom'].errors && f['nom'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                                  <div *ngIf="f['nom'].errors && f['nom'].errors['duplicate']"><i class="fas fa-exclamation-circle"></i> Ce nom existe déjà !</div>
                               </div>
                               <div class="help-block with-errors"></div>
                             </div>

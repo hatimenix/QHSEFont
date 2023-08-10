@@ -12,6 +12,7 @@ import { Qualite } from 'src/app/models/qualite';
 import { ApiRealisationService } from 'src/app/Services/Service-document-unique/api-realisation.service';
 import { Realisations } from 'src/app/models/realisations';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 
 
 declare var window:any;
@@ -33,6 +34,7 @@ export class InfoQualiteComponent {
   actionForm!: FormGroup;
   sites$ !: Observable<any>;
   processus$ !: Observable<any>;
+  utilisateurs$ !: Observable<any>;
   actions$!: Observable<Actions[]>;
   siteName !: string;
   addedActionId !: number;
@@ -55,7 +57,9 @@ export class InfoQualiteComponent {
     private apiActionsService: ApiActionsService,
     private qualiteservice : QualiteService,
     private apiRealisationService: ApiRealisationService,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private apiUtilisateurService: ApiUtilisateurService
+
   ) { }
   ngOnInit(): void {
     this.actionForm = this.formBuilder.group({ 
@@ -69,7 +73,7 @@ export class InfoQualiteComponent {
       analyse_cause : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       plan_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       delai_mise_en_oeuvre : ['', Validators.required],
-      assigne_a : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      assigne_a : ['', Validators.required],
       priorite : ['', Validators.required],
       delai_mesure_eff : ['', Validators.required],
       type_critere_eff : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
@@ -95,6 +99,7 @@ export class InfoQualiteComponent {
     );
     this.sites$ = this.apiSiteService.getAllSite();
     this.processus$ = this.apiProcessusService.getAllProcessus();
+    this.utilisateurs$ = this.apiUtilisateurService.getAllUtilsateur();
     this.sites$.subscribe((sites) => {
       const site = sites.find((s:any) => s.id === this.qualite.site);
       if (site) {
@@ -283,5 +288,16 @@ export class InfoQualiteComponent {
       this.modalRef.hide();
       location.reload();
     }, 2300); 
+  }
+  resetFormOnOutsideClick(event: MouseEvent) {
+    const targetElement = event.target as HTMLElement;
+    if (!targetElement.closest('.modal-dialog')) {
+      this.actionForm.reset();
+    }
+  }
+  onEscKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.actionForm.reset();
+    }
   }
 }

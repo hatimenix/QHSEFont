@@ -9,6 +9,7 @@ import { Taches } from 'src/app/models/taches';
 import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { SourceService } from 'src/app/Services/Service-Source/source.service';
 import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
+import { Personnel } from 'src/app/models/Personnel';
 declare var window: any;
 
 @Component({
@@ -22,7 +23,7 @@ export class ListTachesComponent {
 
   sources: any[] = [];
   utilisateurs: any[] = [];
-  selectedUtilisateur: Utilsateur | undefined;  
+  selectedUtilisateur: Personnel | undefined;  
   updateModalVisible: boolean = true;
   autoCloseDropdown: boolean = true;
   @ViewChild('successModal', { static: true }) successModal:any;
@@ -67,15 +68,15 @@ export class ListTachesComponent {
   deleteModal: any;
   idTodelete: number = 0;
   form = new FormGroup({
-    nom_tache: new FormControl(''),
+    nom_tache: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     date_debut: new FormControl(''),
     echeance: new FormControl(''),
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     priorite: new FormControl(''),
     assigne_a: new FormControl(''),
     date_realisation: new FormControl(''),
     etat: new FormControl(''),
-    commentaire: new FormControl(''),
+    commentaire: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     piece_jointe: new FormControl(''),
     source: new FormControl(''),
 
@@ -84,6 +85,7 @@ export class ListTachesComponent {
 
   }
   ngOnInit(): void {
+    this.loadSettingsFromLocalStorage();
     this.apiUtilisateurService.getAllUtilsateur().subscribe(
       (data: any[]) => {
         this.utilisateurs = data;
@@ -177,6 +179,9 @@ if (this.date_realisation !== null && this.date_realisation !== undefined) {
       }
   });
 }
+get f() {
+  return this.form.controls;
+}
 getTacheData( id : number,
   nom_tache : any,
   date_debut : any  ,
@@ -237,8 +242,8 @@ updateFile(event: any) {
 download(piece_jointe: string): void {
   this.tacheservice.downloadFile(piece_jointe);
 }
-openUtilisateurModal(utilisateur: Utilsateur) {
-  this.selectedUtilisateur = utilisateur;
+openUtilisateurModal(personnel: Personnel) {
+  this.selectedUtilisateur = personnel;
   this.modalRef = this.bsModalService.show(this.utilisateurModal);
 }
 closeModalutilisateur(){
@@ -311,8 +316,18 @@ getDisplayedRange(): string {
   return `Affichage de ${startIndex} à ${endIndex} de ${this.filteredTaches.length} entrées`;
 }
 getRecordCount(source: any): number {
-  const sourcePlans = this.taches.filter(tache => tache.source === source.id);
-  return sourcePlans.length;
+  const matchingTaches = this.taches.filter(tache => tache.source === source.id);
+  const matchingExpandedTaches = matchingTaches.filter(sante =>
+    this.searchQuery === '' || (
+      (sante.nom_tache && sante.nom_tache.includes(this.searchQuery)) ||
+      (sante.description && sante.description.includes(this.searchQuery)) ||
+      (sante.priorite && sante.priorite.includes(this.searchQuery)) ||
+      (sante.etat && sante.etat.includes(this.searchQuery)) ||
+      (sante.commentaire && sante.commentaire.includes(this.searchQuery)) ||
+      (sante.utilisateur_name && sante.utilisateur_name.includes(this.searchQuery))
+    )
+  );
+  return matchingExpandedTaches.length;
 }
 fetchTachesData() {
   this.tacheservice.getAllTaches().subscribe(
@@ -359,5 +374,37 @@ closeSuccessModalAfterDelay(): void {
     this.modalRef.hide();
     location.reload();
   }, 2300); 
+}
+searchAndExpand(query: string) {
+  this.searchQuery = query; 
+  this.sources.forEach(source => {
+    source.expanded = false; 
+  });
+
+  const matchingTaches = this.taches.filter(tache =>
+    (tache.nom_tache && tache.nom_tache.includes(query)) ||
+    (tache.description && tache.description.includes(query)) ||
+    (tache.priorite && tache.priorite.includes(query)) ||
+    (tache.etat && tache.etat.includes(query)) ||
+    (tache.commentaire && tache.commentaire.includes(query)) ||
+    (tache.utilisateur_name && tache.utilisateur_name.includes(query)) 
+  );
+
+  matchingTaches.forEach(matchingSante => {
+    const matchingSource = this.sources.find(source => source.id === matchingSante.source);
+    if (matchingSource) {
+      matchingSource.expanded = true;
+    }
+  });
+}
+saveSettingsToLocalStorage() {
+  localStorage.setItem('settings', JSON.stringify(this.fieldsVisible));
+}
+
+loadSettingsFromLocalStorage() {
+  const savedSettings = localStorage.getItem('settings');
+  if (savedSettings) {
+    this.fieldsVisible = JSON.parse(savedSettings);
+  }
 }
 }

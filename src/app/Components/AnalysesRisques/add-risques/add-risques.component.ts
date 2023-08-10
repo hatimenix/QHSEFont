@@ -73,7 +73,7 @@ export class AddRisquesComponent {
       probabilite : ['', Validators.required],
       maitrise : ['', Validators.required],
       mesure : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
-      type_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      type_action : [''],
 
     });
     this.sites$ = this.apiSiteService.getAllSite();
@@ -132,5 +132,17 @@ export class AddRisquesComponent {
     setTimeout(() => {
       this.modalRef.hide();
     }, 2300); 
+  }
+  toggleCheckbox(checkboxValue: string, formControlName: string): void {
+    let selectedCheckboxes = this.analyseForm.controls[formControlName].value || [];
+
+    const index = selectedCheckboxes.indexOf(checkboxValue);
+
+    if (index > -1) {
+      selectedCheckboxes.splice(index, 1);
+    } else {
+      selectedCheckboxes.push(checkboxValue);
+    }
+    this.analyseForm.controls[formControlName].setValue(selectedCheckboxes);
   }
 }

@@ -17,9 +17,9 @@
                                   <label>Nom <span style="color: red;">*</span></label>
                                   <input [(ngModel)]="documentutilef.nom" type="text" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" required>
                                   <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nom'].invalid">
-                                    <div *ngIf="f['nom'].errors && f['nom'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                                    <div *ngIf="f['nom'].errors && f['nom'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                                    <div *ngIf="f['nom'].errors && f['nom'].errors['duplicate']">Ce nom existe déjà !</div>
+                                    <div *ngIf="f['nom'].errors && f['nom'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                                    <div *ngIf="f['nom'].errors && f['nom'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                                    <div *ngIf="f['nom'].errors && f['nom'].errors['duplicate']"><i class="fas fa-exclamation-circle"></i> Ce nom existe déjà !</div>
                                 </div>
                                </div>
                            </div>
@@ -28,8 +28,8 @@
                                 <label>Typologie </label>
                                 <input [(ngModel)]="documentutilef.typologie" type="text" formControlName="typologie" class="form-control" data-errors="Please Enter Name." id="typologie" >
                                 <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['typologie'].invalid">
-                                  <div *ngIf="f['typologie'].errors && f['typologie'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                                  <div *ngIf="f['typologie'].errors && f['typologie'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                  <div *ngIf="f['typologie'].errors && f['typologie'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                                  <div *ngIf="f['typologie'].errors && f['typologie'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                               </div>
                              </div>
                              </div>

@@ -24,7 +24,7 @@
               <i class="fas fa-search" style="font-size: 1rem;"></i>
             </span>
           </div>
-          <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+          <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Rechercher" [(ngModel)]="searchQuery" (input)="searchAndExpand(searchQuery)" >
           <div class="input-group-append">
             <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
               <i class="fas fa-times"></i>
@@ -65,19 +65,19 @@
             <div class="dropdown-menu dropdown-checkboxes" aria-labelledby="settingsDropdown" [ngClass]="{'show': !autoCloseDropdown}">
               <label class="dropdown-item">Afficher / masquer les colonnes</label>
               <label class="dropdown-item">
-                <input type="checkbox" [(ngModel)]="fieldsVisible['nom_tache']" /> Nom de la tâche
+                <input type="checkbox" [(ngModel)]="fieldsVisible['nom_tache']" (change)="saveSettingsToLocalStorage()" /> Nom de la tâche
               </label>
               <label class="dropdown-item">
-                <input type="checkbox" [(ngModel)]="fieldsVisible['echeance']" /> Échéance
+                <input type="checkbox" [(ngModel)]="fieldsVisible['echeance']" (change)="saveSettingsToLocalStorage()" /> Échéance
               </label>
               <label class="dropdown-item">
-                <input type="checkbox" [(ngModel)]="fieldsVisible['assigne_a']" /> Assigné à
+                <input type="checkbox" [(ngModel)]="fieldsVisible['assigne_a']" (change)="saveSettingsToLocalStorage()" /> Assigné à
               </label>
               <label class="dropdown-item">
-                <input type="checkbox" [(ngModel)]="fieldsVisible['priorite']" /> Priorité
+                <input type="checkbox" [(ngModel)]="fieldsVisible['priorite']" (change)="saveSettingsToLocalStorage()"/> Priorité
               </label>
               <label class="dropdown-item">
-                <input type="checkbox" [(ngModel)]="fieldsVisible['etat']" /> État
+                <input type="checkbox" [(ngModel)]="fieldsVisible['etat']" (change)="saveSettingsToLocalStorage()" /> État
               </label>
             </div>
           </div>
@@ -275,6 +275,10 @@
                   <div class="col">
                     <label>Nom de la tâche <span style="color: red;">*</span></label>
                     <input [(ngModel)]="nom_tache" value="{{nom_tache}}" type="text" formControlName="nom_tache" class="form-control" data-errors="Please Enter Name." id="nom_tache" >
+                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nom_tache'].invalid">
+                      <div *ngIf="f['nom_tache'].errors && f['nom_tache'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['nom_tache'].errors && f['nom_tache'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                  </div>
                   </div>
                 <div class="col">
                   <label>Date de début <span style="color: red;">*</span></label>
@@ -325,10 +329,18 @@
                   <div class="col">
                     <label>Description</label>
                     <textarea [(ngModel)]="description" value="{{description}}" formControlName="description" class="form-control" id="description" name="description" rows="2"></textarea>
+                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
+                      <div *ngIf="f['description'].errors && f['description'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['description'].errors && f['description'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+                  </div>
                   </div>
                   <div class="col">
                     <label>Commentaires</label>
                     <textarea [(ngModel)]="commentaire" value="{{commentaire}}" type="text" formControlName="commentaire" class="form-control" data-errors="Please Enter Name." id="commentaire" rows="2"></textarea>
+                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaire'].invalid">
+                      <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+                  </div>
                   </div>
                   </div>
                 <br>
@@ -346,7 +358,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="updateTache()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+            <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="updateTache()"><i class="fas fa-pencil-alt"></i> Modifier</button>
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
           </div>
         </div>
@@ -377,17 +389,23 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    
     <div class="modal-body">
-      <p><strong>Compte :</strong> {{ selectedUtilisateur?.compte }}</p>
-      <p><strong>Nom:</strong> {{ selectedUtilisateur?.nom }}</p>
-      <p><strong>Courrier électronique:</strong> {{ selectedUtilisateur?.courrier }}</p>
-      <p><strong>Numéro de téléphone mobile:</strong> {{ selectedUtilisateur?.numero_tel }}</p>
-      <p><strong>Je me présente:</strong> {{ selectedUtilisateur?.presente_vous }}</p>
-      <p><strong>Image: </strong><img class="rounded img-fluid avatar-15" [src]="selectedUtilisateur?.image" alt="Image"></p>
-      <p><strong>Service:</strong> {{ selectedUtilisateur?.fonction }}</p>
-      <p><strong>Adresse SIP:</strong> {{ selectedUtilisateur?.adresse_sip }}</p>
-      <p><strong>OtherMail:</strong> {{ selectedUtilisateur?.othermail }}</p>
+      <div class="d-flex align-items-left mb-3">
+        <div class="profile-img position-relative">
+          <img src="{{ selectedUtilisateur?.image }}" class="img-fluid rounded avatar-110" alt="profile-image">
+        </div>
+        <div class="ml-3">
+          <h4 class="mb-1">{{ selectedUtilisateur?.nom }}</h4>
+          <p class="mb-0">Email : {{ selectedUtilisateur?.email }}</p>
+          <p class="mb-0">Numéro :
+            {{ selectedUtilisateur?.numero_tel }}
+          </p>
+          <p class="mb-0"> Fonction : {{ selectedUtilisateur?.fonction }}</p>
+          <p class="mb-0"> Adresse sip : {{ selectedUtilisateur?.adresse_sip }}</p>
+          <p class="mb-0">OtherMail : {{ selectedUtilisateur?.othermail }}</p>
+          <p class="mb-0">Présentez-vous : {{ selectedUtilisateur?.presente_vous }}</p>
+        </div>
+      </div>
     </div>
     
   </ng-template>

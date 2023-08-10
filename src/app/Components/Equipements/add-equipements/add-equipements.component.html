@@ -56,9 +56,9 @@
                                     <label>Codification <span style="color: red;">*</span></label>
                                     <input [(ngModel)]="equipementf.codification" type="text" formControlName="codification" class="form-control"  data-errors="Please Enter Name." id="codification" required>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['codification'].invalid">
-                                     <div *ngIf="f['codification'].errors && f['codification'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                     <div *ngIf="f['codification'].errors && f['codification'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                                     <div *ngIf="f['codification'].errors && f['codification'].errors['duplicate']">Cette codification existe déjà !</div>
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                                     <div *ngIf="f['codification'].errors && f['codification'].errors['duplicate']"><i class="fas fa-exclamation-circle"></i> Cette codification existe déjà !</div>
                                  </div>
                                  <div class="help-block with-errors"></div>
                              </div>
@@ -110,8 +110,8 @@
                                     <label>Commentaires </label>
                                     <textarea [(ngModel)]="equipementf.commentaires" type="text" formControlName="commentaires" class="form-control"  data-errors="Please Enter Name." id="commentaires" rows="3" ></textarea>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaires'].invalid">
-                                        <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                        <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['commentaires'].errors && f['commentaires'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                     </div>
                                     <div class="help-block with-errors"></div>
                                 </div>

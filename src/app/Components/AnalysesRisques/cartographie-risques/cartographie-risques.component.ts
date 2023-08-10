@@ -9,6 +9,14 @@ import { CotationService } from 'src/app/Services/Service-cotation/cotation.serv
 import { AnalyseRisques } from 'src/app/models/analyse-risques';
 import { Cotation } from 'src/app/models/cotation';
 declare var window:any;
+type OptionType = 'type_action';
+interface Option {
+  label: string;
+  value: string;
+  checked: boolean;
+  type: OptionType;
+}
+
 
 @Component({
   selector: 'app-cartographie-risques',
@@ -130,6 +138,7 @@ export class CartographieRisquesComponent {
   indice : any;
   deletModal : any;
   idToDelete: number = 0;
+  type_action: string[] = [];
 
   constructor(
     private risqueservice: AnalyseRisquesService,
@@ -145,24 +154,24 @@ export class CartographieRisquesComponent {
     this.getCotations();
     this.analyseForm = this.formBuilder.group({ 
       site : ['', Validators.required],
-      description : ['', Validators.required],
-      typologie : ['', Validators.required],
-      axe : ['', Validators.required],
-      famille : ['', Validators.required],
+      description : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      typologie : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      axe : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      famille : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       indice : ['', Validators.required],
-      niveau_risque : ['', Validators.required],
+      niveau_risque : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       date_evaluation : ['', Validators.required],
-      opportunite : ['', Validators.required],
-      origine : ['', Validators.required],
+      opportunite : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      origine : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       processus : ['', Validators.required],
-      contexte_int : ['', Validators.required],
-      contexte_ext : ['', Validators.required],
-      consequences : ['', Validators.required],
+      contexte_int : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      contexte_ext : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      consequences : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       impact : ['', Validators.required],
       probabilite : ['', Validators.required],
       maitrise : ['', Validators.required],
-      mesure : ['', Validators.required],
-      type_action : ['', Validators.required],
+      mesure : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      type_action : [''],
 
     });
     this.sites$ = this.apiSiteService.getAllSite();
@@ -212,8 +221,9 @@ export class CartographieRisquesComponent {
       formData.append('probabilite', this.analyseForm.get('probabilite')!.value);
       formData.append('maitrise', this.analyseForm.get('maitrise')!.value);
       formData.append('mesure', this.analyseForm.get('mesure')!.value);
-      formData.append('type_action', this.analyseForm.get('type_action')!.value);
-
+      const selectedTypeAction = this.options.filter(option => option.checked).map(option => option.value);
+      const typeActionString = selectedTypeAction.join(',');
+      formData.append('type_action', typeActionString);
     this.risqueservice.updateAnalyseRisqueFormdata(this.idAnalyse,formData).subscribe(
         () => {
           console.log('Analyse a été modifiée avec succès.');
@@ -224,6 +234,9 @@ export class CartographieRisquesComponent {
         },
         error => console.log(error)
       );
+  }
+  get f() {
+    return this.analyseForm.controls;
   }
   openDeleteModal(id: number) {
     this.idToDelete = id;
@@ -267,6 +280,9 @@ export class CartographieRisquesComponent {
       mesure: this.analyse.mesure,
       type_action: this.analyse.type_action
 
+    });
+    this.options.forEach((option) => {
+      option.checked = this.analyse.type_action.includes(option.value);
     });
     const modal = new window.bootstrap.Modal(document.getElementById('updateAnalyse'));
     modal.show();
@@ -377,5 +393,39 @@ export class CartographieRisquesComponent {
       this.modalRef.hide();
       location.reload();
     }, 2300); 
+  }
+  options: Option[] = [
+    { label: "Abandon de l'activité concernée par le risque", value: "Abandon de l'activité concernée par le risque", checked: false, type: 'type_action' },
+    { label: 'Acceptation du risque dans le but de poursuivre une opportunité (on accepte le risque)', value: 'Acceptation du risque dans le but de poursuivre une opportunité (on accepte le risque)', checked: false, type: 'type_action' },
+    { label: 'Elimination de la source du risque', value: 'Elimination de la source du risque', checked: false, type: 'type_action' },
+    { label: "Modification de la probabilité d'apparition du risque (vraisemblance)", value: "Modification de la probabilité d'apparition du risque (vraisemblance)", checked: false, type: 'type_action' },
+    { label: 'Modification des conséquences', value: 'Modification des conséquences', checked: false, type: 'type_action' },
+    { label: "Partage du risque avec d'autres parties intéressées (assurance, clients, etc...)", value: "Partage du risque avec d'autres parties intéressées (assurance, clients, etc...)", checked: false, type: 'type_action' },
+  ];
+
+  toggleCheckbox(checkboxValue: string, optionType: string): void {
+    const option = this.options.find(opt => opt.value === checkboxValue && opt.type === optionType);
+
+    if (option) {
+      option.checked = !option.checked;
+      this.updateCheckboxes(optionType);
+    }
+  }
+
+  isCheckboxChecked(checkboxValue: string, optionType: string): boolean {
+    const option = this.options.find(opt => opt.value === checkboxValue && opt.type === optionType);
+    return option ? option.checked : false;
+  }
+  
+  updateCheckboxes(optionType: string): void {
+    if (optionType === 'type_action') {
+      this.type_action = this.options
+        .filter(opt => opt.type === 'type_action' && opt.checked)
+        .map(opt => opt.value);
+    } 
+  }
+
+  getOptions(type: string): Option[] {
+    return this.options.filter(option => option.type === type);
   }
 }

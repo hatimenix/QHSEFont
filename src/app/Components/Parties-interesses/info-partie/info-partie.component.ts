@@ -14,6 +14,13 @@ import { AnalyseRisquesService } from 'src/app/Services/Service-analyseRisques/a
 import { ExigencesService } from 'src/app/Services/Service-exigences/exigences.service';
 
 declare var window:any;
+type OptionType = 'type_action';
+interface Option {
+  label: string;
+  value: string;
+  checked: boolean;
+  type: OptionType;
+}
 
 
 @Component({
@@ -51,6 +58,8 @@ export class InfoPartieComponent {
   idExigence !: number;
   exigence !: Exigences;
   indice : any;
+  type_action: string[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private partieservice : PartieService,
@@ -81,15 +90,15 @@ export class InfoPartieComponent {
       probabilite : ['', Validators.required],
       maitrise : ['', Validators.required],
       mesure : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
-      type_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      type_action : [''],
 
     });
     this.exigenceForm = this.formBuilder.group({ 
       type_exigence : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       intitule : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       evaluation_maitrise : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
-      description : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
-      commentaire : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      description : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      commentaire : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
 
     });
@@ -197,7 +206,9 @@ export class InfoPartieComponent {
         formData.append('probabilite', this.analyseForm.get('probabilite')!.value);
         formData.append('maitrise', this.analyseForm.get('maitrise')!.value);
         formData.append('mesure', this.analyseForm.get('mesure')!.value);
-        formData.append('type_action', this.analyseForm.get('type_action')!.value);
+        const selectedTypeAction = this.options.filter(option => option.checked).map(option => option.value);
+        const typeActionString = selectedTypeAction.join(',');
+        formData.append('type_action', typeActionString);        
         formData.append('partieinteresses', String(this.partieId));
 
       this.analyseservice.updateAnalyseRisqueFormdata(this.idAnalyse,formData).subscribe(
@@ -236,6 +247,9 @@ export class InfoPartieComponent {
         mesure: this.analyse.mesure,
         type_action: this.analyse.type_action
 
+      });
+      this.options.forEach((option) => {
+        option.checked = this.analyse.type_action.includes(option.value);
       });
       const modal = new window.bootstrap.Modal(document.getElementById('updateAnalyse'));
       modal.show();
@@ -349,5 +363,76 @@ export class InfoPartieComponent {
         this.modalRef.hide();
         location.reload();
       }, 2300); 
+    }
+    toggleCheckbox(checkboxValue: string, formControlName: string): void {
+      let selectedCheckboxes = this.analyseForm.controls[formControlName].value || [];
+  
+      const index = selectedCheckboxes.indexOf(checkboxValue);
+  
+      if (index > -1) {
+        selectedCheckboxes.splice(index, 1);
+      } else {
+        selectedCheckboxes.push(checkboxValue);
+      }
+      this.analyseForm.controls[formControlName].setValue(selectedCheckboxes);
+    }
+    options: Option[] = [
+      { label: "Abandon de l'activité concernée par le risque", value: "Abandon de l'activité concernée par le risque", checked: false, type: 'type_action' },
+      { label: 'Acceptation du risque dans le but de poursuivre une opportunité (on accepte le risque)', value: 'Acceptation du risque dans le but de poursuivre une opportunité (on accepte le risque)', checked: false, type: 'type_action' },
+      { label: 'Elimination de la source du risque', value: 'Elimination de la source du risque', checked: false, type: 'type_action' },
+      { label: "Modification de la probabilité d'apparition du risque (vraisemblance)", value: "Modification de la probabilité d'apparition du risque (vraisemblance)", checked: false, type: 'type_action' },
+      { label: 'Modification des conséquences', value: 'Modification des conséquences', checked: false, type: 'type_action' },
+      { label: "Partage du risque avec d'autres parties intéressées (assurance, clients, etc...)", value: "Partage du risque avec d'autres parties intéressées (assurance, clients, etc...)", checked: false, type: 'type_action' },
+    ];
+  
+    toggleCheckboxupdate(checkboxValue: string, optionType: string): void {
+      const option = this.options.find(opt => opt.value === checkboxValue && opt.type === optionType);
+  
+      if (option) {
+        option.checked = !option.checked;
+        this.updateCheckboxes(optionType);
+      }
+    }
+  
+    isCheckboxChecked(checkboxValue: string, optionType: string): boolean {
+      const option = this.options.find(opt => opt.value === checkboxValue && opt.type === optionType);
+      return option ? option.checked : false;
+    }
+    
+    updateCheckboxes(optionType: string): void {
+      if (optionType === 'type_action') {
+        this.type_action = this.options
+          .filter(opt => opt.type === 'type_action' && opt.checked)
+          .map(opt => opt.value);
+      } 
+    }
+  
+    getOptions(type: string): Option[] {
+      return this.options.filter(option => option.type === type);
+    }
+    getTrimmedValues(data: string): string[] {
+      return data.split(',').map(item => item.trim());
+    }
+    resetFormOnOutsideClickAnalyse(event: MouseEvent) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest('.modal-dialog')) {
+        this.analyseForm.reset();
+      }
+    }
+    resetFormOnOutsideClickExigence(event: MouseEvent) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest('.modal-dialog')) {
+        this.exigenceForm.reset();
+      }
+    }
+    onEscKeyPressAnalyse(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.analyseForm.reset();
+      }
+    }
+    onEscKeyPressExigence(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.exigenceForm.reset();
+      }
     }
 }

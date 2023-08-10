@@ -25,7 +25,7 @@
             <i class="fas fa-search" style="font-size: 1rem;"></i>
           </span>
         </div>
-        <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" (input)="filterOptions()">
+        <input  style="height: 45px;"  type="text" class="form-control form-control-sm" placeholder="Rechercher" [(ngModel)]="searchQuery" (input)="filterOptions()">
         <div class="input-group-append">
           <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
             <i class="fas fa-times"></i>
@@ -33,20 +33,21 @@
         </div>
       </div>
     </div>
-      <div class="row justify-content-between" >
-    <ul class="list-inline"  >
-      <li class="list-inline-item" *ngFor="let option of filteredOptions.slice(0, 3)">
+      <div class="d-flex justify-content-between" >
+    <div class="d-flex flex-wrap">
+      <ng-container *ngFor="let option of filteredOptions.slice(0, 3)">
         <button class="btn" (click)="selectOption(option)">{{ option }}</button>
-      </li>
-      <li class="list-inline-item dropdown" *ngIf="filteredOptions.length > 3">
+      </ng-container>
+      <div class="dropdown ml-auto" *ngIf="filteredOptions.length > 3">
         <button class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-ellipsis-h"></i>
         </button>
         <div class="dropdown-menu">
           <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of filteredOptions.slice(3)" (click)="selectOption(option)">{{ option }}</a>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
+
     <div class="dropdown">
       <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
@@ -205,6 +206,10 @@
                     <label for="partieinteresse" class="form-label">Partie intéressée : </label>
                     <input name="partieinteresse" value="{{partieinteresse}}" [(ngModel)]="partieinteresse" formControlName="partieinteresse"
                       style="width: 100%;" type="text" class=" form-control" id="partieinteresse">
+                      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['partieinteresse'].invalid">
+                        <div *ngIf="f['partieinteresse'].errors && f['partieinteresse'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['partieinteresse'].errors && f['partieinteresse'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                    </div>
                   </div>
                 <div class="col">
                   <div class="form-group">
@@ -237,20 +242,22 @@
               <div class="row">
                 <div class="col">
                   <label for="enjeux" class="form-label" >Enjeux associés : </label>
-                  <input name="enjeux" value="{{enjeux}}" [(ngModel)]="enjeux" formControlName="enjeux"
-                    style="width: 100%;" type="text" class=" form-control" id="enjeux">
+                  <textarea name="enjeux" value="{{enjeux}}" [(ngModel)]="enjeux" formControlName="enjeux"
+                    style="width: 100%;" type="text" class=" form-control" id="enjeux" rows="3"></textarea>
+                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['enjeux'].invalid">
+                      <div *ngIf="f['enjeux'].errors && f['enjeux'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['enjeux'].errors && f['enjeux'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+                  </div>
                 </div>
                 <div class="col">
                   <label for="besoin" class="form-label" title="Besoin,attente,exigence de la partie intéressée"> Besoins : </label>
-                  <input name="besoin" value="{{besoin}}" [(ngModel)]="besoin"
+                  <textarea name="besoin" value="{{besoin}}" [(ngModel)]="besoin"
                     formControlName="besoin" style="width: 100%;" type="text" class=" form-control"
-                    id="besoin">
-                </div>
-                <div class="col">
-                  <label for="impactfinal" class="form-label">Impact sur le client final : </label>
-                  <input name="impactfinal" value="{{impactfinal}}" [(ngModel)]="impactfinal"
-                    formControlName="impactfinal" style="width: 100%;" type="text" class=" form-control"
-                    id="impactfinal">
+                    id="besoin" rows="3"></textarea>
+                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['besoin'].invalid">
+                      <div *ngIf="f['besoin'].errors && f['besoin'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['besoin'].errors && f['besoin'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+                  </div>
                 </div>
                 </div>
                 <div class="row">
@@ -259,25 +266,31 @@
                     <input name="impactentreprise" value="{{impactentreprise}}" [(ngModel)]="impactentreprise"
                       formControlName="impactentreprise" style="width: 100%;" type="text" class=" form-control"
                       id="impactentreprise">
+                      <div style="color: green; margin-top: 10px;" *ngIf="f['impactentreprise'].valid && (f['impactentreprise'].dirty || f['impactentreprise'].touched)"><i class="fas fa-check-circle"></i> 
+                        Impact sur notre entreprise valide.
+                      </div>
                   </div>
                   <div class="col">
                   <label for="cotation" class="form-label">Cotation : </label>
                   <input name="cotation" value="{{cotation}}" [(ngModel)]="cotation"
                     formControlName="cotation" style="width: 100%;" type="text" class=" form-control"
                     id="cotation">
+                    <div style="color: green; margin-top: 10px;" *ngIf="f['cotation'].valid && (f['cotation'].dirty || f['cotation'].touched)"><i class="fas fa-check-circle"></i> 
+                      Cotation valide.
+                    </div>
                 </div>
                 <div class="col">
-                  <label for="impact" class="form-label">impact : </label>
-                  <select [(ngModel)]="impact" value="{{impact}}" id="impact"
-                      formControlName="impact" class="form-control" class="custom-select">
-                      <option>1.Elevé</option>
-                      <option>2.Moyen</option>
-                      <option>3.Bas</option>
-                    </select>
+                  <label for="impactfinal" class="form-label">Impact sur le client final : </label>
+                  <input name="impactfinal" value="{{impactfinal}}" [(ngModel)]="impactfinal"
+                    formControlName="impactfinal" style="width: 100%;" type="text" class=" form-control"
+                    id="impactfinal">
+                    <div style="color: green; margin-top: 10px;" *ngIf="f['impactfinal'].valid && (f['impactfinal'].dirty || f['impactfinal'].touched)"><i class="fas fa-check-circle"></i> 
+                      Impact sur le client final valide.
+                    </div>
                 </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-md-4">
                     <label for="typepartie" class="form-label">Type partie : </label>
                     <select [(ngModel)]="typepartie" id="typepartie" name="typepartie" formControlName="typepartie" style="width: 100%;"
                       class="form-control" class="custom-select">
@@ -285,7 +298,16 @@
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label>Processus <label style="color: red;">*</label></label>
+                    <label for="impact" class="form-label">impact : </label>
+                    <select [(ngModel)]="impact" value="{{impact}}" id="impact"
+                        formControlName="impact" class="form-control" class="custom-select">
+                        <option>1.Elevé</option>
+                        <option>2.Moyen</option>
+                        <option>3.Bas</option>
+                      </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label>Processus <span style="color: red;">*</span></label>
                     <div class="checkbox-list">
                     <div *ngFor="let processus of processuss.slice(0.5);let i=index">
                       <label>
@@ -304,7 +326,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="updatePartie()"><i class="fas fa-pencil-alt"></i> Modifier</button>
+            <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="updatePartie()"><i class="fas fa-pencil-alt"></i> Modifier</button>
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
           </div>
         </div>

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ConstatAuditService } from 'src/app/Services/Service-constatAudit/constat-audit.service';
 import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-actions.service';
 import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { ServicesNonConfirmitéService } from 'src/app/Services/Services-non-confirmité/services-non-confirmité.service';
 import { Actions } from 'src/app/models/actions';
+import { ConstatAudit } from 'src/app/models/constat-audit';
 import { Nc } from 'src/app/models/nc';
 import { Taches } from 'src/app/models/taches';
 
@@ -12,6 +15,7 @@ import { Taches } from 'src/app/models/taches';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  userId: number | null = null; // Initialize this with the appropriate value
   icons = [
     { link: '/listP', color: 'card-icon', imageSrc: 'assets/images/business-people.png', title: 'Personnels' },
     { link: '/list-registre-traitement', color: 'card-icon', imageSrc: 'assets/images/rgpd.png', title: 'RGPD' },
@@ -37,59 +41,101 @@ export class HomeComponent {
   ncs: Nc[] = [];
   actions: Actions[] = [];
   taches: Taches[] = [];
+  constats: ConstatAudit[] = [];
 
   deleteModal: any;
   idTodelete: number = 0;
 
 
-  constructor(private ncservice: ServicesNonConfirmitéService, private actionService: ApiActionsService, private tacheservice: ApiTachesService) {
+  constructor(private ncservice: ServicesNonConfirmitéService, private actionService: ApiActionsService, private tacheservice: ApiTachesService,private route :ActivatedRoute, private constatservice : ConstatAuditService) {
+    
 
   }
   ngOnInit(): void {
-    this.getNcs();
-    this.getActions();
-    this.getTaches();
     const isFirstVisit = history.state.isFirstVisit;
+
     if (!isFirstVisit) {
+      // définir l'indicateur de visite dans l'historique de navigation
       history.replaceState({ isFirstVisit: true }, '');
+
+      // rafraîchir la page
       location.reload();
     }
+
+    // aller en haut de la page
     window.scrollTo(0, 0);
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['userId'] ? Number(params['userId']) : null;
+      if (!this.userId) {
+        const storedUserId = localStorage.getItem('loggedInUserId');
+        this.userId = storedUserId ? Number(storedUserId) : null;
+      }
 
+      console.log("this.userId:", this.userId);
+
+      if (!this.userId) {
+        console.log("No userId available.");
+      } else {
+        this.getNcsByUser(this.userId);
+        this.getActionsByUser(this.userId);
+        this.getTachesByUser(this.userId);
+        this.getConstatByUser(this.userId);
+
+      }
+    });
   }
-
-  getNcs() {
+  
+  getNcsByUser(userId: number | null) {
+    if (!userId) return;
+  
     this.ncservice.getAll().subscribe(
-      res => {
-        this.ncs = res;
+      (res: Nc[]) => { 
+        this.ncs = res.filter(nc => nc.responsable_traitement === userId);
       },
       error => {
         console.log(error);
       }
     );
   }
-
-  getActions() {
+  
+  getActionsByUser(userId: number | null) {
+    if (!userId) return;
+  
     this.actionService.getAllActions().subscribe(
-      res => {
-        this.actions = res;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
-  getTaches() {
-    this.tacheservice.getAllTaches().subscribe(
-      res => {
-        this.taches = res;
+      (res: Actions[]) => {
+        this.actions = res.filter(action => action.assigne_a === userId);
       },
       error => {
         console.log(error);
       }
     );
   }
-
+  getTachesByUser(userId: number | null) {
+    if (!userId) return;
+  
+    this.tacheservice.getAllTaches().subscribe(
+      (res: Taches[]) => {
+        this.taches = res.filter(tache => tache.assigne_a === userId);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  
+  getConstatByUser(userId: number | null) {
+    if (!userId) return;
+  
+    this.constatservice.getConstatAudits().subscribe(
+      (res: ConstatAudit[]) => {
+        this.constats = res.filter(constat => constat.responsable_traitement.includes(userId));
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  
   changeSlide(direction: number) {
     const totalCards = this.icons.length;
     const cardsPerPage = 8;

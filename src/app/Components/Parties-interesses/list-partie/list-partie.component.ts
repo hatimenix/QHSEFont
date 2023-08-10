@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Partie } from 'src/app/models/partie';
 import { TypePartie } from 'src/app/models/typepartie';
@@ -58,14 +58,14 @@ export class ListPartieComponent implements OnInit {
 
   form = new FormGroup({
     typepartie: new FormControl(''),
-    partieinteresse: new FormControl(''),
-    importance: new FormControl('' ),
-    nature: new FormControl(''),
-    enjeux: new FormControl(''),
-    besoin: new FormControl(''),
-    impactfinal: new FormControl(''),
-    impactentreprise: new FormControl(''),
-    cotation: new FormControl(''),
+    partieinteresse: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    importance: new FormControl(''),
+    nature: new FormControl('', [Validators.minLength(3)]),
+    enjeux: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    besoin: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    impactfinal: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
+    impactentreprise: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
+    cotation: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     impact: new FormControl(''),
     processus: new FormControl(''),
 
@@ -148,6 +148,9 @@ export class ListPartieComponent implements OnInit {
       }
   });
 } 
+get f() {
+  return this.form.controls;
+}
 isProcessusSelected(processusId: number): boolean {
   return this.processus.includes(processusId);
 }

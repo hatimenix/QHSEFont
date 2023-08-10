@@ -231,7 +231,7 @@ custom-icon-blue {
 }
 
 .scrollable-content {
-  max-height: 150px;
+  max-height: 100px;
   overflow-x: auto;
   white-space: pre-wrap;
 }
