@@ -45,11 +45,11 @@ export class ListExigencesComponent {
   idTodelete: number = 0;
 
   form = new FormGroup({
-    type_exigence: new FormControl(''),
-    intitule: new FormControl(''),
-    evaluation_maitrise: new FormControl(''),
-    description: new FormControl(''),
-    commentaire: new FormControl(''),
+    type_exigence: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    intitule: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    evaluation_maitrise: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    description: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    commentaire: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     action: new FormControl(''),
     partieinteresses: new FormControl(''),
 
@@ -110,6 +110,9 @@ export class ListExigencesComponent {
           console.error(e);
       }
   });
+}
+get f() {
+  return this.form.controls;
 }
 getExigenceData( id : number,
   type_exigence : any,
@@ -179,14 +182,44 @@ getDisplayedRange(): string {
 }
 
 getRecordCount(partieinteresses: any): number {
-  const partieinteressesPlans = this.exigences.filter(exigence => exigence.partieinteresses.includes(partieinteresses.id));
-  return partieinteressesPlans.length;
+  const matchingExigences = this.exigences.filter(exigence =>
+    (exigence.type_exigence && exigence.type_exigence.includes(this.searchQuery)) ||
+    (exigence.intitule && exigence.intitule.includes(this.searchQuery)) ||
+    (exigence.evaluation_maitrise && exigence.evaluation_maitrise.includes(this.searchQuery)) 
+  );
+
+  const count = matchingExigences.filter(exigence =>
+    exigence.partieinteresses.includes(partieinteresses.id)
+  ).length;
+
+  return count;
 }
+
 closeSuccessModalAfterDelay(): void {
   setTimeout(() => {
     this.modalRef.hide();
     location.reload();
   }, 2300); 
 }
+searchAndExpand(query: string) {
+  this.searchQuery = query;
+  this.partieinteressess.forEach(partieinteresses => {
+    partieinteresses.expanded = false;
+  });
 
+  const matchingExigences = this.exigences.filter(exigence =>
+    (exigence.type_exigence && exigence.type_exigence.includes(query)) ||
+    (exigence.intitule && exigence.intitule.includes(query)) ||
+    (exigence.evaluation_maitrise && exigence.evaluation_maitrise.includes(query))
+  );
+  matchingExigences.forEach(matchingExigence => {
+    const matchingPartieinteresse = this.partieinteressess.find(partieinteresses =>
+      matchingExigence.partieinteresses.includes(partieinteresses.id)
+    );  
+    if (matchingPartieinteresse) {
+      matchingPartieinteresse.expanded = true;
+    }
+  });
+  
+}
 }

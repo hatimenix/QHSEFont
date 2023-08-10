@@ -10,6 +10,7 @@ import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-sit
 import { ProcessusService } from 'src/app/Services/Service-processus/processus.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Utilsateur } from 'src/app/models/utilsateur';
+import { Personnel } from 'src/app/models/Personnel';
 
 declare var window: any;
 
@@ -23,7 +24,7 @@ export class ListNcComponent implements OnInit {
   sites: any[] = [];
   processuss: any[] = [];
   utilisateurs: any[] = [];
-  selectedUtilisateur: Utilsateur | undefined;
+  selectedUtilisateur: Personnel | undefined;
   updateModalVisible: boolean = true;
   existingFileUrl: string = '';
   isAscending: boolean = true;
@@ -97,20 +98,20 @@ export class ListNcComponent implements OnInit {
   selectedNcToDelete: number = 0;
   
   form = new FormGroup({
-    intitule: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    nature: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    domaine: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    detail_cause: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    intitule: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    nature: new FormControl(''),
+    domaine: new FormControl(''),
+    detail_cause: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     date_nc: new FormControl(''),
     date_prise_en_compte: new FormControl(''),
-    description_detailee: new FormControl(''),
+    description_detailee: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     annee: new FormControl(''),
     mois: new FormControl(''),
     delai_prevu: new FormControl(''),
     type_cause: new FormControl(''),
     cout: new FormControl(''),
     progress: new FormControl(''),
-    info_complementaires: new FormControl(''),
+    info_complementaires: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     frequence: new FormControl(''),
     gravite: new FormControl(''),
     action_immediate: new FormControl(''),
@@ -126,7 +127,7 @@ export class ListNcComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
+    this.loadSettingsFromLocalStorage();
     this.apiSiteService.getAllSite().subscribe(
       (data: any[]) => {
         this.sites = data;
@@ -351,6 +352,9 @@ getNcData( id : number,
 navigateToNc() {
   this.router.navigate(['/nc-add']);
 }
+get f() {
+  return this.form.controls;
+}
 
 openDeleteModal(id: number) {
   this.selectedNcToDelete = id;
@@ -526,8 +530,8 @@ handleReset(): void {
 resetSearchQuery() {
   this.searchQuery = '';
 }
-openUtilisateurModal(utilisateur: Utilsateur) {
-  this.selectedUtilisateur = utilisateur;
+openUtilisateurModal(personnel: Personnel) {
+  this.selectedUtilisateur = personnel;
   this.modalRef = this.bsModalService.show(this.utilisateurModal);
 }
 closeModalutilisateur(){
@@ -543,5 +547,15 @@ closeSuccessModalAfterDelay(): void {
     this.modalRef.hide();
     location.reload();
   }, 2300); 
+}
+saveSettingsToLocalStorage() {
+  localStorage.setItem('settings', JSON.stringify(this.fieldsVisible));
+}
+
+loadSettingsFromLocalStorage() {
+  const savedSettings = localStorage.getItem('settings');
+  if (savedSettings) {
+    this.fieldsVisible = JSON.parse(savedSettings);
+  }
 }
 }

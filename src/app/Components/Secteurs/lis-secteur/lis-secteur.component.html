@@ -23,7 +23,7 @@
                    <i class="fas fa-search" style="font-size: 1rem;"></i>
                  </span>
                </div>
-               <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+               <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Rechercher" [(ngModel)]="searchQuery" >
                <div class="input-group-append">
                  <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
                    <i class="fas fa-times"></i>
@@ -52,11 +52,11 @@
                <div class="table-responsive rounded mb-3">
                  <table id="tree-table-3" class="data-tables table mb-0 tbl-server-info  tree">
                    <thead>
-                     <tr>
-                       <th scope="col" style="text-align: center;">Nom</th>
-                       <th scope="col">Actions</th>
-                       <th scope="col" style="text-align: center;">Supprimer les lignes</th>
-                     </tr>
+                    <tr>
+                      <th scope="col" style="text-align: center; width: 40%;">Nom</th>
+                      <th scope="col" >Actions</th>
+                      <th scope="col" style="text-align: center; width: 50%;">Supprimer les lignes</th>
+                    </tr>
                    </thead>
                    <tbody class="ligth-body">
                      <tr *ngFor="let secteur of displayedSecteurs | filter: searchQuery let i = index"
@@ -140,7 +140,11 @@
                  <div class="col-md-12">                      
                      <div class="form-group">
                          <label>Nom : </label>
-                         <input [(ngModel)]="secteur_nom" type="text" value="{{secteur_nom}}" formControlName="secteur_nom" class="form-control" data-errors="Please Enter Name." id="secteur_nom" >
+                         <input [(ngModel)]="secteur_nom" type="text" formControlName="secteur_nom" class="form-control" placeholder="Entrer un nom" data-errors="Please Enter Name." id="secteur_nom" >
+                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['secteur_nom'].invalid">
+                           <div *ngIf="f['secteur_nom'].errors && f['secteur_nom'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                           <div *ngIf="f['secteur_nom'].errors && f['secteur_nom'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                       </div>                      
                       </div>
                   </div>
                   </div>
@@ -150,7 +154,7 @@
                                </div>
  
          <div class="modal-footer">
-           <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateSecteur()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+           <button type="button" class="btn btn-primary" data-dismiss="modal"  [disabled]="form.invalid" (click)="updateSecteur()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
          </div>
        </div>

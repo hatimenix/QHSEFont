@@ -23,7 +23,7 @@
                   <i class="fas fa-search" style="font-size: 1rem;"></i>
                 </span>
               </div>
-              <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery" >
+              <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Rechercher" [(ngModel)]="searchQuery" >
               <div class="input-group-append">
                 <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer 
                   <i class="fas fa-times"></i>
@@ -143,12 +143,20 @@ aria-hidden="true">
                     <div class="form-group">
                         <label>Axe de la politique </label>
                         <input [(ngModel)]="axe" type="text" value="{{axe}}" formControlName="axe" class="form-control" data-errors="Please Enter Name." id="axe" >
+                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['axe'].invalid">
+                          <div *ngIf="f['axe'].errors && f['axe'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['axe'].errors && f['axe'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                      </div>
                      </div>
                  </div>
                  <div class="col-md-6">                      
                     <div class="form-group">
                         <label>Sigle </label>
                         <input [(ngModel)]="sigle" value="{{sigle}}" type="text" formControlName="sigle" class="form-control" data-errors="Please Enter Name." id="sigle" >
+                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['sigle'].invalid">
+                          <div *ngIf="f['sigle'].errors && f['sigle'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['sigle'].errors && f['sigle'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                      </div>
                      </div>
                  </div>
                  </div>
@@ -158,7 +166,7 @@ aria-hidden="true">
                               </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateAxe()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
+          <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="form.invalid" (click)="updateAxe()"><i class="fas fa-pencil-alt"></i> Modifier</button> 
           <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Fermer</button>
         </div>
       </div>

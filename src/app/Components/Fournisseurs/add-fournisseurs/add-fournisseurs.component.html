@@ -17,9 +17,9 @@
                                     <label>Nom du fournisseur <span style="color: red;">*</span></label>
                                     <input [(ngModel)]="fournisseurf.nom" type="text" formControlName="nom" class="form-control" data-errors="Please Enter Name." id="nom" required>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nom'].invalid">
-                                        <div *ngIf="f['nom'].errors && f['nom'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['nom'].errors && f['nom'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                                        <div *ngIf="f['nom'].errors && f['nom'].errors['duplicate']">Ce nom existe déjà !</div>
+                                        <div *ngIf="f['nom'].errors && f['nom'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['nom'].errors && f['nom'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['nom'].errors && f['nom'].errors['duplicate']"><i class="fas fa-exclamation-circle"></i> Ce nom existe déjà !</div>
                                     </div>
                                     <div class="help-block with-errors"></div>
                                  </div>
@@ -28,7 +28,7 @@
                                 <div class="form-group">
                                     <label>N du siret </label>
                                     <input [(ngModel)]="fournisseurf.numerodesiret" type="number" formControlName="numerodesiret" class="form-control" data-errors="Please Enter Name." id="numerodesiret" >
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodesiret'].valid && (f['numerodesiret'].dirty || f['numerodesiret'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodesiret'].valid && (f['numerodesiret'].dirty || f['numerodesiret'].touched)"><i class="fas fa-check-circle"></i> 
                                         Numero de siret valide.
                                       </div>                                    
                              </div>
@@ -40,8 +40,8 @@
                                     <label>Type de prestation </label>
                                     <input [(ngModel)]="fournisseurf.type_de_prestation" type="text" formControlName="type_de_prestation" class="form-control"  data-errors="Please Enter Name." id="type_de_prestation" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_de_prestation'].invalid">
-                                        <div *ngIf="f['type_de_prestation'].errors && f['type_de_prestation'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['type_de_prestation'].errors && f['type_de_prestation'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['type_de_prestation'].errors && f['type_de_prestation'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['type_de_prestation'].errors && f['type_de_prestation'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                     </div>
                                  </div>
                              </div>
@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <label>Numero de récépsissé de déclaration préfectorale</label>
                                     <input [(ngModel)]="fournisseurf.numero_de_recepisse_de_declaration_prefectorale" type="number" formControlName="numero_de_recepisse_de_declaration_prefectorale" class="form-control"  data-errors="Please Enter Name." id="numero_de_recepisse_de_declaration_prefectorale" >
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numero_de_recepisse_de_declaration_prefectorale'].valid && (f['numero_de_recepisse_de_declaration_prefectorale'].dirty || f['numero_de_recepisse_de_declaration_prefectorale'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numero_de_recepisse_de_declaration_prefectorale'].valid && (f['numero_de_recepisse_de_declaration_prefectorale'].dirty || f['numero_de_recepisse_de_declaration_prefectorale'].touched)"><i class="fas fa-check-circle"></i> 
                                         Numero de récépsissé de déclaration préfectorale valide.
                                       </div>
                              </div>
@@ -60,17 +60,21 @@
                                 <div class="form-group">
                                     <label>Page web </label>
                                     <input [(ngModel)]="fournisseurf.pageweb" type="text" formControlName="pageweb" class="form-control" data-errors="Please Enter Name." placeholder="https://" id="pageweb" >
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['pageweb'].invalid">
+                                        <div *ngIf="f['pageweb'].errors && f['pageweb'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['pageweb'].errors && f['pageweb'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                                    </div>
                                  </div>
                              </div>
                              <div class="col-md-6">                      
                                 <div class="form-group">
                                     <label>Téléphone</label>
                                     <input [(ngModel)]="fournisseurf.telephone" type="text" placeholder="+352 " formControlName="telephone" class="form-control"  data-errors="Please Enter Name." id="telephone" >
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['telephone'].valid && (f['telephone'].dirty || f['telephone'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['telephone'].valid && (f['telephone'].dirty || f['telephone'].touched)"><i class="fas fa-check-circle"></i> 
                                         Numéro de téléphone valide.
                                       </div>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['telephone'].touched ">
-                                    <div *ngIf="f['telephone'].errors && f['telephone'].errors['pattern']">Le numéro de téléphone doit être au format +352 123-456-789 !</div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['telephone'].invalid ">
+                                    <div *ngIf="f['telephone'].errors && f['telephone'].errors['pattern']"><i class="fas fa-exclamation-circle"></i> Le numéro de téléphone doit être au format +352 123-456-789 !</div>
                                  </div>
                              </div>
                              </div>
@@ -80,7 +84,7 @@
                                 <div class="form-group">
                                     <label>Numéro de télécopie</label>
                                     <input [(ngModel)]="fournisseurf.numerodetelecopie" type="number" formControlName="numerodetelecopie" class="form-control"  data-errors="Please Enter Name." id="numerodetelecopie" >
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelecopie'].valid && (f['numerodetelecopie'].dirty || f['numerodetelecopie'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelecopie'].valid && (f['numerodetelecopie'].dirty || f['numerodetelecopie'].touched)"><i class="fas fa-check-circle"></i> 
                                         Numéro de télécopie valide.
                                       </div>
                              </div>
@@ -90,8 +94,8 @@
                                     <label>Adresse</label>
                                     <input [(ngModel)]="fournisseurf.adresse" type="text" formControlName="adresse" class="form-control"  data-errors="Please Enter Name." id="adresse" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['adresse'].invalid">
-                                        <div *ngIf="f['adresse'].errors && f['adresse'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['adresse'].errors && f['adresse'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['adresse'].errors && f['adresse'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['adresse'].errors && f['adresse'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                     </div>
                                  </div>
                              </div>
@@ -101,7 +105,7 @@
                                 <div class="form-group">
                                     <label>Code postal</label>
                                     <input [(ngModel)]="fournisseurf.codepostal" type="number" formControlName="codepostal" class="form-control"  data-errors="Please Enter Name." id="codepostal">
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['codepostal'].valid && (f['codepostal'].dirty || f['codepostal'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['codepostal'].valid && (f['codepostal'].dirty || f['codepostal'].touched)"><i class="fas fa-check-circle"></i> 
                                         Code postal valide.
                                       </div>
                              </div>
@@ -111,8 +115,8 @@
                                     <label>Ville</label>
                                     <input [(ngModel)]="fournisseurf.ville" type="text" formControlName="ville" class="form-control"  data-errors="Please Enter Name." id="ville" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['ville'].invalid">
-                                        <div *ngIf="f['ville'].errors && f['ville'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['ville'].errors && f['ville'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['ville'].errors && f['ville'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['ville'].errors && f['ville'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                     </div>
                                  </div>
                              </div>
@@ -362,8 +366,8 @@
                                     <label>Nom,prénom</label>
                                     <input [(ngModel)]="fournisseurf.nometprenom" type="text" formControlName="nometprenom" class="form-control"  data-errors="Please Enter Name." id="nometprenom" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nometprenom'].invalid">
-                                        <div *ngIf="f['nometprenom'].errors && f['nometprenom'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['nometprenom'].errors && f['nometprenom'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['nometprenom'].errors && f['nometprenom'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['nometprenom'].errors && f['nometprenom'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                     </div>
                                  </div>
                              </div>
@@ -373,11 +377,11 @@
                                 <div class="form-group">
                                     <label>Adresse de courier</label>
                                     <input [(ngModel)]="fournisseurf.adressedecourier" type="text" placeholder="@" formControlName="adressedecourier" class="form-control"  data-errors="Please Enter Name." id="adressedecourier" >
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['adressedecourier'].valid && (f['adressedecourier'].dirty || f['adressedecourier'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['adressedecourier'].valid && (f['adressedecourier'].dirty || f['adressedecourier'].touched)"><i class="fas fa-check-circle"></i> 
                                         Adresse e-mail valide.
                                       </div>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['adressedecourier'].touched">
-                                        <div *ngIf="f['adressedecourier'].errors && f['adressedecourier'].errors['pattern']">L'adresse e-mail doit être au format: example@domain.com.
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['adressedecourier'].invalid">
+                                        <div *ngIf="f['adressedecourier'].errors && f['adressedecourier'].errors['pattern']"><i class="fas fa-exclamation-circle"></i> L'adresse e-mail doit être au format: example@domain.com.
                                         </div>                                 
                                     </div>
                              </div>
@@ -387,8 +391,8 @@
                                     <label>Fonction</label>
                                     <input [(ngModel)]="fournisseurf.fonction" type="text" formControlName="fonction" class="form-control"  data-errors="Please Enter Name." id="fonction" >
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['fonction'].invalid">
-                                        <div *ngIf="f['fonction'].errors && f['fonction'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['fonction'].errors && f['fonction'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['fonction'].errors && f['fonction'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['fonction'].errors && f['fonction'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                                     </div>
                                  </div>
                              </div>
@@ -398,11 +402,11 @@
                                 <div class="form-group">
                                     <label>Numéro de téléphone</label>
                                     <input [(ngModel)]="fournisseurf.numerodetelephone" placeholder="+352 " type="text" formControlName="numerodetelephone" class="form-control"  data-errors="Please Enter Name." id="numerodetelephone" >
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelephone'].valid && (f['numerodetelephone'].dirty || f['numerodetelephone'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['numerodetelephone'].valid && (f['numerodetelephone'].dirty || f['numerodetelephone'].touched)"><i class="fas fa-check-circle"></i> 
                                         Numéro de téléphone valide.
                                       </div>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['numerodetelephone'].touched">
-                                        <div *ngIf="f['numerodetelephone'].errors && f['numerodetelephone'].errors['pattern']">Le numéro de téléphone doit être au format +352 123-456-789 !</div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['numerodetelephone'].invalid">
+                                        <div *ngIf="f['numerodetelephone'].errors && f['numerodetelephone'].errors['pattern']"><i class="fas fa-exclamation-circle"></i> Le numéro de téléphone doit être au format +352 123-456-789 !</div>
                                      </div>
                                  </div>
                              </div>
@@ -410,11 +414,11 @@
                                 <div class="form-group">
                                     <label>Téléphone personnel</label>
                                     <input [(ngModel)]="fournisseurf.telephonepersonnel" placeholder="+352 " type="text" formControlName="telephonepersonnel" class="form-control" data-errors="Please Enter Name." id="telephonepersonnel" >
-                                    <div style="color: green; margin-top: 10px;" *ngIf="f['telephonepersonnel'].valid && (f['telephonepersonnel'].dirty || f['telephonepersonnel'].touched)">
+                                    <div style="color: green; margin-top: 10px;" *ngIf="f['telephonepersonnel'].valid && (f['telephonepersonnel'].dirty || f['telephonepersonnel'].touched)"><i class="fas fa-check-circle"></i> 
                                         Numéro de téléphone valide.
                                       </div>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['telephonepersonnel'].touched ">
-                                        <div *ngIf="f['telephonepersonnel'].errors && f['telephonepersonnel'].errors['pattern']">Le numéro de téléphone doit être au format +352 123-456-789 !</div>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['telephonepersonnel'].invalid ">
+                                        <div *ngIf="f['telephonepersonnel'].errors && f['telephonepersonnel'].errors['pattern']"><i class="fas fa-exclamation-circle"></i> Le numéro de téléphone doit être au format +352 123-456-789 !</div>
                                      </div>
                                  </div>
                              </div>

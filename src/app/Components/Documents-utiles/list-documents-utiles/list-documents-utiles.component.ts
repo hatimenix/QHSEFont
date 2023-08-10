@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DocumentsUtiles } from 'src/app/models/documents-utiles';
 import { ServiceDocumentUtilesService } from 'src/app/Services/Services-document-utile/services-document-utile.service';
@@ -53,10 +53,10 @@ export class ListDocumentsUtilesComponent  {
   selectedDocumentToDelete: number = 0;
   form = new FormGroup({
 
-    nom: new FormControl(''),
+    nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     modified_date: new FormControl(''),
     modified_by: new FormControl(''),
-    typologie: new FormControl(''),
+    typologie: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     document: new FormControl('')
 
   });
@@ -64,6 +64,7 @@ export class ListDocumentsUtilesComponent  {
 
   }
   ngOnInit(): void {
+    this.loadSettingsFromLocalStorage();
     this.getDocumentsutiles();
     this.apiUtilisateurService.getAllUtilsateur().subscribe(
       (data: any[]) => {
@@ -179,6 +180,9 @@ deleteItem() {
       this.selectedDocuments.push(documentutile);
     }
   }
+  get f() {
+    return this.form.controls;
+  }
   
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
@@ -249,5 +253,15 @@ deleteItem() {
       this.modalRef.hide();
       location.reload();
     }, 2300); 
+  }
+  saveSettingsToLocalStorage() {
+    localStorage.setItem('settings', JSON.stringify(this.fieldsVisible));
+  }
+
+  loadSettingsFromLocalStorage() {
+    const savedSettings = localStorage.getItem('settings');
+    if (savedSettings) {
+      this.fieldsVisible = JSON.parse(savedSettings);
+    }
   }
 }

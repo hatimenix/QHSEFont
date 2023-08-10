@@ -1,20 +1,46 @@
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: #91ADC2;
-  opacity: 1;
-}
-
 .carousel-control-prev,
 .carousel-control-next {
-  width: 50px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #6fd0f6;
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  color: #fff;
 }
 
 .carousel-control-prev {
-  margin-left: -40px;
+  margin-left: -35px;
+  margin-top: 3%;
 }
 
 .carousel-control-next {
-  margin-right: -40px;
+  margin-right: -44px;
+  margin-top: 2.1%;
+
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: #ffd140;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
 }
 
 .card {

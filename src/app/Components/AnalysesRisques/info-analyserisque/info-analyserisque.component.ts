@@ -14,6 +14,7 @@ import { ApiActionsService } from 'src/app/Services/Service-document-unique/api-
 import { CotationService } from 'src/app/Services/Service-cotation/cotation.service';
 import { ApiRealisationService } from 'src/app/Services/Service-document-unique/api-realisation.service';
 import { Realisations } from 'src/app/models/realisations';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 
 
 
@@ -38,6 +39,7 @@ export class InfoAnalyserisqueComponent {
   cotationForm!: FormGroup;
   sites$ !: Observable<any>;
   processus$ !: Observable<any>;
+  utilisateurs$ !: Observable<any>;
   actions$!: Observable<Actions[]>;
   cotations$!: Observable<Cotation[]>;
   siteName !: string;
@@ -63,6 +65,7 @@ export class InfoAnalyserisqueComponent {
     private actionservice: ApiActionsService,
     private cotationservice:CotationService,
     private apiRealisationService: ApiRealisationService,
+    private apiUtilisateurService: ApiUtilisateurService
 
   ) {}
   ngOnInit() {
@@ -77,7 +80,7 @@ export class InfoAnalyserisqueComponent {
       analyse_cause : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       plan_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       delai_mise_en_oeuvre : ['', Validators.required],
-      assigne_a : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      assigne_a :['', Validators.required],
       priorite : ['', Validators.required],
       delai_mesure_eff : ['', Validators.required],
       type_critere_eff : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
@@ -124,6 +127,7 @@ export class InfoAnalyserisqueComponent {
     );
     this.sites$ = this.apiSiteService.getAllSite();
     this.processus$ = this.apiProcessusService.getAllProcessus();
+    this.utilisateurs$ = this.apiUtilisateurService.getAllUtilsateur();
     this.sites$.subscribe((sites) => {
       const site = sites.find((s:any) => s.id === this.analyserisque.site);
       if (site) {
@@ -397,6 +401,30 @@ export class InfoAnalyserisqueComponent {
         location.reload();
       }, 2300); 
     }
-
+    getTrimmedValues(data: string): string[] {
+      return data.split(',').map(item => item.trim());
+    }
+    resetFormOnOutsideClickAction(event: MouseEvent) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest('.modal-dialog')) {
+        this.actionForm.reset();
+      }
+    }
+    resetFormOnOutsideClickCotation(event: MouseEvent) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest('.modal-dialog')) {
+        this.cotationForm.reset();
+      }
+    }
+    onEscKeyPressAction(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.actionForm.reset();
+      }
+    }
+    onEscKeyPressCotation(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.cotationForm.reset();
+      }
+    }
 
 }

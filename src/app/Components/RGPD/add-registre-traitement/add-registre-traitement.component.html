@@ -40,8 +40,8 @@
                             <label>Registre <label style="color: red;">*</label></label>
                             <input  [(ngModel)]="traitementf.typeregistre" formControlName="typeregistre" type="text" class="form-control" placeholder="Enter un nom" required>
                             <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['typeregistre'].invalid">
-                              <div *ngIf="f['typeregistre'].errors && f['typeregistre'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                              <div *ngIf="f['typeregistre'].errors && f['typeregistre'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                              <div *ngIf="f['typeregistre'].errors && f['typeregistre'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                              <div *ngIf="f['typeregistre'].errors && f['typeregistre'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                           </div>
                             <div class="help-block with-errors"></div>
                         </div>
@@ -60,9 +60,9 @@
                           <label>Nom du traitement <label style="color: red;">*</label></label>
                           <input  [(ngModel)]="traitementf.nomtraitement" formControlName="nomtraitement" type="text" class="form-control" placeholder="Enter un nom" required>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['nomtraitement'].invalid">
-                            <div *ngIf="f['nomtraitement'].errors && f['nomtraitement'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['nomtraitement'].errors && f['nomtraitement'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                            <div *ngIf="f['nomtraitement'].errors && f['nomtraitement'].errors['duplicate']">Ce nom existe déjà !</div>
+                            <div *ngIf="f['nomtraitement'].errors && f['nomtraitement'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['nomtraitement'].errors && f['nomtraitement'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                            <div *ngIf="f['nomtraitement'].errors && f['nomtraitement'].errors['duplicate']"><i class="fas fa-exclamation-circle"></i> Ce nom existe déjà !</div>
                         </div>
                           <div class="help-block with-errors"></div>
                         </div>
@@ -72,8 +72,8 @@
                           <label>Description générale <label style="color: red;">*</label></label>
                           <textarea [(ngModel)]="traitementf.description_generale" formControlName="description_generale" class="form-control" rows="4" required></textarea>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description_generale'].invalid">
-                            <div *ngIf="f['description_generale'].errors && f['description_generale'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['description_generale'].errors && f['description_generale'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                            <div *ngIf="f['description_generale'].errors && f['description_generale'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['description_generale'].errors && f['description_generale'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                         </div>
                           <div class="help-block with-errors"></div>
                         </div>
@@ -140,8 +140,8 @@
                           <label>Finalité principale <label style="color: red;">*</label></label>
                           <textarea [(ngModel)]="traitementf.finaliteprincipale" formControlName="finaliteprincipale" class="form-control" rows="4" required></textarea>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['finaliteprincipale'].invalid">
-                            <div *ngIf="f['finaliteprincipale'].errors && f['finaliteprincipale'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['finaliteprincipale'].errors && f['finaliteprincipale'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                            <div *ngIf="f['finaliteprincipale'].errors && f['finaliteprincipale'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['finaliteprincipale'].errors && f['finaliteprincipale'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                         </div>
                         <div class="help-block with-errors"></div>
                         </div>
@@ -151,8 +151,8 @@
                           <label>Sous finalité 1</label>
                           <textarea [(ngModel)]="traitementf.sous_finalite1" formControlName="sous_finalite1" class="form-control" rows="4" ></textarea>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['sous_finalite1'].invalid">
-                            <div *ngIf="f['sous_finalite1'].errors && f['sous_finalite1'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['sous_finalite1'].errors && f['sous_finalite1'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                            <div *ngIf="f['sous_finalite1'].errors && f['sous_finalite1'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['sous_finalite1'].errors && f['sous_finalite1'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                         </div>
                         </div>
                       </div>
@@ -161,8 +161,8 @@
                           <label>Sous finalité 2</label>
                           <textarea [(ngModel)]="traitementf.sous_finalite2" formControlName="sous_finalite2" class="form-control" rows="4" ></textarea>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['sous_finalite2'].invalid">
-                            <div *ngIf="f['sous_finalite2'].errors && f['sous_finalite2'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['sous_finalite2'].errors && f['sous_finalite2'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                            <div *ngIf="f['sous_finalite2'].errors && f['sous_finalite2'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['sous_finalite2'].errors && f['sous_finalite2'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                         </div>
                         </div>
                       </div>
@@ -171,8 +171,8 @@
                           <label>Sous finalité 3</label>
                           <textarea [(ngModel)]="traitementf.sous_finalite3" formControlName="sous_finalite3" class="form-control" rows="4" ></textarea>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['sous_finalite3'].invalid">
-                            <div *ngIf="f['sous_finalite3'].errors && f['sous_finalite3'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['sous_finalite3'].errors && f['sous_finalite3'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                            <div *ngIf="f['sous_finalite3'].errors && f['sous_finalite3'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['sous_finalite3'].errors && f['sous_finalite3'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                         </div>
                         </div>
                       </div>
@@ -181,8 +181,8 @@
                           <label>Sous finalité 4</label>
                           <textarea [(ngModel)]="traitementf.sous_finalite4" formControlName="sous_finalite4" class="form-control" rows="4" ></textarea>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['sous_finalite4'].invalid">
-                            <div *ngIf="f['sous_finalite4'].errors && f['sous_finalite4'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['sous_finalite4'].errors && f['sous_finalite4'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                            <div *ngIf="f['sous_finalite4'].errors && f['sous_finalite4'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['sous_finalite4'].errors && f['sous_finalite4'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                         </div>
                         </div>
                       </div>
@@ -422,8 +422,8 @@
                         <label>Description </label>
                         <textarea [(ngModel)]="traitementf.description" formControlName="description" class="form-control" name="description" rows="4" ></textarea>
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
-                          <div *ngIf="f['description'].errors && f['description'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['description'].errors && f['description'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                          <div *ngIf="f['description'].errors && f['description'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['description'].errors && f['description'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -433,8 +433,8 @@
                         <label>Durée de conservation </label>
                         <input [(ngModel)]="traitementf.dureedeconcesrvation" formControlName="dureedeconcesrvation" type="text" name="dureeConservation" class="form-control" placeholder="Entrez la durée de conservation" >
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['dureedeconcesrvation'].invalid">
-                          <div *ngIf="f['dureedeconcesrvation'].errors && f['dureedeconcesrvation'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['dureedeconcesrvation'].errors && f['dureedeconcesrvation'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                          <div *ngIf="f['dureedeconcesrvation'].errors && f['dureedeconcesrvation'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['dureedeconcesrvation'].errors && f['dureedeconcesrvation'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                       </div>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -488,8 +488,8 @@
                         <label>Précisions </label>
                         <input [(ngModel)]="traitementf.precisions" formControlName="precisions" type="text" name="precisions" class="form-control" >
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['precisions'].invalid">
-                          <div *ngIf="f['precisions'].errors && f['precisions'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['precisions'].errors && f['precisions'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                          <div *ngIf="f['precisions'].errors && f['precisions'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['precisions'].errors && f['precisions'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -538,8 +538,8 @@
                         <label>Précisions(UE) </label>
                         <input [(ngModel)]="traitementf.precision" formControlName="precision" type="text" name="dureeConservation" class="form-control" >
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['precision'].invalid">
-                          <div *ngIf="f['precision'].errors && f['precision'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['precision'].errors && f['precision'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                          <div *ngIf="f['precision'].errors && f['precision'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['precision'].errors && f['precision'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -549,8 +549,8 @@
                         <label>Données concernées(UE) </label>
                         <input [(ngModel)]="traitementf.donneeconcernees" formControlName="donneeconcernees" type="text" name="dureeConservation" class="form-control" >
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['donneeconcernees'].invalid">
-                          <div *ngIf="f['donneeconcernees'].errors && f['donneeconcernees'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['donneeconcernees'].errors && f['donneeconcernees'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                          <div *ngIf="f['donneeconcernees'].errors && f['donneeconcernees'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['donneeconcernees'].errors && f['donneeconcernees'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -628,8 +628,8 @@
                         <label>Destinataire </label>
                         <input [(ngModel)]="traitementf.destinataire" formControlName="destinataire" id="destinataire" type="text" name="destinataire" class="form-control" >
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['destinataire'].invalid">
-                          <div *ngIf="f['destinataire'].errors && f['destinataire'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['destinataire'].errors && f['destinataire'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                          <div *ngIf="f['destinataire'].errors && f['destinataire'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['destinataire'].errors && f['destinataire'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
 
                       </div>
@@ -679,8 +679,8 @@
                         <label>Lien vers la documentation </label>
                         <input [(ngModel)]="traitementf.lienversladocumentation" formControlName="lienversladocumentation" id="lienversladocumentation" type="text" name="dureeConservation" placeholder="https://" class="form-control" >
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['lienversladocumentation'].invalid">
-                          <div *ngIf="f['lienversladocumentation'].errors && f['lienversladocumentation'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['lienversladocumentation'].errors && f['lienversladocumentation'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                          <div *ngIf="f['lienversladocumentation'].errors && f['lienversladocumentation'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['lienversladocumentation'].errors && f['lienversladocumentation'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -690,8 +690,8 @@
                         <label>Données concernées(hors UE) </label>
                         <input [(ngModel)]="traitementf.lesdonneesconcernee" formControlName="lesdonneesconcernee" id="lesdonneesconcernee" type="text" name="dureeConservation" class="form-control" >
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['lesdonneesconcernee'].invalid">
-                          <div *ngIf="f['lesdonneesconcernee'].errors && f['lesdonneesconcernee'].errors['minlength']">Doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['lesdonneesconcernee'].errors && f['lesdonneesconcernee'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                          <div *ngIf="f['lesdonneesconcernee'].errors && f['lesdonneesconcernee'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> Doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['lesdonneesconcernee'].errors && f['lesdonneesconcernee'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
                         <div class="help-block with-errors"></div>
                       </div>

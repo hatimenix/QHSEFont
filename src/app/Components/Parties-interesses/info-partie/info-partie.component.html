@@ -266,8 +266,8 @@
                     <label for="typologie">Typologie :</label>
                       <input type="text" class="form-control" formControlName="typologie" />
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['typologie'].invalid">
-                        <div *ngIf="f['typologie'].errors && f['typologie'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['typologie'].errors && f['typologie'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                        <div *ngIf="f['typologie'].errors && f['typologie'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['typologie'].errors && f['typologie'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                     </div>
                   </div>
                  </div>
@@ -276,8 +276,8 @@
                     <label for="famille">Famille :</label>
                       <input type="text" class="form-control" formControlName="famille" />
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['famille'].invalid">
-                        <div *ngIf="f['famille'].errors && f['famille'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['famille'].errors && f['famille'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                        <div *ngIf="f['famille'].errors && f['famille'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['famille'].errors && f['famille'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                     </div>
                   </div>
                   </div>
@@ -286,8 +286,8 @@
                     <label for="origine">Origin :</label>
                       <input type="text" class="form-control" formControlName="origine" />
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['origine'].invalid">
-                        <div *ngIf="f['origine'].errors && f['origine'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['origine'].errors && f['origine'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                        <div *ngIf="f['origine'].errors && f['origine'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['origine'].errors && f['origine'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                     </div>
                   </div>
                   </div>
@@ -316,8 +316,8 @@
                       <label for="axe">Axe stratégique lié :</label>
                         <input type="text" class="form-control" formControlName="axe" />
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['axe'].invalid">
-                          <div *ngIf="f['axe'].errors && f['axe'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['axe'].errors && f['axe'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                          <div *ngIf="f['axe'].errors && f['axe'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['axe'].errors && f['axe'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                       </div>
                     </div>
                     </div>
@@ -326,8 +326,8 @@
                         <label for="description">Description :<span style="color: red;">*</span></label>
                           <textarea type="text" class="form-control" formControlName="description" ></textarea>
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
-                            <div *ngIf="f['description'].errors && f['description'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['description'].errors && f['description'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                            <div *ngIf="f['description'].errors && f['description'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['description'].errors && f['description'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                         </div>
                       </div>
                       </div>
@@ -336,8 +336,8 @@
                           <label for="contexte_ext">Contexte externe :</label>
                       <textarea type="text" class="form-control" formControlName="contexte_ext" ></textarea>
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['contexte_ext'].invalid">
-                        <div *ngIf="f['contexte_ext'].errors && f['contexte_ext'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['contexte_ext'].errors && f['contexte_ext'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                        <div *ngIf="f['contexte_ext'].errors && f['contexte_ext'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['contexte_ext'].errors && f['contexte_ext'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                     </div>
                         </div>
                         </div>
@@ -348,8 +348,8 @@
                     <label for="contexte_int">Context interne :</label>
                       <textarea class="form-control" formControlName="contexte_int"></textarea>
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['contexte_int'].invalid">
-                        <div *ngIf="f['contexte_int'].errors && f['contexte_int'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['contexte_int'].errors && f['contexte_int'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                        <div *ngIf="f['contexte_int'].errors && f['contexte_int'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['contexte_int'].errors && f['contexte_int'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                     </div>
                   </div>
                  </div>
@@ -360,8 +360,8 @@
                       <label for="consequences">Conséquences :</label>
                       <textarea type="text" class="form-control" formControlName="consequences" ></textarea>
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['consequences'].invalid">
-                        <div *ngIf="f['consequences'].errors && f['consequences'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['consequences'].errors && f['consequences'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                        <div *ngIf="f['consequences'].errors && f['consequences'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['consequences'].errors && f['consequences'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                     </div>
                     </div>
                     </div>
@@ -370,8 +370,8 @@
                     <label for="opportunite" title="Opportunité identifiée">Opportunité :</label>
                       <input class="form-control" formControlName="opportunite">
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['opportunite'].invalid">
-                        <div *ngIf="f['opportunite'].errors && f['opportunite'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['opportunite'].errors && f['opportunite'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                        <div *ngIf="f['opportunite'].errors && f['opportunite'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['opportunite'].errors && f['opportunite'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                     </div>
                   </div>
                   </div>
@@ -401,8 +401,8 @@
                         <label for="niveau_risque">Niveau de risque :</label>
                           <input class="form-control" formControlName="niveau_risque">
                           <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['niveau_risque'].invalid">
-                            <div *ngIf="f['niveau_risque'].errors && f['niveau_risque'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                            <div *ngIf="f['niveau_risque'].errors && f['niveau_risque'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                            <div *ngIf="f['niveau_risque'].errors && f['niveau_risque'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                            <div *ngIf="f['niveau_risque'].errors && f['niveau_risque'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                         </div>
                       </div>
                       </div>
@@ -448,8 +448,8 @@
                             <label for="mesure">Mesures en place :</label>
                                 <textarea class="form-control" formControlName="mesure"></textarea>
                                 <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['mesure'].invalid">
-                                  <div *ngIf="f['mesure'].errors && f['mesure'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                  <div *ngIf="f['mesure'].errors && f['mesure'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                  <div *ngIf="f['mesure'].errors && f['mesure'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                  <div *ngIf="f['mesure'].errors && f['mesure'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                               </div>
                           </div>
                           </div>
@@ -469,16 +469,58 @@
                   <div class="form-group">
                     <h5>Plan d'action</h5>
                  </div>
-                 <div class="col-12">
-                  <div class="form-group">
-                    <label for="type_action">Type d'action :</label>
-                      <input class="form-control" formControlName="type_action">
-                      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_action'].invalid">
-                        <div *ngIf="f['type_action'].errors && f['type_action'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['type_action'].errors && f['type_action'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                 <div class="col-md-12">
+                  <label>Type d'action :</label>
+                  <div class="checkbox-list">
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" [value]="'Abandon de l\'activité concernée par le risque'"
+                          (change)="toggleCheckbox('Abandon de l\'activité concernée par le risque', 'type_action')">
+                        Abandon de l'activité concernée par le risque
+                      </label>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" [value]="'Acceptation du risque dans le but de poursuivre une opportunité (on accepte le risque)'"
+                          (change)="toggleCheckbox('Acceptation du risque dans le but de poursuivre une opportunité (on accepte le risque)', 'type_action')">
+                        Acceptation du risque dans le but de poursuivre une opportunité (on accepte le risque)
+                      </label>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" [value]="'Elimination de la source du risque'"
+                          (change)="toggleCheckbox('Elimination de la source du risque', 'type_action')">
+                        Elimination de la source du risque
+                      </label>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" [value]="'Modification de la probabilité d\'apparition du risque (vraisemblance)'"
+                          (change)="toggleCheckbox('Modification de la probabilité d\'apparition du risque (vraisemblance)', 'type_action')">
+                        Modification de la probabilité d'apparition du risque (vraisemblance)
+                      </label>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" [value]="'Modification des conséquences'"
+                          (change)="toggleCheckbox('Modification des conséquences', 'type_action')">
+                        Modification des conséquences
+                      </label>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" [value]="'Partage du risque avec d\'autres parties intéressées (assurance, clients, etc...)'"
+                          (change)="toggleCheckbox('Partage du risque avec d\'autres parties intéressées (assurance, clients, etc...)', 'type_action')">
+                        Partage du risque avec d'autres parties intéressées (assurance, clients, etc...)
+                      </label>
                     </div>
                   </div>
-                  </div>
+                </div>
                   
                   <div class="d-flex align-items-end flex-column" >
                    <div class="mt-auto p-2">
@@ -493,7 +535,7 @@
      </div>
   </div>
   <!-- update    -->
-<div class="modal fade bd-analyse-modal-lg" [class.show]="updateModalVisible"  id="updateAnalyse" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade bd-analyse-modal-lg" [class.show]="updateModalVisible"  id="updateAnalyse" tabindex="-1" role="dialog" aria-hidden="true" (click)="resetFormOnOutsideClickAnalyse($event)" (keydown)="onEscKeyPressAnalyse($event)">
   <div class="modal-dialog modal-lg" >                          
   <div class="modal-content" >
   <div class="modal-header" style="background-color: #089bd7;">
@@ -503,192 +545,241 @@
   </button>
   </div>
   <div class="modal-body">
-  <form [formGroup]="analyseForm" (ngSubmit)="updateAnalyse()" class="needs-validation" novalidate>  
-  <div class="row">   
-  <div class="col">                                       
-    <div class="form-group">
-      <label for="typologie">Typologie :</label>
-      <input type="text" class="form-control" formControlName="typologie" />
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="famille">Famille :</label>
-      <input type="text" class="form-control" formControlName="famille" />
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="origine">Origin :</label>
-      <input type="text" class="form-control" formControlName="origine" />
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="site">Site :</label>
-      <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
-       <option value="" selected disabled>Choisissez un site</option>
-       <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
-      </select>
-    </div>
-  </div>
-  </div>
-  <div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="processus">Processus :</label>
-      <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
-       <option value="" selected disabled>Choisissez un processus</option>
-       <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
-      </select>
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="axe">Axe stratégique lié :</label>
-      <input type="text" class="form-control" formControlName="axe" />
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="description">Description :</label>
-      <input type="text" class="form-control" formControlName="description" />
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="contexte_ext">Contexte externe :</label>
-      <input type="text" class="form-control" formControlName="contexte_ext" />
-    </div>
-  </div>
-  </div>
-  <div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="contexte_int">Context interne :</label>
-      <textarea class="form-control" formControlName="contexte_int"></textarea>
-    </div>
-  </div>
-  </div>
-  <div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="consequences">Conséquences :</label>
-      <input type="text" class="form-control" formControlName="consequences" />
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="opportunite">Opportunité identifiée :</label>
-      <input class="form-control" formControlName="opportunite">
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="indice">Indice risque :</label>
-      <input type="number" class="form-control" formControlName="indice">
-      <div class="flag-icons">
-        <div class="flag-label-row">
-          <span class="flag-label success">0-5 :</span>
-          <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +indice >= 0 && +indice <= 5}"></i>
-        </div>
-        <div class="flag-label-row">
-          <span class="flag-label warning">5-10 :</span>
-          <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +indice > 5 && +indice <= 10}"></i>
-        </div>
-        <div class="flag-label-row">
-          <span class="flag-label danger">10 ou plus :</span>
-          <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +indice > 10}"></i>
-        </div>
-      </div>  
-    </div>
+    <form [formGroup]="analyseForm" (ngSubmit)="updateAnalyse()" class="needs-validation" novalidate>  
+    <div class="row">   
+    <div class="col">                                       
+      <div class="form-group">
+        <label for="typologie">Typologie :</label>
+        <input type="text" class="form-control" formControlName="typologie" />
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['typologie'].invalid">
+          <div *ngIf="f['typologie'].errors && f['typologie'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['typologie'].errors && f['typologie'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+      </div>
+      </div>
     </div>
     <div class="col">
       <div class="form-group">
-        <label for="niveau_risque">Niveau de risque :</label>
-        <input class="form-control" formControlName="niveau_risque">
+        <label for="famille">Famille :</label>
+        <input type="text" class="form-control" formControlName="famille" />
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['famille'].invalid">
+          <div *ngIf="f['famille'].errors && f['famille'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['famille'].errors && f['famille'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
       </div>
       </div>
-  </div>
-  <div class="row">
-    <div class="col">
-    <div class="form-group">
-      <h5>Evaluation</h5>
-   </div>
-   </div>
-   </div>
-   <div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="date_evaluation">Date évaluation :</label>
-      <input type="date" class="form-control" formControlName="date_evaluation" />
     </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="impact">Impact :</label>
-      <select formControlName="impact" class="custom-select" data-style="py-0">
-        <option value="">Choisir une option</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-    </select>    
-  </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="maitrise">Maitrise :</label>
-      <select formControlName="maitrise" class="form-control" class="custom-select" data-style="py-0">
-        <option value="">Choisir une option</option>
-        <option>1</option>
-        <option>0.9</option>
-        <option>0.7</option>
-        <option>0.4</option>
-    </select>      
-  </div>
-  </div>
-  </div>
-  <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="mesure">Mesures en place :</label>
-        <input class="form-control" formControlName="mesure">
+        <label for="origine">Origin :</label>
+        <input type="text" class="form-control" formControlName="origine" />
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['origine'].invalid">
+          <div *ngIf="f['origine'].errors && f['origine'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['origine'].errors && f['origine'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
       </div>
       </div>
-      <div class="col">
-        <div class="form-group">
-          <label for="probabilite">Probabilité :</label>
-          <select formControlName="probabilite" class="custom-select" data-style="py-0">
-            <option value="">Choisir une option</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-        </select>        
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="site">Site :</label>
+        <select id="site" name="site" formControlName="site" class="custom-select" data-style="py-0" required>
+         <option value="" selected disabled>Choisissez un site</option>
+         <option *ngFor="let site of sites$ | async" [value]="site.id">{{ site.site_nom }}</option>
+        </select>
       </div>
-        </div>      
-</div>
-    <div class="form-group">
-      <h5>Plan d'action</h5>
+    </div>
     </div>
     <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="type_action">Type d'action :</label>
-        <input class="form-control" formControlName="type_action">
+        <label for="processus">Processus :</label>
+        <select id="processus" name="processus" formControlName="processus" class="custom-select" data-style="py-0" required>
+         <option value="" selected disabled>Choisissez un processus</option>
+         <option *ngFor="let processus of processus$ | async" [value]="processus.id">{{ processus.intitule }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="axe">Axe stratégique lié :</label>
+        <input type="text" class="form-control" formControlName="axe" />
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['axe'].invalid">
+          <div *ngIf="f['axe'].errors && f['axe'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['axe'].errors && f['axe'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
       </div>
       </div>
     </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <input type="text" class="form-control" formControlName="description" />
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
+          <div *ngIf="f['description'].errors && f['description'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['description'].errors && f['description'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+      </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="contexte_ext">Contexte externe :</label>
+        <input type="text" class="form-control" formControlName="contexte_ext" />
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['contexte_ext'].invalid">
+          <div *ngIf="f['contexte_ext'].errors && f['contexte_ext'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['contexte_ext'].errors && f['contexte_ext'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+      </div>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="contexte_int">Context interne :</label>
+        <textarea class="form-control" formControlName="contexte_int"></textarea>
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['contexte_int'].invalid">
+          <div *ngIf="f['contexte_int'].errors && f['contexte_int'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['contexte_int'].errors && f['contexte_int'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+      </div>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="consequences">Conséquences :</label>
+        <input type="text" class="form-control" formControlName="consequences" />
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['consequences'].invalid">
+          <div *ngIf="f['consequences'].errors && f['consequences'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['consequences'].errors && f['consequences'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+      </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="opportunite">Opportunité identifiée :</label>
+        <input class="form-control" formControlName="opportunite">
+        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['opportunite'].invalid">
+          <div *ngIf="f['opportunite'].errors && f['opportunite'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+          <div *ngIf="f['opportunite'].errors && f['opportunite'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+      </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="indice">Indice risque :</label>
+        <input type="number" class="form-control" formControlName="indice">
+        <div class="flag-icons">
+          <div class="flag-label-row">
+            <span class="flag-label success">0-5 :</span>
+            <i class="flag-icon fas fa-flag text-success" [ngClass]="{'active': +indice >= 0 && +indice <= 5}"></i>
+          </div>
+          <div class="flag-label-row">
+            <span class="flag-label warning">5-10 :</span>
+            <i class="flag-icon fas fa-flag text-warning" [ngClass]="{'active': +indice > 5 && +indice <= 10}"></i>
+          </div>
+          <div class="flag-label-row">
+            <span class="flag-label danger">10 ou plus :</span>
+            <i class="flag-icon fas fa-flag text-danger" [ngClass]="{'active': +indice > 10}"></i>
+          </div>
+        </div>  
+      </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="niveau_risque">Niveau de risque :</label>
+          <input class="form-control" formControlName="niveau_risque">
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['niveau_risque'].invalid">
+            <div *ngIf="f['niveau_risque'].errors && f['niveau_risque'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['niveau_risque'].errors && f['niveau_risque'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+        </div>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+      <div class="form-group">
+        <h5>Evaluation</h5>
+     </div>
+     </div>
+     </div>
+     <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="date_evaluation">Date évaluation :</label>
+        <input type="date" class="form-control" formControlName="date_evaluation" />
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="impact">Impact :</label>
+        <select formControlName="impact" class="custom-select" data-style="py-0">
+          <option value="">Choisir une option</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+      </select>       
+    </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="maitrise">Maitrise :</label>
+        <select formControlName="maitrise" class="form-control" class="custom-select" data-style="py-0">
+          <option value="">Choisir une option</option>
+          <option>1</option>
+          <option>0.9</option>
+          <option>0.7</option>
+          <option>0.4</option>
+      </select>      
+    </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="mesure">Mesures en place :</label>
+          <input class="form-control" formControlName="mesure">
+          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['mesure'].invalid">
+            <div *ngIf="f['mesure'].errors && f['mesure'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+            <div *ngIf="f['mesure'].errors && f['mesure'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+        </div>
+        </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="probabilite">Probabilité :</label>
+            <input class="form-control" formControlName="probabilite">
+          </div>
+          </div>      
+  </div>
+      <div class="form-group">
+        <h5>Plan d'action</h5>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>Type d'action :</label>
+          <div class="checkbox-list">
+              <div class="form-group" *ngFor="let checkbox of getOptions('type_action')">
+                  <label>
+                      <input type="checkbox"
+                          [checked]="isCheckboxChecked(checkbox.value, 'type_action')"
+                          (change)="toggleCheckboxupdate(checkbox.value, 'type_action')">
+                      {{ checkbox.label }}
+                  </label>
+              </div>
   
-  <div class="d-flex align-items-end flex-column">
-  <div class="mt-auto p-2">
-  <button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
-  <button type="button" class="btn btn-warning" (click)="analyseForm.reset()"  data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
-  </div>
-  </div>
-  </form>
-  </div>
+  
+          </div>
+  
+  
+      </div>
+      </div>
+    
+    <div class="d-flex align-items-end flex-column">
+    <div class="mt-auto p-2">
+    <button type="submit" class="btn btn-primary" [disabled]="analyseForm.invalid"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+    <button type="button" class="btn btn-warning" (click)="analyseForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
+    </div>
+    </div>
+    </form>
+    </div>
   </div>
   </div>
   </div> 
@@ -712,8 +803,8 @@
                     <label for="type_exigence">Types d'exigences :</label>
                     <input type="text" class="form-control" formControlName="type_exigence" />
                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_exigence'].invalid">
-                      <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                      <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                      <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                   </div>
                   </div>
                  </div>
@@ -722,8 +813,8 @@
                     <label for="intitule">Intitulé :</label>
                     <input type="text" class="form-control" formControlName="intitule" />
                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].invalid">
-                      <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                      <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                      <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                   </div>
                   </div>
                   </div>
@@ -734,8 +825,8 @@
                     <label for="evaluation_maitrise">Evaluation de la maitrise :</label>
                     <input type="text" class="form-control" formControlName="evaluation_maitrise" />
                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['evaluation_maitrise'].invalid">
-                      <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                      <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                      <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                      <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
                   </div>
                   </div>
                   </div>
@@ -744,8 +835,8 @@
                       <label for="description">Description détaillé:</label>
                       <input type="text" class="form-control" formControlName="description" />
                       <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
-                        <div *ngIf="f['description'].errors && f['description'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                        <div *ngIf="f['description'].errors && f['description'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                        <div *ngIf="f['description'].errors && f['description'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                        <div *ngIf="f['description'].errors && f['description'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                     </div>
                     </div>
                     </div>
@@ -756,8 +847,8 @@
                         <label for="commentaire">Commentaire :</label>
                         <input type="text" class="form-control" formControlName="commentaire" />
                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaire'].invalid">
-                          <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                          <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                          <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                          <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                       </div>
                       </div>
                       </div>
@@ -785,7 +876,7 @@
      </div>
   </div>
     <!-- update    -->
-<div class="modal fade bd-exigence-modal-lg" [class.show]="updateModalVisible"  id="updateExigence" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade bd-exigence-modal-lg" [class.show]="updateModalVisible"  id="updateExigence" tabindex="-1" role="dialog" aria-hidden="true" (click)="resetFormOnOutsideClickExigence($event)" (keydown)="onEscKeyPressExigence($event)">
   <div class="modal-dialog modal-lg">                          
   <div class="modal-content">
   <div class="modal-header" style="background-color: #089bd7;">
@@ -801,12 +892,20 @@
     <div class="form-group">
       <label for="type_exigence">Types d'exigences :</label>
       <input type="text" class="form-control" formControlName="type_exigence" />
+      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_exigence'].invalid">
+        <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+        <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+    </div>
     </div>
   </div>
   <div class="col">
     <div class="form-group">
       <label for="intitule">Intitulé :</label>
       <input type="text" class="form-control" formControlName="intitule" />
+      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].invalid">
+        <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+        <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+    </div>
     </div>
   </div>
   </div>
@@ -815,12 +914,20 @@
     <div class="form-group">
       <label for="evaluation_maitrise">Evaluation de la maitrise :</label>
       <input type="text" class="form-control" formControlName="evaluation_maitrise" />
+      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['evaluation_maitrise'].invalid">
+        <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+        <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+    </div>
     </div>
   </div>
   <div class="col">
     <div class="form-group">
       <label for="description">Description détaillé:</label>
       <input type="text" class="form-control" formControlName="description" />
+      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
+        <div *ngIf="f['description'].errors && f['description'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+        <div *ngIf="f['description'].errors && f['description'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+    </div>
     </div>
   </div>
   </div>
@@ -829,6 +936,10 @@
     <div class="form-group">
       <label for="commentaire">Commentaire :</label>
       <input type="text" class="form-control" formControlName="commentaire" />
+      <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaire'].invalid">
+        <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+        <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
+    </div>
     </div>
   </div>
   <div class="col">
@@ -843,7 +954,7 @@
   </div>
   <div class="d-flex align-items-end flex-column">
   <div class="mt-auto p-2">
-  <button type="submit" class="btn btn-primary"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
+  <button type="submit" class="btn btn-primary" [disabled]="exigenceForm.invalid"  ><i class="fas fa-pencil-alt"></i>Modifier</button>                                                 
   <button type="button" class="btn btn-warning" (click)="exigenceForm.reset()" data-dismiss="modal" ><i class="fas fa-times"></i>Annuler</button>
   </div>
   </div>

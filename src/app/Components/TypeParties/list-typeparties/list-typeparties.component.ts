@@ -35,7 +35,7 @@ export class ListTypepartiesComponent {
   searchQuery: string = '';
   typeparties :TypePartie[] = []
   form = new FormGroup({
-    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
   });
   constructor(private   typepartieservice :TypepartieService, private router : Router, private bsModalService: BsModalService,){
 
@@ -151,5 +151,8 @@ deleteItem() {
       this.modalRef.hide();
       location.reload();
     }, 2300); 
+  }
+  get f() {
+    return this.form.controls;
   }
 }

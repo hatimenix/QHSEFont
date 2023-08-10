@@ -50,13 +50,13 @@ export class ListSanteComponent {
   idTodelete: number = 0;
   form = new FormGroup({
     site: new FormControl(''),
-    demande_de_conseils: new FormControl('', [Validators.minLength(3)]),
-    demande_de_supervision: new FormControl('', [ Validators.minLength(3)]),
-    demande_de_reunion: new FormControl('',[Validators.required]),
-    demande_de_coaching: new FormControl(''),
-    demande_de_groupe: new FormControl('',[Validators.minLength(3)]),
-    comentaires: new FormControl('',[Validators.minLength(4)]),
-    demande_entretien: new FormControl('',[Validators.minLength(3)]),
+    demande_de_conseils: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_supervision: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_reunion: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_coaching: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    demande_de_groupe: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    comentaires: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
+    demande_entretien: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
 
 
   });
@@ -117,6 +117,9 @@ export class ListSanteComponent {
           console.error(e);
       }
   });
+}
+get f() {
+  return this.form.controls;
 }
 getSanteData( id : number,
   site : any,
@@ -194,13 +197,49 @@ getDisplayedRange(): string {
   return `Affichage de ${startIndex} à ${endIndex} de ${this.santes.length} entrées`;
 }
 getRecordCount(site: any): number {
-  const sitePlans = this.santes.filter(sante => sante.site === site.id);
-  return sitePlans.length;
+  const matchingSantes = this.santes.filter(sante => sante.site === site.id);
+  const matchingExpandedSantes = matchingSantes.filter(sante =>
+    this.searchQuery === '' || (
+      (sante.demande_de_conseils && sante.demande_de_conseils.includes(this.searchQuery)) ||
+      (sante.demande_de_supervision && sante.demande_de_supervision.includes(this.searchQuery)) ||
+      (sante.demande_de_reunion && sante.demande_de_reunion.includes(this.searchQuery)) ||
+      (sante.demande_de_coaching && sante.demande_de_coaching.includes(this.searchQuery)) ||
+      (sante.demande_de_groupe && sante.demande_de_groupe.includes(this.searchQuery)) ||
+      (sante.comentaires && sante.comentaires.includes(this.searchQuery)) ||
+      (sante.demande_entretien && sante.demande_entretien.includes(this.searchQuery))
+    )
+  );
+  return matchingExpandedSantes.length;
 }
+
 closeSuccessModalAfterDelay(): void {
   setTimeout(() => {
     this.modalRef.hide();
     location.reload();
   }, 2300); 
 }
+searchAndExpand(query: string) {
+  this.searchQuery = query; 
+  this.sites.forEach(site => {
+    site.expanded = false; 
+  });
+
+  const matchingSantes = this.santes.filter(sante =>
+    (sante.demande_de_conseils && sante.demande_de_conseils.includes(query)) ||
+    (sante.demande_de_supervision && sante.demande_de_supervision.includes(query)) ||
+    (sante.demande_de_reunion && sante.demande_de_reunion.includes(query)) ||
+    (sante.demande_de_coaching && sante.demande_de_coaching.includes(query)) ||
+    (sante.demande_de_groupe && sante.demande_de_groupe.includes(query)) ||
+    (sante.comentaires && sante.comentaires.includes(query)) ||
+    (sante.demande_entretien && sante.demande_entretien.includes(query))
+  );
+
+  matchingSantes.forEach(matchingSante => {
+    const matchingSite = this.sites.find(site => site.id === matchingSante.site);
+    if (matchingSite) {
+      matchingSite.expanded = true;
+    }
+  });
+}
+
 }

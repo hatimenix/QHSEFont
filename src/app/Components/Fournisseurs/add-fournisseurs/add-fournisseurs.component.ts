@@ -41,7 +41,7 @@ export class AddFournisseursComponent implements OnInit {
     numerodesiret: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     type_de_prestation: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     numero_de_recepisse_de_declaration_prefectorale: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
-    pageweb: new FormControl(''),
+    pageweb: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     telephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
     numerodetelecopie: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     adresse: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),

@@ -12,6 +12,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
 import { ApiTachesService } from 'src/app/Services/Service-document-unique/api-taches.service';
 import { Taches } from 'src/app/models/taches';
+import { ApiUtilisateurService } from 'src/app/Services/Services-non-confirmité/api-utilisateur.service';
 
 declare var window:any;
 
@@ -31,6 +32,7 @@ export class InfoTachesComponent {
   actionForm!: FormGroup;
   sites$ !: Observable<any>;
   processus$ !: Observable<any>;
+  utilisateurs$ !: Observable<any>;
   actions$!: Observable<Actions[]>;
   siteName !: string;
   addedActionId !: number;
@@ -49,7 +51,9 @@ export class InfoTachesComponent {
     private apiRealisationService: ApiRealisationService,
     private bsModalService: BsModalService,
     private apiSiteService: ApiSiteService,
-    private apiActionsService: ApiActionsService
+    private apiActionsService: ApiActionsService,
+    private apiUtilisateurService: ApiUtilisateurService
+
   ) {}
   ngOnInit() {
     this.actionForm = this.formBuilder.group({ 
@@ -63,7 +67,7 @@ export class InfoTachesComponent {
       analyse_cause : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       plan_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       delai_mise_en_oeuvre : ['', Validators.required],
-      assigne_a : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      assigne_a : ['', Validators.required],
       priorite : ['', Validators.required],
       delai_mesure_eff : ['', Validators.required],
       type_critere_eff : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
@@ -94,6 +98,7 @@ export class InfoTachesComponent {
     );
     this.sites$ = this.apiSiteService.getAllSite();
     this.processus$ = this.apiProcessusService.getAllProcessus();
+    this.utilisateurs$ = this.apiUtilisateurService.getAllUtilsateur();
     this.getActionsByTacheId(this.tacheId);
     
     this.deletModal = new window.bootstrap.Modal(
@@ -278,5 +283,16 @@ export class InfoTachesComponent {
       this.modalRef.hide();
       location.reload();
     }, 2300); 
+  }
+  resetFormOnOutsideClick(event: MouseEvent) {
+    const targetElement = event.target as HTMLElement;
+    if (!targetElement.closest('.modal-dialog')) {
+      this.actionForm.reset();
+    }
+  }
+  onEscKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.actionForm.reset();
+    }
   }
 }

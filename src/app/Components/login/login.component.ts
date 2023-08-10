@@ -32,6 +32,7 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe(
       response => {
         this.authService.saveTokens(response);
+        localStorage.setItem('loggedInUserId', response.userId);
         this.authService.getUser().subscribe(
           () => {
             this.router.navigate(['/home']);

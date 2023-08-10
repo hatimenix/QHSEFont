@@ -36,8 +36,8 @@ export class ListAxesComponent {
   searchQuery: string = '';
   axes : AxesStrategiques[] = []
   form = new FormGroup({
-    axe: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    sigle: new FormControl(''),
+    axe: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    sigle: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
 
   });
   constructor(private   axeservice : AxesStrategiquesService, private router : Router, private bsModalService: BsModalService,){
@@ -66,6 +66,10 @@ export class ListAxesComponent {
     this.selectedAxeToDelete = id;
     this.deleteModal.show();
   }
+  get f() {
+    return this.form.controls;
+  }
+
   updateAxe() : void {
     const formData =  new FormData()
     formData.append("axe", this.axe);
@@ -157,5 +161,4 @@ deleteItem() {
       location.reload();
     }, 2300); 
   }
-
 }

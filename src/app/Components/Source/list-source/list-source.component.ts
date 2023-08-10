@@ -35,7 +35,7 @@ export class ListSourceComponent {
   searchQuery: string = '';
   sources : Source[] = []
   form = new FormGroup({
-    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
   });
   constructor(private   sourceservice : SourceService, private router : Router, private bsModalService: BsModalService,){
 
@@ -87,7 +87,9 @@ getSourceData( id : number,
   this.id = id,
   this.nom=nom
 }
-  
+get f() {
+  return this.form.controls;
+}
 delete(ids: number[]) {
   ids.forEach(id => {
     this.sourceservice.delete(id).subscribe({

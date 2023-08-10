@@ -55,9 +55,9 @@
                                        <label>Intitulé de la non-conformité <label style="color: red;">*</label></label>
                                        <input [(ngModel)]="ncf.intitule" type="text" formControlName="intitule" class="form-control" placeholder="intitulé " data-errors="Please Enter Name." id="intitule" required>
                                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].invalid">
-                                        <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
-                                        <div *ngIf="f['intitule'].errors && f['intitule'].errors['duplicate']">Cet intitulé existe déjà !</div>
+                                        <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 40 caractères !</div>
+                                        <div *ngIf="f['intitule'].errors && f['intitule'].errors['duplicate']"><i class="fas fa-exclamation-circle"></i> Cet intitulé existe déjà !</div>
                                     </div>
                                     <div class="help-block with-errors"></div>
                                     <label class="text-blue " for="intitule">Ecrivez l'intitulé de l'anomalie(synthèse très courte du problème)</label>
@@ -121,8 +121,8 @@
                                     <label>Description detaillee</label>
                                     <textarea [(ngModel)]="ncf.description_detailee" formControlName="description_detailee" class="form-control" id="description_detailee" name="description_detailee" rows="4"></textarea>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description_detailee'].invalid">
-                                        <div *ngIf="f['description_detailee'].errors && f['description_detailee'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['description_detailee'].errors && f['description_detailee'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                        <div *ngIf="f['description_detailee'].errors && f['description_detailee'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['description_detailee'].errors && f['description_detailee'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                     </div>
                                 </div>
                             </div>
@@ -138,8 +138,8 @@
                                     <label>Informations complémentaires</label>
                                     <textarea [(ngModel)]="ncf.info_complementaires" formControlName="info_complementaires" class="form-control" id="info_complementaires" name="info_complementaires" rows="4"></textarea>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['info_complementaires'].invalid">
-                                        <div *ngIf="f['info_complementaires'].errors && f['info_complementaires'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['info_complementaires'].errors && f['info_complementaires'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                        <div *ngIf="f['info_complementaires'].errors && f['info_complementaires'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['info_complementaires'].errors && f['info_complementaires'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                     </div>
                                     <label class="text-blue " for="info_complementaires">Préciser les références aux commandes ,clients ,etc ...</label>
                                 </div>
@@ -194,8 +194,8 @@
                                     <label>Détail cause</label>
                                     <textarea [(ngModel)]="ncf.detail_cause" formControlName="detail_cause" class="form-control" id="detail_cause" name="description_detailee" rows="4"></textarea>
                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['detail_cause'].invalid">
-                                        <div *ngIf="f['detail_cause'].errors && f['detail_cause'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                        <div *ngIf="f['detail_cause'].errors && f['detail_cause'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                        <div *ngIf="f['detail_cause'].errors && f['detail_cause'].errors['minlength']"><i class="fas fa-exclamation-circle"></i> doit avoir au moins 3 caractères !</div>
+                                        <div *ngIf="f['detail_cause'].errors && f['detail_cause'].errors['maxlength']"><i class="fas fa-exclamation-circle"></i> Ne doit pas dépasser 255 caractères !</div>
                                     </div>
                                 </div>
                             </div>

@@ -36,7 +36,7 @@ export class LisSecteurComponent {
   searchQuery: string = '';
   secteurs : Secteur[] = []
   form = new FormGroup({
-    secteur_nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    secteur_nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
   });
   constructor(private   secteurservice : SecteurService, private router : Router, private bsModalService: BsModalService,){
 
@@ -153,7 +153,9 @@ deleteItem() {
       location.reload();
     }, 2300); 
   }
-
+  get f() {
+    return this.form.controls;
+  }
 
 
 }
