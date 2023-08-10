@@ -12,9 +12,9 @@
                    <div class="card-body">
                        <form [formGroup]="form" data-toggle="validator">
                         <div class="row">
-                            <div class="col-md-8">                      
+                            <div class="col-md-4">                      
                                 <div class="form-group">
-                                    <label>Type partie <label style="color: red;">*</label></label>
+                                    <label>Type partie <span style="color: red;">*</span></label>
                                     <select [(ngModel)]="partief.typepartie" id="typepartie" name="typepartie" formControlName="typepartie" class="form-control" class="custom-select" required>
                                      <option *ngFor="let typepartie of typeparties" [value]="typepartie.id">{{ typepartie.nom }}</option>
                                     </select>
@@ -22,7 +22,21 @@
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
-                                <label>Processus <label style="color: red;">*</label></label>
+                                  <label>Impact</label>
+                                  <select [(ngModel)]="partief.impact" id="impact" formControlName="impact" class="selectpicker form-control" data-style="py-0">
+                                    <option value="">Choisir un type</option>
+                                    <option>1.Elevé</option>
+                                    <option>2.Moyen</option>
+                                    <option>3.Bas</option>
+                                </select>                                            
+                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['impact'].touched && f['impact'].invalid">
+                                      <div *ngIf="f['impact'].errors && f['impact'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                  </div>
+                              </div>
+                      </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label>Processus <span style="color: red;">*</span></label>
                                 <div class="checkbox-list">
                                 <div *ngFor="let processus of processuss.slice(0.5);let i=index">
                                   <label>
@@ -36,11 +50,13 @@
                                                    
                         <div class="col-md-4">                      
                              <div class="form-group">
-                                <label>Partie intéressée </label>
-                                <input [(ngModel)]="partief.partieinteresse" type="text" formControlName="partieinteresse" class="form-control" data-errors="Please Enter Name." id="partieinteresse" >
-                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['partieinteresse'].touched && f['partieinteresse'].invalid">
-                                    <div *ngIf="f['partieinteresse'].errors && f['partieinteresse'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                </div>
+                                <label>Partie intéressée <span style="color: red;">*</span></label>
+                                <input [(ngModel)]="partief.partieinteresse" type="text" formControlName="partieinteresse" class="form-control" data-errors="Please Enter Name." id="partieinteresse" required>
+                                <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['partieinteresse'].invalid">
+                                  <div *ngIf="f['partieinteresse'].errors && f['partieinteresse'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                  <div *ngIf="f['partieinteresse'].errors && f['partieinteresse'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                  <div *ngIf="f['partieinteresse'].errors && f['partieinteresse'].errors['duplicate']">Ce nom existe déjà !</div>
+                              </div>
                                 <div class="help-block with-errors"></div>
                             </div>
                             </div>
@@ -79,23 +95,25 @@
                                      </div>
                                      </div>
                                     <div class="help-block with-errors"></div>
-                                   <div class="col-md-4">                      
+                                   <div class="col-md-6">                      
                                      <div class="form-group">
                                     <label>Enjeux associés</label>
-                                        <input [(ngModel)]="partief.enjeux" type="text" formControlName="enjeux" class="form-control"  data-errors="Please Enter Name." id="enjeux" >
-                                          <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['enjeux'].touched && f['enjeux'].invalid">
-                                             <div *ngIf="f['enjeux'].errors && f['enjeux'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                       </div>
+                                        <textarea [(ngModel)]="partief.enjeux" type="text" formControlName="enjeux" class="form-control"  data-errors="Please Enter Name." id="enjeux" rows="4" ></textarea>
+                                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['enjeux'].invalid">
+                                          <div *ngIf="f['enjeux'].errors && f['enjeux'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                          <div *ngIf="f['enjeux'].errors && f['enjeux'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                      </div>
                                          <div class="help-block with-errors"></div>
                                          </div>
                                          </div>
-                                        <div class="col-md-4">                      
+                                        <div class="col-md-6">                      
                                        <div class="form-group">
                                      <label>Besoin,attente,exigence de la partie intéressée</label>
-                                    <input [(ngModel)]="partief.besoin" type="text" formControlName="besoin" class="form-control" data-errors="Please Enter Name." id="besoin" >
-                                  <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['besoin'].touched && f['besoin'].invalid">
-                                  <div *ngIf="f['besoin'].errors && f['besoin'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                     </div>
+                                    <textarea [(ngModel)]="partief.besoin" type="text" formControlName="besoin" class="form-control" data-errors="Please Enter Name." id="besoin" rows="4"></textarea>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['besoin'].invalid">
+                                      <div *ngIf="f['besoin'].errors && f['besoin'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                      <div *ngIf="f['besoin'].errors && f['besoin'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                  </div>
                                  <div class="help-block with-errors"></div>
                                  </div>
                                  </div>
@@ -106,9 +124,6 @@
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['impactfinal'].valid && (f['impactfinal'].dirty || f['impactfinal'].touched)">
                                       Impact sur le client final valide.
                                     </div>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['impactfinal'].touched">
-                                      <div *ngIf="f['impactfinal'].errors && f['impactfinal'].errors['pattern']">Doit contenir des chiffres seulement!</div>
-                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-md-4">
@@ -117,9 +132,6 @@
                                     <input [(ngModel)]="partief.impactentreprise" type="number" formControlName="impactentreprise" class="form-control" id="impactentreprise">
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['impactentreprise'].valid && (f['impactentreprise'].dirty || f['impactentreprise'].touched)">
                                       Impact sur notre entreprise valide.
-                                    </div>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['impactentreprise'].touched">
-                                      <div *ngIf="f['impactentreprise'].errors && f['impactentreprise'].errors['pattern']">Doit contenir des chiffres seulement!</div>
                                     </div>
                                   </div>
                                 </div>
@@ -130,21 +142,10 @@
                                     <div style="color: green; margin-top: 10px;" *ngIf="f['cotation'].valid && (f['cotation'].dirty || f['cotation'].touched)">
                                       Cotation valide.
                                     </div>
-                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['cotation'].touched">
-                                      <div *ngIf="f['cotation'].errors && f['cotation'].errors['pattern']">Doit contenir des chiffres seulement!</div>
-                                    </div>
                                   </div>
                                 </div>
                                 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Impact</label>
-                                            <input [(ngModel)]="partief.impact" formControlName="impact" class="form-control" id="impact" name="impact" >
-                                            <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['impact'].touched && f['impact'].invalid">
-                                                <div *ngIf="f['impact'].errors && f['impact'].errors['minlength']">doit avoir au moins 3 caractères !</div>
-                                            </div>
-                                        </div>
-                                </div>
+                                    
                                          </div>
                                     </form>
        <div style="margin-bottom: 2rem; margin-top: +15px;" class="d-flex flex-wrap justify-content-end">

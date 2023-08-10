@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SourceService } from 'src/app/Services/Service-Source/source.service';
 @Component({
@@ -9,6 +9,7 @@ import { SourceService } from 'src/app/Services/Service-Source/source.service';
   styleUrls: ['./add-source.component.css']
 })
 export class AddSourceComponent {
+  sources: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor( private router : Router,private sourceservice :SourceService, private bsModalService: BsModalService){
@@ -22,7 +23,7 @@ export class AddSourceComponent {
   };
   submitted = false;
   form = new FormGroup({
-    nom: new FormControl(''),
+    nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateNom.bind(this)]),
 
   });
   ngOnInit(): void {
@@ -38,6 +39,14 @@ export class AddSourceComponent {
 
     // aller en haut de la page
     window.scrollTo(0, 0);
+    this.sourceservice.getAll().subscribe(
+      (data: any[]) => {
+        this.sources = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
   createSource() {
     const formData =  new FormData()
@@ -48,6 +57,7 @@ export class AddSourceComponent {
         console.log(res);
         this.router.navigate(["/source-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -70,9 +80,17 @@ openModal() {
 closeModal() {
   this.bsModalService.hide();
 }
+checkDuplicateNom(control: AbstractControl): { [key: string]: boolean } | null {
+  const nomValue = control.value;
+  const isDuplicate = this.sources.some(item => item.nom === nomValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
 
-
-
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
+}
 
 
 }

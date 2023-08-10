@@ -18,6 +18,8 @@ export class UpdateGroupesComponent {
   users: UserApp[];
   userapp$!: Observable<any>;
   groupId!: number;
+    //set time for modal
+  private modalCloseTime: number = 2000; // 
 
   //modal
   @ViewChild('successModal', { static: true }) successModal: any;
@@ -31,8 +33,17 @@ export class UpdateGroupesComponent {
     private route: ActivatedRoute
   ) {
     this.groupForm = this.formBuilder.group({
-      nom: ['', Validators.required],
-      description: ['', Validators.required],
+      nom: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+        Validators.pattern('[a-zA-Z ]*') // Only alphabets and spaces allowed
+      ]],
+      description: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+      ]],
       proprietaire_groupe: [[]],
       autorisation: ['']
     });
@@ -91,7 +102,7 @@ export class UpdateGroupesComponent {
   }
 
   getSelectedUserNames(selectedUsers: UserApp[]): string {
-    return selectedUsers.map(user => user.nom_complet).join(', ');
+    return selectedUsers.map(user => user.nom).join(', ');
   }
 
   // Méthode pour gérer la sélection d'utilisateurs multiples
@@ -105,6 +116,11 @@ export class UpdateGroupesComponent {
   //modal functions 
   openModal() {
     this.modalRef = this.bsModalService.show(this.successModal);
+
+    // Set a timer to close the modal after the specified time
+    setTimeout(() => {
+      this.closeModal();
+    }, this.modalCloseTime);
   }
 
   closeModal() {

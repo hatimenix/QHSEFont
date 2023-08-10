@@ -64,33 +64,33 @@ export class InfoPartieComponent {
   ngOnInit() {
     this.analyseForm = this.formBuilder.group({ 
       site : ['', Validators.required],
-      description : ['', Validators.required],
-      typologie : ['', Validators.required],
-      axe : ['', Validators.required],
-      famille : ['', Validators.required],
+      description : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      typologie : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      axe : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      famille : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       indice : ['', Validators.required],
-      niveau_risque : ['', Validators.required],
+      niveau_risque : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       date_evaluation : ['', Validators.required],
-      opportunite : ['', Validators.required],
-      origine : ['', Validators.required],
+      opportunite : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      origine : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
       processus : ['', Validators.required],
-      contexte_int : ['', Validators.required],
-      contexte_ext : ['', Validators.required],
-      consequences : ['', Validators.required],
+      contexte_int : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      contexte_ext : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      consequences : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
       impact : ['', Validators.required],
       probabilite : ['', Validators.required],
       maitrise : ['', Validators.required],
-      mesure : ['', Validators.required],
-      type_action : ['', Validators.required],
+      mesure : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(255)]],
+      type_action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
 
     });
     this.exigenceForm = this.formBuilder.group({ 
-      type_exigence : ['', Validators.required],
-      intitule : ['', Validators.required],
-      evaluation_maitrise : ['', Validators.required],
-      description : ['', Validators.required],
-      commentaire : ['', Validators.required],
-      action : ['', Validators.required],
+      type_exigence : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      intitule : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      evaluation_maitrise : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      description : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      commentaire : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
+      action : ['', [Validators.required,Validators.minLength(3),Validators.maxLength(40)]],
 
     });
     this.partieId = +this.route.snapshot.params['id'];
@@ -170,6 +170,7 @@ export class InfoPartieComponent {
             this.analyseForm.reset();
             this.openModaladdAnalyse();
             this.addModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -206,6 +207,7 @@ export class InfoPartieComponent {
             
             this.openModal();
             this.updateModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -259,6 +261,7 @@ export class InfoPartieComponent {
             this.exigenceForm.reset();
             this.openModaladdExigence();
             this.addModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -281,6 +284,7 @@ export class InfoPartieComponent {
             
             this.openModalupdate();
             this.updateModalVisible = false;
+            this.closeSuccessModalAfterDelay();
           },
           error => console.log(error)
         );
@@ -337,7 +341,13 @@ export class InfoPartieComponent {
     openModalupdate() {
       this.modalRef = this.bsModalService.show(this.successModalexigence);
     }
-
-
-
+    get f() {
+      return { ...this.analyseForm.controls, ...this.exigenceForm.controls };
+    }
+    closeSuccessModalAfterDelay(): void {
+      setTimeout(() => {
+        this.modalRef.hide();
+        location.reload();
+      }, 2300); 
+    }
 }

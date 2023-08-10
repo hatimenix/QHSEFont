@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ServicesEquipementservice } from 'src/app/Services/Service-equipements/services-equipements.service';
 import { ApiSiteService } from 'src/app/Services/Service-document-unique/api-site.service';
@@ -12,6 +12,7 @@ import { SecteurService } from 'src/app/Services/Service-secteur/secteur.service
   styleUrls: ['./add-equipements.component.css']
 })
 export class AddEquipementsComponent implements OnInit {
+  equipements: any[] = [];
   sites: any[] = [];
   secteurs: any[] = [];
   droppedFile: File | null = null;
@@ -43,12 +44,12 @@ export class AddEquipementsComponent implements OnInit {
     site: new FormControl(''),
     secteur: new FormControl(''),
     type_equipement: new FormControl('', [Validators.minLength(3)]),
-    codification: new FormControl('', [ Validators.minLength(3)]),
+    codification: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateCodification.bind(this)]),
     date_mise_en_service: new FormControl('',[Validators.required]),
     date_modification: new FormControl(''),
     verification: new FormControl('',[Validators.minLength(3)]),
     prochaine_verification: new FormControl('',[Validators.minLength(4)]),
-    commentaires: new FormControl('',[Validators.minLength(3)]),
+    commentaires: new FormControl('', [Validators.minLength(3),Validators.maxLength(255)]),
     N_serie: new FormControl(''),
     Certificat: new FormControl(''),
     Equipement_declasse: new FormControl(false),
@@ -85,7 +86,15 @@ export class AddEquipementsComponent implements OnInit {
       (error: any) => {
         console.log(error); // Handle error
       }
-    );  
+    ); 
+    this.equipementservice.getAll().subscribe(
+      (data: any[]) => {
+        this.equipements = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    ); 
 
   }
   createEquipement() {
@@ -111,6 +120,7 @@ export class AddEquipementsComponent implements OnInit {
         console.log(res);
         this.router.navigate(["/equipement-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -162,5 +172,15 @@ onDrop(event: any) {
     dropZone.innerHTML = file.name;
   }
   
+}
+checkDuplicateCodification(control: AbstractControl): { [key: string]: boolean } | null {
+  const codificationValue = control.value;
+  const isDuplicate = this.equipements.some(item => item.codification === codificationValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
 }
 }

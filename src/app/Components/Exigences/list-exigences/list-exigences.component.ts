@@ -104,6 +104,7 @@ export class ListExigencesComponent {
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -180,6 +181,12 @@ getDisplayedRange(): string {
 getRecordCount(partieinteresses: any): number {
   const partieinteressesPlans = this.exigences.filter(exigence => exigence.partieinteresses.includes(partieinteresses.id));
   return partieinteressesPlans.length;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+    location.reload();
+  }, 2300); 
 }
 
 }

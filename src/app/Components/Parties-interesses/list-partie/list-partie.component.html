@@ -268,9 +268,12 @@
                 </div>
                 <div class="col">
                   <label for="impact" class="form-label">impact : </label>
-                  <input name="impact" value="{{impact}}" [(ngModel)]="impact"
-                    formControlName="impact" style="width: 100%;" type="text" class=" form-control"
-                    id="impact">
+                  <select [(ngModel)]="impact" value="{{impact}}" id="impact"
+                      formControlName="impact" class="form-control" class="custom-select">
+                      <option>1.Elevé</option>
+                      <option>2.Moyen</option>
+                      <option>3.Bas</option>
+                    </select>
                 </div>
                 </div>
                 <div class="row">

@@ -36,29 +36,54 @@
                                  <div class="form-group">
                                      <label>Nom de l'utilisateur <label style="color: red;">*</label></label>
                                      <input type="text" class="form-control" placeholder="Entrer le nom de l'utilisateur"  id="nom_user" name="nom_user" formControlName="nom_user">
-                                     <div class="help-block with-errors"></div>
-                                 </div>
+                                     <div
+                                     class="help-block with-errors"
+                                     *ngIf="userForm.get('nom_user')?.errors && (userForm.get('nom_user')?.dirty || userForm.get('nom_user')?.touched)"
+                                   >
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('required')" class="text-danger">
+                                       Veuillez entrer le nom de l'utilisateur.
+                                     </p>
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('minlength')" class="text-danger">
+                                       Le nom de l'utilisateur doit contenir au moins 3 caractères.
+                                     </p>
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('maxlength')" class="text-danger">
+                                       Le nom de l'utilisateur ne peut pas dépasser 25 caractères.
+                                     </p>
+                                     <p *ngIf="userForm.get('nom_user')?.hasError('pattern')" class="text-danger">
+                                       Le nom de l'utilisateur ne peut contenir que des lettres et espaces.
+                                     </p>
+                                   </div>                                 </div>
                              </div> 
                           <div class="col-md-6">
                               <div class="form-group">
                                   <label>Nom Complet <label style="color: red;">*</label></label>
-                                  <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="nom_complet" name="nom_complet" formControlName="nom_complet">
-                                  <div class="help-block with-errors"></div>
-                              </div>
+                                  <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="nom" name="nom" formControlName="nom">
+                                  <div
+                                  class="help-block with-errors"
+                                  *ngIf="userForm.get('nom')?.errors && (userForm.get('nom')?.dirty || userForm.get('nom')?.touched)"
+                                >
+                                  <p *ngIf="userForm.get('nom')?.hasError('required')" class="text-danger">
+                                    Veuillez entrer le nom complet.
+                                  </p>
+                                  <p *ngIf="userForm.get('nom')?.hasError('minlength')" class="text-danger">
+                                    Le nom de l'utilisateur doit contenir au moins 3 caractères.
+                                  </p>
+                                  <p *ngIf="userForm.get('nom')?.hasError('maxlength')" class="text-danger">
+                                    Le nom de l'utilisateur ne peut pas dépasser 25 caractères.
+                                  </p>
+                                  <p *ngIf="userForm.get('nom')?.hasError('pattern')" class="text-danger">
+                                    Le nom de l'utilisateur ne peut contenir que des lettres et espaces.
+                                  </p>
+                                </div>                              </div>
                           </div> 
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <label>Mot de passe <label style="color: red;">*</label></label>
-                                  <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="password" name="password" formControlName="password">
-                                  <div class="help-block with-errors"></div>
-                              </div>
-                          </div> 
+                         
                           <div class="col-md-6">
                               <div class="form-group">
                                   <label>Adresse Email <label style="color: red;">*</label></label>
                                   <input type="text" class="form-control" placeholder="Entrer le nom complet"  id="email" name="email" formControlName="email">
-                                  <div class="help-block with-errors"></div>
-                              </div>
+                                  <div *ngIf="emailExistsError" class="text-danger">
+                                    Adresse email existe déjà
+                                  </div>                              </div>
                           </div> 
                           <div class="col-md-6">
                               <div class="form-group">
@@ -66,15 +91,19 @@
                                   <input type="checkbox" id="actif" name="actif" formControlName="actif">
                               </div>
                           </div>
-                          <div class="col-md-6" id="idGroupe" formArrayName="groupes_roles">
-                            <div class="form-group">
-                              <label for="groupes_roles">Groupes/Rôles:<label style="color: red;">*</label></label>
-                              <div *ngFor="let groupe of groupes; let i = index">
-                                <input type="checkbox" [value]="groupe.id" [formControl]="getGroupControl(i)">
-                                {{ groupe.nom }}
-                              </div>
-                            </div>
-                          </div>
+<!-- Assuming 'groupes_roles' is the FormArrayName -->
+<div class="col-md-6">
+  <div class="form-group">
+      <label>Groupes/Rôles <label style="color: red;">*</label> </label>
+      <select id="groupes_roles" name="groupes_roles" formControlName="groupes_roles"  class="custom-select" data-style="py-0" required multiple>
+          <option *ngFor="let group of group$ | async" [value]="group.id">{{ group.nom }}</option>
+         </select>   
+         <div class="help-block with-errors"></div>
+
+  </div> 
+</div>
+
+
                          </div>  
                             
                          <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                   

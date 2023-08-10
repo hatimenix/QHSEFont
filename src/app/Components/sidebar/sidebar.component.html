@@ -11,7 +11,7 @@
     <div class="scroll-sidebar">
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="iq-menu custom-sidebar-menu"> 
-                <li class="active">
+                <li [ngClass]="{ active: isLinkActive('/home') }">
                     <a  routerLink="/home" class="svg-icon" >
                         <svg class="svg-icon" id="p-dash1" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -25,7 +25,7 @@
                         <span class="ml-4" >Acceuil</span>
                     </a>
                 </li>
-                <li class=" ">
+                <li [ngClass]="{ active: isLinkActive('/product') }">
                     <a href="#product" class="collapsed" data-toggle="collapse" aria-expanded="false"
                         >
                         <svg class="svg-icon" id="lock-icon" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
@@ -44,13 +44,13 @@
                         </svg>
                     </a>
                     <ul id="product" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="">
-                            <a routerLink="/list-registre-traitement" >
+                        <li [ngClass]="{ active: isLinkActive('/list-registre-traitement') }">
+                            <a routerLink="/list-registre-traitement">
                                 <i class="las la-minus"></i><span>Registre de traitement </span>
                             </a>
                         </li>
-                        <li class="">
-                            <a routerLink="/documents-utiles-list" >
+                        <li [ngClass]="{ active: isLinkActive('/documents-utiles-list') }">
+                            <a routerLink="/documents-utiles-list">
                                 <i class="las la-minus"></i><span>Documents utile</span>
                             </a>
                         </li>
@@ -74,68 +74,68 @@
                         </svg>
                     </a>
                     <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listgroupeusers') }">
                             <a routerLink="/listgroupeusers" >
                                 <i class="las la-minus"></i><span>Liste des groupes</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listuserapp') }">
                             <a routerLink="/listuserapp" >
                                 <i class="las la-minus"></i><span>Liste Utilisateur FBA</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listProcessus') }">
                             <a routerLink="/listProcessus" >
                                 <i class="las la-minus"></i><span>Liste processus</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/axe-list') }">
                             <a routerLink="/axe-list" >
                                 <i class="las la-minus"></i><span>Liste axes stratégiques</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listsites') }">
 
                             <a routerLink="/listsites" >
                                 <i class="las la-minus"></i><span>Liste des sites</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listP') }">
                             <a routerLink="/listP">
                                 <i class="las la-minus"></i><span>Liste des personnels</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/equipement-list') }">
                             <a routerLink="/equipement-list" >
                                 <i class="las la-minus"></i><span>Suivi des équipements </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/fournisseur-list') }">
                             <a routerLink="/fournisseur-list" >
                                 <i class="las la-minus"></i><span>Liste des fournisseurs </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/source-list') }">
                             <a routerLink="/source-list">
                                 <i class="las la-minus"></i><span>Liste sources </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/typepartie-list') }">
                             <a routerLink="/typepartie-list" >
                                 <i class="las la-minus"></i><span>Liste type parties </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/evenement-list') }">
                             <a routerLink="/evenement-list" >
                                 <i class="las la-minus"></i><span>Liste des événements </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listSecteur') }">
                             <a routerLink="/listSecteur" >
                                 <i class="las la-minus"></i><span>Liste des secteurs </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listServices') }">
                             <a routerLink="/listServices" >
                                 <i class="las la-minus"></i><span>Liste des services </span>
                             </a>
@@ -170,12 +170,12 @@
                                 <i class="las la-minus"></i><span>Vision 360 </span>
                             </a>
                         </li> -->
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/partie-list') }">
                             <a routerLink="/partie-list" >
                                 <i class="las la-minus"></i><span>Parties intéressées </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/exigence-list') }">
                             <a routerLink="/exigence-list" >
                                 <i class="las la-minus"></i><span>Exigences des parties intéressées </span>
                             </a>
@@ -206,7 +206,7 @@
                             </a>
                         </li> -->
 
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listReunion') }">
                             <a routerLink="/listReunion" >
                                 <i class="las la-minus"></i><span>Suivi des réunions </span>
                             </a>
@@ -233,22 +233,22 @@
                         </svg>
                     </a>
                     <ul id="return" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/nc-list') }">
                             <a routerLink="/nc-list" >
                                 <i class="las la-minus"></i><span>Suivi des non-confirmités</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/tache-list') }">
                             <a routerLink="/tache-list" >
                                 <i class="las la-minus"></i><span>Suivi des tâches</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/graphiques') }">
                             <a routerLink="/graphiques" >
                                 <i class="las la-minus"></i><span>Graphiques</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/constatsaudit-list') }">
                             <a routerLink="/constatsaudit-list" >
                                 <i class="las la-minus"></i><span>Constat d'audit</span>
                             </a>
@@ -275,12 +275,12 @@
                         </svg>
                     </a>
                     <ul id="people" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/danger') }">
                             <a href="/danger" >
                                 <i class="las la-minus"></i><span>Document Unique</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listExerciceSecurite') }">
                             <a routerLink="/listExerciceSecurite" >
                                 <i class="las la-minus"></i><span>Exercices sécurité</span>
                             </a>
@@ -296,14 +296,14 @@
                             </a>
                         </li>
                      -->
-                        <li class="">
-                            <a href="/listcontrol" >
+                     <li [ngClass]="{ active: isLinkActive('/listcontrol') }">
+                        <a href="/listcontrol" >
                                 <i class="las la-minus"></i><span>Suivie des contrôles </span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="">
+                <li [ngClass]="{ active: isLinkActive('/listC') }">
                     <a routerLink="/listC" class="" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
@@ -316,7 +316,7 @@
                     </a>
                     <ul id="reports" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle"></ul>
                 </li>
-                <li class="">
+                <li [ngClass]="{ active: isLinkActive('/listF') }">
                     <a routerLink="/listF" class="" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-wrench" viewBox="0 0 16 16">
@@ -327,7 +327,7 @@
                     </a>
                     <ul id="reports" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle"></ul>
                 </li>
-                <li class="">
+                <li [ngClass]="{ active: isLinkActive('/listMenu') }">
                     <a routerLink="/listMenu" class="" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-cup-hot" viewBox="0 0 16 16">
@@ -340,7 +340,7 @@
                     </a>
                     <ul id="reports" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle"></ul>
                 </li>
-                <li class="">
+                <li [ngClass]="{ active: isLinkActive('/listdocument') }">
                     <a routerLink="/listdocument" class="" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-file-earmark-text" viewBox="0 0 16 16">
@@ -353,7 +353,7 @@
                     </a>
                     <ul id="reports" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle"></ul>
                 </li>
-                <li class="">
+                <li [ngClass]="{ active: isLinkActive('/sante-list') }">
                     <a routerLink="/sante-list" class="" >
                         <svg class="svg-icon" id="mental-health-icon" width="20" height="20"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -370,7 +370,7 @@
                     </a>
                     <ul id="reports" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle"></ul>
                 </li>
-                <li class="">
+                <li [ngClass]="{ active: isLinkActive('/cartographie') }">
                     <a routerLink="/cartographie" class="" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-map" viewBox="0 0 16 16">
@@ -382,7 +382,7 @@
                     </a>
                     <ul id="reports" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle"></ul>
                 </li>
-                <li class="">
+                <li [ngClass]="{ active: isLinkActive('/qualite-list') }">
                     <a routerLink="/qualite-list" class="" >
                         <svg class="svg-icon" id="objective-icon" width="20" height="20"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -415,12 +415,12 @@
                         </svg>
                     </a>
                     <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/analyseSWOT') }">
                             <a routerLink="/analyseSWOT" >
                                 <i class="las la-minus"></i><span>Analyse SWOT</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/cartographieRisque') }">
                             <a routerLink="/cartographieRisque" >
                                 <i class="las la-minus"></i><span>Carte des risques</span>
                             </a>
@@ -486,17 +486,17 @@
                         </svg>
                     </a>
                     <ul id="product" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listpj') }">
                             <a routerLink="/listpj">
                                 <i class="las la-minus"></i><span>PJ retours positifs </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listrapport') }">
                             <a routerLink="/listrapport" >
                                 <i class="las la-minus"></i><span>Rapport d'audit qualité sécurité 5S</span>
                             </a>
                         </li>
-                        <li class="">
+                        <li [ngClass]="{ active: isLinkActive('/listcertificat') }">
                             <a routerLink="/listcertificat" >
                                 <i class="las la-minus"></i><span>Certificats calibration</span>
                             </a>

@@ -74,6 +74,7 @@ export class ListSourceComponent {
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -146,7 +147,12 @@ deleteItem() {
     return `Affichage de ${startIndex} à ${endIndex} de ${this.sources.length} entrées`;
   }
  
-
+  closeSuccessModalAfterDelay(): void {
+    setTimeout(() => {
+      this.modalRef.hide();
+      location.reload();
+    }, 2300); 
+  }
 
 
 }

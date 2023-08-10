@@ -186,7 +186,7 @@
                                         <th>Texture</th>
                                         <th>Spécificité dièt. matin</th>
                                         <th>SOir </th>
-                                        <th>Soupe soir</th>
+                                        <th class="text-center" style="width: 10%">Soupe soir</th>
 
                                         <th>Dessert</th>
                                         <th>Menu velours matin</th>
@@ -261,7 +261,19 @@
 
                                                     <td>{{dpa.specificite_diet_matin}}</td>
                                                     <td>{{dpa.soir ? "Oui" : "Non"}}</td>
-                                                    <td>{{dpa.soupe_soir}}</td>
+
+
+                                                    <td class="text-center">
+                                                        <ng-container
+                                                            *ngFor="let value of getTrimmedValues(dpa.soupe_soir)">
+                                                            <div tyle=" width: 200px; /* Adjust the width as needed */
+  white-space: pre-wrap;">{{ value }}</div>
+                                                        </ng-container>
+                                                    </td>
+
+
+
+
                                                     <td>{{dpa.dessert}}</td>
                                                     <td>{{dpa.menu_velours_matin ? "Oui" : "Non"}}</td>
                                                     <td>{{dpa.soupe_midi}}</td>
@@ -376,12 +388,13 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div [class.show]="updateModalVisible" class="modal fade" id="update" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div>
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modifier un dpaat d'audit</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier un plan alimentaire</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -417,10 +430,19 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Régime<label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="regime" type="text" class="form-control"
-                                        placeholder="Entrer le Régime" id="regime" name="regime"
-                                        formControlName="regime">
-                                    <div class="help-block with-errors"></div>
+                                    <div class="checkbox-list">
+                                        <div class="form-group" *ngFor="let checkbox of getOptions('regime')">
+                                            <label>
+                                                <input type="checkbox"
+                                                    [checked]="isCheckboxChecked(checkbox.value, 'regime')"
+                                                    (change)="toggleCheckbox(checkbox.value, 'regime')">
+                                                {{ checkbox.label }}
+                                            </label>
+                                        </div>
+
+
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -488,10 +510,11 @@
                                     <div class="help-block with-errors"></div> -->
                                 <label>Texture<label style="color: red;">*</label></label>
                                 <div class="checkbox-list">
-                                    <div class="form-group" *ngFor="let checkbox of checkboxOptions">
+                                    <div class="form-group" *ngFor="let checkbox of getOptions('texture')">
                                         <label>
-                                            <input type="checkbox" [checked]="isCheckboxChecked(checkbox.value)"
-                                                (change)="toggleCheckbox(checkbox.value)">
+                                            <input type="checkbox"
+                                                [checked]="isCheckboxChecked(checkbox.value, 'texture')"
+                                                (change)="toggleCheckbox(checkbox.value, 'texture')">
                                             {{ checkbox.label }}
                                         </label>
                                     </div>
@@ -538,12 +561,18 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Soupe midi<label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="soupe_midi" type="text" class="form-control"
-                                        placeholder="Entrer la soupe de midi" id="soupe_midi" name="soupe_midi"
-                                        formControlName="soupe_midi">
-                                    <div class="help-block with-errors"></div>
+                                <div class="checkbox-list">
+                                    <div class="form-group">
+                                        <label>Soupe midi<label style="color: red;">*</label></label>
+                                        <div class="form-group" *ngFor="let checkbox of getOptions('soupe_midi')">
+                                            <label>
+                                                <input type="checkbox"
+                                                    [checked]="isCheckboxChecked(checkbox.value, 'soupe_midi')"
+                                                    (change)="toggleCheckbox(checkbox.value, 'soupe_midi')">
+                                                {{ checkbox.label }}
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -552,23 +581,34 @@
 
 
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Soupe soir<label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="soupe_soir" type="text" class="form-control"
-                                        placeholder="Entrer la soupe du soir" id="soupe_soir" name="soupe_soir"
-                                        formControlName="soupe_soir">
-                                    <div class="help-block with-errors"></div>
+                                <div class="checkbox-list">
+                                    <div class="form-group">
+                                        <label>Soupe soir<label style="color: red;">*</label></label>
+                                        <div class="form-group" *ngFor="let checkbox of getOptions('soupe_soir')">
+                                            <label>
+                                                <input type="checkbox"
+                                                    [checked]="isCheckboxChecked(checkbox.value, 'soupe_soir')"
+                                                    (change)="toggleCheckbox(checkbox.value, 'soupe_soir')">
+                                                {{ checkbox.label }}
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Taille portion<label style="color: red;">*</label></label>
+                                <div class="checkbox-list">
+                                    <div class="form-group">
+                                        <label>Taille portion<label style="color: red;">*</label></label>
 
-
-                                    <input [(ngModel)]="taille_portion" type="text" class="form-control"
-                                        placeholder="Entrer la  taille de portion" id="taille_portion"
-                                        name="taille_portion" formControlName="taille_portion">
-                                    <div class="help-block with-errors"></div>
+                                        <div class="form-group" *ngFor="let checkbox of getOptions('taille_portion')">
+                                            <label>
+                                                <input type="checkbox"
+                                                    [checked]="isCheckboxChecked(checkbox.value, 'taille_portion')"
+                                                    (change)="toggleCheckbox(checkbox.value, 'taille_portion')">
+                                                {{ checkbox.label }}
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -699,12 +739,19 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Convictions alimentaires<label style="color: red;">*</label></label>
-                                    <input [(ngModel)]="convictions_alimentaires" type="text" class="form-control"
-                                        placeholder=" Conviction alimentaire" id="convictions_alimentaires"
-                                        name="convictions_alimentaires" formControlName="convictions_alimentaires">
-                                    <div class="help-block with-errors"></div>
+                                <div class="checkbox-list">
+                                    <div class="form-group">
+                                        <label>Convictions alimentaires<label style="color: red;">*</label></label>
+                                        <div class="form-group"
+                                            *ngFor="let checkbox of getOptions('convictions_alimentaires')">
+                                            <label>
+                                                <input type="checkbox"
+                                                    [checked]="isCheckboxChecked(checkbox.value, 'convictions_alimentaires')"
+                                                    (change)="toggleCheckbox(checkbox.value, 'convictions_alimentaires')">
+                                                {{ checkbox.label }}
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

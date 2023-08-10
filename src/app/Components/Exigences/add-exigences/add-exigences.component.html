@@ -20,24 +20,37 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">                      
-                             <div class="form-group">
-                                <label>Type d'exigence </label>
-                                <input [(ngModel)]="exigencef.type_exigence" type="text" formControlName="type_exigence" class="form-control" data-errors="Please Enter Name." id="type_exigence" >
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            </div>
                             <div class="col-md-4">                      
                                 <div class="form-group">
-                                      <label>Intitulé</label>
-                                    <input [(ngModel)]="exigencef.intitule" type="text" formControlName="intitule" class="form-control" data-errors="Please Enter Name." id="intitule" >
+                                      <label>Intitulé <span style="color: red;">*</span></label>
+                                    <input [(ngModel)]="exigencef.intitule" type="text" formControlName="intitule" class="form-control" data-errors="Please Enter Name." id="intitule" required>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['intitule'].invalid">
+                                      <div *ngIf="f['intitule'].errors && f['intitule'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                      <div *ngIf="f['intitule'].errors && f['intitule'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                      <div *ngIf="f['intitule'].errors && f['intitule'].errors['duplicate']">Cet intitulé existe déjà !</div>
+                                  </div>
                                        <div class="help-block with-errors"></div>
                                 </div>
                                 </div>
+                                <div class="col-md-4">                      
+                                  <div class="form-group">
+                                     <label>Type d'exigence </label>
+                                     <input [(ngModel)]="exigencef.type_exigence" type="text" formControlName="type_exigence" class="form-control" data-errors="Please Enter Name." id="type_exigence" >
+                                     <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['type_exigence'].invalid">
+                                       <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                       <div *ngIf="f['type_exigence'].errors && f['type_exigence'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                   </div>
+                                     <div class="help-block with-errors"></div>
+                                 </div>
+                                 </div>
                                    <div class="col-md-6">                      
                                      <div class="form-group">
                                     <label>Description</label>
                                         <textarea [(ngModel)]="exigencef.description" type="text" formControlName="description" class="form-control"  data-errors="Please Enter Name." id="description" rows="3"></textarea>
+                                        <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['description'].invalid">
+                                          <div *ngIf="f['description'].errors && f['description'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                          <div *ngIf="f['description'].errors && f['description'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                      </div>
                                          <div class="help-block with-errors"></div>
                                          </div>
                                          </div>
@@ -45,6 +58,10 @@
                                        <div class="form-group">
                                      <label>Commentaire</label>
                                     <textarea [(ngModel)]="exigencef.commentaire" type="text" formControlName="commentaire" class="form-control" data-errors="Please Enter Name." id="commentaire"  rows="3"></textarea>
+                                    <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['commentaire'].invalid">
+                                      <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                      <div *ngIf="f['commentaire'].errors && f['commentaire'].errors['maxlength']">Ne doit pas dépasser 255 caractères !</div>
+                                  </div>
                                  <div class="help-block with-errors"></div>
                                  </div>
                                  </div>
@@ -63,6 +80,10 @@
                                     <div class="form-group">
                                           <label>Evaluation de la maitrise</label>
                                          <input [(ngModel)]="exigencef.evaluation_maitrise" type="text" formControlName="evaluation_maitrise" class="form-control" data-errors="Please Enter Name." id="evaluation_maitrise" >
+                                         <div style="color: rgba(246, 4, 85, 0.574);font-weight: bold; margin-top: 10px;" *ngIf="f['evaluation_maitrise'].invalid">
+                                          <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['minlength']">doit avoir au moins 3 caractères !</div>
+                                          <div *ngIf="f['evaluation_maitrise'].errors && f['evaluation_maitrise'].errors['maxlength']">Ne doit pas dépasser 40 caractères !</div>
+                                      </div>
                                          </div>
                                          </div>
                                         <div class="help-block with-errors"></div>

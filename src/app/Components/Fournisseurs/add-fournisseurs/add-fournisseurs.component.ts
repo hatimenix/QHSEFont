@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fournisseur.service';
 @Component({
@@ -9,6 +9,7 @@ import { FournisseurService } from 'src/app/Services/Service-fournisseurs/fourni
   styleUrls: ['./add-fournisseurs.component.css']
 })
 export class AddFournisseursComponent implements OnInit {
+  fournisseurs: any[] = [];
   @ViewChild('successModal', { static: true }) successModal:any;
   modalRef!: BsModalRef;
   constructor(private   fournisseurservice : FournisseurService , private router : Router, private bsModalService: BsModalService){}
@@ -36,20 +37,20 @@ export class AddFournisseursComponent implements OnInit {
 
   submitted = false;
   form = new FormGroup({
-    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40),this.checkDuplicateNom.bind(this)]),
     numerodesiret: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
-    type_de_prestation: new FormControl(''),
+    type_de_prestation: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     numero_de_recepisse_de_declaration_prefectorale: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
     pageweb: new FormControl(''),
     telephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
     numerodetelecopie: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
-    adresse: new FormControl(''),
+    adresse: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     codepostal: new FormControl('', [Validators.pattern(/^[0-9]\d*$/)]),
-    ville: new FormControl(''),
-    pays: new FormControl(''),
-    nometprenom: new FormControl(''),
+    ville: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    pays: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
+    nometprenom: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     adressedecourier: new FormControl('', [Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]),
-    fonction: new FormControl(''),
+    fonction: new FormControl('', [Validators.minLength(3),Validators.maxLength(40)]),
     numerodetelephone: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
     telephonepersonnel: new FormControl('', [Validators.pattern('^[+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4}$')]),
 
@@ -67,7 +68,14 @@ export class AddFournisseursComponent implements OnInit {
 
     // aller en haut de la page
     window.scrollTo(0, 0);
-
+    this.fournisseurservice.getAll().subscribe(
+      (data: any[]) => {
+        this.fournisseurs = data;
+      },
+      (error: any) => {
+        console.log(error); // Handle error
+      }
+    );
   }
   createFournisseur() {
     
@@ -97,6 +105,7 @@ export class AddFournisseursComponent implements OnInit {
         console.log(res);
         this.router.navigate(["/fournisseur-list"])
         this.openModal();
+        this.closeSuccessModalAfterDelay();
         console.log(formData);
         this.submitted = true;
       },
@@ -120,6 +129,16 @@ export class AddFournisseursComponent implements OnInit {
   }
   closeModal() {
     this.bsModalService.hide();
+}
+checkDuplicateNom(control: AbstractControl): { [key: string]: boolean } | null {
+  const nomValue = control.value;
+  const isDuplicate = this.fournisseurs.some(item => item.nom === nomValue);
+  return isDuplicate ? { 'duplicate': true } : null;
+}
+closeSuccessModalAfterDelay(): void {
+  setTimeout(() => {
+    this.modalRef.hide();
+  }, 2300); 
 }
 }
 

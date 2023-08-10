@@ -34,7 +34,11 @@ export class AddPjComponent {
    private bsModalService: BsModalService) {
    this.pjForm = this.formBuilder.group({
      
-     nom: ['', Validators.required],
+     nom:  ['', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(40),
+    ]],
      url_document:['', Validators.required],
      date_modification: ['', Validators.required],
      modifie_par: ['', Validators.required]

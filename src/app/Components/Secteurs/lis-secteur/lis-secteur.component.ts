@@ -75,6 +75,7 @@ export class LisSecteurComponent {
           console.log(res);
           this.openModal();
           this.updateModalVisible = false;
+          this.closeSuccessModalAfterDelay();
       },
       error: (e) => {
           console.error(e);
@@ -146,7 +147,12 @@ deleteItem() {
     const endIndex = Math.min(this.p * this.itemsPerPage, this.secteurs.length);
     return `Affichage de ${startIndex} à ${endIndex} de ${this.secteurs.length} entrées`;
   }
- 
+  closeSuccessModalAfterDelay(): void {
+    setTimeout(() => {
+      this.modalRef.hide();
+      location.reload();
+    }, 2300); 
+  }
 
 
 

@@ -16,16 +16,47 @@
                                    <div class="form-group">
                                        <label>Intitulé <label style="color: red;">*</label></label>
                                        <input type="text" class="form-control" placeholder="Entrer intitulé" required id="intitule" name="intitule" formControlName="intitule">
-                                       <div class="help-block with-errors"></div>
-                                   </div>
+                                       <div
+                                       class="help-block with-errors"
+                                       *ngIf="processusForm.get('intitule')?.errors && (processusForm.get('intitule')?.dirty || processusForm.get('intitule')?.touched)"
+                                     >
+                                       <p *ngIf="processusForm.get('intitule')?.hasError('required')" class="text-danger">
+                                         Veuillez entrer l'intitule de processus.
+                                       </p>
+                                       <p *ngIf="processusForm.get('intitule')?.hasError('minlength')" class="text-danger">
+                                         Le intitule de processus doit contenir au moins 3 caractères.
+                                       </p>
+                                       <p *ngIf="processusForm.get('intitule')?.hasError('maxlength')" class="text-danger">
+                                         Le intitule de processus ne peut pas dépasser 40 caractères.
+                                       </p>
+                                       
+                                     </div> 
+                                     <div *ngIf="errorMessage" class="error-message" class="text-danger">
+                                      {{ errorMessage }}
+                                    </div>                                   </div>
                                </div> 
                                
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Sigle <label style="color: red;">*</label></label>
-                                    <input type="text" class="form-control" placeholder="Entrer typologie" required id="sigle" name="sigle" formControlName="sigle">
-                                    <div class="help-block with-errors"></div>
-                                </div>
+                                    <input type="text" class="form-control" placeholder="Entrer sigle" required id="sigle" name="sigle" formControlName="sigle">
+                                    <div
+                                       class="help-block with-errors"
+                                       *ngIf="processusForm.get('sigle')?.errors && (processusForm.get('sigle')?.dirty || processusForm.get('sigle')?.touched)"
+                                     >
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('required')" class="text-danger">
+                                         Veuillez entrer le sigle de processus.
+                                       </p>
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('minlength')" class="text-danger">
+                                         Le sigle de processus doit contenir au moins 3 caractères.
+                                       </p>
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('maxlength')" class="text-danger">
+                                         Le sigle de processus ne peut pas dépasser 40 caractères.
+                                       </p>
+                                       <p *ngIf="processusForm.get('sigle')?.hasError('pattern')" class="text-danger">
+                                         Le sigle de processus ne peut contenir que des lettres et espaces.
+                                       </p>
+                                     </div>                                 </div>
                             </div> 
                                <div class="col-md-6">
                                    <div class="form-group">
@@ -44,8 +75,19 @@
                                     <label>Finalité<label style="color: red;">*</label></label>
                                          <textarea class="form-control" rows="4"
                                             placeholder="Entrez la finalité" id="finalite" name="finalite" formControlName="finalite" required></textarea>
-                                            <div class="help-block with-errors"></div>
-                                      </div>
+                                            <div
+                                            class="help-block with-errors"
+                                            *ngIf="processusForm.get('finalite')?.errors && (processusForm.get('finalite')?.dirty || processusForm.get('finalite')?.touched)"
+                                          >
+                                            <p *ngIf="processusForm.get('finalite')?.hasError('required')" class="text-danger">
+                                              Veuillez entrer la finalite de processus.
+                                            </p>
+                                          
+                                            <p *ngIf="processusForm.get('finalite')?.hasError('maxlength')" class="text-danger">
+                                              Le finalite de processus ne peut pas dépasser 250 caractères.
+                                            </p>
+                                           
+                                          </div>                                       </div>
                                   
                                 </div>
                                 <div class="col-md-6">
@@ -62,8 +104,20 @@
                                         <label>Acteurs<label style="color: red;">*</label></label>
                                              <textarea class="form-control"  rows="4"
                                                 placeholder="Entrez les acteurs" id="acteurs" name="acteurs" formControlName="acteurs" required></textarea>
-                                                <div class="help-block with-errors"></div>
-                                          </div>
+                                                <div
+                                                class="help-block with-errors"
+                                                *ngIf="processusForm.get('acteurs')?.errors && (processusForm.get('acteurs')?.dirty || processusForm.get('acteurs')?.touched)"
+                                              >
+                                                <p *ngIf="processusForm.get('acteurs')?.hasError('required')" class="text-danger">
+                                                  Veuillez entrer les acteurs de processus.
+                                                </p>
+                                              
+                                                <p *ngIf="processusForm.get('acteurs')?.hasError('maxlength')" class="text-danger">
+                                                  Le acteurs de processus ne peut pas dépasser 250 caractères.
+                                                </p>
+                                               
+                                              </div>  
+                                    </div>
                                       
                                     </div>
                                     <div class="col-md-6">
@@ -72,8 +126,19 @@
                                             <label>Donnée Entrée<label style="color: red;">*</label></label>
                                                  <textarea class="form-control"  rows="4"
                                                     placeholder="Données entrées" id="donnee_entree" name="donnee_entree" formControlName="donnee_entree" required></textarea>
-                                                    <div class="help-block with-errors"></div>
-                                              </div>
+                                                    <div
+                                                    class="help-block with-errors"
+                                                    *ngIf="processusForm.get('donnee_entree')?.errors && (processusForm.get('donnee_entree')?.dirty || processusForm.get('donnee_entree')?.touched)"
+                                                  >
+                                                    <p *ngIf="processusForm.get('donnee_entree')?.hasError('required')" class="text-danger">
+                                                      Veuillez entrer les données entrées de processus.
+                                                    </p>
+                                                  
+                                                    <p *ngIf="processusForm.get('donnee_entree')?.hasError('maxlength')" class="text-danger">
+                                                      Le  données entrées de processus ne peut pas dépasser 250 caractères.
+                                                    </p>
+                                                   
+                                                  </div>                                                </div>
                                           
                                         </div>
                                <div class="col-md-6">
@@ -82,8 +147,19 @@
                                     <label>Activités<label style="color: red;">*</label></label>
                                          <textarea class="form-control"rows="4"
                                             placeholder="Entrez les activités"id="activites" name="activites" formControlName="activites" required></textarea>
-                                            <div class="help-block with-errors"></div>
-                                      </div>
+                                            <div
+                                            class="help-block with-errors"
+                                            *ngIf="processusForm.get('activites')?.errors && (processusForm.get('activites')?.dirty || processusForm.get('activites')?.touched)"
+                                          >
+                                            <p *ngIf="processusForm.get('activites')?.hasError('required')" class="text-danger">
+                                              Veuillez entrer les activités de processus.
+                                            </p>
+                                          
+                                            <p *ngIf="processusForm.get('activites')?.hasError('maxlength')" class="text-danger">
+                                              Ce champs ne peut pas dépasser 250 caractères.
+                                            </p>
+                                           
+                                          </div>                                        </div>
                                </div>
                                <div class="col-md-6"> 
                                 <div class="form-group">
@@ -91,8 +167,19 @@
                                     <label>Donnée Sortie <label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="donnee_sortie" rows="4"
                                             placeholder="Donnée sortie " name="donnee_sortie" formControlName="donnee_sortie" required></textarea>
-                                            <div class="help-block with-errors"></div>
-                                      </div>
+                                            <div
+                                            class="help-block with-errors"
+                                            *ngIf="processusForm.get('donnee_sortie')?.errors && (processusForm.get('donnee_sortie')?.dirty || processusForm.get('donnee_sortie')?.touched)"
+                                          >
+                                            <p *ngIf="processusForm.get('donnee_sortie')?.hasError('required')" class="text-danger">
+                                              Veuillez entrer les données sorties de processus.
+                                            </p>
+                                          
+                                            <p *ngIf="processusForm.get('donnee_sortie')?.hasError('maxlength')" class="text-danger">
+                                              Ce champs ne peut pas dépasser 250 caractères.
+                                            </p>
+                                           
+                                          </div>                                        </div>
                                </div> 
                                <div class="col-md-6"> 
                                 <div class="form-group">
@@ -100,8 +187,19 @@
                                     <label>Ressource Tech Org <label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="ressources_tech_org" rows="4"
                                             placeholder="Ressource Tech Org" name="ressources_tech_org" formControlName="ressources_tech_org" required></textarea>
-                                            <div class="help-block with-errors"></div>
-                                      </div>
+                                            <div
+                                            class="help-block with-errors"
+                                            *ngIf="processusForm.get('ressources_tech_org')?.errors && (processusForm.get('ressources_tech_org')?.dirty || processusForm.get('ressources_tech_org')?.touched)"
+                                          >
+                                            <p *ngIf="processusForm.get('ressources_tech_org')?.hasError('required')" class="text-danger">
+                                              Veuillez entrer les ressources  de processus.
+                                            </p>
+                                          
+                                            <p *ngIf="processusForm.get('ressources_tech_org')?.hasError('maxlength')" class="text-danger">
+                                              Ce champs ne peut pas dépasser 250 caractères.
+                                            </p>
+                                           
+                                          </div>                                      </div>
                                </div> 
                                <div class="col-md-6"> 
                                 <div class="form-group">
@@ -109,8 +207,19 @@
                                     <label>Objectifs et indicateurs<label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="objectifs_ind" rows="4"
                                             placeholder="Objectifs et indicateurs" name="objectifs_ind" formControlName="objectifs_ind" required></textarea>
-                                            <div class="help-block with-errors"></div>
-                                      </div>
+                                            <div
+                                            class="help-block with-errors"
+                                            *ngIf="processusForm.get('objectifs_ind')?.errors && (processusForm.get('objectifs_ind')?.dirty || processusForm.get('objectifs_ind')?.touched)"
+                                          >
+                                            <p *ngIf="processusForm.get('objectifs_ind')?.hasError('required')" class="text-danger">
+                                              Veuillez entrer les objectifs  de processus.
+                                            </p>
+                                          
+                                            <p *ngIf="processusForm.get('objectifs_ind')?.hasError('maxlength')" class="text-danger">
+                                              Ce champs ne peut pas dépasser 250 caractères.
+                                            </p>
+                                           
+                                          </div>                                       </div>
                                </div>  
                                <div class="col-md-6"> 
                                 <div class="form-group">
@@ -118,8 +227,19 @@
                                     <label>Outils de surveillance<label style="color: red;">*</label></label>
                                          <textarea class="form-control" id="outils_surveil" rows="4"
                                             placeholder="Outils de surveillance" name="outils_surveil" formControlName="outils_surveil" required ></textarea>
-                                            <div class="help-block with-errors"></div>
-                                      </div>
+                                            <div
+                                            class="help-block with-errors"
+                                            *ngIf="processusForm.get('outils_surveil')?.errors && (processusForm.get('outils_surveil')?.dirty || processusForm.get('outils_surveil')?.touched)"
+                                          >
+                                            <p *ngIf="processusForm.get('outils_surveil')?.hasError('required')" class="text-danger">
+                                              Veuillez entrer les outils surveillance  de processus.
+                                            </p>
+                                          
+                                            <p *ngIf="processusForm.get('outils_surveil')?.hasError('maxlength')" class="text-danger">
+                                              Ce champs ne peut pas dépasser 250 caractères.
+                                            </p>
+                                           
+                                          </div>                                        </div>
                                </div>  
                            </div>
                     

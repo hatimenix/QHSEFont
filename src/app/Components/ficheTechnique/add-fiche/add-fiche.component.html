@@ -15,8 +15,23 @@
                   <div class="form-group">
                     <label for="nom_fiche">Nom de la fiche <label style="color: red;">*</label> </label>
                     <input type="text" class="form-control" placeholder="Enter nom" formControlName="nom_fiche" data-errors="Entrez un nom de fiche technique" required>
-                    <div class="help-block with-errors"></div>
-                  </div>
+                    <div
+                    class="help-block with-errors"
+                    *ngIf="ficheForm.get('nom_fiche')?.errors && (ficheForm.get('nom_fiche')?.dirty || ficheForm.get('nom_fiche')?.touched)"
+                  >
+                    <p *ngIf="ficheForm.get('nom_fiche')?.hasError('required')" class="text-danger">
+                      Veuillez entrer le nom du fiche.
+                    </p>
+                    <p *ngIf="ficheForm.get('nom_fiche')?.hasError('minlength')" class="text-danger">
+                      Le nom du fiche doit contenir au moins 3 caractères.
+                    </p>
+                    <p *ngIf="ficheForm.get('nom_fiche')?.hasError('maxlength')" class="text-danger">
+                      Le nom du fiche ne peut pas dépasser 40 caractères.
+                    </p>
+                    <p *ngIf="ficheForm.get('nom_fiche')?.hasError('pattern')" class="text-danger">
+                      Le nom de fiche ne peut contenir que des lettres et espaces.
+                    </p>
+                  </div>                  </div>
                 </div>  
                 <div class="col-md-6">
                   <div class="form-group">
@@ -38,8 +53,8 @@
                   <div class="form-group">
                       <label for="fichier">Fichier <label style="color: red;">*</label></label>
                       <input type="file" class="form-control image-file" (change)="onFileSelected($event)" formControlName="fichier">
-                      <div class="help-block with-errors"></div>
-                  </div>
+                      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+                    </div>
                 </div>                          
               </div> 
               <div style="margin-bottom: 2rem; margin-bottom: +5px;" class="d-flex flex-wrap justify-content-end">                           

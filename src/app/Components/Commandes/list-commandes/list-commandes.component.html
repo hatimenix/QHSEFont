@@ -1,190 +1,215 @@
 <div class="content-page custom-background">
-    <div class="container-fluid">
-       <div class="row">
-          <div class="col-sm-12">
-             <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                  <div class="header-title">
-                      <h4 class="card-title">Commande repas sur roues </h4>
-                   </div>
-                   <div class="col-sm-6 col-md-6">
-                    <div class="user-list-files d-flex align-items-center">                       
-                       <a routerLink="/addC" class="bg1" href="javascript:void();" style=" margin-right: -5%;"><i class="fas fa-plus"></i>
-                          Nouvel élément 
-                       </a>
-                    </div>
+  <div class="container-fluid">
+     <div class="row">
+        <div class="col-sm-12">
+           <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="header-title">
+                    <h4 class="card-title">Commande repas sur roues </h4>
                  </div>
-                </div>
-                <div class="card-body">
-                    
-                  <div class="row">
-                     
-                        <div class="col-md-3">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="fas fa-search" style="font-size: 1rem;"></i>
-                              </span>
-                            </div>
-                            <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
-                            <div class="input-group-append">
-                              <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
-                            </div>
+                 <div class="col-sm-6 col-md-6">
+                  <div class="user-list-files d-flex align-items-center">                       
+                     <a routerLink="/addC" class="bg1" href="javascript:void();" style=" margin-right: -5%;"><i class="fas fa-plus"></i>
+                        Nouvel élément 
+                     </a>
+                  </div>
+               </div>
+              </div>
+              <div class="card-body">
+                  
+                <div class="row">
+                   
+                      <div class="col-md-4">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="fas fa-search" style="font-size: 1rem;"></i>
+                            </span>
+                          </div>
+                          <input style="height: 45px;" type="text" class="form-control form-control-sm" placeholder="Chercher" [(ngModel)]="searchQuery">
+                          <div class="input-group-append">
+                            <button class="btn btn-light btn-sm" (click)="resetSearchQuery()">Effacer <i class="fas fa-times"></i></button>
                           </div>
                         </div>
-
-                        
-                        <div class="col-md-3">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="fas fa-filter"></i>
-                              </span>
-                            </div>
-                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_regime"  (change)="filterCommandeByRegime()" [(ngModel)]="typeRegimeSelectionne">
-                              <option value="" >Tous</option>
-                              <option value="Constipation">Constipation</option>
-                              <option value="Diarrhée">Diarrhée</option>
-                              <option value="Sans résiclus">Sans résiclus</option>
-                              <option value="Sans gluten">Sans gluten</option>
-                              <option value="Sans lactose">Sans lactose</option>
-                              <option value="Sans fructose">Sans fructose</option>
-                              <option value="Sans alcool">Sans alcool</option>
-                              <option value="Epargne digestive">Epargne digestive</option>
-                              <option value="IRC">IRC</option>
-                              <option value="Hyposodé">Hyposodé</option>
-                              <option value="Enrichi">Enrichi</option>
-                              <option value="Diabétique">Diabétique</option>
-                              <option value="Hypocalorique">Hypocalorique</option>
-                              <option value="Sans aliments à risque">Sans aliments à risque</option>
-                              <option value="Alimentation plaisir">Alimentation plaisir</option>
-                              <option value="Aucun">Aucun</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-secondary" (click)="resetRegimeFilters()">
-                                <i class="fas fa-undo"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              
-                              <span class="input-group-text">
-                                <i class="fas fa-filter"></i>
-                              </span>
-                            </div>
-                            
-                            <select name="type" class="selectpicker form-control" data-style="py-0" id="specificite_texture"  (change)="filterCommandeByTexture()" [(ngModel)]="typeTextureSelectionne">
-                              <option value="">Filtrer par Texture</option>
-
-                              <option value="" >Tous</option>
-                              <option value="Viande coupée" selected>Viande coupée</option>
-                              <option value="Tout coupée">Tout coupée</option>
-                              <option value="Velours viande">Velours viande</option>
-                              <option value="Velours complet">Velours complet</option>
-                              <option value="Viande hachée au hachoir">Viande hachée au hachoir</option>
-                              <option value="Finger food">Finger food</option>
-                              <option value="Aucun">Aucun</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-secondary" (click)="resetTextureFilters()">
-                                <i class="fas fa-undo"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      
-                        <div class=" mt-3 d-flex justify-content-between">
-                          <div class="dropdown">
-                           <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Afficher {{ itemsPerPage }} résultats par page
-                           </button>
-                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="itemsPerPageDropdown">
-                             <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
-                               <span>{{ option }}</span>
-                               <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
-                             </a>
-                           </div>
-                         </div>
                       </div>
-                      <div class="table-responsive">
 
-                      <table id="user-list-table" class="table table-striped  mt-4" role="grid"
-                         aria-describedby="user-list-page-info">
-                         <thead>
-                            <tr>
-                        <th>Date du repas </th>
-                        <th>Type de commande</th>
-                        <th>Nombre/Quantité</th>
-                        <th>Specificité Régime</th>
-                        <th>Specificité Texture</th>
-                        <th>Action</th>
-                             
+                      <div class="col-md-4">
+                        <div class="dropdown">
+                          <button style="margin-top: -2%;" class="btn btn-lg btn-outline-primary waves-effect dropdown-toggle " type="button" id="filterDropdown" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" data-offset="0,5">
+                            <i class="fas fa-filter"></i>Filtrer par
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                            <a class="dropdown-item" (click)="filterByField('type_commande')" style="cursor: pointer;">Type de commande </a>
+                            <a class="dropdown-item" (click)="filterByField('specificite_regime')" style="cursor: pointer;">Spécificité Régime</a>
+          
+                                                         <a class="dropdown-item" (click)="filterByField('specificite_regime')" style="cursor: pointer;">Spécificité Régime</a>
+
+                          </div>
+                          <div class="dropdown dropright">
+                            <div class="popover" role="tooltip" [ngStyle]="{ display: showPopover ? 'block' : 'none' }" data-placement="right"  >
+                              <div class="arrow"></div>
+                              <button type="button" class="close" aria-label="Close" (click)="closePopover()">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <div class="popover-body" style="width: 500px; max-width: 100%;">
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                      <i class="fas fa-search"></i>
+                                    </span>
+                                  </div>
+                                  <input type="text" class="form-control form-control-sm" [(ngModel)]="fieldSearchQuery" (input)="applyFieldFilter()">
+                                </div>
                               
-                            </tr>
-                         </thead>
-                         <tbody>
-                            <tr  *ngFor="let commande of displayedCommandes | filter: searchQuery  ">
-                              <td>{{ commande.date_commande }}</td>
-                              <td>{{ commande.type_commande}}</td>
-                              <td>{{ commande.quantite }}</td>
-                              <td>{{ commande.specificite_regime }}</td>
-                              <td>{{ commande.specificite_texture }}</td>
-                          
-                              <td>
-                                <div class="d-flex align-items-center list-action">
-                                   
-                                   <a class="btn btn-sm btn-update mr-2"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                   [routerLink]="['/updateC', commande.id_commande]" queryParamsHandling="merge" ><i class="ri-pencil-line mr-0" ></i></a>
-                                   <a class="btn btn-sm btn-delete mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                       ><i class="ri-delete-bin-line mr-0" (click)="commandIdToDelete = commande.id_commande; modalRef = modalService.show(deleteModal);" style="color: #fff"></i></a>
-                               </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                          
-                      </table>
-                   
-                   
-                   
+                                <div class="row justify-content-center">
+                                  <div class="col-md-12">
+                                    <div class="alert alert-info" role="alert" *ngIf="filterField && filteredCommandes.length === 0">
+                                      Aucun résultat.
+                                    </div>
+                                  </div>
+                                </div>
+                              
+                                <div class="row justify-content-end">
+                                  <div class="col-md-4">
+                                    <button class="btn" (click)="handleReset()">Fermer</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
+                        </div>
+                 
+                    </div>
+                    <div class="col-md-4">
+                      <div class=" mt-3 d-flex justify-content-end" style=" margin-right: -5%;">
+                        <div class="dropdown">
+                         <button class="btn btn-sm dropdown-toggle" type="button" id="itemsPerPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Afficher {{ itemsPerPage }} résultats par page
+                         </button>
+                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="itemsPerPageDropdown">
+                           <a class="dropdown-item" style="cursor: pointer;" *ngFor="let option of itemsPerPageOptions" (click)="onItemsPerPageChange(option)" [ngClass]="{'selected': option === itemsPerPage}">
+                             <span>{{ option }}</span>
+                             <i style="margin-left: 1%;" class="fas fa-check" *ngIf="option === itemsPerPage"></i>
+                           </a>
+                         </div>
+                       </div>
+                    </div>
+                    </div>
+                    <div class="table-responsive">
+
+                    <table id="user-list-table" class="table table-striped  mt-4" role="grid"
+                       aria-describedby="user-list-page-info">
+                       <thead>
+                          <tr>
+                            <th>Site</th>
+                      <th>Date du repas </th>
+                      <th>Type de commande</th>
+                      <th>Nombre/Quantité</th>
+                      <th>Specificité Régime</th>
+                      <th>Specificité Texture</th>
+                      <th>Action</th>
+                           
+                            
+                          </tr>
+                       </thead>
+                       <ng-container *ngFor="let siteItem of site">
+                        <!-- expanded-->
+                        <tbody class="ligth-body">
+                         <!-- expanded-->
+                          <td data-column="name">
+                           <a href="javascript:void(0);" class="toggle-icon" (click)="siteItem.expanded = !siteItem.expanded">
+                             <i class="fa fa-chevron-right" *ngIf="!siteItem.expanded"></i>
+                              <i class="fa fa-chevron-down" *ngIf="siteItem.expanded"></i>
+                            </a>
+                            <a href="javascript:void(0);" (click)="openSiteModal(siteItem)">{{ siteItem.site_nom }}</a>
+                          </td>
+                          <!--expanded-->
+                          <ng-container *ngIf="siteItem.expanded">
+                            <ng-container *ngFor ="let commande  of displayedCommandes  | filter: searchQuery">
+                              <tr *ngIf="(commandes)?.length === 0">
+                                <td colspan="11">Aucune demande trouvée</td>
+                              </tr>
+                              <tr *ngIf="commande.site == siteItem.id">
+                                <td></td>
+                                
+                              
+                                <td>{{ commande.date_commande }}</td>
+                                <td>{{ commande.type_commande}}</td>
+                                <td>{{ commande.quantite }}</td>
+                                <td>{{ commande.specificite_regime }}</td>
+                                <td>{{ commande.specificite_texture }}</td>
+                               
+                             
+                                
+                               
+                                <td>
+                                  <div class="d-flex align-items-center list-action">
+                                     
+                                     <a class="btn btn-sm btn-update mr-2"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                     [routerLink]="['/updateC', commande.id_commande]" queryParamsHandling="merge" ><i class="ri-pencil-line mr-0" ></i></a>
+                                     <a class="btn btn-sm btn-delete mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
+                                         ><i class="ri-delete-bin-line mr-0" (click)="commandIdToDelete = commande.id_commande; modalRef = modalService.show(deleteModal);" style="color: #fff"></i></a>
+                                 </div>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </ng-container>
+                      </ng-container>
+                        
+                    </table>
+                 
+                 
+                 
 <div class="pagination-container" style="display: flex; justify-content: space-between;">
-   <div>
-     <span class="entry-info">
-       {{ getDisplayedRange() }}
+ <div>
+   <span class="entry-info">
+     {{ getDisplayedRange() }}
+   </span>
+ </div>
+ <div style="display: flex;justify-content: flex-end;">
+   <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
+   <div class="page-info">
+     <span class="page-numbers">
+       <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
      </span>
    </div>
-   <div style="display: flex;justify-content: flex-end;">
-     <button class="btn" [disabled]="p === 1" (click)="p = p - 1">Précedent</button>
-     <div class="page-info">
-       <span class="page-numbers">
-         <button class="btn page-number" *ngFor="let page of getPageNumbers()" [disabled]="p === page" (click)="p = page" [ngClass]="{'selected': p === page}">{{ page }}</button>
-       </span>
-     </div>
-     <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
-   </div>
+   <button class="btn" [disabled]="p === totalPages" (click)="p = p + 1">Suivant</button>
  </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
-          </div>
+</div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+        </div>
 <!-- Confirmation modal for command deletion -->
 <ng-template #deleteModal>
-   <div class="modal-header delete-header">
-     <h4 class="modal-title">Confirmation de la suppression</h4>
-     <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-       <span aria-hidden="true">&times;</span>
-     </button>
-   </div>
-   <div class="modal-body">
-     Êtes-vous sûr de vouloir supprimer cette commande ?
-   </div>
-   <div class="modal-footer">
-     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
-     <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
-   </div>
- </ng-template>
+ <div class="modal-header delete-header">
+   <h4 class="modal-title">Confirmation de la suppression</h4>
+   <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
+ <div class="modal-body">
+   Êtes-vous sûr de vouloir supprimer cette commande ?
+ </div>
+ <div class="modal-footer">
+   <button type="button" class="btn btn-light" (click)="modalRef.hide()">Annuler</button>
+   <button type="button" class="btn btn-delete-modal" (click)="confirmDelete()">Supprimer</button>
+ </div>
+</ng-template>
+<ng-template #siteModal let-modal>
+  <div class="modal-header user-header">
+    <h4 class="modal-title">Site Informations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalsite()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Site :</strong> {{ selectedSite?.site_nom }}</p>
+    <p><strong>Sigle:</strong> {{ selectedSite?.sigle }}</p>
+    <p><strong>Responsable du Site:</strong> {{ selectedSite?.responsable_name }}</p>
+    <p><strong>Groupe Retso:</strong> {{ selectedSite?.groupe_retso }}</p>
+  </div>
+</ng-template>
